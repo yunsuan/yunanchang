@@ -1,0 +1,11 @@
+platform:ios,'9.0'
+target '云售楼' do
+
+ pod 'AFNetworking'
+ pod 'SDWebImage'
+ pod 'MJRefresh'
+ pod 'IQKeyboardManager'
+ pod 'JPush'
+ pod 'Masonry'
+ pod 'CYLTabBarController'
+end

@@ -7,6 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import <WebKit/WebKit.h>
+
+#import "LoginVC.h"
+
+#import "CYLTabBarControllerConfig.h"
+
 
 @interface AppDelegate ()
 
@@ -17,7 +23,65 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [self initUI];
     return YES;
+}
+
+- (void)initUI{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goHome) name:@"goHome" object:nil];
+    NSString *logIndentifier = [[NSUserDefaults standardUserDefaults] objectForKey:LOGINENTIFIER];
+    //    BOOL flag = [[NSUserDefaults standardUserDefaults] boolForKey:@"Guided"];
+    //    if (flag == YES) {
+    [self deleteWebCache];
+    if ([logIndentifier isEqualToString:@"logInSuccessdentifier"]) {
+        CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
+        _window.rootViewController = tabBarControllerConfig.tabBarController;
+    }else {
+        //未登录
+        LoginVC *mainLogin_vc = [[LoginVC alloc] init];
+        UINavigationController *mainLogin_nav = [[UINavigationController alloc] initWithRootViewController:mainLogin_vc];
+        mainLogin_nav.navigationBarHidden = YES;
+        _window.rootViewController = mainLogin_nav;
+        [_window makeKeyAndVisible];
+        
+    }
+    
+    //    }
+}
+
+- (void)goHome{
+    
+//    NSSet *tags;
+//    
+//    [JPUSHService setAlias:[NSString stringWithFormat:@"agent_%@",[UserModel defaultModel].agent_id] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+//        
+//        NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);;
+//    } seq:0];
+    CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
+    _window.rootViewController = tabBarControllerConfig.tabBarController;
+}
+
+//删除web缓存
+- (void)deleteWebCache {
+    
+    //    if([UIDevice currentDevice])
+    if(@available(iOS 9.0, *)) {
+        NSSet * websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
+        NSDate * dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+        [[WKWebsiteDataStore defaultDataStore]removeDataOfTypes: websiteDataTypes
+                                                  modifiedSince:dateFrom completionHandler:^{
+                                                      
+                                                  }];
+        
+    }else{
+        
+        NSString*libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask,YES)objectAtIndex:0];
+        NSString* cookiesFolderPath = [libraryPath stringByAppendingString:@"/Cookies"];
+        NSError * errors;
+        [[NSFileManager defaultManager]removeItemAtPath:cookiesFolderPath error:&errors];
+    }
 }
 
 

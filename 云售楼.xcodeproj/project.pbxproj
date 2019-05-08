@@ -7,6 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */; };
+		0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A4E227EAC81006B0510 /* TaskCallFollowCell.m */; };
+		0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A51227EAF54006B0510 /* TaskTakeLookConfirmCell.m */; };
+		0C221A56227EB078006B0510 /* TaskVisitConfirmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A55227EB078006B0510 /* TaskVisitConfirmCell.m */; };
+		0C221A5A227EB117006B0510 /* TaskSignAuditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A59227EB117006B0510 /* TaskSignAuditCell.m */; };
+		0C221A5E227EC763006B0510 /* IntentSurveyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A5D227EC763006B0510 /* IntentSurveyHeader.m */; };
+		0C221A62227ECEB2006B0510 /* CallTelegramModifyCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A61227ECEB2006B0510 /* CallTelegramModifyCustomVC.m */; };
+		0C221A66227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A65227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m */; };
+		0C221A6A227EDE73006B0510 /* BaseAddCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A69227EDE73006B0510 /* BaseAddCell.m */; };
+		0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A6D227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m */; };
+		0C221A72227EED08006B0510 /* WorkPhoneConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A71227EED08006B0510 /* WorkPhoneConfirmVC.m */; };
+		0C221A7B227EED67006B0510 /* WorkPhoneConfrimWaitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A7A227EED67006B0510 /* WorkPhoneConfrimWaitVC.m */; };
+		0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A7D227EED76006B0510 /* WorkPhoneConfrimUseVC.m */; };
+		0C221A81227EED87006B0510 /* WorkPhoneConfrimFailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A80227EED87006B0510 /* WorkPhoneConfrimFailVC.m */; };
+		0C221A85227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A84227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m */; };
+		0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A700D226D8E5C00571EC1 /* BoxSelectCollCell.m */; };
+		0C2A7011226D95C100571EC1 /* IntentSurveyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7010226D95C100571EC1 /* IntentSurveyVC.m */; };
+		0C2A7015226D9A7200571EC1 /* GZQFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7014226D9A7200571EC1 /* GZQFlowLayout.m */; };
+		0C2A701A226D9E2600571EC1 /* IntentSurveyCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7019226D9E2600571EC1 /* IntentSurveyCollCell.m */; };
 		0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9115225B20C400F04804 /* AppDelegate.m */; };
 		0C3A9119225B20C400F04804 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9118225B20C400F04804 /* ViewController.m */; };
 		0C3A911C225B20C400F04804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3A911A225B20C400F04804 /* Main.storyboard */; };
@@ -15,6 +34,124 @@
 		0C3A9124225B20C600F04804 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9123225B20C600F04804 /* main.m */; };
 		0C3A912E225B20C600F04804 /* ___Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A912D225B20C600F04804 /* ___Tests.m */; };
 		0C3A9139225B20C600F04804 /* ___UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9138225B20C600F04804 /* ___UITests.m */; };
+		0C3A914F225B216400F04804 /* BaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A914E225B216400F04804 /* BaseRequest.m */; };
+		0C3A9153225B219300F04804 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9152225B219300F04804 /* BaseViewController.m */; };
+		0C3A9157225B223400F04804 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9156225B223400F04804 /* BaseModel.m */; };
+		0C3A915A225B225A00F04804 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9159225B225A00F04804 /* UserModel.m */; };
+		0C3A915D225B366400F04804 /* CYLTabBarControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A915C225B366400F04804 /* CYLTabBarControllerConfig.m */; };
+		0C3A9165225B374F00F04804 /* RoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9164225B374F00F04804 /* RoomVC.m */; };
+		0C3A9168225B377400F04804 /* MineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9167225B377400F04804 /* MineVC.m */; };
+		0C3A916B225B377D00F04804 /* WorkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A916A225B377D00F04804 /* WorkVC.m */; };
+		0C3A916E225B37B200F04804 /* TaskVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A916D225B37B200F04804 /* TaskVC.m */; };
+		0C3A9171225B37CF00F04804 /* ReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9170225B37CF00F04804 /* ReportVC.m */; };
+		0C3A9177225C338500F04804 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9176225C338500F04804 /* MineCell.m */; };
+		0C3A917A225C435900F04804 /* MineHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9179225C435900F04804 /* MineHeader.m */; };
+		0C3A917E225C47DE00F04804 /* PersonalVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A917D225C47DE00F04804 /* PersonalVC.m */; };
+		0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9184225C484500F04804 /* TitleContentRightBaseCell.m */; };
+		0C3A919A225C484500F04804 /* TitleContentBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9187225C484500F04804 /* TitleContentBaseCell.m */; };
+		0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A918A225C484500F04804 /* TitleBaseHeader.m */; };
+		0C3A919D225C484500F04804 /* TagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9190225C484500F04804 /* TagCollCell.m */; };
+		0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */; };
+		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
+		0CC2730522681FF100EB881F /* DropBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730422681FF100EB881F /* DropBtn.m */; };
+		0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC273092268444A00EB881F /* FollowRecordVC.m */; };
+		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
+		0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04318227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m */; };
+		0CD0431D227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0431C227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m */; };
+		0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04320227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m */; };
+		0CD04325227FD2BD002C8BD3 /* WorkRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04324227FD2BD002C8BD3 /* WorkRecommendVC.m */; };
+		0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0432A227FD329002C8BD3 /* WorkRecommendWaitVC.m */; };
+		0CD0432E227FD33B002C8BD3 /* WorkRecommendValidVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0432D227FD33B002C8BD3 /* WorkRecommendValidVC.m */; };
+		0CD04331227FD348002C8BD3 /* WorkRecommendFailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04330227FD348002C8BD3 /* WorkRecommendFailVC.m */; };
+		0CD04335227FDB24002C8BD3 /* WorkRecommendWaitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04334227FDB24002C8BD3 /* WorkRecommendWaitCell.m */; };
+		0CD04339227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04338227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m */; };
+		0CD0433C227FE66B002C8BD3 /* InfoDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0433B227FE66B002C8BD3 /* InfoDetailCell.m */; };
+		0CD04340228006BF002C8BD3 /* WorkRecommendValidDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0433F228006BF002C8BD3 /* WorkRecommendValidDetailVC.m */; };
+		0CD04344228007A3002C8BD3 /* ProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04343228007A3002C8BD3 /* ProcessCell.m */; };
+		0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0434A228008C1002C8BD3 /* WorkRecommendFailDetailVC.m */; };
+		0CD0434F22800F5D002C8BD3 /* WorkPersonAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0434E22800F5D002C8BD3 /* WorkPersonAuditVC.m */; };
+		0CD043532280107F002C8BD3 /* WorkPersonAuditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043522280107F002C8BD3 /* WorkPersonAuditCell.m */; };
+		0CD0435722801643002C8BD3 /* WorkPersonAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0435622801643002C8BD3 /* WorkPersonAuditDetailVC.m */; };
+		0CD0435B2280219C002C8BD3 /* WorkCompleteCustomVC1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0435A2280219C002C8BD3 /* WorkCompleteCustomVC1.m */; };
+		0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0435D22802254002C8BD3 /* UITextField+ExtentRange.m */; };
+		0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0436022802357002C8BD3 /* SinglePickView.m */; };
+		0CD04365228025D4002C8BD3 /* WorkCompleteCustomVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04364228025D4002C8BD3 /* WorkCompleteCustomVC2.m */; };
+		0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04368228026F2002C8BD3 /* AuthenCollCell.m */; };
+		0CD0436F2280344E002C8BD3 /* WorkReceiptDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0436E2280344E002C8BD3 /* WorkReceiptDetailVC.m */; };
+		0CD0438722811DF7002C8BD3 /* CompanyAuthingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0438622811DF7002C8BD3 /* CompanyAuthingCell.m */; };
+		0CD0438C2281219D002C8BD3 /* CompanyInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0438B2281219D002C8BD3 /* CompanyInfoCell.m */; };
+		0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0438E22813659002C8BD3 /* IntentSurVeySelectVC.m */; };
+		0CD0439222816ED9002C8BD3 /* RoomHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0439122816ED9002C8BD3 /* RoomHeader.m */; };
+		0CD04396228170ED002C8BD3 /* RoomFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04395228170ED002C8BD3 /* RoomFooter.m */; };
+		0CD0439A228172AF002C8BD3 /* RoomDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04399228172AF002C8BD3 /* RoomDetailVC.m */; };
+		0CD0439E228175AE002C8BD3 /* SMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0439C228175AE002C8BD3 /* SMScrollView.m */; };
+		0CD043A2228175D4002C8BD3 /* SingleHouseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043A1228175D4002C8BD3 /* SingleHouseCell.m */; };
+		0CD043AA22817622002C8BD3 /* KyoCinameSeatScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043A522817621002C8BD3 /* KyoCinameSeatScrollView.m */; };
+		0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043A622817621002C8BD3 /* KyoCenterLineView.m */; };
+		0CD043AC22817622002C8BD3 /* KyoRowIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043A722817621002C8BD3 /* KyoRowIndexView.m */; };
+		0CD043B122819009002C8BD3 /* RecordLongPressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043B022819009002C8BD3 /* RecordLongPressView.m */; };
+		0CD043B92282715F002C8BD3 /* WaitAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043B52282715E002C8BD3 /* WaitAnimation.m */; };
+		0CD043BA2282715F002C8BD3 /* GZQGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043B62282715E002C8BD3 /* GZQGifFooter.m */; };
+		0CD043BB2282715F002C8BD3 /* GZQGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043B72282715E002C8BD3 /* GZQGifHeader.m */; };
+		0CD043C02282B9A2002C8BD3 /* NumeralAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043BF2282B9A2002C8BD3 /* NumeralAuditDetailVC.m */; };
+		0CD043C42282BBBA002C8BD3 /* NumeralAuditDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043C32282BBBA002C8BD3 /* NumeralAuditDetailCell.m */; };
+		0CD043C82282BFDC002C8BD3 /* SubScribeAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043C72282BFDC002C8BD3 /* SubScribeAuditDetailVC.m */; };
+		0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043CF2282C1DE002C8BD3 /* ContractAuditDetailVC.m */; };
+		0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043D32282C6AD002C8BD3 /* AuditTaskDetailVC.m */; };
+		0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A013225C67C800EAE816 /* ChangeNameVC.m */; };
+		0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A017225C67F900EAE816 /* PersonalIntroVC.m */; };
+		0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A01B225C6C9100EAE816 /* DateChooseView.m */; };
+		0CD7A02E225C6D5700EAE816 /* AddressTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A01E225C6D5700EAE816 /* AddressTableCell.m */; };
+		0CD7A02F225C6D5700EAE816 /* AddressChooseView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A01F225C6D5700EAE816 /* AddressChooseView2.m */; };
+		0CD7A030225C6D5700EAE816 /* AdressChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A020225C6D5700EAE816 /* AdressChooseView.m */; };
+		0CD7A031225C6D5700EAE816 /* BDDynamicTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A024225C6D5700EAE816 /* BDDynamicTreeNode.m */; };
+		0CD7A032225C6D5700EAE816 /* BDDynamicTreeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A025225C6D5700EAE816 /* BDDynamicTreeCell.m */; };
+		0CD7A033225C6D5700EAE816 /* BDDynamicTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A027225C6D5700EAE816 /* BDDynamicTree.m */; };
+		0CD7A034225C6D5700EAE816 /* BDDynamicTreeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CD7A029225C6D5700EAE816 /* BDDynamicTreeCell.xib */; };
+		0CD7A035225C6D5700EAE816 /* AddressChooseView3.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A02D225C6D5700EAE816 /* AddressChooseView3.m */; };
+		0CD7A03E225C6F1100EAE816 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A039225C6F1100EAE816 /* FeedbackVC.m */; };
+		0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A03B225C6F1100EAE816 /* ChangePassWordVC.m */; };
+		0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89DB225C71890057F3FD /* CompanyInfoVC.m */; };
+		0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89DE225C720E0057F3FD /* AddressBookVC.m */; };
+		0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89E3225C74540057F3FD /* AddressBookCell.m */; };
+		0CEF89F1225C87FC0057F3FD /* AuditTaskVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89F0225C87FC0057F3FD /* AuditTaskVC.m */; };
+		0CEF89F2225C88070057F3FD /* AuditTaskVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89F0225C87FC0057F3FD /* AuditTaskVC.m */; };
+		0CEF89F8225C88480057F3FD /* ContractAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89F7225C88480057F3FD /* ContractAuditVC.m */; };
+		0CEF89FB225C886F0057F3FD /* NumeralAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89FA225C886F0057F3FD /* NumeralAuditVC.m */; };
+		0CEF89FE225C88910057F3FD /* SubscribeAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89FD225C88910057F3FD /* SubscribeAuditVC.m */; };
+		0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A01225C8D460057F3FD /* TypeTagCollCell.m */; };
+		0CEF8A07225C8E880057F3FD /* AuditTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A06225C8E880057F3FD /* AuditTaskCell.m */; };
+		0CEF8A0A225C91740057F3FD /* RecommendCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A09225C91740057F3FD /* RecommendCustomVC.m */; };
+		0CEF8A10225C96020057F3FD /* RecommendWaitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A0F225C96020057F3FD /* RecommendWaitVC.m */; };
+		0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A12225C96120057F3FD /* RecommendFailVC.m */; };
+		0CEF8A16225C96230057F3FD /* RecommendSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A15225C96230057F3FD /* RecommendSuccessVC.m */; };
+		0CEF8A1B225C9BA40057F3FD /* RecommendCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A1A225C9BA40057F3FD /* RecommendCustomCell.m */; };
+		0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A1E225D7BF00057F3FD /* RegisterVC.m */; };
+		0CEF8A27225D7BF00057F3FD /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A21225D7BF00057F3FD /* LoginVC.m */; };
+		0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A24225D7BF00057F3FD /* FindPassWordVC.m */; };
+		0CEF8A2C225D84330057F3FD /* RecommendWaitDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A2B225D84330057F3FD /* RecommendWaitDetailVC.m */; };
+		0CEF8A31225D863A0057F3FD /* CountDownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A30225D863A0057F3FD /* CountDownCell.m */; };
+		0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A36225DCA090057F3FD /* PersonalHeader.m */; };
+		0CEF8A3D225F0CF10057F3FD /* CompanyAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A3C225F0CF10057F3FD /* CompanyAuthVC.m */; };
+		0CEF8A40225F0F940057F3FD /* CompanyAuthingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A3F225F0F940057F3FD /* CompanyAuthingVC.m */; };
+		0CEF8A44225F15F70057F3FD /* BaseHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A42225F15F70057F3FD /* BaseHeader.m */; };
+		0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A46225F17770057F3FD /* ContentBaseCell.m */; };
+		0CEF8A4A225F188A0057F3FD /* SelectCompanyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A49225F188A0057F3FD /* SelectCompanyVC.m */; };
+		0CEF8A53225F1D440057F3FD /* SelectCompanyCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A4D225F1D440057F3FD /* SelectCompanyCollCell.m */; };
+		0CEF8A54225F1D440057F3FD /* SelectCompanyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A4E225F1D440057F3FD /* SelectCompanyTableCell.m */; };
+		0CEF8A55225F1D440057F3FD /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A51225F1D440057F3FD /* CompanyModel.m */; };
+		0CEF8A5B225F49C60057F3FD /* RoomCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A5A225F49C60057F3FD /* RoomCollCell.m */; };
+		0CEF8AD622606D0E0057F3FD /* WorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8AD522606D0E0057F3FD /* WorkCell.m */; };
+		0CEF8AE4226427260057F3FD /* CallTelegramVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8AE3226427260057F3FD /* CallTelegramVC.m */; };
+		0CEF8AED2264295F0057F3FD /* CallTelegramCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8AEC2264295F0057F3FD /* CallTelegramCell.m */; };
+		0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8AF0226467010057F3FD /* CallTelegramCustomDetailVC.m */; };
+		0CEF8AF722646DBD0057F3FD /* CallTelegramCustomDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8AF622646DBD0057F3FD /* CallTelegramCustomDetailHeader.m */; };
+		0CEF8AFA226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8AF9226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m */; };
+		0CEF8AFD2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8AFC2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m */; };
+		0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8AFF226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m */; };
+		0CEF8B042265ADA20057F3FD /* AddCallTelegramVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8B032265ADA20057F3FD /* AddCallTelegramVC.m */; };
+		0CEF8B082265B6D70057F3FD /* BorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8B072265B6D70057F3FD /* BorderTextField.m */; };
+		AD247DF2FE90196EA1B639F0 /* libPods-云售楼.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42BF71934FE363E890039BD /* libPods-云售楼.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +172,44 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCallBackCell.m; sourceTree = "<group>"; };
+		0C221A49227EAC2F006B0510 /* TaskCallBackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCallBackCell.h; sourceTree = "<group>"; };
+		0C221A4D227EAC81006B0510 /* TaskCallFollowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCallFollowCell.h; sourceTree = "<group>"; };
+		0C221A4E227EAC81006B0510 /* TaskCallFollowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCallFollowCell.m; sourceTree = "<group>"; };
+		0C221A50227EAF53006B0510 /* TaskTakeLookConfirmCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskTakeLookConfirmCell.h; sourceTree = "<group>"; };
+		0C221A51227EAF54006B0510 /* TaskTakeLookConfirmCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskTakeLookConfirmCell.m; sourceTree = "<group>"; };
+		0C221A54227EB078006B0510 /* TaskVisitConfirmCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskVisitConfirmCell.h; sourceTree = "<group>"; };
+		0C221A55227EB078006B0510 /* TaskVisitConfirmCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskVisitConfirmCell.m; sourceTree = "<group>"; };
+		0C221A58227EB117006B0510 /* TaskSignAuditCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskSignAuditCell.h; sourceTree = "<group>"; };
+		0C221A59227EB117006B0510 /* TaskSignAuditCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskSignAuditCell.m; sourceTree = "<group>"; };
+		0C221A5C227EC763006B0510 /* IntentSurveyHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentSurveyHeader.h; sourceTree = "<group>"; };
+		0C221A5D227EC763006B0510 /* IntentSurveyHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentSurveyHeader.m; sourceTree = "<group>"; };
+		0C221A60227ECEB2006B0510 /* CallTelegramModifyCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramModifyCustomVC.h; sourceTree = "<group>"; };
+		0C221A61227ECEB2006B0510 /* CallTelegramModifyCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramModifyCustomVC.m; sourceTree = "<group>"; };
+		0C221A64227ED23E006B0510 /* AddCallTelegramGroupMemberVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddCallTelegramGroupMemberVC.h; sourceTree = "<group>"; };
+		0C221A65227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCallTelegramGroupMemberVC.m; sourceTree = "<group>"; };
+		0C221A68227EDE73006B0510 /* BaseAddCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseAddCell.h; sourceTree = "<group>"; };
+		0C221A69227EDE73006B0510 /* BaseAddCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseAddCell.m; sourceTree = "<group>"; };
+		0C221A6C227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramCustomDetailHeaderCollCell.h; sourceTree = "<group>"; };
+		0C221A6D227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramCustomDetailHeaderCollCell.m; sourceTree = "<group>"; };
+		0C221A70227EED08006B0510 /* WorkPhoneConfirmVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfirmVC.h; sourceTree = "<group>"; };
+		0C221A71227EED08006B0510 /* WorkPhoneConfirmVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfirmVC.m; sourceTree = "<group>"; };
+		0C221A79227EED67006B0510 /* WorkPhoneConfrimWaitVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimWaitVC.h; sourceTree = "<group>"; };
+		0C221A7A227EED67006B0510 /* WorkPhoneConfrimWaitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimWaitVC.m; sourceTree = "<group>"; };
+		0C221A7C227EED76006B0510 /* WorkPhoneConfrimUseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimUseVC.h; sourceTree = "<group>"; };
+		0C221A7D227EED76006B0510 /* WorkPhoneConfrimUseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimUseVC.m; sourceTree = "<group>"; };
+		0C221A7F227EED87006B0510 /* WorkPhoneConfrimFailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimFailVC.h; sourceTree = "<group>"; };
+		0C221A80227EED87006B0510 /* WorkPhoneConfrimFailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimFailVC.m; sourceTree = "<group>"; };
+		0C221A83227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimWaitCell.h; sourceTree = "<group>"; };
+		0C221A84227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimWaitCell.m; sourceTree = "<group>"; };
+		0C2A700C226D8E5C00571EC1 /* BoxSelectCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxSelectCollCell.h; sourceTree = "<group>"; };
+		0C2A700D226D8E5C00571EC1 /* BoxSelectCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoxSelectCollCell.m; sourceTree = "<group>"; };
+		0C2A700F226D95C100571EC1 /* IntentSurveyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentSurveyVC.h; sourceTree = "<group>"; };
+		0C2A7010226D95C100571EC1 /* IntentSurveyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentSurveyVC.m; sourceTree = "<group>"; };
+		0C2A7013226D9A7200571EC1 /* GZQFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZQFlowLayout.h; sourceTree = "<group>"; };
+		0C2A7014226D9A7200571EC1 /* GZQFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZQFlowLayout.m; sourceTree = "<group>"; };
+		0C2A7018226D9E2600571EC1 /* IntentSurveyCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentSurveyCollCell.h; sourceTree = "<group>"; };
+		0C2A7019226D9E2600571EC1 /* IntentSurveyCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentSurveyCollCell.m; sourceTree = "<group>"; };
 		0C3A9111225B20C400F04804 /* 云售楼.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "云售楼.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3A9114225B20C400F04804 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0C3A9115225B20C400F04804 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -51,6 +226,243 @@
 		0C3A9134225B20C600F04804 /* 云售楼UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "云售楼UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3A9138225B20C600F04804 /* ___UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___UITests.m"; sourceTree = "<group>"; };
 		0C3A913A225B20C600F04804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C3A914B225B213500F04804 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		0C3A914C225B215100F04804 /* NetConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetConfig.h; sourceTree = "<group>"; };
+		0C3A914D225B216400F04804 /* BaseRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseRequest.h; sourceTree = "<group>"; };
+		0C3A914E225B216400F04804 /* BaseRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseRequest.m; sourceTree = "<group>"; };
+		0C3A9151225B219300F04804 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		0C3A9152225B219300F04804 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		0C3A9155225B223400F04804 /* BaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		0C3A9156225B223400F04804 /* BaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		0C3A9158225B225A00F04804 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		0C3A9159225B225A00F04804 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		0C3A915B225B366400F04804 /* CYLTabBarControllerConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CYLTabBarControllerConfig.h; sourceTree = "<group>"; };
+		0C3A915C225B366400F04804 /* CYLTabBarControllerConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CYLTabBarControllerConfig.m; sourceTree = "<group>"; };
+		0C3A9163225B374F00F04804 /* RoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomVC.h; sourceTree = "<group>"; };
+		0C3A9164225B374F00F04804 /* RoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomVC.m; sourceTree = "<group>"; };
+		0C3A9166225B377400F04804 /* MineVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineVC.h; sourceTree = "<group>"; };
+		0C3A9167225B377400F04804 /* MineVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineVC.m; sourceTree = "<group>"; };
+		0C3A9169225B377D00F04804 /* WorkVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkVC.h; sourceTree = "<group>"; };
+		0C3A916A225B377D00F04804 /* WorkVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkVC.m; sourceTree = "<group>"; };
+		0C3A916C225B37B200F04804 /* TaskVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskVC.h; sourceTree = "<group>"; };
+		0C3A916D225B37B200F04804 /* TaskVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskVC.m; sourceTree = "<group>"; };
+		0C3A916F225B37CF00F04804 /* ReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportVC.h; sourceTree = "<group>"; };
+		0C3A9170225B37CF00F04804 /* ReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportVC.m; sourceTree = "<group>"; };
+		0C3A9175225C338500F04804 /* MineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
+		0C3A9176225C338500F04804 /* MineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
+		0C3A9178225C435900F04804 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
+		0C3A9179225C435900F04804 /* MineHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeader.m; sourceTree = "<group>"; };
+		0C3A917C225C47DE00F04804 /* PersonalVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalVC.h; sourceTree = "<group>"; };
+		0C3A917D225C47DE00F04804 /* PersonalVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalVC.m; sourceTree = "<group>"; };
+		0C3A9184225C484500F04804 /* TitleContentRightBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleContentRightBaseCell.m; sourceTree = "<group>"; };
+		0C3A9185225C484500F04804 /* TitleContentRightBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleContentRightBaseCell.h; sourceTree = "<group>"; };
+		0C3A9187225C484500F04804 /* TitleContentBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleContentBaseCell.m; sourceTree = "<group>"; };
+		0C3A9188225C484500F04804 /* TitleContentBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleContentBaseCell.h; sourceTree = "<group>"; };
+		0C3A918A225C484500F04804 /* TitleBaseHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleBaseHeader.m; sourceTree = "<group>"; };
+		0C3A918B225C484500F04804 /* TitleBaseHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleBaseHeader.h; sourceTree = "<group>"; };
+		0C3A9190225C484500F04804 /* TagCollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagCollCell.m; sourceTree = "<group>"; };
+		0C3A9191225C484500F04804 /* TagCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCollCell.h; sourceTree = "<group>"; };
+		0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleRightBtnHeader.m; sourceTree = "<group>"; };
+		0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
+		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
+		0C991C592272B32700AF2817 /* ProjectRoleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectRoleVC.m; sourceTree = "<group>"; };
+		0CC2730322681FF100EB881F /* DropBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropBtn.h; sourceTree = "<group>"; };
+		0CC2730422681FF100EB881F /* DropBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropBtn.m; sourceTree = "<group>"; };
+		0CC273082268444A00EB881F /* FollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowRecordVC.h; sourceTree = "<group>"; };
+		0CC273092268444A00EB881F /* FollowRecordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowRecordVC.m; sourceTree = "<group>"; };
+		0CC2730C226868DE00EB881F /* RecordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordView.h; sourceTree = "<group>"; };
+		0CC2730D226868DE00EB881F /* RecordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordView.m; sourceTree = "<group>"; };
+		0CD04317227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimWaitDetailVC.h; sourceTree = "<group>"; };
+		0CD04318227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimWaitDetailVC.m; sourceTree = "<group>"; };
+		0CD0431B227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimUseDetailVC.h; sourceTree = "<group>"; };
+		0CD0431C227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimUseDetailVC.m; sourceTree = "<group>"; };
+		0CD0431F227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimFailDetailVC.h; sourceTree = "<group>"; };
+		0CD04320227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimFailDetailVC.m; sourceTree = "<group>"; };
+		0CD04323227FD2BD002C8BD3 /* WorkRecommendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkRecommendVC.h; sourceTree = "<group>"; };
+		0CD04324227FD2BD002C8BD3 /* WorkRecommendVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendVC.m; sourceTree = "<group>"; };
+		0CD04329227FD329002C8BD3 /* WorkRecommendWaitVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkRecommendWaitVC.h; sourceTree = "<group>"; };
+		0CD0432A227FD329002C8BD3 /* WorkRecommendWaitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendWaitVC.m; sourceTree = "<group>"; };
+		0CD0432C227FD33B002C8BD3 /* WorkRecommendValidVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkRecommendValidVC.h; sourceTree = "<group>"; };
+		0CD0432D227FD33B002C8BD3 /* WorkRecommendValidVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendValidVC.m; sourceTree = "<group>"; };
+		0CD0432F227FD348002C8BD3 /* WorkRecommendFailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkRecommendFailVC.h; sourceTree = "<group>"; };
+		0CD04330227FD348002C8BD3 /* WorkRecommendFailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendFailVC.m; sourceTree = "<group>"; };
+		0CD04333227FDB24002C8BD3 /* WorkRecommendWaitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkRecommendWaitCell.h; sourceTree = "<group>"; };
+		0CD04334227FDB24002C8BD3 /* WorkRecommendWaitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendWaitCell.m; sourceTree = "<group>"; };
+		0CD04337227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkRecommendWaitDetailVC.h; sourceTree = "<group>"; };
+		0CD04338227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendWaitDetailVC.m; sourceTree = "<group>"; };
+		0CD0433A227FE66B002C8BD3 /* InfoDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoDetailCell.h; sourceTree = "<group>"; };
+		0CD0433B227FE66B002C8BD3 /* InfoDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoDetailCell.m; sourceTree = "<group>"; };
+		0CD0433E228006BF002C8BD3 /* WorkRecommendValidDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkRecommendValidDetailVC.h; sourceTree = "<group>"; };
+		0CD0433F228006BF002C8BD3 /* WorkRecommendValidDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendValidDetailVC.m; sourceTree = "<group>"; };
+		0CD04342228007A3002C8BD3 /* ProcessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessCell.h; sourceTree = "<group>"; };
+		0CD04343228007A3002C8BD3 /* ProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessCell.m; sourceTree = "<group>"; };
+		0CD04349228008C1002C8BD3 /* WorkRecommendFailDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkRecommendFailDetailVC.h; sourceTree = "<group>"; };
+		0CD0434A228008C1002C8BD3 /* WorkRecommendFailDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendFailDetailVC.m; sourceTree = "<group>"; };
+		0CD0434D22800F5D002C8BD3 /* WorkPersonAuditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPersonAuditVC.h; sourceTree = "<group>"; };
+		0CD0434E22800F5D002C8BD3 /* WorkPersonAuditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPersonAuditVC.m; sourceTree = "<group>"; };
+		0CD043512280107F002C8BD3 /* WorkPersonAuditCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPersonAuditCell.h; sourceTree = "<group>"; };
+		0CD043522280107F002C8BD3 /* WorkPersonAuditCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPersonAuditCell.m; sourceTree = "<group>"; };
+		0CD0435522801643002C8BD3 /* WorkPersonAuditDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPersonAuditDetailVC.h; sourceTree = "<group>"; };
+		0CD0435622801643002C8BD3 /* WorkPersonAuditDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPersonAuditDetailVC.m; sourceTree = "<group>"; };
+		0CD043592280219C002C8BD3 /* WorkCompleteCustomVC1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkCompleteCustomVC1.h; sourceTree = "<group>"; };
+		0CD0435A2280219C002C8BD3 /* WorkCompleteCustomVC1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkCompleteCustomVC1.m; sourceTree = "<group>"; };
+		0CD0435C22802254002C8BD3 /* UITextField+ExtentRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+ExtentRange.h"; sourceTree = "<group>"; };
+		0CD0435D22802254002C8BD3 /* UITextField+ExtentRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+ExtentRange.m"; sourceTree = "<group>"; };
+		0CD0436022802357002C8BD3 /* SinglePickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePickView.m; sourceTree = "<group>"; };
+		0CD0436122802357002C8BD3 /* SinglePickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePickView.h; sourceTree = "<group>"; };
+		0CD04363228025D4002C8BD3 /* WorkCompleteCustomVC2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkCompleteCustomVC2.h; sourceTree = "<group>"; };
+		0CD04364228025D4002C8BD3 /* WorkCompleteCustomVC2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkCompleteCustomVC2.m; sourceTree = "<group>"; };
+		0CD04367228026F2002C8BD3 /* AuthenCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthenCollCell.h; sourceTree = "<group>"; };
+		0CD04368228026F2002C8BD3 /* AuthenCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthenCollCell.m; sourceTree = "<group>"; };
+		0CD0436D2280344E002C8BD3 /* WorkReceiptDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkReceiptDetailVC.h; sourceTree = "<group>"; };
+		0CD0436E2280344E002C8BD3 /* WorkReceiptDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkReceiptDetailVC.m; sourceTree = "<group>"; };
+		0CD0438522811DF7002C8BD3 /* CompanyAuthingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyAuthingCell.h; sourceTree = "<group>"; };
+		0CD0438622811DF7002C8BD3 /* CompanyAuthingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyAuthingCell.m; sourceTree = "<group>"; };
+		0CD0438A2281219D002C8BD3 /* CompanyInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyInfoCell.h; sourceTree = "<group>"; };
+		0CD0438B2281219D002C8BD3 /* CompanyInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyInfoCell.m; sourceTree = "<group>"; };
+		0CD0438D22813659002C8BD3 /* IntentSurVeySelectVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentSurVeySelectVC.h; sourceTree = "<group>"; };
+		0CD0438E22813659002C8BD3 /* IntentSurVeySelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentSurVeySelectVC.m; sourceTree = "<group>"; };
+		0CD0439022816ED9002C8BD3 /* RoomHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomHeader.h; sourceTree = "<group>"; };
+		0CD0439122816ED9002C8BD3 /* RoomHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomHeader.m; sourceTree = "<group>"; };
+		0CD04394228170ED002C8BD3 /* RoomFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomFooter.h; sourceTree = "<group>"; };
+		0CD04395228170ED002C8BD3 /* RoomFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomFooter.m; sourceTree = "<group>"; };
+		0CD04398228172AF002C8BD3 /* RoomDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomDetailVC.h; sourceTree = "<group>"; };
+		0CD04399228172AF002C8BD3 /* RoomDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomDetailVC.m; sourceTree = "<group>"; };
+		0CD0439C228175AE002C8BD3 /* SMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMScrollView.m; sourceTree = "<group>"; };
+		0CD0439D228175AE002C8BD3 /* SMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMScrollView.h; sourceTree = "<group>"; };
+		0CD043A0228175D4002C8BD3 /* SingleHouseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleHouseCell.h; sourceTree = "<group>"; };
+		0CD043A1228175D4002C8BD3 /* SingleHouseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleHouseCell.m; sourceTree = "<group>"; };
+		0CD043A422817621002C8BD3 /* KyoRowIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KyoRowIndexView.h; sourceTree = "<group>"; };
+		0CD043A522817621002C8BD3 /* KyoCinameSeatScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KyoCinameSeatScrollView.m; sourceTree = "<group>"; };
+		0CD043A622817621002C8BD3 /* KyoCenterLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KyoCenterLineView.m; sourceTree = "<group>"; };
+		0CD043A722817621002C8BD3 /* KyoRowIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KyoRowIndexView.m; sourceTree = "<group>"; };
+		0CD043A822817621002C8BD3 /* KyoCenterLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KyoCenterLineView.h; sourceTree = "<group>"; };
+		0CD043A922817621002C8BD3 /* KyoCinameSeatScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KyoCinameSeatScrollView.h; sourceTree = "<group>"; };
+		0CD043AE228176C7002C8BD3 /* SMCinameSeatScrollViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCinameSeatScrollViewDelegate.h; sourceTree = "<group>"; };
+		0CD043AF22819009002C8BD3 /* RecordLongPressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordLongPressView.h; sourceTree = "<group>"; };
+		0CD043B022819009002C8BD3 /* RecordLongPressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordLongPressView.m; sourceTree = "<group>"; };
+		0CD043B32282715E002C8BD3 /* GZQGifHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZQGifHeader.h; sourceTree = "<group>"; };
+		0CD043B42282715E002C8BD3 /* GZQGifFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZQGifFooter.h; sourceTree = "<group>"; };
+		0CD043B52282715E002C8BD3 /* WaitAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitAnimation.m; sourceTree = "<group>"; };
+		0CD043B62282715E002C8BD3 /* GZQGifFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZQGifFooter.m; sourceTree = "<group>"; };
+		0CD043B72282715E002C8BD3 /* GZQGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZQGifHeader.m; sourceTree = "<group>"; };
+		0CD043B82282715E002C8BD3 /* WaitAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitAnimation.h; sourceTree = "<group>"; };
+		0CD043BE2282B9A2002C8BD3 /* NumeralAuditDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAuditDetailVC.h; sourceTree = "<group>"; };
+		0CD043BF2282B9A2002C8BD3 /* NumeralAuditDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAuditDetailVC.m; sourceTree = "<group>"; };
+		0CD043C22282BBBA002C8BD3 /* NumeralAuditDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAuditDetailCell.h; sourceTree = "<group>"; };
+		0CD043C32282BBBA002C8BD3 /* NumeralAuditDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAuditDetailCell.m; sourceTree = "<group>"; };
+		0CD043C62282BFDC002C8BD3 /* SubScribeAuditDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubScribeAuditDetailVC.h; sourceTree = "<group>"; };
+		0CD043C72282BFDC002C8BD3 /* SubScribeAuditDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubScribeAuditDetailVC.m; sourceTree = "<group>"; };
+		0CD043CE2282C1DE002C8BD3 /* ContractAuditDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractAuditDetailVC.h; sourceTree = "<group>"; };
+		0CD043CF2282C1DE002C8BD3 /* ContractAuditDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractAuditDetailVC.m; sourceTree = "<group>"; };
+		0CD043D22282C6AD002C8BD3 /* AuditTaskDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTaskDetailVC.h; sourceTree = "<group>"; };
+		0CD043D32282C6AD002C8BD3 /* AuditTaskDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskDetailVC.m; sourceTree = "<group>"; };
+		0CD7A013225C67C800EAE816 /* ChangeNameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeNameVC.m; sourceTree = "<group>"; };
+		0CD7A014225C67C800EAE816 /* ChangeNameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeNameVC.h; sourceTree = "<group>"; };
+		0CD7A016225C67F900EAE816 /* PersonalIntroVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalIntroVC.h; sourceTree = "<group>"; };
+		0CD7A017225C67F900EAE816 /* PersonalIntroVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalIntroVC.m; sourceTree = "<group>"; };
+		0CD7A01A225C6C9100EAE816 /* DateChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateChooseView.h; sourceTree = "<group>"; };
+		0CD7A01B225C6C9100EAE816 /* DateChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateChooseView.m; sourceTree = "<group>"; };
+		0CD7A01E225C6D5700EAE816 /* AddressTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableCell.m; sourceTree = "<group>"; };
+		0CD7A01F225C6D5700EAE816 /* AddressChooseView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressChooseView2.m; sourceTree = "<group>"; };
+		0CD7A020225C6D5700EAE816 /* AdressChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdressChooseView.m; sourceTree = "<group>"; };
+		0CD7A021225C6D5700EAE816 /* AddressChooseView3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressChooseView3.h; sourceTree = "<group>"; };
+		0CD7A023225C6D5700EAE816 /* BDDynamicTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDDynamicTree.h; sourceTree = "<group>"; };
+		0CD7A024225C6D5700EAE816 /* BDDynamicTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDDynamicTreeNode.m; sourceTree = "<group>"; };
+		0CD7A025225C6D5700EAE816 /* BDDynamicTreeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDDynamicTreeCell.m; sourceTree = "<group>"; };
+		0CD7A026225C6D5700EAE816 /* BDDynamicTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDDynamicTreeNode.h; sourceTree = "<group>"; };
+		0CD7A027225C6D5700EAE816 /* BDDynamicTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDDynamicTree.m; sourceTree = "<group>"; };
+		0CD7A028225C6D5700EAE816 /* BDDynamicTreeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDDynamicTreeCell.h; sourceTree = "<group>"; };
+		0CD7A029225C6D5700EAE816 /* BDDynamicTreeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BDDynamicTreeCell.xib; sourceTree = "<group>"; };
+		0CD7A02A225C6D5700EAE816 /* AddressTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableCell.h; sourceTree = "<group>"; };
+		0CD7A02B225C6D5700EAE816 /* AddressChooseView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressChooseView2.h; sourceTree = "<group>"; };
+		0CD7A02C225C6D5700EAE816 /* AdressChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdressChooseView.h; sourceTree = "<group>"; };
+		0CD7A02D225C6D5700EAE816 /* AddressChooseView3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressChooseView3.m; sourceTree = "<group>"; };
+		0CD7A038225C6F1100EAE816 /* FeedbackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackVC.h; sourceTree = "<group>"; };
+		0CD7A039225C6F1100EAE816 /* FeedbackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackVC.m; sourceTree = "<group>"; };
+		0CD7A03B225C6F1100EAE816 /* ChangePassWordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePassWordVC.m; sourceTree = "<group>"; };
+		0CD7A03C225C6F1100EAE816 /* ChangePassWordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePassWordVC.h; sourceTree = "<group>"; };
+		0CEF89DA225C71890057F3FD /* CompanyInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyInfoVC.h; sourceTree = "<group>"; };
+		0CEF89DB225C71890057F3FD /* CompanyInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyInfoVC.m; sourceTree = "<group>"; };
+		0CEF89DD225C720E0057F3FD /* AddressBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookVC.h; sourceTree = "<group>"; };
+		0CEF89DE225C720E0057F3FD /* AddressBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookVC.m; sourceTree = "<group>"; };
+		0CEF89E2225C74540057F3FD /* AddressBookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookCell.h; sourceTree = "<group>"; };
+		0CEF89E3225C74540057F3FD /* AddressBookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookCell.m; sourceTree = "<group>"; };
+		0CEF89EF225C87FC0057F3FD /* AuditTaskVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTaskVC.h; sourceTree = "<group>"; };
+		0CEF89F0225C87FC0057F3FD /* AuditTaskVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskVC.m; sourceTree = "<group>"; };
+		0CEF89F6225C88480057F3FD /* ContractAuditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractAuditVC.h; sourceTree = "<group>"; };
+		0CEF89F7225C88480057F3FD /* ContractAuditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractAuditVC.m; sourceTree = "<group>"; };
+		0CEF89F9225C886F0057F3FD /* NumeralAuditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAuditVC.h; sourceTree = "<group>"; };
+		0CEF89FA225C886F0057F3FD /* NumeralAuditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAuditVC.m; sourceTree = "<group>"; };
+		0CEF89FC225C88910057F3FD /* SubscribeAuditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscribeAuditVC.h; sourceTree = "<group>"; };
+		0CEF89FD225C88910057F3FD /* SubscribeAuditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscribeAuditVC.m; sourceTree = "<group>"; };
+		0CEF8A00225C8D460057F3FD /* TypeTagCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeTagCollCell.h; sourceTree = "<group>"; };
+		0CEF8A01225C8D460057F3FD /* TypeTagCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TypeTagCollCell.m; sourceTree = "<group>"; };
+		0CEF8A05225C8E880057F3FD /* AuditTaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTaskCell.h; sourceTree = "<group>"; };
+		0CEF8A06225C8E880057F3FD /* AuditTaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskCell.m; sourceTree = "<group>"; };
+		0CEF8A08225C91740057F3FD /* RecommendCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendCustomVC.h; sourceTree = "<group>"; };
+		0CEF8A09225C91740057F3FD /* RecommendCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendCustomVC.m; sourceTree = "<group>"; };
+		0CEF8A0E225C96020057F3FD /* RecommendWaitVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendWaitVC.h; sourceTree = "<group>"; };
+		0CEF8A0F225C96020057F3FD /* RecommendWaitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendWaitVC.m; sourceTree = "<group>"; };
+		0CEF8A11225C96120057F3FD /* RecommendFailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendFailVC.h; sourceTree = "<group>"; };
+		0CEF8A12225C96120057F3FD /* RecommendFailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendFailVC.m; sourceTree = "<group>"; };
+		0CEF8A14225C96230057F3FD /* RecommendSuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendSuccessVC.h; sourceTree = "<group>"; };
+		0CEF8A15225C96230057F3FD /* RecommendSuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendSuccessVC.m; sourceTree = "<group>"; };
+		0CEF8A19225C9BA40057F3FD /* RecommendCustomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendCustomCell.h; sourceTree = "<group>"; };
+		0CEF8A1A225C9BA40057F3FD /* RecommendCustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendCustomCell.m; sourceTree = "<group>"; };
+		0CEF8A1E225D7BF00057F3FD /* RegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
+		0CEF8A1F225D7BF00057F3FD /* RegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterVC.h; sourceTree = "<group>"; };
+		0CEF8A21225D7BF00057F3FD /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		0CEF8A22225D7BF00057F3FD /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
+		0CEF8A24225D7BF00057F3FD /* FindPassWordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPassWordVC.m; sourceTree = "<group>"; };
+		0CEF8A25225D7BF00057F3FD /* FindPassWordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPassWordVC.h; sourceTree = "<group>"; };
+		0CEF8A2A225D84330057F3FD /* RecommendWaitDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendWaitDetailVC.h; sourceTree = "<group>"; };
+		0CEF8A2B225D84330057F3FD /* RecommendWaitDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendWaitDetailVC.m; sourceTree = "<group>"; };
+		0CEF8A2F225D863A0057F3FD /* CountDownCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountDownCell.h; sourceTree = "<group>"; };
+		0CEF8A30225D863A0057F3FD /* CountDownCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountDownCell.m; sourceTree = "<group>"; };
+		0CEF8A35225DCA090057F3FD /* PersonalHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalHeader.h; sourceTree = "<group>"; };
+		0CEF8A36225DCA090057F3FD /* PersonalHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalHeader.m; sourceTree = "<group>"; };
+		0CEF8A3B225F0CF10057F3FD /* CompanyAuthVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyAuthVC.h; sourceTree = "<group>"; };
+		0CEF8A3C225F0CF10057F3FD /* CompanyAuthVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyAuthVC.m; sourceTree = "<group>"; };
+		0CEF8A3E225F0F940057F3FD /* CompanyAuthingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyAuthingVC.h; sourceTree = "<group>"; };
+		0CEF8A3F225F0F940057F3FD /* CompanyAuthingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyAuthingVC.m; sourceTree = "<group>"; };
+		0CEF8A42225F15F70057F3FD /* BaseHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseHeader.m; sourceTree = "<group>"; };
+		0CEF8A43225F15F70057F3FD /* BaseHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseHeader.h; sourceTree = "<group>"; };
+		0CEF8A45225F17770057F3FD /* ContentBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentBaseCell.h; sourceTree = "<group>"; };
+		0CEF8A46225F17770057F3FD /* ContentBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContentBaseCell.m; sourceTree = "<group>"; };
+		0CEF8A48225F188A0057F3FD /* SelectCompanyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectCompanyVC.h; sourceTree = "<group>"; };
+		0CEF8A49225F188A0057F3FD /* SelectCompanyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectCompanyVC.m; sourceTree = "<group>"; };
+		0CEF8A4C225F1D440057F3FD /* SelectCompanyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCompanyTableCell.h; sourceTree = "<group>"; };
+		0CEF8A4D225F1D440057F3FD /* SelectCompanyCollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCompanyCollCell.m; sourceTree = "<group>"; };
+		0CEF8A4E225F1D440057F3FD /* SelectCompanyTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCompanyTableCell.m; sourceTree = "<group>"; };
+		0CEF8A4F225F1D440057F3FD /* SelectCompanyCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCompanyCollCell.h; sourceTree = "<group>"; };
+		0CEF8A51225F1D440057F3FD /* CompanyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyModel.m; sourceTree = "<group>"; };
+		0CEF8A52225F1D440057F3FD /* CompanyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyModel.h; sourceTree = "<group>"; };
+		0CEF8A59225F49C60057F3FD /* RoomCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomCollCell.h; sourceTree = "<group>"; };
+		0CEF8A5A225F49C60057F3FD /* RoomCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomCollCell.m; sourceTree = "<group>"; };
+		0CEF8AD422606D0E0057F3FD /* WorkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkCell.h; sourceTree = "<group>"; };
+		0CEF8AD522606D0E0057F3FD /* WorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkCell.m; sourceTree = "<group>"; };
+		0CEF8AE2226427250057F3FD /* CallTelegramVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramVC.h; sourceTree = "<group>"; };
+		0CEF8AE3226427260057F3FD /* CallTelegramVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramVC.m; sourceTree = "<group>"; };
+		0CEF8AEB2264295F0057F3FD /* CallTelegramCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallTelegramCell.h; sourceTree = "<group>"; };
+		0CEF8AEC2264295F0057F3FD /* CallTelegramCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallTelegramCell.m; sourceTree = "<group>"; };
+		0CEF8AEF226467010057F3FD /* CallTelegramCustomDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramCustomDetailVC.h; sourceTree = "<group>"; };
+		0CEF8AF0226467010057F3FD /* CallTelegramCustomDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramCustomDetailVC.m; sourceTree = "<group>"; };
+		0CEF8AF522646DBD0057F3FD /* CallTelegramCustomDetailHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramCustomDetailHeader.h; sourceTree = "<group>"; };
+		0CEF8AF622646DBD0057F3FD /* CallTelegramCustomDetailHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramCustomDetailHeader.m; sourceTree = "<group>"; };
+		0CEF8AF8226477E00057F3FD /* CallTelegramCustomDetailInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramCustomDetailInfoCell.h; sourceTree = "<group>"; };
+		0CEF8AF9226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramCustomDetailInfoCell.m; sourceTree = "<group>"; };
+		0CEF8AFB2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramCustomDetailIntentHeader.h; sourceTree = "<group>"; };
+		0CEF8AFC2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramCustomDetailIntentHeader.m; sourceTree = "<group>"; };
+		0CEF8AFE226575B20057F3FD /* CallTelegramCustomDetailFollowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramCustomDetailFollowCell.h; sourceTree = "<group>"; };
+		0CEF8AFF226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramCustomDetailFollowCell.m; sourceTree = "<group>"; };
+		0CEF8B022265ADA20057F3FD /* AddCallTelegramVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddCallTelegramVC.h; sourceTree = "<group>"; };
+		0CEF8B032265ADA20057F3FD /* AddCallTelegramVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCallTelegramVC.m; sourceTree = "<group>"; };
+		0CEF8B062265B6D70057F3FD /* BorderTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BorderTextField.h; sourceTree = "<group>"; };
+		0CEF8B072265B6D70057F3FD /* BorderTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BorderTextField.m; sourceTree = "<group>"; };
+		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
+		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
+		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +470,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD247DF2FE90196EA1B639F0 /* libPods-云售楼.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +491,184 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C221A47227EAC2F006B0510 /* 来电回访 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */,
+				0C221A49227EAC2F006B0510 /* TaskCallBackCell.h */,
+			);
+			path = "来电回访";
+			sourceTree = "<group>";
+		};
+		0C221A4A227EAC2F006B0510 /* 来访跟进 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A4D227EAC81006B0510 /* TaskCallFollowCell.h */,
+				0C221A4E227EAC81006B0510 /* TaskCallFollowCell.m */,
+			);
+			path = "来访跟进";
+			sourceTree = "<group>";
+		};
+		0C221A4B227EAC2F006B0510 /* 带看确认 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A50227EAF53006B0510 /* TaskTakeLookConfirmCell.h */,
+				0C221A51227EAF54006B0510 /* TaskTakeLookConfirmCell.m */,
+			);
+			path = "带看确认";
+			sourceTree = "<group>";
+		};
+		0C221A53227EB05D006B0510 /* 到访确认 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A54227EB078006B0510 /* TaskVisitConfirmCell.h */,
+				0C221A55227EB078006B0510 /* TaskVisitConfirmCell.m */,
+			);
+			path = "到访确认";
+			sourceTree = "<group>";
+		};
+		0C221A57227EB0EF006B0510 /* 签约审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A58227EB117006B0510 /* TaskSignAuditCell.h */,
+				0C221A59227EB117006B0510 /* TaskSignAuditCell.m */,
+			);
+			path = "签约审核";
+			sourceTree = "<group>";
+		};
+		0C221A5B227EC741006B0510 /* header */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A5C227EC763006B0510 /* IntentSurveyHeader.h */,
+				0C221A5D227EC763006B0510 /* IntentSurveyHeader.m */,
+			);
+			path = header;
+			sourceTree = "<group>";
+		};
+		0C221A5F227ECE99006B0510 /* 修改客户资料 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A60227ECEB2006B0510 /* CallTelegramModifyCustomVC.h */,
+				0C221A61227ECEB2006B0510 /* CallTelegramModifyCustomVC.m */,
+			);
+			path = "修改客户资料";
+			sourceTree = "<group>";
+		};
+		0C221A63227ED229006B0510 /* 添加组成员 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A64227ED23E006B0510 /* AddCallTelegramGroupMemberVC.h */,
+				0C221A65227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m */,
+			);
+			path = "添加组成员";
+			sourceTree = "<group>";
+		};
+		0C221A67227EDE5D006B0510 /* 添加cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A68227EDE73006B0510 /* BaseAddCell.h */,
+				0C221A69227EDE73006B0510 /* BaseAddCell.m */,
+			);
+			path = "添加cell";
+			sourceTree = "<group>";
+		};
+		0C221A6B227EE612006B0510 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A6C227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.h */,
+				0C221A6D227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		0C221A6F227EECBE006B0510 /* 号码判重 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A74227EED41006B0510 /* 不可带看 */,
+				0C221A73227EED41006B0510 /* 待确认 */,
+				0C221A75227EED41006B0510 /* 可带看 */,
+				0C221A70227EED08006B0510 /* WorkPhoneConfirmVC.h */,
+				0C221A71227EED08006B0510 /* WorkPhoneConfirmVC.m */,
+			);
+			path = "号码判重";
+			sourceTree = "<group>";
+		};
+		0C221A73227EED41006B0510 /* 待确认 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04316227FCA5A002C8BD3 /* 待确认详情 */,
+				0C221A82227EEEE5006B0510 /* view */,
+				0C221A79227EED67006B0510 /* WorkPhoneConfrimWaitVC.h */,
+				0C221A7A227EED67006B0510 /* WorkPhoneConfrimWaitVC.m */,
+			);
+			path = "待确认";
+			sourceTree = "<group>";
+		};
+		0C221A74227EED41006B0510 /* 不可带看 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0431E227FD1DE002C8BD3 /* 不可带看详情 */,
+				0C221A7F227EED87006B0510 /* WorkPhoneConfrimFailVC.h */,
+				0C221A80227EED87006B0510 /* WorkPhoneConfrimFailVC.m */,
+			);
+			path = "不可带看";
+			sourceTree = "<group>";
+		};
+		0C221A75227EED41006B0510 /* 可带看 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0431A227FD0E0002C8BD3 /* 可带看详情 */,
+				0C221A7C227EED76006B0510 /* WorkPhoneConfrimUseVC.h */,
+				0C221A7D227EED76006B0510 /* WorkPhoneConfrimUseVC.m */,
+			);
+			path = "可带看";
+			sourceTree = "<group>";
+		};
+		0C221A82227EEEE5006B0510 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A83227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.h */,
+				0C221A84227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C2A700B226D8E3A00571EC1 /* 方框选择Coll */ = {
+			isa = PBXGroup;
+			children = (
+				0C2A700C226D8E5C00571EC1 /* BoxSelectCollCell.h */,
+				0C2A700D226D8E5C00571EC1 /* BoxSelectCollCell.m */,
+			);
+			path = "方框选择Coll";
+			sourceTree = "<group>";
+		};
+		0C2A7012226D9A7200571EC1 /* flowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				0C2A7013226D9A7200571EC1 /* GZQFlowLayout.h */,
+				0C2A7014226D9A7200571EC1 /* GZQFlowLayout.m */,
+			);
+			path = flowLayout;
+			sourceTree = "<group>";
+		};
+		0C2A7016226D9DDE00571EC1 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A5B227EC741006B0510 /* header */,
+				0C2A7017226D9DDE00571EC1 /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C2A7017226D9DDE00571EC1 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C2A7018226D9E2600571EC1 /* IntentSurveyCollCell.h */,
+				0C2A7019226D9E2600571EC1 /* IntentSurveyCollCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		0C3A9108225B20C400F04804 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +676,8 @@
 				0C3A912C225B20C600F04804 /* 云售楼Tests */,
 				0C3A9137225B20C600F04804 /* 云售楼UITests */,
 				0C3A9112225B20C400F04804 /* Products */,
+				9518CD61B5893BD87A9438CC /* Pods */,
+				256FA66B3C2EE540F45796BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +694,11 @@
 		0C3A9113225B20C400F04804 /* 云售楼 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3A9146225B211400F04804 /* 第三方SDK */,
+				0C3A9147225B211400F04804 /* 自定义SDK */,
+				0C3A9148225B211400F04804 /* Resource */,
+				0C3A914A225B211400F04804 /* UserModel */,
+				0C3A9149225B211400F04804 /* VCModel */,
 				0C3A9114225B20C400F04804 /* AppDelegate.h */,
 				0C3A9115225B20C400F04804 /* AppDelegate.m */,
 				0C3A9117225B20C400F04804 /* ViewController.h */,
@@ -132,6 +730,1232 @@
 			path = "云售楼UITests";
 			sourceTree = "<group>";
 		};
+		0C3A9146225B211400F04804 /* 第三方SDK */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "第三方SDK";
+			sourceTree = "<group>";
+		};
+		0C3A9147225B211400F04804 /* 自定义SDK */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043B22282715E002C8BD3 /* 加载动画 */,
+				0CD0435F22802288002C8BD3 /* 下拉单选框 */,
+				0CC2730B226868D200EB881F /* 录音 */,
+				0CC2730222681FA700EB881F /* 自定义Btn */,
+				0CEF8B052265B42A0057F3FD /* 自定义TextFeild */,
+				0CD7A01D225C6D5700EAE816 /* 自定义地址选择器 */,
+				0CD7A019225C6C9100EAE816 /* 自定义时间选择器 */,
+				0C3A917F225C484400F04804 /* 通用Cell和头部 */,
+				0C3A915B225B366400F04804 /* CYLTabBarControllerConfig.h */,
+				0C3A915C225B366400F04804 /* CYLTabBarControllerConfig.m */,
+			);
+			path = "自定义SDK";
+			sourceTree = "<group>";
+		};
+		0C3A9148225B211400F04804 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A914B225B213500F04804 /* PrefixHeader.pch */,
+				0C3A914C225B215100F04804 /* NetConfig.h */,
+				0C3A914D225B216400F04804 /* BaseRequest.h */,
+				0C3A914E225B216400F04804 /* BaseRequest.m */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		0C3A9149225B211400F04804 /* VCModel */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A1C225D7BF00057F3FD /* 登录注册 */,
+				0C3A9160225B372D00F04804 /* 报表 */,
+				0C3A915E225B372D00F04804 /* 代办 */,
+				0C3A9162225B372D00F04804 /* 房源 */,
+				0C3A9161225B372D00F04804 /* 工作 */,
+				0C3A915F225B372D00F04804 /* 我的 */,
+				0C3A9150225B218100F04804 /* baseClass */,
+			);
+			path = VCModel;
+			sourceTree = "<group>";
+		};
+		0C3A914A225B211400F04804 /* UserModel */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9154225B222100F04804 /* baseModel */,
+				0C3A9158225B225A00F04804 /* UserModel.h */,
+				0C3A9159225B225A00F04804 /* UserModel.m */,
+			);
+			path = UserModel;
+			sourceTree = "<group>";
+		};
+		0C3A9150225B218100F04804 /* baseClass */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9151225B219300F04804 /* BaseViewController.h */,
+				0C3A9152225B219300F04804 /* BaseViewController.m */,
+			);
+			path = baseClass;
+			sourceTree = "<group>";
+		};
+		0C3A9154225B222100F04804 /* baseModel */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9155225B223400F04804 /* BaseModel.h */,
+				0C3A9156225B223400F04804 /* BaseModel.m */,
+			);
+			path = baseModel;
+			sourceTree = "<group>";
+		};
+		0C3A915E225B372D00F04804 /* 代办 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF89EE225C87DF0057F3FD /* 财务代办 */,
+				0CEF89EC225C87DF0057F3FD /* 来电客户 */,
+				0CEF89EA225C87DF0057F3FD /* 来访客户 */,
+				0CEF89EB225C87DF0057F3FD /* 审核代办 */,
+				0CEF89ED225C87DF0057F3FD /* 推荐客户 */,
+				0CEF89E5225C80670057F3FD /* view */,
+				0C3A916C225B37B200F04804 /* TaskVC.h */,
+				0C3A916D225B37B200F04804 /* TaskVC.m */,
+			);
+			path = "代办";
+			sourceTree = "<group>";
+		};
+		0C3A915F225B372D00F04804 /* 我的 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD7A036225C6F1100EAE816 /* 公司信息 */,
+				0CD7A03D225C6F1100EAE816 /* 通讯录 */,
+				0CD7A03A225C6F1100EAE816 /* 修改密码 */,
+				0CD7A037225C6F1100EAE816 /* 意见反馈 */,
+				0C3A917B225C47C400F04804 /* 个人资料 */,
+				0C3A9172225C337300F04804 /* view */,
+				0C3A9166225B377400F04804 /* MineVC.h */,
+				0C3A9167225B377400F04804 /* MineVC.m */,
+			);
+			path = "我的";
+			sourceTree = "<group>";
+		};
+		0C3A9160225B372D00F04804 /* 报表 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A916F225B37CF00F04804 /* ReportVC.h */,
+				0C3A9170225B37CF00F04804 /* ReportVC.m */,
+			);
+			path = "报表";
+			sourceTree = "<group>";
+		};
+		0C3A9161225B372D00F04804 /* 工作 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0436B228033CE002C8BD3 /* 收款 */,
+				0CD0434C22800B1F002C8BD3 /* 人事审核 */,
+				0CD04322227FD2A0002C8BD3 /* 推荐客户 */,
+				0C221A6F227EECBE006B0510 /* 号码判重 */,
+				0CEF8AE12264268F0057F3FD /* 来电 */,
+				0CEF8AD222606BB80057F3FD /* view */,
+				0C3A9169225B377D00F04804 /* WorkVC.h */,
+				0C3A916A225B377D00F04804 /* WorkVC.m */,
+			);
+			path = "工作";
+			sourceTree = "<group>";
+		};
+		0C3A9162225B372D00F04804 /* 房源 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0439722817235002C8BD3 /* 房源详情 */,
+				0CEF8A56225F488E0057F3FD /* view */,
+				0C3A9163225B374F00F04804 /* RoomVC.h */,
+				0C3A9164225B374F00F04804 /* RoomVC.m */,
+			);
+			path = "房源";
+			sourceTree = "<group>";
+		};
+		0C3A9172225C337300F04804 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9173225C337300F04804 /* cell */,
+				0C3A9174225C337300F04804 /* header */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C3A9173225C337300F04804 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9175225C338500F04804 /* MineCell.h */,
+				0C3A9176225C338500F04804 /* MineCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0C3A9174225C337300F04804 /* header */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9178225C435900F04804 /* MineHeader.h */,
+				0C3A9179225C435900F04804 /* MineHeader.m */,
+			);
+			path = header;
+			sourceTree = "<group>";
+		};
+		0C3A917B225C47C400F04804 /* 个人资料 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A32225DC8E60057F3FD /* view */,
+				0CD7A011225C67C800EAE816 /* 个人说明 */,
+				0CD7A012225C67C800EAE816 /* 姓名 */,
+				0C3A917C225C47DE00F04804 /* PersonalVC.h */,
+				0C3A917D225C47DE00F04804 /* PersonalVC.m */,
+			);
+			path = "个人资料";
+			sourceTree = "<group>";
+		};
+		0C3A917F225C484400F04804 /* 通用Cell和头部 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043412280078E002C8BD3 /* 流程通用cell */,
+				0C221A67227EDE5D006B0510 /* 添加cell */,
+				0C2A7012226D9A7200571EC1 /* flowLayout */,
+				0C2A700B226D8E3A00571EC1 /* 方框选择Coll */,
+				0CEF8A41225F15F70057F3FD /* 蓝点标题基本header */,
+				0CEF8A2D225D85D50057F3FD /* 倒计时cell */,
+				0CEF8A2E225D85D60057F3FD /* 内容基本cell */,
+				0CEF89FF225C8D310057F3FD /* 分类标签coll */,
+				0C3A9183225C484500F04804 /* 标题内容右图标Cell */,
+				0C3A9186225C484500F04804 /* 标题内容left基本cell */,
+				0C3A9189225C484500F04804 /* title基本header */,
+				0C3A918F225C484500F04804 /* 标签Coll */,
+				0C3A9192225C484500F04804 /* 标题右按钮header */,
+			);
+			path = "通用Cell和头部";
+			sourceTree = "<group>";
+		};
+		0C3A9183225C484500F04804 /* 标题内容右图标Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9184225C484500F04804 /* TitleContentRightBaseCell.m */,
+				0C3A9185225C484500F04804 /* TitleContentRightBaseCell.h */,
+			);
+			path = "标题内容右图标Cell";
+			sourceTree = "<group>";
+		};
+		0C3A9186225C484500F04804 /* 标题内容left基本cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9187225C484500F04804 /* TitleContentBaseCell.m */,
+				0C3A9188225C484500F04804 /* TitleContentBaseCell.h */,
+			);
+			path = "标题内容left基本cell";
+			sourceTree = "<group>";
+		};
+		0C3A9189225C484500F04804 /* title基本header */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A918A225C484500F04804 /* TitleBaseHeader.m */,
+				0C3A918B225C484500F04804 /* TitleBaseHeader.h */,
+			);
+			path = "title基本header";
+			sourceTree = "<group>";
+		};
+		0C3A918F225C484500F04804 /* 标签Coll */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9190225C484500F04804 /* TagCollCell.m */,
+				0C3A9191225C484500F04804 /* TagCollCell.h */,
+			);
+			path = "标签Coll";
+			sourceTree = "<group>";
+		};
+		0C3A9192225C484500F04804 /* 标题右按钮header */ = {
+			isa = PBXGroup;
+			children = (
+				0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */,
+				0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */,
+			);
+			path = "标题右按钮header";
+			sourceTree = "<group>";
+		};
+		0C991C572272B30C00AF2817 /* 项目角色 */ = {
+			isa = PBXGroup;
+			children = (
+				0C991C582272B32700AF2817 /* ProjectRoleVC.h */,
+				0C991C592272B32700AF2817 /* ProjectRoleVC.m */,
+			);
+			path = "项目角色";
+			sourceTree = "<group>";
+		};
+		0CC2730222681FA700EB881F /* 自定义Btn */ = {
+			isa = PBXGroup;
+			children = (
+				0CC2730322681FF100EB881F /* DropBtn.h */,
+				0CC2730422681FF100EB881F /* DropBtn.m */,
+			);
+			path = "自定义Btn";
+			sourceTree = "<group>";
+		};
+		0CC27306226828BF00EB881F /* 跟进记录 */ = {
+			isa = PBXGroup;
+			children = (
+				0CC273082268444A00EB881F /* FollowRecordVC.h */,
+				0CC273092268444A00EB881F /* FollowRecordVC.m */,
+			);
+			path = "跟进记录";
+			sourceTree = "<group>";
+		};
+		0CC27307226828BF00EB881F /* 意向调查 */ = {
+			isa = PBXGroup;
+			children = (
+				0C2A7016226D9DDE00571EC1 /* view */,
+				0C2A700F226D95C100571EC1 /* IntentSurveyVC.h */,
+				0C2A7010226D95C100571EC1 /* IntentSurveyVC.m */,
+				0CD0438D22813659002C8BD3 /* IntentSurVeySelectVC.h */,
+				0CD0438E22813659002C8BD3 /* IntentSurVeySelectVC.m */,
+			);
+			path = "意向调查";
+			sourceTree = "<group>";
+		};
+		0CC2730B226868D200EB881F /* 录音 */ = {
+			isa = PBXGroup;
+			children = (
+				0CC2730C226868DE00EB881F /* RecordView.h */,
+				0CC2730D226868DE00EB881F /* RecordView.m */,
+				0CD043AF22819009002C8BD3 /* RecordLongPressView.h */,
+				0CD043B022819009002C8BD3 /* RecordLongPressView.m */,
+			);
+			path = "录音";
+			sourceTree = "<group>";
+		};
+		0CD04316227FCA5A002C8BD3 /* 待确认详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04317227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.h */,
+				0CD04318227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m */,
+			);
+			path = "待确认详情";
+			sourceTree = "<group>";
+		};
+		0CD0431A227FD0E0002C8BD3 /* 可带看详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0431B227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.h */,
+				0CD0431C227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m */,
+			);
+			path = "可带看详情";
+			sourceTree = "<group>";
+		};
+		0CD0431E227FD1DE002C8BD3 /* 不可带看详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0431F227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.h */,
+				0CD04320227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m */,
+			);
+			path = "不可带看详情";
+			sourceTree = "<group>";
+		};
+		0CD04322227FD2A0002C8BD3 /* 推荐客户 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04328227FD2F5002C8BD3 /* 已失效 */,
+				0CD04327227FD2E1002C8BD3 /* 已确认 */,
+				0CD04326227FD2CF002C8BD3 /* 待确认 */,
+				0CD04323227FD2BD002C8BD3 /* WorkRecommendVC.h */,
+				0CD04324227FD2BD002C8BD3 /* WorkRecommendVC.m */,
+			);
+			path = "推荐客户";
+			sourceTree = "<group>";
+		};
+		0CD04326227FD2CF002C8BD3 /* 待确认 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0435822801BA4002C8BD3 /* 确认到访 */,
+				0CD04336227FDF8B002C8BD3 /* 待确认详情 */,
+				0CD04332227FDB16002C8BD3 /* view */,
+				0CD04329227FD329002C8BD3 /* WorkRecommendWaitVC.h */,
+				0CD0432A227FD329002C8BD3 /* WorkRecommendWaitVC.m */,
+			);
+			path = "待确认";
+			sourceTree = "<group>";
+		};
+		0CD04327227FD2E1002C8BD3 /* 已确认 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0433D228006AF002C8BD3 /* 已确认详情 */,
+				0CD0432C227FD33B002C8BD3 /* WorkRecommendValidVC.h */,
+				0CD0432D227FD33B002C8BD3 /* WorkRecommendValidVC.m */,
+			);
+			path = "已确认";
+			sourceTree = "<group>";
+		};
+		0CD04328227FD2F5002C8BD3 /* 已失效 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04345228008A1002C8BD3 /* 已失效详情 */,
+				0CD0432F227FD348002C8BD3 /* WorkRecommendFailVC.h */,
+				0CD04330227FD348002C8BD3 /* WorkRecommendFailVC.m */,
+			);
+			path = "已失效";
+			sourceTree = "<group>";
+		};
+		0CD04332227FDB16002C8BD3 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04333227FDB24002C8BD3 /* WorkRecommendWaitCell.h */,
+				0CD04334227FDB24002C8BD3 /* WorkRecommendWaitCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CD04336227FDF8B002C8BD3 /* 待确认详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04337227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.h */,
+				0CD04338227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m */,
+			);
+			path = "待确认详情";
+			sourceTree = "<group>";
+		};
+		0CD0433D228006AF002C8BD3 /* 已确认详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0433E228006BF002C8BD3 /* WorkRecommendValidDetailVC.h */,
+				0CD0433F228006BF002C8BD3 /* WorkRecommendValidDetailVC.m */,
+			);
+			path = "已确认详情";
+			sourceTree = "<group>";
+		};
+		0CD043412280078E002C8BD3 /* 流程通用cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04342228007A3002C8BD3 /* ProcessCell.h */,
+				0CD04343228007A3002C8BD3 /* ProcessCell.m */,
+			);
+			path = "流程通用cell";
+			sourceTree = "<group>";
+		};
+		0CD04345228008A1002C8BD3 /* 已失效详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04349228008C1002C8BD3 /* WorkRecommendFailDetailVC.h */,
+				0CD0434A228008C1002C8BD3 /* WorkRecommendFailDetailVC.m */,
+			);
+			path = "已失效详情";
+			sourceTree = "<group>";
+		};
+		0CD0434C22800B1F002C8BD3 /* 人事审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043542280162B002C8BD3 /* 人事审核详情 */,
+				0CD043502280106C002C8BD3 /* view */,
+				0CD0434D22800F5D002C8BD3 /* WorkPersonAuditVC.h */,
+				0CD0434E22800F5D002C8BD3 /* WorkPersonAuditVC.m */,
+			);
+			path = "人事审核";
+			sourceTree = "<group>";
+		};
+		0CD043502280106C002C8BD3 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043512280107F002C8BD3 /* WorkPersonAuditCell.h */,
+				0CD043522280107F002C8BD3 /* WorkPersonAuditCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CD043542280162B002C8BD3 /* 人事审核详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0435522801643002C8BD3 /* WorkPersonAuditDetailVC.h */,
+				0CD0435622801643002C8BD3 /* WorkPersonAuditDetailVC.m */,
+			);
+			path = "人事审核详情";
+			sourceTree = "<group>";
+		};
+		0CD0435822801BA4002C8BD3 /* 确认到访 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04366228026D2002C8BD3 /* view */,
+				0CD043592280219C002C8BD3 /* WorkCompleteCustomVC1.h */,
+				0CD0435A2280219C002C8BD3 /* WorkCompleteCustomVC1.m */,
+				0CD04363228025D4002C8BD3 /* WorkCompleteCustomVC2.h */,
+				0CD04364228025D4002C8BD3 /* WorkCompleteCustomVC2.m */,
+			);
+			path = "确认到访";
+			sourceTree = "<group>";
+		};
+		0CD0435F22802288002C8BD3 /* 下拉单选框 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0436122802357002C8BD3 /* SinglePickView.h */,
+				0CD0436022802357002C8BD3 /* SinglePickView.m */,
+			);
+			path = "下拉单选框";
+			sourceTree = "<group>";
+		};
+		0CD04366228026D2002C8BD3 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04367228026F2002C8BD3 /* AuthenCollCell.h */,
+				0CD04368228026F2002C8BD3 /* AuthenCollCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CD0436B228033CE002C8BD3 /* 收款 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0436C228033E1002C8BD3 /* 收款详情 */,
+			);
+			path = "收款";
+			sourceTree = "<group>";
+		};
+		0CD0436C228033E1002C8BD3 /* 收款详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0436D2280344E002C8BD3 /* WorkReceiptDetailVC.h */,
+				0CD0436E2280344E002C8BD3 /* WorkReceiptDetailVC.m */,
+			);
+			path = "收款详情";
+			sourceTree = "<group>";
+		};
+		0CD0438422811DE6002C8BD3 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0438522811DF7002C8BD3 /* CompanyAuthingCell.h */,
+				0CD0438622811DF7002C8BD3 /* CompanyAuthingCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CD0438822812188002C8BD3 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043892281218F002C8BD3 /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CD043892281218F002C8BD3 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0438A2281219D002C8BD3 /* CompanyInfoCell.h */,
+				0CD0438B2281219D002C8BD3 /* CompanyInfoCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CD04393228170DB002C8BD3 /* footer */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04394228170ED002C8BD3 /* RoomFooter.h */,
+				0CD04395228170ED002C8BD3 /* RoomFooter.m */,
+			);
+			path = footer;
+			sourceTree = "<group>";
+		};
+		0CD0439722817235002C8BD3 /* 房源详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043AD228176C7002C8BD3 /* 自定义协议 */,
+				0CD043A322817621002C8BD3 /* KyoCinameSeatScrollView */,
+				0CD0439F228175C8002C8BD3 /* cell */,
+				0CD0439B228175AE002C8BD3 /* SESScrollView */,
+				0CD04398228172AF002C8BD3 /* RoomDetailVC.h */,
+				0CD04399228172AF002C8BD3 /* RoomDetailVC.m */,
+			);
+			path = "房源详情";
+			sourceTree = "<group>";
+		};
+		0CD0439B228175AE002C8BD3 /* SESScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0439C228175AE002C8BD3 /* SMScrollView.m */,
+				0CD0439D228175AE002C8BD3 /* SMScrollView.h */,
+			);
+			path = SESScrollView;
+			sourceTree = "<group>";
+		};
+		0CD0439F228175C8002C8BD3 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043A0228175D4002C8BD3 /* SingleHouseCell.h */,
+				0CD043A1228175D4002C8BD3 /* SingleHouseCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CD043A322817621002C8BD3 /* KyoCinameSeatScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043A422817621002C8BD3 /* KyoRowIndexView.h */,
+				0CD043A522817621002C8BD3 /* KyoCinameSeatScrollView.m */,
+				0CD043A622817621002C8BD3 /* KyoCenterLineView.m */,
+				0CD043A722817621002C8BD3 /* KyoRowIndexView.m */,
+				0CD043A822817621002C8BD3 /* KyoCenterLineView.h */,
+				0CD043A922817621002C8BD3 /* KyoCinameSeatScrollView.h */,
+			);
+			path = KyoCinameSeatScrollView;
+			sourceTree = "<group>";
+		};
+		0CD043AD228176C7002C8BD3 /* 自定义协议 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043AE228176C7002C8BD3 /* SMCinameSeatScrollViewDelegate.h */,
+			);
+			path = "自定义协议";
+			sourceTree = "<group>";
+		};
+		0CD043B22282715E002C8BD3 /* 加载动画 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043B32282715E002C8BD3 /* GZQGifHeader.h */,
+				0CD043B42282715E002C8BD3 /* GZQGifFooter.h */,
+				0CD043B52282715E002C8BD3 /* WaitAnimation.m */,
+				0CD043B62282715E002C8BD3 /* GZQGifFooter.m */,
+				0CD043B72282715E002C8BD3 /* GZQGifHeader.m */,
+				0CD043B82282715E002C8BD3 /* WaitAnimation.h */,
+			);
+			path = "加载动画";
+			sourceTree = "<group>";
+		};
+		0CD043BD2282B990002C8BD3 /* 排号审核详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043C12282BBA7002C8BD3 /* view */,
+				0CD043BE2282B9A2002C8BD3 /* NumeralAuditDetailVC.h */,
+				0CD043BF2282B9A2002C8BD3 /* NumeralAuditDetailVC.m */,
+			);
+			path = "排号审核详情";
+			sourceTree = "<group>";
+		};
+		0CD043C12282BBA7002C8BD3 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043C22282BBBA002C8BD3 /* NumeralAuditDetailCell.h */,
+				0CD043C32282BBBA002C8BD3 /* NumeralAuditDetailCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CD043C52282BFC9002C8BD3 /* 认购审核详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043C62282BFDC002C8BD3 /* SubScribeAuditDetailVC.h */,
+				0CD043C72282BFDC002C8BD3 /* SubScribeAuditDetailVC.m */,
+			);
+			path = "认购审核详情";
+			sourceTree = "<group>";
+		};
+		0CD043CD2282C1CC002C8BD3 /* 合同审核详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043CE2282C1DE002C8BD3 /* ContractAuditDetailVC.h */,
+				0CD043CF2282C1DE002C8BD3 /* ContractAuditDetailVC.m */,
+			);
+			path = "合同审核详情";
+			sourceTree = "<group>";
+		};
+		0CD043D12282C69A002C8BD3 /* 审核详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043D22282C6AD002C8BD3 /* AuditTaskDetailVC.h */,
+				0CD043D32282C6AD002C8BD3 /* AuditTaskDetailVC.m */,
+			);
+			path = "审核详情";
+			sourceTree = "<group>";
+		};
+		0CD7A011225C67C800EAE816 /* 个人说明 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD7A016225C67F900EAE816 /* PersonalIntroVC.h */,
+				0CD7A017225C67F900EAE816 /* PersonalIntroVC.m */,
+			);
+			path = "个人说明";
+			sourceTree = "<group>";
+		};
+		0CD7A012225C67C800EAE816 /* 姓名 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD7A013225C67C800EAE816 /* ChangeNameVC.m */,
+				0CD7A014225C67C800EAE816 /* ChangeNameVC.h */,
+			);
+			path = "姓名";
+			sourceTree = "<group>";
+		};
+		0CD7A019225C6C9100EAE816 /* 自定义时间选择器 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD7A01A225C6C9100EAE816 /* DateChooseView.h */,
+				0CD7A01B225C6C9100EAE816 /* DateChooseView.m */,
+			);
+			path = "自定义时间选择器";
+			sourceTree = "<group>";
+		};
+		0CD7A01D225C6D5700EAE816 /* 自定义地址选择器 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD7A01E225C6D5700EAE816 /* AddressTableCell.m */,
+				0CD7A01F225C6D5700EAE816 /* AddressChooseView2.m */,
+				0CD7A020225C6D5700EAE816 /* AdressChooseView.m */,
+				0CD7A021225C6D5700EAE816 /* AddressChooseView3.h */,
+				0CD7A022225C6D5700EAE816 /* BDDynamicTree */,
+				0CD7A02A225C6D5700EAE816 /* AddressTableCell.h */,
+				0CD7A02B225C6D5700EAE816 /* AddressChooseView2.h */,
+				0CD7A02C225C6D5700EAE816 /* AdressChooseView.h */,
+				0CD7A02D225C6D5700EAE816 /* AddressChooseView3.m */,
+			);
+			path = "自定义地址选择器";
+			sourceTree = "<group>";
+		};
+		0CD7A022225C6D5700EAE816 /* BDDynamicTree */ = {
+			isa = PBXGroup;
+			children = (
+				0CD7A023225C6D5700EAE816 /* BDDynamicTree.h */,
+				0CD7A024225C6D5700EAE816 /* BDDynamicTreeNode.m */,
+				0CD7A025225C6D5700EAE816 /* BDDynamicTreeCell.m */,
+				0CD7A026225C6D5700EAE816 /* BDDynamicTreeNode.h */,
+				0CD7A027225C6D5700EAE816 /* BDDynamicTree.m */,
+				0CD7A028225C6D5700EAE816 /* BDDynamicTreeCell.h */,
+				0CD7A029225C6D5700EAE816 /* BDDynamicTreeCell.xib */,
+			);
+			path = BDDynamicTree;
+			sourceTree = "<group>";
+		};
+		0CD7A036225C6F1100EAE816 /* 公司信息 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0438822812188002C8BD3 /* view */,
+				0CEF8A38225F0C8A0057F3FD /* 审核中 */,
+				0CEF8A39225F0C8A0057F3FD /* 未审核 */,
+				0CEF89DA225C71890057F3FD /* CompanyInfoVC.h */,
+				0CEF89DB225C71890057F3FD /* CompanyInfoVC.m */,
+			);
+			path = "公司信息";
+			sourceTree = "<group>";
+		};
+		0CD7A037225C6F1100EAE816 /* 意见反馈 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD7A038225C6F1100EAE816 /* FeedbackVC.h */,
+				0CD7A039225C6F1100EAE816 /* FeedbackVC.m */,
+			);
+			path = "意见反馈";
+			sourceTree = "<group>";
+		};
+		0CD7A03A225C6F1100EAE816 /* 修改密码 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD7A03B225C6F1100EAE816 /* ChangePassWordVC.m */,
+				0CD7A03C225C6F1100EAE816 /* ChangePassWordVC.h */,
+			);
+			path = "修改密码";
+			sourceTree = "<group>";
+		};
+		0CD7A03D225C6F1100EAE816 /* 通讯录 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF89E0225C74450057F3FD /* view */,
+				0CEF89DD225C720E0057F3FD /* AddressBookVC.h */,
+				0CEF89DE225C720E0057F3FD /* AddressBookVC.m */,
+			);
+			path = "通讯录";
+			sourceTree = "<group>";
+		};
+		0CEF89E0225C74450057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF89E1225C74450057F3FD /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF89E1225C74450057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF89E2225C74540057F3FD /* AddressBookCell.h */,
+				0CEF89E3225C74540057F3FD /* AddressBookCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF89E5225C80670057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF89E6225C80670057F3FD /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF89E6225C80670057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A57227EB0EF006B0510 /* 签约审核 */,
+				0C221A53227EB05D006B0510 /* 到访确认 */,
+				0C221A4B227EAC2F006B0510 /* 带看确认 */,
+				0C221A47227EAC2F006B0510 /* 来电回访 */,
+				0C221A4A227EAC2F006B0510 /* 来访跟进 */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF89EA225C87DF0057F3FD /* 来访客户 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "来访客户";
+			sourceTree = "<group>";
+		};
+		0CEF89EB225C87DF0057F3FD /* 审核代办 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043D12282C69A002C8BD3 /* 审核详情 */,
+				0CEF8A03225C8E5C0057F3FD /* view */,
+				0CEF89F4225C88350057F3FD /* 合同审核 */,
+				0CEF89F5225C88350057F3FD /* 排号审核 */,
+				0CEF89F3225C88350057F3FD /* 认购审核 */,
+				0CEF89EF225C87FC0057F3FD /* AuditTaskVC.h */,
+				0CEF89F0225C87FC0057F3FD /* AuditTaskVC.m */,
+			);
+			path = "审核代办";
+			sourceTree = "<group>";
+		};
+		0CEF89EC225C87DF0057F3FD /* 来电客户 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "来电客户";
+			sourceTree = "<group>";
+		};
+		0CEF89ED225C87DF0057F3FD /* 推荐客户 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A17225C9B8F0057F3FD /* view */,
+				0CEF8A0B225C91CE0057F3FD /* 待确认 */,
+				0CEF8A0C225C91CE0057F3FD /* 失效 */,
+				0CEF8A0D225C91CE0057F3FD /* 已确认 */,
+				0CEF8A08225C91740057F3FD /* RecommendCustomVC.h */,
+				0CEF8A09225C91740057F3FD /* RecommendCustomVC.m */,
+			);
+			path = "推荐客户";
+			sourceTree = "<group>";
+		};
+		0CEF89EE225C87DF0057F3FD /* 财务代办 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "财务代办";
+			sourceTree = "<group>";
+		};
+		0CEF89F3225C88350057F3FD /* 认购审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043C52282BFC9002C8BD3 /* 认购审核详情 */,
+				0CEF89FC225C88910057F3FD /* SubscribeAuditVC.h */,
+				0CEF89FD225C88910057F3FD /* SubscribeAuditVC.m */,
+			);
+			path = "认购审核";
+			sourceTree = "<group>";
+		};
+		0CEF89F4225C88350057F3FD /* 合同审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043CD2282C1CC002C8BD3 /* 合同审核详情 */,
+				0CEF89F6225C88480057F3FD /* ContractAuditVC.h */,
+				0CEF89F7225C88480057F3FD /* ContractAuditVC.m */,
+			);
+			path = "合同审核";
+			sourceTree = "<group>";
+		};
+		0CEF89F5225C88350057F3FD /* 排号审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043BD2282B990002C8BD3 /* 排号审核详情 */,
+				0CEF89F9225C886F0057F3FD /* NumeralAuditVC.h */,
+				0CEF89FA225C886F0057F3FD /* NumeralAuditVC.m */,
+			);
+			path = "排号审核";
+			sourceTree = "<group>";
+		};
+		0CEF89FF225C8D310057F3FD /* 分类标签coll */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A00225C8D460057F3FD /* TypeTagCollCell.h */,
+				0CEF8A01225C8D460057F3FD /* TypeTagCollCell.m */,
+			);
+			path = "分类标签coll";
+			sourceTree = "<group>";
+		};
+		0CEF8A03225C8E5C0057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A04225C8E5C0057F3FD /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF8A04225C8E5C0057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A05225C8E880057F3FD /* AuditTaskCell.h */,
+				0CEF8A06225C8E880057F3FD /* AuditTaskCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF8A0B225C91CE0057F3FD /* 待确认 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A29225D84230057F3FD /* 待确认详情 */,
+				0CEF8A0E225C96020057F3FD /* RecommendWaitVC.h */,
+				0CEF8A0F225C96020057F3FD /* RecommendWaitVC.m */,
+			);
+			path = "待确认";
+			sourceTree = "<group>";
+		};
+		0CEF8A0C225C91CE0057F3FD /* 失效 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A11225C96120057F3FD /* RecommendFailVC.h */,
+				0CEF8A12225C96120057F3FD /* RecommendFailVC.m */,
+			);
+			path = "失效";
+			sourceTree = "<group>";
+		};
+		0CEF8A0D225C91CE0057F3FD /* 已确认 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A14225C96230057F3FD /* RecommendSuccessVC.h */,
+				0CEF8A15225C96230057F3FD /* RecommendSuccessVC.m */,
+			);
+			path = "已确认";
+			sourceTree = "<group>";
+		};
+		0CEF8A17225C9B8F0057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A18225C9B8F0057F3FD /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF8A18225C9B8F0057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A19225C9BA40057F3FD /* RecommendCustomCell.h */,
+				0CEF8A1A225C9BA40057F3FD /* RecommendCustomCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF8A1C225D7BF00057F3FD /* 登录注册 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A1D225D7BF00057F3FD /* 注册 */,
+				0CEF8A20225D7BF00057F3FD /* 登录 */,
+				0CEF8A23225D7BF00057F3FD /* 找回密码 */,
+			);
+			path = "登录注册";
+			sourceTree = "<group>";
+		};
+		0CEF8A1D225D7BF00057F3FD /* 注册 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A1E225D7BF00057F3FD /* RegisterVC.m */,
+				0CEF8A1F225D7BF00057F3FD /* RegisterVC.h */,
+			);
+			path = "注册";
+			sourceTree = "<group>";
+		};
+		0CEF8A20225D7BF00057F3FD /* 登录 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A21225D7BF00057F3FD /* LoginVC.m */,
+				0CEF8A22225D7BF00057F3FD /* LoginVC.h */,
+			);
+			path = "登录";
+			sourceTree = "<group>";
+		};
+		0CEF8A23225D7BF00057F3FD /* 找回密码 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A24225D7BF00057F3FD /* FindPassWordVC.m */,
+				0CEF8A25225D7BF00057F3FD /* FindPassWordVC.h */,
+			);
+			path = "找回密码";
+			sourceTree = "<group>";
+		};
+		0CEF8A29225D84230057F3FD /* 待确认详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A2A225D84330057F3FD /* RecommendWaitDetailVC.h */,
+				0CEF8A2B225D84330057F3FD /* RecommendWaitDetailVC.m */,
+			);
+			path = "待确认详情";
+			sourceTree = "<group>";
+		};
+		0CEF8A2D225D85D50057F3FD /* 倒计时cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A2F225D863A0057F3FD /* CountDownCell.h */,
+				0CEF8A30225D863A0057F3FD /* CountDownCell.m */,
+			);
+			path = "倒计时cell";
+			sourceTree = "<group>";
+		};
+		0CEF8A2E225D85D60057F3FD /* 内容基本cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A45225F17770057F3FD /* ContentBaseCell.h */,
+				0CEF8A46225F17770057F3FD /* ContentBaseCell.m */,
+				0CD0433A227FE66B002C8BD3 /* InfoDetailCell.h */,
+				0CD0433B227FE66B002C8BD3 /* InfoDetailCell.m */,
+			);
+			path = "内容基本cell";
+			sourceTree = "<group>";
+		};
+		0CEF8A32225DC8E60057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A33225DC8E60057F3FD /* cell */,
+				0CEF8A34225DC8E60057F3FD /* header */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF8A33225DC8E60057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF8A34225DC8E60057F3FD /* header */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A35225DCA090057F3FD /* PersonalHeader.h */,
+				0CEF8A36225DCA090057F3FD /* PersonalHeader.m */,
+			);
+			path = header;
+			sourceTree = "<group>";
+		};
+		0CEF8A38225F0C8A0057F3FD /* 审核中 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0438422811DE6002C8BD3 /* cell */,
+				0CEF8A3E225F0F940057F3FD /* CompanyAuthingVC.h */,
+				0CEF8A3F225F0F940057F3FD /* CompanyAuthingVC.m */,
+			);
+			path = "审核中";
+			sourceTree = "<group>";
+		};
+		0CEF8A39225F0C8A0057F3FD /* 未审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0C991C572272B30C00AF2817 /* 项目角色 */,
+				0CEF8A3A225F0C8A0057F3FD /* 选择公司 */,
+				0CEF8A3B225F0CF10057F3FD /* CompanyAuthVC.h */,
+				0CEF8A3C225F0CF10057F3FD /* CompanyAuthVC.m */,
+			);
+			path = "未审核";
+			sourceTree = "<group>";
+		};
+		0CEF8A3A225F0C8A0057F3FD /* 选择公司 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A50225F1D440057F3FD /* model */,
+				0CEF8A4B225F1D440057F3FD /* view */,
+				0CEF8A48225F188A0057F3FD /* SelectCompanyVC.h */,
+				0CEF8A49225F188A0057F3FD /* SelectCompanyVC.m */,
+			);
+			path = "选择公司";
+			sourceTree = "<group>";
+		};
+		0CEF8A41225F15F70057F3FD /* 蓝点标题基本header */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A42225F15F70057F3FD /* BaseHeader.m */,
+				0CEF8A43225F15F70057F3FD /* BaseHeader.h */,
+			);
+			path = "蓝点标题基本header";
+			sourceTree = "<group>";
+		};
+		0CEF8A4B225F1D440057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A4C225F1D440057F3FD /* SelectCompanyTableCell.h */,
+				0CEF8A4D225F1D440057F3FD /* SelectCompanyCollCell.m */,
+				0CEF8A4E225F1D440057F3FD /* SelectCompanyTableCell.m */,
+				0CEF8A4F225F1D440057F3FD /* SelectCompanyCollCell.h */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF8A50225F1D440057F3FD /* model */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A51225F1D440057F3FD /* CompanyModel.m */,
+				0CEF8A52225F1D440057F3FD /* CompanyModel.h */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		0CEF8A56225F488E0057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CD04393228170DB002C8BD3 /* footer */,
+				0CEF8A57225F488E0057F3FD /* cell */,
+				0CEF8A58225F488E0057F3FD /* header */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF8A57225F488E0057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8A59225F49C60057F3FD /* RoomCollCell.h */,
+				0CEF8A5A225F49C60057F3FD /* RoomCollCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF8A58225F488E0057F3FD /* header */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0439022816ED9002C8BD3 /* RoomHeader.h */,
+				0CD0439122816ED9002C8BD3 /* RoomHeader.m */,
+			);
+			path = header;
+			sourceTree = "<group>";
+		};
+		0CEF8AD222606BB80057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8AD322606BC40057F3FD /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF8AD322606BC40057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8AD422606D0E0057F3FD /* WorkCell.h */,
+				0CEF8AD522606D0E0057F3FD /* WorkCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF8AE12264268F0057F3FD /* 来电 */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8B012265AD910057F3FD /* 新增来电 */,
+				0CEF8AEE226466ED0057F3FD /* 客户详情 */,
+				0CEF8AE5226427D20057F3FD /* view */,
+				0CEF8AE2226427250057F3FD /* CallTelegramVC.h */,
+				0CEF8AE3226427260057F3FD /* CallTelegramVC.m */,
+			);
+			path = "来电";
+			sourceTree = "<group>";
+		};
+		0CEF8AE5226427D20057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8AEA2264295F0057F3FD /* cell */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF8AEA2264295F0057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8AEB2264295F0057F3FD /* CallTelegramCell.h */,
+				0CEF8AEC2264295F0057F3FD /* CallTelegramCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF8AEE226466ED0057F3FD /* 客户详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A5F227ECE99006B0510 /* 修改客户资料 */,
+				0CEF8AF222646DA60057F3FD /* view */,
+				0CEF8AEF226467010057F3FD /* CallTelegramCustomDetailVC.h */,
+				0CEF8AF0226467010057F3FD /* CallTelegramCustomDetailVC.m */,
+			);
+			path = "客户详情";
+			sourceTree = "<group>";
+		};
+		0CEF8AF222646DA60057F3FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8AF322646DA60057F3FD /* cell */,
+				0CEF8AF422646DA60057F3FD /* header */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CEF8AF322646DA60057F3FD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CEF8AF8226477E00057F3FD /* CallTelegramCustomDetailInfoCell.h */,
+				0CEF8AF9226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m */,
+				0CEF8AFE226575B20057F3FD /* CallTelegramCustomDetailFollowCell.h */,
+				0CEF8AFF226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0CEF8AF422646DA60057F3FD /* header */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A6B227EE612006B0510 /* Cell */,
+				0CEF8AF522646DBD0057F3FD /* CallTelegramCustomDetailHeader.h */,
+				0CEF8AF622646DBD0057F3FD /* CallTelegramCustomDetailHeader.m */,
+				0CEF8AFB2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.h */,
+				0CEF8AFC2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m */,
+			);
+			path = header;
+			sourceTree = "<group>";
+		};
+		0CEF8B012265AD910057F3FD /* 新增来电 */ = {
+			isa = PBXGroup;
+			children = (
+				0C221A63227ED229006B0510 /* 添加组成员 */,
+				0CC27306226828BF00EB881F /* 跟进记录 */,
+				0CC27307226828BF00EB881F /* 意向调查 */,
+				0CEF8B022265ADA20057F3FD /* AddCallTelegramVC.h */,
+				0CEF8B032265ADA20057F3FD /* AddCallTelegramVC.m */,
+			);
+			path = "新增来电";
+			sourceTree = "<group>";
+		};
+		0CEF8B052265B42A0057F3FD /* 自定义TextFeild */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0435C22802254002C8BD3 /* UITextField+ExtentRange.h */,
+				0CD0435D22802254002C8BD3 /* UITextField+ExtentRange.m */,
+				0CEF8B062265B6D70057F3FD /* BorderTextField.h */,
+				0CEF8B072265B6D70057F3FD /* BorderTextField.m */,
+			);
+			path = "自定义TextFeild";
+			sourceTree = "<group>";
+		};
+		256FA66B3C2EE540F45796BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F42BF71934FE363E890039BD /* libPods-云售楼.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9518CD61B5893BD87A9438CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */,
+				7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,9 +1963,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0C3A913D225B20C600F04804 /* Build configuration list for PBXNativeTarget "云售楼" */;
 			buildPhases = (
+				1443AE12F8F4506323D1DD92 /* [CP] Check Pods Manifest.lock */,
 				0C3A910D225B20C400F04804 /* Sources */,
 				0C3A910E225B20C400F04804 /* Frameworks */,
 				0C3A910F225B20C400F04804 /* Resources */,
+				7E56E0A1A6C97BC0CB3C394D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -236,6 +2062,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C3A9121225B20C600F04804 /* LaunchScreen.storyboard in Resources */,
+				0CD7A034225C6D5700EAE816 /* BDDynamicTreeCell.xib in Resources */,
 				0C3A911E225B20C600F04804 /* Assets.xcassets in Resources */,
 				0C3A911C225B20C400F04804 /* Main.storyboard in Resources */,
 			);
@@ -257,14 +2084,197 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1443AE12F8F4506323D1DD92 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-云售楼-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E56E0A1A6C97BC0CB3C394D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-云售楼/Pods-云售楼-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-云售楼/Pods-云售楼-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0C3A910D225B20C400F04804 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3A917A225C435900F04804 /* MineHeader.m in Sources */,
+				0CD043C02282B9A2002C8BD3 /* NumeralAuditDetailVC.m in Sources */,
+				0CD7A033225C6D5700EAE816 /* BDDynamicTree.m in Sources */,
+				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
+				0CEF89FE225C88910057F3FD /* SubscribeAuditVC.m in Sources */,
+				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,
+				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
+				0CC2730E226868DE00EB881F /* RecordView.m in Sources */,
+				0CEF8A16225C96230057F3FD /* RecommendSuccessVC.m in Sources */,
+				0C3A916B225B377D00F04804 /* WorkVC.m in Sources */,
+				0CEF8A1B225C9BA40057F3FD /* RecommendCustomCell.m in Sources */,
+				0C3A9157225B223400F04804 /* BaseModel.m in Sources */,
+				0CD043C82282BFDC002C8BD3 /* SubScribeAuditDetailVC.m in Sources */,
+				0CEF8AD622606D0E0057F3FD /* WorkCell.m in Sources */,
+				0CD04340228006BF002C8BD3 /* WorkRecommendValidDetailVC.m in Sources */,
+				0CD7A031225C6D5700EAE816 /* BDDynamicTreeNode.m in Sources */,
+				0C221A5A227EB117006B0510 /* TaskSignAuditCell.m in Sources */,
+				0CD7A03E225C6F1100EAE816 /* FeedbackVC.m in Sources */,
+				0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */,
+				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
+				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
+				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
+				0CD0439E228175AE002C8BD3 /* SMScrollView.m in Sources */,
+				0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */,
+				0CD0435B2280219C002C8BD3 /* WorkCompleteCustomVC1.m in Sources */,
+				0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */,
+				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
+				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
+				0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */,
+				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
+				0C3A9177225C338500F04804 /* MineCell.m in Sources */,
+				0CD0432E227FD33B002C8BD3 /* WorkRecommendValidVC.m in Sources */,
+				0C2A7011226D95C100571EC1 /* IntentSurveyVC.m in Sources */,
+				0CD0439A228172AF002C8BD3 /* RoomDetailVC.m in Sources */,
+				0C2A7015226D9A7200571EC1 /* GZQFlowLayout.m in Sources */,
+				0CEF8A44225F15F70057F3FD /* BaseHeader.m in Sources */,
+				0CD0431D227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m in Sources */,
+				0CD0434F22800F5D002C8BD3 /* WorkPersonAuditVC.m in Sources */,
+				0CD04339227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m in Sources */,
+				0CD043B122819009002C8BD3 /* RecordLongPressView.m in Sources */,
+				0CD04325227FD2BD002C8BD3 /* WorkRecommendVC.m in Sources */,
+				0C221A72227EED08006B0510 /* WorkPhoneConfirmVC.m in Sources */,
+				0CEF8A40225F0F940057F3FD /* CompanyAuthingVC.m in Sources */,
+				0CEF8A31225D863A0057F3FD /* CountDownCell.m in Sources */,
+				0CEF8AED2264295F0057F3FD /* CallTelegramCell.m in Sources */,
+				0C3A919A225C484500F04804 /* TitleContentBaseCell.m in Sources */,
+				0CD0438722811DF7002C8BD3 /* CompanyAuthingCell.m in Sources */,
+				0CD043AC22817622002C8BD3 /* KyoRowIndexView.m in Sources */,
+				0CD043532280107F002C8BD3 /* WorkPersonAuditCell.m in Sources */,
+				0C221A56227EB078006B0510 /* TaskVisitConfirmCell.m in Sources */,
+				0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */,
+				0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */,
+				0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */,
+				0C3A917E225C47DE00F04804 /* PersonalVC.m in Sources */,
+				0CEF8A07225C8E880057F3FD /* AuditTaskCell.m in Sources */,
+				0CEF8A5B225F49C60057F3FD /* RoomCollCell.m in Sources */,
+				0CD7A035225C6D5700EAE816 /* AddressChooseView3.m in Sources */,
+				0CEF8AF722646DBD0057F3FD /* CallTelegramCustomDetailHeader.m in Sources */,
+				0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */,
+				0CD043AA22817622002C8BD3 /* KyoCinameSeatScrollView.m in Sources */,
+				0C3A919D225C484500F04804 /* TagCollCell.m in Sources */,
+				0C221A66227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m in Sources */,
+				0CEF8A55225F1D440057F3FD /* CompanyModel.m in Sources */,
+				0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */,
+				0C221A85227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m in Sources */,
+				0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */,
+				0CD0438C2281219D002C8BD3 /* CompanyInfoCell.m in Sources */,
+				0CD04331227FD348002C8BD3 /* WorkRecommendFailVC.m in Sources */,
+				0CEF8AFD2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m in Sources */,
+				0CEF8B082265B6D70057F3FD /* BorderTextField.m in Sources */,
+				0CD04396228170ED002C8BD3 /* RoomFooter.m in Sources */,
+				0C3A914F225B216400F04804 /* BaseRequest.m in Sources */,
+				0C221A62227ECEB2006B0510 /* CallTelegramModifyCustomVC.m in Sources */,
+				0CD043B92282715F002C8BD3 /* WaitAnimation.m in Sources */,
+				0CEF8A27225D7BF00057F3FD /* LoginVC.m in Sources */,
+				0C3A916E225B37B200F04804 /* TaskVC.m in Sources */,
+				0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */,
+				0CEF8AE4226427260057F3FD /* CallTelegramVC.m in Sources */,
+				0C2A701A226D9E2600571EC1 /* IntentSurveyCollCell.m in Sources */,
+				0CEF8AFA226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m in Sources */,
+				0CEF8A10225C96020057F3FD /* RecommendWaitVC.m in Sources */,
+				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
+				0CD7A02F225C6D5700EAE816 /* AddressChooseView2.m in Sources */,
+				0C221A81227EED87006B0510 /* WorkPhoneConfrimFailVC.m in Sources */,
+				0CD043C42282BBBA002C8BD3 /* NumeralAuditDetailCell.m in Sources */,
+				0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */,
+				0C3A9168225B377400F04804 /* MineVC.m in Sources */,
+				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
+				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
+				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,
+				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
+				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
+				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
+				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
+				0C3A9171225B37CF00F04804 /* ReportVC.m in Sources */,
+				0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */,
+				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
+				0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */,
+				0CEF8A53225F1D440057F3FD /* SelectCompanyCollCell.m in Sources */,
+				0CD043A2228175D4002C8BD3 /* SingleHouseCell.m in Sources */,
+				0CD7A032225C6D5700EAE816 /* BDDynamicTreeCell.m in Sources */,
+				0CD04365228025D4002C8BD3 /* WorkCompleteCustomVC2.m in Sources */,
+				0CEF8A0A225C91740057F3FD /* RecommendCustomVC.m in Sources */,
+				0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */,
+				0C221A6A227EDE73006B0510 /* BaseAddCell.m in Sources */,
+				0CD0433C227FE66B002C8BD3 /* InfoDetailCell.m in Sources */,
+				0CEF8B042265ADA20057F3FD /* AddCallTelegramVC.m in Sources */,
+				0CEF8A54225F1D440057F3FD /* SelectCompanyTableCell.m in Sources */,
+				0CD0436F2280344E002C8BD3 /* WorkReceiptDetailVC.m in Sources */,
+				0C3A9153225B219300F04804 /* BaseViewController.m in Sources */,
+				0CEF8A3D225F0CF10057F3FD /* CompanyAuthVC.m in Sources */,
+				0C3A915D225B366400F04804 /* CYLTabBarControllerConfig.m in Sources */,
+				0CD7A030225C6D5700EAE816 /* AdressChooseView.m in Sources */,
+				0CEF8A4A225F188A0057F3FD /* SelectCompanyVC.m in Sources */,
+				0CEF8A2C225D84330057F3FD /* RecommendWaitDetailVC.m in Sources */,
+				0CC2730522681FF100EB881F /* DropBtn.m in Sources */,
+				0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */,
+				0C221A7B227EED67006B0510 /* WorkPhoneConfrimWaitVC.m in Sources */,
+				0CEF89FB225C886F0057F3FD /* NumeralAuditVC.m in Sources */,
 				0C3A9119225B20C400F04804 /* ViewController.m in Sources */,
+				0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */,
+				0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */,
+				0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */,
+				0CD0439222816ED9002C8BD3 /* RoomHeader.m in Sources */,
 				0C3A9124225B20C600F04804 /* main.m in Sources */,
+				0CEF89F8225C88480057F3FD /* ContractAuditVC.m in Sources */,
+				0CD04335227FDB24002C8BD3 /* WorkRecommendWaitCell.m in Sources */,
+				0CD043BB2282715F002C8BD3 /* GZQGifHeader.m in Sources */,
 				0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */,
+				0C221A5E227EC763006B0510 /* IntentSurveyHeader.m in Sources */,
+				0CD7A02E225C6D5700EAE816 /* AddressTableCell.m in Sources */,
+				0CD043BA2282715F002C8BD3 /* GZQGifFooter.m in Sources */,
+				0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */,
+				0CD04344228007A3002C8BD3 /* ProcessCell.m in Sources */,
+				0CD0435722801643002C8BD3 /* WorkPersonAuditDetailVC.m in Sources */,
+				0CEF89F1225C87FC0057F3FD /* AuditTaskVC.m in Sources */,
+				0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +2291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C3A9139225B20C600F04804 /* ___UITests.m in Sources */,
+				0CEF89F2225C88070057F3FD /* AuditTaskVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,35 +2444,41 @@
 		};
 		0C3A913E225B20C600F04804 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yskj.yunshoulou.---";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		0C3A913F225B20C600F04804 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yskj.yunshoulou.---";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
