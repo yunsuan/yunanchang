@@ -8,4 +8,5 @@ target '云售楼' do
  pod 'JPush'
  pod 'Masonry'
  pod 'CYLTabBarController'
+ pod 'MBProgressHUD'
 end
