@@ -9,6 +9,14 @@
 #ifndef NetConfig_h
 #define NetConfig_h
 
+//新服务器
+static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+
+#pragma mark --- 登录注册 ---
+
+//登录
+static NSString *const Login_URL = @"saleApp/login";
+
 #pragma mark ---  工作  ---
 
 #pragma mark -- 签字流程 --
@@ -162,5 +170,19 @@ static NSString *const ButterTelValueDetail_URL = @"agent/work/butter/tel/value/
 
 //无效列表
 static NSString *const ButterTelDisabledList_URL = @"agent/work/butter/tel/disabled/list";
+
+#pragma mark --- 我的 ---
+
+#pragma mark -- 公司 --
+
+//获取公司下项目及角色
+static NSString *const CompanyPersonOrganizePostList_URL = @"saleApp/company/person/organize/post/list";
+
+//获取公司列表
+static NSString *const PersonalGetCompanyList_URL = @"saleApp/personal/getCompanyList";
+
+//获取部门列表
+static NSString *const CompanyPersonOrganizeList_URL = @"saleApp/company/person/organize/list";
+
 
 #endif /* NetConfig_h */

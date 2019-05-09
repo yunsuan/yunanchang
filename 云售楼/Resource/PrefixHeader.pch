@@ -11,12 +11,13 @@
 
 
 #import "UserModel.h"
-//#import "UserModelArchiver.h"
+#import "UserModelArchiver.h"
 #import "NetConfig.h"
 #import "BaseRequest.h"
 
 
 //#import "YBImageBrowser.h"
+#import <AFNetworking.h>
 #import "MJRefresh.h"
 #import <Masonry.h>
 #import <MBProgressHUD.h>

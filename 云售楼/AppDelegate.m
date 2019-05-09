@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 
 #import "LoginVC.h"
+#import "GuideVC.h"
 
 #import "CYLTabBarControllerConfig.h"
 
@@ -31,24 +32,34 @@
 - (void)initUI{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goHome) name:@"goHome" object:nil];
-    NSString *logIndentifier = [[NSUserDefaults standardUserDefaults] objectForKey:LOGINENTIFIER];
-    //    BOOL flag = [[NSUserDefaults standardUserDefaults] boolForKey:@"Guided"];
-    //    if (flag == YES) {
-    [self deleteWebCache];
-    if ([logIndentifier isEqualToString:@"logInSuccessdentifier"]) {
-        CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
-        _window.rootViewController = tabBarControllerConfig.tabBarController;
-    }else {
-        //未登录
-        LoginVC *mainLogin_vc = [[LoginVC alloc] init];
-        UINavigationController *mainLogin_nav = [[UINavigationController alloc] initWithRootViewController:mainLogin_vc];
-        mainLogin_nav.navigationBarHidden = YES;
-        _window.rootViewController = mainLogin_nav;
-        [_window makeKeyAndVisible];
-        
-    }
+//    [self deleteWebCache];
     
-    //    }
+    NSString *logIndentifier = [[NSUserDefaults standardUserDefaults] objectForKey:LOGINENTIFIER];
+    BOOL flag = [[NSUserDefaults standardUserDefaults] boolForKey:@"Guided"];
+    if (flag == YES) {
+        
+        [self deleteWebCache];
+        if ([logIndentifier isEqualToString:@"logInSuccessdentifier"]) {
+            CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
+            _window.rootViewController = tabBarControllerConfig.tabBarController;
+        }else {
+            //未登录
+            LoginVC *mainLogin_vc = [[LoginVC alloc] init];
+            UINavigationController *mainLogin_nav = [[UINavigationController alloc] initWithRootViewController:mainLogin_vc];
+            mainLogin_nav.navigationBarHidden = YES;
+            _window.rootViewController = mainLogin_nav;
+            [_window makeKeyAndVisible];
+            
+        }
+    } else {
+        GuideVC *guideVC = [[GuideVC alloc] init];
+        UINavigationController *guideNav = [[UINavigationController alloc] initWithRootViewController:guideVC];
+        guideNav.navigationBarHidden = YES;
+        _window.rootViewController = guideNav;
+        [_window makeKeyAndVisible];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Guided"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)goHome{

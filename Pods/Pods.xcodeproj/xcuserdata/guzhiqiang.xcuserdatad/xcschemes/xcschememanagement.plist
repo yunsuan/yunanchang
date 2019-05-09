@@ -15,6 +15,8 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 		<key>CYLTabBarController.xcscheme</key>
 		<dict>

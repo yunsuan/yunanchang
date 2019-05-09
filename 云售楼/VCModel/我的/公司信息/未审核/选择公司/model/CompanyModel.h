@@ -14,6 +14,8 @@
 
 @property (nonatomic, copy) NSString *city;
 
+@property (nonatomic, copy) NSString *comment;
+
 @property (nonatomic, copy) NSString *company_id;
 
 @property (nonatomic, copy) NSString *company_name;
@@ -25,8 +27,6 @@
 @property (nonatomic, copy) NSString *district;
 
 @property (nonatomic, copy) NSString *logo;
-
-@property (nonatomic, copy) NSString *comment;
 
 @property (nonatomic, copy) NSString *province;
 

@@ -87,18 +87,18 @@
 
 - (void)showContent:(NSString *)str {
     
-    //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    //    hud.mode = MBProgressHUDModeText;
-    //    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    //    hud.bezelView.color = [UIColor colorWithWhite:0.f alpha:0.7f];
-    //    hud.label.text= str;
-    //    hud.label.textColor = [UIColor whiteColor];
-    //    hud.margin = 10.f;
-    //    [hud setOffset:CGPointMake(0, 10.f*SIZE)];
-    //    //    hud.yOffset = 10.f * SIZE;
-    //    hud.removeFromSuperViewOnHide = YES;
-    //    //    [hud hide:YES afterDelay:1.5];
-    //    [hud hideAnimated:YES afterDelay:1.5];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+        hud.bezelView.color = [UIColor colorWithWhite:0.f alpha:0.7f];
+        hud.label.text= str;
+        hud.label.textColor = [UIColor whiteColor];
+        hud.margin = 10.f;
+        [hud setOffset:CGPointMake(0, 10.f*SIZE)];
+        //    hud.yOffset = 10.f * SIZE;
+        hud.removeFromSuperViewOnHide = YES;
+        //    [hud hide:YES afterDelay:1.5];
+        [hud hideAnimated:YES afterDelay:1.5];
 }
 
 //判断字符串为空

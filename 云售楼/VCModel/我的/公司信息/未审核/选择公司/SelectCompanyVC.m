@@ -47,13 +47,14 @@
     
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
     _page = 1;
     _dataArr = [@[] mutableCopy];
-    [self RequestMethod];
+//    [self RequestMethod];
 }
 
 - (void)RequestMethod{
@@ -78,42 +79,40 @@
     _page = 1;
     _table.mj_footer.state = MJRefreshStateIdle;
     [_dataArr removeAllObjects];
-//    [BaseRequest GET:GetCompanyList_URL parameters:dic success:^(id resposeObject) {
-//
-//        [_selecTable.mj_header endRefreshing];
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
-//
-//                if ([resposeObject[@"data"][@"data"] isKindOfClass:[NSArray class]]) {
-//
-//                    if ([resposeObject[@"data"][@"data"] count]) {
-//
-//                        //                        [_selecTable.mj_header endRefreshing];
-//                        [self SetData:resposeObject[@"data"][@"data"]];
-//                    }else{
-//
-//                        _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//                    }
-//                }else{
-//
-//                    _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//                }
-//            }else{
-//
-//                _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//            }
-//        }else{
-//            [self showContent:resposeObject[@"msg"]];
-//
-//            _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//        }
-//    } failure:^(NSError *error) {
-//
-//        [_selecTable.mj_header endRefreshing];
-//        //        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:PersonalGetCompanyList_URL parameters:dic success:^(id resposeObject) {
+
+        [self->_table.mj_header endRefreshing];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+
+                if ([resposeObject[@"data"][@"data"] isKindOfClass:[NSArray class]]) {
+
+                    if ([resposeObject[@"data"][@"data"] count]) {
+
+                        [self SetData:resposeObject[@"data"][@"data"]];
+                    }else{
+
+                        self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+                    }
+                }else{
+
+                    self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+                }
+            }else{
+
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+            [self showContent:resposeObject[@"msg"]];
+
+            self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+        }
+    } failure:^(NSError *error) {
+
+        [self->_table.mj_header endRefreshing];
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)RequestMethodAdd{
@@ -137,46 +136,46 @@
     
     [dic setObject:@(_page) forKey:@"page"];
     
-//    [BaseRequest GET:GetCompanyList_URL parameters:dic success:^(id resposeObject) {
-//
-//        //        NSLog(@"%@",resposeObject);
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
-//
-//                if ([resposeObject[@"data"][@"data"] isKindOfClass:[NSArray class]]) {
-//
-//                    if ([resposeObject[@"data"][@"data"] count]) {
-//
-//                        [_selecTable.mj_footer endRefreshing];
-//                        [self SetData:resposeObject[@"data"][@"data"]];
-//                    }else{
-//
-//                        _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//                    }
-//                }else{
-//
-//                    _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//                }
-//            }else{
-//
-//                _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//            }
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//
-//            _page -= 1;
-//            _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//        }
-//    } failure:^(NSError *error) {
-//
-//        _page -= 1;
-//        [_selecTable.mj_footer endRefreshing];
-//        //        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:PersonalGetCompanyList_URL parameters:dic success:^(id resposeObject) {
+
+        //        NSLog(@"%@",resposeObject);
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+
+                if ([resposeObject[@"data"][@"data"] isKindOfClass:[NSArray class]]) {
+
+                    if ([resposeObject[@"data"][@"data"] count]) {
+
+                        [self->_table.mj_footer endRefreshing];
+                        [self SetData:resposeObject[@"data"][@"data"]];
+                    }else{
+
+                        self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+                    }
+                }else{
+
+                    self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+                }
+            }else{
+
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+
+            [self showContent:resposeObject[@"msg"]];
+
+            self->_page -= 1;
+            self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+        }
+    } failure:^(NSError *error) {
+
+        self->_page -= 1;
+        [self->_table.mj_footer endRefreshing];
+        //        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)SearchRequest{
@@ -190,55 +189,55 @@
         [dic setObject:_searchBar.text forKey:@"company_name"];
     }
     
-//    [BaseRequest GET:GetCompanyList_URL parameters:dic success:^(id resposeObject) {
-//
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            if (_page == 1) {
-//
-//                [_dataArr removeAllObjects];
-//                [_selecTable reloadData];
-//            }
-//            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
-//
-//                if ([resposeObject[@"data"][@"data"] isKindOfClass:[NSArray class]]) {
-//
-//                    if ([resposeObject[@"data"][@"data"] count]) {
-//
-//                        [_selecTable.mj_header endRefreshing];
-//                        [_selecTable.mj_footer endRefreshing];
-//                        [self SetData:resposeObject[@"data"][@"data"]];
-//                    }else{
-//
-//                        [_selecTable.mj_header endRefreshing];
-//                        _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//                    }
-//                }else{
-//
-//                    [_selecTable.mj_header endRefreshing];
-//                    _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//                }
-//            }else{
-//
-//                [_selecTable.mj_header endRefreshing];
-//                _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//            }
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//            _page -= 1;
-//            _selecTable.mj_footer.state = MJRefreshStateNoMoreData;
-//            [_selecTable.mj_header endRefreshing];
-//        }
-//    } failure:^(NSError *error) {
-//
-//        _page -= 1;
-//        [_selecTable.mj_header endRefreshing];
-//        [_selecTable.mj_footer endRefreshing];
-//        //        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:PersonalGetCompanyList_URL parameters:dic success:^(id resposeObject) {
+
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            if (self->_page == 1) {
+
+                [self->_dataArr removeAllObjects];
+                [self->_table reloadData];
+            }
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+
+                if ([resposeObject[@"data"][@"data"] isKindOfClass:[NSArray class]]) {
+
+                    if ([resposeObject[@"data"][@"data"] count]) {
+
+                        [self->_table.mj_header endRefreshing];
+                        [self->_table.mj_footer endRefreshing];
+                        [self SetData:resposeObject[@"data"][@"data"]];
+                    }else{
+
+                        [self->_table.mj_header endRefreshing];
+                        self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+                    }
+                }else{
+
+                    [self->_table.mj_header endRefreshing];
+                    self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+                }
+            }else{
+
+                [self->_table.mj_header endRefreshing];
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+
+            [self showContent:resposeObject[@"msg"]];
+            self->_page -= 1;
+            self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            [self->_table.mj_header endRefreshing];
+        }
+    } failure:^(NSError *error) {
+
+        self->_page -= 1;
+        [self->_table.mj_header endRefreshing];
+        [self->_table.mj_footer endRefreshing];
+        //        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)SetData:(NSArray *)data{
@@ -451,11 +450,6 @@
     return _dataArr.count;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    return 100 *SIZE;
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString * Identifier = @"SelectCompanyTableCell";
@@ -473,6 +467,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CompanyModel *model = _dataArr[indexPath.row];
+    if (self.selectCompanyVCBlock) {
+        
+        self.selectCompanyVCBlock(model.company_id, model.company_name);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 //    CompanyDetailVC *nextVC = [[CompanyDetailVC alloc] initWithModel:model];
 //    nextVC.companyDetailVCBlock = ^(NSString *companyId, NSString *name) {
 //
@@ -544,31 +543,31 @@
     _table.dataSource = self;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_table];
-//    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
-//
-//        _page = 1;
-//        if (_isSearch) {
-//
-//            [self SearchRequest];
-//        }else{
-//
-//
-//            [self RequestMethod];
-//        }
-//    }];
-//
-//    _selecTable.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
-//
-//        _page += 1;
-//        if (_isSearch) {
-//
-//            [self SearchRequest];
-//        }else{
-//
-//
-//            [self RequestMethodAdd];
-//        }
-//    }];
+    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
+
+        _page = 1;
+        if (_isSearch) {
+
+            [self SearchRequest];
+        }else{
+
+
+            [self RequestMethod];
+        }
+    }];
+
+    _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
+
+        _page += 1;
+        if (_isSearch) {
+
+            [self SearchRequest];
+        }else{
+
+
+            [self RequestMethodAdd];
+        }
+    }];
 }
 
 - (NSArray *)getProvince{

@@ -53,6 +53,9 @@
 		0C3A919D225C484500F04804 /* TagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9190225C484500F04804 /* TagCollCell.m */; };
 		0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */; };
 		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
+		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
+		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
+		0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */; };
 		0CC2730522681FF100EB881F /* DropBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730422681FF100EB881F /* DropBtn.m */; };
 		0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC273092268444A00EB881F /* FollowRecordVC.m */; };
 		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
@@ -225,10 +228,10 @@
 		0C3A9122225B20C600F04804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C3A9123225B20C600F04804 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C3A9129225B20C600F04804 /* 云售楼Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "云售楼Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C3A912D225B20C600F04804 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ___Tests.m; sourceTree = "<group>"; };
+		0C3A912D225B20C600F04804 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___Tests.m"; sourceTree = "<group>"; };
 		0C3A912F225B20C600F04804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C3A9134225B20C600F04804 /* 云售楼UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "云售楼UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C3A9138225B20C600F04804 /* ___UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ___UITests.m; sourceTree = "<group>"; };
+		0C3A9138225B20C600F04804 /* ___UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___UITests.m"; sourceTree = "<group>"; };
 		0C3A913A225B20C600F04804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C3A914B225B213500F04804 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		0C3A914C225B215100F04804 /* NetConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetConfig.h; sourceTree = "<group>"; };
@@ -270,6 +273,12 @@
 		0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
 		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
 		0C991C592272B32700AF2817 /* ProjectRoleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectRoleVC.m; sourceTree = "<group>"; };
+		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
+		0CAC92642283FE09006B2B79 /* GuideVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuideVC.m; sourceTree = "<group>"; };
+		0CAC92662284063C006B2B79 /* UserModelArchiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelArchiver.h; sourceTree = "<group>"; };
+		0CAC92672284063C006B2B79 /* UserModelArchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModelArchiver.m; sourceTree = "<group>"; };
+		0CAC926A228408F5006B2B79 /* CompanyApplyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyApplyVC.h; sourceTree = "<group>"; };
+		0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyApplyVC.m; sourceTree = "<group>"; };
 		0CC2730322681FF100EB881F /* DropBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropBtn.h; sourceTree = "<group>"; };
 		0CC2730422681FF100EB881F /* DropBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropBtn.m; sourceTree = "<group>"; };
 		0CC273082268444A00EB881F /* FollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowRecordVC.h; sourceTree = "<group>"; };
@@ -783,6 +792,7 @@
 		0C3A9149225B211400F04804 /* VCModel */ = {
 			isa = PBXGroup;
 			children = (
+				0CAC92622283FDFA006B2B79 /* 引导页 */,
 				0CEF8A1C225D7BF00057F3FD /* 登录注册 */,
 				0C3A9160225B372D00F04804 /* 报表 */,
 				0C3A915E225B372D00F04804 /* 代办 */,
@@ -800,6 +810,8 @@
 				0C3A9154225B222100F04804 /* baseModel */,
 				0C3A9158225B225A00F04804 /* UserModel.h */,
 				0C3A9159225B225A00F04804 /* UserModel.m */,
+				0CAC92662284063C006B2B79 /* UserModelArchiver.h */,
+				0CAC92672284063C006B2B79 /* UserModelArchiver.m */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -998,6 +1010,24 @@
 				0C991C592272B32700AF2817 /* ProjectRoleVC.m */,
 			);
 			path = "项目角色";
+			sourceTree = "<group>";
+		};
+		0CAC92622283FDFA006B2B79 /* 引导页 */ = {
+			isa = PBXGroup;
+			children = (
+				0CAC92632283FE09006B2B79 /* GuideVC.h */,
+				0CAC92642283FE09006B2B79 /* GuideVC.m */,
+			);
+			path = "引导页";
+			sourceTree = "<group>";
+		};
+		0CAC9269228408D3006B2B79 /* 公司申请 */ = {
+			isa = PBXGroup;
+			children = (
+				0CAC926A228408F5006B2B79 /* CompanyApplyVC.h */,
+				0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */,
+			);
+			path = "公司申请";
 			sourceTree = "<group>";
 		};
 		0CC2730222681FA700EB881F /* 自定义Btn */ = {
@@ -1468,6 +1498,7 @@
 		0CD7A036225C6F1100EAE816 /* 公司信息 */ = {
 			isa = PBXGroup;
 			children = (
+				0CAC9269228408D3006B2B79 /* 公司申请 */,
 				0CD0438822812188002C8BD3 /* view */,
 				0CEF8A38225F0C8A0057F3FD /* 审核中 */,
 				0CEF8A39225F0C8A0057F3FD /* 未审核 */,
@@ -2217,6 +2248,7 @@
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
 				0C3A9177225C338500F04804 /* MineCell.m in Sources */,
 				0CD0432E227FD33B002C8BD3 /* WorkRecommendValidVC.m in Sources */,
+				0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */,
 				0C2A7011226D95C100571EC1 /* IntentSurveyVC.m in Sources */,
 				0CD0439A228172AF002C8BD3 /* RoomDetailVC.m in Sources */,
 				0C2A7015226D9A7200571EC1 /* GZQFlowLayout.m in Sources */,
@@ -2235,6 +2267,7 @@
 				0CD043AC22817622002C8BD3 /* KyoRowIndexView.m in Sources */,
 				0CD043532280107F002C8BD3 /* WorkPersonAuditCell.m in Sources */,
 				0C221A56227EB078006B0510 /* TaskVisitConfirmCell.m in Sources */,
+				0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */,
 				0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */,
 				0CD043DF2283BC05002C8BD3 /* CaptchaView.m in Sources */,
 				0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */,
@@ -2247,6 +2280,7 @@
 				0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */,
 				0CD043AA22817622002C8BD3 /* KyoCinameSeatScrollView.m in Sources */,
 				0C3A919D225C484500F04804 /* TagCollCell.m in Sources */,
+				0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */,
 				0C221A66227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m in Sources */,
 				0CEF8A55225F1D440057F3FD /* CompanyModel.m in Sources */,
 				0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */,

@@ -10,6 +10,7 @@
 
 #import "RegisterVC.h"
 #import "FindPassWordVC.h"
+#import "CompanyApplyVC.h"
 
 @interface LoginVC ()
 
@@ -66,39 +67,49 @@
 //        [self alertControllerWithNsstring:@"温馨提示" And:@"请同意《置业家使用条例》"];
 //        return;
 //    }
-//    if ([self isEmpty:_AccountTF.text]) {
-//        
-//        [self alertControllerWithNsstring:@"温馨提示" And:@"请输入账号"];
-//        return;
-//    }
-//    
-//    if ([self isEmpty:_PassWordTF.text]) {
-//        
-//        [self alertControllerWithNsstring:@"温馨提示" And:@"请输入密码"];
-//        return;
-//    }
+    if ([self isEmpty:_AccountTF.text]) {
+        
+        [self alertControllerWithNsstring:@"温馨提示" And:@"请输入账号"];
+        return;
+    }
+    
+    if ([self isEmpty:_PassWordTF.text]) {
+        
+        [self alertControllerWithNsstring:@"温馨提示" And:@"请输入密码"];
+        return;
+    }
     
     NSDictionary *dic = @{@"account":_AccountTF.text,
                           @"password":_PassWordTF.text};
-//    [BaseRequest POST:Login_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            [UserModel defaultModel].phone = self->_AccountTF.text;
-//            [UserModel defaultModel].passWord = self->_PassWordTF.text;
-//            [UserModel defaultModel].time = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"time"]];
-//            [UserModel defaultModel].token = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"token"]];
-//            [UserModelArchiver archive];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//
-//        [self showContent:@"登录失败，请稍后再试"];
-//    }];
+    [BaseRequest POST:Login_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            [UserModel defaultModel].phone = self->_AccountTF.text;
+            [UserModel defaultModel].passWord = self->_PassWordTF.text;
+            [UserModel defaultModel].agent_id = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"agent_id"]];
+            [UserModel defaultModel].user_state = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"user_state"]];
+            [UserModel defaultModel].token = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"token"]];
+            [UserModel defaultModel].company_info = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"][@"company_info"]];
+            [UserModelArchiver archive];
+            if ([[UserModel defaultModel].company_info count]) {
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                
+                CompanyApplyVC *nextVC = [[CompanyApplyVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+            
+        }else{
+
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+
+        [self showContent:@"登录失败，请稍后再试"];
+    }];
 }
 
 - (void)ActionProtocolBtn:(UIButton *)btn{
@@ -142,7 +153,7 @@
     [_AccountTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _AccountTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:_AccountTF];
-//    _AccountTF.text = [UserModel defaultModel].phone;
+    _AccountTF.text = [UserModel defaultModel].phone;
     
     _PassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, 266*SIZE, 314*SIZE, 15*SIZE)];
     _PassWordTF.placeholder = @"请输入密码";
@@ -150,7 +161,7 @@
     [_PassWordTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _PassWordTF.secureTextEntry = YES;
     [self.view addSubview:_PassWordTF];
-//    _PassWordTF.text = [UserModel defaultModel].passWord;
+    _PassWordTF.text = [UserModel defaultModel].passWord;
     
     for (int i = 0; i < 2; i++) {
         

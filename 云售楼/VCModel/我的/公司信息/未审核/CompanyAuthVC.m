@@ -8,7 +8,17 @@
 
 #import "CompanyAuthVC.h"
 
+#import "SelectCompanyVC.h"
+#import "ProjectRoleVC.h"
+
+#import "SinglePickView.h"
 @interface CompanyAuthVC ()
+{
+    
+    NSString *_companyId;
+    NSString *_departId;
+    NSMutableArray *_departArr;
+}
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -32,15 +42,19 @@
 
 @property (nonatomic, strong) UILabel *departTL;
 
+@property (nonatomic, strong) UILabel *departL;
+
 @property (nonatomic, strong) UIView *departLine;
 
-@property (nonatomic, strong) UITextField *departTextField;
+@property (nonatomic, strong) UIButton *departTextField;
 
 @property (nonatomic, strong) UILabel *positionTL;
 
+@property (nonatomic, strong) UILabel *positionL;
+
 @property (nonatomic, strong) UIView *positionLine;
 
-@property (nonatomic, strong) UITextField *positionTextField;
+@property (nonatomic, strong) UIButton *positionTextField;
 
 @property (nonatomic, strong) UIButton *commitBtn;
 @end
@@ -55,7 +69,92 @@
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
-    
+    if (btn.tag == 0) {
+        
+        SelectCompanyVC *nextVC = [[SelectCompanyVC alloc] init];
+        nextVC.selectCompanyVCBlock = ^(NSString * _Nonnull companyId, NSString * _Nonnull name) {
+            
+            self->_companyL.text = name;
+            self->_companyId = [NSString stringWithFormat:@"%@",companyId];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(btn.tag == 1){
+        
+        if (!_companyId.length) {
+            
+            [self showContent:@"请先选择公司"];
+            return;
+        }
+//        _departTextField.userInteractionEnabled = NO;
+        [BaseRequest GET:CompanyPersonOrganizeList_URL parameters:@{@"company_id":_companyId} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self->_departArr removeAllObjects];
+                self->_departArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+                [self->_departArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    NSDictionary *dic = @{@"id":obj[@"department_id"],
+                                          @"param":obj[@"department_name"]
+                                          };
+                    [self->_departArr replaceObjectAtIndex:idx withObject:dic];
+                }];
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_departArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    self->_departL.text = MC;
+                    self->_departId = [NSString stringWithFormat:@"%@",ID];
+                };
+                [self.view addSubview:view];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else if(btn.tag == 2){
+        
+        if (!_departId.length) {
+            
+            [self showContent:@"请先选择部门"];
+            return;
+        }
+        //        _departTextField.userInteractionEnabled = NO;
+        [BaseRequest GET:CompanyPersonOrganizeList_URL parameters:@{@"company_id":_companyId} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self->_departArr removeAllObjects];
+                self->_departArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+                [self->_departArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    NSDictionary *dic = @{@"id":obj[@"department_id"],
+                                          @"param":obj[@"department_name"]
+                                          };
+                    [self->_departArr replaceObjectAtIndex:idx withObject:dic];
+                }];
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_departArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    self->_departL.text = MC;
+                    //                    self->_departTL.text = [NSString stringWithFormat:@"%@",ID];
+                };
+                [self.view addSubview:view];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        ProjectRoleVC *nextVC = [[ProjectRoleVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 - (void)ActionConfirmBtn:(UIButton *)btn{
@@ -67,11 +166,9 @@
     
     self.titleLabel.text = @"公司申请";
     
-    _scrollView = [[UIScrollView alloc] init];//WithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 50 *SIZE - TAB_BAR_MORE)];
+    _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = self.view.backgroundColor;
-    _scrollView.contentSize = CGSizeMake(SCREEN_Width, 672 *SIZE);
     _scrollView.bounces = NO;
-    _scrollView.userInteractionEnabled = NO;
     [self.view addSubview:_scrollView];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(37 *SIZE, 14 *SIZE, 200 *SIZE, 13 *SIZE)];
@@ -80,7 +177,7 @@
     label.text = @"⚠️认证需要审核 请仔细填写信息";
     [_scrollView addSubview:label];
     
-    _whiteView = [[UIView alloc] init];//WithFrame:CGRectMake(0, 40 *SIZE, SCREEN_Width, 361 *SIZE)];
+    _whiteView = [[UIView alloc] init];
     _whiteView.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_whiteView];
     
@@ -99,10 +196,7 @@
         label1.textColor = CLTitleLabColor;
         label1.textAlignment = NSTextAlignmentRight;
         label1.font = [UIFont systemFontOfSize:13 *SIZE];
-        
-//        UIImageView *img = [[UIImageView alloc] init];
-//        img.image = [UIImage imageNamed:@"rightarrow"];
-//        [_whiteView addSubview:img];
+    
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button addTarget:self action:@selector(ActionTagBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -123,9 +217,10 @@
             }
             case 1:
             {
-                UITextField *textFiled = [[UITextField alloc] initWithFrame:CGRectMake(100 *SIZE, 50 *SIZE * i, 230 *SIZE, 49 *SIZE)];
-                textFiled.textAlignment = NSTextAlignmentRight;
-                _departTextField = textFiled;
+
+                _departL = label1;
+                [_whiteView addSubview:_departL];
+                _departTextField = button;
                 [_whiteView addSubview:_departTextField];
                 
                 _departTL = label;
@@ -137,9 +232,9 @@
             }
             case 2:
             {
-                UITextField *textFiled = [[UITextField alloc] initWithFrame:CGRectMake(100 *SIZE, 50 *SIZE * i, 230 *SIZE, 49 *SIZE)];
-                textFiled.textAlignment = NSTextAlignmentRight;
-                _positionTextField = textFiled;
+                _positionL = label1;
+                [_whiteView addSubview:_positionL];
+                _positionTextField = button;
                 [_whiteView addSubview:_positionTextField];
                 
                 _positionTL = label;
@@ -157,8 +252,6 @@
                 
                 _roleL = label1;
                 [_whiteView addSubview:_roleL];
-//                _role = @"1";
-//                _roleL.text = @"经纪人";
                 
                 _roleBtn = button;
                 [_whiteView addSubview:_roleBtn];
@@ -168,7 +261,6 @@
                 break;
         }
     }
-    
     
     _commitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _commitBtn.frame = CGRectMake(0, SCREEN_Height - 50 *SIZE - TAB_BAR_MORE, 360 *SIZE, 50 *SIZE + TAB_BAR_MORE);
@@ -231,11 +323,18 @@
         make.width.mas_equalTo(100 *SIZE);
     }];
     
-    [_departTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_departL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(110 *SIZE);
-        make.top.equalTo(self->_compantLine.mas_bottom).offset(0 *SIZE);
+        make.top.equalTo(self->_compantLine.mas_bottom).offset(16 *SIZE);
         make.width.mas_equalTo(220 *SIZE);
+    }];
+    
+    [_departTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self->_compantLine.mas_bottom).offset(0 *SIZE);
+        make.left.equalTo(self->_whiteView).offset(0 *SIZE);
+        make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(49 *SIZE);
     }];
     
@@ -254,11 +353,18 @@
         make.width.mas_equalTo(100 *SIZE);
     }];
     
-    [_positionTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_positionL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(110 *SIZE);
-        make.top.equalTo(self->_departLine.mas_bottom).offset(0 *SIZE);
+        make.top.equalTo(self->_departLine.mas_bottom).offset(16 *SIZE);
         make.width.mas_equalTo(220 *SIZE);
+    }];
+    
+    [_positionTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self->_departLine.mas_bottom).offset(0 *SIZE);
+        make.left.equalTo(self->_whiteView).offset(0 *SIZE);
+        make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(49 *SIZE);
     }];
     
@@ -287,8 +393,8 @@
     
     [_roleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_whiteView).offset(0 *SIZE);
         make.top.equalTo(self->_positionLine.mas_bottom).offset(0 *SIZE);
+        make.left.equalTo(self->_whiteView).offset(0 *SIZE);
         make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(49 *SIZE);
     }];
