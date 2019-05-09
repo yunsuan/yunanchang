@@ -98,6 +98,10 @@
 		0CD043C82282BFDC002C8BD3 /* SubScribeAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043C72282BFDC002C8BD3 /* SubScribeAuditDetailVC.m */; };
 		0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043CF2282C1DE002C8BD3 /* ContractAuditDetailVC.m */; };
 		0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043D32282C6AD002C8BD3 /* AuditTaskDetailVC.m */; };
+		0CD043D82282DD1B002C8BD3 /* MBProgressHUD+GZQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043D72282DD1B002C8BD3 /* MBProgressHUD+GZQ.m */; };
+		0CD043DE2283BC05002C8BD3 /* GetCaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043DA2283BC04002C8BD3 /* GetCaptchaView.m */; };
+		0CD043DF2283BC05002C8BD3 /* CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043DD2283BC04002C8BD3 /* CaptchaView.m */; };
+		0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043E12283C6EC002C8BD3 /* CalendarsManger.m */; };
 		0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A013225C67C800EAE816 /* ChangeNameVC.m */; };
 		0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A017225C67F900EAE816 /* PersonalIntroVC.m */; };
 		0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A01B225C6C9100EAE816 /* DateChooseView.m */; };
@@ -221,10 +225,10 @@
 		0C3A9122225B20C600F04804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C3A9123225B20C600F04804 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C3A9129225B20C600F04804 /* 云售楼Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "云售楼Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C3A912D225B20C600F04804 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___Tests.m"; sourceTree = "<group>"; };
+		0C3A912D225B20C600F04804 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ___Tests.m; sourceTree = "<group>"; };
 		0C3A912F225B20C600F04804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C3A9134225B20C600F04804 /* 云售楼UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "云售楼UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C3A9138225B20C600F04804 /* ___UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___UITests.m"; sourceTree = "<group>"; };
+		0C3A9138225B20C600F04804 /* ___UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ___UITests.m; sourceTree = "<group>"; };
 		0C3A913A225B20C600F04804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C3A914B225B213500F04804 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		0C3A914C225B215100F04804 /* NetConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetConfig.h; sourceTree = "<group>"; };
@@ -357,6 +361,14 @@
 		0CD043CF2282C1DE002C8BD3 /* ContractAuditDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractAuditDetailVC.m; sourceTree = "<group>"; };
 		0CD043D22282C6AD002C8BD3 /* AuditTaskDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTaskDetailVC.h; sourceTree = "<group>"; };
 		0CD043D32282C6AD002C8BD3 /* AuditTaskDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskDetailVC.m; sourceTree = "<group>"; };
+		0CD043D62282DD1B002C8BD3 /* MBProgressHUD+GZQ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GZQ.h"; sourceTree = "<group>"; };
+		0CD043D72282DD1B002C8BD3 /* MBProgressHUD+GZQ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+GZQ.m"; sourceTree = "<group>"; };
+		0CD043DA2283BC04002C8BD3 /* GetCaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCaptchaView.m; sourceTree = "<group>"; };
+		0CD043DB2283BC04002C8BD3 /* CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaView.h; sourceTree = "<group>"; };
+		0CD043DC2283BC04002C8BD3 /* GetCaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCaptchaView.h; sourceTree = "<group>"; };
+		0CD043DD2283BC04002C8BD3 /* CaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaView.m; sourceTree = "<group>"; };
+		0CD043E12283C6EC002C8BD3 /* CalendarsManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarsManger.m; sourceTree = "<group>"; };
+		0CD043E22283C6EC002C8BD3 /* CalendarsManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarsManger.h; sourceTree = "<group>"; };
 		0CD7A013225C67C800EAE816 /* ChangeNameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeNameVC.m; sourceTree = "<group>"; };
 		0CD7A014225C67C800EAE816 /* ChangeNameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeNameVC.h; sourceTree = "<group>"; };
 		0CD7A016225C67F900EAE816 /* PersonalIntroVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalIntroVC.h; sourceTree = "<group>"; };
@@ -740,6 +752,9 @@
 		0C3A9147225B211400F04804 /* 自定义SDK */ = {
 			isa = PBXGroup;
 			children = (
+				0CD043E02283C6EC002C8BD3 /* 日历manger */,
+				0CD043D92283BC04002C8BD3 /* 验证码 */,
+				0CD043D52282DC81002C8BD3 /* MBP提示 */,
 				0CD043B22282715E002C8BD3 /* 加载动画 */,
 				0CD0435F22802288002C8BD3 /* 下拉单选框 */,
 				0CC2730B226868D200EB881F /* 录音 */,
@@ -1362,6 +1377,35 @@
 				0CD043D32282C6AD002C8BD3 /* AuditTaskDetailVC.m */,
 			);
 			path = "审核详情";
+			sourceTree = "<group>";
+		};
+		0CD043D52282DC81002C8BD3 /* MBP提示 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043D62282DD1B002C8BD3 /* MBProgressHUD+GZQ.h */,
+				0CD043D72282DD1B002C8BD3 /* MBProgressHUD+GZQ.m */,
+			);
+			path = "MBP提示";
+			sourceTree = "<group>";
+		};
+		0CD043D92283BC04002C8BD3 /* 验证码 */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043DA2283BC04002C8BD3 /* GetCaptchaView.m */,
+				0CD043DB2283BC04002C8BD3 /* CaptchaView.h */,
+				0CD043DC2283BC04002C8BD3 /* GetCaptchaView.h */,
+				0CD043DD2283BC04002C8BD3 /* CaptchaView.m */,
+			);
+			path = "验证码";
+			sourceTree = "<group>";
+		};
+		0CD043E02283C6EC002C8BD3 /* 日历manger */ = {
+			isa = PBXGroup;
+			children = (
+				0CD043E12283C6EC002C8BD3 /* CalendarsManger.m */,
+				0CD043E22283C6EC002C8BD3 /* CalendarsManger.h */,
+			);
+			path = "日历manger";
 			sourceTree = "<group>";
 		};
 		0CD7A011225C67C800EAE816 /* 个人说明 */ = {
@@ -2116,6 +2160,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-云售楼/Pods-云售楼-resources.sh",
+				"${PODS_ROOT}/Bugtags/Bugtags.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
@@ -2123,6 +2168,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Bugtags.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
@@ -2141,6 +2187,7 @@
 				0C3A917A225C435900F04804 /* MineHeader.m in Sources */,
 				0CD043C02282B9A2002C8BD3 /* NumeralAuditDetailVC.m in Sources */,
 				0CD7A033225C6D5700EAE816 /* BDDynamicTree.m in Sources */,
+				0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
 				0CEF89FE225C88910057F3FD /* SubscribeAuditVC.m in Sources */,
 				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,
@@ -2189,6 +2236,7 @@
 				0CD043532280107F002C8BD3 /* WorkPersonAuditCell.m in Sources */,
 				0C221A56227EB078006B0510 /* TaskVisitConfirmCell.m in Sources */,
 				0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */,
+				0CD043DF2283BC05002C8BD3 /* CaptchaView.m in Sources */,
 				0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */,
 				0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */,
 				0C3A917E225C47DE00F04804 /* PersonalVC.m in Sources */,
@@ -2250,6 +2298,7 @@
 				0C3A9153225B219300F04804 /* BaseViewController.m in Sources */,
 				0CEF8A3D225F0CF10057F3FD /* CompanyAuthVC.m in Sources */,
 				0C3A915D225B366400F04804 /* CYLTabBarControllerConfig.m in Sources */,
+				0CD043D82282DD1B002C8BD3 /* MBProgressHUD+GZQ.m in Sources */,
 				0CD7A030225C6D5700EAE816 /* AdressChooseView.m in Sources */,
 				0CEF8A4A225F188A0057F3FD /* SelectCompanyVC.m in Sources */,
 				0CEF8A2C225D84330057F3FD /* RecommendWaitDetailVC.m in Sources */,
@@ -2257,6 +2306,7 @@
 				0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */,
 				0C221A7B227EED67006B0510 /* WorkPhoneConfrimWaitVC.m in Sources */,
 				0CEF89FB225C886F0057F3FD /* NumeralAuditVC.m in Sources */,
+				0CD043DE2283BC05002C8BD3 /* GetCaptchaView.m in Sources */,
 				0C3A9119225B20C400F04804 /* ViewController.m in Sources */,
 				0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */,
 				0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */,

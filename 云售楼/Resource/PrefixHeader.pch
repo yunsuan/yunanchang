@@ -19,6 +19,8 @@
 //#import "YBImageBrowser.h"
 #import "MJRefresh.h"
 #import <Masonry.h>
+#import <MBProgressHUD.h>
+#import "MBProgressHUD+GZQ.h"
 #import "GZQGifHeader.h"
 #import "GZQGifFooter.h"
 #import "UIImageView+WebCache.h"

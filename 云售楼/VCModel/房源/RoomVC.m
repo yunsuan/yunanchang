@@ -94,6 +94,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+//    [MBProgressHUD showMessage:@"aaa"];
     RoomDetailVC *vc = [[RoomDetailVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }

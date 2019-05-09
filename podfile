@@ -9,4 +9,6 @@ target '云售楼' do
  pod 'Masonry'
  pod 'CYLTabBarController'
  pod 'MBProgressHUD'
+ pod 'Bugtags'
+
 end

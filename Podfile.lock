@@ -14,6 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - Bugtags (3.1.1):
+    - Bugtags/Core (= 3.1.1)
+  - Bugtags/Core (3.1.1)
   - CYLTabBarController (1.17.22)
   - IQKeyboardManager (6.2.0)
   - JCore (1.2.6)
@@ -28,6 +31,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - Bugtags
   - CYLTabBarController
   - IQKeyboardManager
   - JPush
@@ -39,6 +43,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - Bugtags
     - CYLTabBarController
     - IQKeyboardManager
     - JCore
@@ -50,6 +55,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  Bugtags: 7fe8938867b57cd2b5b04683f8a680a44d998a0c
   CYLTabBarController: 35784c2969383583d11cc56ff5abce078f19d94a
   IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   JCore: cae516dd2bf1a73b578ce6e1065abd49e709e0f7
@@ -59,6 +65,6 @@ SPEC CHECKSUMS:
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
 
-PODFILE CHECKSUM: 8fa34a4c71c261af6613c53801bd0391fe9dc421
+PODFILE CHECKSUM: 123aa3182d82f9e0828f6b6889363d85f8ed2d54
 
 COCOAPODS: 1.6.0
