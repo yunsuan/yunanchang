@@ -23,6 +23,17 @@
 
 @implementation CompanyInfoVC
 
+- (instancetype)initWithDataArr:(NSArray *)dataArr
+{
+    self = [super init];
+    if (self) {
+        
+        _dataArr = [@[] mutableCopy];
+        _dataArr = [NSMutableArray arrayWithArray:dataArr];
+    }
+    return self;
+}
+
 - (void)viewDidLoad{
     
     [super viewDidLoad];
@@ -37,7 +48,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -49,18 +60,28 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+    cell.dataDic = _dataArr[indexPath.row];
     if (indexPath.row == 0) {
         
         cell.backView.backgroundColor = CLBlueBtnColor;
+        cell.companyL.textColor = CLWhiteColor;
+        cell.departL.textColor = CLWhiteColor;
+        cell.positionL.textColor = CLWhiteColor;
+        cell.roleL.textColor = CLWhiteColor;
+        cell.timeL.textColor = CLWhiteColor;
         cell.upLine.hidden = YES;
     }else{
         
         cell.upLine.hidden = NO;
         cell.backView.backgroundColor = CLWhiteColor;
+        cell.companyL.textColor = CLTitleLabColor;
+        cell.departL.textColor = CL86Color;
+        cell.positionL.textColor = CL86Color;
+        cell.roleL.textColor = CL86Color;
+        cell.timeL.textColor = CL86Color;
     }
     
-    if (indexPath.row ==2) {
+    if (indexPath.row == _dataArr.count - 1) {
         
         cell.downLine.hidden = YES;
     }else{

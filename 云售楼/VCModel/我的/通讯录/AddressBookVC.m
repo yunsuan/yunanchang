@@ -13,6 +13,10 @@
 @interface AddressBookVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     
+    NSInteger _page;
+    
+    NSString *_search;
+    
     NSMutableArray *_dataArr;
 }
 @property (nonatomic, strong) UITextField *searchBar;
@@ -27,6 +31,7 @@
  
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
@@ -35,9 +40,90 @@
     
 }
 
+- (void)RequestMethod{
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"page":@(_page)}];
+    if (![self isEmpty:_search]) {
+        
+        [dic setObject:_search forKey:@"search"];
+    }
+    
+    _table.mj_footer.state = MJRefreshStateIdle;
+    [BaseRequest GET:UserPersonalGetCompanyStaff_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        [self->_table.mj_header endRefreshing];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self->_dataArr removeAllObjects];
+            [self SetData:resposeObject[@"data"][@"data"]];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+       
+        [self->_table.mj_header endRefreshing];
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)RequestAddMethod{
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"page":@(_page)}];
+    if (![self isEmpty:_search]) {
+        
+        [dic setObject:_search forKey:@"search"];
+    }
+    
+    [BaseRequest GET:UserPersonalGetCompanyStaff_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self SetData:resposeObject[@"data"][@"data"]];
+        }else{
+            
+            [self->_table.mj_footer endRefreshing];
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self->_table.mj_footer endRefreshing];
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSArray *)data{
+    
+    if (!data.count) {
+        
+        _table.mj_footer.state = MJRefreshStateNoMoreData;
+    }else{
+        
+        [self->_table.mj_footer endRefreshing];
+    }
+    
+    for (int i = 0; i < data.count; i++) {
+        
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:data[i]];
+        [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+           
+            if ([obj isKindOfClass:[NSNull class]]) {
+                
+                [dic setObject:@"" forKey:key];
+            }else{
+                
+                [dic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+            }
+        }];
+        
+        [_dataArr addObject:dic];
+    }
+    [_table reloadData];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;//_dataArr.count;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -49,7 +135,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+    cell.dataDic = _dataArr[indexPath.row];
     return cell;
 }
 
@@ -92,6 +178,17 @@
     _table.delegate = self;
     _table.dataSource = self;
     [self.view addSubview:_table];
+    _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+       
+        self->_page = 1;
+        [self RequestMethod];
+    }];
+    
+    _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        self->_page += 1;
+        [self RequestAddMethod];
+    }];
 }
 
 @end

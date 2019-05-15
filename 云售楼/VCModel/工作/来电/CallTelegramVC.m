@@ -17,6 +17,8 @@
 {
     
     NSMutableArray *_dataArr;
+    NSString *_projectId;
+    NSInteger _page;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -27,15 +29,105 @@
 
 @implementation CallTelegramVC
 
+- (instancetype)initWithProjectId:(NSString *)projectId
+{
+    self = [super init];
+    if (self) {
+        
+        _projectId = projectId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+    [self RequestMethod];
+}
+
+- (void)initDataSource{
+    
+    _page = 1;
+    _dataArr = [@[] mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    self->_table.mj_footer.state = MJRefreshStateIdle;
+    [BaseRequest GET:WorkClientAutoList_URL parameters:@{@"type":@"1",@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
+        
+        [self->_table.mj_header endRefreshing];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"][@"data"] count]) {
+                
+                [self->_dataArr removeAllObjects];
+                [self SetData:resposeObject[@"data"][@"data"]];
+            }else{
+                
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)RequestAddMethod{
+    
+    [BaseRequest GET:WorkClientAutoList_URL parameters:@{@"type":@"1",@"project_id":_projectId,@"page":@(_page)} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"][@"data"] count]) {
+                
+                [self->_table.mj_footer endRefreshing];
+                [self SetData:resposeObject[@"data"][@"data"]];
+            }else{
+                
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+            
+        }else{
+            
+            [self->_table.mj_footer endRefreshing];
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self->_table.mj_footer endRefreshing];
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSArray *)data{
+    
+    for (NSDictionary *dic in data) {
+        
+        NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+        [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            
+            if ([obj isKindOfClass:[NSNull class]]) {
+                
+                [tempDic setObject:@"" forKey:key];
+            }
+        }];
+        
+        [_dataArr addObject:tempDic];
+    }
+    
+    [_table reloadData];
 }
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    AddCallTelegramVC *nextVC = [[AddCallTelegramVC alloc] init];
+    AddCallTelegramVC *nextVC = [[AddCallTelegramVC alloc] initWithProjectId:_projectId];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -46,7 +138,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 5;
+    return _dataArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -83,14 +175,14 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+    cell.dataDic = _dataArr[indexPath.section];;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] init];
+    CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -135,6 +227,18 @@
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
     [self.view addSubview:_table];
+    
+    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
+       
+        self->_page = 1;
+        [self RequestMethod];
+    }];
+    
+    _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
+        
+        self->_page += 1;
+        [self RequestAddMethod];
+    }];
 }
 
 @end

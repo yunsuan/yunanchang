@@ -73,7 +73,7 @@
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(20 *SIZE);
-        make.top.equalTo(self.contentView).offset(-3 *SIZE);
+        make.top.equalTo(self.contentView).offset(3 *SIZE);
         make.right.equalTo(self.contentView).offset(0 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-3 *SIZE);
     }];

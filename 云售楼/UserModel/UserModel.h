@@ -25,6 +25,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *user_state;
 
+@property (nonatomic, strong) NSString *name;
+
+@property (nonatomic, strong) NSString *tel;
+
+@property (nonatomic, strong) NSString *sex;
+
+@property (nonatomic, strong) NSString *head_img;
+
+@property (nonatomic, strong) NSString *birth;
+
+@property (nonatomic, strong) NSString *province;
+
+@property (nonatomic, strong) NSString *city;
+
+@property (nonatomic, strong) NSString *district;
+
+@property (nonatomic, strong) NSString *absolute_address;
+
+@property (nonatomic, strong) NSString *slef_desc;
+
+@property (nonatomic, strong) NSString *account;
+
+@property (nonatomic, strong) NSDictionary *Configdic;
+
 + (UserModel *)defaultModel;
 
 @end

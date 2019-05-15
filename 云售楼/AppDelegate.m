@@ -25,6 +25,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [self NetworkingStart];
     [self initUI];
     return YES;
 }
@@ -32,7 +33,8 @@
 - (void)initUI{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goHome) name:@"goHome" object:nil];
-//    [self deleteWebCache];
+    //注册通知，退出登陆时回到首页
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(comeBackLoginVC) name:@"goLoginVC" object:nil];
     
     NSString *logIndentifier = [[NSUserDefaults standardUserDefaults] objectForKey:LOGINENTIFIER];
     BOOL flag = [[NSUserDefaults standardUserDefaults] boolForKey:@"Guided"];
@@ -62,6 +64,21 @@
     }
 }
 
+//网络请求
+- (void)NetworkingStart {
+
+    [BaseRequest GET:@"config" parameters:nil success:^(id resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [UserModel defaultModel].Configdic = resposeObject[@"data"];
+            [UserModelArchiver archive];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 - (void)goHome{
     
 //    NSSet *tags;
@@ -72,6 +89,23 @@
 //    } seq:0];
     CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
     _window.rootViewController = tabBarControllerConfig.tabBarController;
+}
+
+
+- (void)comeBackLoginVC {
+    //未登录
+//    NSSet *tags;
+    
+//    [JPUSHService setAlias:@"exit" completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+//
+//        NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);
+//    } seq:0];
+    LoginVC *mainLogin_vc = [[LoginVC alloc] init];
+    UINavigationController *mainLogin_nav = [[UINavigationController alloc] initWithRootViewController:mainLogin_vc];
+    mainLogin_nav.navigationBarHidden = YES;
+    _window.rootViewController = mainLogin_nav;
+    [_window makeKeyAndVisible];
+    
 }
 
 //删除web缓存

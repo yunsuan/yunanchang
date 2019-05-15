@@ -10,11 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^AddCallTelegramGroupMemberVCBlock)(NSString *group);
+typedef void(^AddCallTelegramGroupMemberVCBlock)(NSString *group, NSDictionary *dic);
 
 @interface AddCallTelegramGroupMemberVC : BaseViewController
 
 @property (nonatomic, copy) AddCallTelegramGroupMemberVCBlock addCallTelegramGroupMemberVCBlock;
+
+@property (nonatomic, strong) NSDictionary *configDic;
 
 @end
 

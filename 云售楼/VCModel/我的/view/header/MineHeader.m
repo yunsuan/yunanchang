@@ -38,10 +38,31 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-//    [_nameLine mas_updateConstraints:^(MASConstraintMaker *make) {
-//       
-//        make.width.mas_equalTo(self->_nameL.mj_textWith + 19 *SIZE);
-//    }];
+    [_headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,dataDic[@"head_img"]]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+       
+        if (error) {
+            
+            self->_headerImg.image = IMAGE_WITH_NAME(@"def_head");
+        }
+    }];
+    _nameL.text = dataDic[@"name"];
+    if ([dataDic[@"sex"] integerValue] == 1) {
+        
+        _genderImg.image = IMAGE_WITH_NAME(@"man");
+    }else if ([dataDic[@"sex"] integerValue] == 2){
+        
+        _genderImg.image = IMAGE_WITH_NAME(@"girl");
+    }else{
+        
+        _genderImg.image = IMAGE_WITH_NAME(@"");
+    }
+    
+    _codeL.text = dataDic[@"account"];
+    
+    [_nameL mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
+    }];
 }
 
 
@@ -71,7 +92,7 @@
     _nameL.textColor = CLTitleLabColor;
     _nameL.font = [UIFont boldSystemFontOfSize:15 *SIZE];
     _nameL.userInteractionEnabled = YES;
-    _nameL.text = @"小煤球";
+//    _nameL.text = @"小煤球";
     UITapGestureRecognizer *nameTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionName)];
     [_nameL addGestureRecognizer:nameTap];
     [self.contentView addSubview:_nameL];

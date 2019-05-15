@@ -8,17 +8,32 @@
 
 #import "FollowRecordVC.h"
 
+#import "CallTelegramVC.h"
+
 #import <AVFoundation/AVFoundation.h>
 #import "RecordView.h"
 #import "RecordLongPressView.h"
+#import "DateChooseView.h"
+
+#import "BoxSelectCollCell.h"
 
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
-@interface FollowRecordVC ()<AVAudioRecorderDelegate,AVAudioPlayerDelegate>
+@interface FollowRecordVC ()<AVAudioRecorderDelegate,AVAudioPlayerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     
     AVAudioPlayer *_player;
+    NSDateFormatter *_formatter;
+    
+    NSString *_followWay;
+    NSString *_level;
+    
+    NSArray *_followArr;
+    
+    NSMutableArray *_levelArr;
+    NSMutableArray *_followSelectArr;
+    NSMutableArray *_levelSelectArr;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -28,21 +43,13 @@
 
 @property (nonatomic, strong) UILabel *followWayL;
 
-@property (nonatomic, strong) UIButton *telBtn;
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 
-@property (nonatomic, strong) UIButton *netBtn;
-
-@property (nonatomic, strong) UIButton *faceBtn;
-
-@property (nonatomic, strong) UIButton *otherBtn;
+@property (nonatomic, strong) UICollectionView *followWayColl;
 
 @property (nonatomic, strong) UILabel *levelL;
 
-@property (nonatomic, strong) UIButton *aBtn;
-
-@property (nonatomic, strong) UIButton *bBtn;
-
-@property (nonatomic, strong) UIButton *cBtn;
+@property (nonatomic, strong) UICollectionView *levelColl;
 
 @property (nonatomic, strong) UILabel *contentL;
 
@@ -62,6 +69,10 @@
 
 @property (nonatomic, strong) DropBtn *remindTimeBtn;
 
+@property (nonatomic, strong) UILabel *remindPurposeL;
+
+@property (nonatomic, strong) BorderTextField *remindPurposeTF;
+
 @property (nonatomic, strong) UIButton *confirmBtn;
 
 @end
@@ -72,47 +83,59 @@
     
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
-- (void)ActionTagBtn:(UIButton *)btn{
+- (void)initDataSource{
     
-    if (btn.tag < 4) {
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    
+    _followArr = [self getDetailConfigArrByConfigState:23];
+    _followSelectArr = [@[] mutableCopy];
+    _levelSelectArr = [@[] mutableCopy];
+    for (int i = 0; i < self->_followArr.count; i++) {
         
-        _telBtn.selected = NO;
-        _netBtn.selected = NO;
-        _faceBtn.selected = NO;
-        _otherBtn.selected = NO;
-        if (btn.tag == 0) {
-            
-            _telBtn.selected = YES;
-        }else if (btn.tag == 1){
-            
-            _netBtn.selected = YES;
-        }else if (btn.tag == 2){
-            
-            _faceBtn.selected = YES;
-        }else{
-            
-            _otherBtn.selected = YES;
-        }
-    }else{
-        
-        _aBtn.selected = NO;
-        _bBtn.selected = NO;
-        _cBtn.selected = NO;
-        if (btn.tag == 4) {
-            
-            _aBtn.selected = YES;
-        }else if (btn.tag == 5){
-            
-            _bBtn.selected = YES;
-        }else{
-            
-            _cBtn.selected = YES;
-        }
+        [self->_followSelectArr addObject:@0];
     }
+    _levelArr = [@[] mutableCopy];
 }
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":self.allDic[@"project_id"]} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            
+            self->_levelArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][1]];
+            for (int i = 0; i < self->_levelArr.count; i++) {
+                
+                [self->_levelSelectArr addObject:@0];
+            }
+            [self->_levelColl reloadData];
+            [self->_followWayColl reloadData];
+            [self->_followWayColl mas_updateConstraints:^(MASConstraintMaker *make) {
+                
+                make.height.mas_equalTo(self->_followWayColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+            }];
+            [self->_levelColl mas_updateConstraints:^(MASConstraintMaker *make) {
+                
+                make.height.mas_equalTo(self->_levelColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+            }];
+            
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
 
 - (void)ActionRecordBtn:(UIButton *)btn{
     
@@ -168,10 +191,89 @@
     }
 }
 
+- (void)ActionTimeBtn:(UIButton *)btn{
+    
+    DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+    [view.pickerView setCalendar:[NSCalendar currentCalendar]];
+    [view.pickerView setMaximumDate:[NSDate date]];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:30];//设置最大时间为：当前时间推后10天
+    [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
+    view.dateblock = ^(NSDate *date) {
+      
+        self->_remindTimeBtn.content.text = [self->_formatter stringFromDate:date];
+        self->_remindTimeBtn.placeL.text = @"";
+    };
+    [self.view addSubview:view];
+}
+
 - (void)ActionNextBtn:(UIButton *)btn{
+
+    if ([self isEmpty:_followPurposeTF.textField.text]) {
+        
+        [self alertControllerWithNsstring:@"补充信息" And:@"请输入跟进目的"];
+        return;
+    }
     
+    if (!_followWay.length) {
+        
+        [self alertControllerWithNsstring:@"补充信息" And:@"请选择跟进方式"];
+        return;
+    }
     
+    if (!_level.length) {
+        
+        [self alertControllerWithNsstring:@"补充信息" And:@"请选择客户等级"];
+        return;
+    }
     
+    if ([self isEmpty:_contentView.text]) {
+        
+        [self alertControllerWithNsstring:@"补充信息" And:@"请输入跟进内容"];
+        return;
+    }
+    
+    if (!_remindTimeBtn.content.text) {
+
+        [self alertControllerWithNsstring:@"补充信息" And:@"请选择提醒日期"];
+        return;
+    }
+    
+    [self.allDic setObject:_followPurposeTF.textField.text forKey:@"follow_goal"];
+    [self.allDic setObject:_followWay forKey:@"follow_way"];
+    [self.allDic setObject:_level forKey:@"level"];
+    [self.allDic setObject:_nextTimeBtn.content.text forKey:@"time_limit"];
+    [self.allDic setObject:_contentView.text forKey:@"comment"];
+    [self.allDic setObject:_remindTimeBtn.content.text forKey:@"next_tip_time"];
+    
+    if (![self isEmpty:_remindPurposeTF.textField.text]) {
+        
+        [self.allDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
+    }
+    
+    [BaseRequest POST:ProjectClientAutoAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([self.status isEqualToString:@"add"]) {
+                
+                for (UIViewController *vc in self.navigationController.viewControllers) {
+                    
+                    if ([vc isKindOfClass:[CallTelegramVC class]]) {
+                        
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
+                }
+            }
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 //- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
@@ -202,6 +304,71 @@
 //    [recorder stop];
 //}
 
+
+#pragma mark -- CollectionView
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    if (collectionView == _followWayColl) {
+        
+        return _followArr.count;
+    }
+    return _levelArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    BoxSelectCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BoxSelectCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[BoxSelectCollCell alloc] initWithFrame:CGRectMake(0, 0, 60 *SIZE, 20 *SIZE)];
+    }
+    
+    cell.tag = 1;
+    
+    if (collectionView == _followWayColl) {
+        
+        [cell setIsSelect:[_followSelectArr[indexPath.item] integerValue]];
+        
+        cell.titleL.text = _followArr[indexPath.item][@"param"];
+    }else{
+        
+        [cell setIsSelect:[_levelSelectArr[indexPath.item] integerValue]];
+        
+        cell.titleL.text = _levelArr[indexPath.item][@"config_name"];
+    }
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    if (collectionView == _followWayColl) {
+        
+        for (int i = 0; i < _followSelectArr.count; i++) {
+            
+            [_followSelectArr replaceObjectAtIndex:i withObject:@0];
+        }
+        _followWay = [NSString stringWithFormat:@"%@",_followArr[indexPath.item][@"id"]];
+        [_followSelectArr replaceObjectAtIndex:indexPath.item withObject:@1];
+
+    }else{
+        
+        for (int i = 0; i < _levelSelectArr.count; i++) {
+            
+            [_levelSelectArr replaceObjectAtIndex:i withObject:@0];
+        }
+        _level = [NSString stringWithFormat:@"%@",_levelArr[indexPath.item][@"config_name"]];
+        
+        NSDate *newDate = [[NSDate date] dateByAddingTimeInterval:24 * 60 * 60  * [_levelArr[indexPath.item][@"value_time"] integerValue]];
+        _nextTimeBtn.content.text = [NSString stringWithFormat:@"%@", [_formatter stringFromDate:newDate]];
+        [_levelSelectArr replaceObjectAtIndex:indexPath.item withObject:@1];
+    }
+    
+    [collectionView reloadData];
+}
+
 - (void)initUI{
     
     self.titleLabel.text = @"跟进记录";
@@ -211,8 +378,8 @@
     [self.view addSubview:_scrollView];
     
     
-    NSArray *titleArr = @[@"跟进目的：",@"跟进方式：",@"客户等级：",@"跟进内容：",@"下次跟进：",@"提醒日期"];
-    for (int i = 0; i < 6; i++) {
+    NSArray *titleArr = @[@"跟进目的：",@"跟进方式：",@"客户等级：",@"跟进内容：",@"超期时间：",@"提醒日期：",@"提醒目的："];
+    for (int i = 0; i < 7; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLBlackColor;
@@ -257,6 +424,12 @@
                 [self.view addSubview:_remindTimeL];
                 break;
             }
+            case 6:{
+                
+                _remindPurposeL = label;
+                [self.view addSubview:_remindPurposeL];
+                break;
+            }
             default:
                 break;
         }
@@ -265,6 +438,10 @@
     _followPurposeTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
     _followPurposeTF.textField.placeholder = @"请输入跟进目的";
     [_scrollView addSubview:_followPurposeTF];
+    
+    _remindPurposeTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+    _remindPurposeTF.textField.placeholder = @"请输入提醒目的";
+    [_scrollView addSubview:_remindPurposeTF];
     
     _contentView = [[UITextView alloc] init];
     _contentView.layer.cornerRadius = 4 *SIZE;
@@ -289,73 +466,35 @@
     [_scrollView addSubview:_playBtn];
     
     
-    NSArray *btnArr = @[@"电话",@"网络",@"面谈",@"其他",@"A",@"B",@"C"];
-    for (int i = 0; i < 7; i++) {
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
-        [btn addTarget:self action:@selector(ActionTagBtn:) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag = i;
-        [btn setTitle:btnArr[i] forState:UIControlStateNormal];
-        [btn setTitleColor:CL95Color forState:UIControlStateNormal];
-        [btn setImage:IMAGE_WITH_NAME(@"default") forState:UIControlStateNormal];
-        [btn setImage:IMAGE_WITH_NAME(@"selected") forState:UIControlStateSelected];
-        switch (i) {
-            case 0:
-            {
-                _telBtn = btn;
-                [_scrollView addSubview:_telBtn];
-                break;
-            }
-            case 1:
-            {
-                _netBtn = btn;
-                [_scrollView addSubview:_netBtn];
-                break;
-            }
-            case 2:
-            {
-                _faceBtn = btn;
-                [_scrollView addSubview:_faceBtn];
-                break;
-            }
-            case 3:
-            {
-                _otherBtn = btn;
-                [_scrollView addSubview:_otherBtn];
-                break;
-            }
-            case 4:
-            {
-                _aBtn = btn;
-                [_scrollView addSubview:_aBtn];
-                break;
-            }
-            case 5:
-            {
-                _bBtn = btn;
-                [_scrollView addSubview:_bBtn];
-                break;
-            }
-            case 6:
-            {
-                _cBtn = btn;
-                [_scrollView addSubview:_cBtn];
-                break;
-            }
-            default:
-                break;
-        }
-    }
-    
     _remindTimeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+    [_remindTimeBtn addTarget:self action:@selector(ActionTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
     _remindTimeBtn.placeL.text = @"选择日期";
     [_scrollView addSubview:_remindTimeBtn];
     
     _nextTimeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
-    _nextTimeBtn.placeL.text = @"选择跟进日期";
+    _nextTimeBtn.backgroundColor = CLBackColor;
     [_scrollView addSubview:_nextTimeBtn];
     
+    
+    
+    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    _flowLayout.itemSize = CGSizeMake(100 *SIZE, 20 *SIZE);
+    
+    _followWayColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 255 *SIZE, 100 *SIZE) collectionViewLayout:_flowLayout];
+    _followWayColl.backgroundColor = CLWhiteColor;
+    _followWayColl.delegate = self;
+    _followWayColl.dataSource = self;
+    [_followWayColl registerClass:[BoxSelectCollCell class] forCellWithReuseIdentifier:@"BoxSelectCollCell"];
+    [_scrollView addSubview:_followWayColl];
+    
+    _levelColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 255 *SIZE, 100 *SIZE) collectionViewLayout:_flowLayout];
+    _levelColl.backgroundColor = CLWhiteColor;
+    _levelColl.delegate = self;
+    _levelColl.dataSource = self;
+    [_levelColl registerClass:[BoxSelectCollCell class] forCellWithReuseIdentifier:@"BoxSelectCollCell"];
+    [_scrollView addSubview:_levelColl];
+    
+
     _confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _confirmBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
     _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
@@ -401,80 +540,40 @@
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_telBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_followWayColl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_followPurposeTF.mas_bottom).offset(27 *SIZE);
-        make.width.mas_equalTo(60 *SIZE);
-        make.height.mas_equalTo(23 *SIZE);
-    }];
-    
-    [_netBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(150 *SIZE);
-        make.top.equalTo(self->_followPurposeTF.mas_bottom).offset(27 *SIZE);
-        make.width.mas_equalTo(60 *SIZE);
-        make.height.mas_equalTo(23 *SIZE);
-    }];
-    
-    [_faceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(220 *SIZE);
-        make.top.equalTo(self->_followPurposeTF.mas_bottom).offset(27 *SIZE);
-        make.width.mas_equalTo(60 *SIZE);
-        make.height.mas_equalTo(23 *SIZE);
-    }];
-    
-    [_otherBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(290 *SIZE);
-        make.top.equalTo(self->_followPurposeTF.mas_bottom).offset(27 *SIZE);
-        make.width.mas_equalTo(60 *SIZE);
-        make.height.mas_equalTo(23 *SIZE);
+        make.top.equalTo(self->_followPurposeTF.mas_bottom).offset(30 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(self->_followWayColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
     }];
     
     [_levelL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_telBtn.mas_bottom).offset(26 *SIZE);
+        make.top.equalTo(self->_followWayColl.mas_bottom).offset(26 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_aBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_levelColl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_telBtn.mas_bottom).offset(25 *SIZE);
-        make.width.mas_equalTo(60 *SIZE);
-        make.height.mas_equalTo(23 *SIZE);
-    }];
-    
-    [_bBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(150 *SIZE);
-        make.top.equalTo(self->_telBtn.mas_bottom).offset(25 *SIZE);
-        make.width.mas_equalTo(60 *SIZE);
-        make.height.mas_equalTo(23 *SIZE);
-    }];
-    
-    [_cBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(220 *SIZE);
-        make.top.equalTo(self->_telBtn.mas_bottom).offset(25 *SIZE);
-        make.width.mas_equalTo(60 *SIZE);
-        make.height.mas_equalTo(23 *SIZE);
+        make.top.equalTo(self->_followWayColl.mas_bottom).offset(30 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(self->_levelColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
     }];
 
     [_contentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_aBtn.mas_bottom).offset(41 *SIZE);
+        make.top.equalTo(self->_levelColl.mas_bottom).offset(41 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_aBtn.mas_bottom).offset(41 *SIZE);
+        make.top.equalTo(self->_levelColl.mas_bottom).offset(41 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(77 *SIZE);
     }];
@@ -513,6 +612,22 @@
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_nextTimeBtn.mas_bottom).offset(22 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+//        make.bottom.equalTo(self->_scrollView).offset(-28 *SIZE);
+    }];
+    
+    [_remindPurposeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_remindTimeBtn.mas_bottom).offset(26 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_remindPurposeTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_remindTimeBtn.mas_bottom).offset(22 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
         make.bottom.equalTo(self->_scrollView).offset(-28 *SIZE);

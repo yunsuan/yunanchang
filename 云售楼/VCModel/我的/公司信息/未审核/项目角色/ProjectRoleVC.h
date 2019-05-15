@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^ProjectRoleVCBlock)(NSString *roleId, NSString *name);
+
 @interface ProjectRoleVC : BaseViewController
+
+@property (nonatomic, copy) ProjectRoleVCBlock projectRoleVCBlock;
+
+@property (nonatomic, strong) NSString *roleId;
+
+- (instancetype)initWithCompanyId:(NSString *)companyId;
 
 @end
 

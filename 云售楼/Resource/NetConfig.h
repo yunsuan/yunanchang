@@ -17,8 +17,45 @@ static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 //登录
 static NSString *const Login_URL = @"saleApp/login";
 
+#pragma mark ---  配置  ---
+
+//项目字段配置
+static NSString *const WorkClientAutoColumnConfig_URL = @"saleApp/work/client/auto/column/config";
+
+//获取基础信息配置
+static NSString *const WorkClientAutoBasicConfig_URL = @"saleApp/work/client/auto/basic/config";
+
+//获取配置信息下选择类型字段配置项
+static NSString *const ProjectConfigPropertyConfigOptionList_URL = @"saleApp/project/config/property/config/option/list";
+
+//获取物业类型下需求字段
+static NSString *const ProjectConfigPropertyConfigList_URL = @"saleApp/project/config/property/config/list";
+
+#pragma mark ---  待办  ---
+
+//获取待办首页
+static NSString *const HandleGetMessageList_URL = @"saleApp/handle/getMessageList";
+
+#pragma mark ---  房源  ---
+
+//获取批次楼栋
+static NSString *const ProjectHouseGetBuildList_URL =  @"saleApp/project/house/getBuildList";
+
 #pragma mark ---  工作  ---
 
+#pragma mark -- 来电 --
+
+//来电来访列表
+static NSString *const WorkClientAutoList_URL = @"saleApp/work/client/auto/list";
+
+//获取客户详情
+static NSString *const WorkClientAutoDetail_URL = @"saleApp/work/client/auto/detail";
+
+//新增客户
+static NSString *const ProjectClientAutoAdd_URL = @"saleApp/work/client/auto/add";
+
+//号码判重
+static NSString *const TelRepeatCheck_URL = @"saleApp/tel/repeatCheck";
 #pragma mark -- 签字流程 --
 
 //签字有效
@@ -173,10 +210,35 @@ static NSString *const ButterTelDisabledList_URL = @"agent/work/butter/tel/disab
 
 #pragma mark --- 我的 ---
 
+#pragma mark -- 通讯录 --
+
+//获取当前公司下的部门以及岗位
+static NSString *const UserPersonalGetCompanyStructure_URL = @"saleApp/user/personal/getCompanyStructure";
+
+//通讯录
+static NSString *const UserPersonalGetCompanyStaff_URL = @"saleApp/user/personal/getCompanyStaff";
+
+#pragma mark -- 个人信息 --
+
+//获取个人信息
+static NSString *const UserPersonalGetAgentInfo_URL = @"saleApp/user/personal/getAgentInfo";
+
+//修改个人信息
+static NSString *const UserPersonalChangeAgentInfo_URL = @"saleApp/user/personal/changeAgentInfo";
+
+//修改密码
+static NSString *const UserPersonalChangePassword_URL = @"saleApp/user/personal/changePassword";
+
+//意见反馈
+static NSString *const UserPersonalSendAdvice_URL = @"saleApp/user/personal/sendAdvice";
+
+//退出登录
+static NSString *const UserPersonalLogOut_URL = @"saleApp/user/personal/logOut";
+
 #pragma mark -- 公司 --
 
-//获取公司下项目及角色
-static NSString *const CompanyPersonOrganizePostList_URL = @"saleApp/company/person/organize/post/list";
+//获取认证信息
+static NSString *const CompanyAuthInfo_URL = @"saleApp/company/auth/info";
 
 //获取公司列表
 static NSString *const PersonalGetCompanyList_URL = @"saleApp/personal/getCompanyList";
@@ -184,5 +246,19 @@ static NSString *const PersonalGetCompanyList_URL = @"saleApp/personal/getCompan
 //获取部门列表
 static NSString *const CompanyPersonOrganizeList_URL = @"saleApp/company/person/organize/list";
 
+//获取岗位列表
+static NSString *const CompanyPersonOrganizePostList_URL = @"saleApp/company/person/organize/post/list";
+
+//获取公司下项目及角色
+static NSString *const ProjectRoleList_URL = @"saleApp/project/role/list";
+
+//认证
+static NSString *const CompanyAuth_URL = @"saleApp/company/auth";
+
+//离职
+static NSString *const CompanyAuthQuit_URL = @"saleApp/company/auth/quit";
+
+//取消认证
+static NSString *const CompanyAuthCancel_URL = @"saleApp/company/auth/cancel";
 
 #endif /* NetConfig_h */

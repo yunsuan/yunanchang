@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navBackgroundView.hidden = NO;
+//    self.navBackgroundView.hidden = NO;
     self.line.hidden = YES;
 //    self.navBackgroundView.backgroundColor = CLLineColor;
     [self InitUI];
@@ -32,15 +32,14 @@
 
 -(void)InitUI
 {
+    
+    self.navBackgroundView.backgroundColor = CLBackColor;
+    
     [self.view addSubview:self.RegisterBtn];
     [self.view addSubview:self.Account];
-    //    [self.view addSubview:self.Code];
-    //    [self.view addSubview:self.GetCodeBtn];
     [self.view addSubview:self.SurePassWord];
-    //    [self.view addSubview:self.timeLabel];
     [self.view addSubview:self.PassWord];
     [self.view addSubview:self.leftButton];
-//    [self.view addSubview:self.maskButton];
     
     UILabel  *title = [[UILabel alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+53*SIZE, 100*SIZE, 22*SIZE)];
     title.text = @"修改密码";
@@ -74,37 +73,29 @@
                                 @"password_verify":_SurePassWord.text
                                 };
     
-//    [BaseRequest POST:ChangePassWord_URL parameters:parameter success:^(id resposeObject) {
-//        //        NSLog(@"%@",resposeObject);
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//            [UserModel defaultModel].passWord = self->_PassWord.text;
-//            [UserModelArchiver archive];
-//
-//            //            [self alertControllerWithNsstring:@"系统提示" And:[NSString stringWithFormat:@"修改密码成功，你的新密码为：%@，请妥善保管",_PassWord.text]];
-//            [self alertControllerWithNsstring:@"系统提示" And:[NSString stringWithFormat:@"修改密码成功，你的新密码为：%@，请妥善保管",self->_PassWord.text] WithDefaultBlack:^{
-//                [self.navigationController popViewControllerAnimated:YES];
-//            }];
-//
-//
-//        }
-//        else{
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//
-//    } failure:^(NSError *error) {
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest POST:UserPersonalChangePassword_URL parameters:parameter success:^(id resposeObject) {
+        //        NSLog(@"%@",resposeObject);
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [UserModel defaultModel].passWord = self->_PassWord.text;
+            [UserModelArchiver archive];
+
+            [self alertControllerWithNsstring:@"系统提示" And:[NSString stringWithFormat:@"修改密码成功，你的新密码为：%@，请妥善保管",self->_PassWord.text] WithDefaultBlack:^{
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        }
+        else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+
+    } failure:^(NSError *error) {
+        [self showContent:@"网络错误"];
+    }];
 }
 
-
-
-
-
-//-(void)Protocol
-//{
-//
-//}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     

@@ -18,6 +18,8 @@
 {
     
     NSInteger _numAdd;
+    
+    NSString *_gender;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -59,9 +61,11 @@
 
 @property (nonatomic, strong) UILabel *addressL;
 
-@property (nonatomic, strong) DropBtn *addressBtn;
+@property (nonatomic, strong) BorderTextField *addressBtn;
 
-@property (nonatomic, strong) UITextView *addressTV;
+@property (nonatomic, strong) UILabel *markL;
+
+@property (nonatomic, strong) UITextView *markTV;
 
 @property (nonatomic, strong) UIButton *nextBtn;
 
@@ -132,9 +136,92 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    NSMutableDictionary *tempDic = [@{} mutableCopy];
+    
+    if ([self isEmpty:_nameTF.textField.text]) {
+        
+        [self alertControllerWithNsstring:@"必填信息" And:@"请填写姓名"];
+        return;
+    }
+    
+    if ([_configDic[@"sex"] integerValue] == 1) {
+        
+        if (!_gender.length) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请选择性别"];
+            return;
+        }
+    }
+    if ([_configDic[@"tel"] integerValue] == 1) {
+        
+        if ([self isEmpty:_phoneTF.textField.text]) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
+            return;
+        }
+    }
+    
+    if ([_configDic[@"birth"] integerValue] == 1) {
+        
+        if (!_birthBtn.content.text.length) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请选择出生年月"];
+            return;
+        }
+    }
+    
+    if ([_configDic[@"mail"] integerValue] == 1) {
+        
+        if ([self isEmpty:_mailCodeTF.textField.text]) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请输入邮政编码"];
+            return;
+        }
+    }
+    
+    if ([_configDic[@"address"] integerValue] == 1) {
+        
+        if ([self isEmpty:_addressBtn.textField.text]) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请选择通讯地址"];
+            return;
+        }
+    }
+    
+    [tempDic setObject:_nameTF.textField.text forKey:@"name"];
+    if (_gender.length) {
+        
+        [tempDic setObject:_gender forKey:@"sex"];
+    }
+    [tempDic setObject:_phoneTF.textField.text forKey:@"tel"];
+    if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
+        
+        [tempDic setObject:_certTypeBtn.content.text forKey:@"card_type"];
+        [tempDic setObject:_certNumTF.textField.text forKey:@"card_num"];
+    }
+    
+    if (_birthBtn.content.text.length) {
+        
+        [tempDic setObject:_birthBtn.content.text forKey:@"birth"];
+    }
+    if (![self isEmpty:_mailCodeTF.textField.text]) {
+        
+        [tempDic setObject:_mailCodeTF.textField.text forKey:@"mail_code"];
+    }
+    
+    if (![self isEmpty:_addressBtn.textField.text]) {
+        
+        [tempDic setObject:_addressBtn.textField.text forKey:@"address"];
+    }
+    
+    if (![self isEmpty:_markTV.text]) {
+        
+        [tempDic setObject:_markTV.text forKey:@"comment"];
+    }
+    
     if (self.addCallTelegramGroupMemberVCBlock) {
         
-        self.addCallTelegramGroupMemberVCBlock(_nameTF.textField.text);
+        self.addCallTelegramGroupMemberVCBlock(_nameTF.textField.text,tempDic);
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -183,7 +270,7 @@
         }
     }
     
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
         
         BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
         switch (i) {
@@ -232,6 +319,14 @@
                 [_scrollView addSubview:_mailCodeTF];
                 break;
             }
+            case 6:
+            {
+                
+                _addressBtn = tf;
+                _addressBtn.textField.placeholder = @"请输入地址";
+                [_scrollView addSubview:_addressBtn];
+                break;
+            }
             default:
                 break;
         }
@@ -244,13 +339,14 @@
     [_addBtn setImage:IMAGE_WITH_NAME(@"add_1") forState:UIControlStateNormal];
     [_scrollView addSubview:_addBtn];
     
-    NSArray *titleArr = @[@"姓名：",@"性别：",@"联系号码：",@"证件类型：",@"证件号：",@"出生年月：",@"邮政编码：",@"通讯地址："];
+    NSArray *titleArr = @[@"姓名：",@"性别：",@"联系号码：",@"证件类型：",@"证件号：",@"出生年月：",@"邮政编码：",@"通讯地址：",@"备注："];
     
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 9; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
         label.text = titleArr[i];
+        label.adjustsFontSizeToFitWidth = YES;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         
         switch (i) {
@@ -258,6 +354,12 @@
             {
 
                 _nameL = label;
+                if ([_configDic[@"name"] integerValue] == 1) {
+                    
+                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_nameL.text]];
+                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                    _nameL.attributedText = attr;
+                }
                 [_scrollView addSubview:_nameL];
                 break;
             }
@@ -265,6 +367,12 @@
             case 1:
             {
                 _genderL = label;
+                if ([_configDic[@"sex"] integerValue] == 1) {
+                    
+                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_genderL.text]];
+                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                    _genderL.attributedText = attr;
+                }
                 [_scrollView addSubview:_genderL];
                 break;
             }
@@ -272,6 +380,12 @@
             case 2:
             {
                 _phoneL = label;
+                if ([_configDic[@"tel"] integerValue] == 1) {
+                    
+                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_phoneL.text]];
+                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                    _phoneL.attributedText = attr;
+                }
                 [_scrollView addSubview:_phoneL];
                 break;
             }
@@ -293,6 +407,12 @@
             case 5:
             {
                 _birthL = label;
+                if ([_configDic[@"birth"] integerValue] == 1) {
+                    
+                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_birthL.text]];
+                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                    _birthL.attributedText = attr;
+                }
                 [_scrollView addSubview:_birthL];
                 break;
             }
@@ -300,6 +420,12 @@
             case 6:
             {
                 _mailCodeL = label;
+                if ([_configDic[@"mail"] integerValue] == 1) {
+                    
+                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_mailCodeL.text]];
+                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                    _mailCodeL.attributedText = attr;
+                }
                 [_scrollView addSubview:_mailCodeL];
                 break;
             }
@@ -308,16 +434,27 @@
             case 7:
             {
                 _addressL = label;
+                if ([_configDic[@"address"] integerValue] == 1) {
+                    
+                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_addressL.text]];
+                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                    _addressL.attributedText = attr;
+                }
                 [_scrollView addSubview:_addressL];
                 break;
             }
-        
+            case 8:{
+                
+                _markL = label;
+                [_scrollView addSubview:_markL];
+                break;
+            }
             default:
                 break;
         }
     }
     
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         
         DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
         
@@ -338,32 +475,23 @@
                 [_scrollView addSubview:_birthBtn];
                 break;
             }
-
-            case 2:
-            {
-                
-                _addressBtn = btn;
-                _addressBtn.placeL.text = @"请选择地址";
-                [_scrollView addSubview:_addressBtn];
-                break;
-            }
             default:
                 break;
         }
     }
     
-    _addressTV = [[UITextView alloc] init];
-    _addressTV.layer.cornerRadius = 5 *SIZE;
-    _addressTV.layer.borderColor = COLOR(219, 219, 219, 1).CGColor;
-    _addressTV.layer.borderWidth = SIZE;
-    _addressTV.clipsToBounds = YES;
-    [_scrollView addSubview:_addressTV];
+    _markTV = [[UITextView alloc] init];
+    _markTV.layer.cornerRadius = 5 *SIZE;
+    _markTV.layer.borderColor = COLOR(219, 219, 219, 1).CGColor;
+    _markTV.layer.borderWidth = SIZE;
+    _markTV.clipsToBounds = YES;
+    [_scrollView addSubview:_markTV];
     
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_nextBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_nextBtn setTitle:@"下一步 意向调查" forState:UIControlStateNormal];
+    [_nextBtn setTitle:@"确认提交" forState:UIControlStateNormal];
     [_nextBtn setBackgroundColor:CLBlueTagColor];
     //    _nextBtn.layer.cornerRadius = 5 *SIZE;
     //    _nextBtn.clipsToBounds = YES;
@@ -534,7 +662,14 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_addressTV mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_addressBtn.mas_bottom).offset(31 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_markTV mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_addressBtn.mas_bottom).offset(24 *SIZE);

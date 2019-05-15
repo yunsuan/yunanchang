@@ -20,6 +20,19 @@
     return self;
 }
 
+- (void)setIsSelect:(NSInteger)isSelect{
+    
+    if (isSelect) {
+        
+        self.contentView.backgroundColor = CLOrangeColor;
+        _titleL.textColor = CLWhiteColor;
+    }else{
+        
+        self.contentView.backgroundColor = CLBackColor;
+        _titleL.textColor = CL86Color;
+    }
+}
+
 - (void)initUI{
     
     self.contentView.backgroundColor = CLBackColor;
@@ -42,17 +55,5 @@
     }];
 }
 
-- (void)setSelected:(BOOL)selected{
-    
-    if (selected) {
-        
-        self.contentView.backgroundColor = CLOrangeColor;
-        _titleL.textColor = CLWhiteColor;
-    }else{
-        
-        self.contentView.backgroundColor = CLBackColor;
-        _titleL.textColor = CL86Color;
-    }
-}
 
 @end

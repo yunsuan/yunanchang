@@ -23,10 +23,19 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _nameL.text = @"小煤球";
-    _genderImg.image = IMAGE_WITH_NAME(@"nan");
-    _phoneL.text = @"1801010313";
-    _departmentL.text = @"销售部：销售经理";
+    _nameL.text = dataDic[@"name"];//@"小煤球";
+    if ([dataDic[@"sex"] integerValue] == 1) {
+        
+        _genderImg.image = IMAGE_WITH_NAME(@"man");
+    }else if ([dataDic[@"sex"] integerValue] == 2){
+        
+        _genderImg.image = IMAGE_WITH_NAME(@"girl");
+    }else{
+        
+        _genderImg.image = IMAGE_WITH_NAME(@"");
+    }
+    _phoneL.text = dataDic[@"tel"];//@"1801010313";
+    _departmentL.text = [NSString stringWithFormat:@"%@：%@", dataDic[@"department_name"],dataDic[@"post_name"]];//@"销售部：销售经理";
 //    _positionL.text = @"销售经理";
     [_nameL mas_updateConstraints:^(MASConstraintMaker *make) {
         

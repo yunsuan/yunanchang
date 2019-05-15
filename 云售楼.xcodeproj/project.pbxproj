@@ -56,6 +56,7 @@
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
 		0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */; };
+		0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC928B22855928006B2B79 /* UserInfoModel.m */; };
 		0CC2730522681FF100EB881F /* DropBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730422681FF100EB881F /* DropBtn.m */; };
 		0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC273092268444A00EB881F /* FollowRecordVC.m */; };
 		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
@@ -279,6 +280,8 @@
 		0CAC92672284063C006B2B79 /* UserModelArchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModelArchiver.m; sourceTree = "<group>"; };
 		0CAC926A228408F5006B2B79 /* CompanyApplyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyApplyVC.h; sourceTree = "<group>"; };
 		0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyApplyVC.m; sourceTree = "<group>"; };
+		0CAC928A22855928006B2B79 /* UserInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
+		0CAC928B22855928006B2B79 /* UserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		0CC2730322681FF100EB881F /* DropBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropBtn.h; sourceTree = "<group>"; };
 		0CC2730422681FF100EB881F /* DropBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropBtn.m; sourceTree = "<group>"; };
 		0CC273082268444A00EB881F /* FollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowRecordVC.h; sourceTree = "<group>"; };
@@ -812,6 +815,8 @@
 				0C3A9159225B225A00F04804 /* UserModel.m */,
 				0CAC92662284063C006B2B79 /* UserModelArchiver.h */,
 				0CAC92672284063C006B2B79 /* UserModelArchiver.m */,
+				0CAC928A22855928006B2B79 /* UserInfoModel.h */,
+				0CAC928B22855928006B2B79 /* UserInfoModel.m */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -2301,6 +2306,7 @@
 				0C2A701A226D9E2600571EC1 /* IntentSurveyCollCell.m in Sources */,
 				0CEF8AFA226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m in Sources */,
 				0CEF8A10225C96020057F3FD /* RecommendWaitVC.m in Sources */,
+				0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */,
 				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
 				0CD7A02F225C6D5700EAE816 /* AddressChooseView2.m in Sources */,
 				0C221A81227EED87006B0510 /* WorkPhoneConfrimFailVC.m in Sources */,

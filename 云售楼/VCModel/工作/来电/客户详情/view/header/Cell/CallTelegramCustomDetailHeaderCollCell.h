@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CallTelegramCustomDetailHeaderCollCell : UICollectionViewCell
 
+@property (nonatomic, assign) NSInteger isSelect;
+
 @property (nonatomic, strong) UILabel *titleL;
 
 @end

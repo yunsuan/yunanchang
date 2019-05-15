@@ -23,13 +23,13 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _headImg.image = IMAGE_WITH_NAME(@"head");
-    _nameL.text = @"张三/A";
-    _effectTagL.text = @"有效";
-    _groupL.text = @"组别：云算购房组";
-    _dayL.text = @"3天";
-    _phoneL.text = @"13438339177";
-    _timeL.text = @"2018.12.30";
-    _contactL.text = @"温嘉琪";
+    _nameL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"name"],dataDic[@"level"]];//@"张三/A";
+    _effectTagL.text = dataDic[@"current_state"];//@"有效";
+    _groupL.text = [NSString stringWithFormat:@"组别：%@人",dataDic[@"client_num"]];//@"组别：云算购房组";
+    _dayL.text = [NSString stringWithFormat:@"%@",dataDic[@"time_limit"]];//@"3天";
+    _phoneL.text = dataDic[@"tel"];//@"13438339177";
+    _timeL.text = [NSString stringWithFormat:@"%@",dataDic[@"create_time"]];//@"2018.12.30";
+    _contactL.text = dataDic[@"agent_name"]; //@"温嘉琪";
     
     [_nameL mas_updateConstraints:^(MASConstraintMaker *make) {
         
@@ -68,6 +68,7 @@
     _effectTagL.textColor = CLBlueTagColor;
     _effectTagL.font = [UIFont systemFontOfSize:12 *SIZE];
     _effectTagL.backgroundColor = CLBlueBackColor;
+    _effectTagL.adjustsFontSizeToFitWidth = YES;
 //    _effectTagL.layer.borderWidth = SIZE;
 //    _effectTagL.layer.borderColor = CLBlueTagColor.CGColor;
     _effectTagL.layer.cornerRadius = 3 *SIZE;

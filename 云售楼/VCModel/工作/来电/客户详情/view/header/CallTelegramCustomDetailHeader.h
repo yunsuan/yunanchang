@@ -13,6 +13,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CallTelegramCustomDetailHeaderCollBlock)(NSInteger index);
+
 typedef void(^CallTelegramCustomDetailHeaderTagBlock)(NSInteger index);
 
 typedef void(^CallTelegramCustomDetailHeaderEditBlock)(NSInteger index);
@@ -24,6 +26,8 @@ typedef void(^CallTelegramCustomDetailHeaderAddBlock)(NSInteger index);
 @interface CallTelegramCustomDetailHeader : UITableViewHeaderFooterView
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
+
+@property (nonatomic, copy) CallTelegramCustomDetailHeaderCollBlock callTelegramCustomDetailHeaderCollBlock;
 
 @property (nonatomic, copy) CallTelegramCustomDetailHeaderTagBlock callTelegramCustomDetailHeaderTagBlock;
 
@@ -52,6 +56,8 @@ typedef void(^CallTelegramCustomDetailHeaderAddBlock)(NSInteger index);
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
 
 @property (nonatomic, strong) UICollectionView *groupColl;
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @property (nonatomic, strong) UIButton *addBtn;
 

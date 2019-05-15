@@ -46,7 +46,7 @@
         
         [UIView animateWithDuration:1.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             
-            _inBtn.hidden = YES;
+            self->_inBtn.hidden = YES;
         } completion:^(BOOL finished) {
             
         }];

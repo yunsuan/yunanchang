@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CallTelegramCustomDetailVC : BaseViewController
 
+- (instancetype)initWithGroupId:(NSString *)groupId;
+
 @end
 
 NS_ASSUME_NONNULL_END

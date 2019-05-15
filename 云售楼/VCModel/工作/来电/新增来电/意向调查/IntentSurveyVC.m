@@ -13,6 +13,9 @@
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
+#import "SinglePickView.h"
+#import "DateChooseView.h"
+
 #import "IntentSurveyHeader.h"
 #import "TitleBaseHeader.h"
 #import "BoxSelectCollCell.h"
@@ -21,42 +24,350 @@
 @interface IntentSurveyVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     
+    NSString *_propertyId;
+    
+    NSArray *_countArr;
+    
     NSMutableArray *_dataArr;
+    NSMutableArray *_viewArr;
     NSMutableArray *_labelArr;
     NSMutableArray *_moduleArr;
+    NSMutableArray *_lastArr;
+    
+    NSDateFormatter *_formatter;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
-@property (nonatomic, strong) UIView *needInfoView;
-
-@property (nonatomic, strong) GZQFlowLayout *flowLayout;
-
-@property (nonatomic, strong) UICollectionView *intentColl;
+//@property (nonatomic, strong) UIView *needInfoView;
+//
+//@property (nonatomic, strong) GZQFlowLayout *flowLayout;
+//
+//@property (nonatomic, strong) UICollectionView *intentColl;
 
 @property (nonatomic, strong) UIButton *nextBtn;
 @end
 
 @implementation IntentSurveyVC
 
+- (instancetype)initWithData:(NSArray *)data
+{
+    self = [super init];
+    if (self) {
+        
+        _countArr = data;
+    }
+    return self;
+}
+
+//- (instancetype)initWithPropertyId:(NSString *)propertyId
+//{
+//    self = [super init];
+//    if (self) {
+//
+//        _propertyId = propertyId;
+//    }
+//    return self;
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initDataSource];
-    [self initUI];
-//    [self RequestMethod];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
     _dataArr = [@[] mutableCopy];
+    _viewArr = [@[] mutableCopy];
+    _moduleArr = [@[] mutableCopy];
+    _labelArr = [@[] mutableCopy];
+    _lastArr = [@[] mutableCopy];;
+    
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
+}
+
+- (void)RequestMethod{
+    
+    NSString *propertyId;
+    for (NSDictionary *dic in _countArr) {
+        
+        if (!propertyId.length) {
+            
+            propertyId = [NSString stringWithFormat:@"%@",dic[@"id"]];
+        }else{
+            
+            propertyId = [NSString stringWithFormat:@"%@,%@",propertyId,dic[@"id"]];
+        }
+    }
+    [BaseRequest GET:ProjectConfigPropertyConfigList_URL parameters:@{@"property_id":propertyId} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            for (NSDictionary *dic in resposeObject[@"data"]) {
+                
+                [self->_dataArr addObject:dic];
+            }
+            [self SetData:self->_dataArr];
+            [self initUI];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+            [self initUI];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+        [self initUI];
+    }];
+}
+
+- (void)SetData:(NSArray *)data{
+    
+    for (int i = 0; i < data.count; i++) {
+        
+        UIView *view = [[UIView alloc] init];
+        view.backgroundColor = [UIColor whiteColor];
+        view.tag = [data[i][@"property_id"] integerValue];
+        [_viewArr addObject:view];
+        
+        NSArray *arr = data[i][@"list"];
+        NSMutableArray *tempArr = [@[] mutableCopy];
+        NSMutableArray *tempMrr = [@[] mutableCopy];
+        
+        for (int j = 0; j < arr.count; j++) {
+            
+            NSDictionary *dic = arr[j];
+            
+            UILabel *label = [[UILabel alloc] init];
+            label.textColor = CLTitleLabColor;
+            label.font = [UIFont systemFontOfSize:13 *SIZE];
+            label.text = dic[@"config_name"];
+            label.adjustsFontSizeToFitWidth = YES;
+            if ([dic[@"is_must"] integerValue] == 1) {
+                
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",label.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                label.attributedText = attr;
+            }
+            [tempArr addObject:label];
+            
+            switch ([dic[@"type"] integerValue]) {
+                case 1:
+                {
+                    BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
+                    tf.tag = i * 100 + j;
+                    [tempMrr addObject:tf];
+                    break;
+                }
+                case 2:
+                {
+                    DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
+                    btn.tag = i * 100 + j;
+                    [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
+                    [tempMrr addObject:btn];
+                    break;
+                }
+                case 3:
+                {
+                    
+                    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+                    flowLayout = flowLayout;
+                    flowLayout.estimatedItemSize = CGSizeMake(80 *SIZE, 20 *SIZE);
+                    flowLayout.minimumLineSpacing = 5 *SIZE;
+                    flowLayout.minimumInteritemSpacing = 0;
+                    
+                    UICollectionView *coll = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 240 *SIZE, 20 *SIZE) collectionViewLayout:flowLayout];
+                    coll.backgroundColor = [UIColor whiteColor];
+                    coll.tag = i * 100 + j;
+                    coll.bounces = NO;
+                    coll.delegate = self;
+                    coll.dataSource = self;
+                    [coll registerClass:[BoxSelectCollCell class] forCellWithReuseIdentifier:@"BoxSelectCollCell"];
+                    [tempMrr addObject:coll];
+                    
+                    break;
+                }
+                case 4:
+                {
+                    DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
+                    btn.tag = i * 100 + j;
+                    [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
+                    [tempMrr addObject:btn];
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+        
+        [_labelArr addObject:tempArr];
+        [_moduleArr addObject:tempMrr];
+    }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    [_lastArr removeAllObjects];
+    for (int i = 0; i < _dataArr.count; i++) {
+        
+        NSArray *arr = _dataArr[i][@"list"];
+        for (int j = 0; j < arr.count; j++) {
+            
+            NSMutableDictionary *needDic = [[NSMutableDictionary alloc] init];
+            NSDictionary *dic = arr[j];
+            switch ([dic[@"type"] integerValue]) {
+                    
+                case 1:
+                {
+                    BorderTextField *tf = _moduleArr[i][j];
+                    if (![self isEmpty:tf.textField.text]) {
+                        
+                        [needDic setObject:tf.textField.text forKey:@"value"];
+                        [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                        [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                    }else{
+                        
+                        if ([dic[@"is_must"] integerValue] == 1) {
+                            
+                            [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请输入%@",dic[@"config_name"]]];
+                            return;
+                        }
+                    }
+                    break;
+                }
+                case 2:
+                {
+                    DropBtn *btn = _moduleArr[i][j];
+                    if (btn.content.text) {
+                        
+                        [needDic setObject:btn.content.text forKey:@"value"];
+                        [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                        [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                    }else{
+                        
+                        if ([dic[@"is_must"] integerValue] == 1) {
+                            
+                            [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                            return;
+                        }
+                    }
+                    break;
+                }
+                case 3:
+                {
+                    break;
+                }
+                case 4:
+                {
+                    DropBtn *btn = _moduleArr[i][j];
+                    if (btn.content.text) {
+                        
+                        [needDic setObject:btn.content.text forKey:@"value"];
+                        [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                        [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                    }else{
+                        
+                        if ([dic[@"is_must"] integerValue] == 1) {
+                            
+                            [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                            return;
+                        }
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+            if (needDic.count) {
+                
+                [_lastArr addObject:needDic];
+            }
+        }
+    }
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [self.allDic setObject:jsonString forKey:@"need_list"];
+    
     FollowRecordVC *nextVC = [[FollowRecordVC alloc] init];
+    nextVC.allDic = self.allDic;
+    nextVC.status = @"add";
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
+
+- (void)ActionTagNumBtn:(DropBtn *)btn{
+    
+    for (int i = 0; i < _dataArr.count; i++) {
+        
+        NSArray *arr = _dataArr[i][@"list"];
+        for (int j = 0; j < arr.count; j++) {
+            
+            if ((i * 100 + j) == btn.tag) {
+                
+                if ([arr[j][@"type"] integerValue] == 2) {
+                    
+                    NSMutableArray *tempArr = [@[] mutableCopy];
+                    for (int k = 0; k < [arr[j][@"option"] count]; k++) {
+                        
+                        NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:arr[j][@"option"][k]];
+                        [tempDic setObject:tempDic[@"option_name"] forKey:@"param"];
+                        [tempDic setObject:tempDic[@"option_id"] forKey:@"id"];
+                        [tempDic removeObjectForKey:@"option_id"];
+                        [tempDic removeObjectForKey:@"option_name"];
+                        [tempArr addObject:tempDic];
+                    }
+                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:tempArr];
+                    
+                    view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                        
+                        btn.content.text = MC;
+                        btn->str = [NSString stringWithFormat:@"%@",ID];
+                        NSMutableArray *arr = [NSMutableArray arrayWithArray:self->_moduleArr[i]];
+                        [arr replaceObjectAtIndex:j withObject:btn];
+                        [self->_moduleArr replaceObjectAtIndex:i withObject:arr];
+                    };
+                    [self.view addSubview:view];
+                    break;
+                }else{
+                    
+                    DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+                    view.dateblock = ^(NSDate *date) {
+                        
+                        btn.content.text = [self->_formatter stringFromDate:date];
+                        btn->str = [self->_formatter stringFromDate:date];
+                        [self->_moduleArr replaceObjectAtIndex:i withObject:btn];
+                    };
+                    [self.view addSubview:view];
+                    break;
+                }
+            }
+        }
+    }
+}
+
+#pragma mark --coll代理
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return [_dataArr[collectionView.tag][@"config"] count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    BoxSelectCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BoxSelectCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[BoxSelectCollCell alloc] initWithFrame:CGRectMake(0, 0, 130 *SIZE, 20 *SIZE)];
+    }
+    cell.selectImg.image = [UIImage imageNamed:@"default"];
+    //        [cell setIsSelect:[_selectAllArr[collectionView.tag][indexPath.item] integerValue]];
+    
+    cell.titleL.text = _dataArr[collectionView.tag][@"config"][indexPath.item][@"config_name"];
+    return cell;
+}
 
 - (void)initUI{
     
@@ -66,10 +377,6 @@
     _scrollView.backgroundColor = CLBackColor;
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
-    
-    _needInfoView = [[UIView alloc] init];
-    _needInfoView.backgroundColor = [UIColor whiteColor];
-    [_scrollView addSubview:_needInfoView];
     
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 47 *SIZE - TAB_BAR_MORE, SCREEN_Width, 47 *SIZE + TAB_BAR_MORE);
@@ -93,239 +400,389 @@
         make.right.equalTo(self.view).offset(0);
         make.bottom.equalTo(self.view).offset(0);
     }];
-    
-    [_needInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+    for (int i = 0; i < _viewArr.count; i++) {
         
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_scrollView).offset(0);
-        make.right.equalTo(self->_scrollView).offset(0);
-        make.width.equalTo(@(SCREEN_Width));
-    }];
-    
-    _labelArr = [@[] mutableCopy];
-    _moduleArr = [@[] mutableCopy];
-    for (int i = 0; i < _dataArr.count; i++) {
-        
-        UILabel *label = [[UILabel alloc] init];
-        label.textColor = CLTitleLabColor;
-        label.font = [UIFont systemFontOfSize:13 *SIZE];
-        label.text = _dataArr[i][@"column_name"];
-        label.adjustsFontSizeToFitWidth = YES;
-        [_labelArr addObject:label];
-        
-        NSDictionary *dic = _dataArr[i];
-        switch ([dic[@"type"] integerValue]) {
-            case 1:
-            {
-                BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
-                tf.tag = i;
-                [_moduleArr addObject:tf];
-                break;
-            }
-            case 2:
-            {
-                DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
-                btn.tag = i;
-                [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
-                [_moduleArr addObject:btn];
-                break;
-            }
-            case 3:
-            {
-                
-                UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-                flowLayout = flowLayout;
-                flowLayout.estimatedItemSize = CGSizeMake(80 *SIZE, 20 *SIZE);
-                flowLayout.minimumLineSpacing = 5 *SIZE;
-                flowLayout.minimumInteritemSpacing = 0;
-                
-                UICollectionView *coll = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 240 *SIZE, 20 *SIZE) collectionViewLayout:flowLayout];
-                coll.backgroundColor = [UIColor whiteColor];
-                coll.tag = i;
-                coll.bounces = NO;
-                coll.delegate = self;
-                coll.dataSource = self;
-//                [coll registerClass:[CompleteSurveyCollCell class] forCellWithReuseIdentifier:@"CompleteSurveyCollCell"];
-                [_moduleArr addObject:coll];
-                
-                break;
-            }
-            case 4:
-            {
-                DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
-                btn.tag = i;
-                [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
-                [_moduleArr addObject:btn];
-                break;
-            }
-            default:
-                break;
-        }
-    }
-    
-    for (int i = 0; i < _moduleArr.count; i++) {
-        
-        [_needInfoView addSubview:_labelArr[i]];
-        [_needInfoView addSubview:_moduleArr[i]];
-        
+        [_scrollView addSubview:_viewArr[i]];
         if (i == 0) {
             
-            [_labelArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
+            UIView *view = _viewArr[0];
+            if (_viewArr.count == 1) {
                 
-                make.left.equalTo(self->_needInfoView).offset(10 *SIZE);
-                make.top.equalTo(self->_needInfoView).offset(21 *SIZE);
-                make.width.equalTo(@(70 *SIZE));
-                make.height.equalTo(@(13 *SIZE));
-            }];
+                
+                [view mas_makeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(self->_scrollView).offset(0);
+                    make.top.equalTo(self->_scrollView).offset(0);
+                    make.right.equalTo(self->_scrollView).offset(0);
+                    make.width.equalTo(@(SCREEN_Width));
+                    make.bottom.equalTo(self->_scrollView).offset(0);
+                }];
+            }else{
+                
+                [view mas_makeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(self->_scrollView).offset(0);
+                    make.top.equalTo(self->_scrollView).offset(0);
+                    make.right.equalTo(self->_scrollView).offset(0);
+                    make.width.equalTo(@(SCREEN_Width));
+                }];
+            }
             
-            [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
+            for (int j = 0; j < [_moduleArr[i] count]; j++) {
                 
-                make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                make.top.equalTo(self->_needInfoView).offset(11 *SIZE);
-                make.width.equalTo(@(258 *SIZE));
-                make.height.equalTo(@(33 *SIZE));
-            }];
+                [view addSubview:_labelArr[i][j]];
+                [view addSubview:_moduleArr[i][j]];
+                if (j == 0) {
+                    
+                    [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(view).offset(10 *SIZE);
+                        make.top.equalTo(view).offset(21 *SIZE);
+                        make.width.equalTo(@(70 *SIZE));
+                        make.height.equalTo(@(13 *SIZE));
+                    }];
+                    
+                    [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(view).offset(80 *SIZE);
+                        make.top.equalTo(view).offset(11 *SIZE);
+                        make.width.equalTo(@(258 *SIZE));
+                        make.height.equalTo(@(33 *SIZE));
+                    }];
+                }else{
+                    
+                    NSDictionary *dic = _dataArr[i][@"list"][j];
+                    switch ([dic[@"type"] integerValue]) {
+                            
+                        case 1:
+                        {
+                            BorderTextField *tf = _moduleArr[i][j - 1];
+                            [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(view).offset(10 *SIZE);
+                                make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                                make.width.equalTo(@(70 *SIZE));
+                                make.height.equalTo(@(13 *SIZE));
+                            }];
+                            
+                            if (j == [_moduleArr[i] count] - 1) {
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(view).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                    make.bottom.equalTo(view).offset(-21 *SIZE);
+                                }];
+                            }else{
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(view).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                }];
+                            }
+                            
+                            break;
+                        }
+                        case 2:
+                        {
+                            DropBtn *tf = _moduleArr[i][j - 1];
+                            [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(view).offset(10 *SIZE);
+                                make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                                make.width.equalTo(@(70 *SIZE));
+                                make.height.equalTo(@(13 *SIZE));
+                            }];
+                            
+                            if (j == [_moduleArr[i] count] - 1) {
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(view).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                    make.bottom.equalTo(view).offset(-21 *SIZE);
+                                }];
+                            }else{
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(view).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                }];
+                            }
+                            
+                            break;
+                        }
+                        case 3:
+                        {
+                            
+                            DropBtn *tf = _moduleArr[i][j - 1];
+                            UICollectionView *coll = _moduleArr[i][j];
+                            [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(view).offset(10 *SIZE);
+                                make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                                make.width.equalTo(@(70 *SIZE));
+                                make.height.equalTo(@(13 *SIZE));
+                            }];
+                            
+                            if (j == [_moduleArr[i] count] - 1) {
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(view).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+                                    make.bottom.equalTo(view).offset(-21 *SIZE);
+                                }];
+                            }else{
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(view).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+                                }];
+                            }
+                            
+                            break;
+                        }
+                        case 4:
+                        {
+                            DropBtn *tf = _moduleArr[i][j - 1];
+                            [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(view).offset(10 *SIZE);
+                                make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                                make.width.equalTo(@(70 *SIZE));
+                                make.height.equalTo(@(13 *SIZE));
+                            }];
+                            
+                            if (j == [_moduleArr[i] count] - 1) {
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(view).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                    make.bottom.equalTo(view).offset(-21 *SIZE);
+                                }];
+                            }else{
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(view).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                }];
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
         }else{
             
-            NSDictionary *dic = _dataArr[i];
-            switch ([dic[@"type"] integerValue]) {
+            UIView *view = _viewArr[i - 1];
+            UIView *bomView = _viewArr[i];
+            if (i == _viewArr.count - 1) {
+                
+                [_viewArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
                     
-                case 1:
-                {
-                    BorderTextField *tf = _moduleArr[i - 1];
-                    [_labelArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self->_scrollView).offset(0);
+                    make.top.equalTo(view.mas_bottom).offset(8 *SIZE);
+                    make.right.equalTo(self->_scrollView).offset(0);
+                    make.width.equalTo(@(SCREEN_Width));
+                    make.bottom.equalTo(self->_scrollView).offset(0);
+                }];
+            }else{
+                
+                [_viewArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(self->_scrollView).offset(0);
+                    make.top.equalTo(view.mas_bottom).offset(8 *SIZE);
+                    make.right.equalTo(self->_scrollView).offset(0);
+                    make.width.equalTo(@(SCREEN_Width));
+                }];
+            }
+            for (int j = 0; j < [_moduleArr[i] count]; j++) {
+                
+                [bomView addSubview:_labelArr[i][j]];
+                [bomView addSubview:_moduleArr[i][j]];
+                if (j == 0) {
+                    
+                    [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                         
-                        make.left.equalTo(self->_needInfoView).offset(10 *SIZE);
-                        make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                        make.left.equalTo(bomView).offset(10 *SIZE);
+                        make.top.equalTo(bomView).offset(21 *SIZE);
                         make.width.equalTo(@(70 *SIZE));
                         make.height.equalTo(@(13 *SIZE));
                     }];
                     
-                    if (i == _moduleArr.count - 1) {
+                    [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                         
-                        [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                            
-                            make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                            make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
-                            make.width.equalTo(@(258 *SIZE));
-                            make.height.equalTo(@(33 *SIZE));
-                            make.bottom.equalTo(self->_needInfoView).offset(-21 *SIZE);
-                        }];
-                    }else{
-                        
-                        [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                            
-                            make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                            make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
-                            make.width.equalTo(@(258 *SIZE));
-                            make.height.equalTo(@(33 *SIZE));
-                        }];
-                    }
-                    
-                    break;
-                }
-                case 2:
-                {
-                    DropBtn *tf = _moduleArr[i - 1];
-                    [_labelArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(self->_needInfoView).offset(10 *SIZE);
-                        make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
-                        make.width.equalTo(@(70 *SIZE));
-                        make.height.equalTo(@(13 *SIZE));
+                        make.left.equalTo(bomView).offset(80 *SIZE);
+                        make.top.equalTo(bomView).offset(11 *SIZE);
+                        make.width.equalTo(@(258 *SIZE));
+                        make.height.equalTo(@(33 *SIZE));
                     }];
+                }else{
                     
-                    if (i == _moduleArr.count - 1) {
-                        
-                        [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
+                    NSDictionary *dic = _dataArr[i][@"list"][j];
+                    switch ([dic[@"type"] integerValue]) {
                             
-                            make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                            make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
-                            make.width.equalTo(@(258 *SIZE));
-                            make.height.equalTo(@(33 *SIZE));
-                            make.bottom.equalTo(self->_needInfoView).offset(-21 *SIZE);
-                        }];
-                    }else{
-                        
-                        [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
+                        case 1:
+                        {
+                            BorderTextField *tf = _moduleArr[i][j - 1];
+                            [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(bomView).offset(10 *SIZE);
+                                make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                                make.width.equalTo(@(70 *SIZE));
+                                make.height.equalTo(@(13 *SIZE));
+                            }];
                             
-                            make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                            make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
-                            make.width.equalTo(@(258 *SIZE));
-                            make.height.equalTo(@(33 *SIZE));
-                        }];
+                            if (j == [_moduleArr[i] count] - 1) {
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(bomView).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                    make.bottom.equalTo(bomView).offset(-21 *SIZE);
+                                }];
+                            }else{
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(bomView).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                }];
+                            }
+                            
+                            break;
+                        }
+                        case 2:
+                        {
+                            DropBtn *tf = _moduleArr[i][j - 1];
+                            [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(bomView).offset(10 *SIZE);
+                                make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                                make.width.equalTo(@(70 *SIZE));
+                                make.height.equalTo(@(13 *SIZE));
+                            }];
+                            
+                            if (j == [_moduleArr[i] count] - 1) {
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(bomView).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                    make.bottom.equalTo(bomView).offset(-21 *SIZE);
+                                }];
+                            }else{
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(bomView).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                }];
+                            }
+                            
+                            break;
+                        }
+                        case 3:
+                        {
+                            
+                            DropBtn *tf = _moduleArr[i][j - 1];
+                            UICollectionView *coll = _moduleArr[i][j];
+                            [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(bomView).offset(10 *SIZE);
+                                make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                                make.width.equalTo(@(70 *SIZE));
+                                make.height.equalTo(@(13 *SIZE));
+                            }];
+                            
+                            if (j == [_moduleArr[i] count] - 1) {
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(bomView).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+                                    make.bottom.equalTo(bomView).offset(-21 *SIZE);
+                                }];
+                            }else{
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(bomView).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+                                }];
+                            }
+                            
+                            break;
+                        }
+                        case 4:
+                        {
+                            DropBtn *tf = _moduleArr[i][j - 1];
+                            [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(bomView).offset(10 *SIZE);
+                                make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
+                                make.width.equalTo(@(70 *SIZE));
+                                make.height.equalTo(@(13 *SIZE));
+                            }];
+                            
+                            if (j == [_moduleArr[i] count] - 1) {
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(bomView).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                    make.bottom.equalTo(bomView).offset(-21 *SIZE);
+                                }];
+                            }else{
+                                
+                                [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                                    
+                                    make.left.equalTo(bomView).offset(80 *SIZE);
+                                    make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
+                                    make.width.equalTo(@(258 *SIZE));
+                                    make.height.equalTo(@(33 *SIZE));
+                                }];
+                            }
+                            break;
+                        }
                     }
-                    
-                    break;
-                }
-                case 3:
-                {
-                    
-                    DropBtn *tf = _moduleArr[i - 1];
-                    UICollectionView *coll = _moduleArr[i];
-                    [_labelArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(self->_needInfoView).offset(10 *SIZE);
-                        make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
-                        make.width.equalTo(@(70 *SIZE));
-                        make.height.equalTo(@(13 *SIZE));
-                    }];
-                    
-                    if (i == _moduleArr.count - 1) {
-                        
-                        [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                            
-                            make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                            make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
-                            make.width.equalTo(@(258 *SIZE));
-                            make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
-                            make.bottom.equalTo(self->_needInfoView).offset(-21 *SIZE);
-                        }];
-                    }else{
-                        
-                        [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                            
-                            make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                            make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
-                            make.width.equalTo(@(258 *SIZE));
-                            make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
-                        }];
-                    }
-                    
-                    break;
-                }
-                case 4:
-                {
-                    DropBtn *tf = _moduleArr[i - 1];
-                    [_labelArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(self->_needInfoView).offset(10 *SIZE);
-                        make.top.equalTo(tf.mas_bottom).offset(31 *SIZE);
-                        make.width.equalTo(@(70 *SIZE));
-                        make.height.equalTo(@(13 *SIZE));
-                    }];
-                    
-                    if (i == _moduleArr.count - 1) {
-                        
-                        [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                            
-                            make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                            make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
-                            make.width.equalTo(@(258 *SIZE));
-                            make.height.equalTo(@(33 *SIZE));
-                            make.bottom.equalTo(self->_needInfoView).offset(-21 *SIZE);
-                        }];
-                    }else{
-                        
-                        [_moduleArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                            
-                            make.left.equalTo(self->_needInfoView).offset(80 *SIZE);
-                            make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
-                            make.width.equalTo(@(258 *SIZE));
-                            make.height.equalTo(@(33 *SIZE));
-                        }];
-                    }
-                    break;
                 }
             }
         }

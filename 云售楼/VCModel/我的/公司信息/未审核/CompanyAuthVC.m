@@ -17,7 +17,10 @@
     
     NSString *_companyId;
     NSString *_departId;
+    NSString *_posiId;
+    NSString *_roleId;
     NSMutableArray *_departArr;
+    NSMutableArray *_posiArr;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -64,7 +67,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+}
+
+- (void)initDataSource{
+    
+    _posiArr = [@[] mutableCopy];
+    _departArr = [@[] mutableCopy];
 }
 
 - (void)ActionTagBtn:(UIButton *)btn{
@@ -76,6 +86,12 @@
             
             self->_companyL.text = name;
             self->_companyId = [NSString stringWithFormat:@"%@",companyId];
+            self->_departL.text = @"";
+            self->_departId = @"";
+            self->_positionL.text = @"";
+            self->_posiId = @"";
+            self->_roleL.text = @"";
+            self->_roleId = @"";
         };
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if(btn.tag == 1){
@@ -104,6 +120,10 @@
                     
                     self->_departL.text = MC;
                     self->_departId = [NSString stringWithFormat:@"%@",ID];
+                    self->_positionL.text = @"";
+                    self->_posiId = @"";
+                    self->_roleL.text = @"";
+                    self->_roleId = @"";
                 };
                 [self.view addSubview:view];
             }else{
@@ -122,24 +142,26 @@
             return;
         }
         //        _departTextField.userInteractionEnabled = NO;
-        [BaseRequest GET:CompanyPersonOrganizeList_URL parameters:@{@"company_id":_companyId} success:^(id  _Nonnull resposeObject) {
+        [BaseRequest GET:CompanyPersonOrganizePostList_URL parameters:@{@"department_id":_departId} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                [self->_departArr removeAllObjects];
-                self->_departArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-                [self->_departArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [self->_posiArr removeAllObjects];
+                self->_posiArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+                [self->_posiArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     
-                    NSDictionary *dic = @{@"id":obj[@"department_id"],
-                                          @"param":obj[@"department_name"]
+                    NSDictionary *dic = @{@"id":obj[@"post_id"],
+                                          @"param":obj[@"post_name"]
                                           };
-                    [self->_departArr replaceObjectAtIndex:idx withObject:dic];
+                    [self->_posiArr replaceObjectAtIndex:idx withObject:dic];
                 }];
-                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_departArr];
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_posiArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
                     
-                    self->_departL.text = MC;
-                    //                    self->_departTL.text = [NSString stringWithFormat:@"%@",ID];
+                    self->_positionL.text = MC;
+                    self->_posiId = [NSString stringWithFormat:@"%@",ID];
+                    self->_roleL.text = @"";
+                    self->_roleId = @"";
                 };
                 [self.view addSubview:view];
             }else{
@@ -152,14 +174,61 @@
         }];
     }else{
         
-        ProjectRoleVC *nextVC = [[ProjectRoleVC alloc] init];
+        if (!_companyId.length) {
+            
+            [self showContent:@"请先选择公司"];
+            return;
+        }
+        ProjectRoleVC *nextVC = [[ProjectRoleVC alloc] initWithCompanyId:_companyId];
+        nextVC.projectRoleVCBlock = ^(NSString * _Nonnull roleId, NSString * _Nonnull name) {
+          
+            self->_roleId = roleId;
+            self->_roleL.text = name;
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 
 - (void)ActionConfirmBtn:(UIButton *)btn{
     
-    
+    if (!_companyId.length) {
+        
+        return;
+    }
+    if (!_departId.length) {
+        
+        return;
+    }
+    if (!_posiId.length) {
+        
+        return;
+    }
+    NSDictionary *dic = @{@"company_id":_companyId,
+                          @"department_id":_departId,
+                          @"post_id":_posiId,
+                          @"role":_roleId
+                          };
+//    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+//    if (_roleId.length) {
+//
+//        [tempDic setObject:_roleId forKey:@"role"];
+//    }
+    [BaseRequest POST:CompanyAuth_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self alertControllerWithNsstring:@"申请成功" And:@"请等待审核或者联系审核人" WithDefaultBlack:^{
+               
+                
+            }];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)initUI{

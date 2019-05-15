@@ -54,35 +54,35 @@
         
         [dic setObject:self.search forKey:@"search"];
     }
-//    [BaseRequest GET:ButterTelConfirmList_URL parameters:dic success:^(id resposeObject) {
-//
-//        NSLog(@"%@",resposeObject);
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            [_dataArr removeAllObjects];
-//            [_table reloadData];
-//            if ([resposeObject[@"data"] count]) {
-//
-//                [_table.mj_header endRefreshing];
-//                [self SetData:resposeObject[@"data"]];
-//
-//            }else{
-//
-//                [_table.mj_header endRefreshing];
-//                _table.mj_footer.state = MJRefreshStateNoMoreData;
-//            }
-//        }else{
-//
-//            [_table.mj_header endRefreshing];
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//        [_table reloadData];
-//    } failure:^(NSError *error) {
-//
-//        [_table.mj_header endRefreshing];
-//        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:ButterTelConfirmList_URL parameters:dic success:^(id resposeObject) {
+
+        NSLog(@"%@",resposeObject);
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            [self->_dataArr removeAllObjects];
+            [self->_table reloadData];
+            if ([resposeObject[@"data"] count]) {
+
+                [self->_table.mj_header endRefreshing];
+                [self SetData:resposeObject[@"data"]];
+
+            }else{
+
+                [self->_table.mj_header endRefreshing];
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+
+            [self->_table.mj_header endRefreshing];
+            [self showContent:resposeObject[@"msg"]];
+        }
+        [self->_table reloadData];
+    } failure:^(NSError *error) {
+
+        [self->_table.mj_header endRefreshing];
+        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)RequestAddMethod{
@@ -93,42 +93,38 @@
         
         [dic setObject:self.search forKey:@"search"];
     }
-//    [BaseRequest GET:ButterTelConfirmList_URL parameters:dic success:^(id resposeObject) {
-//        
-//        NSLog(@"%@",resposeObject);
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//            
-//            if ([resposeObject[@"data"] count]) {
-//                
-//                [_table.mj_footer endRefreshing];
-//                [self SetData:resposeObject[@"data"]];
-//                
-//            }else{
-//                
-//                _table.mj_footer.state = MJRefreshStateNoMoreData;
-//            }
-//        }else{
-//            
-//            _page -= 1;
-//            [_table.mj_footer endRefreshing];
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//        [_table reloadData];
-//    } failure:^(NSError *error) {
-//        
-//        _page -= 1;
-//        [_table.mj_footer endRefreshing];
-//        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:ButterTelConfirmList_URL parameters:dic success:^(id resposeObject) {
+        
+        NSLog(@"%@",resposeObject);
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"] count]) {
+                
+                [self->_table.mj_footer endRefreshing];
+                [self SetData:resposeObject[@"data"]];
+                
+            }else{
+                
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+            
+            self->_page -= 1;
+            [self->_table.mj_footer endRefreshing];
+            [self showContent:resposeObject[@"msg"]];
+        }
+        [self->_table reloadData];
+    } failure:^(NSError *error) {
+        
+        self->_page -= 1;
+        [self->_table.mj_footer endRefreshing];
+        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)SetData:(NSArray *)data{
     
-    //    if (data.count < 15) {
-    //
-    //        _table.mj_footer.state = MJRefreshStateNoMoreData;
-    //    }
     for (int i = 0; i < data.count; i++) {
         
         NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:data[i]];
@@ -151,7 +147,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;//_dataArr.count;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -230,7 +226,7 @@
         
     };
     
-    cell.dataDic = @{};//_dataArr[indexPath.row];
+    cell.dataDic = _dataArr[indexPath.row];
     return cell;
 }
 

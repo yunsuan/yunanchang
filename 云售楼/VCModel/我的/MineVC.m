@@ -12,6 +12,7 @@
 #import "AddressBookVC.h"
 #import "CompanyInfoVC.h"
 #import "CompanyAuthVC.h"
+#import "CompanyAuthingVC.h"
 #import "FeedbackVC.h"
 #import "ChangePassWordVC.h"
 
@@ -35,6 +36,58 @@
     
     [self initDataSource];
     [self initUI];
+    if (![UserModel defaultModel].account.length) {
+        
+        [self RequestMethod];
+    }
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:UserPersonalGetAgentInfo_URL parameters:nil success:^(id resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"] isKindOfClass:[NSDictionary class]]) {
+                
+                [self SetData:resposeObject[@"data"]];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSDictionary *)data{
+    
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:data];
+    [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        
+        if ([obj isKindOfClass:[NSNull class]]) {
+            
+            [tempDic setObject:@"" forKey:key];
+        }
+    }];
+    [UserModel defaultModel].absolute_address = tempDic[@"absolute_address"];
+    [UserModel defaultModel].account = tempDic[@"account"];
+    [UserModel defaultModel].birth = tempDic[@"birth"];
+    [UserModel defaultModel].city = tempDic[@"city"];
+    [UserModel defaultModel].district = tempDic[@"district"];
+    [UserModel defaultModel].head_img = tempDic[@"head_img"];
+    [UserModel defaultModel].name = tempDic[@"name"];
+    [UserModel defaultModel].province = tempDic[@"province"];
+    [UserModel defaultModel].sex = [NSString stringWithFormat:@"%@",tempDic[@"sex"]];
+    [UserModel defaultModel].tel = tempDic[@"tel"];
+    [UserModel defaultModel].slef_desc = tempDic[@"self_desc"];
+    [UserModelArchiver archive];
+    [_table reloadData];
 }
 
 - (void)initDataSource{
@@ -74,6 +127,8 @@
             header = [[MineHeader alloc] initWithReuseIdentifier:@"MineHeader"];
         }
         
+        header.dataDic = [[UserModel defaultModel] modeltodic];
+        
         header.mineHeaderImgBlock = ^{
             
             PersonalVC *nextVC = [[PersonalVC alloc] init];
@@ -103,21 +158,89 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         
-        AddressBookVC *nextVC = [[AddressBookVC alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }else if (indexPath.row == 1){
+        if (indexPath.row == 0) {
+            
+            AddressBookVC *nextVC = [[AddressBookVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if (indexPath.row == 1){
+            
+            [BaseRequest GET:CompanyAuthInfo_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    if ([resposeObject[@"data"] count]) {
+                        
+                        if ([resposeObject[@"data"][0][@"state"] integerValue] == 0) {
+                            
+                            CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        }else if ([resposeObject[@"data"][0][@"state"] integerValue] == 1){
+                            
+                            CompanyInfoVC *nextVC = [[CompanyInfoVC alloc] initWithDataArr:resposeObject[@"data"]];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        }else{
+                            
+                            CompanyAuthingVC *nextVC = [[CompanyAuthingVC alloc] initWithDataArr:resposeObject[@"data"]];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        }
+                    }else{
+                        
+                        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+                        [self.navigationController pushViewController:nextVC animated:YES];
+                    }
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+            
+        }else {
+            
+            FeedbackVC *nextVC = [[FeedbackVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
+    }else{
         
-        CompanyInfoVC *nextVC = [[CompanyInfoVC alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }else if (indexPath.row == 2){
-        
-        
-    }else if (indexPath.row == 3){
-        
-        
+        if (indexPath.row == 0) {
+            
+            ChangePassWordVC *nextVC = [[ChangePassWordVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else if (indexPath.row == 1){
+            
+            
+        }else if (indexPath.row == 2){
+            
+            
+        }else if (indexPath.row == 3){
+            
+            [self alertControllerWithNsstring:@"退出" And:@"你确认要退出登录吗？" WithCancelBlack:^{
+                
+            } WithDefaultBlack:^{
+                
+                [BaseRequest GET:UserPersonalLogOut_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+                    
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
+                    [UserModel defaultModel].Token = @"";
+                    [UserModelArchiver archive];
+//                    [UserModelArchiver ClearUserInfoModel];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"goLoginVC" object:nil];
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
+                    [UserModel defaultModel].Token = @"";
+                    [UserModelArchiver archive];
+//                    [UserModelArchiver ClearUserInfoModel];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"goLoginVC" object:nil];
+                }];
+            }];
+        }
     }
+    
 }
 
 - (void)initUI{

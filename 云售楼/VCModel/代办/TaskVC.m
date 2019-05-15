@@ -29,12 +29,50 @@
 
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
     _dataArr = [@[] mutableCopy];
     _dataArr = [[NSMutableArray alloc] initWithArray:@[@"来电客户",@"来访客户",@"推荐客户",@"审核待办",@"财务待办"]];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:HandleGetMessageList_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self SetData:resposeObject[@"data"]];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+       
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSArray *)data{
+    
+    for (int i = 0; i < data.count; i++) {
+        
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:data[i]];
+        [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+           
+            if ([obj isKindOfClass:[NSNull class]]) {
+                
+                [dic setObject:@"" forKey:key];
+            }else{
+                
+                [dic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+            }
+        }];
+        [_dataArr addObject:dic];
+    }
+    [_table reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -53,7 +91,7 @@
             cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.dataDic = @{};
+        cell.dataDic = _dataArr[indexPath.row];
         return cell;
     }else if (indexPath.row == 1){
         
@@ -63,7 +101,7 @@
             cell = [[TaskCallFollowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallFollowCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.dataDic = @{};
+        cell.dataDic = _dataArr[indexPath.row];
         return cell;
     }else if (indexPath.row == 2){
         
@@ -73,7 +111,7 @@
             cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.dataDic = @{};
+        cell.dataDic = _dataArr[indexPath.row];
         return cell;
     }else if (indexPath.row == 3){
         
@@ -83,7 +121,7 @@
             cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.dataDic = @{};
+        cell.dataDic = _dataArr[indexPath.row];
         return cell;
     }else{
         
@@ -93,7 +131,7 @@
             cell = [[TaskVisitConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskVisitConfirmCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.dataDic = @{};
+        cell.dataDic = _dataArr[indexPath.row];
         return cell;
     }
 }

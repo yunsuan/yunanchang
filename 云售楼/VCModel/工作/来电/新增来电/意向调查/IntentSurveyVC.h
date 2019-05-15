@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IntentSurveyVC : BaseViewController
 
+@property (nonatomic, strong) NSMutableDictionary *allDic;
+
+- (instancetype)initWithData:(NSArray *)data;
+
+//- (instancetype)initWithPropertyId:(NSString *)propertyId;
+
 @end
 
 NS_ASSUME_NONNULL_END

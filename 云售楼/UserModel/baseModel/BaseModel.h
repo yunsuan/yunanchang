@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
+- (NSMutableDictionary *)modeltodic;
+
 @end
 
 NS_ASSUME_NONNULL_END

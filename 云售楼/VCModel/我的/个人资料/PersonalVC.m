@@ -20,6 +20,7 @@
     
     NSArray *_titleArr;
     NSMutableArray *_contentArr;
+    NSDateFormatter *_formatter;
 }
 @property (nonatomic, strong) UITableView *personTable;
 
@@ -38,8 +39,11 @@
 
 - (void)initDataSource{
     
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    
     _titleArr = @[@"云算号：",@"手机号：",@"姓名：",@"性别：",@"生日：",@"所在地：",@"个人说明："];
-//    _contentArr = [NSMutableArray arrayWithArray:@[[UserModel defaultModel].account,@"******",[UserModel defaultModel].name,[UserModel defaultModel].tel]];
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserModel defaultModel].account,[UserModel defaultModel].tel,[UserModel defaultModel].name,[[UserModel defaultModel].sex integerValue] == 1?@"男":[[UserModel defaultModel].sex integerValue] == 2?@"女":@"",[UserModel defaultModel].birth,[UserModel defaultModel].absolute_address,[UserModel defaultModel].slef_desc]];
 }
 
 
@@ -104,7 +108,8 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.titleL.text = _titleArr[(NSUInteger) indexPath.row];
-    cell.contentL.text = @"333333";
+//    cell.contentL.text = @"333333";
+    cell.contentL.text = _contentArr[indexPath.row];
     if (indexPath.row > 3) {
         
         cell.rightImg.hidden = NO;
@@ -122,6 +127,8 @@
         ChangeNameVC *nextVC = [[ChangeNameVC alloc] initWithName:@""];
         nextVC.changeNameVCBlock = ^(NSString *str) {
             
+            [self->_contentArr replaceObjectAtIndex:2 withObject:[UserModel defaultModel].name];
+            [tableView reloadData];
         };
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 3){
@@ -130,10 +137,42 @@
         
         UIAlertAction *male = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
+            NSDictionary *dic = @{@"sex":@"1"};
+            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [UserModel defaultModel].sex = @"1";
+                    [UserModelArchiver archive];
+                    [tableView reloadData];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+                [self showContent:@"网络错误"];
+            }];
         }];
         
         UIAlertAction *female = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
+            NSDictionary *dic = @{@"sex":@"2"};
+            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [UserModel defaultModel].sex = @"2";
+                    [UserModelArchiver archive];
+                    [tableView reloadData];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+                [self showContent:@"网络错误"];
+            }];
         }];
         
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -150,6 +189,22 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
         view.dateblock = ^(NSDate *date) {
             
+            NSDictionary *dic = @{@"birth":[self->_formatter stringFromDate:date]};
+            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [UserModel defaultModel].birth = [self->_formatter stringFromDate:date];
+                    [UserModelArchiver archive];
+                    [tableView reloadData];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+                [self showContent:@"网络错误"];
+            }];
         };
         [self.view addSubview:view];
     }else if (indexPath.row == 5){

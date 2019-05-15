@@ -38,33 +38,33 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _nameL.text = @"小煤球";//[NSString stringWithFormat:@"%@",dataDic[@"name"]];
-    _codeL.text = @"推荐编号：123";//[NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
-    _projectL.text = @"推荐项目：云算公馆";//[NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
-    _timeL.text = @"失效时间：2019.02.10 15:20";//[NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]];
+    _nameL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
+    _codeL.text = [NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
+    _projectL.text = [NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
+    _timeL.text = [NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]];
 //    _addressL.text = [NSString stringWithFormat:@"项目地址：%@",dataDic[@"absolute_address"]];
-    _phoneL.text = @"12341231";//[NSString stringWithFormat:@"%@",dataDic[@"tel"]];
+    _phoneL.text = [NSString stringWithFormat:@"%@",dataDic[@"tel"]];
 }
 
 - (void)setUseDic:(NSMutableDictionary *)useDic{
     
-    _nameL.text = @"小煤球";//[NSString stringWithFormat:@"%@",dataDic[@"name"]];
-    _codeL.text = @"推荐编号：123";//[NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
-    _projectL.text = @"推荐项目：云算公馆";//[NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
-    _timeL.text = @"失效时间：2019.02.10 15:20";//[NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]];
+    _nameL.text = [NSString stringWithFormat:@"%@",useDic[@"name"]];
+    _codeL.text = [NSString stringWithFormat:@"推荐编号：%@",useDic[@"client_id"]];
+    _projectL.text = [NSString stringWithFormat:@"推荐项目：%@",useDic[@"project_name"]];
+    _timeL.text = [NSString stringWithFormat:@"失效时间：%@",useDic[@"timsLimit"]];
     //    _addressL.text = [NSString stringWithFormat:@"项目地址：%@",dataDic[@"absolute_address"]];
-    _phoneL.text = @"12341231";//[NSString stringWithFormat:@"%@",dataDic[@"tel"]];
+    _phoneL.text = [NSString stringWithFormat:@"%@",useDic[@"tel"]];
 }
 
 - (void)setFailDic:(NSMutableDictionary *)failDic{
     
     _resonL.text = @"无效原因：自然失效";
-    _nameL.text = @"小煤球";//[NSString stringWithFormat:@"%@",dataDic[@"name"]];
-    _codeL.text = @"推荐编号：123";//[NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
-    _projectL.text = @"推荐项目：云算公馆";//[NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
-    _timeL.text = @"确认时间：2019.02.10 15:20";//[NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]];
+    _nameL.text = [NSString stringWithFormat:@"%@",failDic[@"name"]];
+    _codeL.text = [NSString stringWithFormat:@"推荐编号：%@",failDic[@"client_id"]];
+    _projectL.text = [NSString stringWithFormat:@"推荐项目：%@",failDic[@"project_name"]];
+    _timeL.text = [NSString stringWithFormat:@"失效时间：%@",failDic[@"timsLimit"]];
     //    _addressL.text = [NSString stringWithFormat:@"项目地址：%@",dataDic[@"absolute_address"]];
-    _phoneL.text = @"12341231";//[NSString stringWithFormat:@"%@",dataDic[@"tel"]];
+    _phoneL.text = [NSString stringWithFormat:@"%@",failDic[@"tel"]];
 }
 
 - (void)initUI{

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddCallTelegramVC : BaseViewController
 
-
+- (instancetype)initWithProjectId:(NSString *)projectId;
 
 @end
 

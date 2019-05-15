@@ -32,6 +32,13 @@
     [self.navBackgroundView addSubview:self.rightBtn];
 }
 
+- (NSArray *)getDetailConfigArrByConfigState:(ConfigState)configState
+{
+    NSDictionary *configdic = [UserModelArchiver unarchive].Configdic;
+    NSDictionary *dic =  [configdic valueForKey:[NSString stringWithFormat:@"%lu",(unsigned long)configState]];
+    return dic[@"param"];
+}
+
 - (void)ActionMaskBtn:(UIButton *)btn{
     
     [self.navigationController popViewControllerAnimated:YES];

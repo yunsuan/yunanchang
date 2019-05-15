@@ -15,7 +15,9 @@
 @interface ProjectRoleVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
     
-    
+    NSString *_companyId;
+    NSMutableArray *_dataArr;
+    NSMutableArray *_selectArr;
 }
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
 
@@ -27,19 +29,108 @@
 
 @implementation ProjectRoleVC
 
+- (instancetype)initWithCompanyId:(NSString *)companyId
+{
+    self = [super init];
+    if (self) {
+        
+        _companyId = companyId;
+    }
+    return self;
+}
+
+- (void)viewDidLoad{
+    
+    [super viewDidLoad];
+    
+    [self initDataSource];
+    [self initUI];
+    [self RequestMethod];
+}
+
+- (void)initDataSource{
+    
+    _dataArr = [@[] mutableCopy];
+    _selectArr = [@[] mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:ProjectRoleList_URL parameters:@{@"company_id":_companyId} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self SetData:resposeObject[@"data"][@"self"]];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSArray *)data{
+    
+    _dataArr = [NSMutableArray arrayWithArray:data];
+    [_intentColl reloadData];
+    for (int i = 0; i < _dataArr.count; i++) {
+        
+        NSMutableArray *tempArr = [@[] mutableCopy];
+        for (int j = 0; j < [_dataArr[i][@"list"] count]; j++) {
+            
+            [tempArr addObject:@0];
+        }
+        [_selectArr addObject:tempArr];
+    }
+//    for (int i = 0; i < data.count; i++) {
+//
+//
+//    }
+}
+
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    self.roleId = @"";
+    NSString *name;
+    for (int i = 0; i < _selectArr.count; i++) {
+        
+        for (int j = 0; j < [_selectArr[i] count]; j++) {
+            
+            if ([_selectArr[i][j] integerValue] == 0) {
+                
+                if (!self.roleId.length) {
+                    
+                    self.roleId = [NSString stringWithFormat:@"%@",_dataArr[i][@"list"][j][@"role_id"]];
+                    name = [NSString stringWithFormat:@"%@-%@",_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
+                }else{
+                    
+                    self.roleId = [NSString stringWithFormat:@"%@,%@",self.roleId,_dataArr[i][@"list"][j][@"role_id"]];
+                    name = [NSString stringWithFormat:@"%@,%@-%@",name,_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
+                }
+            }
+        }
+    }
     
+    if (self.roleId.length) {
+        
+        if (self.projectRoleVCBlock) {
+            
+            self.projectRoleVCBlock(self.roleId, name);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return 3;
+    return _dataArr.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 3;
+    return [_dataArr[section][@"list"] count];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
@@ -55,7 +146,7 @@
         header = [[IntentSurveyHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 30 *SIZE)];
     }
     
-    header.titleL.text = @"意向总价：";
+    header.titleL.text = _dataArr[indexPath.section][@"project_name"];
     
     return header;
 }
@@ -67,15 +158,33 @@
         
         cell = [[BoxSelectCollCell alloc] initWithFrame:CGRectMake(0, 0, 90 *SIZE, 50 *SIZE)];
     }
-    [cell.titleL mas_updateConstraints:^(MASConstraintMaker *make) {
-        
+    cell.tag = 1;
+    [cell.selectImg mas_updateConstraints:^(MASConstraintMaker *make) {
+
         make.top.equalTo(cell.contentView).offset(18 *SIZE);
         make.bottom.equalTo(cell.contentView).offset(-18 *SIZE);
     }];
     
-    cell.titleL.text = @"写字楼";
-    
+    cell.titleL.text = _dataArr[indexPath.section][@"list"][indexPath.item][@"role_name"];
+    cell.isSelect = [_selectArr[indexPath.section][indexPath.item] integerValue];
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([_selectArr[indexPath.section][indexPath.item] integerValue] == 0) {
+        
+        NSMutableArray *tempArr = _selectArr[indexPath.section];
+        [tempArr replaceObjectAtIndex:indexPath.row withObject:@1];
+        [_selectArr replaceObjectAtIndex:indexPath.section withObject:tempArr];
+    }else{
+        
+        NSMutableArray *tempArr = _selectArr[indexPath.section];
+        [tempArr replaceObjectAtIndex:indexPath.row withObject:@0];
+        [_selectArr replaceObjectAtIndex:indexPath.section withObject:tempArr];
+    }
+    [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:indexPath.item inSection:indexPath.section]]];
+//    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
 }
 
 - (void)initUI{
@@ -85,6 +194,7 @@
     
     _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:4 *SIZE];
     _flowLayout.itemSize = CGSizeMake(90 *SIZE, 50 *SIZE);
+    _flowLayout.sectionInset = UIEdgeInsetsMake(0, 21 *SIZE, 0, 21 *SIZE);
     _flowLayout.minimumLineSpacing = 10 *SIZE;
     
     _intentColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) collectionViewLayout:_flowLayout];

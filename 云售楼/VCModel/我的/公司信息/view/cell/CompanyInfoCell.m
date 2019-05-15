@@ -32,11 +32,18 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _companyL.text = @"当前公司：云算置业有限公司";
-    _departL.text = @"部门：销售部";
-    _positionL.text = @"岗位：销售秘书";
-    _roleL.text = @"项目角色：云算公馆-销售秘书  云算大厦-销售秘书";
-    _timeL.text = @"入职时间：2018.10.23  09:30";
+    if ([dataDic[@"state"] integerValue] == 1) {
+        
+        _companyL.text = [NSString stringWithFormat:@"当前公司：%@",dataDic[@"company_name"]];
+    }else{
+        
+        _companyL.text = [NSString stringWithFormat:@"%@",dataDic[@"company_name"]];
+    }
+    
+    _departL.text = [NSString stringWithFormat:@"部门：%@",dataDic[@"department_name"]];
+    _positionL.text = [NSString stringWithFormat:@"岗位：%@",dataDic[@"department_name"]];
+    _roleL.text = [NSString stringWithFormat:@"项目角色：%@",dataDic[@"department_name"]];
+    _timeL.text = [NSString stringWithFormat:@"入职时间：%@",dataDic[@"department_name"]];
 }
 
 - (void)initUI{

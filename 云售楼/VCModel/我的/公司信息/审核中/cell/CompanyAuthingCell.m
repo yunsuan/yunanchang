@@ -20,7 +20,19 @@
     return self;
 }
 
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
+    
+    _companyL.text = [NSString stringWithFormat:@"公司名称：%@",dataDic[@"company_name"]];
+    _statusL.text = @"审核中";
+    _departL.text = [NSString stringWithFormat:@"部门：%@",dataDic[@"department_name"]];
+    _positionL.text = [NSString stringWithFormat:@"岗位：%@",dataDic[@"post_name"]];
+    _roleL.text = [NSString stringWithFormat:@"项目角色：%@",dataDic[@"role_name"]];
+    _timeL.text = [NSString stringWithFormat:@"申请时间：%@",dataDic[@"entry_time"]];
+}
+
 - (void)initUI{
+    
+    self.contentView.backgroundColor = CLBackColor;
     
     _backView = [[UIView alloc] init];
     _backView.backgroundColor = CLWhiteColor;

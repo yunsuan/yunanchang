@@ -17,7 +17,6 @@ static NSString *const kACCESSROLE = @"saleApp";
 + (void)GET:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
     
     [MBProgressHUD showActivityMessage:@"加载中"];
-//    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
     [manager.requestSerializer setValue:kACCESSROLE forHTTPHeaderField:@"ACCESS-ROLE"];
@@ -27,7 +26,6 @@ static NSString *const kACCESSROLE = @"saleApp";
     [htttmanger GET:str parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [WaitAnimation stopAnimation];
         [MBProgressHUD hideHUD];
         if ([responseObject[@"code"] integerValue] == 200)
         {
@@ -35,7 +33,8 @@ static NSString *const kACCESSROLE = @"saleApp";
             return;
             
         }else if ([responseObject[@"code"] integerValue] == 401) {
-//            [BaseRequest showConten:@"账号在其他地点登录，请重新登录！"];
+            
+            [MBProgressHUD showError:@"账号在其他地点登录，请重新登录！"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
 //                [UserModel defaultModel].Token = @"";
@@ -56,7 +55,6 @@ static NSString *const kACCESSROLE = @"saleApp";
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         [MBProgressHUD hideHUD];
-//        [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);
             
@@ -65,7 +63,6 @@ static NSString *const kACCESSROLE = @"saleApp";
 }
 
 + (void)POST:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
-//    [WaitAnimation startAnimation];
     [MBProgressHUD showActivityMessage:@"加载中"];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
@@ -75,7 +72,7 @@ static NSString *const kACCESSROLE = @"saleApp";
     [htttmanger POST:str parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [WaitAnimation stopAnimation];
+
         [MBProgressHUD hideHUD];
         if ([responseObject[@"code"] integerValue] == 200)
         {
@@ -83,7 +80,8 @@ static NSString *const kACCESSROLE = @"saleApp";
             return ;
             
         }else if ([responseObject[@"code"] integerValue] == 401) {
-//            [BaseRequest showConten:@"账号在其他地点登录，请重新登录！"];
+            
+            [MBProgressHUD showError:@"账号在其他地点登录，请重新登录！"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
 //                [UserModel defaultModel].Token = @"";
@@ -92,13 +90,12 @@ static NSString *const kACCESSROLE = @"saleApp";
             });
             return;
         }else{
+            
             success(responseObject);
-//            [BaseRequest showConten:responseObject[@"msg"]];
             return;
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        [WaitAnimation stopAnimation];
         [MBProgressHUD hideHUD];
         if (failure) {
             failure(error);

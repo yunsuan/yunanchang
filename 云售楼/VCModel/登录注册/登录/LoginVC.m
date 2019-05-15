@@ -92,6 +92,8 @@
             [UserModel defaultModel].token = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"token"]];
             [UserModel defaultModel].company_info = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"][@"company_info"]];
             [UserModelArchiver archive];
+            [[NSUserDefaults standardUserDefaults]setValue:LOGINSUCCESS forKey:LOGINENTIFIER];
+            [self InfoRequest];
             if ([[UserModel defaultModel].company_info count]) {
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
@@ -110,6 +112,52 @@
 
         [self showContent:@"登录失败，请稍后再试"];
     }];
+}
+
+- (void)InfoRequest{
+    
+    [BaseRequest GET:UserPersonalGetAgentInfo_URL parameters:nil success:^(id resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"] isKindOfClass:[NSDictionary class]]) {
+                
+                [self SetData:resposeObject[@"data"]];
+            }else{
+                
+            }
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSDictionary *)data{
+    
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:data];
+    [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        
+        if ([obj isKindOfClass:[NSNull class]]) {
+            
+            [tempDic setObject:@"" forKey:key];
+        }
+    }];
+    [UserModel defaultModel].absolute_address = tempDic[@"absolute_address"];
+    [UserModel defaultModel].account = tempDic[@"account"];
+    [UserModel defaultModel].birth = tempDic[@"birth"];
+    [UserModel defaultModel].city = tempDic[@"city"];
+    [UserModel defaultModel].district = tempDic[@"district"];
+    [UserModel defaultModel].head_img = tempDic[@"head_img"];
+    [UserModel defaultModel].name = tempDic[@"name"];
+    [UserModel defaultModel].province = tempDic[@"province"];
+    [UserModel defaultModel].sex = [NSString stringWithFormat:@"%@",tempDic[@"sex"]];
+    [UserModel defaultModel].tel = tempDic[@"tel"];
+    [UserModel defaultModel].slef_desc = tempDic[@"slef_desc"];
+    [UserModelArchiver archive];
 }
 
 - (void)ActionProtocolBtn:(UIButton *)btn{

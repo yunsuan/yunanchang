@@ -22,10 +22,10 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _timeL.text = @"跟进时间：2019-04-10";
-    _wayL.text = @"跟进方式：电话";
-    _contentL.text = @"问了活动，妹妹读书用，过段时间再来看问了活动，妹妹读书用，过段时间再来看问了活动，妹妹读书用，过段时间再来看";
-    _nextL.text = @"下次跟进时间：2019-04-12";
+    _timeL.text = [NSString stringWithFormat:@"跟进时间：%@",dataDic[@"create_time"]];//@"跟进时间：2019-04-10";
+    _wayL.text = [NSString stringWithFormat:@"跟进方式：%@",dataDic[@"follow_way"]];//@"跟进方式：电话";
+    _contentL.text = [NSString stringWithFormat:@"%@",dataDic[@"comment"]];//@"问了活动，妹妹读书用，过段时间再来看问了活动，妹妹读书用，过段时间再来看问了活动，妹妹读书用，过段时间再来看";
+    _nextL.text = [NSString stringWithFormat:@"下次提醒时间：%@",dataDic[@"next_tip_time"]];//@"下次跟进时间：2019-04-12";
 }
 
 - (void)initUI{
@@ -49,7 +49,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CL86Color;
         label.font = [UIFont systemFontOfSize:12 *SIZE];
-        label.numberOfLines = 0;
+//        label.numberOfLines = 0;
         switch (i) {
             case 0:
             {
@@ -57,6 +57,7 @@
                 _timeL = label;
                 _timeL.textColor = CLTitleLabColor;
                 _timeL.font = FONT(15 *SIZE);
+                _timeL.adjustsFontSizeToFitWidth = YES;
                 [_whiteView addSubview:_timeL];
                 break;
             }
@@ -75,6 +76,7 @@
 
                 _contentL = label;
                 _contentL.font = FONT(12 *SIZE);
+                _contentL.numberOfLines = 0;
                 [_whiteView addSubview:_contentL];
                 break;
             }

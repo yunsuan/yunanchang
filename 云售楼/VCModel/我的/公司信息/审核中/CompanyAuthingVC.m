@@ -25,6 +25,16 @@
 
 @implementation CompanyAuthingVC
 
+- (instancetype)initWithDataArr:(NSArray *)dataArr
+{
+    self = [super init];
+    if (self) {
+        
+        _data = dataArr;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -42,8 +52,25 @@
     
     [self alertControllerWithNsstring:@"温馨提示" And:@"你确认要取消当前公司认证？" WithCancelBlack:^{
         
+        
     } WithDefaultBlack:^{
         
+        [BaseRequest POST:CompanyAuthCancel_URL parameters:@{@"auth_id":self->_data[0][@"auth_id"]} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self alertControllerWithNsstring:@"取消认证成功" And:@"你已经取消当前公司认证" WithDefaultBlack:^{
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
     }];
     
 }
@@ -68,13 +95,14 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.dataDic = _data[indexPath.section];
     return cell;
 }
 
 - (void)initUI{
     
     self.navBackgroundView.hidden = NO;
-    self.titleLabel.text = @"审核状态";
+    self.titleLabel.text = @"公司申请中";
     
     _table = [[UITableView alloc]initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, 360*SIZE, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStyleGrouped];
     _table.rowHeight = UITableViewAutomaticDimension;
@@ -82,6 +110,7 @@
     _table.sectionHeaderHeight = UITableViewAutomaticDimension;
     _table.estimatedSectionHeaderHeight = 100 *SIZE;
     _table.backgroundColor = CLBackColor;
+    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.delegate = self;
     _table.dataSource = self;
     [self.view addSubview:_table];

@@ -11,7 +11,9 @@
 @interface CallTelegramCustomDetailHeader ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
-    NSMutableArray *_dataArr;
+    NSMutableArray *_collArr;
+    NSMutableArray *_selectArr;
+    NSInteger _num;
 }
 @end
 
@@ -22,6 +24,7 @@
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         
+        _collArr = [@[] mutableCopy];
         [self initUI];
     }
     return self;
@@ -30,10 +33,28 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _headImg.image = IMAGE_WITH_NAME(@"def_head");
-    _propertyL.text = @"意向物业：住宅";
-    _customSourceL.text = @"客户来源：四川成都";
-    _sourceTypeL.text = @"来源类型：自行添加";
-    _approachL.text = @"认知途径：广告/报纸";
+    _propertyL.text = [NSString stringWithFormat:@"意向物业：%@",dataDic[@""]];
+    _customSourceL.text = [NSString stringWithFormat:@"客户来源：%@",dataDic[@""]];
+    _sourceTypeL.text = [NSString stringWithFormat:@"来源类型：%@",dataDic[@""]];
+    _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@""]];
+}
+
+- (void)setDataArr:(NSMutableArray *)dataArr{
+    
+//    self.dataArr = [NSMutableArray arrayWithArray:dataArr];
+    
+    _collArr = [NSMutableArray arrayWithArray:dataArr];
+    _selectArr = [@[] mutableCopy];
+    for (int i = 0; i < dataArr.count; i++) {
+        
+        [_selectArr addObject:@0];
+    }
+    [_groupColl reloadData];
+    if (dataArr.count) {
+        
+        [_groupColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    }
+    [_groupColl reloadData];
 }
 
 - (void)ActionTagBtn:(UIButton *)btn{
@@ -71,7 +92,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 2;
+    return _collArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -82,9 +103,26 @@
         cell = [[CallTelegramCustomDetailHeaderCollCell alloc] initWithFrame:CGRectMake(0, 0, 67 *SIZE, 30 *SIZE)];
     }
     
-    cell.titleL.text = @"张三";
+    cell.titleL.text = _collArr[indexPath.item][@"name"];
+    
+    cell.isSelect = [_selectArr[indexPath.item] integerValue];
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    for (int i = 0; i < _selectArr.count; i++) {
+        
+        [_selectArr replaceObjectAtIndex:i withObject:@0];
+    }
+    
+    [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
+    [collectionView reloadData];
+    if (self.callTelegramCustomDetailHeaderCollBlock) {
+        
+        self.callTelegramCustomDetailHeaderCollBlock(indexPath.item);
+    }
 }
 
 - (void)initUI{

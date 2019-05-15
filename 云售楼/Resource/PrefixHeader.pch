@@ -27,6 +27,7 @@
 #import "UIImageView+WebCache.h"
 
 #define LOGINENTIFIER @"logIndentifier"
+#define LOGINSUCCESS @"logInSuccessdentifier"
 
 
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyAuthingVC : BaseViewController
 
+- (instancetype)initWithDataArr:(NSArray *)dataArr;
+
 @end
 
 NS_ASSUME_NONNULL_END

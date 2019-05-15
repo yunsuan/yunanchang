@@ -20,11 +20,18 @@
 @interface CallTelegramCustomDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
-    NSArray *_infoDataArr;
     NSInteger _index;
+    NSInteger _num;
+    
+    NSString *_groupId;
+    
+    NSMutableDictionary *_groupInfoDic;
+    
+    NSMutableArray *_infoDataArr;
     NSMutableArray *_intentArr;
     NSMutableArray *_followArr;
-//    NSMutableArray *_
+    NSMutableArray *_peopleArr;
+    
 }
 @property (nonatomic, strong) UITableView *table;
 
@@ -32,18 +39,60 @@
 
 @implementation CallTelegramCustomDetailVC
 
+- (instancetype)initWithGroupId:(NSString *)groupId
+{
+    self = [super init];
+    if (self) {
+        
+        _groupId = groupId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
-    _infoDataArr = @[@"姓名：张大山",@"联系电话：18756451223",@"邮政编码：611100",@"通讯地址：四川省成都市p12312312312",@"客户来源：",@"出生日期：1929.12.22",@"备注：********"];
+    _groupInfoDic = [@{} mutableCopy];
+    
+    _infoDataArr = [@[] mutableCopy];
+    _peopleArr = [@[] mutableCopy];
     _intentArr = [@[] mutableCopy];
-    _intentArr = [[NSMutableArray alloc] initWithArray:@[@[@"购买目的：读书",@"意向户型：一房",@"意向楼层：10-20层",@"意向面积：90㎡",@"意见单价：6400元/㎡",@"意向总价：50-60万",@"关注重点：环境"]]];
+    _followArr = [@[] mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:WorkClientAutoDetail_URL parameters:@{@"group_id":_groupId} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_groupInfoDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"][@"group_info"]];
+            
+            self->_intentArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"need"]];
+            self->_followArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"follow"]];
+            self->_peopleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"client_info"]];
+            [self->_infoDataArr removeAllObjects];
+            for (NSDictionary *dic in resposeObject[@"data"][@"client_info"]) {
+                
+                NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",dic[@"name"]],[NSString stringWithFormat:@"联系电话：%@",dic[@"tel"]],[NSString stringWithFormat:@"证件类型：%@",dic[@"card_type"]],[NSString stringWithFormat:@"证件号：%@",dic[@"card_num"]],[NSString stringWithFormat:@"邮政编码：%@",dic[@"mail_code"]],[NSString stringWithFormat:@"通讯地址：%@",dic[@"address"]],[NSString stringWithFormat:@"客户来源：%@",dic[@""]],[NSString stringWithFormat:@"出生日期：%@",dic[@"birth"]],[NSString stringWithFormat:@"备注：%@",dic[@"comment"]]];
+                [self->_infoDataArr addObject:arr];
+            }
+            [self->_table reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -56,7 +105,7 @@
         return _intentArr.count + 1;
     }else{
         
-        return _followArr.count + 1;
+        return _followArr.count ? 2 : 1;
     }
 }
 
@@ -75,13 +124,13 @@
         
         if (_index == 0) {
             
-            return _infoDataArr.count;
+            return [_infoDataArr[_num] count];
         }else if (_index == 1){
             
-            return [_intentArr[section - 1] count];
+            return [_intentArr[section - 1][@"list"] count];
         }else{
             
-            return [_followArr[section - 1] count];
+            return _followArr.count;//[_followArr[section - 1] count];
         }
     }
 }
@@ -136,8 +185,8 @@
             header = [[CallTelegramCustomDetailHeader alloc] initWithReuseIdentifier:@"CallTelegramCustomDetailHeader"];
         }
         
-        header.dataDic = @{};
-        
+        header.dataDic = _groupInfoDic;
+        header.dataArr = _peopleArr;
         
         [header.infoBtn setBackgroundColor:CL248Color];
         [header.infoBtn setTitleColor:CL178Color forState:UIControlStateNormal];
@@ -160,6 +209,12 @@
             [header.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
         
+        header.callTelegramCustomDetailHeaderCollBlock = ^(NSInteger index) {
+          
+            self->_num = index;
+            [tableView reloadSections:[[NSIndexSet alloc]initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+//            [tableView reloadData];
+        };
         
         header.callTelegramCustomDetailHeaderTagBlock = ^(NSInteger index) {
             
@@ -201,7 +256,7 @@
                 
             };
             
-            header.titleL.text = @"物业意向——住宅";
+            header.titleL.text = [NSString stringWithFormat:@"物业意向——%@",_intentArr[section - 1][@"property_name"]];//@"物业意向——住宅";
             return header;
         }else{
             
@@ -231,7 +286,7 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.contentL.text = _infoDataArr[indexPath.row];
+        cell.contentL.text = _infoDataArr[_num][indexPath.row];
         
         return cell;
     }else if(_index == 1){
@@ -259,7 +314,7 @@
            
             make.left.equalTo(cell.contentView).offset(28 *SIZE);
         }];
-        cell.contentL.text = _intentArr[0][indexPath.row];
+        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"config_name"],_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"value"]];
         return cell;
     }else{
         
@@ -282,7 +337,7 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.dataDic = @{};
+        cell.dataDic = _followArr[indexPath.row];
         return cell;
     }
 }
@@ -308,7 +363,6 @@
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedSectionHeaderHeight = 320 *SIZE;
     _table.sectionHeaderHeight = UITableViewAutomaticDimension;
-//    _table.backgroundColor = cl;
     _table.delegate = self;
     _table.dataSource = self;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
