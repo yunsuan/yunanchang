@@ -22,18 +22,18 @@
 
 - (void)ActionEditBtn:(UIButton *)btn{
     
-//    if (self.callTelegramCustomDetailIntentHeaderEditBlock) {
-//
-//        self.callTelegramCustomDetailIntentHeaderEditBlock(btn.tag);
-//    }
+    if (self.callTelegramCustomDetailInfoCellEditBlock) {
+
+        self.callTelegramCustomDetailInfoCellEditBlock();
+    }
 }
 
 - (void)ActionDeleteBtn:(UIButton *)btn{
     
-//    if (self.callTelegramCustomDetailIntentHeaderDeleteBlock) {
-//        
-//        self.callTelegramCustomDetailIntentHeaderDeleteBlock(btn.tag);
-//    }
+    if (self.callTelegramCustomDetailInfoCellDeleteBlock) {
+        
+        self.callTelegramCustomDetailInfoCellDeleteBlock();
+    }
 }
 
 

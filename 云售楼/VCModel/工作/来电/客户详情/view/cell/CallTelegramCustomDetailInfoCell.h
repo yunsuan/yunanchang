@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CallTelegramCustomDetailInfoCellDeleteBlock)(void);
+
+typedef void(^CallTelegramCustomDetailInfoCellEditBlock)(void);
+
 @interface CallTelegramCustomDetailInfoCell : UITableViewCell
+
+@property (nonatomic, copy) CallTelegramCustomDetailInfoCellEditBlock callTelegramCustomDetailInfoCellEditBlock;
+
+@property (nonatomic, copy) CallTelegramCustomDetailInfoCellDeleteBlock callTelegramCustomDetailInfoCellDeleteBlock;
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 

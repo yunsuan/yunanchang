@@ -160,6 +160,9 @@
 		0CEF8B042265ADA20057F3FD /* AddCallTelegramVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8B032265ADA20057F3FD /* AddCallTelegramVC.m */; };
 		0CEF8B082265B6D70057F3FD /* BorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8B072265B6D70057F3FD /* BorderTextField.m */; };
 		0CF1A2EF228D15E6001C77CF /* VisitCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2EE228D15E6001C77CF /* VisitCustomVC.m */; };
+		0CF1A2F3228D4ED1001C77CF /* NSDictionary+GZQDic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2F2228D4ED1001C77CF /* NSDictionary+GZQDic.m */; };
+		0CF1A2F6228D4F22001C77CF /* NSArray+GZQArr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2F5228D4F22001C77CF /* NSArray+GZQArr.m */; };
+		0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2F8228D6307001C77CF /* CallTelegramSimpleCustomVC.m */; };
 		AD247DF2FE90196EA1B639F0 /* libPods-云售楼.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42BF71934FE363E890039BD /* libPods-云售楼.a */; };
 /* End PBXBuildFile section */
 
@@ -487,6 +490,12 @@
 		0CEF8B072265B6D70057F3FD /* BorderTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BorderTextField.m; sourceTree = "<group>"; };
 		0CF1A2ED228D15E6001C77CF /* VisitCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomVC.h; sourceTree = "<group>"; };
 		0CF1A2EE228D15E6001C77CF /* VisitCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomVC.m; sourceTree = "<group>"; };
+		0CF1A2F1228D4ED1001C77CF /* NSDictionary+GZQDic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GZQDic.h"; sourceTree = "<group>"; };
+		0CF1A2F2228D4ED1001C77CF /* NSDictionary+GZQDic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GZQDic.m"; sourceTree = "<group>"; };
+		0CF1A2F4228D4F22001C77CF /* NSArray+GZQArr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+GZQArr.h"; sourceTree = "<group>"; };
+		0CF1A2F5228D4F22001C77CF /* NSArray+GZQArr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+GZQArr.m"; sourceTree = "<group>"; };
+		0CF1A2F7228D6307001C77CF /* CallTelegramSimpleCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramSimpleCustomVC.h; sourceTree = "<group>"; };
+		0CF1A2F8228D6307001C77CF /* CallTelegramSimpleCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramSimpleCustomVC.m; sourceTree = "<group>"; };
 		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
 		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
 		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -577,6 +586,8 @@
 			children = (
 				0C221A60227ECEB2006B0510 /* CallTelegramModifyCustomVC.h */,
 				0C221A61227ECEB2006B0510 /* CallTelegramModifyCustomVC.m */,
+				0CF1A2F7228D6307001C77CF /* CallTelegramSimpleCustomVC.h */,
+				0CF1A2F8228D6307001C77CF /* CallTelegramSimpleCustomVC.m */,
 			);
 			path = "修改客户资料";
 			sourceTree = "<group>";
@@ -767,6 +778,7 @@
 		0C3A9147225B211400F04804 /* 自定义SDK */ = {
 			isa = PBXGroup;
 			children = (
+				0CF1A2F0228D4EB6001C77CF /* 标准json */,
 				0CD043E02283C6EC002C8BD3 /* 日历manger */,
 				0CD043D92283BC04002C8BD3 /* 验证码 */,
 				0CD043D52282DC81002C8BD3 /* MBP提示 */,
@@ -2032,6 +2044,17 @@
 			path = "来访";
 			sourceTree = "<group>";
 		};
+		0CF1A2F0228D4EB6001C77CF /* 标准json */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1A2F1228D4ED1001C77CF /* NSDictionary+GZQDic.h */,
+				0CF1A2F2228D4ED1001C77CF /* NSDictionary+GZQDic.m */,
+				0CF1A2F4228D4F22001C77CF /* NSArray+GZQArr.h */,
+				0CF1A2F5228D4F22001C77CF /* NSArray+GZQArr.m */,
+			);
+			path = "标准json";
+			sourceTree = "<group>";
+		};
 		256FA66B3C2EE540F45796BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2252,6 +2275,7 @@
 				0CD7A031225C6D5700EAE816 /* BDDynamicTreeNode.m in Sources */,
 				0C221A5A227EB117006B0510 /* TaskSignAuditCell.m in Sources */,
 				0CD7A03E225C6F1100EAE816 /* FeedbackVC.m in Sources */,
+				0CF1A2F3228D4ED1001C77CF /* NSDictionary+GZQDic.m in Sources */,
 				0CF1A2EF228D15E6001C77CF /* VisitCustomVC.m in Sources */,
 				0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
@@ -2277,6 +2301,7 @@
 				0CD04339227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m in Sources */,
 				0CD043B122819009002C8BD3 /* RecordLongPressView.m in Sources */,
 				0CD04325227FD2BD002C8BD3 /* WorkRecommendVC.m in Sources */,
+				0CF1A2F6228D4F22001C77CF /* NSArray+GZQArr.m in Sources */,
 				0C221A72227EED08006B0510 /* WorkPhoneConfirmVC.m in Sources */,
 				0CEF8A40225F0F940057F3FD /* CompanyAuthingVC.m in Sources */,
 				0CEF8A31225D863A0057F3FD /* CountDownCell.m in Sources */,
@@ -2335,6 +2360,7 @@
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0C3A9171225B37CF00F04804 /* ReportVC.m in Sources */,
+				0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */,
 				0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */,
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
 				0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */,

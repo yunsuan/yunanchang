@@ -15,7 +15,10 @@
 #import "DropBtn.h"
 
 @interface CallTelegramModifyCustomVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate>
-
+{
+    
+    NSDictionary *_dataDic;
+}
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) UILabel *nameL;
@@ -77,6 +80,16 @@
 @end
 
 @implementation CallTelegramModifyCustomVC
+
+- (instancetype)initWithDataDic:(NSDictionary *)dataDic
+{
+    self = [super init];
+    if (self) {
+        
+        _dataDic = dataDic;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

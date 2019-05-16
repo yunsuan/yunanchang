@@ -34,9 +34,16 @@
     
     _headImg.image = IMAGE_WITH_NAME(@"def_head");
     _propertyL.text = [NSString stringWithFormat:@"意向物业：%@",dataDic[@""]];
-    _customSourceL.text = [NSString stringWithFormat:@"客户来源：%@",dataDic[@""]];
-    _sourceTypeL.text = [NSString stringWithFormat:@"来源类型：%@",dataDic[@""]];
-    _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@""]];
+    _customSourceL.text = [NSString stringWithFormat:@"客户来源：%@%@%@",dataDic[@"province_name"],dataDic[@"city_name"],dataDic[@"district_name"]];
+    _sourceTypeL.text = [NSString stringWithFormat:@"来源类型：%@",dataDic[@"source"]];
+    if ([dataDic[@"listen_way_detail"] length]) {
+        
+        _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@"listen_way"]];
+    }else{
+        
+        _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@"listen_way_detail"]];
+    }
+    
 }
 
 - (void)setDataArr:(NSMutableArray *)dataArr{

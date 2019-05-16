@@ -9,7 +9,12 @@
 #import "CallTelegramCustomDetailVC.h"
 
 #import "CallTelegramModifyCustomVC.h"
+#import "CallTelegramSimpleCustomVC.h"
+#import "IntentSurveyVC.h"
 #import "FollowRecordVC.h"
+#import "IntentSurveyVC.h"
+
+#import "SinglePickView.h"
 
 #import "CallTelegramCustomDetailHeader.h"
 #import "CallTelegramCustomDetailIntentHeader.h"
@@ -28,6 +33,7 @@
     
     NSMutableDictionary *_groupInfoDic;
     
+    NSMutableArray *_propertyArr;
     NSMutableArray *_infoDataArr;
     NSMutableArray *_intentArr;
     NSMutableArray *_followArr;
@@ -62,6 +68,7 @@
     
     _groupInfoDic = [@{} mutableCopy];
     
+    _propertyArr = [@[] mutableCopy];
     _infoDataArr = [@[] mutableCopy];
     _peopleArr = [@[] mutableCopy];
     _intentArr = [@[] mutableCopy];
@@ -82,7 +89,7 @@
             [self->_infoDataArr removeAllObjects];
             for (NSDictionary *dic in resposeObject[@"data"][@"client_info"]) {
                 
-                NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",dic[@"name"]],[NSString stringWithFormat:@"联系电话：%@",dic[@"tel"]],[NSString stringWithFormat:@"证件类型：%@",dic[@"card_type"]],[NSString stringWithFormat:@"证件号：%@",dic[@"card_num"]],[NSString stringWithFormat:@"邮政编码：%@",dic[@"mail_code"]],[NSString stringWithFormat:@"通讯地址：%@",dic[@"address"]],[NSString stringWithFormat:@"客户来源：%@",dic[@""]],[NSString stringWithFormat:@"出生日期：%@",dic[@"birth"]],[NSString stringWithFormat:@"备注：%@",dic[@"comment"]]];
+                NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",dic[@"name"]],[NSString stringWithFormat:@"联系电话：%@",dic[@"tel"]],[NSString stringWithFormat:@"证件类型：%@",dic[@"card_type"]],[NSString stringWithFormat:@"证件号：%@",dic[@"card_num"]],[NSString stringWithFormat:@"邮政编码：%@",dic[@"mail_code"]],[NSString stringWithFormat:@"通讯地址：%@",dic[@"address"]],[NSString stringWithFormat:@"出生日期：%@",dic[@"birth"]],[NSString stringWithFormat:@"备注：%@",dic[@"comment"]]];
                 [self->_infoDataArr addObject:arr];
             }
             [self->_table reloadData];
@@ -187,6 +194,18 @@
         }
         
         header.dataDic = _groupInfoDic;
+        header.propertyL.text = [NSString stringWithFormat:@"意向物业："];
+        for (int i = 0; i < _intentArr.count; i++) {
+            
+            if (i == 0) {
+                
+                header.propertyL.text = [NSString stringWithFormat:@"意向物业：%@",_intentArr[0][@"property_name"]];
+            }else{
+                
+                header.propertyL.text = [NSString stringWithFormat:@"%@,%@",header.propertyL.text,_intentArr[0][@"property_name"]];
+            }
+        }
+        
         header.dataArr = _peopleArr;
         
         [header.infoBtn setBackgroundColor:CL248Color];
@@ -213,7 +232,7 @@
         header.callTelegramCustomDetailHeaderCollBlock = ^(NSInteger index) {
           
             self->_num = index;
-            [tableView reloadSections:[[NSIndexSet alloc]initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 //            [tableView reloadData];
         };
         
@@ -224,7 +243,6 @@
                 
                 
             }else if (index == 1){
-                
                 
             }else{
                 
@@ -251,9 +269,20 @@
             
             header.callTelegramCustomDetailIntentHeaderEditBlock = ^(NSInteger index) {
                 
+                NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:self->_intentArr[0]];
+                [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                   
+                    if ([key isEqualToString:@"property_id"]) {
+                        
+                        [dic setObject:obj forKey:@"id"];
+                    }
+                }];
+                IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[dic]];
+                [self.navigationController pushViewController:nextVC animated:YES];
             };
             
             header.callTelegramCustomDetailIntentHeaderDeleteBlock = ^(NSInteger index) {
+                
                 
             };
             
@@ -288,6 +317,34 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         cell.contentL.text = _infoDataArr[_num][indexPath.row];
+        
+        cell.callTelegramCustomDetailInfoCellEditBlock = ^{
+            
+            CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:self->_peopleArr[self->_num] projectId:self->_project_id];
+            nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_peopleArr[self->_num]];
+                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                   
+                    if (dic[key]) {
+                        
+                        [tempDic setObject:dic[key] forKey:key];
+                    }
+                }];
+                [self->_peopleArr replaceObjectAtIndex:self->_num withObject:tempDic];
+                
+                NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",tempDic[@"name"]],[NSString stringWithFormat:@"联系电话：%@",tempDic[@"tel"]],[NSString stringWithFormat:@"证件类型：%@",tempDic[@"card_type"]],[NSString stringWithFormat:@"证件号：%@",tempDic[@"card_num"]],[NSString stringWithFormat:@"邮政编码：%@",tempDic[@"mail_code"]],[NSString stringWithFormat:@"通讯地址：%@",tempDic[@"address"]],[NSString stringWithFormat:@"出生日期：%@",tempDic[@"birth"]],[NSString stringWithFormat:@"备注：%@",tempDic[@"comment"]]];
+                [self->_infoDataArr replaceObjectAtIndex:self->_num withObject:arr];
+                
+                [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        
+        
+        cell.callTelegramCustomDetailInfoCellDeleteBlock = ^{
+            
+        };
         
         return cell;
     }else if(_index == 1){
@@ -355,7 +412,48 @@
         
     }else if (_index == 1){
         
-        
+        if (indexPath.section == 0) {
+            
+            if (self->_propertyArr.count) {
+                
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_propertyArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                };
+                [self.view addSubview:view];
+            }else{
+                
+                [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":self->_project_id} success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+//                        self->_propertyArr = resposeObject[@"data"][3];
+                        for (NSDictionary *dic in resposeObject[@"data"][3]) {
+                            
+                            NSDictionary *tempDic = @{@"id":dic[@"config_id"],
+                                                      @"param":dic[@"config_name"]
+                                                      };
+                            [self->_propertyArr addObject:tempDic];
+                        }
+                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_propertyArr];
+                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                            
+                            IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        };
+                        [self.view addSubview:view];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }
+        }
     }else{
         
         if (indexPath.section == 0) {

@@ -425,7 +425,18 @@
 
         [tempDic setObject:_gender forKey:@"sex"];
     }
-    [tempDic setObject:_phoneTF.textField.text forKey:@"tel"];
+    
+    NSString *tel = _phoneTF.textField.text;
+    if (![self isEmpty:_phoneTF2.textField.text]) {
+        
+        tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+    }
+    if (![self isEmpty:_phoneTF3.textField.text]) {
+        
+        tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+    }
+    [tempDic setObject:tel forKey:@"tel"];
+    
     if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
 
         [tempDic setObject:_certTypeBtn.content.text forKey:@"card_type"];
@@ -505,6 +516,28 @@
         }
     }else{
         
+        if (([_phoneTF.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF.textField.text.length && _phoneTF2.textField.text.length)) {
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF2.textField.text = @"";
+            }];
+            return;
+        }else if (([_phoneTF.textField.text isEqualToString:_phoneTF3.textField.text] && _phoneTF.textField.text.length && _phoneTF3.textField.text.length)){
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF3.textField.text = @"";
+            }];
+            return;
+        }else if (([_phoneTF3.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF3.textField.text.length && _phoneTF2.textField.text.length)){
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF3.textField.text = @"";
+            }];
+            return;
+        }
         [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 400) {

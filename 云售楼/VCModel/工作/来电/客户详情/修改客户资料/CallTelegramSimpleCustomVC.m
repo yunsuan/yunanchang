@@ -1,12 +1,12 @@
 //
-//  AddCallTelegramGroupMemberVC.m
+//  CallTelegramSimpleCustomVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/5/5.
+//  Created by 谷治墙 on 2019/5/16.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddCallTelegramGroupMemberVC.h"
+#import "CallTelegramSimpleCustomVC.h"
 
 #import "BoxSelectCollCell.h"
 #import "BaseHeader.h"
@@ -17,7 +17,7 @@
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
-@interface AddCallTelegramGroupMemberVC ()<UITextFieldDelegate>
+@interface CallTelegramSimpleCustomVC ()<UITextFieldDelegate>
 {
     
     NSDateFormatter *_formatter;
@@ -26,6 +26,8 @@
     
     NSString *_gender;
     NSString *_project_id;
+    
+    NSDictionary *_dataDic;
     
     NSMutableArray *_certArr;
 }
@@ -79,14 +81,15 @@
 
 @end
 
-@implementation AddCallTelegramGroupMemberVC
+@implementation CallTelegramSimpleCustomVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId
+- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId
 {
     self = [super init];
     if (self) {
         
         _project_id = projectId;
+        _dataDic = dataDic;
     }
     return self;
 }
@@ -106,6 +109,26 @@
     
     
     _certArr = [@[] mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:WorkClientAutoColumnConfig_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_configDic = resposeObject[@"data"];
+            [self initUI];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+            [self initUI];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self initUI];
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)PropertyRequestMethod{
@@ -282,7 +305,7 @@
         
         [tempDic setObject:_gender forKey:@"sex"];
     }
-    
+
     NSString *tel = _phoneTF.textField.text;
     if (![self isEmpty:_phoneTF2.textField.text]) {
         
@@ -319,19 +342,35 @@
         [tempDic setObject:_markTV.text forKey:@"comment"];
     }
     
-    if (self.addCallTelegramGroupMemberVCBlock) {
+    [tempDic setObject:_dataDic[@"client_id"] forKey:@"client_id"];
+    
+    [BaseRequest POST:WorkClientAutoClientUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
         
-        self.addCallTelegramGroupMemberVCBlock(_nameTF.textField.text,tempDic);
-    }
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self.callTelegramSimpleCustomVCEditBlock(tempDic);
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+//    if (self.addCallTelegramGroupMemberVCBlock) {
+//        
+//        self.addCallTelegramGroupMemberVCBlock(_nameTF.textField.text,tempDic);
+//    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    
+
     if (([_phoneTF.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF.textField.text.length && _phoneTF2.textField.text.length)) {
         
         [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
-            
+           
             self->_phoneTF2.textField.text = @"";
         }];
         return;
@@ -350,7 +389,6 @@
         }];
         return;
     }
-    
     [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 400) {
@@ -482,7 +520,7 @@
                 break;
         }
     }
-
+    
     
     _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _addBtn.tag = 3;
@@ -503,7 +541,7 @@
         switch (i) {
             case 0:
             {
-
+                
                 _nameL = label;
                 if ([_configDic[@"name"] integerValue] == 1) {
                     
@@ -581,7 +619,7 @@
                 break;
             }
                 
-            
+                
             case 7:
             {
                 _addressL = label;
@@ -650,6 +688,59 @@
     [self.view addSubview:_nextBtn];
     
     [self MasonryUI];
+    
+    _nameTF.textField.text = _dataDic[@"name"];
+    if ([_dataDic[@"name"] integerValue] == 1) {
+        
+        _maleBtn.selected = YES;
+        _gender = @"1";
+    }else{
+        
+        _femaleBtn.selected = YES;
+        _gender = @"2";
+    }
+    
+    NSArray *arr = [_dataDic[@"tel"] componentsSeparatedByString:@","];
+    if (arr.count == 1) {
+        
+        _phoneTF.textField.text = arr[0];
+    }else if (arr.count == 2){
+        
+        _phoneTF.textField.text = arr[0];
+        _phoneTF2.textField.text = arr[1];
+        [self ActionAddBtn:_addBtn];
+    }else{
+        
+        _phoneTF.textField.text = arr[0];
+        [self ActionAddBtn:_addBtn];
+        _phoneTF2.textField.text = arr[1];
+        [self ActionAddBtn:_addBtn];
+        _phoneTF3.textField.text = arr[2];
+    }
+    
+    if ([_dataDic[@"card_type"] length]) {
+        
+        _certTypeBtn.content.text = _dataDic[@"card_type"];
+        _certTypeBtn.placeL.text = @"";
+        _certNumTF.textField.text = _dataDic[@"card_num"];
+        for (int i = 0; i < _certArr.count; i++) {
+            
+            if ([_dataDic[@"card_type"] isEqualToString:_certArr[i][@"param"]]) {
+                
+                _certTypeBtn->str = _certArr[i][@"id"];
+                break;
+            }
+        }
+    }
+    
+    if ([_dataDic[@"birth"] length]) {
+        
+        _birthBtn.content.text = _dataDic[@"birth"];
+        _birthBtn.placeL.text = @"";
+    }
+    _mailCodeTF.textField.text = _dataDic[@"mail_code"];
+    _addressBtn.textField.text = _dataDic[@"address"];
+    _markTV.text = _dataDic[@"comment"];
 }
 
 - (void)MasonryUI{
@@ -798,7 +889,7 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-
+    
     [_addressL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
@@ -830,4 +921,5 @@
         make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
     }];
 }
+
 @end

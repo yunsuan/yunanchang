@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CallTelegramModifyCustomVC : BaseViewController
 
+- (instancetype)initWithDataDic:(NSDictionary *)dataDic;
+
 @end
 
 NS_ASSUME_NONNULL_END
