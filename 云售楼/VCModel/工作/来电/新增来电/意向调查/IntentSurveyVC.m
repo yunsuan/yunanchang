@@ -287,10 +287,13 @@
         }
     }
     
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-    [self.allDic setObject:jsonString forKey:@"need_list"];
+    if (_lastArr.count) {
+        
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [self.allDic setObject:jsonString forKey:@"need_list"];
+    }
     
     FollowRecordVC *nextVC = [[FollowRecordVC alloc] init];
     nextVC.allDic = self.allDic;

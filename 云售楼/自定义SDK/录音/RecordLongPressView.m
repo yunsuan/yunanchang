@@ -8,6 +8,8 @@
 
 #import "RecordLongPressView.h"
 
+#import <AVFoundation/AVAudioSettings.h>
+
 @interface RecordLongPressView ()<AVAudioRecorderDelegate,AVAudioPlayerDelegate>
 {
     

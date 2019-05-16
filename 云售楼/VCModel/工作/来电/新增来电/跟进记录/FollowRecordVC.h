@@ -14,7 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary *allDic;
 
+@property (nonatomic, strong) NSMutableDictionary *followDic;
+
 @property (nonatomic, strong) NSString *status;
+
+- (instancetype)initWithGroupId:(NSString *)groupId;
 
 @end
 

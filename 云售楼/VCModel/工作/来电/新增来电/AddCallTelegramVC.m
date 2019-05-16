@@ -42,7 +42,7 @@
     NSMutableArray *_approachArr;
     NSMutableArray *_certArr;
     NSMutableArray *_clientArr;
-    
+    NSMutableArray *_groupArr;
     
     NSDateFormatter *_formatter;
 }
@@ -149,6 +149,7 @@
     _certArr = [@[] mutableCopy];
     _selectArr = [@[] mutableCopy];
     _clientArr = [@[] mutableCopy];
+    _groupArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -280,13 +281,19 @@
 
 - (void)ActionAddGroupBtn:(UIButton *)btn{
     
-    AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] init];
+    AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:_project_id];
     nextVC.configDic = self->_configDic;
     nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * group, NSDictionary * dic) {
         
         self->_group = group;
-        self->_groupL.text = [NSString stringWithFormat:@"%@,%@",self->_groupL.text,self->_group];
-        [self->_clientArr addObject:dic];
+        if (self->_groupL.text.length) {
+            
+            self->_groupL.text = [NSString stringWithFormat:@"%@,%@",self->_groupL.text,self->_group];
+        }else{
+            
+            
+        }
+        [self->_groupArr addObject:dic];
     };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
@@ -454,7 +461,8 @@
         [tempDic setObject:_markTV.text forKey:@"comment"];
     }
 
-
+    [_clientArr removeAllObjects];
+    _clientArr = [NSMutableArray arrayWithArray:_groupArr];
     [_clientArr insertObject:tempDic atIndex:0];
 
     [allDic setObject:_project_id forKey:@"project_id"];

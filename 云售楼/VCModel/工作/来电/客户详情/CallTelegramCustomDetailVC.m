@@ -360,7 +360,17 @@
         
         if (indexPath.section == 0) {
             
-//            FollowRecordVC *vc 
+            FollowRecordVC *vc = [[FollowRecordVC alloc] initWithGroupId:_groupId];
+            if (_followArr.count) {
+                
+                vc.followDic = [[NSMutableDictionary alloc] initWithDictionary:_followArr[0]];
+            }else{
+                
+                vc.followDic = [@{} mutableCopy];
+            }
+            vc.status = @"direct";
+            vc.allDic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":self.project_id}];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }

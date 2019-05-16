@@ -28,8 +28,11 @@
     
     NSString *_followWay;
     NSString *_level;
+    NSString *_groupId;
     
     NSArray *_followArr;
+    
+    NSMutableDictionary *_directDic;
     
     NSMutableArray *_levelArr;
     NSMutableArray *_followSelectArr;
@@ -79,6 +82,16 @@
 
 @implementation FollowRecordVC
 
+- (instancetype)initWithGroupId:(NSString *)groupId
+{
+    self = [super init];
+    if (self) {
+        
+        _groupId = groupId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad{
     
     [super viewDidLoad];
@@ -92,6 +105,9 @@
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
+    
+    
+    _directDic = [@{} mutableCopy];
     
     _followArr = [self getDetailConfigArrByConfigState:23];
     _followSelectArr = [@[] mutableCopy];
@@ -125,7 +141,25 @@
                 
                 make.height.mas_equalTo(self->_levelColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
             }];
-            
+            if ([self.status isEqualToString:@"direct"]) {
+                
+                self->_followPurposeTF.textField.text = self.followDic[@"follow_goal"];
+                self->_contentView.text = self.followDic[@"comment"];
+                for (int i = 0; i < self->_followArr.count; i++) {
+                    
+                    if ([self.followDic[@"follow_way"] isEqualToString:self->_followArr[i][@"param"]]) {
+                        
+                        [self->_followWayColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+                    }
+                }
+                for (int i = 0; i < self->_levelArr.count; i++) {
+                    
+                    if ([self.followDic[@"level"] isEqualToString:self->_levelArr[i][@"config_name"]]) {
+                        
+                        [self->_levelColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+                    }
+                }
+            }
         }else{
             
             [self showContent:resposeObject[@"msg"]];
@@ -240,40 +274,82 @@
         return;
     }
     
-    [self.allDic setObject:_followPurposeTF.textField.text forKey:@"follow_goal"];
-    [self.allDic setObject:_followWay forKey:@"follow_way"];
-    [self.allDic setObject:_level forKey:@"level"];
-    [self.allDic setObject:_nextTimeBtn.content.text forKey:@"time_limit"];
-    [self.allDic setObject:_contentView.text forKey:@"comment"];
-    [self.allDic setObject:_remindTimeBtn.content.text forKey:@"next_tip_time"];
     
-    if (![self isEmpty:_remindPurposeTF.textField.text]) {
-        
-        [self.allDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
-    }
     
-    [BaseRequest POST:ProjectClientAutoAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
+    if ([self.status isEqualToString:@"direct"]) {
         
-        if ([resposeObject[@"code"] integerValue] == 200) {
+        [_directDic setObject:_groupId forKey:@"group_id"];
+        [_directDic setObject:_followPurposeTF.textField.text forKey:@"follow_goal"];
+        [_directDic setObject:_followWay forKey:@"follow_way"];
+        [_directDic setObject:_level forKey:@"level"];
+        [_directDic setObject:_nextTimeBtn.content.text forKey:@"time_limit"];
+        [_directDic setObject:_contentView.text forKey:@"comment"];
+        [_directDic setObject:_remindTimeBtn.content.text forKey:@"next_tip_time"];
+        
+        if (![self isEmpty:_remindPurposeTF.textField.text]) {
             
-            if ([self.status isEqualToString:@"add"]) {
+            [_directDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
+        }
+        
+        [BaseRequest POST:WorkClientAutoFollowAdd_URL parameters:_directDic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                for (UIViewController *vc in self.navigationController.viewControllers) {
+                if ([self.status isEqualToString:@"add"]) {
                     
-                    if ([vc isKindOfClass:[CallTelegramVC class]]) {
+                    for (UIViewController *vc in self.navigationController.viewControllers) {
                         
-                        [self.navigationController popToViewController:vc animated:YES];
+                        if ([vc isKindOfClass:[CallTelegramVC class]]) {
+                            
+                            [self.navigationController popToViewController:vc animated:YES];
+                        }
                     }
                 }
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
             }
-        }else{
+        } failure:^(NSError * _Nonnull error) {
             
-            [self showContent:resposeObject[@"msg"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
+            [self showContent:@"网络错误"];
+        }];
+    }else{
         
-        [self showContent:@"网络错误"];
-    }];
+        [self.allDic setObject:_followPurposeTF.textField.text forKey:@"follow_goal"];
+        [self.allDic setObject:_followWay forKey:@"follow_way"];
+        [self.allDic setObject:_level forKey:@"level"];
+        [self.allDic setObject:_nextTimeBtn.content.text forKey:@"time_limit"];
+        [self.allDic setObject:_contentView.text forKey:@"comment"];
+        [self.allDic setObject:_remindTimeBtn.content.text forKey:@"next_tip_time"];
+        
+        if (![self isEmpty:_remindPurposeTF.textField.text]) {
+            
+            [self.allDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
+        }
+        
+        [BaseRequest POST:ProjectClientAutoAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if ([self.status isEqualToString:@"add"]) {
+                    
+                    for (UIViewController *vc in self.navigationController.viewControllers) {
+                        
+                        if ([vc isKindOfClass:[CallTelegramVC class]]) {
+                            
+                            [self.navigationController popToViewController:vc animated:YES];
+                        }
+                    }
+                }
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }
 }
 
 //- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
@@ -390,44 +466,44 @@
             case 0:
             {
                 _followPurposeL = label;
-                [self.view addSubview:_followPurposeL];
+                [_scrollView addSubview:_followPurposeL];
                 break;
             }
             case 1:
             {
     
                 _followWayL = label;
-                [self.view addSubview:_followWayL];
+                [_scrollView addSubview:_followWayL];
                 break;
             }
             case 2:
             {
                 _levelL = label;
-                [self.view addSubview:_levelL];
+                [_scrollView addSubview:_levelL];
                 break;
             }
             case 3:
             {
                 _contentL = label;
-                [self.view addSubview:_contentL];
+                [_scrollView addSubview:_contentL];
                 break;
             }
             case 4:
             {
                 _nextTimeL = label;
-                [self.view addSubview:_nextTimeL];
+                [_scrollView addSubview:_nextTimeL];
                 break;
             }
             case 5:
             {
                 _remindTimeL = label;
-                [self.view addSubview:_remindTimeL];
+                [_scrollView addSubview:_remindTimeL];
                 break;
             }
             case 6:{
                 
                 _remindPurposeL = label;
-                [self.view addSubview:_remindPurposeL];
+                [_scrollView addSubview:_remindPurposeL];
                 break;
             }
             default:
@@ -504,6 +580,19 @@
     _confirmBtn.layer.cornerRadius = 5 *SIZE;
     _confirmBtn.clipsToBounds = YES;
     [self.view addSubview:_confirmBtn];
+    
+//    if ([self.status isEqualToString:@"direct"]) {
+//
+//        _followPurposeTF.textField.text = self.followDic[@"follow_goal"];
+//        _contentView.text = self.followDic[@"comment"];
+//        for (int i = 0; i < _followArr.count; i++) {
+//
+//            if ([self.followDic[@"follow_way"] isEqualToString:_followArr[i][@"param"]]) {
+//
+//                [_followWayColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+//            }
+//        }
+//    }
     
     [self MasonryUI];
 }

@@ -54,6 +54,12 @@ static NSString *const WorkClientAutoDetail_URL = @"saleApp/work/client/auto/det
 //新增客户
 static NSString *const ProjectClientAutoAdd_URL = @"saleApp/work/client/auto/add";
 
+//添加跟进记录
+static NSString *const WorkClientAutoFollowAdd_URL = @"saleApp/work/client/auto/follow/add";
+
+//删除跟进记录
+static NSString *const WorkClientAutoFollowDelete_URL = @"saleApp/work/client/auto/follow/delete";
+
 //号码判重
 static NSString *const TelRepeatCheck_URL = @"saleApp/tel/repeatCheck";
 #pragma mark -- 签字流程 --

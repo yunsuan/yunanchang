@@ -103,6 +103,54 @@ static NSString *const kACCESSROLE = @"saleApp";
     }];
 }
 
++ (void)UpdateFile:(void (^)(id<AFMultipartFormData> _Nonnull))blocks url:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id _Nonnull))success failure:(void (^)(NSError * _Nonnull))failure{
+    
+//    [MBProgressHUD showActivityMessage:@"加载中"];
+    AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
+    [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
+    [manager.requestSerializer setValue:kACCESSROLE forHTTPHeaderField:@"ACCESS-ROLE"];
+    
+    NSString *str = [NSString stringWithFormat:@"%@%@",TestBase_Net,url];
+    
+    [htttmanger POST:str parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        blocks(formData);
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        [MBProgressHUD showActivityMessage:[NSString stringWithFormat:@"%.0f",uploadProgress.fractionCompleted * 100]];
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [MBProgressHUD hideHUD];
+        if ([responseObject[@"code"] integerValue] == 200)
+        {
+            success(responseObject);
+            return ;
+            
+        }else if ([responseObject[@"code"] integerValue] == 401) {
+            
+            [MBProgressHUD showError:@"账号在其他地点登录，请重新登录！"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
+                //                [UserModel defaultModel].Token = @"";
+                //                [UserModelArchiver archive];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"goLoginVC" object:nil];
+            });
+            return;
+        }else{
+            
+            success(responseObject);
+            return;
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+
 + (AFHTTPSessionManager *)sharedHttpSessionManager
 {
     static dispatch_once_t onceToken;

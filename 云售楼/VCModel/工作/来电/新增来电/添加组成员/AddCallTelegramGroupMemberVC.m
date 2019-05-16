@@ -11,15 +11,23 @@
 #import "BoxSelectCollCell.h"
 #import "BaseHeader.h"
 
+#import "SinglePickView.h"
+#import "DateChooseView.h"
+
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
 @interface AddCallTelegramGroupMemberVC ()<UITextFieldDelegate>
 {
     
+    NSDateFormatter *_formatter;
+    
     NSInteger _numAdd;
     
     NSString *_gender;
+    NSString *_project_id;
+    
+    NSMutableArray *_certArr;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -73,10 +81,53 @@
 
 @implementation AddCallTelegramGroupMemberVC
 
+- (instancetype)initWithProjectId:(NSString *)projectId
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = projectId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+    [self PropertyRequestMethod];
+}
+
+- (void)initDataSource{
+    
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    
+    
+    _certArr = [@[] mutableCopy];
+}
+
+- (void)PropertyRequestMethod{
+    
+    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            for (int i = 0; i < [resposeObject[@"data"][2] count]; i++) {
+                
+                NSDictionary *dic = @{@"id":resposeObject[@"data"][2][i][@"config_id"],
+                                      @"param":resposeObject[@"data"][2][i][@"config_name"]};
+                [self->_certArr addObject:dic];
+            }
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)ActionTagBtn:(UIButton *)btn{
@@ -89,6 +140,42 @@
     }else{
         
         _femaleBtn.selected = YES;
+    }
+}
+
+- (void)ActionDropBtn:(UIButton *)btn{
+    
+    switch (btn.tag) {
+        case 0:
+        {
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:_certArr];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                self->_certTypeBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+                self->_certTypeBtn->str = [NSString stringWithFormat:@"%@",ID];
+                self->_certTypeBtn.placeL.text = @"";
+            };
+            [self.view addSubview:view];
+            break;
+        }
+        case 1:{
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.frame];
+            [view.pickerView setMaximumDate:[NSDate date]];
+            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *comps = [[NSDateComponents alloc] init];
+            [comps setYear:60];//设置最大时间为：当前时间推后10天
+            [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
+            view.dateblock = ^(NSDate *date) {
+                
+                self->_birthBtn.content.text = [self->_formatter stringFromDate:date];
+                self->_birthBtn.placeL.text = @"";
+            };
+            [self.view addSubview:view];
+            break;
+        }
+        default:
+            break;
     }
 }
 
@@ -226,6 +313,26 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 400) {
+            
+            [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
+                
+                textField.text = @"";
+            }];
+        }else{
+            
+            
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        //            self
+    }];
+}
+
 - (void)initUI{
     
     self.titleLabel.text = @"添加组员";
@@ -286,6 +393,8 @@
             {
                 _phoneTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 217 *SIZE, 33 *SIZE)];
                 _phoneTF.textField.placeholder = @"请输入手机号码";
+                _phoneTF.textField.delegate = self;
+                _phoneTF.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF];
                 break;
             }
@@ -294,6 +403,8 @@
                 _phoneTF2 = tf;
                 _phoneTF2.hidden = YES;
                 _phoneTF2.textField.placeholder = @"请输入手机号码";
+                _phoneTF2.textField.delegate = self;
+                _phoneTF2.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF2];
                 break;
             }
@@ -302,6 +413,8 @@
                 _phoneTF3 = tf;
                 _phoneTF3.hidden = YES;
                 _phoneTF3.textField.placeholder = @"请输入手机号码";
+                _phoneTF3.textField.delegate = self;
+                _phoneTF3.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF3];
                 break;
             }
@@ -309,6 +422,7 @@
             {
                 _certNumTF = tf;
                 _certNumTF.textField.placeholder = @"请输入证件号";
+                _certNumTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [_scrollView addSubview:_certNumTF];
                 break;
             }
@@ -316,6 +430,7 @@
             {
                 _mailCodeTF = tf;
                 _mailCodeTF.textField.placeholder = @"请输入邮政编码";
+                _mailCodeTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [_scrollView addSubview:_mailCodeTF];
                 break;
             }
@@ -457,7 +572,8 @@
     for (int i = 0; i < 2; i++) {
         
         DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
-        
+        btn.tag = i;
+        [btn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
         switch (i) {
             case 0:
             {

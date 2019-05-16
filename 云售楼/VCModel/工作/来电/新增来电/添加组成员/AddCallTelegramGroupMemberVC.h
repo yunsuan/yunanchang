@@ -18,6 +18,8 @@ typedef void(^AddCallTelegramGroupMemberVCBlock)(NSString *group, NSDictionary *
 
 @property (nonatomic, strong) NSDictionary *configDic;
 
+- (instancetype)initWithProjectId:(NSString *)projectId;
+
 @end
 
 NS_ASSUME_NONNULL_END

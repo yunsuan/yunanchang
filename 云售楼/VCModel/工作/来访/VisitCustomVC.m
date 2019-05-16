@@ -1,19 +1,19 @@
 //
-//  CallTelegramVC.m
+//  VisitCustomVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/4/15.
+//  Created by 谷治墙 on 2019/5/16.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "CallTelegramVC.h"
+#import "VisitCustomVC.h"
 
 #import "CallTelegramCustomDetailVC.h"
 #import "AddCallTelegramVC.h"
 
 #import "CallTelegramCell.h"
 
-@interface CallTelegramVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface VisitCustomVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
     
     NSMutableArray *_dataArr;
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation CallTelegramVC
+@implementation VisitCustomVC
 
 - (instancetype)initWithProjectId:(NSString *)projectId
 {
@@ -56,7 +56,7 @@
 - (void)RequestMethod{
     
     self->_table.mj_footer.state = MJRefreshStateIdle;
-    [BaseRequest GET:WorkClientAutoList_URL parameters:@{@"type":@"1",@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:WorkClientAutoList_URL parameters:@{@"type":@"2",@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -157,12 +157,12 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-
+    
     return [[UIView alloc] init];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-
+    
     return [[UIView alloc] init];
 }
 
@@ -230,7 +230,7 @@
     [self.view addSubview:_table];
     
     _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
-       
+        
         self->_page = 1;
         [self RequestMethod];
     }];
@@ -241,5 +241,4 @@
         [self RequestAddMethod];
     }];
 }
-
 @end
