@@ -8,6 +8,7 @@
 
 #import "RoomVC.h"
 
+
 #import "RoomDetailVC.h"
 
 #import "RoomHeader.h"
@@ -21,8 +22,10 @@
     
     NSMutableArray *_dataArr;
     NSMutableArray *_projectArr;
-    NSString *_info_id;
+//    NSString *_info_id;
     NSString *_project_id;
+    NSString *_ldtitle;
+
 }
 
 @property (nonatomic, strong) UICollectionView *coll;
@@ -34,7 +37,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
@@ -43,7 +45,7 @@
 - (void)initDataSource{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NSNotificationProject:) name:@"projectSelect" object:nil];
-    _info_id = [NSString stringWithFormat:@"%@",[UserModel defaultModel].company_info[@"project_list"][0][@"info_id"]];
+
     _project_id = [NSString stringWithFormat:@"%@",[UserModel defaultModel].company_info[@"project_list"][0][@"project_id"]];
     _dataArr = [@[] mutableCopy];
     _projectArr = [@[] mutableCopy];
@@ -52,8 +54,39 @@
 - (void)NSNotificationProject:(NSNotification *)project{
     
     self->_project_id = project.userInfo[@"project_id"];
-    self->_info_id = project.userInfo[@"info_id"];
+//    self->_info_id = project.userInfo[@"info_id"];
     [self.rightBtn setTitle:project.userInfo[@"project_name"] forState:UIControlStateNormal];
+}
+
+-(void)PostWithType:(NSInteger)type Houseid:(NSString *)houseid
+{
+    NSDictionary *prameters;
+    if(type == 1)
+    {
+        prameters = @{
+                      @"build_id":houseid
+                      };
+    }
+    else
+    {
+        prameters = @{
+                      @"unit_id":houseid
+                      };
+    }
+    
+    [BaseRequest GET:ProjectHouseGetDetail_URL parameters:prameters success:^(id  _Nonnull resposeObject) {
+        if ([resposeObject[@"code"] integerValue]== 200) {
+            NSLog(@"%@",resposeObject);
+            RoomDetailVC *vc = [[RoomDetailVC alloc] init];
+            vc.LDinfo = resposeObject[@"data"];
+            vc.LDtitle = self->_ldtitle;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+   
+        
+    } failure:^(NSError * _Nonnull error) {
+        
+    }];
 }
 
 
@@ -64,7 +97,8 @@
         [_projectArr removeAllObjects];
         for (int i = 0; i < [[UserModel defaultModel].company_info[@"project_list"] count]; i++) {
             
-            NSDictionary *dic = @{@"id":[UserModel defaultModel].company_info[@"project_list"][i][@"info_id"],
+
+            NSDictionary *dic = @{@"id":[UserModel defaultModel].company_info[@"project_list"][i][@"project_id"],
                                   @"param":[UserModel defaultModel].company_info[@"project_list"][i][@"project_name"]
                                   };
             [_projectArr addObject:dic];
@@ -74,26 +108,27 @@
     SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:_projectArr];
     view.selectedBlock = ^(NSString *MC, NSString *ID) {
         
-        self->_info_id = [NSString stringWithFormat:@"%@",ID];
+//        self->_info_id = [NSString stringWithFormat:@"%@",ID];
         [self.rightBtn setTitle:MC forState:UIControlStateNormal];
         for (int i = 0; i < [[UserModel defaultModel].company_info[@"project_list"] count]; i++) {
             
-            if ([[NSString stringWithFormat:@"%@",[UserModel defaultModel].company_info[@"project_list"][i][@"info_id"]] isEqualToString:self->_info_id]) {
-                
+//            if ([[NSString stringWithFormat:@"%@",[UserModel defaultModel].company_info[@"project_list"][i][@"info_id"]] isEqualToString:self->_info_id]) {
+            
                 self->_project_id = [UserModel defaultModel].company_info[@"project_list"][i][@"project_id"];
-            }
+//            }
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"projectSelect" object:nil userInfo:@{@"info_id":self->_info_id,@"project_name":MC,@"project_id":self->_project_id}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"projectSelect" object:nil userInfo:@{@"project_name":MC,@"project_id":self->_project_id}];
+
         [self RequestMethod];
     };
     [[UIApplication sharedApplication].keyWindow addSubview:view];
 }
 
 - (void)RequestMethod{
+
+//    if (_info_id.length) {
     
-    if (_info_id.length) {
-        
-        [BaseRequest GET:ProjectHouseGetBuildList_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
+        [BaseRequest GET:ProjectHouseGetBuildList_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
@@ -108,7 +143,8 @@
             
             [self showContent:@"网络错误"];
         }];
-    }
+//    }
+
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -173,14 +209,37 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (!_dataArr[indexPath.section][@""][indexPath.item][@""]) {
-        
-        return;
+
+    NSMutableArray *unitList =_dataArr[indexPath.section][@"buildList"][indexPath.row][@"unitList"];
+    if(unitList.count == 0)
+    {
+        _ldtitle = [NSString stringWithFormat:@"%@-%@",_dataArr[indexPath.section][@"batch_name"],_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"]];
+        [self PostWithType:1 Houseid:_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_id"]];
     }
-    NSArray *unitArr = _dataArr[indexPath.section][@""][indexPath.item][@""];
+    else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"] message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        for (int i= 0; i<unitList.count; i++) {
+            UIAlertAction *alertaction = [UIAlertAction actionWithTitle:unitList[i][@"unit_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->_ldtitle = [NSString stringWithFormat:@"%@-%@-%@",self->_dataArr[indexPath.section][@"batch_name"],self->_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"],unitList[i][@"unit_name"]];
+                [self PostWithType:2 Houseid:unitList[i][@"unit_id"]];
+                
+            }];
+               [alert addAction:alertaction];
+        }
+        
+        [alert addAction:cancel];
+        [self.navigationController presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }
     
-    RoomDetailVC *vc = [[RoomDetailVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+
+
 }
 
 - (void)initUI{

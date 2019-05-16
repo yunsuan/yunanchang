@@ -324,17 +324,15 @@
                 header = [[CallTelegramCustomDetailIntentHeader alloc] initWithReuseIdentifier:@"CallTelegramCustomDetailIntentHeader"];
             }
             
+            header.tag = section;
+            
             header.callTelegramCustomDetailIntentHeaderEditBlock = ^(NSInteger index) {
                 
-                NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:self->_intentArr[0]];
-                [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                   
-                    if ([key isEqualToString:@"property_id"]) {
-                        
-                        [dic setObject:obj forKey:@"id"];
-                    }
-                }];
+                NSMutableDictionary *dic = [@{} mutableCopy];
+                dic = [NSMutableDictionary dictionaryWithDictionary:self->_intentArr[index - 1]];
+                [dic setObject:[NSString stringWithFormat:@"%@",dic[@"property_id"]] forKey:@"id"];
                 IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[dic]];
+                nextVC.status = @"modify";
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
             

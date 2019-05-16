@@ -209,96 +209,102 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    [_lastArr removeAllObjects];
-    for (int i = 0; i < _dataArr.count; i++) {
+    if ([self.status isEqualToString:@"modify"]) {
         
-        NSArray *arr = _dataArr[i][@"list"];
-        for (int j = 0; j < arr.count; j++) {
+//        WorkClientAutoNeedUpdate_URL
+    }else{
+        
+        [_lastArr removeAllObjects];
+        for (int i = 0; i < _dataArr.count; i++) {
             
-            NSMutableDictionary *needDic = [[NSMutableDictionary alloc] init];
-            NSDictionary *dic = arr[j];
-            switch ([dic[@"type"] integerValue]) {
-                    
-                case 1:
-                {
-                    BorderTextField *tf = _moduleArr[i][j];
-                    if (![self isEmpty:tf.textField.text]) {
-                        
-                        [needDic setObject:tf.textField.text forKey:@"value"];
-                        [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                        [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
-                    }else{
-                        
-                        if ([dic[@"is_must"] integerValue] == 1) {
-                            
-                            [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请输入%@",dic[@"config_name"]]];
-                            return;
-                        }
-                    }
-                    break;
-                }
-                case 2:
-                {
-                    DropBtn *btn = _moduleArr[i][j];
-                    if (btn.content.text) {
-                        
-                        [needDic setObject:btn.content.text forKey:@"value"];
-                        [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                        [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
-                    }else{
-                        
-                        if ([dic[@"is_must"] integerValue] == 1) {
-                            
-                            [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
-                            return;
-                        }
-                    }
-                    break;
-                }
-                case 3:
-                {
-                    break;
-                }
-                case 4:
-                {
-                    DropBtn *btn = _moduleArr[i][j];
-                    if (btn.content.text) {
-                        
-                        [needDic setObject:btn.content.text forKey:@"value"];
-                        [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                        [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
-                    }else{
-                        
-                        if ([dic[@"is_must"] integerValue] == 1) {
-                            
-                            [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
-                            return;
-                        }
-                    }
-                    break;
-                }
-                default:
-                    break;
-            }
-            if (needDic.count) {
+            NSArray *arr = _dataArr[i][@"list"];
+            for (int j = 0; j < arr.count; j++) {
                 
-                [_lastArr addObject:needDic];
+                NSMutableDictionary *needDic = [[NSMutableDictionary alloc] init];
+                NSDictionary *dic = arr[j];
+                switch ([dic[@"type"] integerValue]) {
+                        
+                    case 1:
+                    {
+                        BorderTextField *tf = _moduleArr[i][j];
+                        if (![self isEmpty:tf.textField.text]) {
+                            
+                            [needDic setObject:tf.textField.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请输入%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    case 2:
+                    {
+                        DropBtn *btn = _moduleArr[i][j];
+                        if (btn.content.text) {
+                            
+                            [needDic setObject:btn.content.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    case 3:
+                    {
+                        break;
+                    }
+                    case 4:
+                    {
+                        DropBtn *btn = _moduleArr[i][j];
+                        if (btn.content.text) {
+                            
+                            [needDic setObject:btn.content.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                if (needDic.count) {
+                    
+                    [_lastArr addObject:needDic];
+                }
             }
         }
-    }
-    
-    if (_lastArr.count) {
         
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-        [self.allDic setObject:jsonString forKey:@"need_list"];
+        if (_lastArr.count) {
+            
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+            [self.allDic setObject:jsonString forKey:@"need_list"];
+        }
+        
+        FollowRecordVC *nextVC = [[FollowRecordVC alloc] init];
+        nextVC.allDic = self.allDic;
+        nextVC.status = @"add";
+        [self.navigationController pushViewController:nextVC animated:YES];
     }
-    
-    FollowRecordVC *nextVC = [[FollowRecordVC alloc] init];
-    nextVC.allDic = self.allDic;
-    nextVC.status = @"add";
-    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 

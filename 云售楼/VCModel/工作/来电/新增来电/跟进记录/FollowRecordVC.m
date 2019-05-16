@@ -12,7 +12,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "RecordView.h"
-#import "RecordLongPressView.h"
+//#import "RecordLongPressView.h"
 #import "DateChooseView.h"
 
 #import "BoxSelectCollCell.h"
@@ -173,29 +173,29 @@
 
 - (void)ActionRecordBtn:(UIButton *)btn{
     
-//    RecordView *view = [[RecordView alloc] initWithFrame:self.view.bounds];
-//    view.recordViewBlock = ^{
-//
-//        self->_playBtn.hidden = NO;
-//        [self->_nextTimeL mas_remakeConstraints:^(MASConstraintMaker *make) {
-//
-//            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-//            make.top.equalTo(self->_playBtn.mas_bottom).offset(25 *SIZE);
-//            make.width.mas_equalTo(70 *SIZE);
-//        }];
-//
-//        [self->_nextTimeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-//
-//            make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-//            make.top.equalTo(self->_playBtn.mas_bottom).offset(15 *SIZE);
-//            make.width.mas_equalTo(258 *SIZE);
-//            make.height.mas_equalTo(33 *SIZE);
-//        }];
-//    };
-//    [self.view addSubview:view];
-//    [view startRecord];
-    RecordLongPressView *view = [[RecordLongPressView alloc] initWithFrame:self.view.bounds];
+    RecordView *view = [[RecordView alloc] initWithFrame:self.view.bounds];
+    view.recordViewBlock = ^{
+
+        self->_playBtn.hidden = NO;
+        [self->_nextTimeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+            make.top.equalTo(self->_playBtn.mas_bottom).offset(25 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
+
+        [self->_nextTimeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+            make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+            make.top.equalTo(self->_playBtn.mas_bottom).offset(15 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+    };
     [self.view addSubview:view];
+////    [view startRecord];
+//    RecordLongPressView *view = [[RecordLongPressView alloc] initWithFrame:self.view.bounds];
+//    [self.view addSubview:view];
     
 }
 

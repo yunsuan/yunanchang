@@ -41,6 +41,8 @@ static NSString *const HandleGetMessageList_URL = @"saleApp/handle/getMessageLis
 //获取批次楼栋
 static NSString *const ProjectHouseGetBuildList_URL =  @"saleApp/project/house/getBuildList";
 
+//获取房源详情
+static NSString *const ProjectHouseGetDetail_URL =  @"/saleApp/project/house/getHouseDetail";
 #pragma mark ---  工作  ---
 
 #pragma mark -- 来电 --

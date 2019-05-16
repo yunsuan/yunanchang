@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 
+@property (nonatomic, strong) NSString *status;
+
 - (instancetype)initWithData:(NSArray *)data;
 
 //- (instancetype)initWithPropertyId:(NSString *)propertyId;

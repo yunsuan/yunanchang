@@ -24,7 +24,7 @@
     
     if (self.callTelegramCustomDetailIntentHeaderEditBlock) {
         
-        self.callTelegramCustomDetailIntentHeaderEditBlock(btn.tag);
+        self.callTelegramCustomDetailIntentHeaderEditBlock(self.tag);
     }
 }
 
@@ -32,7 +32,7 @@
     
     if (self.callTelegramCustomDetailIntentHeaderDeleteBlock) {
         
-        self.callTelegramCustomDetailIntentHeaderDeleteBlock(btn.tag);
+        self.callTelegramCustomDetailIntentHeaderDeleteBlock(self.tag);
     }
 }
 
@@ -49,7 +49,7 @@
     [self.contentView addSubview:_editBtn];
     
     _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_deleteBtn addTarget:self action:@selector(ActionEditBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_deleteBtn addTarget:self action:@selector(ActionDeleteBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_deleteBtn setImage:IMAGE_WITH_NAME(@"delete_2") forState:UIControlStateNormal];
     [self.contentView addSubview:_deleteBtn];
     

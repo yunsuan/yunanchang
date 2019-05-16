@@ -26,6 +26,7 @@
     if (self) {
         
         [self initUI];
+        [self startRecord];
     }
     return self;
 }

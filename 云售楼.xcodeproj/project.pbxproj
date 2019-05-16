@@ -2629,6 +2629,7 @@
 			baseConfigurationReference = 335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
@@ -2638,8 +2639,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yskj.yunshoulou.---";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yskj.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2649,6 +2651,7 @@
 			baseConfigurationReference = 7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
@@ -2658,8 +2661,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yskj.yunshoulou.---";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yskj.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
