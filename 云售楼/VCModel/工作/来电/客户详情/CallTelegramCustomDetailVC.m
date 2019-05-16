@@ -9,6 +9,7 @@
 #import "CallTelegramCustomDetailVC.h"
 
 #import "CallTelegramModifyCustomVC.h"
+#import "FollowRecordVC.h"
 
 #import "CallTelegramCustomDetailHeader.h"
 #import "CallTelegramCustomDetailIntentHeader.h"
@@ -345,6 +346,23 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
     return [[UIView alloc] init];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (_index == 0) {
+        
+        
+    }else if (_index == 1){
+        
+        
+    }else{
+        
+        if (indexPath.section == 0) {
+            
+//            FollowRecordVC *vc 
+        }
+    }
 }
 
 - (void)initUI{
