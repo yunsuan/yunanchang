@@ -1,12 +1,12 @@
 //
-//  CallTelegramCustomDetailVC.m
+//  VisitCustomDetailVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/4/15.
+//  Created by 谷治墙 on 2019/5/16.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "CallTelegramCustomDetailVC.h"
+#import "VisitCustomDetailVC.h"
 
 #import "CallTelegramModifyCustomVC.h"
 #import "CallTelegramSimpleCustomVC.h"
@@ -24,7 +24,7 @@
 #import "BaseAddCell.h"
 #import "CallTelegramCustomDetailFollowCell.h"
 
-@interface CallTelegramCustomDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface VisitCustomDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSInteger _index;
@@ -43,9 +43,10 @@
 }
 @property (nonatomic, strong) UITableView *table;
 
+
 @end
 
-@implementation CallTelegramCustomDetailVC
+@implementation VisitCustomDetailVC
 
 - (instancetype)initWithGroupId:(NSString *)groupId
 {
@@ -109,12 +110,16 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *visit = [UIAlertAction actionWithTitle:@"转来访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转订单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"放弃跟进" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-       
+        
         [BaseRequest GET:WorkClientAutoGroupUpdate_URL parameters:@{@"group_id":self->_groupInfoDic[@"group_id"],@"state":@"0"} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
@@ -134,7 +139,8 @@
         
     }];
     
-    [alert addAction:visit];
+    [alert addAction:sign];
+    [alert addAction:order];
     [alert addAction:quit];
     [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
@@ -271,7 +277,7 @@
         }
         
         header.callTelegramCustomDetailHeaderEditBlock = ^(NSInteger index) {
-          
+            
             CallTelegramModifyCustomVC *vc = [[CallTelegramModifyCustomVC alloc] initWithDataDic:self->_groupInfoDic projectId:self->_project_id];
             vc.callTelegramModifyCustomVCBlock = ^{
                 
@@ -281,13 +287,13 @@
         };
         
         header.callTelegramCustomDetailHeaderCollBlock = ^(NSInteger index) {
-          
+            
             self->_num = index;
             [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         };
         
         header.callTelegramCustomDetailHeaderAddBlock = ^(NSInteger index) {
-          
+            
             AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:self->_project_id];
             nextVC.group_id = self->_groupInfoDic[@"group_id"];
             nextVC.addCallTelegramGroupMemberDirectVCBlock = ^{
@@ -296,7 +302,7 @@
             };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
-    
+        
         
         header.callTelegramCustomDetailHeaderTagBlock = ^(NSInteger index) {
             
@@ -328,7 +334,7 @@
                 
                 NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:self->_intentArr[0]];
                 [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                   
+                    
                     if ([key isEqualToString:@"property_id"]) {
                         
                         [dic setObject:obj forKey:@"id"];
@@ -395,7 +401,7 @@
                 
                 NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_peopleArr[self->_num]];
                 [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                   
+                    
                     if (dic[key]) {
                         
                         [tempDic setObject:dic[key] forKey:key];
@@ -452,7 +458,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         [cell.contentL mas_updateConstraints:^(MASConstraintMaker *make) {
-           
+            
             make.left.equalTo(cell.contentView).offset(28 *SIZE);
         }];
         cell.contentL.text = [NSString stringWithFormat:@"%@：%@",_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"config_name"],_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"value"]];
@@ -512,7 +518,7 @@
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
-//                        self->_propertyArr = resposeObject[@"data"][3];
+                        //                        self->_propertyArr = resposeObject[@"data"][3];
                         for (NSDictionary *dic in resposeObject[@"data"][3]) {
                             
                             NSDictionary *tempDic = @{@"id":dic[@"config_id"],

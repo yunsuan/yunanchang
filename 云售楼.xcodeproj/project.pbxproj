@@ -163,6 +163,8 @@
 		0CF1A2F3228D4ED1001C77CF /* NSDictionary+GZQDic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2F2228D4ED1001C77CF /* NSDictionary+GZQDic.m */; };
 		0CF1A2F6228D4F22001C77CF /* NSArray+GZQArr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2F5228D4F22001C77CF /* NSArray+GZQArr.m */; };
 		0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2F8228D6307001C77CF /* CallTelegramSimpleCustomVC.m */; };
+		0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2FD228D8242001C77CF /* AddVisitCustomVC.m */; };
+		0CF1A304228D8354001C77CF /* VisitCustomDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A303228D8354001C77CF /* VisitCustomDetailVC.m */; };
 		AD247DF2FE90196EA1B639F0 /* libPods-云售楼.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42BF71934FE363E890039BD /* libPods-云售楼.a */; };
 /* End PBXBuildFile section */
 
@@ -496,6 +498,10 @@
 		0CF1A2F5228D4F22001C77CF /* NSArray+GZQArr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+GZQArr.m"; sourceTree = "<group>"; };
 		0CF1A2F7228D6307001C77CF /* CallTelegramSimpleCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallTelegramSimpleCustomVC.h; sourceTree = "<group>"; };
 		0CF1A2F8228D6307001C77CF /* CallTelegramSimpleCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallTelegramSimpleCustomVC.m; sourceTree = "<group>"; };
+		0CF1A2FC228D8242001C77CF /* AddVisitCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddVisitCustomVC.h; sourceTree = "<group>"; };
+		0CF1A2FD228D8242001C77CF /* AddVisitCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddVisitCustomVC.m; sourceTree = "<group>"; };
+		0CF1A302228D8354001C77CF /* VisitCustomDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomDetailVC.h; sourceTree = "<group>"; };
+		0CF1A303228D8354001C77CF /* VisitCustomDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomDetailVC.m; sourceTree = "<group>"; };
 		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
 		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
 		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2038,6 +2044,8 @@
 		0CF1A2EC228D15D2001C77CF /* 来访 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF1A2FA228D8225001C77CF /* 客户详情 */,
+				0CF1A2FB228D8226001C77CF /* 新增来访 */,
 				0CF1A2ED228D15E6001C77CF /* VisitCustomVC.h */,
 				0CF1A2EE228D15E6001C77CF /* VisitCustomVC.m */,
 			);
@@ -2053,6 +2061,48 @@
 				0CF1A2F5228D4F22001C77CF /* NSArray+GZQArr.m */,
 			);
 			path = "标准json";
+			sourceTree = "<group>";
+		};
+		0CF1A2FA228D8225001C77CF /* 客户详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1A302228D8354001C77CF /* VisitCustomDetailVC.h */,
+				0CF1A303228D8354001C77CF /* VisitCustomDetailVC.m */,
+			);
+			path = "客户详情";
+			sourceTree = "<group>";
+		};
+		0CF1A2FB228D8226001C77CF /* 新增来访 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1A301228D828E001C77CF /* 跟进记录 */,
+				0CF1A2FF228D828E001C77CF /* 添加组成员 */,
+				0CF1A300228D828E001C77CF /* 意向调查 */,
+				0CF1A2FC228D8242001C77CF /* AddVisitCustomVC.h */,
+				0CF1A2FD228D8242001C77CF /* AddVisitCustomVC.m */,
+			);
+			path = "新增来访";
+			sourceTree = "<group>";
+		};
+		0CF1A2FF228D828E001C77CF /* 添加组成员 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "添加组成员";
+			sourceTree = "<group>";
+		};
+		0CF1A300228D828E001C77CF /* 意向调查 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "意向调查";
+			sourceTree = "<group>";
+		};
+		0CF1A301228D828E001C77CF /* 跟进记录 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "跟进记录";
 			sourceTree = "<group>";
 		};
 		256FA66B3C2EE540F45796BE /* Frameworks */ = {
@@ -2298,6 +2348,7 @@
 				0CEF8A44225F15F70057F3FD /* BaseHeader.m in Sources */,
 				0CD0431D227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m in Sources */,
 				0CD0434F22800F5D002C8BD3 /* WorkPersonAuditVC.m in Sources */,
+				0CF1A304228D8354001C77CF /* VisitCustomDetailVC.m in Sources */,
 				0CD04339227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m in Sources */,
 				0CD043B122819009002C8BD3 /* RecordLongPressView.m in Sources */,
 				0CD04325227FD2BD002C8BD3 /* WorkRecommendVC.m in Sources */,
@@ -2353,6 +2404,7 @@
 				0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */,
 				0C3A9168225B377400F04804 /* MineVC.m in Sources */,
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
+				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
 				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,

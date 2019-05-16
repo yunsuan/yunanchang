@@ -54,8 +54,18 @@ static NSString *const WorkClientAutoDetail_URL = @"saleApp/work/client/auto/det
 //新增客户
 static NSString *const ProjectClientAutoAdd_URL = @"saleApp/work/client/auto/add";
 
+//新增组员客户
+static NSString *const WorkClientAutoClientAdd_URL = @"saleApp/work/client/auto/client/add";
+
 //修改客户信息
 static NSString *const WorkClientAutoClientUpdate_URL = @"saleApp/work/client/auto/client/update";
+
+//修改需求信息
+static NSString *const WorkClientAutoNeedUpdate_URL = @"saleApp/work/client/auto/need/update";
+
+//修改组信息
+static NSString *const WorkClientAutoGroupUpdate_URL = @"saleApp/work/client/auto/group/update";
+
 
 //添加跟进记录
 static NSString *const WorkClientAutoFollowAdd_URL = @"saleApp/work/client/auto/follow/add";

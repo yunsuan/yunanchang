@@ -1,11 +1,15 @@
 //
-//  AddCallTelegramGroupMemberVC.m
+//  AddVisitCustomVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/5/5.
+//  Created by 谷治墙 on 2019/5/16.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
+#import "AddVisitCustomVC.h"
+
+#import "FollowRecordVC.h"
+#import "IntentSurveyVC.h"
 #import "AddCallTelegramGroupMemberVC.h"
 
 #import "BoxSelectCollCell.h"
@@ -17,19 +21,36 @@
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
-@interface AddCallTelegramGroupMemberVC ()<UITextFieldDelegate>
+@interface AddVisitCustomVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate>
 {
-    
-    NSDateFormatter *_formatter;
     
     NSInteger _numAdd;
     
-    NSString *_gender;
+    NSString *_group;
+    //    NSString *_property_id;
     NSString *_project_id;
+    NSString *_gender;
     
+    NSDictionary *_configDic;
+    
+    //    NSMutableDictionary *_propertyDic;
+    
+    NSArray *_propertyArr;
+    
+    NSMutableArray *_propertyDArr;
+    NSMutableArray *_selectArr;
+    NSMutableArray *_approachArr;
     NSMutableArray *_certArr;
+    NSMutableArray *_clientArr;
+    NSMutableArray *_groupArr;
+    
+    NSDateFormatter *_formatter;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) UILabel *groupL;
+
+@property (nonatomic, strong) UIButton *addGroupBtn;
 
 @property (nonatomic, strong) UILabel *nameL;
 
@@ -67,6 +88,18 @@
 
 @property (nonatomic, strong) BorderTextField *mailCodeTF;
 
+@property (nonatomic, strong) UILabel *customSourceL;
+
+@property (nonatomic, strong) DropBtn *customSourceBtn;
+
+@property (nonatomic, strong) UILabel *approachL;
+
+@property (nonatomic, strong) DropBtn *approachBtn;
+
+@property (nonatomic, strong) UILabel *sourceTypeL;
+
+@property (nonatomic, strong) DropBtn *sourceTypeBtn;
+
 @property (nonatomic, strong) UILabel *addressL;
 
 @property (nonatomic, strong) BorderTextField *addressBtn;
@@ -75,11 +108,17 @@
 
 @property (nonatomic, strong) UITextView *markTV;
 
+@property (nonatomic, strong) UILabel *propertyIntentL;
+
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
+
+@property (nonatomic, strong) UICollectionView *propertyIntentColl;
+
 @property (nonatomic, strong) UIButton *nextBtn;
 
 @end
 
-@implementation AddCallTelegramGroupMemberVC
+@implementation AddVisitCustomVC
 
 - (instancetype)initWithProjectId:(NSString *)projectId
 {
@@ -95,7 +134,7 @@
     [super viewDidLoad];
     
     [self initDataSource];
-    [self initUI];
+    [self RequestMethod];
     [self PropertyRequestMethod];
 }
 
@@ -104,8 +143,33 @@
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
     
+    _propertyDArr = [@[] mutableCopy];
     
+    _approachArr = [@[] mutableCopy];
     _certArr = [@[] mutableCopy];
+    _selectArr = [@[] mutableCopy];
+    _clientArr = [@[] mutableCopy];
+    _groupArr = [@[] mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:WorkClientAutoColumnConfig_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_configDic = resposeObject[@"data"];
+            [self initUI];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+            [self initUI];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self initUI];
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)PropertyRequestMethod{
@@ -114,12 +178,35 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
+            for (int i = 0; i < [resposeObject[@"data"][0] count]; i++) {
+                
+                NSDictionary *dic = @{@"id":resposeObject[@"data"][0][i][@"config_id"],
+                                      @"param":resposeObject[@"data"][0][i][@"config_name"]};
+                [self->_approachArr addObject:dic];
+            }
+            
             for (int i = 0; i < [resposeObject[@"data"][2] count]; i++) {
                 
                 NSDictionary *dic = @{@"id":resposeObject[@"data"][2][i][@"config_id"],
                                       @"param":resposeObject[@"data"][2][i][@"config_name"]};
                 [self->_certArr addObject:dic];
             }
+            
+            self->_propertyArr = resposeObject[@"data"][3];
+            [self->_selectArr removeAllObjects];
+            for (int i = 0; i < self->_propertyArr.count; i++) {
+                
+                [self->_selectArr addObject:@0];
+            }
+            [self->_propertyIntentColl reloadData];
+            [self->_propertyIntentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self->_scrollView).offset(30 *SIZE);
+                make.top.equalTo(self->_propertyIntentL.mas_bottom).offset(20 *SIZE);
+                make.width.mas_equalTo(300 *SIZE);
+                make.height.mas_equalTo(self->_propertyIntentColl.collectionViewLayout.collectionViewContentSize.height);
+                make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
+            }];
         }else{
             
             [self showContent:resposeObject[@"msg"]];
@@ -163,11 +250,6 @@
         case 1:{
             
             DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.frame];
-            [view.pickerView setMaximumDate:[NSDate date]];
-            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSDateComponents *comps = [[NSDateComponents alloc] init];
-            [comps setYear:60];//设置最大时间为：当前时间推后10天
-            [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
             view.dateblock = ^(NSDate *date) {
                 
                 self->_birthBtn.content.text = [self->_formatter stringFromDate:date];
@@ -176,9 +258,44 @@
             [self.view addSubview:view];
             break;
         }
+        case 2:{
+            
+            break;
+        }
+        case 3:{
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:_approachArr];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                self->_approachBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+                self->_approachBtn->str = [NSString stringWithFormat:@"%@",ID];
+                self->_approachBtn.placeL.text = @"";
+            };
+            [self.view addSubview:view];
+            break;
+        }
         default:
             break;
     }
+}
+
+- (void)ActionAddGroupBtn:(UIButton *)btn{
+    
+    AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:_project_id];
+    nextVC.configDic = self->_configDic;
+    nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * group, NSDictionary * dic) {
+        
+        self->_group = group;
+        if (self->_groupL.text.length) {
+            
+            self->_groupL.text = [NSString stringWithFormat:@"%@,%@",self->_groupL.text,self->_group];
+        }else{
+            
+            
+        }
+        [self->_groupArr addObject:dic];
+    };
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)ActionAddBtn:(UIButton *)btn{
@@ -225,8 +342,9 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    //    NSMutableArray *clientArr = [@[] mutableCopy];
+    NSMutableDictionary *allDic = [@{} mutableCopy];
     NSMutableDictionary *tempDic = [@{} mutableCopy];
-    
     if ([self isEmpty:_nameTF.textField.text]) {
         
         [self alertControllerWithNsstring:@"必填信息" And:@"请填写姓名"];
@@ -241,6 +359,7 @@
             return;
         }
     }
+    
     if ([_configDic[@"tel"] integerValue] == 1) {
         
         if ([self isEmpty:_phoneTF.textField.text]) {
@@ -275,6 +394,30 @@
             [self alertControllerWithNsstring:@"必填信息" And:@"请选择通讯地址"];
             return;
         }
+    }
+    
+    if (!_approachBtn.content.text.length) {
+        
+        [self alertControllerWithNsstring:@"必填信息" And:@"请选择认知途径"];
+        return;
+    }
+    
+    
+    [_propertyDArr removeAllObjects];
+    for (int i = 0 ; i < _selectArr.count; i++) {
+        
+        if ([_selectArr[i] integerValue] == 1) {
+            
+            [_propertyDArr addObject:@{@"id":_propertyArr[i][@"config_id"],
+                                       @"param":_propertyArr[i][@"config_name"]
+                                       }];
+        }
+    }
+    
+    if (!_propertyDArr.count) {
+        
+        [self alertControllerWithNsstring:@"必填信息" And:@"请选择物业意向"];
+        return;
     }
     
     [tempDic setObject:_nameTF.textField.text forKey:@"name"];
@@ -314,93 +457,160 @@
         [tempDic setObject:_addressBtn.textField.text forKey:@"address"];
     }
     
+    if (_customSourceBtn.content.text.length) {
+        
+        
+    }
+    
+    //    if (_approachBtn.content.text.length) {
+    //
+    //        [tempDic setObject:_approachBtn->str forKey:@"listen_way"];
+    //    }
+    
     if (![self isEmpty:_markTV.text]) {
         
         [tempDic setObject:_markTV.text forKey:@"comment"];
     }
     
-    if (self.group_id.length) {
-        
-        [tempDic setObject:self.group_id forKey:@"group_id"];
-        [BaseRequest GET:WorkClientAutoClientAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
-            
-            if ([resposeObject[@"code"] integerValue] == 200) {
-                
-                if (self.addCallTelegramGroupMemberDirectVCBlock) {
-                    
-                    self.addCallTelegramGroupMemberDirectVCBlock();
-                }
-            }else{
-                
-                [self showContent:resposeObject[@"msg"]];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            
-            [self showContent:@"网络错误"];
-        }];
-    }else{
-        
-        if (self.addCallTelegramGroupMemberVCBlock) {
-            
-            self.addCallTelegramGroupMemberVCBlock(_nameTF.textField.text,tempDic);
-        }
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [_clientArr removeAllObjects];
+    _clientArr = [NSMutableArray arrayWithArray:_groupArr];
+    [_clientArr insertObject:tempDic atIndex:0];
+    
+    [allDic setObject:_project_id forKey:@"project_id"];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_clientArr options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [allDic setObject:jsonString forKey:@"client_list"];
+    [allDic setObject:@"1" forKey:@"source"];
+    [allDic setObject:@"2" forKey:@"type"];
+    [allDic setObject:_approachBtn->str forKey:@"listen_way"];
+    //    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithPropertyId:_property_id];
+    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:_propertyDArr];
+    nextVC.allDic = [[NSMutableDictionary alloc] initWithDictionary:allDic];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
+
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
-    if (([_phoneTF.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF.textField.text.length && _phoneTF2.textField.text.length)) {
+    if (textField == _nameTF.textField) {
         
-        [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+        if ([self isEmpty:textField.text]) {
             
-            self->_phoneTF2.textField.text = @"";
-        }];
-        return;
-    }else if (([_phoneTF.textField.text isEqualToString:_phoneTF3.textField.text] && _phoneTF.textField.text.length && _phoneTF3.textField.text.length)){
-        
-        [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
-            
-            self->_phoneTF3.textField.text = @"";
-        }];
-        return;
-    }else if (([_phoneTF3.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF3.textField.text.length && _phoneTF2.textField.text.length)){
-        
-        [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
-            
-            self->_phoneTF3.textField.text = @"";
-        }];
-        return;
-    }
-    
-    [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 400) {
-            
-            [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
+            if (_group.length) {
                 
-                textField.text = @"";
-            }];
+                _groupL.text = [NSString stringWithFormat:@"组别成员：%@",_group];
+            }else{
+                
+                _groupL.text = [NSString stringWithFormat:@"组别成员："];
+            }
         }else{
             
-            
+            if (_group.length) {
+                
+                _groupL.text = [NSString stringWithFormat:@"组别成员：%@,%@",textField.text,_group];
+            }else{
+                
+                _groupL.text = [NSString stringWithFormat:@"组别成员：%@",textField.text];
+            }
         }
-    } failure:^(NSError * _Nonnull error) {
+    }else{
         
-        //            self
-    }];
+        if (([_phoneTF.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF.textField.text.length && _phoneTF2.textField.text.length)) {
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF2.textField.text = @"";
+            }];
+            return;
+        }else if (([_phoneTF.textField.text isEqualToString:_phoneTF3.textField.text] && _phoneTF.textField.text.length && _phoneTF3.textField.text.length)){
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF3.textField.text = @"";
+            }];
+            return;
+        }else if (([_phoneTF3.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF3.textField.text.length && _phoneTF2.textField.text.length)){
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF3.textField.text = @"";
+            }];
+            return;
+        }
+        [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 400) {
+                
+                [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
+                    
+                    textField.text = @"";
+                }];
+            }else{
+                
+                
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            //            self
+        }];
+    }
+}
+
+
+#pragma mark -- CollectionView
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return _propertyArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    BoxSelectCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BoxSelectCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[BoxSelectCollCell alloc] initWithFrame:CGRectMake(0, 0, 60 *SIZE, 20 *SIZE)];
+    }
+    
+    cell.tag = 1;
+    
+    [cell setIsSelect:[_selectArr[indexPath.item] integerValue]];
+    
+    cell.titleL.text = _propertyArr[indexPath.item][@"config_name"];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //    for (int i = 0; i < _selectArr.count; i++) {
+    //
+    //        [_selectArr replaceObjectAtIndex:i withObject:@0];
+    //    }
+    //    _property_id = [NSString stringWithFormat:@"%@",_propertyArr[indexPath.item][@"config_id"]];
+    
+    if ([_selectArr[indexPath.item] integerValue] == 1) {
+        
+        [_selectArr replaceObjectAtIndex:indexPath.item withObject:@0];
+    }else{
+        
+        [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
+    }
+    
+    [collectionView reloadData];
 }
 
 - (void)initUI{
     
-    self.titleLabel.text = @"添加组员";
+    self.titleLabel.text = @"新增来电";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLWhiteColor;
     [self.view addSubview:_scrollView];
     
     BaseHeader *header = [[BaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    header.titleL.text = @"组员信息";
+    header.titleL.text = @"客户信息";
     [_scrollView addSubview:header];
     
     NSArray *btnArr = @[@"男",@"女"];
@@ -452,7 +662,6 @@
                 _phoneTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 217 *SIZE, 33 *SIZE)];
                 _phoneTF.textField.placeholder = @"请输入手机号码";
                 _phoneTF.textField.delegate = self;
-                _phoneTF.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF];
                 break;
             }
@@ -462,7 +671,6 @@
                 _phoneTF2.hidden = YES;
                 _phoneTF2.textField.placeholder = @"请输入手机号码";
                 _phoneTF2.textField.delegate = self;
-                _phoneTF2.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF2];
                 break;
             }
@@ -472,7 +680,6 @@
                 _phoneTF3.hidden = YES;
                 _phoneTF3.textField.placeholder = @"请输入手机号码";
                 _phoneTF3.textField.delegate = self;
-                _phoneTF3.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF3];
                 break;
             }
@@ -480,7 +687,6 @@
             {
                 _certNumTF = tf;
                 _certNumTF.textField.placeholder = @"请输入证件号";
-                _certNumTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [_scrollView addSubview:_certNumTF];
                 break;
             }
@@ -488,7 +694,6 @@
             {
                 _mailCodeTF = tf;
                 _mailCodeTF.textField.placeholder = @"请输入邮政编码";
-                _mailCodeTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [_scrollView addSubview:_mailCodeTF];
                 break;
             }
@@ -496,7 +701,7 @@
             {
                 
                 _addressBtn = tf;
-                _addressBtn.textField.placeholder = @"请输入地址";
+                _addressBtn.textField.placeholder = @"请输入通讯地址";
                 [_scrollView addSubview:_addressBtn];
                 break;
             }
@@ -504,28 +709,36 @@
                 break;
         }
     }
-
+    
+    _addGroupBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_addGroupBtn addTarget:self action:@selector(ActionAddGroupBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_addGroupBtn setImage:IMAGE_WITH_NAME(@"add_5") forState:UIControlStateNormal];
+    [_scrollView addSubview:_addGroupBtn];
     
     _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _addBtn.tag = 3;
     [_addBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_addBtn setImage:IMAGE_WITH_NAME(@"add_1") forState:UIControlStateNormal];
     [_scrollView addSubview:_addBtn];
     
-    NSArray *titleArr = @[@"姓名：",@"性别：",@"联系号码：",@"证件类型：",@"证件号：",@"出生年月：",@"邮政编码：",@"通讯地址：",@"备注："];
+    NSArray *titleArr = @[@"组别成员：",@"姓名：",@"性别：",@"联系号码：",@"证件类型：",@"证件号：",@"出生年月：",@"邮政编码：",@"客户来源：",@"认知途径：",@"来源类型：",@"通讯地址：",@"备注：",@"物业意向："];
     
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 14; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
         label.text = titleArr[i];
-        label.adjustsFontSizeToFitWidth = YES;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
-        
+        label.adjustsFontSizeToFitWidth = YES;
         switch (i) {
             case 0:
             {
-
+                _groupL = label;
+                [_scrollView addSubview:_groupL];
+                break;
+            }
+                
+            case 1:
+            {
                 _nameL = label;
                 if ([_configDic[@"name"] integerValue] == 1) {
                     
@@ -537,7 +750,7 @@
                 break;
             }
                 
-            case 1:
+            case 2:
             {
                 _genderL = label;
                 if ([_configDic[@"sex"] integerValue] == 1) {
@@ -550,7 +763,7 @@
                 break;
             }
                 
-            case 2:
+            case 3:
             {
                 _phoneL = label;
                 if ([_configDic[@"tel"] integerValue] == 1) {
@@ -563,21 +776,21 @@
                 break;
             }
                 
-            case 3:
+            case 4:
             {
                 _certTypeL = label;
                 [_scrollView addSubview:_certTypeL];
                 break;
             }
                 
-            case 4:
+            case 5:
             {
                 _certNumL = label;
                 [_scrollView addSubview:_certNumL];
                 break;
             }
                 
-            case 5:
+            case 6:
             {
                 _birthL = label;
                 if ([_configDic[@"birth"] integerValue] == 1) {
@@ -590,7 +803,7 @@
                 break;
             }
                 
-            case 6:
+            case 7:
             {
                 _mailCodeL = label;
                 if ([_configDic[@"mail"] integerValue] == 1) {
@@ -603,8 +816,28 @@
                 break;
             }
                 
-            
-            case 7:
+            case 8:
+            {
+                _customSourceL = label;
+                [_scrollView addSubview:_customSourceL];
+                break;
+            }
+            case 9:
+            {
+                _approachL = label;
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_approachL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _approachL.attributedText = attr;
+                [_scrollView addSubview:_approachL];
+                break;
+            }
+            case 10:
+            {
+                _sourceTypeL = label;
+                [_scrollView addSubview:_sourceTypeL];
+                break;
+            }
+            case 11:
             {
                 _addressL = label;
                 if ([_configDic[@"address"] integerValue] == 1) {
@@ -616,18 +849,25 @@
                 [_scrollView addSubview:_addressL];
                 break;
             }
-            case 8:{
-                
+            case 12:
+            {
                 _markL = label;
                 [_scrollView addSubview:_markL];
                 break;
             }
+            case 13:
+            {
+                _propertyIntentL = label;
+                [_scrollView addSubview:_propertyIntentL];
+                break;
+            }
+                
             default:
                 break;
         }
     }
     
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 5; i++) {
         
         DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
         btn.tag = i;
@@ -649,6 +889,31 @@
                 [_scrollView addSubview:_birthBtn];
                 break;
             }
+            case 2:
+            {
+                
+                _customSourceBtn = btn;
+                _customSourceBtn.placeL.text = @"请选择客户来源";
+                [_scrollView addSubview:_customSourceBtn];
+                break;
+            }
+            case 3:
+            {
+                
+                _approachBtn = btn;
+                _approachBtn.placeL.text = @"请选择认知途径";
+                [_scrollView addSubview:_approachBtn];
+                break;
+            }
+            case 4:
+            {
+                
+                _sourceTypeBtn = btn;
+                _sourceTypeBtn.content.text = @"自行添加";
+                _sourceTypeBtn.dropimg.hidden = YES;
+                [_scrollView addSubview:_sourceTypeBtn];
+                break;
+            }
             default:
                 break;
         }
@@ -661,14 +926,22 @@
     _markTV.clipsToBounds = YES;
     [_scrollView addSubview:_markTV];
     
+    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    _flowLayout.itemSize = CGSizeMake(100 *SIZE, 20 *SIZE);
+    
+    _propertyIntentColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 255 *SIZE, 100 *SIZE) collectionViewLayout:_flowLayout];
+    _propertyIntentColl.backgroundColor = CLWhiteColor;
+    _propertyIntentColl.delegate = self;
+    _propertyIntentColl.dataSource = self;
+    [_propertyIntentColl registerClass:[BoxSelectCollCell class] forCellWithReuseIdentifier:@"BoxSelectCollCell"];
+    [_scrollView addSubview:_propertyIntentColl];
+    
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_nextBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_nextBtn setTitle:@"确认提交" forState:UIControlStateNormal];
+    [_nextBtn setTitle:@"下一步 意向调查" forState:UIControlStateNormal];
     [_nextBtn setBackgroundColor:CLBlueTagColor];
-    //    _nextBtn.layer.cornerRadius = 5 *SIZE;
-    //    _nextBtn.clipsToBounds = YES;
     [self.view addSubview:_nextBtn];
     
     [self MasonryUI];
@@ -683,17 +956,33 @@
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE);
     }];
-    [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [_groupL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
         make.top.equalTo(self->_scrollView).offset(50 *SIZE);
+        make.width.mas_lessThanOrEqualTo(280 *SIZE);
+    }];
+    
+    [_addGroupBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_groupL.mas_right).offset(5 *SIZE);
+        make.top.equalTo(self->_scrollView).offset(46 *SIZE);
+        make.width.mas_equalTo(20 *SIZE);
+        make.height.mas_equalTo(20 *SIZE);
+    }];
+    
+    [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_groupL.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_nameTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_scrollView).offset(46 *SIZE);
+        make.top.equalTo(self->_groupL.mas_bottom).offset(18 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -736,6 +1025,14 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
+    [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(313 *SIZE);
+        make.top.equalTo(self->_maleBtn.mas_bottom).offset(27 *SIZE);
+        make.width.mas_equalTo(25 *SIZE);
+        make.height.mas_equalTo(25 *SIZE);
+    }];
+    
     [_phoneTF2 mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
@@ -750,14 +1047,6 @@
         make.top.equalTo(self->_phoneTF2.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
-    }];
-    
-    [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(313 *SIZE);
-        make.top.equalTo(self->_maleBtn.mas_bottom).offset(27 *SIZE);
-        make.width.mas_equalTo(25 *SIZE);
-        make.height.mas_equalTo(25 *SIZE);
     }];
     
     [_certTypeL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -820,7 +1109,6 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-
     [_addressL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
@@ -836,20 +1124,82 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_customSourceL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
         make.top.equalTo(self->_addressBtn.mas_bottom).offset(31 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
+    [_customSourceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_addressBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_approachL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_customSourceBtn.mas_bottom).offset(31 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_approachBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_customSourceBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_sourceTypeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_approachBtn.mas_bottom).offset(31 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_sourceTypeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_approachBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_sourceTypeBtn.mas_bottom).offset(31 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
     [_markTV mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_addressBtn.mas_bottom).offset(24 *SIZE);
+        make.top.equalTo(self->_sourceTypeBtn.mas_bottom).offset(24 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(77 *SIZE);
+    }];
+    
+    [_propertyIntentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_markTV.mas_bottom).offset(22 *SIZE);
+        make.width.mas_equalTo(200 *SIZE);
+    }];
+    
+    [_propertyIntentColl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(30 *SIZE);
+        make.top.equalTo(self->_propertyIntentL.mas_bottom).offset(20 *SIZE);
+        make.width.mas_equalTo(300 *SIZE);
+        make.height.mas_equalTo(self->_propertyIntentColl.collectionViewLayout.collectionViewContentSize.height);
         make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
     }];
+    
 }
+
 @end

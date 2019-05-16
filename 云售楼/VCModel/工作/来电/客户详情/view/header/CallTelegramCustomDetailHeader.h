@@ -19,7 +19,7 @@ typedef void(^CallTelegramCustomDetailHeaderTagBlock)(NSInteger index);
 
 typedef void(^CallTelegramCustomDetailHeaderEditBlock)(NSInteger index);
 
-typedef void(^CallTelegramCustomDetailHeaderDeleteBlock)(NSInteger index);
+//typedef void(^CallTelegramCustomDetailHeaderDeleteBlock)(NSInteger index);
 
 typedef void(^CallTelegramCustomDetailHeaderAddBlock)(NSInteger index);
 
@@ -33,7 +33,7 @@ typedef void(^CallTelegramCustomDetailHeaderAddBlock)(NSInteger index);
 
 @property (nonatomic, copy) CallTelegramCustomDetailHeaderEditBlock callTelegramCustomDetailHeaderEditBlock;
 
-@property (nonatomic, copy) CallTelegramCustomDetailHeaderDeleteBlock callTelegramCustomDetailHeaderDeleteBlock;
+//@property (nonatomic, copy) CallTelegramCustomDetailHeaderDeleteBlock callTelegramCustomDetailHeaderDeleteBlock;
 
 @property (nonatomic, copy) CallTelegramCustomDetailHeaderAddBlock callTelegramCustomDetailHeaderAddBlock;
 
@@ -51,7 +51,7 @@ typedef void(^CallTelegramCustomDetailHeaderAddBlock)(NSInteger index);
 
 @property (nonatomic, strong) UIButton *editBtn;
 
-@property (nonatomic, strong) UIButton *deleteBtn;
+//@property (nonatomic, strong) UIButton *deleteBtn;
 
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
 

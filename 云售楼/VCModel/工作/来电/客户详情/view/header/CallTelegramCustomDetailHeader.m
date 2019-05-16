@@ -74,10 +74,10 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    //    if (self.callTelegramCustomDetailHeaderTagBlock) {
-    //
-    //        self.callTelegramCustomDetailHeaderTagBlock(btn.tag);
-    //    }
+    if (self.callTelegramCustomDetailHeaderAddBlock) {
+    
+        self.callTelegramCustomDetailHeaderAddBlock(btn.tag);
+    }
 }
 
 - (void)ActionEditBtn:(UIButton *)btn{
@@ -185,10 +185,10 @@
     [_editBtn setImage:IMAGE_WITH_NAME(@"editor_3") forState:UIControlStateNormal];
     [self.contentView addSubview:_editBtn];
     
-    _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_deleteBtn addTarget:self action:@selector(ActionEditBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_deleteBtn setImage:IMAGE_WITH_NAME(@"delete") forState:UIControlStateNormal];
-    [self.contentView addSubview:_deleteBtn];
+//    _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [_deleteBtn addTarget:self action:@selector(ActionEditBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [_deleteBtn setImage:IMAGE_WITH_NAME(@"delete") forState:UIControlStateNormal];
+//    [self.contentView addSubview:_deleteBtn];
     
     _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:13 *SIZE];
     _flowLayout.itemSize = CGSizeMake(67 *SIZE, 30 *SIZE);
@@ -260,12 +260,12 @@
         make.width.height.mas_equalTo(16 *SIZE);
     }];
     
-    [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(self->_editBtn.mas_left).offset(-20 *SIZE);
-        make.top.equalTo(self.contentView).offset(10 *SIZE);
-        make.width.height.mas_equalTo(18 *SIZE);
-    }];
+//    [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.right.equalTo(self->_editBtn.mas_left).offset(-20 *SIZE);
+//        make.top.equalTo(self.contentView).offset(10 *SIZE);
+//        make.width.height.mas_equalTo(18 *SIZE);
+//    }];
     
     [_propertyL mas_makeConstraints:^(MASConstraintMaker *make) {
         

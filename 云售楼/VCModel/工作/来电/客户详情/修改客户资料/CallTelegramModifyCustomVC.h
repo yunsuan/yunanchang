@@ -10,9 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CallTelegramModifyCustomVCBlock)(void);
+
 @interface CallTelegramModifyCustomVC : BaseViewController
 
-- (instancetype)initWithDataDic:(NSDictionary *)dataDic;
+@property (nonatomic, strong) CallTelegramModifyCustomVCBlock callTelegramModifyCustomVCBlock;
+
+- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId;
 
 @end
 

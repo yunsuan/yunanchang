@@ -9,7 +9,7 @@
 #import "VisitCustomVC.h"
 
 #import "CallTelegramCustomDetailVC.h"
-#import "AddCallTelegramVC.h"
+#import "AddVisitCustomVC.h"
 
 #import "CallTelegramCell.h"
 
@@ -127,7 +127,7 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    AddCallTelegramVC *nextVC = [[AddCallTelegramVC alloc] initWithProjectId:_projectId];
+    AddVisitCustomVC *nextVC = [[AddVisitCustomVC alloc] initWithProjectId:_projectId];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
