@@ -246,6 +246,7 @@
     
     self.titleLabel.text = @"房源";
     
+    
     self.leftButton.hidden = YES;
 //    self.rightBtn.hidden = NO;
     self.rightBtn.center = CGPointMake(SCREEN_Width - 45 * SIZE, STATUS_BAR_HEIGHT + 20);
@@ -273,7 +274,7 @@
     
     
     _coll = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT) collectionViewLayout:_flowLayout];
-    _coll.backgroundColor = CLLineColor;
+    _coll.backgroundColor = CLWhiteColor;
     _coll.delegate = self;
     _coll.dataSource = self;
     [_coll registerClass:[RoomCollCell class] forCellWithReuseIdentifier:@"RoomCollCell"];
