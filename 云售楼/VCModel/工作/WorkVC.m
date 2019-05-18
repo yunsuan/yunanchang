@@ -46,7 +46,7 @@
 - (void)initDataSource{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NSNotificationProject:) name:@"projectSelect" object:nil];
-    _imgArr = @[@"laidian",@"content_icon2",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit"];
+    _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit"];
     _titleArr = @[@"来电",@"带看确认",@"推荐客户",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事审核"];
     _projectArr = [@[] mutableCopy];
     _info_id = [NSString stringWithFormat:@"%@",[UserModel defaultModel].company_info[@"project_list"][0][@"info_id"]];
