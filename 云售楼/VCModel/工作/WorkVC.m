@@ -26,8 +26,8 @@
     NSArray *_titleArr;
     NSArray *_imgArr;
     NSArray *_projectArr;
-    NSString *_info_id;
-    NSString *_project_id;
+//    NSString *_info_id;
+//    NSString *_project_id;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -36,9 +36,15 @@
 
 @implementation WorkVC
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+    
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self initDataSource];
     [self initUI];
 }
@@ -49,8 +55,8 @@
     _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit"];
     _titleArr = @[@"来电",@"带看确认",@"推荐客户",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事审核"];
     _projectArr = [UserModel defaultModel].project_list;
-    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
-    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
+//    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
+//    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
 }
 
 
@@ -99,7 +105,7 @@
     
     if (indexPath.row == 0) {
         
-        CallTelegramVC * nextVC = [[CallTelegramVC alloc] initWithProjectId:_project_id info_id:_info_id];
+        CallTelegramVC * nextVC = [[CallTelegramVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 1){
         

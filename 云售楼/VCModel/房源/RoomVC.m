@@ -21,9 +21,9 @@
 {
     
     NSMutableArray *_dataArr;
-    NSMutableArray *_projectArr;
-    NSString *_info_id;
-    NSString *_project_id;
+    NSArray *_projectArr;
+//    NSString *_info_id;
+//    NSString *_project_id;
     NSString *_ldtitle;
 
 }
@@ -35,6 +35,12 @@
 
 @implementation RoomVC
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initDataSource];
@@ -45,8 +51,8 @@
 - (void)initDataSource{
     
     _projectArr = [UserModel defaultModel].project_list;
-    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
-    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
+//    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
+//    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
     _dataArr = [@[] mutableCopy];
 
 }
@@ -101,7 +107,6 @@
         [self.rightBtn setTitle:MC forState:UIControlStateNormal];
         [UserModel defaultModel].projectinfo =  [UserModel defaultModel].project_list[[ID integerValue]];
         [UserModelArchiver archive];
-         _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
         [self RequestMethod];
     };
     
@@ -113,7 +118,7 @@
 
 //    if (_info_id.length) {
     
-        [BaseRequest GET:ProjectHouseGetBuildList_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
+        [BaseRequest GET:ProjectHouseGetBuildList_URL parameters:@{@"info_id":[UserModel defaultModel].projectinfo[@"info_id"]} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
