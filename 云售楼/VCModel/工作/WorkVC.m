@@ -15,6 +15,7 @@
 #import "WorkPersonAuditVC.h"
 #import "WorkReceiptDetailVC.h"
 #import "AuditTaskVC.h"
+#import "RotationVC.h"
 
 #import "SinglePickView.h"
 
@@ -52,8 +53,8 @@
 - (void)initDataSource{
     
 
-    _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit"];
-    _titleArr = @[@"来电",@"带看确认",@"推荐客户",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事审核"];
+    _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@""];
+    _titleArr = @[@"来电",@"带看确认",@"推荐客户",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事审核",@"轮岗"];
     _projectArr = [UserModel defaultModel].project_list;
 //    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
 //    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
@@ -127,7 +128,11 @@
         
         WorkPersonAuditVC *nextVC = [[WorkPersonAuditVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else{
+    }else if (indexPath.row == 9){
+        RotationVC *nextVC = [[RotationVC alloc]init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
+    else{
         
         AuditTaskVC *nextVC = [[AuditTaskVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
