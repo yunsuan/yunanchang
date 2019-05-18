@@ -85,16 +85,23 @@
 
         if ([resposeObject[@"code"] integerValue] == 200) {
 
-            [UserModel defaultModel].phone = self->_AccountTF.text;
+            [UserModel defaultModel].loginAccount = self->_AccountTF.text;
             [UserModel defaultModel].passWord = self->_PassWordTF.text;
             [UserModel defaultModel].agent_id = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"agent_id"]];
             [UserModel defaultModel].user_state = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"user_state"]];
             [UserModel defaultModel].token = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"token"]];
-            [UserModel defaultModel].company_info = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"][@"company_info"]];
+            [UserModel defaultModel].agent_company_info_id = resposeObject[@"data"][@"company_info"][@"agent_company_info_id"];
+            [UserModel defaultModel].company_id = resposeObject[@"data"][@"company_info"][@"company_id"];
+            [UserModel defaultModel].company_name = resposeObject[@"data"][@"company_info"][@"company_name"];
+            [UserModel defaultModel].company_state = resposeObject[@"data"][@"company_info"][@"company_state"];
+            [UserModel defaultModel].ex_state = resposeObject[@"data"][@"company_info"][@"ex_state"];
+            [UserModel defaultModel].project_list = resposeObject[@"data"][@"company_info"][@"project_list"];
+            [UserModel defaultModel].projectinfo = resposeObject[@"data"][@"company_info"][@"project_list"][0];
+            
             [UserModelArchiver archive];
             [[NSUserDefaults standardUserDefaults]setValue:LOGINSUCCESS forKey:LOGINENTIFIER];
             [self InfoRequest];
-            if ([[UserModel defaultModel].company_info count]) {
+            if ([UserModel defaultModel].projectinfo) {
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
                 [self.navigationController popViewControllerAnimated:YES];
@@ -146,18 +153,18 @@
             [tempDic setObject:@"" forKey:key];
         }
     }];
-    [UserModel defaultModel].absolute_address = tempDic[@"absolute_address"];
-    [UserModel defaultModel].account = tempDic[@"account"];
-    [UserModel defaultModel].birth = tempDic[@"birth"];
-    [UserModel defaultModel].city = tempDic[@"city"];
-    [UserModel defaultModel].district = tempDic[@"district"];
-    [UserModel defaultModel].head_img = tempDic[@"head_img"];
-    [UserModel defaultModel].name = tempDic[@"name"];
-    [UserModel defaultModel].province = tempDic[@"province"];
-    [UserModel defaultModel].sex = [NSString stringWithFormat:@"%@",tempDic[@"sex"]];
-    [UserModel defaultModel].tel = tempDic[@"tel"];
-    [UserModel defaultModel].slef_desc = tempDic[@"slef_desc"];
-    [UserModelArchiver archive];
+    [UserInfoModel defaultModel].absolute_address = tempDic[@"absolute_address"];
+    [UserInfoModel defaultModel].account = tempDic[@"account"];
+    [UserInfoModel defaultModel].birth = tempDic[@"birth"];
+    [UserInfoModel defaultModel].city = tempDic[@"city"];
+    [UserInfoModel defaultModel].district = tempDic[@"district"];
+    [UserInfoModel defaultModel].head_img = tempDic[@"head_img"];
+    [UserInfoModel defaultModel].name = tempDic[@"name"];
+    [UserInfoModel defaultModel].province = tempDic[@"province"];
+    [UserInfoModel defaultModel].sex = [NSString stringWithFormat:@"%@",tempDic[@"sex"]];
+    [UserInfoModel defaultModel].tel = tempDic[@"tel"];
+    [UserInfoModel defaultModel].slef_desc = tempDic[@"slef_desc"];
+    [UserModelArchiver infoArchive];
 }
 
 - (void)ActionProtocolBtn:(UIButton *)btn{
@@ -201,7 +208,7 @@
     [_AccountTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _AccountTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:_AccountTF];
-    _AccountTF.text = [UserModel defaultModel].phone;
+    _AccountTF.text = [UserModel defaultModel].loginAccount;
     
     _PassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, 266*SIZE, 314*SIZE, 15*SIZE)];
     _PassWordTF.placeholder = @"请输入密码";

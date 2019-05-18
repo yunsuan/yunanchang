@@ -22,7 +22,7 @@
     
     NSMutableArray *_dataArr;
     NSMutableArray *_projectArr;
-//    NSString *_info_id;
+    NSString *_info_id;
     NSString *_project_id;
     NSString *_ldtitle;
 
@@ -44,19 +44,14 @@
 
 - (void)initDataSource{
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NSNotificationProject:) name:@"projectSelect" object:nil];
-
-    _project_id = [NSString stringWithFormat:@"%@",[UserModel defaultModel].company_info[@"project_list"][0][@"project_id"]];
+    _projectArr = [UserModel defaultModel].project_list;
+    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
+    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
     _dataArr = [@[] mutableCopy];
-    _projectArr = [@[] mutableCopy];
+
 }
 
-- (void)NSNotificationProject:(NSNotification *)project{
-    
-    self->_project_id = project.userInfo[@"project_id"];
-//    self->_info_id = project.userInfo[@"info_id"];
-    [self.rightBtn setTitle:project.userInfo[@"project_name"] forState:UIControlStateNormal];
-}
+
 
 -(void)PostWithType:(NSInteger)type Houseid:(NSString *)houseid
 {
@@ -91,36 +86,26 @@
 
 
 - (void)ActionRightBtn:(UIButton *)btn{
-    
-    if (!_projectArr.count) {
+    NSMutableArray *temparr = [@[] mutableCopy];
+    for (int i = 0; i < [_projectArr count]; i++) {
         
-        [_projectArr removeAllObjects];
-        for (int i = 0; i < [[UserModel defaultModel].company_info[@"project_list"] count]; i++) {
-            
-
-            NSDictionary *dic = @{@"id":[UserModel defaultModel].company_info[@"project_list"][i][@"project_id"],
-                                  @"param":[UserModel defaultModel].company_info[@"project_list"][i][@"project_name"]
-                                  };
-            [_projectArr addObject:dic];
-        }
+        NSDictionary *dic = @{@"id":[NSString stringWithFormat:@"%d",i],
+                              @"param":_projectArr[i][@"project_name"]
+                              };
+        [temparr addObject:dic];
+        
     }
     
-    SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:_projectArr];
+    SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:temparr];
     view.selectedBlock = ^(NSString *MC, NSString *ID) {
-        
-//        self->_info_id = [NSString stringWithFormat:@"%@",ID];
         [self.rightBtn setTitle:MC forState:UIControlStateNormal];
-        for (int i = 0; i < [[UserModel defaultModel].company_info[@"project_list"] count]; i++) {
-            
-//            if ([[NSString stringWithFormat:@"%@",[UserModel defaultModel].company_info[@"project_list"][i][@"info_id"]] isEqualToString:self->_info_id]) {
-            
-                self->_project_id = [UserModel defaultModel].company_info[@"project_list"][i][@"project_id"];
-//            }
-        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"projectSelect" object:nil userInfo:@{@"project_name":MC,@"project_id":self->_project_id}];
-
+        [UserModel defaultModel].projectinfo =  [UserModel defaultModel].project_list[[ID integerValue]];
+        [UserModelArchiver archive];
+         _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
         [self RequestMethod];
     };
+    
+    
     [[UIApplication sharedApplication].keyWindow addSubview:view];
 }
 
@@ -128,7 +113,7 @@
 
 //    if (_info_id.length) {
     
-        [BaseRequest GET:ProjectHouseGetBuildList_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+        [BaseRequest GET:ProjectHouseGetBuildList_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
@@ -248,25 +233,14 @@
     
     
     self.leftButton.hidden = YES;
-//    self.rightBtn.hidden = NO;
+    self.rightBtn.hidden = NO;
     self.rightBtn.center = CGPointMake(SCREEN_Width - 45 * SIZE, STATUS_BAR_HEIGHT + 20);
     self.rightBtn.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
     self.rightBtn.titleLabel.font = FONT(13 *SIZE);
     [self.rightBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
-    if ([UserModel defaultModel].company_info
-        .count) {
-        
-        if ([[UserModel defaultModel].company_info[@"project_list"] count]) {
-            
-            self.rightBtn.hidden = NO;
-            [self.rightBtn setTitle:[UserModel defaultModel].company_info[@"project_list"][0][@"project_name"] forState:UIControlStateNormal];
-        }else{
-            
-            self.rightBtn.hidden = YES;
-        }
-    }
-    
+    [self.rightBtn setTitle: [UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+  
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 3, 145 *SIZE);
     _flowLayout.minimumInteritemSpacing = 0 *SIZE;

@@ -13,40 +13,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UserModel : BaseModel
 
-@property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSString *loginAccount;
 
 @property (nonatomic, strong) NSString *passWord;
 
 @property (nonatomic, strong) NSString *agent_id;
 
-@property (nonatomic, strong) NSMutableDictionary *company_info;
-
 @property (nonatomic, strong) NSString *token;
 
 @property (nonatomic, strong) NSString *user_state;
 
-@property (nonatomic, strong) NSString *name;
-
-@property (nonatomic, strong) NSString *tel;
-
-@property (nonatomic, strong) NSString *sex;
-
-@property (nonatomic, strong) NSString *head_img;
-
-@property (nonatomic, strong) NSString *birth;
-
-@property (nonatomic, strong) NSString *province;
-
-@property (nonatomic, strong) NSString *city;
-
-@property (nonatomic, strong) NSString *district;
-
-@property (nonatomic, strong) NSString *absolute_address;
-
-@property (nonatomic, strong) NSString *slef_desc;
-
-@property (nonatomic, strong) NSString *account;
-
+@property (nonatomic, strong) NSString *agent_company_info_id;
+@property (nonatomic, strong) NSString *company_id;
+@property (nonatomic, strong) NSString *company_name;
+@property (nonatomic, strong) NSString *company_state;
+@property (nonatomic, strong) NSString *ex_state;
+@property (nonatomic, strong) NSArray *project_list;
+@property (nonatomic, strong) NSDictionary *projectinfo;
 @property (nonatomic, strong) NSDictionary *Configdic;
 
 + (UserModel *)defaultModel;

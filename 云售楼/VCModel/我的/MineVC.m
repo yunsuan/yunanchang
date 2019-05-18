@@ -36,7 +36,7 @@
     
     [self initDataSource];
     [self initUI];
-    if (![UserModel defaultModel].account.length) {
+    if (![UserInfoModel defaultModel].account.length) {
         
         [self RequestMethod];
     }
@@ -75,18 +75,18 @@
             [tempDic setObject:@"" forKey:key];
         }
     }];
-    [UserModel defaultModel].absolute_address = tempDic[@"absolute_address"];
-    [UserModel defaultModel].account = tempDic[@"account"];
-    [UserModel defaultModel].birth = tempDic[@"birth"];
-    [UserModel defaultModel].city = tempDic[@"city"];
-    [UserModel defaultModel].district = tempDic[@"district"];
-    [UserModel defaultModel].head_img = tempDic[@"head_img"];
-    [UserModel defaultModel].name = tempDic[@"name"];
-    [UserModel defaultModel].province = tempDic[@"province"];
-    [UserModel defaultModel].sex = [NSString stringWithFormat:@"%@",tempDic[@"sex"]];
-    [UserModel defaultModel].tel = tempDic[@"tel"];
-    [UserModel defaultModel].slef_desc = tempDic[@"self_desc"];
-    [UserModelArchiver archive];
+    [UserInfoModel defaultModel].absolute_address = tempDic[@"absolute_address"];
+    [UserInfoModel defaultModel].account = tempDic[@"account"];
+    [UserInfoModel defaultModel].birth = tempDic[@"birth"];
+    [UserInfoModel defaultModel].city = tempDic[@"city"];
+    [UserInfoModel defaultModel].district = tempDic[@"district"];
+    [UserInfoModel defaultModel].head_img = tempDic[@"head_img"];
+    [UserInfoModel defaultModel].name = tempDic[@"name"];
+    [UserInfoModel defaultModel].province = tempDic[@"province"];
+    [UserInfoModel defaultModel].sex = [NSString stringWithFormat:@"%@",tempDic[@"sex"]];
+    [UserInfoModel defaultModel].tel = tempDic[@"tel"];
+    [UserInfoModel defaultModel].slef_desc = tempDic[@"self_desc"];
+    [UserModelArchiver infoArchive];
     [_table reloadData];
 }
 
@@ -127,7 +127,7 @@
             header = [[MineHeader alloc] initWithReuseIdentifier:@"MineHeader"];
         }
         
-        header.dataDic = [[UserModel defaultModel] modeltodic];
+        header.dataDic = [[UserInfoModel defaultModel] modeltodic];
         
         header.mineHeaderImgBlock = ^{
             
@@ -227,14 +227,14 @@
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
                     [UserModel defaultModel].Token = @"";
                     [UserModelArchiver archive];
-//                    [UserModelArchiver ClearUserInfoModel];
+                    [UserModelArchiver ClearUserInfoModel];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"goLoginVC" object:nil];
                 } failure:^(NSError * _Nonnull error) {
                     
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
                     [UserModel defaultModel].Token = @"";
                     [UserModelArchiver archive];
-//                    [UserModelArchiver ClearUserInfoModel];
+                    [UserModelArchiver ClearUserInfoModel];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"goLoginVC" object:nil];
                 }];
             }];

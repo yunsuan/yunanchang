@@ -51,7 +51,7 @@
 
             if ([resposeObject[@"code"] integerValue] == 200) {
 
-                [UserModel defaultModel].name = self->_nameTF.text;
+                [UserInfoModel defaultModel].name = self->_nameTF.text;
                 [UserModelArchiver archive];
                 [self.navigationController popViewControllerAnimated:YES];
             }        else{

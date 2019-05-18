@@ -43,7 +43,7 @@
     [_formatter setDateFormat:@"YYYY-MM-dd"];
     
     _titleArr = @[@"云算号：",@"手机号：",@"姓名：",@"性别：",@"生日：",@"所在地：",@"个人说明："];
-    _contentArr = [NSMutableArray arrayWithArray:@[[UserModel defaultModel].account,[UserModel defaultModel].tel,[UserModel defaultModel].name,[[UserModel defaultModel].sex integerValue] == 1?@"男":[[UserModel defaultModel].sex integerValue] == 2?@"女":@"",[UserModel defaultModel].birth,[UserModel defaultModel].absolute_address,[UserModel defaultModel].slef_desc]];
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,[UserInfoModel defaultModel].absolute_address,[UserInfoModel defaultModel].slef_desc]];
 }
 
 
@@ -127,7 +127,7 @@
         ChangeNameVC *nextVC = [[ChangeNameVC alloc] initWithName:@""];
         nextVC.changeNameVCBlock = ^(NSString *str) {
             
-            [self->_contentArr replaceObjectAtIndex:2 withObject:[UserModel defaultModel].name];
+            [self->_contentArr replaceObjectAtIndex:2 withObject:[UserInfoModel defaultModel].name];
             [tableView reloadData];
         };
         [self.navigationController pushViewController:nextVC animated:YES];
@@ -142,7 +142,7 @@
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    [UserModel defaultModel].sex = @"1";
+                    [UserInfoModel defaultModel].sex = @"1";
                     [UserModelArchiver archive];
                     [tableView reloadData];
                 }else{
@@ -162,7 +162,7 @@
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    [UserModel defaultModel].sex = @"2";
+                    [UserInfoModel defaultModel].sex = @"2";
                     [UserModelArchiver archive];
                     [tableView reloadData];
                 }else{
@@ -194,7 +194,7 @@
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    [UserModel defaultModel].birth = [self->_formatter stringFromDate:date];
+                    [UserInfoModel defaultModel].birth = [self->_formatter stringFromDate:date];
                     [UserModelArchiver archive];
                     [tableView reloadData];
                 }else{

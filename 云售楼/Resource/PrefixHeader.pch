@@ -10,8 +10,11 @@
 #define PrefixHeader_pch
 
 
+
 #import "UserModel.h"
+#import "UserInfoModel.h"
 #import "UserModelArchiver.h"
+
 #import "NetConfig.h"
 #import "BaseRequest.h"
 
