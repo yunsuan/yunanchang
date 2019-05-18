@@ -22,17 +22,27 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    
+    if (self.taskCallBackCellBlock) {
+        
+        self.taskCallBackCellBlock();
+    }
 }
 
-- (void)setDataDic:(NSMutableArray *)dataDic{
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
     
+    if ([dataDic[@"is_read"] integerValue] == 1) {
+        
+        _readImg.image = IMAGE_WITH_NAME(@"SMS");
+    }else{
+        
+        _readImg.image = IMAGE_WITH_NAME(@"");
+    }
     _titleL.text = @"来电回访";
-    _nameL.text = @"客户姓名：理想";
-    _projectL.text = @"项目名称：云算公馆";
-    _customL.text = @"客户等级：A级";
-    _phoneL.text = @"客户电话：15983834444";
-    _contentL.text = @"提醒目的：叫客户排号";
+    _nameL.text = [NSString stringWithFormat:@"客户姓名：%@",dataDic[@"name"]];
+    _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
+    _customL.text = [NSString stringWithFormat:@"客户等级：%@",dataDic[@"level"]];
+    _phoneL.text = [NSString stringWithFormat:@"客户电话：%@",dataDic[@"tel"]];
+    _contentL.text = [NSString stringWithFormat:@"提醒目的：%@",dataDic[@"extra_comment"]];
 }
 
 - (void)initUI{
@@ -46,6 +56,7 @@
     [self.contentView addSubview:_whiteView];
     
     _headImg = [[UIImageView alloc] init];
+    _headImg.image = IMAGE_WITH_NAME(@"laidian");
     [_whiteView addSubview:_headImg];
     
     _readImg = [[UIImageView alloc] init];
@@ -73,6 +84,7 @@
             case 1:
             {
                 _customL = label;
+                _customL.textAlignment = NSTextAlignmentRight;
                 [_whiteView addSubview:_customL];
                 break;
             }
@@ -85,6 +97,7 @@
             case 3:
             {
                 _phoneL = label;
+                _phoneL.textAlignment = NSTextAlignmentRight;
                 [_whiteView addSubview:_phoneL];
                 break;
             }

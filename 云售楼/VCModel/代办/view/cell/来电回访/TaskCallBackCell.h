@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^TaskCallBackCellBlock)(void);
+
 @interface TaskCallBackCell : UITableViewCell
+
+@property (nonatomic, copy) TaskCallBackCellBlock taskCallBackCellBlock;
 
 @property (nonatomic, strong) UIView *whiteView;
 
@@ -36,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIButton *addBtn;
 
-@property (nonatomic, strong) NSMutableArray *dataDic;
+@property (nonatomic, strong) NSMutableDictionary *dataDic;
 
 @end
 
