@@ -1,12 +1,12 @@
 //
 //  UserModelArchiver.m
-//  云售楼
+//  云渠道
 //
-//  Created by 谷治墙 on 2019/5/9.
-//  Copyright © 2019 谷治墙. All rights reserved.
+//  Created by 谷治墙 on 2018/3/20.
+//  Copyright © 2018年 xiaoq. All rights reserved.
 //
 
-#import "UserModelArchiver.h"
+//#import "UserModelArchiver.h"
 
 @implementation UserModelArchiver
 
@@ -15,10 +15,10 @@
 }
 
 
-//+ (UserInfoModel *)InfoUnarchive {
-//    
-//    return [NSKeyedUnarchiver unarchiveObjectWithFile:[self infoArchivePath]];
-//}
++ (UserInfoModel *)InfoUnarchive {
+    
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:[self infoArchivePath]];
+}
 
 + (void)archive {
     
@@ -31,10 +31,10 @@
 
 + (void)infoArchive{
     
-//    BOOL flag = [NSKeyedArchiver archiveRootObject:[UserInfoModel defaultModel] toFile:[self infoArchivePath]];
-//    if (!flag) {
-//        //        NSLog(@"归档失败!");
-//    }
+    BOOL flag = [NSKeyedArchiver archiveRootObject:[UserInfoModel defaultModel] toFile:[self infoArchivePath]];
+    if (!flag) {
+        //        NSLog(@"归档失败!");
+    }
 }
 
 + (NSString *)infoArchivePath{
@@ -60,10 +60,10 @@
 
 +(void)ClearUserInfoModel
 {
-//    BOOL flag = [NSKeyedArchiver archiveRootObject:[[UserInfoModel alloc]init] toFile:[self infoArchivePath]];
-//    if (!flag) {
-//        //        NSLog(@"清空用户信息失败!");
-//    }
+    BOOL flag = [NSKeyedArchiver archiveRootObject:[[UserInfoModel alloc]init] toFile:[self infoArchivePath]];
+    if (!flag) {
+        //        NSLog(@"清空用户信息失败!");
+    }
 }
 
 @end
