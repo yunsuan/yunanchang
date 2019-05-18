@@ -20,7 +20,7 @@ typedef void(^CallTelegramSimpleCustomVCEditBlock)(NSDictionary *dic);
 
 //@property (nonatomic, strong) NSString *client_id;
 
-- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId;
+- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId info_id:(NSString *)info_id;
 
 @end
 

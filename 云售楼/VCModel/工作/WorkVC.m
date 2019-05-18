@@ -11,6 +11,7 @@
 #import "CallTelegramVC.h"
 #import "WorkPhoneConfirmVC.h"
 #import "WorkRecommendVC.h"
+#import "VisitCustomVC.h"
 #import "WorkPersonAuditVC.h"
 #import "WorkReceiptDetailVC.h"
 #import "AuditTaskVC.h"
@@ -112,7 +113,7 @@
     
     if (indexPath.row == 0) {
         
-        CallTelegramVC * nextVC = [[CallTelegramVC alloc] initWithProjectId:_project_id];
+        CallTelegramVC * nextVC = [[CallTelegramVC alloc] initWithProjectId:_project_id info_id:_info_id];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 1){
         
@@ -121,6 +122,10 @@
     }else if (indexPath.row == 2){
         
         WorkRecommendVC *nextVC = [[WorkRecommendVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 3){
+        
+        VisitCustomVC *nextVC = [[VisitCustomVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 7){
         

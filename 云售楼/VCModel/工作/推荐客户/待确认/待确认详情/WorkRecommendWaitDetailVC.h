@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WorkRecommendWaitDetailVC : BaseViewController
 
+@property (nonatomic, strong) NSString *needConfirm;
+
 @end
 
 NS_ASSUME_NONNULL_END

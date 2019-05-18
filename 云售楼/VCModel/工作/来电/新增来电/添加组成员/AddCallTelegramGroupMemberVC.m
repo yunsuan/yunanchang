@@ -26,6 +26,7 @@
     
     NSString *_gender;
     NSString *_project_id;
+    NSString *_info_id;
     
     NSMutableArray *_certArr;
 }
@@ -81,12 +82,13 @@
 
 @implementation AddCallTelegramGroupMemberVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId
+- (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _project_id = projectId;
+        _info_id = info_id;
     }
     return self;
 }
@@ -110,7 +112,7 @@
 
 - (void)PropertyRequestMethod{
     
-    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

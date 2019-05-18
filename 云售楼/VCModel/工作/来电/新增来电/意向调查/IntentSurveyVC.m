@@ -211,7 +211,228 @@
     
     if ([self.status isEqualToString:@"modify"]) {
         
-//        WorkClientAutoNeedUpdate_URL
+        NSMutableDictionary *tempDic = [@{} mutableCopy];
+        [_lastArr removeAllObjects];
+        for (int i = 0; i < _dataArr.count; i++) {
+            
+            NSArray *arr = _dataArr[i][@"list"];
+            for (int j = 0; j < arr.count; j++) {
+                
+                NSMutableDictionary *needDic = [[NSMutableDictionary alloc] init];
+                NSDictionary *dic = arr[j];
+                switch ([dic[@"type"] integerValue]) {
+                        
+                    case 1:
+                    {
+                        BorderTextField *tf = _moduleArr[i][j];
+                        if (![self isEmpty:tf.textField.text]) {
+                            
+                            [needDic setObject:tf.textField.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请输入%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    case 2:
+                    {
+                        DropBtn *btn = _moduleArr[i][j];
+                        if (btn.content.text) {
+                            
+                            [needDic setObject:btn.content.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    case 3:
+                    {
+                        break;
+                    }
+                    case 4:
+                    {
+                        DropBtn *btn = _moduleArr[i][j];
+                        if (btn.content.text) {
+                            
+                            [needDic setObject:btn.content.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                if (needDic.count) {
+                    
+                    [_lastArr addObject:needDic];
+                }
+            }
+        }
+        
+        if (_lastArr.count) {
+            
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+            [tempDic setObject:jsonString forKey:@"need_list"];
+            [tempDic setObject:self.property_id forKey:@"property_id"];
+        }
+        
+        if (!tempDic.count) {
+            
+            [self alertControllerWithNsstring:@"选择需求信息" And:@"请选择完善意向调查"];
+            return;
+        }
+        [BaseRequest GET:WorkClientAutoNeedUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if (self.intentSurveyVCBlock) {
+                    
+                    self.intentSurveyVCBlock();
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else if([self.status isEqualToString:@"add"]){
+        
+        NSMutableDictionary *tempDic = [@{} mutableCopy];
+        [_lastArr removeAllObjects];
+        for (int i = 0; i < _dataArr.count; i++) {
+            
+            NSArray *arr = _dataArr[i][@"list"];
+            for (int j = 0; j < arr.count; j++) {
+                
+                NSMutableDictionary *needDic = [[NSMutableDictionary alloc] init];
+                NSDictionary *dic = arr[j];
+                switch ([dic[@"type"] integerValue]) {
+                        
+                    case 1:
+                    {
+                        BorderTextField *tf = _moduleArr[i][j];
+                        if (![self isEmpty:tf.textField.text]) {
+                            
+                            [needDic setObject:tf.textField.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请输入%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    case 2:
+                    {
+                        DropBtn *btn = _moduleArr[i][j];
+                        if (btn.content.text) {
+                            
+                            [needDic setObject:btn.content.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    case 3:
+                    {
+                        break;
+                    }
+                    case 4:
+                    {
+                        DropBtn *btn = _moduleArr[i][j];
+                        if (btn.content.text) {
+                            
+                            [needDic setObject:btn.content.text forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                if (needDic.count) {
+                    
+                    [_lastArr addObject:needDic];
+                }
+            }
+        }
+        
+        if (_lastArr.count) {
+            
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+            [tempDic setObject:jsonString forKey:@"need_list"];
+            [tempDic setObject:self.property_id forKey:@"property_id"];
+        }
+        
+        if (!tempDic.count) {
+            
+            [self alertControllerWithNsstring:@"选择需求信息" And:@"请选择完善意向调查"];
+            return;
+        }
+        [BaseRequest GET:WorkClientAutoNeedAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if (self.intentSurveyVCBlock) {
+                    
+                    self.intentSurveyVCBlock();
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
     }else{
         
         [_lastArr removeAllObjects];

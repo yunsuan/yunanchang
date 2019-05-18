@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FollowRecordVC : BaseViewController
 
+@property (nonatomic, strong) NSString *info_id;
+
 @property (nonatomic, strong) NSMutableDictionary *allDic;
 
 @property (nonatomic, strong) NSMutableDictionary *followDic;

@@ -18,6 +18,7 @@
     
     NSMutableArray *_dataArr;
     NSString *_projectId;
+    NSString *_info_id;
     NSInteger _page;
 }
 
@@ -29,12 +30,13 @@
 
 @implementation VisitCustomVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId
+- (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _projectId = projectId;
+        _info_id = info_id;
     }
     return self;
 }
@@ -127,7 +129,7 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    AddVisitCustomVC *nextVC = [[AddVisitCustomVC alloc] initWithProjectId:_projectId];
+    AddVisitCustomVC *nextVC = [[AddVisitCustomVC alloc] initWithProjectId:_projectId info_id:_info_id];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -184,6 +186,7 @@
     
     CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
     nextVC.project_id = _projectId;
+    nextVC.info_id = _info_id;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
