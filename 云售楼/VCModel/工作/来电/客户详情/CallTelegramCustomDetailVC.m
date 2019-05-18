@@ -179,10 +179,14 @@
             
             NSData *jsonData = [_intentArr[section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
             NSError *err;
-            NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                options:NSJSONReadingMutableContainers
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                options:NSJSONReadingAllowFragments
                                                                   error:&err];
-            return [arr count];
+            NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
+            NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:jsonData1
+                                                            options:NSJSONReadingAllowFragments
+                                                              error:&err];
+            return [arr1 count];
         }else{
             
             return _followArr.count;//[_followArr[section - 1] count];
@@ -345,7 +349,7 @@
             
             header.callTelegramCustomDetailIntentHeaderDeleteBlock = ^(NSInteger index) {
                 
-                [BaseRequest GET:WorkClientAutoNeedUpdate_URL parameters:@{@"need_id":self->_intentArr[section - 1][@"need_id"],@"state":@"0"} success:^(id  _Nonnull resposeObject) {
+                [BaseRequest POST:WorkClientAutoNeedUpdate_URL parameters:@{@"need_id":self->_intentArr[section - 1][@"list"][0][@"need_id"],@"state":@"0"} success:^(id  _Nonnull resposeObject) {
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
@@ -463,10 +467,14 @@
         
         NSData *jsonData = [_intentArr[indexPath.section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
-        NSArray *arr = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                       options:NSJSONReadingMutableContainers
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                       options:NSJSONReadingAllowFragments
                                                          error:&err];
-        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",arr[indexPath.row][@"config_name"],arr[indexPath.row][@"value"]];
+        NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:jsonData1
+                                                       options:NSJSONReadingAllowFragments
+                                                         error:&err];
+        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",arr1[indexPath.row][@"config_name"],arr1[indexPath.row][@"value"]];
         return cell;
     }else{
         
@@ -516,6 +524,7 @@
                     IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
                     nextVC.status = @"add";
                     nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
+                    nextVC.group_id = self->_groupId;
                     nextVC.intentSurveyVCBlock = ^{
                       
                         [self RequestMethod];
@@ -543,6 +552,7 @@
                             IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
                             nextVC.status = @"add";
                             nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
+                            nextVC.group_id = self->_groupId;
                             nextVC.intentSurveyVCBlock = ^{
                                 
                                 [self RequestMethod];

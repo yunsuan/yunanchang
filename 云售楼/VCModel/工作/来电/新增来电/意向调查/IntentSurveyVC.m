@@ -229,7 +229,7 @@
                             
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:tf.textField.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -247,7 +247,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:btn.content.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -269,7 +269,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:btn.content.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -341,7 +341,7 @@
                             
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:tf.textField.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -359,7 +359,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:btn.content.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -381,7 +381,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:btn.content.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -416,7 +416,12 @@
             [self alertControllerWithNsstring:@"选择需求信息" And:@"请选择完善意向调查"];
             return;
         }
-        [BaseRequest POST:WorkClientAutoNeedAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tempDic options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSDictionary *dic = @{@"need_list":jsonString,@"group_id":self.group_id,@"property_id":self.property_id};
+        
+        [BaseRequest POST:WorkClientAutoNeedAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
@@ -453,7 +458,7 @@
                             
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:tf.textField.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -471,7 +476,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:btn.content.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -493,7 +498,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:btn.content.text forKey:@"config_name"];
+                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
