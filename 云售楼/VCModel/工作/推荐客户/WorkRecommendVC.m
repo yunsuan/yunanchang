@@ -130,7 +130,7 @@
     self.titleLabel.text = @"推荐客户";
     self.line.hidden = YES;
     
-    self.rightBtn.hidden = NO;
+    self.rightBtn.hidden = YES;
     [self.rightBtn setImage:[UIImage imageNamed:@"add_3"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(action_add) forControlEvents:UIControlEventTouchUpInside];
     

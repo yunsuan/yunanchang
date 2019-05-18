@@ -16,7 +16,7 @@ typedef void(^CallTelegramModifyCustomVCBlock)(void);
 
 @property (nonatomic, strong) CallTelegramModifyCustomVCBlock callTelegramModifyCustomVCBlock;
 
-- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId;
+- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId info_id:(NSString *)info_id;
 
 @end
 

@@ -164,21 +164,21 @@
         
         UIAlertAction *unuse = [UIAlertAction actionWithTitle:@"可带看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-//            [BaseRequest GET:ClientTelCheckValue_URL parameters:@{@"client_id":_dataArr[indexPath.row][@"client_id"]} success:^(id resposeObject) {
-//
-//                if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                    [_dataArr removeObjectAtIndex:indexPath.row];
-//                    [tableView reloadData];
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
-//                }else{
-//
-//                    [self showContent:resposeObject[@"msg"]];
-//                }
-//            } failure:^(NSError *error) {
-//
-//                [self showContent:@"网络错误"];
-//            }];
+            [BaseRequest GET:ClientTelCheckValue_URL parameters:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"]} success:^(id resposeObject) {
+
+                if ([resposeObject[@"code"] integerValue] == 200) {
+
+                    [self->_dataArr removeObjectAtIndex:indexPath.row];
+                    [tableView reloadData];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
+                }else{
+
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError *error) {
+
+                [self showContent:@"网络错误"];
+            }];
         }];
         
         UIAlertAction *used = [UIAlertAction actionWithTitle:@"不可带看" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -187,21 +187,21 @@
                 
             } WithDefaultBlack:^{
                 
-//                [BaseRequest GET:ClientTelCheckDisabled_URL parameters:@{@"client_id":_dataArr[indexPath.row][@"client_id"]} success:^(id resposeObject) {
-//
-//                    if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                        [_dataArr removeObjectAtIndex:indexPath.row];
-//                        [tableView reloadData];
-//                        [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
-//                    }else{
-//
-//                        [self showContent:resposeObject[@"msg"]];
-//                    }
-//                } failure:^(NSError *error) {
-//
-//                    [self showContent:@"网络错误"];
-//                }];
+                [BaseRequest GET:ClientTelCheckDisabled_URL parameters:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"]} success:^(id resposeObject) {
+
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+
+                        [self->_dataArr removeObjectAtIndex:indexPath.row];
+                        [tableView reloadData];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
+                    }else{
+
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError *error) {
+
+                    [self showContent:@"网络错误"];
+                }];
             }];
         }];
         
@@ -232,17 +232,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    WorkPhoneConfrimWaitDetailVC *nextVC = [[WorkPhoneConfrimWaitDetailVC alloc] init];//WithClientId:_dataArr[indexPath.row][@"client_id"]];
-//    //    if (_dataArr[indexPath.row][@"copy_content"]) {
-//    //
-//    //        nextVC.content = _dataArr[indexPath.row][@"copy_content"];
-//    //    }
+    WorkPhoneConfrimWaitDetailVC *nextVC = [[WorkPhoneConfrimWaitDetailVC alloc] initWithClientId:_dataArr[indexPath.row][@"client_id"]];
+//    if (_dataArr[indexPath.row][@"copy_content"]) {
 //
-//    nextVC.confirmPhoneWaitDetailVCBlock = ^{
-//
-//        [_dataArr removeObjectAtIndex:indexPath.row];
-//        [tableView reloadData];
-//    };
+//        nextVC.content = _dataArr[indexPath.row][@"copy_content"];
+//    }
+
+    nextVC.workPhoneConfrimWaitDetailVCBlock = ^{
+
+        [self->_dataArr removeObjectAtIndex:indexPath.row];
+        [tableView reloadData];
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -255,16 +255,16 @@
     _table.delegate = self;
     _table.dataSource = self;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _table.mj_header= [GZQGifHeader headerWithRefreshingBlock:^{
-//        
-//        _page = 1;
-//        [self RequestMethod];
-//    }];
-//    _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
-//        
-//        _page ++;
-//        [self RequestAddMethod];
-//    }];
+    _table.mj_header= [GZQGifHeader headerWithRefreshingBlock:^{
+        
+        self->_page = 1;
+        [self RequestMethod];
+    }];
+    _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
+        
+        self->_page ++;
+        [self RequestAddMethod];
+    }];
     [self.view addSubview:_table];
 }
 

@@ -165,6 +165,13 @@
 		0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2F8228D6307001C77CF /* CallTelegramSimpleCustomVC.m */; };
 		0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A2FD228D8242001C77CF /* AddVisitCustomVC.m */; };
 		0CF1A304228D8354001C77CF /* VisitCustomDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A303228D8354001C77CF /* VisitCustomDetailVC.m */; };
+		0CF1A315228E8E04001C77CF /* SignListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A308228E8E03001C77CF /* SignListVC.m */; };
+		0CF1A316228E8E04001C77CF /* SignFailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A30A228E8E03001C77CF /* SignFailVC.m */; };
+		0CF1A317228E8E04001C77CF /* SignNeedInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A30B228E8E03001C77CF /* SignNeedInfoVC.m */; };
+		0CF1A318228E8E04001C77CF /* SignListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A311228E8E03001C77CF /* SignListCell.m */; };
+		0CF1A319228E8E04001C77CF /* SignWorkerPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */; };
+		0CF1A31A228E8E04001C77CF /* SignSelectWorkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */; };
+		0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A314228E8E03001C77CF /* SignFailView.m */; };
 		AD247DF2FE90196EA1B639F0 /* libPods-云售楼.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42BF71934FE363E890039BD /* libPods-云售楼.a */; };
 /* End PBXBuildFile section */
 
@@ -502,6 +509,20 @@
 		0CF1A2FD228D8242001C77CF /* AddVisitCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddVisitCustomVC.m; sourceTree = "<group>"; };
 		0CF1A302228D8354001C77CF /* VisitCustomDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomDetailVC.h; sourceTree = "<group>"; };
 		0CF1A303228D8354001C77CF /* VisitCustomDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomDetailVC.m; sourceTree = "<group>"; };
+		0CF1A306228E8E03001C77CF /* SignNeedInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignNeedInfoVC.h; sourceTree = "<group>"; };
+		0CF1A307228E8E03001C77CF /* SignFailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignFailVC.h; sourceTree = "<group>"; };
+		0CF1A308228E8E03001C77CF /* SignListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignListVC.m; sourceTree = "<group>"; };
+		0CF1A309228E8E03001C77CF /* SignListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignListVC.h; sourceTree = "<group>"; };
+		0CF1A30A228E8E03001C77CF /* SignFailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignFailVC.m; sourceTree = "<group>"; };
+		0CF1A30B228E8E03001C77CF /* SignNeedInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignNeedInfoVC.m; sourceTree = "<group>"; };
+		0CF1A30D228E8E03001C77CF /* SignWorkerPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignWorkerPickView.h; sourceTree = "<group>"; };
+		0CF1A30E228E8E03001C77CF /* SignListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignListCell.h; sourceTree = "<group>"; };
+		0CF1A30F228E8E03001C77CF /* SignSelectWorkerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignSelectWorkerView.h; sourceTree = "<group>"; };
+		0CF1A310228E8E03001C77CF /* SignFailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignFailView.h; sourceTree = "<group>"; };
+		0CF1A311228E8E03001C77CF /* SignListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignListCell.m; sourceTree = "<group>"; };
+		0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignWorkerPickView.m; sourceTree = "<group>"; };
+		0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignSelectWorkerView.m; sourceTree = "<group>"; };
+		0CF1A314228E8E03001C77CF /* SignFailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignFailView.m; sourceTree = "<group>"; };
 		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
 		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
 		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1181,6 +1202,7 @@
 		0CD04336227FDF8B002C8BD3 /* 待确认详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0CF1A305228E8E03001C77CF /* 签字人 */,
 				0CD04337227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.h */,
 				0CD04338227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m */,
 			);
@@ -2105,6 +2127,35 @@
 			path = "跟进记录";
 			sourceTree = "<group>";
 		};
+		0CF1A305228E8E03001C77CF /* 签字人 */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1A306228E8E03001C77CF /* SignNeedInfoVC.h */,
+				0CF1A307228E8E03001C77CF /* SignFailVC.h */,
+				0CF1A308228E8E03001C77CF /* SignListVC.m */,
+				0CF1A309228E8E03001C77CF /* SignListVC.h */,
+				0CF1A30A228E8E03001C77CF /* SignFailVC.m */,
+				0CF1A30B228E8E03001C77CF /* SignNeedInfoVC.m */,
+				0CF1A30C228E8E03001C77CF /* view */,
+			);
+			path = "签字人";
+			sourceTree = "<group>";
+		};
+		0CF1A30C228E8E03001C77CF /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1A30D228E8E03001C77CF /* SignWorkerPickView.h */,
+				0CF1A30E228E8E03001C77CF /* SignListCell.h */,
+				0CF1A30F228E8E03001C77CF /* SignSelectWorkerView.h */,
+				0CF1A310228E8E03001C77CF /* SignFailView.h */,
+				0CF1A311228E8E03001C77CF /* SignListCell.m */,
+				0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */,
+				0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */,
+				0CF1A314228E8E03001C77CF /* SignFailView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		256FA66B3C2EE540F45796BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2309,6 +2360,7 @@
 				0C3A917A225C435900F04804 /* MineHeader.m in Sources */,
 				0CD043C02282B9A2002C8BD3 /* NumeralAuditDetailVC.m in Sources */,
 				0CD7A033225C6D5700EAE816 /* BDDynamicTree.m in Sources */,
+				0CF1A316228E8E04001C77CF /* SignFailVC.m in Sources */,
 				0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
 				0CEF89FE225C88910057F3FD /* SubscribeAuditVC.m in Sources */,
@@ -2316,7 +2368,9 @@
 				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
 				0CC2730E226868DE00EB881F /* RecordView.m in Sources */,
 				0CEF8A16225C96230057F3FD /* RecommendSuccessVC.m in Sources */,
+				0CF1A31A228E8E04001C77CF /* SignSelectWorkerView.m in Sources */,
 				0C3A916B225B377D00F04804 /* WorkVC.m in Sources */,
+				0CF1A319228E8E04001C77CF /* SignWorkerPickView.m in Sources */,
 				0CEF8A1B225C9BA40057F3FD /* RecommendCustomCell.m in Sources */,
 				0C3A9157225B223400F04804 /* BaseModel.m in Sources */,
 				0CD043C82282BFDC002C8BD3 /* SubScribeAuditDetailVC.m in Sources */,
@@ -2328,6 +2382,7 @@
 				0CF1A2F3228D4ED1001C77CF /* NSDictionary+GZQDic.m in Sources */,
 				0CF1A2EF228D15E6001C77CF /* VisitCustomVC.m in Sources */,
 				0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */,
+				0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
 				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
@@ -2339,6 +2394,7 @@
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
 				0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */,
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
+				0CF1A318228E8E04001C77CF /* SignListCell.m in Sources */,
 				0C3A9177225C338500F04804 /* MineCell.m in Sources */,
 				0CD0432E227FD33B002C8BD3 /* WorkRecommendValidVC.m in Sources */,
 				0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */,
@@ -2418,6 +2474,7 @@
 				0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */,
 				0CEF8A53225F1D440057F3FD /* SelectCompanyCollCell.m in Sources */,
 				0CD043A2228175D4002C8BD3 /* SingleHouseCell.m in Sources */,
+				0CF1A317228E8E04001C77CF /* SignNeedInfoVC.m in Sources */,
 				0CD7A032225C6D5700EAE816 /* BDDynamicTreeCell.m in Sources */,
 				0CD04365228025D4002C8BD3 /* WorkCompleteCustomVC2.m in Sources */,
 				0CEF8A0A225C91740057F3FD /* RecommendCustomVC.m in Sources */,
@@ -2447,6 +2504,7 @@
 				0C3A9124225B20C600F04804 /* main.m in Sources */,
 				0CEF89F8225C88480057F3FD /* ContractAuditVC.m in Sources */,
 				0CD04335227FDB24002C8BD3 /* WorkRecommendWaitCell.m in Sources */,
+				0CF1A315228E8E04001C77CF /* SignListVC.m in Sources */,
 				0CD043BB2282715F002C8BD3 /* GZQGifHeader.m in Sources */,
 				0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */,
 				0C221A5E227EC763006B0510 /* IntentSurveyHeader.m in Sources */,

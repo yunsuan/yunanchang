@@ -61,21 +61,21 @@
 
 - (void)RequestMethod{
     
-//    [BaseRequest GET:ButterTelConfirmDetail_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
-//
-//        NSLog(@"%@",resposeObject);
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            [self SetData:resposeObject[@"data"]];
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError *error) {
-//
-//        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:ButterTelConfirmDetail_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
+
+        NSLog(@"%@",resposeObject);
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            [self SetData:resposeObject[@"data"]];
+        }else{
+
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+
+        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)SetData:(NSDictionary *)data{
@@ -106,46 +106,46 @@
     
     UIAlertAction *unuse = [UIAlertAction actionWithTitle:@"可带看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-//        [BaseRequest GET:ClientTelCheckValue_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
-//
-//            if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                if (self.confirmPhoneWaitDetailVCBlock) {
-//
-//                    self.confirmPhoneWaitDetailVCBlock();
-//                    [self.navigationController popViewControllerAnimated:YES];
-//                }
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
-//            }else{
-//
-//                [self showContent:resposeObject[@"msg"]];
-//            }
-//        } failure:^(NSError *error) {
-//
-//            [self showContent:@"网络错误"];
-//        }];
+        [BaseRequest GET:ClientTelCheckValue_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
+
+            if ([resposeObject[@"code"] integerValue] == 200) {
+
+                if (self.workPhoneConfrimWaitDetailVCBlock) {
+
+                    self.workPhoneConfrimWaitDetailVCBlock();
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
+            }else{
+
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError *error) {
+
+            [self showContent:@"网络错误"];
+        }];
     }];
     
     UIAlertAction *used = [UIAlertAction actionWithTitle:@"不可带看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-//        [BaseRequest GET:ClientTelCheckDisabled_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
-//            
-//            if ([resposeObject[@"code"] integerValue] == 200) {
-//                
-//                if (self.confirmPhoneWaitDetailVCBlock) {
-//                    
-//                    self.confirmPhoneWaitDetailVCBlock();
-//                    [self.navigationController popViewControllerAnimated:YES];
-//                }
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
-//            }else{
-//                
-//                [self showContent:resposeObject[@"msg"]];
-//            }
-//        } failure:^(NSError *error) {
-//            
-//            [self showContent:@"网络错误"];
-//        }];
+        [BaseRequest GET:ClientTelCheckDisabled_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if (self.workPhoneConfrimWaitDetailVCBlock) {
+                    
+                    self.workPhoneConfrimWaitDetailVCBlock();
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+            [self showContent:@"网络错误"];
+        }];
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

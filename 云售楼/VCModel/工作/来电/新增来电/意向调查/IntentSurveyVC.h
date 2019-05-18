@@ -10,13 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^IntentSurveyVCBlock)(void);
+
 @interface IntentSurveyVC : BaseViewController
+
+@property (nonatomic, copy) IntentSurveyVCBlock intentSurveyVCBlock;
 
 @property (nonatomic, strong) NSMutableDictionary *allDic;
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 
 @property (nonatomic, strong) NSString *status;
+
+@property (nonatomic, strong) NSString *property_id;
 
 - (instancetype)initWithData:(NSArray *)data;
 

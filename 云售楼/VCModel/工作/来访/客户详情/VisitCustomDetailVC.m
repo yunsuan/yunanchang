@@ -278,7 +278,7 @@
         
         header.callTelegramCustomDetailHeaderEditBlock = ^(NSInteger index) {
             
-            CallTelegramModifyCustomVC *vc = [[CallTelegramModifyCustomVC alloc] initWithDataDic:self->_groupInfoDic projectId:self->_project_id];
+            CallTelegramModifyCustomVC *vc = [[CallTelegramModifyCustomVC alloc] initWithDataDic:self->_groupInfoDic projectId:self->_project_id info_id:self->_info_id];
             vc.callTelegramModifyCustomVCBlock = ^{
                 
                 [self RequestMethod];
@@ -294,7 +294,7 @@
         
         header.callTelegramCustomDetailHeaderAddBlock = ^(NSInteger index) {
             
-            AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:self->_project_id];
+            AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
             nextVC.group_id = self->_groupInfoDic[@"group_id"];
             nextVC.addCallTelegramGroupMemberDirectVCBlock = ^{
                 
@@ -341,6 +341,8 @@
                     }
                 }];
                 IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[dic]];
+                nextVC.status = @"modify";
+                nextVC.property_id = dic[@"id"];
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
             
@@ -396,7 +398,7 @@
         
         cell.callTelegramCustomDetailInfoCellEditBlock = ^{
             
-            CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:self->_peopleArr[self->_num] projectId:self->_project_id];
+            CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:self->_peopleArr[self->_num] projectId:self->_project_id info_id:self.info_id];
             nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
                 
                 NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_peopleArr[self->_num]];
@@ -509,12 +511,14 @@
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
                     
                     IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
+                    nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
+                    nextVC.status = @"add";
                     [self.navigationController pushViewController:nextVC animated:YES];
                 };
                 [self.view addSubview:view];
             }else{
                 
-                [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":self->_project_id} success:^(id  _Nonnull resposeObject) {
+                [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"info_id":self->_info_id} success:^(id  _Nonnull resposeObject) {
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
@@ -530,6 +534,8 @@
                         view.selectedBlock = ^(NSString *MC, NSString *ID) {
                             
                             IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
+                            nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
+                            nextVC.status = @"add";
                             [self.navigationController pushViewController:nextVC animated:YES];
                         };
                         [self.view addSubview:view];

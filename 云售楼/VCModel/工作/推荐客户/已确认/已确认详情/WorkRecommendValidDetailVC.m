@@ -58,102 +58,102 @@
 }
 
 -(void)post{
-//    [BaseRequest GET:ValueDetail_URL
-//          parameters:@{
-//                       @"client_id":_clientid
-//                       }
-//             success:^(id resposeObject) {
-//
-//                 if ([resposeObject[@"code"] integerValue] ==200) {
-//
-//                     _dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-//
-//                     [_dataDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//
-//                         if ([obj isKindOfClass:[NSNull class]]) {
-//
-//                             [_dataDic setObject:@"" forKey:key];
-//                         }
-//                     }];
-//
-//                     NSString *sex = @"客户性别：";
-//                     if ([_dataDic[@"sex"] integerValue] == 1) {
-//                         sex = @"客户性别：男";
-//                     }
-//                     if([_dataDic[@"sex"] integerValue] == 2)
-//                     {
-//                         sex =@"客户性别：女";
-//                     }
-//                     _name = _dataDic[@"name"];
-//                     NSString *tel = _dataDic[@"tel"];
-//                     NSArray *arr = [tel componentsSeparatedByString:@","];
-//                     if (arr.count >0) {
-//
-//                         tel = [NSString stringWithFormat:@"联系方式：%@",arr[0]];
-//                     }
-//                     else{
-//                         tel = @"联系方式：";
-//                     }
-//                     NSString *adress = _dataDic[@"absolute_address"];
-//                     adress = [NSString stringWithFormat:@"项目地址：%@-%@-%@ %@",_dataDic[@"province_name"],_dataDic[@"city_name"],_dataDic[@"district_name"],adress];
-//
-//                     if ([_dataDic[@"tel_check_info"] isKindOfClass:[NSDictionary class]] && [_dataDic[@"tel_check_info"] count]) {
-//
-//                         if ([_dataDic[@"disabled_reason"] isEqualToString:@"号码重复"]) {
-//
-//                             _checkArr = @[[NSString stringWithFormat:@"确认人：%@",_dataDic[@"tel_check_info"][@"confirmed_agent_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"tel_check_info"][@"confirmed_agent_tel"]],[NSString stringWithFormat:@"确认时间：%@",_dataDic[@"tel_check_info"][@"confirmed_time"]],@"判重结果:不可带看"];
-//                         }else{
-//
-//                             _checkArr = @[[NSString stringWithFormat:@"确认人：%@",_dataDic[@"tel_check_info"][@"confirmed_agent_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"tel_check_info"][@"confirmed_agent_tel"]],[NSString stringWithFormat:@"确认时间：%@",_dataDic[@"tel_check_info"][@"confirmed_time"]],@"判重结果:可带看"];
-//                         }
-//
-//                     }
-//
-//                     if (_dataDic[@"sign"]) {
-//
-//                         _sign = YES;
-//                         _signArr = _dataDic[@"sign"];
-//                         _arrArr = @[[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],[NSString stringWithFormat:@"%@",tel],[NSString stringWithFormat:@"到访人数：%@人",_dataDic[@"visit_num"]],_signArr.count?[_signArr[0][@"state"] integerValue] == 1?[NSString stringWithFormat:@"到访时间：%@",_signArr[0][@"create_time"]]:@"到访时间：":[NSString stringWithFormat:@"到访时间：%@",_dataDic[@"visit_time"]],_signArr.count?[NSString stringWithFormat:@"置业顾问：%@",_signArr[0][@"sign_agent_name"]]:@"置业顾问：",_signArr.count?[NSString stringWithFormat:@"确认状态：%@",_signArr[_signArr.count - 1][@"state_name"]]:@"确认状态："];
-//                     }else{
-//
-//                         _arrArr = @[[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"confirm_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"confirm_tel"]],[NSString stringWithFormat:@"到访人数：%@人",_dataDic[@"visit_num"]],[NSString stringWithFormat:@"到访时间：%@",_dataDic[@"process"][1][@"time"]],[NSString stringWithFormat:@"置业顾问：%@",_dataDic[@"property_advicer_wish"]],[NSString stringWithFormat:@"到访确认人：%@",_dataDic[@"butter_name"]],[NSString stringWithFormat:@"确认人电话：%@",_dataDic[@"butter_tel"]]];
-//                     }
-//
-//                     if ([_dataDic[@"comsulatent_advicer"] isEqualToString:@""]) {
-//
-//                         if (_checkArr.count) {
-//
-//                             _titleArr = @[@"推荐信息",@"判重信息",@"到访信息"];
-//                             _data = @[@[[NSString stringWithFormat:@"推荐编号：%@",_dataDic[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",_dataDic[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",_dataDic[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",_dataDic[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",_dataDic[@"project_name"]],adress,[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],sex,tel,[NSString stringWithFormat:@"备注：%@",_dataDic[@"client_comment"]]],_checkArr,_arrArr];
-//                         }else{
-//
-//                             _titleArr = @[@"推荐信息",@"到访信息"];
-//                             _data = @[@[[NSString stringWithFormat:@"推荐编号：%@",_dataDic[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",_dataDic[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",_dataDic[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",_dataDic[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",_dataDic[@"project_name"]],adress,[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],sex,tel,[NSString stringWithFormat:@"备注：%@",_dataDic[@"client_comment"]]],_arrArr];
-//                         }
-//                     }else{
-//
-//                         if (_checkArr.count) {
-//
-//                             _titleArr = @[@"推荐信息",@"判重信息",@"到访信息"];
-//                             _data = @[@[[NSString stringWithFormat:@"推荐编号：%@",_dataDic[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",_dataDic[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",_dataDic[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",_dataDic[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",_dataDic[@"project_name"]],adress,[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],sex,tel,[NSString stringWithFormat:@"置业顾问：%@",_dataDic[@"comsulatent_advicer"]],[NSString stringWithFormat:@"备注：%@",_dataDic[@"client_comment"]]],_checkArr,_arrArr];
-//                         }else{
-//
-//                             _titleArr = @[@"推荐信息",@"到访信息"];
-//                             _data = @[@[[NSString stringWithFormat:@"推荐编号：%@",_dataDic[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",_dataDic[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",_dataDic[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",_dataDic[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",_dataDic[@"project_name"]],adress,[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],sex,tel,[NSString stringWithFormat:@"置业顾问：%@",_dataDic[@"comsulatent_advicer"]],[NSString stringWithFormat:@"备注：%@",_dataDic[@"client_comment"]]],_arrArr];
-//                         }
-//
-//                     }
-//                     //                     _endtime = _dataDic[@"timeLimit"];
-//                     _Pace = _dataDic[@"process"];
-//                     [_validTable reloadData];
-//
-//                 }
-//
-//
-//             }
-//             failure:^(NSError *error) {
-//                 [self showContent:@"网络错误"];
-//             }];
+    [BaseRequest GET:ValueDetail_URL
+          parameters:@{
+                       @"client_id":_clientid
+                       }
+             success:^(id resposeObject) {
+
+                 if ([resposeObject[@"code"] integerValue] ==200) {
+
+                     _dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+
+                     [_dataDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+
+                         if ([obj isKindOfClass:[NSNull class]]) {
+
+                             [_dataDic setObject:@"" forKey:key];
+                         }
+                     }];
+
+                     NSString *sex = @"客户性别：";
+                     if ([_dataDic[@"sex"] integerValue] == 1) {
+                         sex = @"客户性别：男";
+                     }
+                     if([_dataDic[@"sex"] integerValue] == 2)
+                     {
+                         sex =@"客户性别：女";
+                     }
+                     _name = _dataDic[@"name"];
+                     NSString *tel = _dataDic[@"tel"];
+                     NSArray *arr = [tel componentsSeparatedByString:@","];
+                     if (arr.count >0) {
+
+                         tel = [NSString stringWithFormat:@"联系方式：%@",arr[0]];
+                     }
+                     else{
+                         tel = @"联系方式：";
+                     }
+                     NSString *adress = _dataDic[@"absolute_address"];
+                     adress = [NSString stringWithFormat:@"项目地址：%@-%@-%@ %@",_dataDic[@"province_name"],_dataDic[@"city_name"],_dataDic[@"district_name"],adress];
+
+                     if ([_dataDic[@"tel_check_info"] isKindOfClass:[NSDictionary class]] && [_dataDic[@"tel_check_info"] count]) {
+
+                         if ([_dataDic[@"disabled_reason"] isEqualToString:@"号码重复"]) {
+
+                             _checkArr = @[[NSString stringWithFormat:@"确认人：%@",_dataDic[@"tel_check_info"][@"confirmed_agent_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"tel_check_info"][@"confirmed_agent_tel"]],[NSString stringWithFormat:@"确认时间：%@",_dataDic[@"tel_check_info"][@"confirmed_time"]],@"判重结果:不可带看"];
+                         }else{
+
+                             _checkArr = @[[NSString stringWithFormat:@"确认人：%@",_dataDic[@"tel_check_info"][@"confirmed_agent_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"tel_check_info"][@"confirmed_agent_tel"]],[NSString stringWithFormat:@"确认时间：%@",_dataDic[@"tel_check_info"][@"confirmed_time"]],@"判重结果:可带看"];
+                         }
+
+                     }
+
+                     if (_dataDic[@"sign"]) {
+
+                         _sign = YES;
+                         _signArr = _dataDic[@"sign"];
+                         _arrArr = @[[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],[NSString stringWithFormat:@"%@",tel],[NSString stringWithFormat:@"到访人数：%@人",_dataDic[@"visit_num"]],_signArr.count?[_signArr[0][@"state"] integerValue] == 1?[NSString stringWithFormat:@"到访时间：%@",_signArr[0][@"create_time"]]:@"到访时间：":[NSString stringWithFormat:@"到访时间：%@",_dataDic[@"visit_time"]],_signArr.count?[NSString stringWithFormat:@"置业顾问：%@",_signArr[0][@"sign_agent_name"]]:@"置业顾问：",_signArr.count?[NSString stringWithFormat:@"确认状态：%@",_signArr[_signArr.count - 1][@"state_name"]]:@"确认状态："];
+                     }else{
+
+                         _arrArr = @[[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"confirm_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"confirm_tel"]],[NSString stringWithFormat:@"到访人数：%@人",_dataDic[@"visit_num"]],[NSString stringWithFormat:@"到访时间：%@",_dataDic[@"process"][1][@"time"]],[NSString stringWithFormat:@"置业顾问：%@",_dataDic[@"property_advicer_wish"]],[NSString stringWithFormat:@"到访确认人：%@",_dataDic[@"butter_name"]],[NSString stringWithFormat:@"确认人电话：%@",_dataDic[@"butter_tel"]]];
+                     }
+
+                     if ([_dataDic[@"comsulatent_advicer"] isEqualToString:@""]) {
+
+                         if (_checkArr.count) {
+
+                             _titleArr = @[@"推荐信息",@"判重信息",@"到访信息"];
+                             _data = @[@[[NSString stringWithFormat:@"推荐编号：%@",_dataDic[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",_dataDic[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",_dataDic[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",_dataDic[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",_dataDic[@"project_name"]],adress,[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],sex,tel,[NSString stringWithFormat:@"备注：%@",_dataDic[@"client_comment"]]],_checkArr,_arrArr];
+                         }else{
+
+                             _titleArr = @[@"推荐信息",@"到访信息"];
+                             _data = @[@[[NSString stringWithFormat:@"推荐编号：%@",_dataDic[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",_dataDic[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",_dataDic[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",_dataDic[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",_dataDic[@"project_name"]],adress,[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],sex,tel,[NSString stringWithFormat:@"备注：%@",_dataDic[@"client_comment"]]],_arrArr];
+                         }
+                     }else{
+
+                         if (_checkArr.count) {
+
+                             _titleArr = @[@"推荐信息",@"判重信息",@"到访信息"];
+                             _data = @[@[[NSString stringWithFormat:@"推荐编号：%@",_dataDic[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",_dataDic[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",_dataDic[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",_dataDic[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",_dataDic[@"project_name"]],adress,[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],sex,tel,[NSString stringWithFormat:@"置业顾问：%@",_dataDic[@"comsulatent_advicer"]],[NSString stringWithFormat:@"备注：%@",_dataDic[@"client_comment"]]],_checkArr,_arrArr];
+                         }else{
+
+                             _titleArr = @[@"推荐信息",@"到访信息"];
+                             _data = @[@[[NSString stringWithFormat:@"推荐编号：%@",_dataDic[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",_dataDic[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",_dataDic[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",_dataDic[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",_dataDic[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",_dataDic[@"project_name"]],adress,[NSString stringWithFormat:@"客户姓名：%@",_dataDic[@"name"]],sex,tel,[NSString stringWithFormat:@"置业顾问：%@",_dataDic[@"comsulatent_advicer"]],[NSString stringWithFormat:@"备注：%@",_dataDic[@"client_comment"]]],_arrArr];
+                         }
+
+                     }
+                     //                     _endtime = _dataDic[@"timeLimit"];
+                     _Pace = _dataDic[@"process"];
+                     [_validTable reloadData];
+
+                 }
+
+
+             }
+             failure:^(NSError *error) {
+                 [self showContent:@"网络错误"];
+             }];
 }
 
 

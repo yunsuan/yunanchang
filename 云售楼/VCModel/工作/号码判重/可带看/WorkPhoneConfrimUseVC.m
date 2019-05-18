@@ -55,35 +55,35 @@
         
         [dic setObject:self.search forKey:@"search"];
     }
-//    [BaseRequest GET:ButterTelValueList_URL parameters:dic success:^(id resposeObject) {
-//
-//        NSLog(@"%@",resposeObject);
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            [_dataArr removeAllObjects];
-//            [_table reloadData];
-//            if ([resposeObject[@"data"][@"data"] count]) {
-//
-//                [_table.mj_header endRefreshing];
-//                [self SetData:resposeObject[@"data"][@"data"]];
-//
-//            }else{
-//
-//                [_table.mj_header endRefreshing];
-//                _table.mj_footer.state = MJRefreshStateNoMoreData;
-//            }
-//        }else{
-//
-//            [_table.mj_header endRefreshing];
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//        [_table reloadData];
-//    } failure:^(NSError *error) {
-//
-//        [_table.mj_header endRefreshing];
-//        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:ButterTelValueList_URL parameters:dic success:^(id resposeObject) {
+
+        NSLog(@"%@",resposeObject);
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            [self->_dataArr removeAllObjects];
+            [self->_table reloadData];
+            if ([resposeObject[@"data"][@"data"] count]) {
+
+                [self->_table.mj_header endRefreshing];
+                [self SetData:resposeObject[@"data"][@"data"]];
+
+            }else{
+
+                [self->_table.mj_header endRefreshing];
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+
+            [self->_table.mj_header endRefreshing];
+            [self showContent:resposeObject[@"msg"]];
+        }
+        [self->_table reloadData];
+    } failure:^(NSError *error) {
+
+        [self->_table.mj_header endRefreshing];
+        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)RequestAddMethod{
@@ -94,34 +94,34 @@
         
         [dic setObject:self.search forKey:@"search"];
     }
-//    [BaseRequest GET:ButterTelValueList_URL parameters:dic success:^(id resposeObject) {
-//        
-//        NSLog(@"%@",resposeObject);
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//            
-//            if ([resposeObject[@"data"][@"data"] count]) {
-//                
-//                [_table.mj_footer endRefreshing];
-//                [self SetData:resposeObject[@"data"][@"data"]];
-//                
-//            }else{
-//                
-//                _table.mj_footer.state = MJRefreshStateNoMoreData;
-//            }
-//        }else{
-//            
-//            _page -= 1;
-//            [_table.mj_footer endRefreshing];
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//        [_table reloadData];
-//    } failure:^(NSError *error) {
-//        
-//        _page -= 1;
-//        [_table.mj_footer endRefreshing];
-//        NSLog(@"%@",error);
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:ButterTelValueList_URL parameters:dic success:^(id resposeObject) {
+        
+        NSLog(@"%@",resposeObject);
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"][@"data"] count]) {
+                
+                [self->_table.mj_footer endRefreshing];
+                [self SetData:resposeObject[@"data"][@"data"]];
+                
+            }else{
+                
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+            
+            self->_page -= 1;
+            [self->_table.mj_footer endRefreshing];
+            [self showContent:resposeObject[@"msg"]];
+        }
+        [self->_table reloadData];
+    } failure:^(NSError *error) {
+        
+        self->_page -= 1;
+        [self->_table.mj_footer endRefreshing];
+        NSLog(@"%@",error);
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)SetData:(NSArray *)data{
@@ -152,7 +152,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;//_dataArr.count;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -164,7 +164,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.useDic = @{};//_dataArr[indexPath.row];
+    cell.useDic = _dataArr[indexPath.row];
     cell.confirmBtn.hidden = YES;
     cell.copybtn.hidden = YES;
     return cell;
@@ -172,7 +172,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    WorkPhoneConfrimUseDetailVC *nextVC = [[WorkPhoneConfrimUseDetailVC alloc] init];//WithClientId:_dataArr[indexPath.row][@"client_id"]];
+    WorkPhoneConfrimUseDetailVC *nextVC = [[WorkPhoneConfrimUseDetailVC alloc] initWithClientId:_dataArr[indexPath.row][@"client_id"]];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -185,15 +185,15 @@
     _table.delegate = self;
     _table.dataSource = self;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _table.mj_header= [GZQGifHeader headerWithRefreshingBlock:^{
-//
-//        _page = 1;
-//        [self RequestMethod];
-//    }];
-//    _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
-//
-//        [self RequestAddMethod];
-//    }];
+    _table.mj_header= [GZQGifHeader headerWithRefreshingBlock:^{
+
+        self->_page = 1;
+        [self RequestMethod];
+    }];
+    _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
+
+        [self RequestAddMethod];
+    }];
     [self.view addSubview:_table];
 }
 

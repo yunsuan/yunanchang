@@ -26,6 +26,7 @@
     
     NSString *_gender;
     NSString *_project_id;
+    NSString *_info_id;
     
     NSDictionary *_dataDic;
     
@@ -83,13 +84,14 @@
 
 @implementation CallTelegramSimpleCustomVC
 
-- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId
+- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId info_id:(NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _project_id = projectId;
         _dataDic = dataDic;
+        _info_id = info_id;
     }
     return self;
 }
@@ -113,7 +115,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:WorkClientAutoColumnConfig_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:WorkClientAutoColumnConfig_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -133,7 +135,7 @@
 
 - (void)PropertyRequestMethod{
     
-    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

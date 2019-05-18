@@ -11,6 +11,7 @@
 #import "CallTelegramVC.h"
 
 #import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "RecordView.h"
 //#import "RecordLongPressView.h"
 #import "DateChooseView.h"
@@ -121,7 +122,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":self.allDic[@"project_id"]} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"info_id":self.info_id} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

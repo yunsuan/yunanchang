@@ -30,38 +30,41 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _nameL.text = @"小煤球";//dataDic[@"name"];
-    _codeL.text = @"推荐编号：123123";//[NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
-    _projectL.text = @"推荐项目：云算公馆";//[NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
+    _nameL.text = dataDic[@"name"];
+    _codeL.text = [NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
+    _projectL.text = [NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
     //    _confirmL.text = [NSString stringWithFormat:@"到访确认人：%@",dataDic[@"butter_name"]];
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"失效时间：2019.12.12"/*[NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]]*/];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]]];
     [attr addAttribute:NSForegroundColorAttributeName value:CL86Color range:NSMakeRange(0, 5)];
     _timeL.attributedText = attr;
-    _phoneL.text = @"123123123";
+//    _phoneL.text = @"123123123";
+    _phoneL.text = dataDic[@"tel"];
 }
 
 - (void)setFailDic:(NSMutableDictionary *)failDic{
     
-    _nameL.text = @"小煤球";//dataDic[@"name"];
-    _codeL.text = @"推荐编号：123123";//[NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
-    _projectL.text = @"推荐项目：云算公馆";//[NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
+    _nameL.text = failDic[@"name"];
+    _codeL.text = [NSString stringWithFormat:@"推荐编号：%@",failDic[@"client_id"]];
+    _projectL.text = [NSString stringWithFormat:@"推荐项目：%@",failDic[@"project_name"]];
     //    _confirmL.text = [NSString stringWithFormat:@"到访确认人：%@",dataDic[@"butter_name"]];
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"失效时间：2019.12.12"/*[NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]]*/];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"失效时间：%@",failDic[@"state_change_time"]]];
     [attr addAttribute:NSForegroundColorAttributeName value:CL86Color range:NSMakeRange(0, 5)];
     _timeL.attributedText = attr;
-    _phoneL.text = @"123123123";
+//    _phoneL.text = @"123123123";
+    _phoneL.text = failDic[@"tel"];
 }
 
 - (void)setValidDic:(NSMutableDictionary *)validDic{
     
-    _nameL.text = @"小煤球";//dataDic[@"name"];
-    _codeL.text = @"推荐编号：123123";//[NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
-    _projectL.text = @"推荐项目：云算公馆";//[NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
+    _nameL.text = validDic[@"name"];
+    _codeL.text = [NSString stringWithFormat:@"推荐编号：%@",validDic[@"client_id"]];
+    _projectL.text = [NSString stringWithFormat:@"推荐项目：%@",validDic[@"project_name"]];
     //    _confirmL.text = [NSString stringWithFormat:@"到访确认人：%@",dataDic[@"butter_name"]];
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"到访时间：2019.12.12"/*[NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]]*/];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"失效时间：%@",validDic[@"timsLimit"]]];
     [attr addAttribute:NSForegroundColorAttributeName value:CL86Color range:NSMakeRange(0, 5)];
     _timeL.attributedText = attr;
-    _phoneL.text = @"123123123";
+//    _phoneL.text = @"123123123";
+    _phoneL.text = validDic[@"tel"];
 }
 
 - (void)initUI{

@@ -20,6 +20,7 @@
 {
     
     NSString *_project_id;
+    NSString *_info_id;
     
     NSDictionary *_dataDic;
     
@@ -45,13 +46,14 @@
 
 @implementation CallTelegramModifyCustomVC
 
-- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId
+- (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId info_id:(NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _dataDic = dataDic;
         _project_id = projectId;
+        _info_id = info_id;
     }
     return self;
 }
@@ -71,7 +73,7 @@
 
 - (void)PropertyRequestMethod{
     
-    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -182,6 +184,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
         label.text = titleArr[i];
+        label.adjustsFontSizeToFitWidth = YES;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         
         switch (i) {
