@@ -57,6 +57,8 @@
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
 		0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */; };
 		0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC928B22855928006B2B79 /* UserInfoModel.m */; };
+		0CBD70F5228FF338002A6B48 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CBD70F4228FF338002A6B48 /* region.json */; };
+		0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */; };
 		0CC2730522681FF100EB881F /* DropBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730422681FF100EB881F /* DropBtn.m */; };
 		0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC273092268444A00EB881F /* FollowRecordVC.m */; };
 		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
@@ -295,6 +297,9 @@
 		0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyApplyVC.m; sourceTree = "<group>"; };
 		0CAC928A22855928006B2B79 /* UserInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		0CAC928B22855928006B2B79 /* UserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
+		0CBD70F4228FF338002A6B48 /* region.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = region.json; sourceTree = "<group>"; };
+		0CBD70F6229000D7002A6B48 /* AddressBookCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookCollCell.h; sourceTree = "<group>"; };
+		0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookCollCell.m; sourceTree = "<group>"; };
 		0CC2730322681FF100EB881F /* DropBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropBtn.h; sourceTree = "<group>"; };
 		0CC2730422681FF100EB881F /* DropBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropBtn.m; sourceTree = "<group>"; };
 		0CC273082268444A00EB881F /* FollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowRecordVC.h; sourceTree = "<group>"; };
@@ -509,7 +514,6 @@
 		0CF1A2FD228D8242001C77CF /* AddVisitCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddVisitCustomVC.m; sourceTree = "<group>"; };
 		0CF1A302228D8354001C77CF /* VisitCustomDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomDetailVC.h; sourceTree = "<group>"; };
 		0CF1A303228D8354001C77CF /* VisitCustomDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomDetailVC.m; sourceTree = "<group>"; };
-
 		0CF1A306228E8E03001C77CF /* SignNeedInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignNeedInfoVC.h; sourceTree = "<group>"; };
 		0CF1A307228E8E03001C77CF /* SignFailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignFailVC.h; sourceTree = "<group>"; };
 		0CF1A308228E8E03001C77CF /* SignListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignListVC.m; sourceTree = "<group>"; };
@@ -524,7 +528,6 @@
 		0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignWorkerPickView.m; sourceTree = "<group>"; };
 		0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignSelectWorkerView.m; sourceTree = "<group>"; };
 		0CF1A314228E8E03001C77CF /* SignFailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignFailView.m; sourceTree = "<group>"; };
-
 		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
 		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
 		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -761,7 +764,6 @@
 		0C3A9113225B20C400F04804 /* 云售楼 */ = {
 			isa = PBXGroup;
 			children = (
-				10BC3A3C228E8D1500DAB2D8 /* 云售楼.entitlements */,
 				0C3A9146225B211400F04804 /* 第三方SDK */,
 				0C3A9147225B211400F04804 /* 自定义SDK */,
 				0C3A9148225B211400F04804 /* Resource */,
@@ -829,6 +831,7 @@
 		0C3A9148225B211400F04804 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0CBD70F4228FF338002A6B48 /* region.json */,
 				0C3A914B225B213500F04804 /* PrefixHeader.pch */,
 				0C3A914C225B215100F04804 /* NetConfig.h */,
 				0C3A914D225B216400F04804 /* BaseRequest.h */,
@@ -1601,6 +1604,8 @@
 			children = (
 				0CEF89E2225C74540057F3FD /* AddressBookCell.h */,
 				0CEF89E3225C74540057F3FD /* AddressBookCell.m */,
+				0CBD70F6229000D7002A6B48 /* AddressBookCollCell.h */,
+				0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2290,6 +2295,7 @@
 				0CD7A034225C6D5700EAE816 /* BDDynamicTreeCell.xib in Resources */,
 				0C3A911E225B20C600F04804 /* Assets.xcassets in Resources */,
 				0C3A911C225B20C400F04804 /* Main.storyboard in Resources */,
+				0CBD70F5228FF338002A6B48 /* region.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2470,6 +2476,7 @@
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
+				0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */,
 				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,

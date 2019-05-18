@@ -344,6 +344,7 @@
                 IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[dic]];
                 nextVC.status = @"modify";
                 nextVC.property_id = dic[@"id"];
+                nextVC.need_id = dic[@"list"][0][@"need_id"];
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
             
@@ -354,7 +355,9 @@
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
                         [self->_intentArr removeObjectAtIndex:section - 1];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self->_intentArr.count - 1)] withRowAnimation:UITableViewRowAnimationNone];
+                        [self->_propertyArr removeAllObjects];
+                        [tableView reloadData];
+//                        [tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self->_intentArr.count)] withRowAnimation:UITableViewRowAnimationNone];
                     }else{
                         
                         [self showContent:resposeObject[@"msg"]];
@@ -518,6 +521,16 @@
             
             if (self->_propertyArr.count) {
                 
+                for (int i = 0; i < self->_intentArr.count; i++) {
+                    
+                    for (int j = 0; j < self->_propertyArr.count; j++) {
+                        
+                        if ([self->_intentArr[i][@"property_id"] integerValue] == [self->_propertyArr[j][@"id"] integerValue]) {
+                            
+                            [self->_propertyArr removeObjectAtIndex:j];
+                        }
+                    }
+                }
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_propertyArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
                     
@@ -544,7 +557,18 @@
                             NSDictionary *tempDic = @{@"id":dic[@"config_id"],
                                                       @"param":dic[@"config_name"]
                                                       };
+                            
                             [self->_propertyArr addObject:tempDic];
+                        }
+                        for (int i = 0; i < self->_intentArr.count; i++) {
+                            
+                            for (int j = 0; j < self->_propertyArr.count; j++) {
+                                
+                                if ([self->_intentArr[i][@"property_id"] integerValue] == [self->_propertyArr[j][@"id"] integerValue]) {
+                                    
+                                    [self->_propertyArr removeObjectAtIndex:j];
+                                }
+                            }
                         }
                         SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_propertyArr];
                         view.selectedBlock = ^(NSString *MC, NSString *ID) {

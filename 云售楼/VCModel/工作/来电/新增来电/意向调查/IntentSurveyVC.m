@@ -297,6 +297,7 @@
             NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
             [tempDic setObject:jsonString forKey:@"need_list"];
             [tempDic setObject:self.property_id forKey:@"property_id"];
+//            [temp]
         }
         
         if (!tempDic.count) {
@@ -304,7 +305,12 @@
             [self alertControllerWithNsstring:@"选择需求信息" And:@"请选择完善意向调查"];
             return;
         }
-        [BaseRequest GET:WorkClientAutoNeedUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+        
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tempDic options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSDictionary *dic = @{@"need_list":jsonString,@"need_id":self.need_id,@"property_id":self.property_id};
+        [BaseRequest POST:WorkClientAutoNeedUpdate_URL parameters:dic success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
