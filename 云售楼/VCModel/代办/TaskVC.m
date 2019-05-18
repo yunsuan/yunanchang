@@ -8,6 +8,8 @@
 
 #import "TaskVC.h"
 
+#import "FollowRecordVC.h"
+
 #import "TaskCallBackCell.h"
 #import "TaskCallFollowCell.h"
 #import "TaskTakeLookConfirmCell.h"
@@ -35,7 +37,7 @@
 - (void)initDataSource{
     
     _dataArr = [@[] mutableCopy];
-    _dataArr = [[NSMutableArray alloc] initWithArray:@[@"来电客户",@"来访客户",@"推荐客户",@"审核待办",@"财务待办"]];
+//    _dataArr = [[NSMutableArray alloc] initWithArray:@[@"来电客户",@"来访客户",@"推荐客户",@"审核待办",@"财务待办"]];
 }
 
 - (void)RequestMethod{
@@ -82,8 +84,39 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if ([_dataArr[indexPath.row][@"type"] integerValue] == 1) {
     
-    if (indexPath.row == 0) {
+        TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
+        if (!cell) {
+            
+            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.taskCallBackCellBlock = ^{
+            
+            FollowRecordVC *nextVC = [[FollowRecordVC alloc] initWithGroupId:self->_dataArr[indexPath.row][@"group_id"]];
+            nextVC.info_id = @"";
+            nextVC.status = @"direct";
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+
+    }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 2){
+        
+        TaskCallFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallFollowCell"];
+        if (!cell) {
+            
+            cell = [[TaskCallFollowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallFollowCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.dataDic = _dataArr[indexPath.row];
+        
+
+        return cell;
+
+    }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 3){
         
         TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
         if (!cell) {
@@ -93,47 +126,78 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
         return cell;
-    }else if (indexPath.row == 1){
+    }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 3){
         
-        TaskCallFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallFollowCell"];
+        TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
         if (!cell) {
             
-            cell = [[TaskCallFollowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallFollowCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.dataDic = _dataArr[indexPath.row];
-        return cell;
-    }else if (indexPath.row == 2){
-        
-        TaskTakeLookConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTakeLookConfirmCell"];
-        if (!cell) {
-            
-            cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.dataDic = _dataArr[indexPath.row];
-        return cell;
-    }else if (indexPath.row == 3){
-        
-        TaskTakeLookConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTakeLookConfirmCell"];
-        if (!cell) {
-            
-            cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
+            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
         return cell;
     }else{
         
-        TaskVisitConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskVisitConfirmCell"];
+        TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
         if (!cell) {
             
-            cell = [[TaskVisitConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskVisitConfirmCell"];
+            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
         return cell;
     }
+//    if (indexPath.row == 0) {
+//
+//        TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
+//        if (!cell) {
+//
+//            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.dataDic = _dataArr[indexPath.row];
+//        return cell;
+//    }else if (indexPath.row == 1){
+//
+//        TaskCallFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallFollowCell"];
+//        if (!cell) {
+//
+//            cell = [[TaskCallFollowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallFollowCell"];
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.dataDic = _dataArr[indexPath.row];
+//        return cell;
+//    }else if (indexPath.row == 2){
+//
+//        TaskTakeLookConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTakeLookConfirmCell"];
+//        if (!cell) {
+//
+//            cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.dataDic = _dataArr[indexPath.row];
+//        return cell;
+//    }else if (indexPath.row == 3){
+//
+//        TaskTakeLookConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTakeLookConfirmCell"];
+//        if (!cell) {
+//
+//            cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.dataDic = _dataArr[indexPath.row];
+//        return cell;
+//    }else{
+//
+//        TaskVisitConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskVisitConfirmCell"];
+//        if (!cell) {
+//
+//            cell = [[TaskVisitConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskVisitConfirmCell"];
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.dataDic = _dataArr[indexPath.row];
+//        return cell;
+//    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -159,6 +223,7 @@
     _table.backgroundColor = CLLineColor;
     _table.delegate = self;
     _table.dataSource = self;
+//    _table.mj
     [self.view addSubview:_table];
 }
 

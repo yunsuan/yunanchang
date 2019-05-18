@@ -24,6 +24,8 @@ typedef void(^IntentSurveyVCBlock)(void);
 
 @property (nonatomic, strong) NSString *property_id;
 
+@property (nonatomic, strong) NSString *info_id;
+
 - (instancetype)initWithData:(NSArray *)data;
 
 //- (instancetype)initWithPropertyId:(NSString *)propertyId;

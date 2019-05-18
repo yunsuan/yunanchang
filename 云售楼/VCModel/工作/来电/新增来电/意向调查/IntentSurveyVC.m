@@ -229,7 +229,7 @@
                             
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:tf.textField.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -247,7 +247,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:btn.content.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -269,7 +269,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:btn.content.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -341,7 +341,7 @@
                             
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:tf.textField.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -359,7 +359,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:btn.content.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -381,7 +381,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:btn.content.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -416,7 +416,7 @@
             [self alertControllerWithNsstring:@"选择需求信息" And:@"请选择完善意向调查"];
             return;
         }
-        [BaseRequest GET:WorkClientAutoNeedAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+        [BaseRequest POST:WorkClientAutoNeedAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
@@ -439,6 +439,7 @@
         for (int i = 0; i < _dataArr.count; i++) {
             
             NSArray *arr = _dataArr[i][@"list"];
+            NSMutableArray *tempArr = [@[] mutableCopy];
             for (int j = 0; j < arr.count; j++) {
                 
                 NSMutableDictionary *needDic = [[NSMutableDictionary alloc] init];
@@ -452,7 +453,7 @@
                             
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:tf.textField.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -470,7 +471,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:btn.content.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -492,7 +493,7 @@
                             
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:btn.content.text forKey:@"config_name"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -508,15 +509,26 @@
                 }
                 if (needDic.count) {
                     
-                    [_lastArr addObject:needDic];
+                    [tempArr addObject:needDic];
                 }
             }
+            [_lastArr addObject:tempArr];
         }
         
+        NSMutableArray *arr = [@[] mutableCopy];
         if (_lastArr.count) {
             
+            for (int i = 0; i < _lastArr.count; i++) {
+                
+                NSError *error;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr[i] options:NSJSONWritingPrettyPrinted error:&error];
+                NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+                NSDictionary *dic = @{@"property_id":_dataArr[i][@"property_id"],@"need_list":jsonString};
+                [arr addObject:dic];
+            }
+
             NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
             NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
             [self.allDic setObject:jsonString forKey:@"need_list"];
         }
@@ -524,6 +536,7 @@
         FollowRecordVC *nextVC = [[FollowRecordVC alloc] init];
         nextVC.allDic = self.allDic;
         nextVC.status = @"add";
+        nextVC.info_id = self.info_id;
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
@@ -612,7 +625,16 @@
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 47 *SIZE - TAB_BAR_MORE, SCREEN_Width, 47 *SIZE + TAB_BAR_MORE);
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_nextBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_nextBtn setTitle:@"下一步 跟进记录" forState:UIControlStateNormal];
+    if ([self.status isEqualToString:@"add"]) {
+        
+        [_nextBtn setTitle:@"确认" forState:UIControlStateNormal];
+    }else if ([self.status isEqualToString:@"modify"]){
+        
+        [_nextBtn setTitle:@"确认" forState:UIControlStateNormal];
+    }else{
+        
+        [_nextBtn setTitle:@"下一步 跟进记录" forState:UIControlStateNormal];
+    }
     [_nextBtn setBackgroundColor:CLBlueTagColor];
     _nextBtn.layer.cornerRadius = 5 *SIZE;
     _nextBtn.clipsToBounds = YES;

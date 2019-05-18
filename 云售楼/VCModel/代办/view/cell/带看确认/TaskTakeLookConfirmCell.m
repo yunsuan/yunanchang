@@ -30,12 +30,19 @@
     
 }
 
-- (void)setDataDic:(NSMutableArray *)dataDic{
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _nameL.text = @"客户姓名：理想";
-    _projectL.text = @"项目名称：云算公馆";
-    _recommendL.text = @"推荐人：张三/大唐房屋";
-    _timeL.text = @"失效时间：2018.12.30 16:20";
+    if ([dataDic[@"is_read"] integerValue] == 1) {
+        
+        _readImg.image = IMAGE_WITH_NAME(@"SMS");
+    }else{
+        
+        _readImg.image = IMAGE_WITH_NAME(@"");
+    }
+    _nameL.text = [NSString stringWithFormat:@"客户姓名：%@",dataDic[@"name"]];
+    _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
+    _recommendL.text = [NSString stringWithFormat:@"推荐人：%@",dataDic[@""]];
+    _timeL.text = [NSString stringWithFormat:@"失效时间：%@",dataDic[@""]];
 }
 
 - (void)initUI{

@@ -125,7 +125,7 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 3){
         
-        VisitCustomVC *nextVC = [[VisitCustomVC alloc] init];
+        VisitCustomVC *nextVC = [[VisitCustomVC alloc] initWithProjectId:_project_id info_id:_info_id];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 7){
         
