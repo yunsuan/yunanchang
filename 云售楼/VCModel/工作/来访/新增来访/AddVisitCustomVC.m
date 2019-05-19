@@ -488,6 +488,7 @@
     //    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithPropertyId:_property_id];
     IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:_propertyDArr];
     nextVC.allDic = [[NSMutableDictionary alloc] initWithDictionary:allDic];
+    nextVC.info_id = _info_id;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

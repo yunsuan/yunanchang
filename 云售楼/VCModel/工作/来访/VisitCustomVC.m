@@ -192,7 +192,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"来电";
+    self.titleLabel.text = @"来访";
     self.rightBtn.hidden = NO;
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_3") forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];

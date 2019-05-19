@@ -9,6 +9,7 @@
 #import "FollowRecordVC.h"
 
 #import "CallTelegramVC.h"
+#import "VisitCustomVC.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -339,6 +340,12 @@
                         if ([vc isKindOfClass:[CallTelegramVC class]]) {
                             
                             [self.navigationController popToViewController:vc animated:YES];
+                            break;
+                        }
+                        if ([vc isKindOfClass:[VisitCustomVC class]]) {
+                            
+                            [self.navigationController popToViewController:vc animated:YES];
+                            break;
                         }
                     }
                 }

@@ -76,7 +76,7 @@
         
         UIImageView *guideImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_Width * i, 0, SCREEN_Width, SCREEN_Height)];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:imgArr[i] ofType:@"jpg"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:imgArr[i] ofType:@"png"];
         UIImage *image = [UIImage imageWithContentsOfFile:path];
         guideImg.image = image;
         guideImg.contentMode = UIViewContentModeScaleAspectFill;
@@ -100,7 +100,7 @@
     _inBtn.layer.cornerRadius = 5 *SIZE;
     _inBtn.clipsToBounds = YES;
     [_inBtn addTarget:self action:@selector(ActionInBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_inBtn setTitle:@"开启渠道" forState:UIControlStateNormal];
+    [_inBtn setTitle:@"开启案场" forState:UIControlStateNormal];
     [_inBtn setBackgroundColor:CLBlueBtnColor];
     _inBtn.hidden = YES;
     [_inBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
