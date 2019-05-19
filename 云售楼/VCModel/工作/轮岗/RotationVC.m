@@ -9,6 +9,10 @@
 #import "RotationVC.h"
 #import "RotationHeadView.h"
 #import "RotationCell.h"
+#import "TitelHeaderView.h"
+#import "RotationSettingVC.h"
+#import "AbdicateVC.h"
+
 @interface RotationVC()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
      NSMutableArray *_dataArr;
@@ -76,8 +80,37 @@
 
 
 - (void)ActionRightBtn:(UIButton *)btn{
-   
+    RotationSettingVC *next_vc = [[RotationSettingVC alloc]init];
+    [self.navigationController pushViewController:next_vc animated:YES];
+    
 }
+
+-(void)action_comple
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"下位" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"接待客户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+            
+        }];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"让位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        AbdicateVC *next_vc = [[AbdicateVC alloc]init];
+        [self.navigationController pushViewController:next_vc animated:YES];
+        
+    }];
+    
+    [alert addAction:action1];
+    [alert addAction:action2];
+    [alert addAction:cancel];
+    [self.navigationController presentViewController:alert animated:YES completion:^{
+        
+    }];
+}
+
+
 
 - (void)RequestMethod{
     
@@ -114,7 +147,13 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    return CGSizeMake(SCREEN_Width, 40 *SIZE);
+    if (section ==0) {
+        return CGSizeMake(SCREEN_Width, 167*SIZE);
+    }
+    else
+    {
+    return CGSizeMake(SCREEN_Width, 37 *SIZE);
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
@@ -123,18 +162,30 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.section==0) {
         RotationHeadView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"RotationHeadView" forIndexPath:indexPath];
         if (!header) {
             
-            header = [[RotationHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+            header = [[RotationHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 167 *SIZE)];
         }
+        [header.compleBtn addTarget:self action:@selector(action_comple) forControlEvents:UIControlEventTouchUpInside];
         
-        header.lineView.hidden = YES;
-        
-        header.titleL.text = _dataArr[indexPath.section][@"batch_name"];
+
         
         return header;
+    }
+    else
+    {
+        TitelHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TitelHeaderView" forIndexPath:indexPath];
+        if (!header) {
+            
+            header = [[TitelHeaderView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 37 *SIZE)];
+
+        }
+     
+        return header;
+    }
+    
 
 }
 
@@ -145,7 +196,20 @@
         
         cell = [[RotationCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 5, 90 *SIZE)];
     }
-  
+    if(indexPath.section == 0 &&indexPath.row==0)
+    {
+        [cell ConfigCellByType:A_TYPE Title:@"张三"];
+    }else if (indexPath.section == 1 &&indexPath.row==0)
+    {
+        [cell ConfigCellByType:B_TYPE Title:@"李四"];
+    }else if (indexPath.row==11)
+    {
+         [cell ConfigCellByType:REST_TYPE Title:@"李四SS"];
+    }else{
+         [cell ConfigCellByType:WAIT_TYPE Title:@"李四11"];
+    }
+    
+    
     //[NSString stringWithFormat:@"%ld号楼",indexPath.item + 1];
     
     return cell;
@@ -163,25 +227,27 @@
     
     self.leftButton.hidden = NO;
     self.rightBtn.hidden = NO;
-    self.rightBtn.center = CGPointMake(SCREEN_Width - 45 * SIZE, STATUS_BAR_HEIGHT + 20);
-    self.rightBtn.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
-    self.rightBtn.titleLabel.font = FONT(13 *SIZE);
-    [self.rightBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
+    self.rightBtn.center = CGPointMake(SCREEN_Width - 20 * SIZE, STATUS_BAR_HEIGHT + 20);
+    self.rightBtn.bounds = CGRectMake(0, 0, 40 * SIZE, 33 * SIZE);
+//    self.rightBtn.titleLabel.font = FONT(13 *SIZE);
+//    [self.rightBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.rightBtn setTitle: [UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+//    [self.rightBtn setTitle: [UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+    [self.rightBtn setImage:[UIImage imageNamed:@"Setupthe"] forState:UIControlStateNormal];
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 5 ,80 *SIZE);
+    _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 5 ,90 *SIZE);
     _flowLayout.minimumInteritemSpacing = 0 *SIZE;
     _flowLayout.minimumLineSpacing = 0;
     
     
-    _rotationCV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT+129*SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_MORE-129*SIZE) collectionViewLayout:_flowLayout];
+    _rotationCV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_MORE) collectionViewLayout:_flowLayout];
     _rotationCV.backgroundColor = CLWhiteColor;
     _rotationCV.delegate = self;
     _rotationCV.dataSource = self;
     [_rotationCV registerClass:[RotationCell class] forCellWithReuseIdentifier:@"RotationCell"];
     [_rotationCV registerClass:[RotationHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"RotationHeadView"];
+    [_rotationCV registerClass:[TitelHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TitelHeaderView"];
     [self.view addSubview:_rotationCV];
 }
 
