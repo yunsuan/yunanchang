@@ -124,6 +124,7 @@
 }
 
 + (void)hideHUD{
+    
     [self hideHUDForView:nil];
 }
 

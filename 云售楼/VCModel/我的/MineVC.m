@@ -250,8 +250,8 @@
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.bounces = NO;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _table.sectionHeaderHeight = UITableViewAutomaticDimension;
-//    _table.estimatedSectionHeaderHeight = 100 *SIZE;
+    _table.sectionHeaderHeight = UITableViewAutomaticDimension;
+    _table.estimatedSectionHeaderHeight = 100 *SIZE;
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
     _table.backgroundColor = self.view.backgroundColor;

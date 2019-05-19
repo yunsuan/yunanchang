@@ -8,6 +8,8 @@
 
 #import "BaseRequest.h"
 
+#import "WaitAnimation.h"
+
 static AFHTTPSessionManager *manager;
 
 static NSString *const kACCESSROLE = @"saleApp";
@@ -16,7 +18,8 @@ static NSString *const kACCESSROLE = @"saleApp";
 
 + (void)GET:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
     
-    [MBProgressHUD showActivityMessage:@"加载中"];
+//    [MBProgressHUD showActivityMessage:@"加载中111"];
+    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
     [manager.requestSerializer setValue:kACCESSROLE forHTTPHeaderField:@"ACCESS-ROLE"];
@@ -26,7 +29,9 @@ static NSString *const kACCESSROLE = @"saleApp";
     [htttmanger GET:str parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUD];
+        
+//        [MBProgressHUD hideHUD];
+        [WaitAnimation stopAnimation];
         if ([responseObject[@"code"] integerValue] == 200)
         {
             success(responseObject);
@@ -54,7 +59,8 @@ static NSString *const kACCESSROLE = @"saleApp";
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        [MBProgressHUD hideHUD];
+//        [MBProgressHUD hideHUD];
+        [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);
             
@@ -63,7 +69,10 @@ static NSString *const kACCESSROLE = @"saleApp";
 }
 
 + (void)POST:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
-    [MBProgressHUD showActivityMessage:@"加载中"];
+    
+//    [MBProgressHUD showActivityMessage:@"加载中222"];
+    
+    [WaitAnimation startAnimation];
     AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
     [manager.requestSerializer setValue:[UserModel defaultModel].token forHTTPHeaderField:@"ACCESS-TOKEN"];
     [manager.requestSerializer setValue:kACCESSROLE forHTTPHeaderField:@"ACCESS-ROLE"];
@@ -73,7 +82,8 @@ static NSString *const kACCESSROLE = @"saleApp";
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
-        [MBProgressHUD hideHUD];
+//        [MBProgressHUD hideHUD];
+        [WaitAnimation stopAnimation];
         if ([responseObject[@"code"] integerValue] == 200)
         {
             success(responseObject);
@@ -96,7 +106,9 @@ static NSString *const kACCESSROLE = @"saleApp";
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD hideHUD];
+        
+//        [MBProgressHUD hideHUD];
+        [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);
         }
@@ -121,7 +133,8 @@ static NSString *const kACCESSROLE = @"saleApp";
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        [MBProgressHUD hideHUD];
+//        [MBProgressHUD hideHUD];
+        [WaitAnimation stopAnimation];
         if ([responseObject[@"code"] integerValue] == 200)
         {
             success(responseObject);
@@ -144,7 +157,8 @@ static NSString *const kACCESSROLE = @"saleApp";
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        [MBProgressHUD hideHUD];
+//        [MBProgressHUD hideHUD];
+        [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);
         }
