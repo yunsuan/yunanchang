@@ -12,7 +12,8 @@
 #import "BaseHeader.h"
 
 #import "SinglePickView.h"
-#import "AddressChooseView3.h"
+//#import "AddressChooseView3.h"
+#import "AdressChooseView.h"
 
 #import "BorderTextField.h"
 #import "DropBtn.h"
@@ -115,10 +116,13 @@
     
     if (btn.tag == 0) {
         
-        AddressChooseView3 *addressChooseView = [[AddressChooseView3 alloc] initWithFrame:self.view.frame withdata:@[]];
+//        AddressChooseView3 *addressChooseView = [[AddressChooseView3 alloc] initWithFrame:self.view.frame withdata:@[]];
+//        WS(weakself);
+//        addressChooseView.addressChooseView3ConfirmBlock = ^(NSString *city, NSString *area, NSString *cityid, NSString *areaid) {
+        AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.bounds withdata:@[]];
         WS(weakself);
-        addressChooseView.addressChooseView3ConfirmBlock = ^(NSString *city, NSString *area, NSString *cityid, NSString *areaid) {
-            
+        addressChooseView.selectedBlock = ^(NSString *province, NSString *city, NSString *area, NSString *proviceid, NSString *cityid, NSString *areaid) {
+        
             NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region" ofType:@"json"]];
             
             NSError *err;
@@ -142,6 +146,7 @@
                 }
             }
             self->_customSourceBtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",proName,city,area];
+            self->_customSourceBtn.placeL.text = @"";
             self->_proId = pro;
             self->_cityId = cityid;
             self->_areaId = areaid;

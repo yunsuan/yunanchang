@@ -12,7 +12,8 @@
 #import "PersonalIntroVC.h"
 
 #import "DateChooseView.h"
-#import "AddressChooseView3.h"
+//#import "AddressChooseView3.h"
+#import "AdressChooseView.h"
 
 #import "TitleContentRightBaseCell.h"
 #import "PersonalHeader.h"
@@ -355,9 +356,11 @@
         [self.view addSubview:view];
     }else if (indexPath.row == 5){
         
-        AddressChooseView3 *addressChooseView = [[AddressChooseView3 alloc] initWithFrame:self.view.frame withdata:@[]];
+//        AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.frame withdata:@[]];
+        AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.bounds withdata:@[]];
         WS(weakself);
-        addressChooseView.addressChooseView3ConfirmBlock = ^(NSString *city, NSString *area, NSString *cityid, NSString *areaid) {
+        addressChooseView.selectedBlock = ^(NSString *province, NSString *city, NSString *area, NSString *proviceid, NSString *cityid, NSString *areaid) {
+
             
             NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region" ofType:@"json"]];
             
