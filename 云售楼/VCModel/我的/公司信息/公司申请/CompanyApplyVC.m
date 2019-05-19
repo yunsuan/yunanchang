@@ -25,6 +25,18 @@
     [self initUI];
 }
 
+- (void)ActionMaskBtn:(UIButton *)btn{
+    
+    if ([self.status isEqualToString:@"login"]) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 - (void)ActionGoBtn:(UIButton *)btn{
     
     CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];

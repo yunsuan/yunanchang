@@ -45,7 +45,10 @@
     [super viewDidLoad];
     [self initDataSource];
     [self initUI];
-    [self RequestMethod];
+    if ([UserModel defaultModel].projectinfo) {
+        
+        [self RequestMethod];
+    }
 }
 
 - (void)initDataSource{

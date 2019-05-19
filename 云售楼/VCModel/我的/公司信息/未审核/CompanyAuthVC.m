@@ -219,7 +219,8 @@
             
             [self alertControllerWithNsstring:@"申请成功" And:@"请等待审核或者联系审核人" WithDefaultBlack:^{
                
-                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
+                [self.navigationController popViewControllerAnimated:YES];
             }];
         }else{
             

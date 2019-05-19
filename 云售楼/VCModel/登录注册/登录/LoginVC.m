@@ -108,6 +108,7 @@
             }else{
                 
                 CompanyApplyVC *nextVC = [[CompanyApplyVC alloc] init];
+                nextVC.status = @"login";
                 [self.navigationController pushViewController:nextVC animated:YES];
             }
             
