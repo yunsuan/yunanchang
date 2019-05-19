@@ -11,11 +11,23 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RotationHeadView : UICollectionReusableView
-@property (nonatomic, strong) UIView *colorView;
 
+@property (nonatomic, strong) UIImageView *headImg;
+@property (nonatomic, strong) UILabel *nameL;
+@property (nonatomic, strong) UIImageView *sexImg;
+@property (nonatomic, strong) UILabel *beginL;
+@property (nonatomic, strong) UILabel *endL;
+@property (nonatomic, strong) UILabel *phoneL;
 @property (nonatomic, strong) UILabel *titleL;
+@property (nonatomic, strong) UILabel *timeL;
+@property (nonatomic, strong) UIView *backView;
+@property (nonatomic, strong) UILabel *companyL;
+@property (nonatomic, strong) UIButton *compleBtn;
 
-@property (nonatomic, strong) UIView *lineView;
+
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

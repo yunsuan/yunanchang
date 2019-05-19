@@ -10,10 +10,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_OPTIONS(NSUInteger, KRotationState){
+    A_TYPE=1, //b位
+    B_TYPE=2, //a位
+    WAIT_TYPE=8, //等待
+    REST_TYPE=9, //休假
+};
+
 @interface RotationCell : UICollectionViewCell
-@property (nonatomic, strong) UIImageView *headImg;
+
+@property (nonatomic , strong) UIButton *headBtn;
 
 @property (nonatomic, strong) UILabel *titleL;
+
+@property (nonatomic , assign) KRotationState rotationState;
+
+-(void)ConfigCellByType:(KRotationState)type
+                  Title:(NSString *)title;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
