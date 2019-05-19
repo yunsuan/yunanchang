@@ -108,6 +108,7 @@
             }else{
                 
                 CompanyApplyVC *nextVC = [[CompanyApplyVC alloc] init];
+                nextVC.status = @"login";
                 [self.navigationController pushViewController:nextVC animated:YES];
             }
             
@@ -197,8 +198,8 @@
 //    self.line.hidden = YES;
     self.navBackgroundView.hidden = YES;
     
-    _Headerimg = [[UIImageView alloc]initWithFrame:CGRectMake(148*SIZE, 39 *SIZE + NAVIGATION_BAR_HEIGHT, 63*SIZE, 54*SIZE)];
-    _Headerimg.image = [UIImage imageNamed:@"logo"];
+    _Headerimg = [[UIImageView alloc]initWithFrame:CGRectMake(130*SIZE, 39 *SIZE + NAVIGATION_BAR_HEIGHT, 100*SIZE, 68*SIZE)];
+    _Headerimg.image = [UIImage imageNamed:@"logo_3"];
     [self.view addSubview:_Headerimg];
     
     _AccountTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, 219*SIZE, 314*SIZE, 15*SIZE)];
@@ -226,14 +227,14 @@
         
     }
     
-    _protocolImg = [[UIImageView alloc] initWithFrame:CGRectMake(22 *SIZE, 264 *SIZE + NAVIGATION_BAR_HEIGHT, 13 *SIZE, 13 *SIZE)];
-    _protocolImg.image = IMAGE_WITH_NAME(@"unselected");
-//    [self.view addSubview:_protocolImg];
-    
-    _protocolLabel = [[UILabel alloc] initWithFrame:CGRectMake(43 *SIZE, 264 *SIZE + NAVIGATION_BAR_HEIGHT, 300 *SIZE, 12 *SIZE)];
-    _protocolLabel.textColor = CLContentLabColor;
-    _protocolLabel.font = [UIFont systemFontOfSize:12 *SIZE];
-    _protocolLabel.text = @"我已阅读并同意《置业家使用条例》";
+//    _protocolImg = [[UIImageView alloc] initWithFrame:CGRectMake(22 *SIZE, 264 *SIZE + NAVIGATION_BAR_HEIGHT, 13 *SIZE, 13 *SIZE)];
+//    _protocolImg.image = IMAGE_WITH_NAME(@"unselected");
+////    [self.view addSubview:_protocolImg];
+//    
+//    _protocolLabel = [[UILabel alloc] initWithFrame:CGRectMake(43 *SIZE, 264 *SIZE + NAVIGATION_BAR_HEIGHT, 300 *SIZE, 12 *SIZE)];
+//    _protocolLabel.textColor = CLContentLabColor;
+//    _protocolLabel.font = [UIFont systemFontOfSize:12 *SIZE];
+//    _protocolLabel.text = @"我已阅读并同意《置业家使用条例》";
 //    [self.view addSubview:_protocolLabel];
     
     _ProtocolBtn = [UIButton buttonWithType:UIButtonTypeCustom];

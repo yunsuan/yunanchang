@@ -81,7 +81,7 @@
     self.navBackgroundView.hidden = NO;
 
     self.titleLabel.text = @"房源";
-    [self.leftButton setImage:IMAGE_WITH_NAME(@"youjiantou.png") forState:UIControlStateNormal];
+//    [self.leftButton setImage:IMAGE_WITH_NAME(@"youjiantou.png") forState:UIControlStateNormal];
     //    [self.view addSubview:self.MycollectionView];
 //    [self post];
     

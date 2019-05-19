@@ -13,6 +13,7 @@
 #import "TaskCallBackCell.h"
 #import "TaskCallFollowCell.h"
 #import "TaskTakeLookConfirmCell.h"
+#import "TaskSignAuditCell.h"
 #import "TaskVisitConfirmCell.h"
 
 @interface TaskVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -85,17 +86,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([_dataArr[indexPath.row][@"type"] integerValue] == 1) {
-    
+
         TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
         if (!cell) {
-            
+
             cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
-        
+
         cell.taskCallBackCellBlock = ^{
-            
+
             FollowRecordVC *nextVC = [[FollowRecordVC alloc] initWithGroupId:self->_dataArr[indexPath.row][@"group_id"]];
             nextVC.info_id = @"";
             nextVC.status = @"direct";
@@ -104,44 +105,45 @@
         return cell;
 
     }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 2){
-        
+
         TaskCallFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallFollowCell"];
         if (!cell) {
-            
+
             cell = [[TaskCallFollowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallFollowCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
-        
+
 
         return cell;
 
     }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 3){
-        
-        TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
+
+        TaskTakeLookConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTakeLookConfirmCell"];
         if (!cell) {
-            
-            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
+
+            cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
         return cell;
+
     }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 3){
-        
-        TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
+
+        TaskSignAuditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskSignAuditCell"];
         if (!cell) {
-            
-            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
+
+            cell = [[TaskSignAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskSignAuditCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
         return cell;
     }else{
-        
-        TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
+
+        TaskVisitConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskVisitConfirmCell"];
         if (!cell) {
-            
-            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
+
+            cell = [[TaskVisitConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskVisitConfirmCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
@@ -155,7 +157,7 @@
 //            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
 //        }
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.dataDic = _dataArr[indexPath.row];
+////        cell.dataDic = _dataArr[indexPath.row];
 //        return cell;
 //    }else if (indexPath.row == 1){
 //
@@ -165,7 +167,7 @@
 //            cell = [[TaskCallFollowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallFollowCell"];
 //        }
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.dataDic = _dataArr[indexPath.row];
+////        cell.dataDic = _dataArr[indexPath.row];
 //        return cell;
 //    }else if (indexPath.row == 2){
 //
@@ -175,17 +177,17 @@
 //            cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
 //        }
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.dataDic = _dataArr[indexPath.row];
+////        cell.dataDic = _dataArr[indexPath.row];
 //        return cell;
 //    }else if (indexPath.row == 3){
 //
-//        TaskTakeLookConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTakeLookConfirmCell"];
+//        TaskSignAuditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskSignAuditCell"];
 //        if (!cell) {
 //
-//            cell = [[TaskTakeLookConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskTakeLookConfirmCell"];
+//            cell = [[TaskSignAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskSignAuditCell"];
 //        }
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.dataDic = _dataArr[indexPath.row];
+////        cell.dataDic = _dataArr[indexPath.row];
 //        return cell;
 //    }else{
 //
@@ -195,7 +197,7 @@
 //            cell = [[TaskVisitConfirmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskVisitConfirmCell"];
 //        }
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.dataDic = _dataArr[indexPath.row];
+////        cell.dataDic = _dataArr[indexPath.row];
 //        return cell;
 //    }
 }

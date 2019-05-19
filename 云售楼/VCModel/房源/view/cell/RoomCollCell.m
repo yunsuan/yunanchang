@@ -24,7 +24,7 @@
     
     self.contentView.backgroundColor = CLWhiteColor;
     
-    _headImg = [[UIImageView alloc] initWithFrame:CGRectMake(33.5 *SIZE, 8 *SIZE, 53 *SIZE, 53 *SIZE)];
+    _headImg = [[UIImageView alloc] initWithFrame:CGRectMake(18.5 *SIZE, 8 *SIZE, 53 *SIZE, 53 *SIZE)];
     _headImg.backgroundColor = CLBlueBtnColor;
     _headImg.layer.cornerRadius = 3 *SIZE;
     _headImg.clipsToBounds = YES;

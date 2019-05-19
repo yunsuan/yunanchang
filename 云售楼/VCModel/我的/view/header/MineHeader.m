@@ -83,7 +83,7 @@
     _headerImg.clipsToBounds = YES;
     _headerImg.layer.cornerRadius = 30 *SIZE;
     _headerImg.userInteractionEnabled = YES;
-    _headerImg.backgroundColor = CLLineColor;
+//    _headerImg.backgroundColor = CLLineColor;
     UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionImg)];
     [_headerImg addGestureRecognizer:imgTap];
     [self.contentView addSubview:_headerImg];
@@ -108,7 +108,7 @@
     
     _codeL = [[UILabel alloc] init];
     _codeL.textColor = CL86Color;
-    _codeL.text = @"123123";
+//    _codeL.text = @"123123";
     _codeL.font = [UIFont systemFontOfSize:13 *SIZE];
     [self.contentView addSubview:_codeL];
     

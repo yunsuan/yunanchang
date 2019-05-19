@@ -52,9 +52,11 @@
 
 - (void)initDataSource{
     
-
-    _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@""];
-    _titleArr = @[@"来电",@"带看确认",@"推荐客户",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事审核",@"轮岗"];
+    if ([UserModel defaultModel].agent_company_info_id) {
+        
+        _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@""];
+        _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事",@"轮岗"];
+    }
     _projectArr = [UserModel defaultModel].project_list;
 //    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
 //    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
@@ -142,7 +144,7 @@
 - (void)initUI{
     
     self.leftButton.hidden = YES;
-    self.titleLabel.text = @"推荐客户";
+    self.titleLabel.text = @"工作";
     self.rightBtn.hidden = NO;
     self.rightBtn.center = CGPointMake(SCREEN_Width - 45 * SIZE, STATUS_BAR_HEIGHT + 20);
     self.rightBtn.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);

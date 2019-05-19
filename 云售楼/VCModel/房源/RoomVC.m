@@ -45,7 +45,10 @@
     [super viewDidLoad];
     [self initDataSource];
     [self initUI];
-    [self RequestMethod];
+    if ([UserModel defaultModel].projectinfo) {
+        
+        [self RequestMethod];
+    }
 }
 
 - (void)initDataSource{
@@ -189,7 +192,7 @@
     RoomCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RoomCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[RoomCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 3, 145 *SIZE)];
+        cell = [[RoomCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 4, 145 *SIZE)];
     }
     cell.titleL.text = _dataArr[indexPath.section][@"buildList"][indexPath.item][@"build_name"];
     //[NSString stringWithFormat:@"%ld号楼",indexPath.item + 1];
@@ -247,7 +250,7 @@
     [self.rightBtn setTitle: [UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
   
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 3, 145 *SIZE);
+    _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 4, 145 *SIZE);
     _flowLayout.minimumInteritemSpacing = 0 *SIZE;
     _flowLayout.minimumLineSpacing = 0;
     

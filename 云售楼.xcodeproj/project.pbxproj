@@ -57,6 +57,9 @@
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
 		0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */; };
 		0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC928B22855928006B2B79 /* UserInfoModel.m */; };
+		0CBD70F5228FF338002A6B48 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CBD70F4228FF338002A6B48 /* region.json */; };
+		0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */; };
+		0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */; };
 		0CC2730522681FF100EB881F /* DropBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730422681FF100EB881F /* DropBtn.m */; };
 		0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC273092268444A00EB881F /* FollowRecordVC.m */; };
 		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
@@ -303,6 +306,11 @@
 		0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyApplyVC.m; sourceTree = "<group>"; };
 		0CAC928A22855928006B2B79 /* UserInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		0CAC928B22855928006B2B79 /* UserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
+		0CBD70F4228FF338002A6B48 /* region.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = region.json; sourceTree = "<group>"; };
+		0CBD70F6229000D7002A6B48 /* AddressBookCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookCollCell.h; sourceTree = "<group>"; };
+		0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookCollCell.m; sourceTree = "<group>"; };
+		0CBD711022912FF0002A6B48 /* TaskSignAuditCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskSignAuditCollCell.h; sourceTree = "<group>"; };
+		0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskSignAuditCollCell.m; sourceTree = "<group>"; };
 		0CC2730322681FF100EB881F /* DropBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropBtn.h; sourceTree = "<group>"; };
 		0CC2730422681FF100EB881F /* DropBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropBtn.m; sourceTree = "<group>"; };
 		0CC273082268444A00EB881F /* FollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowRecordVC.h; sourceTree = "<group>"; };
@@ -617,6 +625,7 @@
 		0C221A57227EB0EF006B0510 /* 签约审核 */ = {
 			isa = PBXGroup;
 			children = (
+				0CBD710F22912FDD002A6B48 /* view */,
 				0C221A58227EB117006B0510 /* TaskSignAuditCell.h */,
 				0C221A59227EB117006B0510 /* TaskSignAuditCell.m */,
 			);
@@ -850,6 +859,7 @@
 		0C3A9148225B211400F04804 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0CBD70F4228FF338002A6B48 /* region.json */,
 				0C3A914B225B213500F04804 /* PrefixHeader.pch */,
 				0C3A914C225B215100F04804 /* NetConfig.h */,
 				0C3A914D225B216400F04804 /* BaseRequest.h */,
@@ -1101,6 +1111,15 @@
 				0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */,
 			);
 			path = "公司申请";
+			sourceTree = "<group>";
+		};
+		0CBD710F22912FDD002A6B48 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CBD711022912FF0002A6B48 /* TaskSignAuditCollCell.h */,
+				0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		0CC2730222681FA700EB881F /* 自定义Btn */ = {
@@ -1623,6 +1642,8 @@
 			children = (
 				0CEF89E2225C74540057F3FD /* AddressBookCell.h */,
 				0CEF89E3225C74540057F3FD /* AddressBookCell.m */,
+				0CBD70F6229000D7002A6B48 /* AddressBookCollCell.h */,
+				0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2367,6 +2388,7 @@
 				0CD7A034225C6D5700EAE816 /* BDDynamicTreeCell.xib in Resources */,
 				0C3A911E225B20C600F04804 /* Assets.xcassets in Resources */,
 				0C3A911C225B20C400F04804 /* Main.storyboard in Resources */,
+				0CBD70F5228FF338002A6B48 /* region.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2472,6 +2494,7 @@
 				10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
+				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
 				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
 				0CD0439E228175AE002C8BD3 /* SMScrollView.m in Sources */,
 				0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */,
@@ -2552,8 +2575,11 @@
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
+
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
 				10BC3A522291297E00DAB2D8 /* AbdicateVC.m in Sources */,
+
+				0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */,
 				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
@@ -2780,6 +2806,7 @@
 			baseConfigurationReference = 335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -2803,6 +2830,7 @@
 			baseConfigurationReference = 7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

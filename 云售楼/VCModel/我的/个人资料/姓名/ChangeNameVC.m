@@ -54,7 +54,7 @@
                 [UserInfoModel defaultModel].name = self->_nameTF.text;
                 [UserModelArchiver archive];
                 [self.navigationController popViewControllerAnimated:YES];
-            }        else{
+            }else{
                 [self showContent:resposeObject[@"msg"]];
             }
         } failure:^(NSError *error) {

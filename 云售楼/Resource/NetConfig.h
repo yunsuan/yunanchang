@@ -244,6 +244,9 @@ static NSString *const UserPersonalGetCompanyStaff_URL = @"saleApp/user/personal
 
 #pragma mark -- 个人信息 --
 
+//上传文件
+static NSString *const UploadFile_URL = @"saleApp/file/upload";
+
 //获取个人信息
 static NSString *const UserPersonalGetAgentInfo_URL = @"saleApp/user/personal/getAgentInfo";
 
