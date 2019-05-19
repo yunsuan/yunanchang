@@ -40,6 +40,7 @@
     NSMutableArray *_propertyDArr;
     NSMutableArray *_selectArr;
     NSMutableArray *_approachArr;
+    NSMutableArray *_approachArr2;
     NSMutableArray *_certArr;
     NSMutableArray *_clientArr;
     NSMutableArray *_groupArr;
@@ -96,6 +97,8 @@
 
 @property (nonatomic, strong) DropBtn *approachBtn;
 
+@property (nonatomic, strong) DropBtn *approachBtn2;
+
 @property (nonatomic, strong) UILabel *sourceTypeL;
 
 @property (nonatomic, strong) DropBtn *sourceTypeBtn;
@@ -147,6 +150,7 @@
     _propertyDArr = [@[] mutableCopy];
     
     _approachArr = [@[] mutableCopy];
+    _approachArr2 = [@[] mutableCopy];
     _certArr = [@[] mutableCopy];
     _selectArr = [@[] mutableCopy];
     _clientArr = [@[] mutableCopy];
@@ -181,8 +185,13 @@
             
             for (int i = 0; i < [resposeObject[@"data"][0] count]; i++) {
                 
-                NSDictionary *dic = @{@"id":resposeObject[@"data"][0][i][@"config_id"],
-                                      @"param":resposeObject[@"data"][0][i][@"config_name"]};
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"id":resposeObject[@"data"][0][i][@"config_id"],
+                                                                                             @"param":resposeObject[@"data"][0][i][@"config_name"]
+                                                                                             }];
+                if (resposeObject[@"data"][0][i][@"child"]) {
+                    
+                    [dic setObject:resposeObject[@"data"][0][i][@"child"] forKey:@"child"];
+                }
                 [self->_approachArr addObject:dic];
             }
             
@@ -271,6 +280,69 @@
                 self->_approachBtn.content.text = [NSString stringWithFormat:@"%@",MC];
                 self->_approachBtn->str = [NSString stringWithFormat:@"%@",ID];
                 self->_approachBtn.placeL.text = @"";
+                [self->_approachArr2 removeAllObjects];
+                
+                for (int j = 0; j < self->_approachArr.count; j++) {
+                    
+                    if ([ID integerValue] == [self->_approachArr[j][@"id"] integerValue]) {
+                        
+                        NSArray *arr = self->_approachArr[j][@"child"];
+                        for (NSDictionary *dic in arr) {
+                            
+                            [self->_approachArr2 addObject:@{@"id":dic[@"config_id"],@"param":dic[@"config_name"]}];
+                        }
+                    }
+                }
+                if (self->_approachArr2.count) {
+                    
+                    self->_approachBtn2.hidden = NO;
+                    [self->_sourceTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                        make.top.equalTo(self->_approachBtn2.mas_bottom).offset(31 *SIZE);
+                        make.width.mas_equalTo(70 *SIZE);
+                    }];
+                    
+                    [self->_sourceTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                        make.top.equalTo(self->_approachBtn2.mas_bottom).offset(21 *SIZE);
+                        make.width.mas_equalTo(258 *SIZE);
+                        make.height.mas_equalTo(33 *SIZE);
+                    }];
+                }else{
+                    
+                    self->_approachBtn2.hidden = YES;
+                    self->_approachBtn2.placeL.text = @"请选择认知途径";
+                    self->_approachBtn2.content.text = @"";
+                    self->_approachBtn2->str = @"";
+                    [self->_sourceTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                        make.top.equalTo(self->_approachBtn.mas_bottom).offset(31 *SIZE);
+                        make.width.mas_equalTo(70 *SIZE);
+                    }];
+                    
+                    [self->_sourceTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                        make.top.equalTo(self->_approachBtn.mas_bottom).offset(21 *SIZE);
+                        make.width.mas_equalTo(258 *SIZE);
+                        make.height.mas_equalTo(33 *SIZE);
+                    }];
+                }
+            };
+            [self.view addSubview:view];
+            break;
+        }
+        case 5:{
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:_approachArr2];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                self->_approachBtn2.content.text = [NSString stringWithFormat:@"%@",MC];
+                self->_approachBtn2->str = [NSString stringWithFormat:@"%@",ID];
+                self->_approachBtn2.placeL.text = @"";
             };
             [self.view addSubview:view];
             break;
@@ -403,6 +475,15 @@
         return;
     }
     
+    if (!_approachBtn2.hidden) {
+        
+        if (!_approachBtn2.content.text.length) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请选择认知途径"];
+            return;
+        }
+    }
+    
     
     [_propertyDArr removeAllObjects];
     for (int i = 0 ; i < _selectArr.count; i++) {
@@ -463,10 +544,11 @@
         
     }
     
-    //    if (_approachBtn.content.text.length) {
-    //
-    //        [tempDic setObject:_approachBtn->str forKey:@"listen_way"];
-    //    }
+    if (_approachBtn2.content.text.length) {
+        
+        [tempDic setObject:_approachBtn2->str forKey:@"listen_way_detail"];
+    }
+    
     
     if (![self isEmpty:_markTV.text]) {
         
@@ -869,7 +951,7 @@
         }
     }
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 6; i++) {
         
         DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
         btn.tag = i;
@@ -914,6 +996,14 @@
                 _sourceTypeBtn.content.text = @"自行添加";
                 _sourceTypeBtn.dropimg.hidden = YES;
                 [_scrollView addSubview:_sourceTypeBtn];
+                break;
+            }
+            case 5:{
+                
+                _approachBtn2 = btn;
+                _approachBtn2.hidden = YES;
+                _approachBtn2.placeL.text = @"请选择认知途径";
+                [_scrollView addSubview:_approachBtn2];
                 break;
             }
             default:
@@ -1152,6 +1242,14 @@
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_customSourceBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_approachBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_approachBtn.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];

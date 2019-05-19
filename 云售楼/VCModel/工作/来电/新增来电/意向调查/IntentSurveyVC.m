@@ -408,22 +408,22 @@
             }
         }
         
-        if (_lastArr.count) {
-            
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
-            NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-            [tempDic setObject:jsonString forKey:@"need_list"];
-            [tempDic setObject:self.property_id forKey:@"property_id"];
-        }
+//        if (_lastArr.count) {
         
-        if (!tempDic.count) {
+//            NSError *error;
+//            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
+//            NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+//            [tempDic setObject:jsonString forKey:@"need_list"];
+//            [tempDic setObject:self.property_id forKey:@"property_id"];
+//        }
+        
+        if (!_lastArr.count) {
             
             [self alertControllerWithNsstring:@"选择需求信息" And:@"请选择完善意向调查"];
             return;
         }
         NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tempDic options:NSJSONWritingPrettyPrinted error:&error];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
         NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSDictionary *dic = @{@"need_list":jsonString,@"group_id":self.group_id,@"property_id":self.property_id};
         

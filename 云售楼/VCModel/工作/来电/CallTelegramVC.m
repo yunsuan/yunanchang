@@ -77,6 +77,7 @@
         }
     } failure:^(NSError * _Nonnull error) {
         
+        [self->_table.mj_header endRefreshing];
         [self showContent:@"网络错误"];
     }];
 }

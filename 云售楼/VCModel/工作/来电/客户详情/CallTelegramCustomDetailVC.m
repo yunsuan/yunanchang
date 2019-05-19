@@ -179,14 +179,14 @@
             
             NSData *jsonData = [_intentArr[section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
             NSError *err;
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+            NSArray *dic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                 options:NSJSONReadingAllowFragments
                                                                   error:&err];
-            NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
-            NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:jsonData1
-                                                            options:NSJSONReadingAllowFragments
-                                                              error:&err];
-            return [arr1 count];
+//            NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
+//            NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:dic
+//                                                            options:NSJSONReadingAllowFragments
+//                                                              error:&err];
+            return [dic count];
         }else{
             
             return _followArr.count;//[_followArr[section - 1] count];
@@ -470,14 +470,14 @@
         
         NSData *jsonData = [_intentArr[indexPath.section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+        NSArray *dic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                        options:NSJSONReadingAllowFragments
                                                          error:&err];
-        NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
-        NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:jsonData1
-                                                       options:NSJSONReadingAllowFragments
-                                                         error:&err];
-        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",arr1[indexPath.row][@"config_name"],arr1[indexPath.row][@"value"]];
+//        NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
+//        NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:jsonData1
+//                                                       options:NSJSONReadingAllowFragments
+//                                                         error:&err];
+        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",dic[indexPath.row][@"config_name"],dic[indexPath.row][@"value"]];
         return cell;
     }else{
         

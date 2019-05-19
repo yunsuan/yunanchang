@@ -47,7 +47,7 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            [self SetData:resposeObject[@"data"]];
+            [self SetData:resposeObject[@"data"][@"list"]];
         }else{
             
             [self showContent:resposeObject[@"msg"]];

@@ -30,6 +30,7 @@
     NSDictionary *_dataDic;
     
     NSMutableArray *_approachArr;
+    NSMutableArray *_approachArr2;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -40,6 +41,8 @@
 @property (nonatomic, strong) UILabel *approachL;
 
 @property (nonatomic, strong) DropBtn *approachBtn;
+
+@property (nonatomic, strong) DropBtn *approachBtn2;
 
 @property (nonatomic, strong) UILabel *sourceTypeL;
 
@@ -74,6 +77,7 @@
 - (void)initDataSource{
     
     _approachArr = [@[] mutableCopy];
+    _approachArr2 = [@[] mutableCopy];
 }
 
 - (void)PropertyRequestMethod{
@@ -84,8 +88,13 @@
             
             for (int i = 0; i < [resposeObject[@"data"][0] count]; i++) {
                 
-                NSDictionary *dic = @{@"id":resposeObject[@"data"][0][i][@"config_id"],
-                                      @"param":resposeObject[@"data"][0][i][@"config_name"]};
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"id":resposeObject[@"data"][0][i][@"config_id"],
+                                                                                             @"param":resposeObject[@"data"][0][i][@"config_name"]
+                                                                                             }];
+                if (resposeObject[@"data"][0][i][@"child"]) {
+                    
+                    [dic setObject:resposeObject[@"data"][0][i][@"child"] forKey:@"child"];
+                }
                 [self->_approachArr addObject:dic];
                 for (int i = 0; i < self->_approachArr.count; i++) {
                     
