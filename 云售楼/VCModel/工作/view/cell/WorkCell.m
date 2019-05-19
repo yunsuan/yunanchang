@@ -37,12 +37,20 @@
 //    _titleL.numberOfLines = 0;
     [self.contentView addSubview:_titleL];
     
+    _topContentL = [[UILabel alloc]init];
+    _topContentL.font = [UIFont systemFontOfSize:12 *SIZE];
+    _topContentL.textColor = CL153Color;
+    [self.contentView addSubview:_topContentL];
+    
     _contentL = [[UILabel alloc]init];
     _contentL.font = [UIFont systemFontOfSize:12 *SIZE];
-//    _contentL.numberOfLines = 0;
-    //    _conten
     _contentL.textColor = CL153Color;
     [self.contentView addSubview:_contentL];
+    
+    _bomContentL = [[UILabel alloc]init];
+    _bomContentL.font = [UIFont systemFontOfSize:12 *SIZE];
+    _bomContentL.textColor = CL153Color;
+    [self.contentView addSubview:_bomContentL];
     
     _rightImg = [[UIImageView alloc] init];
     _rightImg.image = [UIImage imageNamed:@"jiantou black"];
@@ -71,12 +79,25 @@
         make.width.mas_equalTo(95 *SIZE);
     }];
     
+    [_topContentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(81 *SIZE);
+        make.top.equalTo(self.contentView).offset(38 *SIZE);
+        make.width.mas_equalTo(230*SIZE);
+    }];
+    
     [_contentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(81 *SIZE);
-        make.top.equalTo(self.contentView).offset(50 *SIZE);
+        make.top.equalTo(self.contentView).offset(52 *SIZE);
         make.width.mas_equalTo(230*SIZE);
+    }];
+    
+    [_bomContentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
+        make.left.equalTo(self.contentView).offset(81 *SIZE);
+        make.top.equalTo(self->_topContentL.mas_bottom).offset(7 *SIZE);
+        make.width.mas_equalTo(230*SIZE);
     }];
     
     [_rightImg mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -59,6 +59,7 @@
 		0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC928B22855928006B2B79 /* UserInfoModel.m */; };
 		0CBD70F5228FF338002A6B48 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CBD70F4228FF338002A6B48 /* region.json */; };
 		0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */; };
+		0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */; };
 		0CC2730522681FF100EB881F /* DropBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730422681FF100EB881F /* DropBtn.m */; };
 		0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC273092268444A00EB881F /* FollowRecordVC.m */; };
 		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
@@ -303,6 +304,8 @@
 		0CBD70F4228FF338002A6B48 /* region.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = region.json; sourceTree = "<group>"; };
 		0CBD70F6229000D7002A6B48 /* AddressBookCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookCollCell.h; sourceTree = "<group>"; };
 		0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookCollCell.m; sourceTree = "<group>"; };
+		0CBD711022912FF0002A6B48 /* TaskSignAuditCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskSignAuditCollCell.h; sourceTree = "<group>"; };
+		0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskSignAuditCollCell.m; sourceTree = "<group>"; };
 		0CC2730322681FF100EB881F /* DropBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropBtn.h; sourceTree = "<group>"; };
 		0CC2730422681FF100EB881F /* DropBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropBtn.m; sourceTree = "<group>"; };
 		0CC273082268444A00EB881F /* FollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowRecordVC.h; sourceTree = "<group>"; };
@@ -531,15 +534,12 @@
 		0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignWorkerPickView.m; sourceTree = "<group>"; };
 		0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignSelectWorkerView.m; sourceTree = "<group>"; };
 		0CF1A314228E8E03001C77CF /* SignFailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignFailView.m; sourceTree = "<group>"; };
-
 		10BC3A3E228FEA6A00DAB2D8 /* RotationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationVC.h; sourceTree = "<group>"; };
 		10BC3A3F228FEA6A00DAB2D8 /* RotationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationVC.m; sourceTree = "<group>"; };
 		10BC3A42228FEE4800DAB2D8 /* RotationHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationHeadView.h; sourceTree = "<group>"; };
 		10BC3A43228FEE4800DAB2D8 /* RotationHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationHeadView.m; sourceTree = "<group>"; };
 		10BC3A45228FEF2800DAB2D8 /* RotationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationCell.h; sourceTree = "<group>"; };
 		10BC3A46228FEF2800DAB2D8 /* RotationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationCell.m; sourceTree = "<group>"; };
-
-
 		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
 		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
 		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -610,6 +610,7 @@
 		0C221A57227EB0EF006B0510 /* 签约审核 */ = {
 			isa = PBXGroup;
 			children = (
+				0CBD710F22912FDD002A6B48 /* view */,
 				0C221A58227EB117006B0510 /* TaskSignAuditCell.h */,
 				0C221A59227EB117006B0510 /* TaskSignAuditCell.m */,
 			);
@@ -1095,6 +1096,15 @@
 				0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */,
 			);
 			path = "公司申请";
+			sourceTree = "<group>";
+		};
+		0CBD710F22912FDD002A6B48 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CBD711022912FF0002A6B48 /* TaskSignAuditCollCell.h */,
+				0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		0CC2730222681FA700EB881F /* 自定义Btn */ = {
@@ -2434,6 +2444,7 @@
 				10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
+				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
 				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
 				0CD0439E228175AE002C8BD3 /* SMScrollView.m in Sources */,
 				0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */,

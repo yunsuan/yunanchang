@@ -51,6 +51,7 @@
     [self.contentView addSubview:_whiteView];
     
     _headImg = [[UIImageView alloc] init];
+    _headImg.image = IMAGE_WITH_NAME(@"recommended");
     [_whiteView addSubview:_headImg];
     
     _readImg = [[UIImageView alloc] init];
