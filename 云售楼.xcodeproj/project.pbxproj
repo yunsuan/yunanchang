@@ -186,6 +186,11 @@
 		10BC3A5922912F9200DAB2D8 /* AbdicateHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC3A5822912F9200DAB2D8 /* AbdicateHeaderView.m */; };
 		10EF179A2291614900DE5566 /* RotationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17992291614900DE5566 /* RotationSettingCell.m */; };
 		10EF17A0229163BE00DE5566 /* CompanyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF179F229163BE00DE5566 /* CompanyHeader.m */; };
+		10EF17A32292790600DE5566 /* HMChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17A22292790600DE5566 /* HMChooseView.m */; };
+		10EF17A622928A6700DE5566 /* AddCompanyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17A522928A6700DE5566 /* AddCompanyView.m */; };
+		10EF17A922928B1400DE5566 /* AddCompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17A822928B1400DE5566 /* AddCompanyCell.m */; };
+		10EF17AE2292AE3400DE5566 /* AddCompanyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17AD2292AE3400DE5566 /* AddCompanyVC.m */; };
+		10EF17B82292B48000DE5566 /* CompanyChooseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17B72292B48000DE5566 /* CompanyChooseCell.m */; };
 		AD247DF2FE90196EA1B639F0 /* libPods-云售楼.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42BF71934FE363E890039BD /* libPods-云售楼.a */; };
 /* End PBXBuildFile section */
 
@@ -564,6 +569,16 @@
 		10EF17992291614900DE5566 /* RotationSettingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationSettingCell.m; sourceTree = "<group>"; };
 		10EF179E229163BE00DE5566 /* CompanyHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyHeader.h; sourceTree = "<group>"; };
 		10EF179F229163BE00DE5566 /* CompanyHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyHeader.m; sourceTree = "<group>"; };
+		10EF17A12292790600DE5566 /* HMChooseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMChooseView.h; sourceTree = "<group>"; };
+		10EF17A22292790600DE5566 /* HMChooseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMChooseView.m; sourceTree = "<group>"; };
+		10EF17A422928A6700DE5566 /* AddCompanyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddCompanyView.h; sourceTree = "<group>"; };
+		10EF17A522928A6700DE5566 /* AddCompanyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCompanyView.m; sourceTree = "<group>"; };
+		10EF17A722928B1400DE5566 /* AddCompanyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddCompanyCell.h; sourceTree = "<group>"; };
+		10EF17A822928B1400DE5566 /* AddCompanyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCompanyCell.m; sourceTree = "<group>"; };
+		10EF17AC2292AE3400DE5566 /* AddCompanyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddCompanyVC.h; sourceTree = "<group>"; };
+		10EF17AD2292AE3400DE5566 /* AddCompanyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCompanyVC.m; sourceTree = "<group>"; };
+		10EF17B62292B48000DE5566 /* CompanyChooseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyChooseCell.h; sourceTree = "<group>"; };
+		10EF17B72292B48000DE5566 /* CompanyChooseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyChooseCell.m; sourceTree = "<group>"; };
 		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
 		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
 		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1563,6 +1578,8 @@
 			children = (
 				0CD7A01A225C6C9100EAE816 /* DateChooseView.h */,
 				0CD7A01B225C6C9100EAE816 /* DateChooseView.m */,
+				10EF17A12292790600DE5566 /* HMChooseView.h */,
+				10EF17A22292790600DE5566 /* HMChooseView.m */,
 			);
 			path = "自定义时间选择器";
 			sourceTree = "<group>";
@@ -2241,6 +2258,8 @@
 		10BC3A4B228FF7E200DAB2D8 /* 轮岗设置 */ = {
 			isa = PBXGroup;
 			children = (
+				10EF17AA2292AE0F00DE5566 /* 添加公司 */,
+				10EF17AB2292AE0F00DE5566 /* 添加人员 */,
 				10EF17972291611B00DE5566 /* view */,
 				10BC3A4C228FF80300DAB2D8 /* RotationSettingVC.h */,
 				10BC3A4D228FF80300DAB2D8 /* RotationSettingVC.m */,
@@ -2276,6 +2295,36 @@
 				10EF17992291614900DE5566 /* RotationSettingCell.m */,
 				10EF179E229163BE00DE5566 /* CompanyHeader.h */,
 				10EF179F229163BE00DE5566 /* CompanyHeader.m */,
+				10EF17A422928A6700DE5566 /* AddCompanyView.h */,
+				10EF17A522928A6700DE5566 /* AddCompanyView.m */,
+				10EF17A722928B1400DE5566 /* AddCompanyCell.h */,
+				10EF17A822928B1400DE5566 /* AddCompanyCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		10EF17AA2292AE0F00DE5566 /* 添加公司 */ = {
+			isa = PBXGroup;
+			children = (
+				10EF17AF2292B0C700DE5566 /* view */,
+				10EF17AC2292AE3400DE5566 /* AddCompanyVC.h */,
+				10EF17AD2292AE3400DE5566 /* AddCompanyVC.m */,
+			);
+			path = "添加公司";
+			sourceTree = "<group>";
+		};
+		10EF17AB2292AE0F00DE5566 /* 添加人员 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "添加人员";
+			sourceTree = "<group>";
+		};
+		10EF17AF2292B0C700DE5566 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				10EF17B62292B48000DE5566 /* CompanyChooseCell.h */,
+				10EF17B72292B48000DE5566 /* CompanyChooseCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2521,6 +2570,7 @@
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
 				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
+				10EF17AE2292AE3400DE5566 /* AddCompanyVC.m in Sources */,
 				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
 				0CD0439E228175AE002C8BD3 /* SMScrollView.m in Sources */,
 				0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */,
@@ -2575,6 +2625,7 @@
 				0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */,
 				0C221A85227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m in Sources */,
 				0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */,
+				10EF17B82292B48000DE5566 /* CompanyChooseCell.m in Sources */,
 				10BC3A4A228FF77700DAB2D8 /* TitelHeaderView.m in Sources */,
 				0CD0438C2281219D002C8BD3 /* CompanyInfoCell.m in Sources */,
 				0CD04331227FD348002C8BD3 /* WorkRecommendFailVC.m in Sources */,
@@ -2596,6 +2647,7 @@
 				0CD7A02F225C6D5700EAE816 /* AddressChooseView2.m in Sources */,
 				0C221A81227EED87006B0510 /* WorkPhoneConfrimFailVC.m in Sources */,
 				0CD043C42282BBBA002C8BD3 /* NumeralAuditDetailCell.m in Sources */,
+				10EF17A32292790600DE5566 /* HMChooseView.m in Sources */,
 				0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */,
 				0C3A9168225B377400F04804 /* MineVC.m in Sources */,
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
@@ -2616,6 +2668,7 @@
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
 				0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */,
 				0CEF8A53225F1D440057F3FD /* SelectCompanyCollCell.m in Sources */,
+				10EF17A922928B1400DE5566 /* AddCompanyCell.m in Sources */,
 				0CD043A2228175D4002C8BD3 /* SingleHouseCell.m in Sources */,
 				0CF1A317228E8E04001C77CF /* SignNeedInfoVC.m in Sources */,
 				0CD7A032225C6D5700EAE816 /* BDDynamicTreeCell.m in Sources */,
@@ -2644,6 +2697,7 @@
 				0C3A9119225B20C400F04804 /* ViewController.m in Sources */,
 				0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */,
 				0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */,
+				10EF17A622928A6700DE5566 /* AddCompanyView.m in Sources */,
 				0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */,
 				0CD0439222816ED9002C8BD3 /* RoomHeader.m in Sources */,
 				0C3A9124225B20C600F04804 /* main.m in Sources */,

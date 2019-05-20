@@ -39,7 +39,7 @@
     [self addSubview:_backView];
     
     _companyL = [[UILabel alloc]initWithFrame:CGRectMake(15*SIZE, 13*SIZE, 360*SIZE, 14*SIZE)];
-    _companyL.text = @"云算科技有限公司";
+//    _companyL.text = @"云算科技有限公司";
     _companyL.font = FONT(13);
     _companyL.textColor = CLTitleLabColor;
     [_backView addSubview:_companyL];
