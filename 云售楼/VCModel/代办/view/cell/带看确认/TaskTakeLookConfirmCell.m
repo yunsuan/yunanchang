@@ -22,7 +22,10 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    
+    if (self.taskTakeLookConfirmCellConfirmBlock) {
+        
+        self.taskTakeLookConfirmCellConfirmBlock();
+    }
 }
 
 - (void)ActionCopyBtn:(UIButton *)btn{

@@ -164,8 +164,8 @@
     
     cell.workRecommendWaitCellBlock = ^(NSInteger index) {
         
-        WorkCompleteCustomVC1 *nextVC = [[WorkCompleteCustomVC1 alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
+//        WorkCompleteCustomVC1 *nextVC = [[WorkCompleteCustomVC1 alloc] init];
+//        [self.navigationController pushViewController:nextVC animated:YES];
         if ([self->_dataArr[index][@"need_confirm"] integerValue] == 1) {
 
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"签字确认" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];

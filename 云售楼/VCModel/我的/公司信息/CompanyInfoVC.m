@@ -50,7 +50,7 @@
         
     } WithDefaultBlack:^{
        
-        [BaseRequest GET:CompanyAuthQuit_URL parameters:@{@"auth_id":self->_dataArr[0][@"auth_id"]} success:^(id  _Nonnull resposeObject) {
+        [BaseRequest POST:CompanyAuthQuit_URL parameters:@{@"auth_id":self->_dataArr[0][@"auth_id"]} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 

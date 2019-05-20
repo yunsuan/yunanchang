@@ -197,14 +197,17 @@
             
             if (!_companyId.length) {
                 
+                [self alertControllerWithNsstring:@"缺少公司信息" And:@"请选择公司信息"];
                 return;
             }
             if (!_departId.length) {
                 
+                [self alertControllerWithNsstring:@"缺少部门信息" And:@"请选择部门信息"];
                 return;
             }
             if (!_posiId.length) {
                 
+                [self alertControllerWithNsstring:@"缺少岗位信息" And:@"请选择岗位信息"];
                 return;
             }
             NSDictionary *dic = @{@"before_auth_id":self.authId,
@@ -244,14 +247,17 @@
         
         if (!_companyId.length) {
             
+            [self alertControllerWithNsstring:@"缺少公司信息" And:@"请选择公司信息"];
             return;
         }
         if (!_departId.length) {
             
+            [self alertControllerWithNsstring:@"缺少部门信息" And:@"请选择部门信息"];
             return;
         }
         if (!_posiId.length) {
             
+            [self alertControllerWithNsstring:@"缺少岗位信息" And:@"请选择岗位信息"];
             return;
         }
         NSDictionary *dic = @{@"company_id":_companyId,

@@ -22,7 +22,10 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    
+    if (self.taskVisitConfirmCellBlock) {
+        
+        self.taskVisitConfirmCellBlock();
+    }
 }
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{

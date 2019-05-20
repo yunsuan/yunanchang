@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^TaskCallFollowCellBlock)(void);
+
 @interface TaskCallFollowCell : UITableViewCell
+
+@property (nonatomic, copy) TaskCallFollowCellBlock taskCallFollowCellBlock;
 
 @property (nonatomic, strong) UIView *whiteView;
 

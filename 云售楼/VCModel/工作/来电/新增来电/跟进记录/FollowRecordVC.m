@@ -17,6 +17,8 @@
 //#import "RecordLongPressView.h"
 #import "DateChooseView.h"
 
+#import "CalendarsManger.h"
+
 #import "BoxSelectCollCell.h"
 
 #import "BorderTextField.h"
@@ -209,7 +211,7 @@
     NSError *playError;
     
     NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.caf"]];
+    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.mp3"]];
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:tmpUrl error:&playError];
     //当播放录音为空, 打印错误信息
     if (_player == nil) {
@@ -297,6 +299,12 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd"];
+                
+                CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
+                
+                [manger createCalendarWithTitle:@"跟进提醒" location:self->_followPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"86400"]];
                 if ([self.status isEqualToString:@"add"]) {
                     
                     for (UIViewController *vc in self.navigationController.viewControllers) {
@@ -333,6 +341,12 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd"];
+                
+                CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
+                
+                [manger createCalendarWithTitle:@"跟进提醒" location:self->_followPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"86400"]];
                 if ([self.status isEqualToString:@"add"]) {
                     
                     for (UIViewController *vc in self.navigationController.viewControllers) {

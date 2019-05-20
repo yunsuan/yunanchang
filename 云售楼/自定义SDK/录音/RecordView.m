@@ -70,7 +70,7 @@
     NSError *playError;
     
     NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.caf"]];
+    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.mp3"]];
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:tmpUrl error:&playError];
     //当播放录音为空, 打印错误信息
     if (_player == nil) {
@@ -116,7 +116,7 @@
     //录音设置
     NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     //录音格式 无法使用
-    [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey: AVFormatIDKey];
+    [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEGLayer3] forKey: AVFormatIDKey];
     //采样率
     [recordSettings setValue :[NSNumber numberWithFloat:11025.0] forKey: AVSampleRateKey];//44100.0
     //通道数
@@ -128,7 +128,7 @@
     
     NSError *error = nil;
     NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.caf"]];
+    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.mp3"]];
     
     self.recorder = [[AVAudioRecorder alloc]initWithURL:tmpUrl settings:recordSettings error:&error];
     
