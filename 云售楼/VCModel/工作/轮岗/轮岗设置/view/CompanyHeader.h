@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *companyL;
 
+@property (nonatomic, strong) UILabel *explainL;
+
 @property (nonatomic , strong) UIButton *addBtn;
 
 
