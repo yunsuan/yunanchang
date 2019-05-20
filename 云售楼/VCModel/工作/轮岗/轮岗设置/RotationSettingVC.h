@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RotationSettingVC : BaseViewController
 
+
 @end
 
 NS_ASSUME_NONNULL_END
