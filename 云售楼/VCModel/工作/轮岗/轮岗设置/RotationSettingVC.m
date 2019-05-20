@@ -9,7 +9,11 @@
 #import "RotationSettingVC.h"
 #import "RotationSettingCell.h"
 #import "CompanyHeader.h"
-//#import "SettingHeader.h"
+
+#import "DropBtn.h"
+#import "DateChooseView.h"
+
+
 
 
 @interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -17,6 +21,13 @@
 @property (nonatomic , strong) UITableView *SettingTable;
 
 @property (nonatomic , strong) UIButton *SureBtn;
+
+@property (nonatomic , strong) UIView *TableHeader;
+
+@property (nonatomic, strong) DropBtn *beginTime;
+
+@property (nonatomic, strong) DropBtn *endTime;
+
 
 @end
 
@@ -109,6 +120,7 @@
         _SettingTable.delegate = self;
         _SettingTable.dataSource = self;
         _SettingTable.backgroundColor = CLWhiteColor;
+        _SettingTable.tableHeaderView = self.TableHeader;
 //        _SettingTable.editing = YES;
         [_SettingTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     }
@@ -128,6 +140,16 @@
     }
     return _SureBtn;
 }
+
+-(UIView *)TableHeader{
+    if (!_TableHeader) {
+        _TableHeader = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 360*SIZE, 350*SIZE)];
+        
+    
+    }
+    return _TableHeader;
+}
+
 
    
 

@@ -15,4 +15,6 @@ typedef void(^dateblock)(NSDate * date);
 @property (nonatomic, strong) UIDatePicker *pickerView;
 
 @property(nonatomic, copy) dateblock dateblock;
+
+-(instancetype)initWithFrame:(CGRect)frame Mode:(UIDatePickerMode)mode;
 @end

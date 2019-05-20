@@ -10,15 +10,25 @@
 
 @implementation CompanyHeader
 
-- (instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         
         [self initUI];
     }
     return self;
 }
+
+//- (instancetype)initWithFrame:(CGRect)frame
+//{
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//
+//        [self initUI];
+//    }
+//    return self;
+//}
 
 - (void)initUI{
     
@@ -38,6 +48,12 @@
     _addBtn.frame = CGRectMake(322*SIZE, 7*SIZE, 25*SIZE, 25*SIZE);
     [_addBtn setImage:[UIImage imageNamed:@"add_4"] forState:UIControlStateNormal];
     [_backView addSubview:_addBtn];
+    
+    _explainL = [[UILabel alloc]initWithFrame:CGRectMake(210*SIZE, 13*SIZE, 360*SIZE, 14*SIZE)];
+    _explainL.text = @"（长按后可拖动人员）";
+    _explainL.font = FONT(12);
+    _explainL.textColor = CLContentLabColor;
+    [_backView addSubview:_explainL];
     
 }
 
