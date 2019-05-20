@@ -183,6 +183,9 @@
 		10BC3A522291297E00DAB2D8 /* AbdicateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC3A512291297E00DAB2D8 /* AbdicateVC.m */; };
 		10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC3A5522912D7C00DAB2D8 /* AbdicateCell.m */; };
 		10BC3A5922912F9200DAB2D8 /* AbdicateHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC3A5822912F9200DAB2D8 /* AbdicateHeaderView.m */; };
+		10EF179A2291614900DE5566 /* RotationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17992291614900DE5566 /* RotationSettingCell.m */; };
+		10EF179D2291635000DE5566 /* SettingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF179C2291635000DE5566 /* SettingHeader.m */; };
+		10EF17A0229163BE00DE5566 /* CompanyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF179F229163BE00DE5566 /* CompanyHeader.m */; };
 		AD247DF2FE90196EA1B639F0 /* libPods-云售楼.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42BF71934FE363E890039BD /* libPods-云售楼.a */; };
 /* End PBXBuildFile section */
 
@@ -555,6 +558,12 @@
 		10BC3A5522912D7C00DAB2D8 /* AbdicateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AbdicateCell.m; sourceTree = "<group>"; };
 		10BC3A5722912F9200DAB2D8 /* AbdicateHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbdicateHeaderView.h; sourceTree = "<group>"; };
 		10BC3A5822912F9200DAB2D8 /* AbdicateHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AbdicateHeaderView.m; sourceTree = "<group>"; };
+		10EF17982291614900DE5566 /* RotationSettingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationSettingCell.h; sourceTree = "<group>"; };
+		10EF17992291614900DE5566 /* RotationSettingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationSettingCell.m; sourceTree = "<group>"; };
+		10EF179B2291635000DE5566 /* SettingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingHeader.h; sourceTree = "<group>"; };
+		10EF179C2291635000DE5566 /* SettingHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingHeader.m; sourceTree = "<group>"; };
+		10EF179E229163BE00DE5566 /* CompanyHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyHeader.h; sourceTree = "<group>"; };
+		10EF179F229163BE00DE5566 /* CompanyHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyHeader.m; sourceTree = "<group>"; };
 		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
 		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
 		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2230,6 +2239,7 @@
 		10BC3A4B228FF7E200DAB2D8 /* 轮岗设置 */ = {
 			isa = PBXGroup;
 			children = (
+				10EF17972291611B00DE5566 /* view */,
 				10BC3A4C228FF80300DAB2D8 /* RotationSettingVC.h */,
 				10BC3A4D228FF80300DAB2D8 /* RotationSettingVC.m */,
 			);
@@ -2253,6 +2263,19 @@
 				10BC3A5522912D7C00DAB2D8 /* AbdicateCell.m */,
 				10BC3A5722912F9200DAB2D8 /* AbdicateHeaderView.h */,
 				10BC3A5822912F9200DAB2D8 /* AbdicateHeaderView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		10EF17972291611B00DE5566 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				10EF17982291614900DE5566 /* RotationSettingCell.h */,
+				10EF17992291614900DE5566 /* RotationSettingCell.m */,
+				10EF179B2291635000DE5566 /* SettingHeader.h */,
+				10EF179C2291635000DE5566 /* SettingHeader.m */,
+				10EF179E229163BE00DE5566 /* CompanyHeader.h */,
+				10EF179F229163BE00DE5566 /* CompanyHeader.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2571,16 +2594,16 @@
 				0C221A81227EED87006B0510 /* WorkPhoneConfrimFailVC.m in Sources */,
 				0CD043C42282BBBA002C8BD3 /* NumeralAuditDetailCell.m in Sources */,
 				0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */,
+				10EF179D2291635000DE5566 /* SettingHeader.m in Sources */,
 				0C3A9168225B377400F04804 /* MineVC.m in Sources */,
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
-
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
 				10BC3A522291297E00DAB2D8 /* AbdicateVC.m in Sources */,
-
 				0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */,
 				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,
+				10EF17A0229163BE00DE5566 /* CompanyHeader.m in Sources */,
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
@@ -2609,6 +2632,7 @@
 				0CD043D82282DD1B002C8BD3 /* MBProgressHUD+GZQ.m in Sources */,
 				0CD7A030225C6D5700EAE816 /* AdressChooseView.m in Sources */,
 				0CEF8A4A225F188A0057F3FD /* SelectCompanyVC.m in Sources */,
+				10EF179A2291614900DE5566 /* RotationSettingCell.m in Sources */,
 				0CEF8A2C225D84330057F3FD /* RecommendWaitDetailVC.m in Sources */,
 				0CC2730522681FF100EB881F /* DropBtn.m in Sources */,
 				0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */,
