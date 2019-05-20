@@ -8,6 +8,9 @@
 
 #import "RotationSettingVC.h"
 #import "RotationSettingCell.h"
+#import "CompanyHeader.h"
+#import "SettingHeader.h"
+
 
 @interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -71,16 +74,15 @@
     return 73*SIZE;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//
-//    AbdicateHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"AbdicateHeaderView"];
-//    if (!header) {
-//        header = [[AbdicateHeaderView alloc]initWithReuseIdentifier: @"AbdicateHeaderView"];
-//    }
-//
-//
-//    return header;
-//}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+
+    CompanyHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"CompanyHeader"];
+    if (!header) {
+        header = [[CompanyHeader alloc]initWithReuseIdentifier: @"CompanyHeader"];
+    }
+
+    return header;
+}
 
 
 

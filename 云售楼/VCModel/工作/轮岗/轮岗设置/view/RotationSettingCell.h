@@ -15,6 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , strong) UIImageView *headerImg;
 @property (nonatomic , strong) UILabel *nameL;
 @property (nonatomic , strong) UILabel *phoneL;
+@property (nonatomic , strong) NSIndexPath *index;
+@property (nonatomic , strong) UIButton *deleteBtn;
+@property (nonatomic , strong) UIButton *sleepBtn;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

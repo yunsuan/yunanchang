@@ -12,6 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyHeader : UITableViewHeaderFooterView
 
+@property (nonatomic, strong) UIView *backView;
+
+@property (nonatomic, strong) UILabel *companyL;
+
+@property (nonatomic , strong) UIButton *addBtn;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
