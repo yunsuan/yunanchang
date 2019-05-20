@@ -13,7 +13,7 @@
 @interface TaskSignAuditCell ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
-    
+    NSMutableArray *_dataArr;
 }
 @end
 
@@ -34,17 +34,29 @@
     
 }
 
-- (void)setDataDic:(NSMutableArray *)dataDic{
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
     
 //    _nameL.text = @"客户姓名：理想";
 //    _projectL.text = @"项目名称：云算公馆";
 //    _recommendL.text = @"推荐人：张三/大唐房屋";
 //    _timeL.text = @"失效时间：2018.12.30 16:20";
+    _nameL.text = [NSString stringWithFormat:@"渠道人员姓名：%@",dataDic[@"broker_name"]];
+    _phoneL.text = [NSString stringWithFormat:@"手机号：%@",dataDic[@"broker_tel"]];
+    _timeL.text = [NSString stringWithFormat:@"报备时间：%@",dataDic[@"create_time"]];
+    _companyL.text = [NSString stringWithFormat:@"分销公司：%@",dataDic[@"company_name"]];
+    _customNameL.text = [NSString stringWithFormat:@"客户姓名：%@",dataDic[@"name"]];
+    _customPhoneL.text = [NSString stringWithFormat:@"客户电话：%@",dataDic[@"tel"]];
+    _areaL.text = [NSString stringWithFormat:@"客户区域：%@%@",dataDic[@"province"],dataDic[@"city"]];
+    _isRecognitionL.text = [NSString stringWithFormat:@"是否认筹：%@",dataDic[@"broker_name"]];
+    _customVisitNumL.text = [NSString stringWithFormat:@"客户到访人数：%@",dataDic[@"visit_num"]];
+    _visitTimeL.text = [NSString stringWithFormat:@"客户到访时间：%@",dataDic[@"visit_time"]];
+    _dataArr = [NSMutableArray arrayWithArray:dataDic[@"signAgent"]];
+    [_collectionView reloadData];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 8;
+    return _dataArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -55,7 +67,22 @@
         cell = [[TaskSignAuditCollCell alloc] initWithFrame:CGRectMake(0, 0, 67 *SIZE, 67 *SIZE)];
     }
     
-    cell.nameL.text = @"李三";
+    cell.nameL.text = _dataArr[indexPath.item][@"name"];
+    if (indexPath.item == 0) {
+        
+        cell.headLine.hidden = YES;
+    }else{
+        
+        cell.headLine.hidden = NO;
+    }
+    
+    if (indexPath.item == _dataArr.count - 1) {
+        
+        cell.tailLine.hidden = YES;
+    }else{
+        
+        cell.tailLine.hidden = NO;
+    }
     
     return cell;
 }
@@ -98,6 +125,7 @@
             }
             case 1:
             {
+                label.textAlignment = NSTextAlignmentRight;
                 _phoneL = label;
                 [_whiteView addSubview:_phoneL];
                 break;
@@ -110,6 +138,7 @@
             }
             case 3:
             {
+                label.textAlignment = NSTextAlignmentRight;
                 _companyL = label;
                 [_whiteView addSubview:_companyL];
                 break;
@@ -122,6 +151,7 @@
             }
             case 5:
             {
+                label.textAlignment = NSTextAlignmentRight;
                 _customPhoneL = label;
                 [_whiteView addSubview:_customPhoneL];
                 break;
@@ -134,6 +164,7 @@
             }
             case 7:
             {
+                label.textAlignment = NSTextAlignmentRight;
                 _isRecognitionL = label;
                 [_whiteView addSubview:_isRecognitionL];
                 break;
@@ -162,6 +193,7 @@
     _signL = [[UILabel alloc] init];
     _signL.textColor = CL86Color;
     _signL.font = [UIFont systemFontOfSize:11 *SIZE];
+    _signL.text = @"签字确认";
     [_whiteView addSubview:_signL];
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];

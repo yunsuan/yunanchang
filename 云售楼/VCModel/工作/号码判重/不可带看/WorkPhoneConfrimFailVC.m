@@ -188,7 +188,7 @@
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.mj_header= [GZQGifHeader headerWithRefreshingBlock:^{
 
-        _page = 1;
+        self->_page = 1;
         [self RequestMethod];
     }];
     _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{

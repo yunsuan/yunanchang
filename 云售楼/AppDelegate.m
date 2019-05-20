@@ -14,10 +14,17 @@
 
 #import "CYLTabBarControllerConfig.h"
 
+// 引入JPush功能所需头文件
+#import "JPUSHService.h"
+// iOS10注册APNs所需头文件
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
 
 
+static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
 
-@interface AppDelegate ()
+@interface AppDelegate ()<JPUSHRegisterDelegate>
 
 @end
 
@@ -28,8 +35,96 @@
     // Override point for customization after application launch.
     
     [self NetworkingStart];
+    [self configThirdWithOptions:launchOptions];
     [self initUI];
     return YES;
+}
+
+//配置三方
+- (void)configThirdWithOptions:(NSDictionary *)launchOptions{
+
+    [self conifgJpushWithOptions:launchOptions];
+}
+
+//配置极光推送
+- (void)conifgJpushWithOptions:(NSDictionary *)launchOptions  {
+    //极光配置
+    //Required
+    //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        // 可以添加自定义categories
+        // NSSet<UNNotificationCategory *> *categories for iOS10 or later
+        // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeAlert |UIUserNotificationTypeBadge | UIUserNotificationTypeSound) categories:nil];
+    }else{
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeAlert |UIUserNotificationTypeBadge | UIUserNotificationTypeSound) categories:nil];
+    }
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    // Required
+    // init Push
+    // notice: 2.1.5版本的SDK新增的注册方法，改成可上报IDFA，如果没有使用IDFA直接传nil
+    // 如需继续使用pushConfig.plist文件声明appKey等配置内容，请依旧使用[JPUSHService setupWithOption:launchOptions]方式初始化。
+    //    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    
+    [JPUSHService setupWithOption:launchOptions appKey:kJpushAPPKey
+                          channel:@"appstore"
+                 apsForProduction:YES
+            advertisingIdentifier:nil];
+    //2.1.9版本新增获取registration id block接口。
+    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+        if(resCode == 0){
+            NSLog(@"registrationID获取成功：%@",registrationID);
+            [self SetTagsAndAlias];
+        }
+        else{
+            NSLog(@"registrationID获取失败，code：%d",resCode);
+        }
+    }];
+    if (launchOptions) {
+        NSDictionary *remote = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (remote) {
+            [self GotoHome];
+        }else{
+            NSString *loggIndentifier;
+            loggIndentifier = [[NSUserDefaults standardUserDefaults] objectForKey:LOGINENTIFIER];
+            if ([loggIndentifier isEqualToString:@"logInSuccessdentifier"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadMessList" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+            }
+        }
+    }
+}
+
+- (void)SetTagsAndAlias{
+    NSString *logIndentifier = [[NSUserDefaults standardUserDefaults] objectForKey:LOGINENTIFIER];
+    if (logIndentifier) {
+        NSSet *tags;
+        
+        [JPUSHService setAlias:[NSString stringWithFormat:@"agent_%@",[UserModel defaultModel].agent_id] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+            
+            NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);;
+        } seq:0];
+    }
+}
+
+- (void)GotoHome{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadMessList" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+    [UIApplication sharedApplication].keyWindow.cyl_tabBarController.selectedIndex = 0;
+}
+
+- (void)goHome{
+    
+    NSSet *tags;
+    
+    [JPUSHService setAlias:[NSString stringWithFormat:@"agent_%@",[UserModel defaultModel].agent_id] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+        
+        NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);;
+    } seq:0];
+    CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
+    _window.rootViewController = tabBarControllerConfig.tabBarController;
 }
 
 - (void)initUI{
@@ -82,18 +177,6 @@
     }];
 }
 
-- (void)goHome{
-    
-//    NSSet *tags;
-//    
-//    [JPUSHService setAlias:[NSString stringWithFormat:@"agent_%@",[UserModel defaultModel].agent_id] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
-//        
-//        NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);;
-//    } seq:0];
-    CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
-    _window.rootViewController = tabBarControllerConfig.tabBarController;
-}
-
 
 - (void)comeBackLoginVC {
     //未登录
@@ -130,6 +213,126 @@
         NSError * errors;
         [[NSFileManager defaultManager]removeItemAtPath:cookiesFolderPath error:&errors];
     }
+}
+
+
+
+
+#pragma mark ---  Jpush  ---
+
+//极光方法
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
+    [application registerForRemoteNotifications];
+}
+
+
+//注册APNs成功并上报DeviceToken
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    /// Required - 注册 DeviceToken
+    [JPUSHService registerDeviceToken:deviceToken];
+}
+
+//实现注册APNs失败接口
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    //Optional
+    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
+}
+
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler{
+    
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    UNNotificationRequest *request = notification.request; // 收到推送的请求
+    UNNotificationContent *content = request.content; // 收到推送的消息内容
+    
+    NSNumber *badge = content.badge;  // 推送消息的角标
+    NSString *body = content.body;    // 推送消息体
+    UNNotificationSound *sound = content.sound;  // 推送消息的声音
+    NSString *subtitle = content.subtitle;  // 推送消息的副标题
+    NSString *title = content.title;  // 推送消息的标题
+    NSLog(@"22222222%@",userInfo);
+    
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+        
+        
+    }
+    else {
+        // 判断为本地通知
+        NSLog(@"iOS10 前台收到本地通知:{\nbody:%@，\ntitle:%@,\nsubtitle:%@,\nbadge：%@，\nsound：%@，\nuserInfo：%@\n}",body,title,subtitle,badge,sound,userInfo);
+    }
+    [UIApplication sharedApplication].applicationIconBadgeNumber += 1;
+    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
+}
+
+
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+    
+    
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    UNNotificationRequest *request = response.notification.request; // 收到推送的请求
+    UNNotificationContent *content = request.content; // 收到推送的消息内容
+    
+    NSNumber *badge = content.badge;  // 推送消息的角标
+    NSString *body = content.body;    // 推送消息体
+    UNNotificationSound *sound = content.sound;  // 推送消息的声音
+    NSString *subtitle = content.subtitle;  // 推送消息的副标题
+    NSString *title = content.title;  // 推送消息的标题
+    NSLog(@"1111111%@",userInfo);
+    
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+        
+        [self GotoHome];
+    }
+    else {
+        // 判断为本地通知
+        NSLog(@"iOS10 收到本地通知:{\nbody:%@，\ntitle:%@,\nsubtitle:%@,\nbadge：%@，\nsound：%@，\nuserInfo：%@\n}",body,title,subtitle,badge,sound,userInfo);
+    }
+    
+    //    [[UIApplication sharedApplication]setApplicationIconBadgeNumber:[badge integerValue]];
+    [UIApplication sharedApplication].applicationIconBadgeNumber += 1;
+    
+    completionHandler();  // 系统要求执行这个方法
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    // Required, iOS 7 Support
+    [JPUSHService handleRemoteNotification:userInfo];
+    //    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    completionHandler(UIBackgroundFetchResultNewData);
+    
+//    [self GotoHome];
+    if (application.applicationState == UIApplicationStateActive) {
+        
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadMessList" object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+        
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    [JPUSHService handleRemoteNotification:userInfo];
+    NSLog(@"%@",userInfo);
+    application.applicationIconBadgeNumber += 1;
+    
+    
+    
+    if (application.applicationState == UIApplicationStateActive) {
+        
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadMessList" object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+    }
+    
 }
 
 

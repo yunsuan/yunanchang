@@ -9,6 +9,9 @@
 #import "TaskVC.h"
 
 #import "FollowRecordVC.h"
+#import "CallTelegramCustomDetailVC.h"
+#import "WorkPhoneConfrimWaitDetailVC.h"
+#import "WorkRecommendWaitDetailVC.h"
 
 #import "TaskCallBackCell.h"
 #import "TaskCallFollowCell.h"
@@ -45,15 +48,25 @@
     
     [BaseRequest GET:HandleGetMessageList_URL parameters:nil success:^(id  _Nonnull resposeObject) {
         
+        NSLog(@"%@",resposeObject);
+        [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            [self SetData:resposeObject[@"data"][@"list"]];
+            [self->_dataArr removeAllObjects];
+            if ([resposeObject[@"data"][@"list"] count]) {
+                
+                [self SetData:resposeObject[@"data"][@"list"]];
+            }else{
+                
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
         }else{
             
             [self showContent:resposeObject[@"msg"]];
         }
     } failure:^(NSError * _Nonnull error) {
        
+        [self->_table.mj_header endRefreshing];
         [self showContent:@"网络错误"];
     }];
 }
@@ -67,10 +80,22 @@
            
             if ([obj isKindOfClass:[NSNull class]]) {
                 
-                [dic setObject:@"" forKey:key];
+                if ([key isEqualToString:@"signAgent"]) {
+                    
+                    [dic setObject:@[] forKey:key];
+                }else{
+                 
+                    [dic setObject:@"" forKey:key];
+                }
             }else{
                 
-                [dic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                if ([key isEqualToString:@"signAgent"]) {
+                    
+//                    key setObject:<#(nonnull id)#> forKey:<#(nonnull id<NSCopying>)#>
+                }else{
+                    
+                    [dic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                }
             }
         }];
         [_dataArr addObject:dic];
@@ -85,7 +110,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if ([_dataArr[indexPath.row][@"type"] integerValue] == 1) {
+    if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
 
         TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
         if (!cell) {
@@ -98,13 +123,13 @@
         cell.taskCallBackCellBlock = ^{
 
             FollowRecordVC *nextVC = [[FollowRecordVC alloc] initWithGroupId:self->_dataArr[indexPath.row][@"group_id"]];
-            nextVC.info_id = @"";
+            nextVC.info_id = self->_dataArr[indexPath.row][@"info_id"];
             nextVC.status = @"direct";
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
 
-    }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 2){
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2){
 
         TaskCallFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallFollowCell"];
         if (!cell) {
@@ -117,7 +142,7 @@
 
         return cell;
 
-    }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 3){
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 3){
 
         TaskTakeLookConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTakeLookConfirmCell"];
         if (!cell) {
@@ -128,7 +153,7 @@
         cell.dataDic = _dataArr[indexPath.row];
         return cell;
 
-    }else if ([_dataArr[indexPath.row][@"type"] integerValue] == 3){
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 4){
 
         TaskSignAuditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskSignAuditCell"];
         if (!cell) {
@@ -204,7 +229,42 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
+        
+        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
+        nextVC.project_id = _dataArr[indexPath.section][@"project_id"];
+        nextVC.info_id = _dataArr[indexPath.section][@"info_id"];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2) {
+        
+        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
+        nextVC.project_id = _dataArr[indexPath.section][@"project_id"];
+        nextVC.info_id = _dataArr[indexPath.section][@"info_id"];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 3) {
+        
+        WorkPhoneConfrimWaitDetailVC *nextVC = [[WorkPhoneConfrimWaitDetailVC alloc] initWithClientId:_dataArr[indexPath.row][@"client_id"]];
+        nextVC.workPhoneConfrimWaitDetailVCBlock = ^{
+            
+            [self->_dataArr removeObjectAtIndex:indexPath.row];
+            [tableView reloadData];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 4) {
+        
+    }else{
+        
+        WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
+        //    if (_dataArr[indexPath.row][@"need_confirm"]) {
+        //
+        //        nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];
+        //    }else{
+        //
+        //        nextVC.needConfirm = @"1";
+        //    }
+        //
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 - (void)initUI{
@@ -225,7 +285,10 @@
     _table.backgroundColor = CLLineColor;
     _table.delegate = self;
     _table.dataSource = self;
-//    _table.mj
+    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
+       
+        [self RequestMethod];
+    }];
     [self.view addSubview:_table];
 }
 

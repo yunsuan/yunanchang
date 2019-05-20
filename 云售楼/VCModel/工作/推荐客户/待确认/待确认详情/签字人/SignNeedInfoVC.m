@@ -62,25 +62,25 @@
                     
                     NSError *err = nil;
                     NSDictionary *parameters = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:&err];
-                    _dataDic = [NSMutableDictionary dictionaryWithDictionary:parameters];
+                    self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:parameters];
                     NSArray * arr = [self getDetailConfigArrByConfigState:BUY_TYPE];
                     for (int i = 0; i < arr.count; i++) {
                         
                         if ([resposeObject[@"data"][@"need_info"][@"buy_purpose"] integerValue] == [arr[i][@"id"] integerValue]) {
                             
-                             [_dataArr addObject:[NSString stringWithFormat:@"置业目的：%@",arr[i][@"param"]]];
+                             [self->_dataArr addObject:[NSString stringWithFormat:@"置业目的：%@",arr[i][@"param"]]];
                         }
                     }
-                    [_dataDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    [self->_dataDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                         
                         if (![key isEqualToString:@"visit_img_url"]) {
                             
-                            [_dataArr addObject:[NSString stringWithFormat:@"%@：%@",key,obj]];
+                            [self->_dataArr addObject:[NSString stringWithFormat:@"%@：%@",key,obj]];
                         }
                     }];
                 }
             }
-            [_table reloadData];
+            [self->_table reloadData];
         }else{
             
             [self showContent:resposeObject[@"msg"]];
