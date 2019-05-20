@@ -345,6 +345,10 @@
                 nextVC.status = @"modify";
                 nextVC.property_id = dic[@"id"];
                 nextVC.need_id = dic[@"list"][0][@"need_id"];
+                nextVC.intentSurveyVCBlock = ^{
+                    
+                    [self RequestMethod];
+                };
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
             
