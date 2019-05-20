@@ -60,6 +60,7 @@
 		0CBD70F5228FF338002A6B48 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CBD70F4228FF338002A6B48 /* region.json */; };
 		0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */; };
 		0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */; };
+		0CBD71152292437A002A6B48 /* InvalidView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD71142292437A002A6B48 /* InvalidView.m */; };
 		0CC2730522681FF100EB881F /* DropBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730422681FF100EB881F /* DropBtn.m */; };
 		0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC273092268444A00EB881F /* FollowRecordVC.m */; };
 		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
@@ -311,6 +312,8 @@
 		0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookCollCell.m; sourceTree = "<group>"; };
 		0CBD711022912FF0002A6B48 /* TaskSignAuditCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskSignAuditCollCell.h; sourceTree = "<group>"; };
 		0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskSignAuditCollCell.m; sourceTree = "<group>"; };
+		0CBD711322924379002A6B48 /* InvalidView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvalidView.h; sourceTree = "<group>"; };
+		0CBD71142292437A002A6B48 /* InvalidView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvalidView.m; sourceTree = "<group>"; };
 		0CC2730322681FF100EB881F /* DropBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropBtn.h; sourceTree = "<group>"; };
 		0CC2730422681FF100EB881F /* DropBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropBtn.m; sourceTree = "<group>"; };
 		0CC273082268444A00EB881F /* FollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowRecordVC.h; sourceTree = "<group>"; };
@@ -2190,6 +2193,8 @@
 		0CF1A30C228E8E03001C77CF /* view */ = {
 			isa = PBXGroup;
 			children = (
+				0CBD711322924379002A6B48 /* InvalidView.h */,
+				0CBD71142292437A002A6B48 /* InvalidView.m */,
 				0CF1A30D228E8E03001C77CF /* SignWorkerPickView.h */,
 				0CF1A30E228E8E03001C77CF /* SignListCell.h */,
 				0CF1A30F228E8E03001C77CF /* SignSelectWorkerView.h */,
@@ -2344,6 +2349,9 @@
 					0C3A9110225B20C400F04804 = {
 						CreatedOnToolsVersion = 10.2;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -2575,10 +2583,8 @@
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
-
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
 				10BC3A522291297E00DAB2D8 /* AbdicateVC.m in Sources */,
-
 				0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */,
 				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
@@ -2627,6 +2633,7 @@
 				0CD043BB2282715F002C8BD3 /* GZQGifHeader.m in Sources */,
 				0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */,
 				0C221A5E227EC763006B0510 /* IntentSurveyHeader.m in Sources */,
+				0CBD71152292437A002A6B48 /* InvalidView.m in Sources */,
 				0CD7A02E225C6D5700EAE816 /* AddressTableCell.m in Sources */,
 				0CD043BA2282715F002C8BD3 /* GZQGifFooter.m in Sources */,
 				0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */,
@@ -2818,7 +2825,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yskj.yunanchang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2842,7 +2849,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yskj.yunanchang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;

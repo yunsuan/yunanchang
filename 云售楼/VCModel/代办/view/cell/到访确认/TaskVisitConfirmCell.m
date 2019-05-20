@@ -36,8 +36,8 @@
     }
     _nameL.text = [NSString stringWithFormat:@"客户姓名：%@",dataDic[@"name"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
-    _recommendL.text = [NSString stringWithFormat:@"推荐人：%@",dataDic[@""]];
-    _timeL.text = [NSString stringWithFormat:@"失效时间：%@",dataDic[@""]];
+    _recommendL.text = [NSString stringWithFormat:@"推荐人：%@",dataDic[@"broker"]];
+    _timeL.text = [NSString stringWithFormat:@"失效时间：%@",dataDic[@"failure_time"]];
 }
 
 - (void)initUI{

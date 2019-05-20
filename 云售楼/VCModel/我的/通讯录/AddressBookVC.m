@@ -450,13 +450,13 @@
     _table.delegate = self;
     _table.dataSource = self;
     [self.view addSubview:_table];
-    _table.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
        
         self->_page = 1;
         [self RequestMethod];
     }];
     
-    _table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
         
         self->_page += 1;
         [self RequestAddMethod];

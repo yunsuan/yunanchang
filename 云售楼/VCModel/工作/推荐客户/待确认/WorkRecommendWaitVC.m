@@ -14,7 +14,7 @@
 
 #import "WorkRecommendWaitCell.h"
 
-//#import "InvalidView.h"
+#import "InvalidView.h"
 #import "SignSelectWorkerView.h"
 #import "SignFailView.h"
 
@@ -298,34 +298,34 @@
 
             UIAlertAction *invalid = [UIAlertAction actionWithTitle:@"未到访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
-//                InvalidView * invalidView = [[InvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
-//                invalidView.client_id = _dataArr[indexPath.row][@"client_id"];
-//                invalidView.invalidViewBlock = ^(NSDictionary *dic) {
-//
-//                    [BaseRequest POST:ConfirmDisabled_URL parameters:dic success:^(id resposeObject) {
-//
-//                        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                            [self alertControllerWithNsstring:@"失效确认成功" And:nil];
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
-//
-//                        }else{
-//
-//                            [self alertControllerWithNsstring:@"温馨提示" And:resposeObject[@"msg"]];
-//                        }
-//                    } failure:^(NSError *error) {
-//
-//                        [self alertControllerWithNsstring:@"温馨提示" And:@"操作失败" WithDefaultBlack:^{
-//
-//                        }];
-//                    }];
-//                };
-//
-//                invalidView.invalidViewBlockFail = ^(NSString *str) {
-//
-//                    [self alertControllerWithNsstring:@"温馨提示" And:str];
-//                };
-//                [[UIApplication sharedApplication].keyWindow addSubview:invalidView];
+                InvalidView * invalidView = [[InvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+                invalidView.client_id = self->_dataArr[indexPath.row][@"client_id"];
+                invalidView.invalidViewBlock = ^(NSDictionary *dic) {
+
+                    [BaseRequest POST:ConfirmDisabled_URL parameters:dic success:^(id resposeObject) {
+
+                        if ([resposeObject[@"code"] integerValue] == 200) {
+
+                            [self alertControllerWithNsstring:@"失效确认成功" And:@""];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+
+                        }else{
+
+                            [self alertControllerWithNsstring:@"温馨提示" And:resposeObject[@"msg"]];
+                        }
+                    } failure:^(NSError *error) {
+
+                        [self alertControllerWithNsstring:@"温馨提示" And:@"操作失败" WithDefaultBlack:^{
+
+                        }];
+                    }];
+                };
+
+                invalidView.invalidViewBlockFail = ^(NSString *str) {
+
+                    [self alertControllerWithNsstring:@"温馨提示" And:str];
+                };
+                [[UIApplication sharedApplication].keyWindow addSubview:invalidView];
             }];
 
             [alert addAction:valid];

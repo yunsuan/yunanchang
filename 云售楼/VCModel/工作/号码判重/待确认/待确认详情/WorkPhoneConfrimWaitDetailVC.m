@@ -128,7 +128,7 @@
     
     UIAlertAction *used = [UIAlertAction actionWithTitle:@"不可带看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        [BaseRequest GET:ClientTelCheckDisabled_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
+        [BaseRequest GET:ClientTelCheckDisabled_URL parameters:@{@"client_id":self->_clientId} success:^(id resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
