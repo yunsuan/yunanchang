@@ -31,7 +31,10 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    
+    if (self.taskSignAuditCellBtnBlock) {
+        
+        self.taskSignAuditCellBtnBlock();
+    }
 }
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
@@ -87,6 +90,14 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.taskSignAuditCellCollBlock) {
+        
+        self.taskSignAuditCellCollBlock(_dataArr[indexPath.row][@"name"]);
+    }
+}
+
 - (void)initUI{
     
     self.contentView.backgroundColor = CLLineColor;
@@ -106,7 +117,7 @@
     
     _titleL = [[UILabel alloc] init];
     _titleL.textColor = CLTitleLabColor;
-    _titleL.text = @"来访跟进";
+    _titleL.text = @"签字确认";
     _titleL.font = [UIFont boldSystemFontOfSize:15 *SIZE];
     [_whiteView addSubview:_titleL];
     

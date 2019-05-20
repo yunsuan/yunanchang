@@ -12,10 +12,10 @@
 #import "BorderTextField.h"
 #import "AuthenCollCell.h"
 #import "SinglePickView.h"
-//#import "WorkerPickView.h"
-//#import "DateChooseView.h"
-//#import "RecommendVC1.h"
-//#import "TypeOneVC.h"
+#import "WorkerPickView.h"
+#import "DateChooseView.h"
+#import "WorkRecommendVC.h"
+#import "TaskVC.h"
 
 @interface WorkCompleteCustomVC2 ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate>
 {
@@ -85,7 +85,7 @@
 
 @property (nonatomic, strong) UIButton *confirmBtn;
 
-//@property (nonatomic, strong) DateChooseView *dateView;
+@property (nonatomic, strong) DateChooseView *dateView;
 
 @property (nonatomic, strong) NSDateFormatter *formatter;
 
@@ -310,46 +310,47 @@
 
 - (void)ActionTimeTap:(UITapGestureRecognizer *)sender{
     
-    //    [[[UIApplication sharedApplication] keyWindow] addSubview:self.dateView];
+//    [[[UIApplication sharedApplication] keyWindow] addSubview:self.dateView];
 }
 
 -(void)action_agent
 {
     
-//    [BaseRequest GET:ProjectGetAdvicer_URL parameters:@{@"project_id":_datadic[@"project_id"]} success:^(id resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            if ([resposeObject[@"data"][@"rows"] count]) {
-//
-//                WorkerPickView *view= [[WorkerPickView alloc] initWithFrame:self.view.bounds WithData:resposeObject[@"data"][@"rows"]];
-//                view.workerPickBlock = ^(NSString *GSMC, NSString *ID, NSString *RYBH, NSString *RYDH, NSString *RYXM, NSString *RYTP) {
-//
-//                    _agentname = [NSString stringWithFormat:@"%@",RYXM];
-//
-//                    if (GSMC) {
-//                        _agentbtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",GSMC,RYXM,RYDH];
-//                    }
-//                    else
-//                    {
-//                        _agentbtn.content.text = [NSString stringWithFormat:@"%@/%@",RYXM,RYDH];
-//                    }
-//                    //                _agentbtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",GSMC,RYXM,RYDH];
-//                    _agentid = [NSString stringWithFormat:@"%@",ID];
-//                };
-//                [self.view addSubview:view];
-//            }else{
-//
-//                [self showContent:@"该项目暂未设置置业顾问"];
-//            }
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError *error) {
-//
-//        [self showContent:@"获取置业顾问失败"];
-//    }];
+    [BaseRequest GET:ProjectGetAdvicer_URL parameters:@{@"project_id":_datadic[@"project_id"]} success:^(id resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            if ([resposeObject[@"data"][@"rows"] count]) {
+
+                WorkerPickView *view= [[WorkerPickView alloc] initWithFrame:self.view.bounds WithData:resposeObject[@"data"][@"rows"]];
+                view.workerPickBlock = ^(NSString *GSMC, NSString *ID, NSString *RYBH, NSString *RYDH, NSString *RYXM, NSString *RYTP) {
+
+                    self->_agentname = [NSString stringWithFormat:@"%@",RYXM];
+
+                    if (GSMC) {
+                        
+                        self->_agentbtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",GSMC,RYXM,RYDH];
+                    }
+                    else
+                    {
+                        self->_agentbtn.content.text = [NSString stringWithFormat:@"%@/%@",RYXM,RYDH];
+                    }
+                    //                _agentbtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",GSMC,RYXM,RYDH];
+                    self->_agentid = [NSString stringWithFormat:@"%@",ID];
+                };
+                [self.view addSubview:view];
+            }else{
+
+                [self showContent:@"该项目暂未设置置业顾问"];
+            }
+        }else{
+
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+
+        [self showContent:@"获取置业顾问失败"];
+    }];
 }
 
 - (void)ActionTagNumBtn:(UIButton *)btn{
@@ -369,14 +370,14 @@
         }
         case 1:
         {
-//            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:[self getDetailConfigArrByConfigState:BUY_TYPE]];
-//            WS(weakself);
-//            view.selectedBlock = ^(NSString *MC, NSString *ID) {
-//
-//                weakself.purposeBtn.content.text = MC;
-//                weakself.purposeBtn->str = [NSString stringWithFormat:@"%@",ID];
-//            };
-//            [self.view addSubview:view];
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:[self getDetailConfigArrByConfigState:BUY_TYPE]];
+            WS(weakself);
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+
+                weakself.purposeBtn.content.text = MC;
+                weakself.purposeBtn->str = [NSString stringWithFormat:@"%@",ID];
+            };
+            [self.view addSubview:view];
             break;
         }
         case 2:
@@ -523,30 +524,30 @@
     }
     
     _confirmBtn.userInteractionEnabled = NO;
-//    [BaseRequest POST:ConfirmValue_URL parameters:_dic success:^(id resposeObject) {
-//
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            _confirmBtn.userInteractionEnabled = YES;
-//            for (UIViewController *vc in self.navigationController.viewControllers) {
-//
-//                if ([vc isKindOfClass:[RecommendVC1 class]] || [vc isKindOfClass:[TypeOneVC class]]) {
-//
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
-//                    [self.navigationController popToViewController:vc animated:YES];
-//                }
-//            }
-//        }else
-//        {
-//            [self showContent:resposeObject[@"msg"]];
-//            _confirmBtn.userInteractionEnabled = YES;
-//        }
-//    } failure:^(NSError *error) {
-//
-//        [self showContent:@"网络错误"];
-//        _confirmBtn.userInteractionEnabled = YES;
-//    }];
+    [BaseRequest POST:ConfirmValue_URL parameters:_dic success:^(id resposeObject) {
+
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            self->_confirmBtn.userInteractionEnabled = YES;
+            for (UIViewController *vc in self.navigationController.viewControllers) {
+
+                if ([vc isKindOfClass:[WorkRecommendVC class]] || [vc isKindOfClass:[TaskVC class]]) {
+
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+                    [self.navigationController popToViewController:vc animated:YES];
+                }
+            }
+        }else
+        {
+            [self showContent:resposeObject[@"msg"]];
+            self->_confirmBtn.userInteractionEnabled = YES;
+        }
+    } failure:^(NSError *error) {
+
+        [self showContent:@"网络错误"];
+        self->_confirmBtn.userInteractionEnabled = YES;
+    }];
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
@@ -720,98 +721,95 @@
             _image = info[UIImagePickerControllerOriginalImage];;
             NSData *data = [self resetSizeOfImageData:_image maxSize:150];
             
-//            [BaseRequest Updateimg:UploadFile_URL parameters:@{@"file_name":@"verify"
-//                                                               }
-//                  constructionBody:^(id<AFMultipartFormData> formData) {
-//                      [formData appendPartWithFileData:data name:@"verify" fileName:@"verify.jpg" mimeType:@"image/jpg"];
-//                  } success:^(id resposeObject) {
-//
-//                      if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                          if (_isOne) {
-//
-//                              if (_index < _imgArr1.count) {
-//
-//                                  [_imgArr1 replaceObjectAtIndex:_index withObject:_image];
-//                                  [_imgUrl1 replaceObjectAtIndex:_index withObject:resposeObject[@"data"]];
-//                              }else{
-//
-//                                  [_imgArr1 addObject:_image];
-//                                  [_imgUrl1 addObject:resposeObject[@"data"]];
-//                              }
-//                              [self.authenColl1 reloadData];
-//                          }else{
-//
-//                              if (_index < _imgArr2.count) {
-//
-//                                  [_imgArr2 replaceObjectAtIndex:_index withObject:_image];
-//                                  [_imgUrl2 replaceObjectAtIndex:_index withObject:resposeObject[@"data"]];
-//                              }else{
-//
-//                                  [_imgArr2 addObject:_image];
-//                                  [_imgUrl2 addObject:resposeObject[@"data"]];
-//                              }
-//                              [self.authenColl2 reloadData];
-//                          }
-//                      }else{
-//
-//                          [self showContent:resposeObject[@"msg"]];
-//                      }
-//
-//
-//                  } failure:^(NSError *error) {
-//
-//                      [self showContent:@"网络错误"];
-//                  }];
+            
+            [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
+                
+                [formData appendPartWithFileData:data name:@"verify" fileName:@"verify.jpg" mimeType:@"image/jpg"];
+            } url:UploadFile_URL parameters:@{@"file_name":@"verify"} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    if (self->_isOne) {
+                        
+                        if (self->_index < self->_imgArr1.count) {
+                            
+                            [self->_imgArr1 replaceObjectAtIndex:self->_index withObject:self->_image];
+                            [self->_imgUrl1 replaceObjectAtIndex:self->_index withObject:resposeObject[@"data"]];
+                        }else{
+                            
+                            [self->_imgArr1 addObject:self->_image];
+                            [self->_imgUrl1 addObject:resposeObject[@"data"]];
+                        }
+                        [self.authenColl1 reloadData];
+                    }else{
+                        
+                        if (self->_index < self->_imgArr2.count) {
+                            
+                            [self->_imgArr2 replaceObjectAtIndex:self->_index withObject:self->_image];
+                            [self->_imgUrl2 replaceObjectAtIndex:self->_index withObject:resposeObject[@"data"]];
+                        }else{
+                            
+                            [self->_imgArr2 addObject:self->_image];
+                            [self->_imgUrl2 addObject:resposeObject[@"data"]];
+                        }
+                        [self.authenColl2 reloadData];
+                    }
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
         }
     }else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
         
         _image = info[UIImagePickerControllerOriginalImage];
         NSData *data = [self resetSizeOfImageData:_image maxSize:150];
         
-//        [BaseRequest Updateimg:UploadFile_URL parameters:@{@"file_name":@"verify"
-//                                                           }
-//              constructionBody:^(id<AFMultipartFormData> formData) {
-//                  [formData appendPartWithFileData:data name:@"verify" fileName:@"verify.jpg" mimeType:@"image/jpg"];
-//              } success:^(id resposeObject) {
-//
-//                  if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                      if (_isOne) {
-//
-//                          if (_index < _imgArr1.count) {
-//
-//                              [_imgArr1 replaceObjectAtIndex:_index withObject:_image];
-//                              [_imgUrl1 replaceObjectAtIndex:_index withObject:resposeObject[@"data"]];
-//                          }else{
-//
-//                              [_imgArr1 addObject:_image];
-//                              [_imgUrl1 addObject:resposeObject[@"data"]];
-//                          }
-//                          [self.authenColl1 reloadData];
-//                      }else{
-//
-//                          if (_index < _imgArr2.count) {
-//
-//                              [_imgArr2 replaceObjectAtIndex:_index withObject:_image];
-//                              [_imgUrl2 replaceObjectAtIndex:_index withObject:resposeObject[@"data"]];
-//                          }else{
-//
-//                              [_imgArr2 addObject:_image];
-//                              [_imgUrl2 addObject:resposeObject[@"data"]];
-//                          }
-//                          [self.authenColl2 reloadData];
-//                      }
-//                  }else{
-//
-//                      [self showContent:resposeObject[@"msg"]];
-//                  }
-//
-//
-//              } failure:^(NSError *error) {
-//
-//                  [self showContent:@"网络错误"];
-//              }];
+        [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            [formData appendPartWithFileData:data name:@"verify" fileName:@"verify.jpg" mimeType:@"image/jpg"];
+
+        } url:UploadFile_URL parameters:@{@"file_name":@"verify"} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if (self->_isOne) {
+                    
+                    if (self->_index < self->_imgArr1.count) {
+                        
+                        [self->_imgArr1 replaceObjectAtIndex:self->_index withObject:self->_image];
+                        [self->_imgUrl1 replaceObjectAtIndex:self->_index withObject:resposeObject[@"data"]];
+                    }else{
+                        
+                        [self->_imgArr1 addObject:self->_image];
+                        [self->_imgUrl1 addObject:resposeObject[@"data"]];
+                    }
+                    [self.authenColl1 reloadData];
+                }else{
+                    
+                    if (self->_index < self->_imgArr2.count) {
+                        
+                        [self->_imgArr2 replaceObjectAtIndex:self->_index withObject:self->_image];
+                        [self->_imgUrl2 replaceObjectAtIndex:self->_index withObject:resposeObject[@"data"]];
+                    }else{
+                        
+                        [self->_imgArr2 addObject:self->_image];
+                        [self->_imgUrl2 addObject:resposeObject[@"data"]];
+                    }
+                    [self.authenColl2 reloadData];
+                }
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
     }
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -1192,19 +1190,19 @@
     }];
 }
 
-//- (DateChooseView *)dateView{
-//
-//    if (!_dateView) {
-//
-//        _dateView = [[DateChooseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
-//        __weak __typeof(&*self)weakSelf = self;
-//        _dateView.dateblock = ^(NSDate *date) {
-//
-//            _date = date;
-//            weakSelf.timeL.text = [weakSelf.formatter stringFromDate:date];
-//        };
-//    }
-//    return _dateView;
-//}
+- (DateChooseView *)dateView{
+
+    if (!_dateView) {
+
+        _dateView = [[DateChooseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+        __weak __typeof(&*self)weakSelf = self;
+        _dateView.dateblock = ^(NSDate *date) {
+
+            _date = date;
+            weakSelf.timeL.text = [weakSelf.formatter stringFromDate:date];
+        };
+    }
+    return _dateView;
+}
 
 @end

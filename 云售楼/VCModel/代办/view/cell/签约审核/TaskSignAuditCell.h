@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^TaskSignAuditCellCollBlock)(NSString *mark);
+
+typedef void(^TaskSignAuditCellBtnBlock)(void);
+
 @interface TaskSignAuditCell : UITableViewCell
+
+@property (nonatomic, copy) TaskSignAuditCellCollBlock taskSignAuditCellCollBlock;
+
+@property (nonatomic, copy) TaskSignAuditCellBtnBlock taskSignAuditCellBtnBlock;
 
 @property (nonatomic, strong) UIView *whiteView;
 

@@ -296,124 +296,124 @@
         
     }else{
         
-//        SinglePickView *view = [[SinglePickView alloc]initWithFrame:self.view.frame WithData:[self getDetailConfigArrByConfigState:CARD_TYPE]];
-//
-//        view.selectedBlock = ^(NSString *MC, NSString *ID) {
-//
-//            _identifyBtn.content.text = [NSString stringWithFormat:@"%@",MC];
-//            _cardType = [NSString stringWithFormat:@"%@",ID];
-//        };
-//        [self.view addSubview:view];
+        SinglePickView *view = [[SinglePickView alloc]initWithFrame:self.view.frame WithData:[self getDetailConfigArrByConfigState:CARD_TYPE]];
+
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+
+            self->_identifyBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+            self->_cardType = [NSString stringWithFormat:@"%@",ID];
+        };
+        [self.view addSubview:view];
     }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-//    NSString *tel;
-//
-//    if ([_dataDic[@"tel_complete_state"] integerValue] == 2) {
-//
-//        tel = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",_phoneTF1.text,_phoneTF2.text,_phoneTF3.text,_phoneTF4.text,_phoneTF5.text,_phoneTF6.text,_phoneTF7.text,_phoneTF8.text,_phoneTF9.text,_phoneTF10.text,_phoneTF11.text];
-//        if (![self checkTel:tel]) {
-//
-//            [self alertControllerWithNsstring:@"温馨提示" And:@"请填写正确的电话号码"];
-//            return;
-//        }
-//    }else if ([_dataDic[@"tel_complete_state"] integerValue] == 0){
-//
-//        tel = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",_phoneTF1.text,_phoneTF2.text,_phoneTF3.text,_phoneTF4.text,_phoneTF5.text,_phoneTF6.text,_phoneTF7.text,_phoneTF8.text,_phoneTF9.text,_phoneTF10.text,_phoneTF11.text];
-//        if (![self checkTel:tel]) {
-//
-//            [self alertControllerWithNsstring:@"温馨提示" And:@"请填写正确的电话号码"];
-//            return;
-//        }
-//    }else{
-//
-//        if (!_phoneTF1.text.length || !_phoneTF2.text.length || !_phoneTF3.text.length || !_phoneTF8.text.length || !_phoneTF9.text.length || !_phoneTF10.text.length || !_phoneTF11.text.length) {
-//
-//            [self alertControllerWithNsstring:@"温馨提示" And:@"电话号码不完整"];
-//        }else{
-//
-//            if (!_phoneTF4.text.length) {
-//
-//                _phoneTF4.text = @"X";
-//            }
-//            if (!_phoneTF5.text.length){
-//
-//                _phoneTF5.text = @"X";
-//            }
-//            if (!_phoneTF6.text.length){
-//
-//                _phoneTF6.text = @"X";
-//            }
-//            if (!_phoneTF7.text.length){
-//
-//                _phoneTF7.text = @"X";
-//            }
-//
-//            if ([_phoneTF4.text isEqualToString:@"X"] || [_phoneTF5.text isEqualToString:@"X"] || [_phoneTF6.text isEqualToString:@"X"] || [_phoneTF7.text isEqualToString:@"X"]) {
-//
-//                _phoneTF4.text = @"X";
-//                _phoneTF5.text = @"X";
-//                _phoneTF6.text = @"X";
-//                _phoneTF7.text = @"X";
-//            }
-//
-//            tel = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",_phoneTF1.text,_phoneTF2.text,_phoneTF3.text,_phoneTF4.text,_phoneTF5.text,_phoneTF6.text,_phoneTF7.text,_phoneTF8.text,_phoneTF9.text,_phoneTF10.text,_phoneTF11.text];
-//        }
-//    }
-//
-//    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//
-//    [dic setObject:_clientId forKey:@"client_id"];
-//    [dic setObject:_nameTF.textField.text forKey:@"client_name"];
-//    if (tel) {
-//        [dic setObject:tel forKey:@"client_tel"];
-//    }
-//    else{
-//        [dic setObject:tel forKey:@""];
-//    }
-//    if (_cardType) {
-//
-//        [dic setObject:_cardType forKey:@"card_type"];
-//    }
-//    if (_codeTF.textField.text) {
-//
-//        [dic setObject:_codeTF.textField.text forKey:@"card_num"];
-//    }
-//
-//    if (_imgStr1.length && _imgStr2.length) {
-//
-//        [dic setObject:[NSString stringWithFormat:@"%@,%@",_imgStr1,_imgStr2] forKey:@"card_img_url"];
-//    }else if (_imgStr1.length && !_imgStr2.length){
-//
-//        [dic setObject:_imgStr1 forKey:@"card_img_url"];
-//    }else if (!_imgStr1.length && _imgStr2.length){
-//
-//        [dic setObject:_imgStr2 forKey:@"card_img_url"];
-//    }
+    NSString *tel;
+
+    if ([_dataDic[@"tel_complete_state"] integerValue] == 2) {
+
+        tel = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",_phoneTF1.text,_phoneTF2.text,_phoneTF3.text,_phoneTF4.text,_phoneTF5.text,_phoneTF6.text,_phoneTF7.text,_phoneTF8.text,_phoneTF9.text,_phoneTF10.text,_phoneTF11.text];
+        if (![self checkTel:tel]) {
+
+            [self alertControllerWithNsstring:@"温馨提示" And:@"请填写正确的电话号码"];
+            return;
+        }
+    }else if ([_dataDic[@"tel_complete_state"] integerValue] == 0){
+
+        tel = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",_phoneTF1.text,_phoneTF2.text,_phoneTF3.text,_phoneTF4.text,_phoneTF5.text,_phoneTF6.text,_phoneTF7.text,_phoneTF8.text,_phoneTF9.text,_phoneTF10.text,_phoneTF11.text];
+        if (![self checkTel:tel]) {
+
+            [self alertControllerWithNsstring:@"温馨提示" And:@"请填写正确的电话号码"];
+            return;
+        }
+    }else{
+
+        if (!_phoneTF1.text.length || !_phoneTF2.text.length || !_phoneTF3.text.length || !_phoneTF8.text.length || !_phoneTF9.text.length || !_phoneTF10.text.length || !_phoneTF11.text.length) {
+
+            [self alertControllerWithNsstring:@"温馨提示" And:@"电话号码不完整"];
+        }else{
+
+            if (!_phoneTF4.text.length) {
+
+                _phoneTF4.text = @"X";
+            }
+            if (!_phoneTF5.text.length){
+
+                _phoneTF5.text = @"X";
+            }
+            if (!_phoneTF6.text.length){
+
+                _phoneTF6.text = @"X";
+            }
+            if (!_phoneTF7.text.length){
+
+                _phoneTF7.text = @"X";
+            }
+
+            if ([_phoneTF4.text isEqualToString:@"X"] || [_phoneTF5.text isEqualToString:@"X"] || [_phoneTF6.text isEqualToString:@"X"] || [_phoneTF7.text isEqualToString:@"X"]) {
+
+                _phoneTF4.text = @"X";
+                _phoneTF5.text = @"X";
+                _phoneTF6.text = @"X";
+                _phoneTF7.text = @"X";
+            }
+
+            tel = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",_phoneTF1.text,_phoneTF2.text,_phoneTF3.text,_phoneTF4.text,_phoneTF5.text,_phoneTF6.text,_phoneTF7.text,_phoneTF8.text,_phoneTF9.text,_phoneTF10.text,_phoneTF11.text];
+        }
+    }
+
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+
+    [dic setObject:_clientId forKey:@"client_id"];
+    [dic setObject:_nameTF.textField.text forKey:@"client_name"];
+    if (tel) {
+        [dic setObject:tel forKey:@"client_tel"];
+    }
+    else{
+        [dic setObject:tel forKey:@""];
+    }
+    if (_cardType) {
+
+        [dic setObject:_cardType forKey:@"card_type"];
+    }
+    if (_codeTF.textField.text) {
+
+        [dic setObject:_codeTF.textField.text forKey:@"card_num"];
+    }
+
+    if (_imgStr1.length && _imgStr2.length) {
+
+        [dic setObject:[NSString stringWithFormat:@"%@,%@",_imgStr1,_imgStr2] forKey:@"card_img_url"];
+    }else if (_imgStr1.length && !_imgStr2.length){
+
+        [dic setObject:_imgStr1 forKey:@"card_img_url"];
+    }else if (!_imgStr1.length && _imgStr2.length){
+
+        [dic setObject:_imgStr2 forKey:@"card_img_url"];
+    }
     
-//    [BaseRequest GET:ClientNeedInfo_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-    WorkCompleteCustomVC2 *nextVC = [[WorkCompleteCustomVC2 alloc] init];//WithData:dic];
-//            nextVC.consulDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-//            nextVC.datadic = _dataDic;
+    [BaseRequest GET:ClientNeedInfo_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            WorkCompleteCustomVC2 *nextVC = [[WorkCompleteCustomVC2 alloc] initWithData:dic];
+            nextVC.consulDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            nextVC.datadic = self->_dataDic;
             [self.navigationController pushViewController:nextVC animated:YES];
-//        }else{
-//
-////            CompleteCustomVC2 *nextVC = [[CompleteCustomVC2 alloc] initWithData:dic];
-////            nextVC.datadic = _dataDic;
-////            [self.navigationController pushViewController:nextVC animated:YES];
-//        }
-//    } failure:^(NSError *error) {
-//
-//        CompleteCustomVC2 *nextVC = [[CompleteCustomVC2 alloc] initWithData:dic];
-//
-//        nextVC.datadic = _dataDic;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    }];
+        }else{
+
+            WorkCompleteCustomVC2 *nextVC = [[WorkCompleteCustomVC2 alloc] initWithData:dic];
+            nextVC.datadic = self->_dataDic;
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
+    } failure:^(NSError *error) {
+
+        WorkCompleteCustomVC2 *nextVC = [[WorkCompleteCustomVC2 alloc] initWithData:dic];
+
+        nextVC.datadic = self->_dataDic;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
     
 }
 
@@ -508,32 +508,30 @@
             
             NSData *data = [self resetSizeOfImageData:_image maxSize:150];
             
-//            [BaseRequest Updateimg:UploadFile_URL parameters:@{@"file_name":@"id_card"
-//                                                               }
-//                  constructionBody:^(id<AFMultipartFormData> formData) {
-//                      [formData appendPartWithFileData:data name:@"id_card" fileName:@"id_card.jpg" mimeType:@"image/jpg"];
-//                  } success:^(id resposeObject) {
-//
-//                      if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                          if (_index == 0) {
-//
-//                              [_posBtn setImage:_image forState:UIControlStateNormal];
-//                              _imgStr1 = resposeObject[@"data"];
-//                          }else{
-//
-//                              [_backBtn setImage:_image forState:UIControlStateNormal];
-//                              _imgStr2 = resposeObject[@"data"];
-//                          }
-//                      }else{
-//
-//                          [self showContent:resposeObject[@"msg"]];
-//                      }
-//                      //                      [self.authenColl reloadData];
-//                  } failure:^(NSError *error) {
-//
-//                      [self showContent:@"网络错误"];
-//                  }];
+            [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
+                
+                [formData appendPartWithFileData:data name:@"id_card" fileName:@"id_card.jpg" mimeType:@"image/jpg"];
+            } url:UploadFile_URL parameters:@{@"file_name":@"id_card"} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    if (self->_index == 0) {
+                        
+                        [self->_posBtn setImage:self->_image forState:UIControlStateNormal];
+                        self->_imgStr1 = resposeObject[@"data"];
+                    }else{
+                        
+                        [self->_backBtn setImage:self->_image forState:UIControlStateNormal];
+                        self->_imgStr2 = resposeObject[@"data"];
+                    }
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
         }
     }else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
         
@@ -541,32 +539,30 @@
         
         NSData *data = [self resetSizeOfImageData:_image maxSize:150];
         
-//        [BaseRequest Updateimg:UploadFile_URL parameters:@{@"file_name":@"id_card"
-//                                                           }
-//              constructionBody:^(id<AFMultipartFormData> formData) {
-//                  [formData appendPartWithFileData:data name:@"id_card" fileName:@"id_card.jpg" mimeType:@"image/jpg"];
-//              } success:^(id resposeObject) {
-//
-//                  if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                      if (_index == 0) {
-//
-//                          [_posBtn setImage:_image forState:UIControlStateNormal];
-//                          _imgStr1 = resposeObject[@"data"];
-//                      }else{
-//
-//                          [_backBtn setImage:_image forState:UIControlStateNormal];
-//                          _imgStr2 = resposeObject[@"data"];
-//                      }
-//                  }else{
-//
-//                      [self showContent:resposeObject[@"msg"]];
-//                  }
-//                  //                  [self.authenColl reloadData];
-//              } failure:^(NSError *error) {
-//
-//                  [self showContent:@"网络错误"];
-//              }];
+        [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            [formData appendPartWithFileData:data name:@"id_card" fileName:@"id_card.jpg" mimeType:@"image/jpg"];
+        } url:UploadFile_URL parameters:@{@"file_name":@"id_card"} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if (self->_index == 0) {
+                    
+                    [self->_posBtn setImage:self->_image forState:UIControlStateNormal];
+                    self->_imgStr1 = resposeObject[@"data"];
+                }else{
+                    
+                    [self->_backBtn setImage:self->_image forState:UIControlStateNormal];
+                    self->_imgStr2 = resposeObject[@"data"];
+                }
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+                                              
+            [self showContent:@"网络错误"];
+        }];
     }
     [self dismissViewControllerAnimated:YES completion:^{
         

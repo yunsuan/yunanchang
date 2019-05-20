@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^TaskTakeLookConfirmCellCopyBlock)(void);
+
+typedef void(^TaskTakeLookConfirmCellConfirmBlock)(void);
+
 @interface TaskTakeLookConfirmCell : UITableViewCell
+
+@property (nonatomic, copy) TaskTakeLookConfirmCellCopyBlock taskTakeLookConfirmCellCopyBlock;
+
+@property (nonatomic, copy) TaskTakeLookConfirmCellConfirmBlock taskTakeLookConfirmCellConfirmBlock;
 
 @property (nonatomic, strong) UIView *whiteView;
 

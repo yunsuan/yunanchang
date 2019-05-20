@@ -15,6 +15,7 @@
 #import "CompanyAuthingVC.h"
 #import "FeedbackVC.h"
 #import "ChangePassWordVC.h"
+#import "PushSettingVC.h"
 
 #import "MineHeader.h"
 #import "MineCell.h"
@@ -215,6 +216,8 @@
             
         }else if (indexPath.row == 2){
             
+            PushSettingVC *nextVC = [[PushSettingVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
             
         }else if (indexPath.row == 3){
             

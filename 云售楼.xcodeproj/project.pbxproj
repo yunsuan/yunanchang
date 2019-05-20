@@ -61,6 +61,9 @@
 		0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */; };
 		0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */; };
 		0CBD71152292437A002A6B48 /* InvalidView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD71142292437A002A6B48 /* InvalidView.m */; };
+		0CBD711C2292567E002A6B48 /* WorkerPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD711B2292567E002A6B48 /* WorkerPickView.m */; };
+		0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD711F22925893002A6B48 /* PushSettingVC.m */; };
+		0CBD712422925B1E002A6B48 /* PushSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD712322925B1E002A6B48 /* PushSettingCell.m */; };
 		0CC2730522681FF100EB881F /* DropBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730422681FF100EB881F /* DropBtn.m */; };
 		0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC273092268444A00EB881F /* FollowRecordVC.m */; };
 		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
@@ -321,6 +324,12 @@
 		0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskSignAuditCollCell.m; sourceTree = "<group>"; };
 		0CBD711322924379002A6B48 /* InvalidView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvalidView.h; sourceTree = "<group>"; };
 		0CBD71142292437A002A6B48 /* InvalidView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvalidView.m; sourceTree = "<group>"; };
+		0CBD711A2292567D002A6B48 /* WorkerPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerPickView.h; sourceTree = "<group>"; };
+		0CBD711B2292567E002A6B48 /* WorkerPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkerPickView.m; sourceTree = "<group>"; };
+		0CBD711E22925893002A6B48 /* PushSettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushSettingVC.h; sourceTree = "<group>"; };
+		0CBD711F22925893002A6B48 /* PushSettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushSettingVC.m; sourceTree = "<group>"; };
+		0CBD712222925B1E002A6B48 /* PushSettingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushSettingCell.h; sourceTree = "<group>"; };
+		0CBD712322925B1E002A6B48 /* PushSettingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushSettingCell.m; sourceTree = "<group>"; };
 		0CC2730322681FF100EB881F /* DropBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropBtn.h; sourceTree = "<group>"; };
 		0CC2730422681FF100EB881F /* DropBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DropBtn.m; sourceTree = "<group>"; };
 		0CC273082268444A00EB881F /* FollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowRecordVC.h; sourceTree = "<group>"; };
@@ -957,6 +966,7 @@
 		0C3A915F225B372D00F04804 /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
+				0CBD711D22925884002A6B48 /* 推送设置 */,
 				0CD7A036225C6F1100EAE816 /* 公司信息 */,
 				0CD7A03D225C6F1100EAE816 /* 通讯录 */,
 				0CD7A03A225C6F1100EAE816 /* 修改密码 */,
@@ -1142,6 +1152,25 @@
 			children = (
 				0CBD711022912FF0002A6B48 /* TaskSignAuditCollCell.h */,
 				0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CBD711D22925884002A6B48 /* 推送设置 */ = {
+			isa = PBXGroup;
+			children = (
+				0CBD712122925B0E002A6B48 /* view */,
+				0CBD711E22925893002A6B48 /* PushSettingVC.h */,
+				0CBD711F22925893002A6B48 /* PushSettingVC.m */,
+			);
+			path = "推送设置";
+			sourceTree = "<group>";
+		};
+		0CBD712122925B0E002A6B48 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CBD712222925B1E002A6B48 /* PushSettingCell.h */,
+				0CBD712322925B1E002A6B48 /* PushSettingCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2216,6 +2245,8 @@
 		0CF1A30C228E8E03001C77CF /* view */ = {
 			isa = PBXGroup;
 			children = (
+				0CBD711A2292567D002A6B48 /* WorkerPickView.h */,
+				0CBD711B2292567E002A6B48 /* WorkerPickView.m */,
 				0CBD711322924379002A6B48 /* InvalidView.h */,
 				0CBD71142292437A002A6B48 /* InvalidView.m */,
 				0CF1A30D228E8E03001C77CF /* SignWorkerPickView.h */,
@@ -2577,6 +2608,7 @@
 				0CD0435B2280219C002C8BD3 /* WorkCompleteCustomVC1.m in Sources */,
 				0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
+				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
 				0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */,
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
@@ -2623,6 +2655,7 @@
 				0C221A66227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m in Sources */,
 				0CEF8A55225F1D440057F3FD /* CompanyModel.m in Sources */,
 				0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */,
+				0CBD711C2292567E002A6B48 /* WorkerPickView.m in Sources */,
 				0C221A85227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m in Sources */,
 				0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */,
 				10EF17B82292B48000DE5566 /* CompanyChooseCell.m in Sources */,
@@ -2666,6 +2699,7 @@
 				0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */,
 				0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */,
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
+				0CBD712422925B1E002A6B48 /* PushSettingCell.m in Sources */,
 				0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */,
 				0CEF8A53225F1D440057F3FD /* SelectCompanyCollCell.m in Sources */,
 				10EF17A922928B1400DE5566 /* AddCompanyCell.m in Sources */,

@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//typedef void(^TaskSignAuditCollCellBlock)(NSInteger index);
+
 @interface TaskSignAuditCollCell : UICollectionViewCell
+
+//@property (nonatomic, copy) TaskSignAuditCollCellBlock taskSignAuditCollCellBlock;
 
 @property (nonatomic, strong) UIImageView *tagImg;
 

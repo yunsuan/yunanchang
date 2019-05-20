@@ -8,6 +8,8 @@
 
 #import "CompanyInfoVC.h"
 
+#import "CompanyAuthVC.h"
+
 #import "CompanyInfoCell.h"
 
 @interface CompanyInfoVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -43,7 +45,28 @@
 
 - (void)ActionCancelBtn:(UIButton *)btn{
     
-    
+    [self alertControllerWithNsstring:@"离职确认" And:@"离职后，在没有认证公司的情况下，将不能使用任何功能" WithCancelBlack:^{
+        
+        
+    } WithDefaultBlack:^{
+       
+        [BaseRequest POST:CompanyAuthQuit_URL parameters:@{@"auth_id":self->_dataArr[0][@"auth_id"]} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self alertControllerWithNsstring:@"离职成功" And:@"你已离职" WithDefaultBlack:^{
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -60,6 +83,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.tag = indexPath.row;
     cell.dataDic = _dataArr[indexPath.row];
     if (indexPath.row == 0) {
         
@@ -88,6 +112,38 @@
         
         cell.downLine.hidden = NO;
     }
+    
+    cell.companyInfoCellBlock = ^(NSInteger index) {
+      
+        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+        nextVC.status = @"reApply";
+        nextVC.authId = self->_dataArr[indexPath.row][@"auth_id"];
+        nextVC.companyAuthVCBlock = ^{
+            
+            [BaseRequest GET:CompanyAuthInfo_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    if ([resposeObject[@"data"] count]) {
+                        
+                        self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+                        [tableView reloadData];
+                    }else{
+                        
+//                        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+//                        [self.navigationController pushViewController:nextVC animated:YES];
+                    }
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    };
     return cell;
 }
 

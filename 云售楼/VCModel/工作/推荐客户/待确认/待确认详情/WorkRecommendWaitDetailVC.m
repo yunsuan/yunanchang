@@ -8,6 +8,7 @@
 
 #import "WorkRecommendWaitDetailVC.h"
 
+#import "WorkCompleteCustomVC1.h"
 #import "SignNeedInfoVC.h"
 #import "SignListVC.h"
 
@@ -282,8 +283,8 @@
         
                     UIAlertAction *valid = [UIAlertAction actionWithTitle:@"已到访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-//                        CompleteCustomVC1 *nextVC = [[CompleteCustomVC1 alloc] initWithClientID:_str name:_name dataDic:_dataDic];
-//                        [self.navigationController pushViewController:nextVC animated:YES];
+                        WorkCompleteCustomVC1 *nextVC = [[WorkCompleteCustomVC1 alloc] initWithClientID:_str name:_name dataDic:_dataDic];
+                        [self.navigationController pushViewController:nextVC animated:YES];
                     }];
         
                     UIAlertAction *invalid = [UIAlertAction actionWithTitle:@"未到访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

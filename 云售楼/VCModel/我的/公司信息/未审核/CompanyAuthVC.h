@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CompanyAuthVCBlock)(void);
+
 @interface CompanyAuthVC : BaseViewController
+
+@property (nonatomic, copy) CompanyAuthVCBlock companyAuthVCBlock;
+
+@property (nonatomic, strong) NSString *authId;
+
+@property (nonatomic, strong) NSString *status;
 
 @end
 

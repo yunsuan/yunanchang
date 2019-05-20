@@ -164,8 +164,8 @@
     
     cell.workRecommendWaitCellBlock = ^(NSInteger index) {
         
-        WorkCompleteCustomVC1 *nextVC = [[WorkCompleteCustomVC1 alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
+//        WorkCompleteCustomVC1 *nextVC = [[WorkCompleteCustomVC1 alloc] init];
+//        [self.navigationController pushViewController:nextVC animated:YES];
         if ([self->_dataArr[index][@"need_confirm"] integerValue] == 1) {
 
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"签字确认" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
@@ -292,8 +292,8 @@
             UIAlertAction *valid = [UIAlertAction actionWithTitle:@"已到访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
                 NSDictionary *dic = self->_dataArr[index];
-//                CompleteCustomVC1 *nextVC = [[CompleteCustomVC1 alloc] initWithClientID:dic[@"client_id"] name:dic[@"name"] dataDic:dic];
-//                [self.navigationController pushViewController:nextVC animated:YES];
+                WorkCompleteCustomVC1 *nextVC = [[WorkCompleteCustomVC1 alloc] initWithClientID:dic[@"client_id"] name:dic[@"name"] dataDic:dic];
+                [self.navigationController pushViewController:nextVC animated:YES];
             }];
 
             UIAlertAction *invalid = [UIAlertAction actionWithTitle:@"未到访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -345,7 +345,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] init];//WithString:_dataArr[indexPath.row][@"client_id"]];
+    WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
 //    if (_dataArr[indexPath.row][@"need_confirm"]) {
 //
 //        nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];

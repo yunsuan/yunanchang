@@ -22,7 +22,10 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    
+    if (self.taskCallFollowCellBlock) {
+        
+        self.taskCallFollowCellBlock();
+    }
 }
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
@@ -110,7 +113,7 @@
     _confirmBtn.clipsToBounds = YES;
     _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:13 *SIZE];
     [_confirmBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
+    [_confirmBtn setTitle:@"添加跟进" forState:UIControlStateNormal];
     [_confirmBtn setTitleColor:CLBlueBtnColor forState:UIControlStateNormal];
     [_whiteView addSubview:_confirmBtn];
     
@@ -198,7 +201,7 @@
         
         make.right.equalTo(self->_whiteView.mas_right).offset(-8 *SIZE);
         make.top.equalTo(self->_line.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(60 *SIZE);
+        make.width.mas_equalTo(73 *SIZE);
         make.height.mas_equalTo(30 *SIZE);
     }];
 }

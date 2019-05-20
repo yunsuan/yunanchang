@@ -33,6 +33,13 @@
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         
+//        if ([self.status isEqualToString:@"reApply"]) {
+//            
+//            if (self.companyApplyVCBlock) {
+//                
+//                self.companyApplyVCBlock();
+//            }
+//        }
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
