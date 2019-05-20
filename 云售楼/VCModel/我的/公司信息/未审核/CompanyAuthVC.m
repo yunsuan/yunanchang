@@ -191,45 +191,98 @@
 
 - (void)ActionConfirmBtn:(UIButton *)btn{
     
-    if (!_companyId.length) {
+    if ([self.status isEqualToString:@"reApply"]) {
         
-        return;
-    }
-    if (!_departId.length) {
-        
-        return;
-    }
-    if (!_posiId.length) {
-        
-        return;
-    }
-    NSDictionary *dic = @{@"company_id":_companyId,
-                          @"department_id":_departId,
-                          @"post_id":_posiId,
-                          @"role":_roleId
-                          };
-//    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:dic];
-//    if (_roleId.length) {
-//
-//        [tempDic setObject:_roleId forKey:@"role"];
-//    }
-    [BaseRequest POST:CompanyAuth_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 200) {
+        if ([self.status isEqualToString:@"reApply"]) {
             
-            [self alertControllerWithNsstring:@"申请成功" And:@"请等待审核或者联系审核人" WithDefaultBlack:^{
-               
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
-                [self.navigationController popViewControllerAnimated:YES];
+            if (!_companyId.length) {
+                
+                return;
+            }
+            if (!_departId.length) {
+                
+                return;
+            }
+            if (!_posiId.length) {
+                
+                return;
+            }
+            NSDictionary *dic = @{@"before_auth_id":self.authId,
+                                  @"company_id":_companyId,
+                                  @"department_id":_departId,
+                                  @"post_id":_posiId,
+                                  @"role":_roleId
+                                  };
+            //    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+            //    if (_roleId.length) {
+            //
+            //        [tempDic setObject:_roleId forKey:@"role"];
+            //    }
+            [BaseRequest POST:CompanyAuth_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self alertControllerWithNsstring:@"申请成功" And:@"请等待审核或者联系审核人" WithDefaultBlack:^{
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
+                        if (self.companyAuthVCBlock) {
+                            
+                            self.companyAuthVCBlock();
+                        }
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
             }];
-        }else{
-            
-            [self showContent:resposeObject[@"msg"]];
         }
-    } failure:^(NSError * _Nonnull error) {
+    }else{
         
-        [self showContent:@"网络错误"];
-    }];
+        if (!_companyId.length) {
+            
+            return;
+        }
+        if (!_departId.length) {
+            
+            return;
+        }
+        if (!_posiId.length) {
+            
+            return;
+        }
+        NSDictionary *dic = @{@"company_id":_companyId,
+                              @"department_id":_departId,
+                              @"post_id":_posiId,
+                              @"role":_roleId
+                              };
+        //    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+        //    if (_roleId.length) {
+        //
+        //        [tempDic setObject:_roleId forKey:@"role"];
+        //    }
+        [BaseRequest POST:CompanyAuth_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self alertControllerWithNsstring:@"申请成功" And:@"请等待审核或者联系审核人" WithDefaultBlack:^{
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }
 }
 
 - (void)initUI{

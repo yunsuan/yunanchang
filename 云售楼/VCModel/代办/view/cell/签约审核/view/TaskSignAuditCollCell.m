@@ -27,15 +27,15 @@
     [self.contentView addSubview:_headLine];
     
     _tagImg = [[UIImageView alloc] initWithFrame:CGRectMake(18 *SIZE, 5 *SIZE, 35 *SIZE, 17 *SIZE)];
-    _tagImg.image = IMAGE_WITH_NAME(@"");
+    _tagImg.image = IMAGE_WITH_NAME(@"label");
     [self.contentView addSubview:_tagImg];
     
-    _markL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 35 *SIZE, 14 *SIZE)];
-    _markL.textColor = CLWhiteColor;
-    _markL.font = [UIFont systemFontOfSize:7 *SIZE];
-    _markL.textAlignment = NSTextAlignmentCenter;
-    _markL.text = @"查看备注";
-    [_tagImg addSubview:_markL];
+//    _markL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 35 *SIZE, 14 *SIZE)];
+//    _markL.textColor = CLWhiteColor;
+//    _markL.font = [UIFont systemFontOfSize:7 *SIZE];
+//    _markL.textAlignment = NSTextAlignmentCenter;
+//    _markL.text = @"查看备注";
+//    [_tagImg addSubview:_markL];
     
     _circleImg = [[UIImageView alloc] initWithFrame:CGRectMake(6 *SIZE, 22 *SIZE, 33 *SIZE, 33 *SIZE)];
     _circleImg.image = IMAGE_WITH_NAME(@"blue");

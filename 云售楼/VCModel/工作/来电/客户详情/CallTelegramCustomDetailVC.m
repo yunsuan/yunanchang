@@ -177,16 +177,16 @@
         }else if (_index == 1){
             
             
-            NSData *jsonData = [_intentArr[section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
-            NSError *err;
-            NSArray *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                options:NSJSONReadingAllowFragments
-                                                                  error:&err];
-//            NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
+//            NSData *jsonData = [_intentArr[section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
+//            NSError *err;
+//            NSArray *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+//                                                                options:NSJSONReadingAllowFragments
+//                                                                  error:&err];
+////            NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
 //            NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:dic
 //                                                            options:NSJSONReadingAllowFragments
 //                                                              error:&err];
-            return [dic count];
+            return [_intentArr[section - 1][@"list"] count];
         }else{
             
             return _followArr.count;//[_followArr[section - 1] count];
@@ -350,7 +350,7 @@
             
             header.callTelegramCustomDetailIntentHeaderDeleteBlock = ^(NSInteger index) {
                 
-                [BaseRequest POST:WorkClientAutoNeedUpdate_URL parameters:@{@"need_id":self->_intentArr[section - 1][@"list"][0][@"need_id"],@"state":@"0"} success:^(id  _Nonnull resposeObject) {
+                [BaseRequest POST:WorkClientAutoNeedDel_URL parameters:@{@"property_id":self->_intentArr[section - 1][@"property_id"],@"group_id":self->_groupId} success:^(id  _Nonnull resposeObject) {
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
@@ -426,19 +426,25 @@
         
         cell.callTelegramCustomDetailInfoCellDeleteBlock = ^{
             
-            [BaseRequest POST:WorkClientAutoClientUpdate_URL parameters:@{@"state":@"0",@"client_id":self->_peopleArr[self->_num][@"client_id"]} success:^(id  _Nonnull resposeObject) {
+            if (self->_peopleArr.count > 1) {
                 
-                if ([resposeObject[@"code"] integerValue] == 200) {
+                [BaseRequest POST:WorkClientAutoClientUpdate_URL parameters:@{@"state":@"0",@"client_id":self->_peopleArr[self->_num][@"client_id"]} success:^(id  _Nonnull resposeObject) {
                     
-                    [self RequestMethod];
-                }else{
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self RequestMethod];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
                     
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError * _Nonnull error) {
-                
-                [self showContent:@"网络错误"];
-            }];
+                    [self showContent:@"网络错误"];
+                }];
+            }else{
+             
+                [self showContent:@"唯一客户不能删除"];
+            }
         };
         
         return cell;
@@ -468,16 +474,16 @@
             make.left.equalTo(cell.contentView).offset(28 *SIZE);
         }];
         
-        NSData *jsonData = [_intentArr[indexPath.section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *err;
-        NSArray *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                       options:NSJSONReadingAllowFragments
-                                                         error:&err];
+//        NSData *jsonData = [_intentArr[indexPath.section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
+//        NSError *err;
+//        NSArray *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+//                                                       options:NSJSONReadingAllowFragments
+//                                                         error:&err];
 //        NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
 //        NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:jsonData1
 //                                                       options:NSJSONReadingAllowFragments
 //                                                         error:&err];
-        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",dic[indexPath.row][@"config_name"],dic[indexPath.row][@"value"]];
+        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"config_name"],_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"value"]];
         return cell;
     }else{
         

@@ -22,7 +22,10 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    
+    if (self.companyInfoCellBlock) {
+        
+        self.companyInfoCellBlock(self.tag);
+    }
 }
 
 - (void)ActionEditBtn:(UIButton *)btn{
@@ -81,7 +84,7 @@
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_editBtn addTarget:self action:@selector(ActionEditBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_editBtn setImage:IMAGE_WITH_NAME(@"editor_3") forState:UIControlStateNormal];
-    [self.contentView addSubview:_editBtn];
+//    [self.contentView addSubview:_editBtn];
     
     for (int i = 0; i < 5; i++) {
         
@@ -195,13 +198,13 @@
         make.width.mas_equalTo(265 *SIZE);
     }];
     
-    [_editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(self->_backView).offset(-11 *SIZE);
-        make.top.equalTo(self->_positionL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(16 *SIZE);
-        make.height.mas_equalTo(16 *SIZE);
-    }];
+//    [_editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.right.equalTo(self->_backView).offset(-11 *SIZE);
+//        make.top.equalTo(self->_positionL.mas_bottom).offset(10 *SIZE);
+//        make.width.mas_equalTo(16 *SIZE);
+//        make.height.mas_equalTo(16 *SIZE);
+//    }];
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         

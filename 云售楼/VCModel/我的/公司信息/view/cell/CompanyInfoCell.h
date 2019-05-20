@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CompanyInfoCellBlock)(NSInteger index);
+
 @interface CompanyInfoCell : UITableViewCell
+
+@property (nonatomic, copy) CompanyInfoCellBlock companyInfoCellBlock;
 
 @property (nonatomic, strong) UIView *upLine;
 

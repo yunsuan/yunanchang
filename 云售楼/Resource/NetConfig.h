@@ -31,6 +31,9 @@ static NSString *const ProjectConfigPropertyConfigOptionList_URL = @"saleApp/pro
 //获取物业类型下需求字段
 static NSString *const ProjectConfigPropertyConfigList_URL = @"saleApp/project/config/property/config/list";
 
+//到访确认获取项目置业顾问
+static NSString *const ProjectGetAdvicer_URL = @"user/project/getAdvicer";
+
 #pragma mark ---  待办  ---
 
 //获取待办首页
@@ -67,6 +70,9 @@ static NSString *const WorkClientAutoNeedAdd_URL = @"saleApp/work/client/auto/ne
 
 //修改需求信息
 static NSString *const WorkClientAutoNeedUpdate_URL = @"saleApp/work/client/auto/need/update";
+
+//删除需求信息
+static NSString *const WorkClientAutoNeedDel_URL = @"saleApp/work/client/auto/need/del";
 
 //修改组信息
 static NSString *const WorkClientAutoGroupUpdate_URL = @"saleApp/work/client/auto/group/update";
@@ -281,6 +287,9 @@ static NSString *const ProjectRoleList_URL = @"saleApp/project/role/list";
 
 //认证
 static NSString *const CompanyAuth_URL = @"saleApp/company/auth";
+
+//重新认证
+static NSString *const CompanyAuthReAuth_URL = @"saleApp/company/auth/reAuth";
 
 //离职
 static NSString *const CompanyAuthQuit_URL = @"saleApp/company/auth/quit";

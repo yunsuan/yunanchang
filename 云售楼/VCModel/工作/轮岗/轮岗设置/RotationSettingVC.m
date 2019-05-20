@@ -9,7 +9,7 @@
 #import "RotationSettingVC.h"
 #import "RotationSettingCell.h"
 #import "CompanyHeader.h"
-#import "SettingHeader.h"
+//#import "SettingHeader.h"
 
 
 @interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource>

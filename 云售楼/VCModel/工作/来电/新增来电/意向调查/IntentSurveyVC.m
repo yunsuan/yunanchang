@@ -329,7 +329,7 @@
         }];
     }else if([self.status isEqualToString:@"add"]){
         
-        NSMutableDictionary *tempDic = [@{} mutableCopy];
+//        NSMutableDictionary *tempDic = [@{} mutableCopy];
         [_lastArr removeAllObjects];
         for (int i = 0; i < _dataArr.count; i++) {
             
@@ -345,9 +345,10 @@
                         BorderTextField *tf = _moduleArr[i][j];
                         if (![self isEmpty:tf.textField.text]) {
                             
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
+                            [needDic setObject:@"" forKey:@"value_id"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -363,9 +364,10 @@
                         DropBtn *btn = _moduleArr[i][j];
                         if (btn.content.text) {
                             
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
+                            [needDic setObject:btn->str forKey:@"value_id"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -385,9 +387,10 @@
                         DropBtn *btn = _moduleArr[i][j];
                         if (btn.content.text) {
                             
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
+                            [needDic setObject:btn->str forKey:@"value_id"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -425,7 +428,7 @@
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
         NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSDictionary *dic = @{@"need_list":jsonString,@"group_id":self.group_id,@"property_id":self.property_id};
+        NSDictionary *dic = @{@"need_list":jsonString,@"group_id":self.group_id};
         
         [BaseRequest POST:WorkClientAutoNeedAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
             
@@ -450,7 +453,7 @@
         for (int i = 0; i < _dataArr.count; i++) {
             
             NSArray *arr = _dataArr[i][@"list"];
-            NSMutableArray *tempArr = [@[] mutableCopy];
+//            NSMutableArray *tempArr = [@[] mutableCopy];
             for (int j = 0; j < arr.count; j++) {
                 
                 NSMutableDictionary *needDic = [[NSMutableDictionary alloc] init];
@@ -462,9 +465,10 @@
                         BorderTextField *tf = _moduleArr[i][j];
                         if (![self isEmpty:tf.textField.text]) {
                             
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
+                            [needDic setObject:@"" forKey:@"value_id"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -480,9 +484,10 @@
                         DropBtn *btn = _moduleArr[i][j];
                         if (btn.content.text) {
                             
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
+                            [needDic setObject:btn->str forKey:@"value_id"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -502,9 +507,10 @@
                         DropBtn *btn = _moduleArr[i][j];
                         if (btn.content.text) {
                             
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:dic[@"config_name"] forKey:@"config_name"];
+                            [needDic setObject:btn->str forKey:@"value_id"];
                         }else{
                             
                             if ([dic[@"is_must"] integerValue] == 1) {
@@ -520,26 +526,26 @@
                 }
                 if (needDic.count) {
                     
-                    [tempArr addObject:needDic];
+                    [_lastArr addObject:needDic];
                 }
             }
-            [_lastArr addObject:tempArr];
+//            [_lastArr addObject:tempArr];
         }
         
-        NSMutableArray *arr = [@[] mutableCopy];
+//        NSMutableArray *arr = [@[] mutableCopy];
         if (_lastArr.count) {
             
-            for (int i = 0; i < _lastArr.count; i++) {
-                
-                NSError *error;
-                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr[i] options:NSJSONWritingPrettyPrinted error:&error];
-                NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-                NSDictionary *dic = @{@"property_id":_dataArr[i][@"property_id"],@"need_list":jsonString};
-                [arr addObject:dic];
-            }
+//            for (int i = 0; i < _lastArr.count; i++) {
+//
+//                NSError *error;
+//                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr[i] options:NSJSONWritingPrettyPrinted error:&error];
+//                NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+//                NSDictionary *dic = @{@"property_id":_dataArr[i][@"property_id"],@"need_list":jsonString};
+//                [arr addObject:dic];
+//            }
 
             NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
             NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
             [self.allDic setObject:jsonString forKey:@"need_list"];
         }
