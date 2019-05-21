@@ -11,12 +11,18 @@
 #import "CompanyHeader.h"
 
 #import "DropBtn.h"
-#import "DateChooseView.h"
-
-
+#import "BorderTextField.h"
+#import "HMChooseView.h"
+#import "AddCompanyView.h"
+#import "AddCompanyVC.h"
+#import "AddPeopleVC.h"
+#import "RotationModel.h"
 
 
 @interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource>
+{
+    NSMutableArray *companyArr;
+}
 
 @property (nonatomic , strong) UITableView *SettingTable;
 
@@ -28,6 +34,13 @@
 
 @property (nonatomic, strong) DropBtn *endTime;
 
+@property (nonatomic , strong) BorderTextField *downTF;
+
+@property (nonatomic , strong) BorderTextField *upTF;
+
+@property (nonatomic , strong) AddCompanyView *addCompanyView;
+
+
 
 @end
 
@@ -35,6 +48,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    companyArr = [@[] mutableCopy];
     [self initUI];
     
 }
@@ -51,7 +65,54 @@
 
 -(void)action_sure
 {
-//    NSLog(@"%@",_AbdicateTable.indexPathsForSelectedRows);
+    NSString *personjson;
+    NSString *companyjson;
+    
+    [BaseRequest POST:Dutyadd_URL
+           parameters:@{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"],
+                        @"exchange_time_min":_downTF.textField.text,
+                        @"tip_time_min":_upTF.textField.text,
+                        @"start_time":_beginTime.content.text,
+                        @"end_time":_endTime.content.text,
+                        @"person_list":personjson,
+                        @"company_list":companyjson
+                        }
+              success:^(id  _Nonnull resposeObject) {
+        
+    } failure:^(NSError * _Nonnull error) {
+        
+    }];
+}
+
+-(void)action_begin
+{
+    HMChooseView *picker = [[HMChooseView alloc] initDatePackerWithStartHour:@"00" endHour:@"24" period:15 selectedHour:@"08" selectedMin:@"13"];
+    picker.dateblock = ^(NSString * _Nonnull date) {
+        _beginTime.content.text = date;
+    };
+    [picker show];
+}
+
+-(void)action_end
+{
+    HMChooseView *picker = [[HMChooseView alloc] initDatePackerWithStartHour:@"00" endHour:@"24" period:1 selectedHour:@"08" selectedMin:@"13"];
+    picker.dateblock = ^(NSString * _Nonnull date) {
+        _endTime.content.text = date;
+    };
+    [picker show];
+}
+
+-(void)action_people:(UIButton *)sender
+{
+    AddPeopleVC *next_vc = [[AddPeopleVC alloc]init];
+    next_vc.company_id = companyArr[sender.tag][@"company_id"];
+    next_vc.selectPeople = [companyArr[sender.tag][@"list"] mutableCopy];
+    next_vc.addBtnBlock = ^(NSDictionary * _Nonnull dic) {
+        NSMutableArray *list = companyArr[sender.tag][@"list"];
+        [list addObject:dic];
+        [_SettingTable reloadData];
+    };
+    [self.navigationController pushViewController:next_vc animated:YES];
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -61,7 +122,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    return companyArr.count;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -71,8 +132,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return 3;
+    NSMutableArray *list =companyArr[section][@"list"];
+    return list.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -91,7 +152,10 @@
     if (!header) {
         header = [[CompanyHeader alloc]initWithReuseIdentifier: @"CompanyHeader"];
     }
-
+    header.companyL.text = companyArr[section][@"company_name"];
+    header.addBtn.tag = section;
+    [header.addBtn addTarget:self action:@selector(action_people:) forControlEvents:UIControlEventTouchUpInside];
+    
     return header;
 }
 
@@ -104,6 +168,8 @@
         
         cell = [[RotationSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RotationSettingCell"];
     }
+    cell.nameL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"name"];
+    cell.phoneL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"tel"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
@@ -144,17 +210,98 @@
 -(UIView *)TableHeader{
     if (!_TableHeader) {
         _TableHeader = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 360*SIZE, 350*SIZE)];
+        NSArray *arr = @[@"每日轮岗开始时间：",@"每日轮岗结束时间：",@"自然下位时间(分):",@"上位提醒时间(分):"];
+        for (int i = 0; i<4; i++) {
+            UILabel *lab =  [[UILabel alloc]initWithFrame:CGRectMake(8*SIZE, 25*SIZE+55*SIZE*i, 110*SIZE, 13*SIZE)];
+            lab.text =arr[i];
+            lab.textColor = CLTitleLabColor;
+            lab.font = FONT(12);
+            [_TableHeader addSubview:lab];
+        }
+        [_TableHeader addSubview:self.beginTime];
+        [_TableHeader addSubview:self.endTime];
+        [_TableHeader addSubview:self.downTF];
+        [_TableHeader addSubview:self.upTF];
+        
+        UIView *view= [[UIView alloc]initWithFrame:CGRectMake(0, 230*SIZE, 360*SIZE, 7*SIZE)];
+        view.backgroundColor = COLOR(240, 240, 240, 1);
+        [_TableHeader addSubview:view];
+        [_TableHeader addSubview:self.addCompanyView];
+        
         
     
-    }
+    } 
     return _TableHeader;
 }
 
 
-   
+-(DropBtn *)beginTime
+{
+    if (!_beginTime) {
+        _beginTime = [[DropBtn alloc]initWithFrame:CGRectMake(121*SIZE, 13*SIZE, 216*SIZE, 33*SIZE)];
+        [_beginTime addTarget:self action:@selector(action_begin) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _beginTime;
+}
+
+-(DropBtn *)endTime
+{
+    if (!_endTime) {
+        _endTime = [[DropBtn alloc]initWithFrame:CGRectMake(121*SIZE, 68*SIZE, 216*SIZE, 33*SIZE)];
+        [_endTime addTarget:self action:@selector(action_end) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _endTime;
+}
+
+-(BorderTextField *)downTF
+{
+    if (!_downTF) {
+        _downTF = [[BorderTextField alloc]initWithFrame:CGRectMake(121*SIZE, 123*SIZE, 216*SIZE, 33*SIZE)];
+        _downTF.textField.placeholder = @"设置为0则无自然下岗";
+    }
+    return _downTF;
+}
 
 
+-(BorderTextField *)upTF
+{
+    if (!_upTF) {
+        _upTF = [[BorderTextField alloc]initWithFrame:CGRectMake(121*SIZE, 178*SIZE, 216*SIZE, 33*SIZE)];
+    }
+    return _upTF;
+}
 
 
+-(AddCompanyView *)addCompanyView
+{
+    if(!_addCompanyView)
+    {
+        _addCompanyView = [[AddCompanyView alloc]initWithFrame:CGRectMake(0, 240*SIZE, 360*SIZE, 103*SIZE)];
+        _addCompanyView.dataArr = companyArr;
+        
+        _addCompanyView.deletBtnBlock = ^{
+            companyArr = _addCompanyView.dataArr;
+            [_SettingTable reloadData];
+        };
+        
+        _addCompanyView.addBtnBlock = ^{
+            AddCompanyVC *next_vc = [[AddCompanyVC alloc]init];
+            next_vc.selectCompany = companyArr;
+            next_vc.addBtnBlock = ^(NSMutableDictionary * _Nonnull dic) {
+                [companyArr addObject:dic];
+                _addCompanyView.dataArr = companyArr;
+//                [_addCompanyView.dataArr addObject:dic];
+                [_addCompanyView.tagColl reloadData];
+                [_SettingTable reloadData];
+                
+            };
+            [self.navigationController pushViewController:next_vc animated:YES];
+            
+        };
+    }
+    return _addCompanyView;
+}
 
 @end

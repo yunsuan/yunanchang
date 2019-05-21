@@ -126,8 +126,6 @@
     return _pickerView;
 }
 
-
-
 #pragma mark -- init
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -136,20 +134,6 @@
         _date =  [NSDate date];
         [self initSuViews];
     }
-    return self;
-}
-
--(instancetype)initWithFrame:(CGRect)frame Mode:(UIDatePickerMode)mode
-{
-     if (self = [super initWithFrame:frame]) {
-         [self addSubview:self.bgView];
-         [self.bgView addSubview:self.toolBar];
-         [self.bgView addSubview:self.pickerView];
-         [self.toolBar addSubview:self.cancleBtn];
-         [self.toolBar addSubview:self.sureBtn];
-         self.pickerView.datePickerMode = UIDatePickerModeCountDownTimer;
-         [self showPickerView];
-     }
     return self;
 }
 
@@ -163,7 +147,6 @@
     [self.toolBar addSubview:self.sureBtn];
     [self showPickerView];
 }
-
 
 #pragma mark -- showPickerView
 - (void)showPickerView

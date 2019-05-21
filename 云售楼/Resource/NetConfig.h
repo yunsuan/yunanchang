@@ -297,4 +297,20 @@ static NSString *const CompanyAuthQuit_URL = @"saleApp/company/auth/quit";
 //取消认证
 static NSString *const CompanyAuthCancel_URL = @"saleApp/company/auth/cancel";
 
+#pragma mark === 轮岗 =====
+//轮岗详情
+static NSString *const DutyDetail_URL = @"saleApp/project/duty/detail";
+
+//新增详情
+static NSString *const Dutyadd_URL = @"saleApp/project/duty/add";
+
+
+//获取公司
+static NSString *const GetCompany_URL = @"saleApp/project/duty/company/list";
+
+
+//获取人员
+static NSString *const GetPeople_URL = @"saleApp/project/duty/company/person/list";
+
+
 #endif /* NetConfig_h */
