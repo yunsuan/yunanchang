@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddCompanyVC : BaseViewController
 
+@property (nonatomic, strong) NSString *status;
+
+@property (nonatomic, strong) NSString *duty_id;
+
+@property (nonatomic, strong) NSString *sort;
+
 @property (nonatomic,copy) void (^addBtnBlock)(NSMutableDictionary *dic);
 
 @property (nonatomic , strong) NSArray *selectCompany;

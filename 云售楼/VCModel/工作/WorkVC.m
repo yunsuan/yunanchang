@@ -131,7 +131,8 @@
         WorkPersonAuditVC *nextVC = [[WorkPersonAuditVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 9){
-        RotationVC *nextVC = [[RotationVC alloc]init];
+        
+        RotationVC *nextVC = [[RotationVC alloc]initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
     else{

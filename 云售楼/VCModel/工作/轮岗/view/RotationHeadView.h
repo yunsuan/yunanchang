@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *companyL;
 @property (nonatomic, strong) UIButton *compleBtn;
 
+@property (nonatomic, strong) NSMutableDictionary *dataDic;
+
 
 
 

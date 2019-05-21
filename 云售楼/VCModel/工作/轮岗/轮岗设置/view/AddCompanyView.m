@@ -58,14 +58,32 @@
     
     [cell setstylebytype:@"0" andsetlab:_dataArr[(NSUInteger) indexPath.item][@"company_name"]];
     cell.deleteBtnBlock = ^(NSUInteger index) {
-        [_dataArr removeObjectAtIndex:index];
-        [collectionView reloadData];
-        [self reloadInputViews];
         
-        if (self.deletBtnBlock) {
-            self.deletBtnBlock();
+        if (self->_dataArr.count == 1) {
+
+            [MBProgressHUD showError:@"至少需要保留一个团队"];
+        }else{
+        
+            [BaseRequest POST:DutyCompanyUpdate_URL parameters:@{@"duty_company_id":self->_dataArr[indexPath.item][@"duty_company_id"],@"disabled_state":@"1"} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self->_dataArr removeObjectAtIndex:index];
+                    [collectionView reloadData];
+                    [self reloadInputViews];
+                    
+                    if (self.deletBtnBlock) {
+                        self.deletBtnBlock();
+                    }
+                }else{
+                    
+                    [MBProgressHUD showError:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [MBProgressHUD showError:@"网络错误"];
+            }];
         }
-        
     };
     return cell;
 }

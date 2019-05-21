@@ -7,6 +7,9 @@
 //
 
 #import "AddCompanyVC.h"
+
+#import "AddPeopleVC.h"
+
 #import "CompanyChooseCell.h"
 
 @interface AddCompanyVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -21,8 +24,6 @@
 
 @end
 
-
-
 @implementation AddCompanyVC
 
 
@@ -33,6 +34,7 @@
 }
 
 -(void)Post{
+    
     [BaseRequest GET:GetCompany_URL
            parameters:@{
                         @"project_id":[UserModel defaultModel].projectinfo[@"project_id"]
@@ -72,11 +74,37 @@
     
     if (_dataarr.count) {
         
-        if (self.addBtnBlock) {
+        if ([self.status isEqualToString:@"add"]) {
             
-            self.addBtnBlock([_dataarr[ _CompanyTable.indexPathsForSelectedRows[0].row] mutableCopy]);
-            [self.navigationController popViewControllerAnimated:YES];
+            AddPeopleVC *next_vc = [[AddPeopleVC alloc]init];
+            next_vc.company_id = _dataarr[0][@"company_id"];
+            next_vc.status = self.status;
+            next_vc.sort = self.sort;
+            next_vc.duty_id = self.duty_id;
+            next_vc.addBtnBlock = ^(NSDictionary * _Nonnull dic) {
+                
+                NSMutableArray *list = [@[] mutableCopy];
+                [list addObject:dic];
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataarr[0]];
+                [tempDic setObject:list forKey:@"list"];
+                [self->_dataarr replaceObjectAtIndex:0 withObject:tempDic];
+                if (self.addBtnBlock) {
+                    
+                    self.addBtnBlock(self->_dataarr[0]);
+                }
+            };
+            [self.navigationController pushViewController:next_vc animated:YES];
+        }else{
+            
+            if (self.addBtnBlock) {
+                
+                self.addBtnBlock([_dataarr[ _CompanyTable.indexPathsForSelectedRows[0].row] mutableCopy]);
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
+    }else{
+        
+        [self alertControllerWithNsstring:@"选择公司" And:@"请选择公司"];
     }
 }
 

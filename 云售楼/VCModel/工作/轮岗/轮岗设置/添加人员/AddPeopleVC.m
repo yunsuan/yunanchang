@@ -7,6 +7,9 @@
 //
 
 #import "AddPeopleVC.h"
+
+#import "RotationSettingVC.h"
+
 #import "AbdicateCell.h"
 
 @interface AddPeopleVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -74,8 +77,66 @@
         
         if (self.addBtnBlock) {
             
+            
             self.addBtnBlock(_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
-            [self.navigationController popViewControllerAnimated:YES];
+            if ([self.status isEqualToString:@"add"]) {
+                
+                NSArray *arr = @[@{@"company_id":_dataarr[0][@"company_id"],@"agent_id":_dataarr[0][@"agent_id"],@"sort":@"0"}];
+                NSError *error;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
+                NSString *personjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+                [BaseRequest POST:DutyCompanyAdd_URL parameters:@{@"duty_id":self.duty_id,@"company_id":self.company_id,@"sort":self.sort,@"person_list":personjson} success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        for (UIViewController *vc in self.navigationController.viewControllers) {
+                            
+                            if ([vc isKindOfClass:[RotationSettingVC class]]) {
+                                
+                                [self.navigationController popToViewController:vc animated:YES];
+                                break;
+                            }
+                        }
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }else if([self.status isEqualToString:@"direct"]){
+                
+                NSArray *arr = @[@{@"company_id":_dataarr[0][@"company_id"],@"agent_id":_dataarr[0][@"agent_id"],@"sort":@"0"}];
+                NSError *error;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
+                NSString *personjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+                [BaseRequest POST:DutyCompanyAdd_URL parameters:@{@"duty_id":self.duty_id,@"person_list":personjson} success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        for (UIViewController *vc in self.navigationController.viewControllers) {
+                            
+                            if ([vc isKindOfClass:[RotationSettingVC class]]) {
+                                
+                                [self.navigationController popToViewController:vc animated:YES];
+                                break;
+                            }
+                        }
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }else{
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }
 }
