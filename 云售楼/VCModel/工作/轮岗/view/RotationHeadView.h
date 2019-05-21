@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^RotationHeadViewBlock)(void);
+
 @interface RotationHeadView : UICollectionReusableView
+
+@property (nonatomic, copy) RotationHeadViewBlock rotationHeadViewBlock;
 
 @property (nonatomic, strong) UIImageView *headImg;
 @property (nonatomic, strong) UILabel *nameL;

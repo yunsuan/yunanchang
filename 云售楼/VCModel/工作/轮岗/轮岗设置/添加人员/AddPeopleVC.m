@@ -76,9 +76,7 @@
     if (_dataarr.count) {
         
         if (self.addBtnBlock) {
-            
-            
-            self.addBtnBlock(_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
+        
             if ([self.status isEqualToString:@"add"]) {
                 
                 NSArray *arr = @[@{@"company_id":_dataarr[0][@"company_id"],@"agent_id":_dataarr[0][@"agent_id"],@"sort":@"0"}];
@@ -88,8 +86,10 @@
                 
                 [BaseRequest POST:DutyCompanyAdd_URL parameters:@{@"duty_id":self.duty_id,@"company_id":self.company_id,@"sort":self.sort,@"person_list":personjson} success:^(id  _Nonnull resposeObject) {
                     
+                    
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
+                        self.addBtnBlock(self->_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
                         for (UIViewController *vc in self.navigationController.viewControllers) {
                             
                             if ([vc isKindOfClass:[RotationSettingVC class]]) {
@@ -115,8 +115,10 @@
                 
                 [BaseRequest POST:DutyCompanyAdd_URL parameters:@{@"duty_id":self.duty_id,@"person_list":personjson} success:^(id  _Nonnull resposeObject) {
                     
+                    
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
+                        self.addBtnBlock(self->_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
                         for (UIViewController *vc in self.navigationController.viewControllers) {
                             
                             if ([vc isKindOfClass:[RotationSettingVC class]]) {
@@ -135,6 +137,7 @@
                 }];
             }else{
                 
+                self.addBtnBlock(_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }

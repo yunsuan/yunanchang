@@ -11,7 +11,11 @@
 #import "AbdicateHeaderView.h"
 
 @interface AbdicateVC ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    
+    NSString *_reserve_agent;
+    NSMutableDictionary *_dataDic;
+}
 @property (nonatomic , strong) UITableView *AbdicateTable;
 
 @property (nonatomic , strong) UIButton *SureBtn;
@@ -19,6 +23,39 @@
 @end
 
 @implementation AbdicateVC
+
+- (instancetype)initWithData:(NSDictionary *)data
+{
+    self = [super init];
+    if (self) {
+        
+        _dataDic = [[NSMutableDictionary alloc] initWithDictionary:data];
+        NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:_dataDic[@"person"]];
+        for (int i = 0; i < tempArr.count; i++) {
+            
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
+            NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
+            [listArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+               
+                if ([obj[@"duty_agent_id"] isEqualToString:self->_dataDic[@"duty"][@"duty_agent_id"]]) {
+                    
+                    [listArr removeObjectAtIndex:idx];
+                    *stop = YES;
+                }
+            }];
+            if (listArr.count) {
+                
+                [tempDic setObject:listArr forKey:@"list"];
+                [tempArr replaceObjectAtIndex:i withObject:tempDic];
+            }else{
+            
+                [tempArr removeObjectAtIndex:i];
+            }
+        }
+        [_dataDic setObject:tempArr forKey:@"person"];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,12 +71,31 @@
     [self.view addSubview:self.AbdicateTable];
     [self.view addSubview:self.SureBtn];
 
-    
 }
 
 -(void)action_sure
 {
+    if (_reserve_agent.length) {
+        
+        [BaseRequest POST:DutyAgentUpdate_URL parameters:@{@"duty_agent_id":_dataDic[@"duty"][@"duty_agent_id"],@"reserve_agent":_reserve_agent} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        [self alertControllerWithNsstring:@"让位错误" And:@"请选择让位人员"];
+    }
     NSLog(@"%@",_AbdicateTable.indexPathsForSelectedRows);
+    
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -49,10 +105,12 @@ return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    return [_dataDic[@"person"] count];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    _reserve_agent = [NSString stringWithFormat:@"%@",_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"duty_agent_id"]];
     if (tableView.indexPathsForSelectedRows.count>1) {
         [tableView deselectRowAtIndexPath:tableView.indexPathsForSelectedRows[0] animated:NO];
     }
@@ -60,7 +118,7 @@ return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return [_dataDic[@"person"][section][@"list"] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -80,7 +138,7 @@ return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
         header = [[AbdicateHeaderView alloc]initWithReuseIdentifier: @"AbdicateHeaderView"];
     }
 
-
+    header.companyL.text = _dataDic[@"person"][section][@"company_name"];
     return header;
 }
 
@@ -94,7 +152,8 @@ return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
         cell = [[AbdicateCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AbdicateCell"];
     }
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    cell.nameL.text = _dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"name"];
+    cell.phoneL.text = _dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"tel"];
     
     return cell;
 }

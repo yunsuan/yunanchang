@@ -53,6 +53,23 @@
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
+//    [BaseRequest GET:DutyStartURL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+//        
+//        NSLog(@"%@",resposeObject);
+////        if (self.rotationSettingVCBlock) {
+////
+////            self.rotationSettingVCBlock();
+////            [self.navigationController popViewControllerAnimated:YES];
+////        }
+//    } failure:^(NSError * _Nonnull error) {
+//        
+////        if (self.rotationSettingVCBlock) {
+////            
+////            self.rotationSettingVCBlock();
+////            [self.navigationController popViewControllerAnimated:YES];
+////        }
+//        NSLog(@"%@",error);
+//    }];
 }
 
 - (void)initDataSource{
@@ -114,12 +131,24 @@
     }];
     UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"接待客户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
+        [BaseRequest GET:DutyNext_URL parameters:@{@"project_id":self->_project_id} success:^(id  _Nonnull resposeObject) {
             
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self RequestMethod];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+           
+            [self showContent:@"网络错误"];
         }];
+    }];
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"让位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        AbdicateVC *next_vc = [[AbdicateVC alloc]init];
-        [self.navigationController pushViewController:next_vc animated:YES];
         
+        AbdicateVC *next_vc = [[AbdicateVC alloc] initWithData:self->_dataDic];
+        [self.navigationController pushViewController:next_vc animated:YES];
     }];
     
     [alert addAction:action1];

@@ -22,12 +22,52 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _nameL.text = [NSString stringWithFormat:@"%@",dataDic[@""]];
+    if (dataDic[@"agent_name"]) {
+        
+        _nameL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_name"]];
+    }else{
+        
+        _nameL.text = @"暂无开启";
+    }
+    
+    if (dataDic[@"agent_tel"]) {
+        
+        _phoneL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_tel"]];
+    }
+    
+    if (dataDic[@""]) {
+        
+        _titleL.text = [NSString stringWithFormat:@"当前%@位",dataDic[@""]];
+    }else{
+        
+        _titleL.text = @"暂无开启";
+    }
+    
     _beginL.text = [NSString stringWithFormat:@"今日开始时间：%@",dataDic[@"start_time"]];
     _endL.text = [NSString stringWithFormat:@"今日截止时间：%@",dataDic[@"end_time"]];
-    _titleL.text = [NSString stringWithFormat:@"当前%@位",dataDic[@""]];
+    
     _timeL.text = [NSString stringWithFormat:@"自然下位时间：%@",dataDic[@"exchange_time_min"]];
-    _phoneL.text = [NSString stringWithFormat:@"%@",dataDic[@""]];
+    if (_dataDic[@"agent_tel"]) {
+        
+        if ([_dataDic[@"agent_tel"] isEqualToString:[UserInfoModel defaultModel].tel]) {
+            
+            _compleBtn.hidden = NO;
+        }else{
+            
+            _compleBtn.hidden = YES;
+        }
+    }else{
+        
+        _compleBtn.hidden = YES;
+    }
+}
+
+- (void)ActionNextBtn:(UIButton *)btn{
+    
+    if (self.rotationHeadViewBlock) {
+        
+        self.rotationHeadViewBlock();
+    }
 }
 
 -(void)initUI{
@@ -83,6 +123,7 @@
     _compleBtn.backgroundColor = CLBlueBtnColor;
     _compleBtn.layer.masksToBounds = YES;
     _compleBtn.layer.cornerRadius = 2*SIZE;
+    [_compleBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_compleBtn];
     
     _backView = [[UIView alloc]initWithFrame:CGRectMake(0, 130*SIZE, 360*SIZE, 37*SIZE)];

@@ -193,11 +193,23 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                if (self.rotationSettingVCBlock) {
+                [BaseRequest GET:DutyStartURL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
                     
-                    self.rotationSettingVCBlock();
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
+                    NSLog(@"%@",resposeObject);
+                    if (self.rotationSettingVCBlock) {
+                        
+                        self.rotationSettingVCBlock();
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    if (self.rotationSettingVCBlock) {
+                        
+                        self.rotationSettingVCBlock();
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    NSLog(@"%@",error);
+                }];
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];
@@ -533,7 +545,14 @@
         SS(strongSelf);
         _addCompanyView.deletBtnBlock = ^{
             
-            self->companyArr = self->_addCompanyView.dataArr;
+            if (strongSelf->_dataDic.count) {
+                
+                if (strongSelf.rotationSettingVCBlock) {
+                    
+                    strongSelf.rotationSettingVCBlock();
+                }
+            }
+            strongSelf->companyArr = strongSelf->_addCompanyView.dataArr;
             [strongSelf->_SettingTable reloadData];
         };
         
