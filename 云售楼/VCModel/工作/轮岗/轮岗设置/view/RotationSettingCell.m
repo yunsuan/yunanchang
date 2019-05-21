@@ -20,6 +20,22 @@
     return self;
 }
 
+- (void)ActionDeleteBtn:(UIButton *)btn{
+    
+    if (self.rotationSettingCellDeleleBtnBlock) {
+        
+        self.rotationSettingCellDeleleBtnBlock();
+    }
+}
+
+- (void)ActionSleepBtn:(UIButton *)btn{
+    
+    if (self.rotationSettingCellSleepBtnBlock) {
+        
+        self.rotationSettingCellSleepBtnBlock();
+    }
+}
+
 -(void)initUI{
     self.backgroundColor = [UIColor whiteColor];
     //    _selectImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"default"]];
@@ -50,6 +66,7 @@
     _deleteBtn.layer.masksToBounds = YES;
     _deleteBtn.layer.cornerRadius = 2*SIZE;
     _deleteBtn.titleLabel.font =  FONT(13);
+    [_deleteBtn addTarget:self action:@selector(ActionDeleteBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_deleteBtn];
     
     _sleepBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -60,6 +77,7 @@
     _sleepBtn.layer.masksToBounds = YES;
     _sleepBtn.layer.cornerRadius = 2*SIZE;
     _sleepBtn.titleLabel.font =  FONT(13);
+    [_sleepBtn addTarget:self action:@selector(ActionSleepBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_sleepBtn];
     
 }

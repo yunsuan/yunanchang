@@ -26,13 +26,10 @@
 @implementation AddCompanyVC
 
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self Post];
     [self initUI];
-    
 }
 
 -(void)Post{
@@ -43,7 +40,7 @@
               success:^(id  _Nonnull resposeObject) {
                   
                   if ([resposeObject[@"code"] integerValue]==200) {
-                      _dataarr = [resposeObject[@"data"] mutableCopy];
+                      self->_dataarr = [resposeObject[@"data"] mutableCopy];
                       [self ClernSameData];
                       [self.view addSubview:self.CompanyTable];
                       [self.view addSubview:self.SureBtn];
@@ -67,26 +64,25 @@
     
     self.titleLabel.text = @"选择公司";
     self.leftButton.hidden = NO;
-
-    
-    
     
 }
 
 -(void)action_sure
 {
     
-    
-    if (self.addBtnBlock) {
+    if (_dataarr.count) {
         
-        self.addBtnBlock([_dataarr[ _CompanyTable.indexPathsForSelectedRows[0].row] mutableCopy]);
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.addBtnBlock) {
+            
+            self.addBtnBlock([_dataarr[ _CompanyTable.indexPathsForSelectedRows[0].row] mutableCopy]);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
     
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -95,6 +91,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (tableView.indexPathsForSelectedRows.count>1) {
         [tableView deselectRowAtIndexPath:tableView.indexPathsForSelectedRows[0] animated:NO];
     }
@@ -108,12 +105,9 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 73*SIZE;
+    
+    return 87*SIZE;
 }
-
-
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -134,8 +128,6 @@
     
     return cell;
 }
-
-
 
 
 -(UITableView *)CompanyTable
@@ -168,18 +160,29 @@
 -(void)ClernSameData
 {
     NSMutableArray *samearr = [@[] mutableCopy];
-    for (int i = 0; i<_selectCompany.count; i++) {
-        for (int j = 0; j<_dataarr.count; j++) {
-            if ([_selectCompany[i][@"company_id"] isEqual:_dataarr[j][@"company_id"]]) {
+    for (int i = 0; i< _selectCompany.count; i++) {
+        
+        for (int j = 0; j < _dataarr.count; j++) {
+            if ([_selectCompany[i][@"company_id"] integerValue] == [_dataarr[j][@"company_id"] integerValue]) {
+                
                 [samearr addObject:[NSString stringWithFormat:@"%d",j]];
+                [_dataarr removeObjectAtIndex:j];
             }
         }
     }
-    if (samearr.count>0) {
-        for (int i = 0;i<samearr.count ; i++) {
-            [_dataarr removeObjectAtIndex:[samearr[i] integerValue]];
-        }
-    }
+//    if (samearr.count>0) {
+//
+//        for (int i = 0;i < samearr.count ; i++) {
+//
+//            for (int j = 0; j < _dataarr.count; j++) {
+//
+//                if ([_dataarr[j][@"company_id"] integerValue] == [samearr[i] integerValue]) {
+//
+//                    [_dataarr removeObjectAtIndex:j];
+//                }
+//            }
+//        }
+//    }
 }
 
 

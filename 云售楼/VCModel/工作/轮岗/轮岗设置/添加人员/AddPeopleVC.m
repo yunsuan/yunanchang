@@ -39,7 +39,7 @@
              success:^(id  _Nonnull resposeObject) {
                  
                  if ([resposeObject[@"code"] integerValue]==200) {
-                     _dataarr = [resposeObject[@"data"] mutableCopy];
+                     self->_dataarr = [resposeObject[@"data"] mutableCopy];
                      [self ClernSameData];
                      [self.view addSubview:self.PeopleTable];
                      [self.view addSubview:self.SureBtn];
@@ -70,10 +70,13 @@
 
 -(void)action_sure
 {
-    if (self.addBtnBlock) {
+    if (_dataarr.count) {
         
-        self.addBtnBlock(_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].row]);
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.addBtnBlock) {
+            
+            self.addBtnBlock(_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -99,6 +102,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     return 73*SIZE;
 }
 
@@ -112,10 +116,14 @@
         cell = [[AbdicateCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AbdicateCell"];
     }
     //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.nameL.text = _dataarr[indexPath.row][@"name"];
-    cell.phoneL.text = _dataarr[indexPath.row][@"tel"];
-    [cell.headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataarr[indexPath.row][@"url"]]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    cell.nameL.text = _dataarr[indexPath.section][@"name"];
+    cell.phoneL.text = _dataarr[indexPath.section][@"tel"];
+    [cell.headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataarr[indexPath.section][@"url"]]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         
+        if (error) {
+            
+            
+        }
     }];
     return cell;
 }
@@ -156,16 +164,18 @@
     NSMutableArray *samearr = [@[] mutableCopy];
     for (int i = 0; i<_selectPeople.count; i++) {
         for (int j = 0; j<_dataarr.count; j++) {
-            if ([_selectPeople[i][@"agent_id"] isEqual:_dataarr[j][@"agent_id"]]) {
+            if ([_selectPeople[i][@"agent_id"] integerValue] == [_dataarr[j][@"agent_id"] integerValue]) {
+                
                 [samearr addObject:[NSString stringWithFormat:@"%d",j]];
+                [_dataarr removeObjectAtIndex:j];
             }
         }
     }
-    if (samearr.count>0) {
-        for (int i = 0;i<samearr.count ; i++) {
-            [_dataarr removeObjectAtIndex:[samearr[i] integerValue]];
-        }
-    }
+//    if (samearr.count>0) {
+//        for (int i = 0;i<samearr.count ; i++) {
+//            [_dataarr removeObjectAtIndex:[samearr[i] integerValue]];
+//        }
+//    }
 }
 
 

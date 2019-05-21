@@ -21,6 +21,7 @@
 
 @interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource>
 {
+    
     NSMutableArray *companyArr;
 }
 
@@ -40,8 +41,6 @@
 
 @property (nonatomic , strong) AddCompanyView *addCompanyView;
 
-
-
 @end
 
 @implementation RotationSettingVC
@@ -59,8 +58,6 @@
     self.leftButton.hidden = NO;
     [self.view addSubview:self.SettingTable];
     [self.view addSubview:self.SureBtn];
-    
-    
 }
 
 -(void)action_sure
@@ -88,7 +85,8 @@
 {
     HMChooseView *picker = [[HMChooseView alloc] initDatePackerWithStartHour:@"00" endHour:@"24" period:15 selectedHour:@"08" selectedMin:@"13"];
     picker.dateblock = ^(NSString * _Nonnull date) {
-        _beginTime.content.text = date;
+        
+        self->_beginTime.content.text = date;
     };
     [picker show];
 }
@@ -97,7 +95,8 @@
 {
     HMChooseView *picker = [[HMChooseView alloc] initDatePackerWithStartHour:@"00" endHour:@"24" period:1 selectedHour:@"08" selectedMin:@"13"];
     picker.dateblock = ^(NSString * _Nonnull date) {
-        _endTime.content.text = date;
+        
+        self->_endTime.content.text = date;
     };
     [picker show];
 }
@@ -108,9 +107,13 @@
     next_vc.company_id = companyArr[sender.tag][@"company_id"];
     next_vc.selectPeople = [companyArr[sender.tag][@"list"] mutableCopy];
     next_vc.addBtnBlock = ^(NSDictionary * _Nonnull dic) {
-        NSMutableArray *list = companyArr[sender.tag][@"list"];
+        
+        NSMutableArray *list = [[NSMutableArray alloc] initWithArray:self->companyArr[sender.tag][@"list"]];
         [list addObject:dic];
-        [_SettingTable reloadData];
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[sender.tag]];
+        [tempDic setObject:list forKey:@"list"];
+        [self->companyArr replaceObjectAtIndex:sender.tag withObject:tempDic];
+        [self->_SettingTable reloadData];
     };
     [self.navigationController pushViewController:next_vc animated:YES];
 }
@@ -132,7 +135,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSMutableArray *list =companyArr[section][@"list"];
+    
+    NSMutableArray *list = companyArr[section][@"list"];
     return list.count;
 }
 
@@ -168,10 +172,24 @@
         
         cell = [[RotationSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RotationSettingCell"];
     }
+    
     cell.nameL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"name"];
     cell.phoneL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"tel"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    cell.rotationSettingCellDeleleBtnBlock = ^{
+      
+        NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->companyArr[indexPath.section][@"list"]];
+        [tempArr removeObjectAtIndex:indexPath.row];
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[indexPath.section]];
+        [tempDic setObject:tempArr forKey:@"list"];
+        [self->companyArr replaceObjectAtIndex:indexPath.section withObject:tempDic];
+        [tableView reloadData];
+    };
     
+    cell.rotationSettingCellSleepBtnBlock = ^{
+        
+    };
     
     return cell;
 }
@@ -208,6 +226,7 @@
 }
 
 -(UIView *)TableHeader{
+    
     if (!_TableHeader) {
         _TableHeader = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 360*SIZE, 350*SIZE)];
         NSArray *arr = @[@"每日轮岗开始时间：",@"每日轮岗结束时间：",@"自然下位时间(分):",@"上位提醒时间(分):"];
@@ -227,9 +246,6 @@
         view.backgroundColor = COLOR(240, 240, 240, 1);
         [_TableHeader addSubview:view];
         [_TableHeader addSubview:self.addCompanyView];
-        
-        
-    
     } 
     return _TableHeader;
 }
@@ -281,23 +297,24 @@
         _addCompanyView = [[AddCompanyView alloc]initWithFrame:CGRectMake(0, 240*SIZE, 360*SIZE, 103*SIZE)];
         _addCompanyView.dataArr = companyArr;
         
+        SS(strongSelf);
         _addCompanyView.deletBtnBlock = ^{
-            companyArr = _addCompanyView.dataArr;
-            [_SettingTable reloadData];
+            self->companyArr = self->_addCompanyView.dataArr;
+            [strongSelf->_SettingTable reloadData];
         };
         
         _addCompanyView.addBtnBlock = ^{
+            
             AddCompanyVC *next_vc = [[AddCompanyVC alloc]init];
-            next_vc.selectCompany = companyArr;
+            next_vc.selectCompany = strongSelf->companyArr;
             next_vc.addBtnBlock = ^(NSMutableDictionary * _Nonnull dic) {
-                [companyArr addObject:dic];
-                _addCompanyView.dataArr = companyArr;
-//                [_addCompanyView.dataArr addObject:dic];
-                [_addCompanyView.tagColl reloadData];
-                [_SettingTable reloadData];
-                
+ 
+                [strongSelf->companyArr addObject:dic];
+                strongSelf->_addCompanyView.dataArr = strongSelf->companyArr;
+                [strongSelf->_addCompanyView.tagColl reloadData];
+                [strongSelf->_SettingTable reloadData];
             };
-            [self.navigationController pushViewController:next_vc animated:YES];
+            [strongSelf.navigationController pushViewController:next_vc animated:YES];
             
         };
     }
