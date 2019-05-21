@@ -169,7 +169,10 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_configDic = resposeObject[@"data"];
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+                
+                self->_configDic = resposeObject[@"data"];
+            }
             [self initUI];
         }else{
             

@@ -13,6 +13,8 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+//#import <AVFoundation/AVFoundation.h>
+#import <CoreAudio/CoreAudioTypes.h>
 #import "RecordView.h"
 //#import "RecordLongPressView.h"
 #import "DateChooseView.h"
@@ -211,7 +213,11 @@
     NSError *playError;
     
     NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.mp3"]];
+    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+    
+//    NSString *recordUrl = [NSHomeDirectory() stringByAppendingString:@"selfRecord.wav"];
+//    NSURL *tmpUrl = [NSURL URLWithString:recordUrl];
+    
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:tmpUrl error:&playError];
     //当播放录音为空, 打印错误信息
     if (_player == nil) {
@@ -266,11 +272,7 @@
         return;
     }
     
-    if ([self isEmpty:_contentView.text]) {
-        
-        [self alertControllerWithNsstring:@"补充信息" And:@"请输入跟进内容"];
-        return;
-    }
+    
     
     if (!_remindTimeBtn.content.text) {
 
@@ -278,7 +280,19 @@
         return;
     }
     
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"tmp/selfRecord"];
+    NSURL *tmpUrl = [NSURL fileURLWithPath:path];
+    NSData *data = [NSData dataWithContentsOfURL:tmpUrl];
+    [data writeToFile:[NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp/selfRecord"] atomically:YES];
     
+    if (!data.length) {
+        
+        if ([self isEmpty:_contentView.text]) {
+            
+            [self alertControllerWithNsstring:@"补充信息" And:@"请输入跟进内容"];
+            return;
+        }
+    }
     
     if ([self.status isEqualToString:@"direct"]) {
         
@@ -294,8 +308,37 @@
             
             [_directDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
         }
+        if (data.length) {
+            
+//            NSString *fileFloder = @"file";
+//            NSFileManager *fileMgr = [NSFileManager defaultManager];
+//            //指向文件目录
+//            NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+//            NSString *audioRecoderSavePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,fileFloder];
+//            if (![fileMgr fileExistsAtPath:audioRecoderSavePath]) {
+//
+//                [fileMgr createDirectoryAtPath:audioRecoderSavePath withIntermediateDirectories:YES attributes:nil error:nil];
+//            }
+            
+            [_formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+            NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"tmp/selfRecord"];
+            NSURL *tmpUrl = [NSURL fileURLWithPath:path];
+            NSData *data = [NSData dataWithContentsOfURL:tmpUrl];
+            [data writeToFile:[NSTemporaryDirectory() stringByAppendingPathComponent:[_formatter stringFromDate:[NSDate date]]] atomically:YES];
+        }
         
-        [BaseRequest POST:WorkClientAutoFollowAdd_URL parameters:_directDic success:^(id  _Nonnull resposeObject) {
+        if (data.length) {
+            
+            [_directDic removeObjectForKey:@"comment"];
+        }
+        
+        [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            if (data.length) {
+                
+                [formData appendPartWithFileData:data name:@"file" fileName:@"file.wav" mimeType:@"mp3/wav"];
+            }
+        } url:WorkClientAutoFollowAdd_URL parameters:_directDic success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
@@ -312,6 +355,12 @@
                         if ([vc isKindOfClass:[CallTelegramVC class]]) {
                             
                             [self.navigationController popToViewController:vc animated:YES];
+                            break;
+                        }
+                        if ([vc isKindOfClass:[VisitCustomVC class]]) {
+                            
+                            [self.navigationController popToViewController:vc animated:YES];
+                            break;
                         }
                     }
                 }
@@ -337,7 +386,21 @@
             [self.allDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
         }
         
-        [BaseRequest POST:ProjectClientAutoAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
+//        NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//        NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+//        NSData *data = [NSData dataWithContentsOfURL:tmpUrl];
+        if (data.length) {
+            
+            [_directDic removeObjectForKey:@"comment"];
+        }
+        
+        [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            if (data.length) {
+                
+                [formData appendPartWithFileData:data name:@"file" fileName:@"file.wav" mimeType:@"mp3/wav"];
+            }
+        } url:ProjectClientAutoAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
@@ -374,33 +437,12 @@
     }
 }
 
-//- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
-//
-//    //获取当前录音时长
-//    float voiceSize = recorder.currentTime;
-//
-//    NSLog(@"录音时长 = %f",voiceSize);
-//
-//    if(voiceSize < 1){
-//        [recorder deleteRecording];
-//        UIAlertView * altView = [[UIAlertView alloc]initWithTitle:nil
-//                                                          message:@"时长小于3秒，重新录制" delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
-//        [altView show];
-//
-////        [self performSelector:@selector(performDismiss:) withObject:altView afterDelay:1.5];
-//
-//    }else if (voiceSize > 60){
-//
-//        [recorder deleteRecording];
-//        UIAlertView * altView = [[UIAlertView alloc]initWithTitle:nil
-//                                                          message:@"时长大于1分钟，重新录制" delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
-//        [altView show];
-//
-////        [self performSelector:@selector(performDismiss:) withObject:altView afterDelay:1.5];
-//    }
-//
-//    [recorder stop];
-//}
+- (BOOL)isFileExistAtPath:(NSString*)fileFullPath {
+    
+    BOOL isExist = NO;
+    isExist = [[NSFileManager defaultManager] fileExistsAtPath:fileFullPath];
+    return isExist;
+}
 
 
 #pragma mark -- CollectionView

@@ -131,7 +131,7 @@ static NSString *const kACCESSROLE = @"saleApp";
         blocks(formData);
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
-        [MBProgressHUD showActivityMessage:[NSString stringWithFormat:@"%.0f",uploadProgress.fractionCompleted * 100]];
+//        [MBProgressHUD showActivityMessage:[NSString stringWithFormat:@"%.0f",uploadProgress.fractionCompleted * 100]];
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

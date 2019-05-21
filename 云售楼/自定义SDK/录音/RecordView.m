@@ -41,10 +41,31 @@
             _recordSecond = 0;
             _recordTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(recordSecondChange) userInfo:nil repeats:YES];
             [_recordTimer fire];
+        }else{
+            
+            [_recorder stop];
+            _recorder = nil;
+            [_recordTimer invalidate];
+//            [self removeFromSuperview];
+            [MBProgressHUD showError:@"录音创建失败"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self removeFromSuperview];
+            });
+            
         }
-        
     }else {
+        
+        [_recorder stop];
+        _recorder = nil;
+        [_recordTimer invalidate];
         NSLog(@"录音创建失败");
+//        [self removeFromSuperview];
+        [MBProgressHUD showError:@"录音创建失败"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self removeFromSuperview];
+        });
     }
 }
 
@@ -70,7 +91,11 @@
     NSError *playError;
     
     NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.mp3"]];
+    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+    
+//    NSString *recordUrl = [NSHomeDirectory() stringByAppendingString:@"selfRecord.wav"];
+//    NSURL *tmpUrl = [NSURL URLWithString:recordUrl];
+    
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:tmpUrl error:&playError];
     //当播放录音为空, 打印错误信息
     if (_player == nil) {
@@ -116,19 +141,25 @@
     //录音设置
     NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     //录音格式 无法使用
-    [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEGLayer3] forKey: AVFormatIDKey];
-    //采样率
-    [recordSettings setValue :[NSNumber numberWithFloat:11025.0] forKey: AVSampleRateKey];//44100.0
+    [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey: AVFormatIDKey];
+    //设置录音采样率(Hz) 如：AVSampleRateKey==8000/44100/96000（影响音频的质量）
+    [recordSettings setValue:[NSNumber numberWithFloat:8000] forKey:AVSampleRateKey];
+    
     //通道数
     [recordSettings setValue :[NSNumber numberWithInt:2] forKey: AVNumberOfChannelsKey];
     //线性采样位数
-    //[recordSettings setValue :[NSNumber numberWithInt:16] forKey: AVLinearPCMBitDepthKey];
+    
+    [recordSettings setValue :[NSNumber numberWithInt:16] forKey: AVLinearPCMBitDepthKey];
     //音频质量,采样质量
-    [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
+    [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMedium] forKey:AVEncoderAudioQualityKey];
     
     NSError *error = nil;
-    NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.mp3"]];
+//    NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"selfRecord.wav"];
+    NSURL *tmpUrl = [NSURL fileURLWithPath:path];
+//    NSString *recordUrl = [NSHomeDirectory() stringByAppendingString:@"selfRecord.wav"];
+//    NSURL *tmpUrl = [NSURL URLWithString:recordUrl];
     
     self.recorder = [[AVAudioRecorder alloc]initWithURL:tmpUrl settings:recordSettings error:&error];
     
