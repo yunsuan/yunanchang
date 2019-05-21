@@ -30,6 +30,10 @@ typedef void(^RecordViewBlock)(void);
 
 @property (nonatomic, strong) UIButton *confirmBtn;
 
+//录音存储路径
+@property (nonatomic, strong)NSURL *tmpFile;
+
+
 - (void)startRecord;
 
 - (void)stopAction;

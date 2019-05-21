@@ -24,7 +24,15 @@
     
     _timeL.text = [NSString stringWithFormat:@"跟进时间：%@",dataDic[@"create_time"]];//@"跟进时间：2019-04-10";
     _wayL.text = [NSString stringWithFormat:@"跟进方式：%@",dataDic[@"follow_way"]];//@"跟进方式：电话";
-    _contentL.text = [NSString stringWithFormat:@"%@",dataDic[@"comment"]];//@"问了活动，妹妹读书用，过段时间再来看问了活动，妹妹读书用，过段时间再来看问了活动，妹妹读书用，过段时间再来看";
+    NSString *comment = dataDic[@"comment"];
+    if ([comment containsString:@"upload/sale/upload"] ) {
+        _speechImg.hidden = NO;
+    }
+    else{
+        _contentL.text = [NSString stringWithFormat:@"%@",dataDic[@"comment"]];
+        _speechImg.hidden = YES;
+    }
+    //@"问了活动，妹妹读书用，过段时间再来看问了活动，妹妹读书用，过段时间再来看问了活动，妹妹读书用，过段时间再来看";
     _nextL.text = [NSString stringWithFormat:@"下次提醒时间：%@",dataDic[@"next_tip_time"]];//@"下次跟进时间：2019-04-12";
 }
 
@@ -94,8 +102,10 @@
         }
     }
     
-    _speechImg = [[UIImageView alloc] init];
-    _speechImg.image = IMAGE_WITH_NAME(@"play");
+    _speechImg = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_speechImg setImage:IMAGE_WITH_NAME(@"play") forState:UIControlStateNormal];
+    
+//    _speechImg.image = IMAGE_WITH_NAME(@"play");
     [self.contentView addSubview:_speechImg];
     
     [self MasonryUI];

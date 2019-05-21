@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//typedef void(^Block)(void);
+
 @interface CallTelegramCustomDetailFollowCell : UITableViewCell
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
@@ -22,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *contentL;
 
-@property (nonatomic, strong) UIImageView *speechImg;
+@property (nonatomic, strong) UIButton *speechImg;
 
 @property (nonatomic, strong) UILabel *nextL;
 

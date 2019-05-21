@@ -7,10 +7,8 @@
 //
 
 #import "FollowRecordVC.h"
-
 #import "CallTelegramVC.h"
 #import "VisitCustomVC.h"
-
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 //#import <AVFoundation/AVFoundation.h>
@@ -39,6 +37,8 @@
     NSArray *_followArr;
     
     NSMutableDictionary *_directDic;
+    
+    BOOL Isplay;
     
     NSMutableArray *_levelArr;
     NSMutableArray *_followSelectArr;
@@ -94,6 +94,7 @@
     if (self) {
         
         _groupId = groupId;
+        Isplay = NO;
     }
     return self;
 }
@@ -150,7 +151,7 @@
             if ([self.status isEqualToString:@"direct"]) {
                 
                 self->_followPurposeTF.textField.text = self.followDic[@"follow_goal"];
-                self->_contentView.text = self.followDic[@"comment"];
+//                self->_contentView.text = self.followDic[@"comment"];
                 for (int i = 0; i < self->_followArr.count; i++) {
                     
                     if ([self.followDic[@"follow_way"] isEqualToString:self->_followArr[i][@"param"]]) {
@@ -179,8 +180,9 @@
 
 - (void)ActionRecordBtn:(UIButton *)btn{
     
+    Isplay = YES;
     RecordView *view = [[RecordView alloc] initWithFrame:self.view.bounds];
-    view.recordViewBlock = ^{
+    view. recordViewBlock = ^{
 
         self->_playBtn.hidden = NO;
         [self->_nextTimeL mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -212,13 +214,16 @@
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     NSError *playError;
     
-    NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+    NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
+    NSURL* url = [NSURL fileURLWithPath:path];
     
+//    NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+//
 //    NSString *recordUrl = [NSHomeDirectory() stringByAppendingString:@"selfRecord.wav"];
 //    NSURL *tmpUrl = [NSURL URLWithString:recordUrl];
     
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:tmpUrl error:&playError];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&playError];
     //当播放录音为空, 打印错误信息
     if (_player == nil) {
         NSLog(@"Error crenting player: %@", [playError description]);
@@ -279,21 +284,16 @@
         [self alertControllerWithNsstring:@"补充信息" And:@"请选择提醒日期"];
         return;
     }
-    
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"tmp/selfRecord"];
-    NSURL *tmpUrl = [NSURL fileURLWithPath:path];
-    NSData *data = [NSData dataWithContentsOfURL:tmpUrl];
-    [data writeToFile:[NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp/selfRecord"] atomically:YES];
-    
-    if (!data.length) {
-        
+
+    if (Isplay == NO) {
         if ([self isEmpty:_contentView.text]) {
             
             [self alertControllerWithNsstring:@"补充信息" And:@"请输入跟进内容"];
             return;
         }
     }
-    
+
+
     if ([self.status isEqualToString:@"direct"]) {
         
         [_directDic setObject:_groupId forKey:@"group_id"];
@@ -308,36 +308,24 @@
             
             [_directDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
         }
-        if (data.length) {
-            
-//            NSString *fileFloder = @"file";
-//            NSFileManager *fileMgr = [NSFileManager defaultManager];
-//            //指向文件目录
-//            NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-//            NSString *audioRecoderSavePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,fileFloder];
-//            if (![fileMgr fileExistsAtPath:audioRecoderSavePath]) {
-//
-//                [fileMgr createDirectoryAtPath:audioRecoderSavePath withIntermediateDirectories:YES attributes:nil error:nil];
-//            }
-            
-            [_formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-            NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"tmp/selfRecord"];
-            NSURL *tmpUrl = [NSURL fileURLWithPath:path];
-            NSData *data = [NSData dataWithContentsOfURL:tmpUrl];
-            [data writeToFile:[NSTemporaryDirectory() stringByAppendingPathComponent:[_formatter stringFromDate:[NSDate date]]] atomically:YES];
-        }
-        
-        if (data.length) {
-            
+
+        if (Isplay == YES) {
             [_directDic removeObjectForKey:@"comment"];
         }
+
         
         [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
-            
-            if (data.length) {
-                
-                [formData appendPartWithFileData:data name:@"file" fileName:@"file.wav" mimeType:@"mp3/wav"];
+          
+            if (Isplay==YES) {
+                NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
+                NSURL* url = [NSURL fileURLWithPath:path];
+                NSError *error;
+                [formData appendPartWithFileURL:url name:@"file" fileName:@"file.wav" mimeType:@"mp3/wav" error:&error];
+                //                [formData appendPartWithFileData:data name:@"file" fileName:@"file.wav" mimeType:@"mp3/wav"];
+                NSLog(@"%@",error);
             }
+           
+            
         } url:WorkClientAutoFollowAdd_URL parameters:_directDic success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
@@ -386,20 +374,21 @@
             [self.allDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
         }
         
-//        NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//        NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
-//        NSData *data = [NSData dataWithContentsOfURL:tmpUrl];
-        if (data.length) {
-            
-            [_directDic removeObjectForKey:@"comment"];
+
+        if (Isplay == YES) {
+             [_directDic removeObjectForKey:@"comment"];
         }
         
         [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
             
-            if (data.length) {
-                
-                [formData appendPartWithFileData:data name:@"file" fileName:@"file.wav" mimeType:@"mp3/wav"];
+            if (Isplay == YES) {
+                NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
+                NSURL* url = [NSURL fileURLWithPath:path];
+                NSError *error;
+                [formData appendPartWithFileURL:url name:@"file" fileName:@"file.wav" mimeType:@"mp3/wav" error:&error];
+                NSLog(@"%@",error);
             }
+           
         } url:ProjectClientAutoAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {

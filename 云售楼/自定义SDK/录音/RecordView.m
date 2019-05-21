@@ -1,4 +1,6 @@
-//
+
+
+
 //  RecordView.m
 //  云售楼
 //
@@ -41,6 +43,8 @@
             _recordSecond = 0;
             _recordTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(recordSecondChange) userInfo:nil repeats:YES];
             [_recordTimer fire];
+            
+            
         }else{
             
             [_recorder stop];
@@ -73,9 +77,25 @@
 - (void)stopAction {
     NSLog(@"停止录音");
     //停止录音
+    
+    
     [_recorder stop];
     _recorder = nil;
     [_recordTimer invalidate];
+    NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
+    NSURL* url = [NSURL fileURLWithPath:path];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    [data writeToFile:[NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp/aaa"] atomically:YES];
+    
+ 
+    
+//      NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//
+////    NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"selfRecord.wav"];
+//    NSURL* url = [NSURL fileURLWithPath:recordUrl];
+//    NSData *data = [NSData dataWithContentsOfURL:url];
+//    [data writeToFile:[NSTemporaryDirectory() stringByAppendingPathComponent:@"selfRecord.wav"] atomically:YES];
+    
     
     [self removeFromSuperview];
     if (self.recordViewBlock) {
@@ -90,13 +110,13 @@
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     NSError *playError;
     
-    NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+//    NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
     
 //    NSString *recordUrl = [NSHomeDirectory() stringByAppendingString:@"selfRecord.wav"];
 //    NSURL *tmpUrl = [NSURL URLWithString:recordUrl];
     
-    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:tmpUrl error:&playError];
+//    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:_tmpFile error:&playError];
     //当播放录音为空, 打印错误信息
     if (_player == nil) {
         NSLog(@"Error crenting player: %@", [playError description]);
@@ -146,22 +166,29 @@
     [recordSettings setValue:[NSNumber numberWithFloat:8000] forKey:AVSampleRateKey];
     
     //通道数
-    [recordSettings setValue :[NSNumber numberWithInt:2] forKey: AVNumberOfChannelsKey];
+    [recordSettings setValue :[NSNumber numberWithInt:1] forKey: AVNumberOfChannelsKey];
     //线性采样位数
     
     [recordSettings setValue :[NSNumber numberWithInt:16] forKey: AVLinearPCMBitDepthKey];
     //音频质量,采样质量
-    [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMedium] forKey:AVEncoderAudioQualityKey];
+    [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
     
+    
+    NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
+    NSURL* url = [NSURL fileURLWithPath:path];
+    
+//    _recorder = [[AVAudioRecorder alloc] initWithURL:url settings:recordSetting error:nil];
+//
     NSError *error = nil;
 //    NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"selfRecord.wav"];
-    NSURL *tmpUrl = [NSURL fileURLWithPath:path];
+////    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+//    _tmpFile = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
+    //    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"selfRecord.wav"];
+//    NSURL *tmpUrl = [NSURL fileURLWithPath:path];
 //    NSString *recordUrl = [NSHomeDirectory() stringByAppendingString:@"selfRecord.wav"];
 //    NSURL *tmpUrl = [NSURL URLWithString:recordUrl];
     
-    self.recorder = [[AVAudioRecorder alloc]initWithURL:tmpUrl settings:recordSettings error:&error];
+    self.recorder = [[AVAudioRecorder alloc]initWithURL:url settings:recordSettings error:&error];
     
     UIView *alphaView = [[UIView alloc] initWithFrame:self.bounds];
     alphaView.backgroundColor = CLBlackColor;
