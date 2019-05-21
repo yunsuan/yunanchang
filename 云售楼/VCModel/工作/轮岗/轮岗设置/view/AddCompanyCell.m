@@ -58,7 +58,7 @@
         
         _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _cancelBtn.frame = CGRectMake(self.bounds.size.width - 18 *SIZE, 0, 18 *SIZE, 18 *SIZE);
-        [_cancelBtn setImage:[UIImage imageNamed:@"delete_2"] forState:UIControlStateNormal];
+        [_cancelBtn setImage:[UIImage imageNamed:@"delete_3"] forState:UIControlStateNormal];
         [_cancelBtn addTarget:self action:@selector(ActionCancelBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;

@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RotationVC : BaseViewController
 
+
+
+- (instancetype)initWithProjectId:(NSString *)projectId;
 @end
 
 NS_ASSUME_NONNULL_END

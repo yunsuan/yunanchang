@@ -20,6 +20,7 @@
 }
 
 -(void)initUI{
+    
     self.backgroundColor = [UIColor whiteColor];
     //    _selectImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"default"]];
     //    _selectImg.frame = CGRectMake(10*SIZE, 29*SIZE, 15*SIZE, 15*SIZE);
@@ -28,16 +29,15 @@
     _headerImg.frame = CGRectMake(39*SIZE, 10*SIZE, 67*SIZE, 67*SIZE);
     //    _headerImg.layer.masksToBounds = YES;
     //    _headerImg.layer.cornerRadius = 24*SIZE;
-    
     [self addSubview:_headerImg];
-    _nameL = [[UILabel alloc]initWithFrame:CGRectMake(118*SIZE, 20*SIZE, 200*SIZE, 14*SIZE)];
+    _companyL = [[UILabel alloc]initWithFrame:CGRectMake(118*SIZE, 20*SIZE, 200*SIZE, 14*SIZE)];
 //    _nameL.text = @"云算科技";
-    _nameL.textColor = CLTitleLabColor;
-    _nameL.font = FONT(13);
-    [self addSubview:_nameL];
+    _companyL.textColor = CLTitleLabColor;
+    _companyL.font = FONT(13);
+    [self addSubview:_companyL];
     
     
-    [self addSubview:_headerImg];
+//    [self addSubview:_headerImg];
     _nameL = [[UILabel alloc]initWithFrame:CGRectMake(118*SIZE, 40*SIZE, 200*SIZE, 14*SIZE)];
 //    _nameL.text = @"负责人：张三";
     _nameL.textColor = CLContentLabColor;

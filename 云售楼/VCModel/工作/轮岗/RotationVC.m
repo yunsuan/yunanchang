@@ -15,7 +15,12 @@
 
 @interface RotationVC()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
-     NSMutableArray *_dataArr;
+    
+    NSString *_project_id;
+    
+    NSMutableDictionary *_dataDic;
+    
+    NSMutableArray *_dataArr;
 }
 
 @property (nonatomic, strong) UICollectionView *rotationCV;
@@ -33,16 +38,43 @@
 //
 }
 
+- (instancetype)initWithProjectId:(NSString *)projectId
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = projectId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
+//    [BaseRequest GET:DutyStartURL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+//        
+//        NSLog(@"%@",resposeObject);
+////        if (self.rotationSettingVCBlock) {
+////
+////            self.rotationSettingVCBlock();
+////            [self.navigationController popViewControllerAnimated:YES];
+////        }
+//    } failure:^(NSError * _Nonnull error) {
+//        
+////        if (self.rotationSettingVCBlock) {
+////            
+////            self.rotationSettingVCBlock();
+////            [self.navigationController popViewControllerAnimated:YES];
+////        }
+//        NSLog(@"%@",error);
+//    }];
 }
 
 - (void)initDataSource{
     
-
+    _dataDic = [@{} mutableCopy];
 }
 
 
@@ -80,9 +112,14 @@
 
 
 - (void)ActionRightBtn:(UIButton *)btn{
-    RotationSettingVC *next_vc = [[RotationSettingVC alloc]init];
-    [self.navigationController pushViewController:next_vc animated:YES];
     
+    RotationSettingVC *next_vc = [[RotationSettingVC alloc]initWithData:_dataDic];
+    next_vc.project_id = _project_id;
+    next_vc.rotationSettingVCBlock = ^{
+        
+        [self RequestMethod];
+    };
+    [self.navigationController pushViewController:next_vc animated:YES];
 }
 
 -(void)action_comple
@@ -94,12 +131,24 @@
     }];
     UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"接待客户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
+        [BaseRequest GET:DutyNext_URL parameters:@{@"project_id":self->_project_id} success:^(id  _Nonnull resposeObject) {
             
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self RequestMethod];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+           
+            [self showContent:@"网络错误"];
         }];
+    }];
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"让位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        AbdicateVC *next_vc = [[AbdicateVC alloc]init];
-        [self.navigationController pushViewController:next_vc animated:YES];
         
+        AbdicateVC *next_vc = [[AbdicateVC alloc] initWithData:self->_dataDic];
+        [self.navigationController pushViewController:next_vc animated:YES];
     }];
     
     [alert addAction:action1];
@@ -116,33 +165,45 @@
     
     //    if (_info_id.length) {
     
-//    [BaseRequest GET:ProjectHouseGetBuildList_URL parameters:@{@"info_id":[UserModel defaultModel].projectinfo[@"info_id"]} success:^(id  _Nonnull resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
+    [BaseRequest GET:DutyDetail_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
 //            [self->_dataArr removeAllObjects];
 //            self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
 //            [self->_coll reloadData];
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//
-//        [self showContent:@"网络错误"];
-//    }];
-//    //    }
-//
+            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            [self->_rotationCV reloadData];
+        }else{
+
+            if ([resposeObject[@"code"] integerValue] == 400) {
+                
+                [self alertControllerWithNsstring:@"轮岗详情" And:resposeObject[@"msg"] WithCancelBlack:^{
+                    
+                } WithDefaultBlack:^{
+                    
+                    RotationSettingVC *next_vc = [[RotationSettingVC alloc]init];
+                    [self.navigationController pushViewController:next_vc animated:YES];
+                }];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        }
+    } failure:^(NSError * _Nonnull error) {
+
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return 2;
+    return [_dataDic[@"person"] count];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 12;
+    return [_dataDic[@"person"][section][@"list"] count];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
@@ -169,9 +230,8 @@
             header = [[RotationHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 167 *SIZE)];
         }
         [header.compleBtn addTarget:self action:@selector(action_comple) forControlEvents:UIControlEventTouchUpInside];
-        
-
-        
+        header.dataDic = _dataDic[@"duty"];
+        header.companyL.text = [NSString stringWithFormat:@"%@",_dataDic[@"person"][indexPath.section][@"company_name"]];
         return header;
     }
     else
@@ -182,6 +242,7 @@
             header = [[TitelHeaderView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 37 *SIZE)];
 
         }
+        header.companyL.text = [NSString stringWithFormat:@"%@",_dataDic[@"person"][indexPath.section][@"company_name"]];
      
         return header;
     }
@@ -196,21 +257,23 @@
         
         cell = [[RotationCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 5, 90 *SIZE)];
     }
-    if(indexPath.section == 0 &&indexPath.row==0)
-    {
-        [cell ConfigCellByType:A_TYPE Title:@"张三"];
-    }else if (indexPath.section == 1 &&indexPath.row==0)
-    {
-        [cell ConfigCellByType:B_TYPE Title:@"李四"];
-    }else if (indexPath.row==11)
-    {
-         [cell ConfigCellByType:REST_TYPE Title:@"李四SS"];
+
+    if ([_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"current_state"] integerValue] == 0) {
+        
+        if ([_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"state"] integerValue] == 0) {
+            
+            [cell ConfigCellByType:REST_TYPE Title:_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"name"]];
+        }else{
+            
+            [cell ConfigCellByType:WAIT_TYPE Title:_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"name"]];
+        }
+    }else if ([_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"current_state"] integerValue] == 1){
+        
+        [cell ConfigCellByType:A_TYPE Title:_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"name"]];
     }else{
-         [cell ConfigCellByType:WAIT_TYPE Title:@"李四11"];
+        
+        [cell ConfigCellByType:B_TYPE Title:_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"name"]];
     }
-    
-    
-    //[NSString stringWithFormat:@"%ld号楼",indexPath.item + 1];
     
     return cell;
 }

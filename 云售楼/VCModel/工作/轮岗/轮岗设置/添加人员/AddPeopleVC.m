@@ -7,6 +7,9 @@
 //
 
 #import "AddPeopleVC.h"
+
+#import "RotationSettingVC.h"
+
 #import "AbdicateCell.h"
 
 @interface AddPeopleVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -39,7 +42,7 @@
              success:^(id  _Nonnull resposeObject) {
                  
                  if ([resposeObject[@"code"] integerValue]==200) {
-                     _dataarr = [resposeObject[@"data"] mutableCopy];
+                     self->_dataarr = [resposeObject[@"data"] mutableCopy];
                      [self ClernSameData];
                      [self.view addSubview:self.PeopleTable];
                      [self.view addSubview:self.SureBtn];
@@ -70,10 +73,74 @@
 
 -(void)action_sure
 {
-    if (self.addBtnBlock) {
+    if (_dataarr.count) {
         
-        self.addBtnBlock(_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].row]);
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.addBtnBlock) {
+        
+            if ([self.status isEqualToString:@"add"]) {
+                
+                NSArray *arr = @[@{@"company_id":_dataarr[0][@"company_id"],@"agent_id":_dataarr[0][@"agent_id"],@"sort":@"0"}];
+                NSError *error;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
+                NSString *personjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+                [BaseRequest POST:DutyCompanyAdd_URL parameters:@{@"duty_id":self.duty_id,@"company_id":self.company_id,@"sort":self.sort,@"person_list":personjson} success:^(id  _Nonnull resposeObject) {
+                    
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        self.addBtnBlock(self->_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
+                        for (UIViewController *vc in self.navigationController.viewControllers) {
+                            
+                            if ([vc isKindOfClass:[RotationSettingVC class]]) {
+                                
+                                [self.navigationController popToViewController:vc animated:YES];
+                                break;
+                            }
+                        }
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }else if([self.status isEqualToString:@"direct"]){
+                
+                NSArray *arr = @[@{@"company_id":_dataarr[0][@"company_id"],@"agent_id":_dataarr[0][@"agent_id"],@"sort":@"0"}];
+                NSError *error;
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
+                NSString *personjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+                [BaseRequest POST:DutyCompanyAdd_URL parameters:@{@"duty_id":self.duty_id,@"person_list":personjson} success:^(id  _Nonnull resposeObject) {
+                    
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        self.addBtnBlock(self->_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
+                        for (UIViewController *vc in self.navigationController.viewControllers) {
+                            
+                            if ([vc isKindOfClass:[RotationSettingVC class]]) {
+                                
+                                [self.navigationController popToViewController:vc animated:YES];
+                                break;
+                            }
+                        }
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }else{
+                
+                self.addBtnBlock(_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
     }
 }
 
@@ -99,6 +166,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     return 73*SIZE;
 }
 
@@ -112,10 +180,14 @@
         cell = [[AbdicateCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AbdicateCell"];
     }
     //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.nameL.text = _dataarr[indexPath.row][@"name"];
-    cell.phoneL.text = _dataarr[indexPath.row][@"tel"];
-    [cell.headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataarr[indexPath.row][@"url"]]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    cell.nameL.text = _dataarr[indexPath.section][@"name"];
+    cell.phoneL.text = _dataarr[indexPath.section][@"tel"];
+    [cell.headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataarr[indexPath.section][@"url"]]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         
+        if (error) {
+            
+            
+        }
     }];
     return cell;
 }
@@ -156,16 +228,18 @@
     NSMutableArray *samearr = [@[] mutableCopy];
     for (int i = 0; i<_selectPeople.count; i++) {
         for (int j = 0; j<_dataarr.count; j++) {
-            if ([_selectPeople[i][@"agent_id"] isEqual:_dataarr[j][@"agent_id"]]) {
+            if ([_selectPeople[i][@"agent_id"] integerValue] == [_dataarr[j][@"agent_id"] integerValue]) {
+                
                 [samearr addObject:[NSString stringWithFormat:@"%d",j]];
+                [_dataarr removeObjectAtIndex:j];
             }
         }
     }
-    if (samearr.count>0) {
-        for (int i = 0;i<samearr.count ; i++) {
-            [_dataarr removeObjectAtIndex:[samearr[i] integerValue]];
-        }
-    }
+//    if (samearr.count>0) {
+//        for (int i = 0;i<samearr.count ; i++) {
+//            [_dataarr removeObjectAtIndex:[samearr[i] integerValue]];
+//        }
+//    }
 }
 
 

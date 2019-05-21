@@ -298,12 +298,30 @@ static NSString *const CompanyAuthQuit_URL = @"saleApp/company/auth/quit";
 static NSString *const CompanyAuthCancel_URL = @"saleApp/company/auth/cancel";
 
 #pragma mark === 轮岗 =====
+
+//开始轮岗
+static NSString *const DutyStartURL = @"saleApp/project/duty/start";
+
 //轮岗详情
 static NSString *const DutyDetail_URL = @"saleApp/project/duty/detail";
+
+//更换A位
+static NSString *const DutyNext_URL = @"saleApp/project/duty/next";
 
 //新增详情
 static NSString *const Dutyadd_URL = @"saleApp/project/duty/add";
 
+//修改轮岗基础设置
+static NSString *const DutyUpdate_URL = @"saleApp/project/duty/update";
+
+//修改轮岗公司
+static NSString *const DutyCompanyUpdate_URL = @"saleApp/project/duty/company/update";
+
+//修改轮岗人员
+static NSString *const DutyAgentUpdate_URL = @"saleApp/project/duty/agent/update";
+
+//新增团队或团队人员
+static NSString *const DutyCompanyAdd_URL = @"saleApp/project/duty/company/add";
 
 //获取公司
 static NSString *const GetCompany_URL = @"saleApp/project/duty/company/list";

@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddPeopleVC : BaseViewController
 
+@property (nonatomic, strong) NSString *status;
+
+@property (nonatomic, strong) NSString *duty_id;
+
+@property (nonatomic, strong) NSString *sort;
+
 @property (nonatomic,copy) void (^addBtnBlock)(NSDictionary *dic);
 
 @property (nonatomic , strong) NSString *company_id;

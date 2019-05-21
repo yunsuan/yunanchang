@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^RotationSettingCellDeleleBtnBlock)(void);
+
+typedef void(^RotationSettingCellSleepBtnBlock)(void);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RotationSettingCell : UITableViewCell
+
+@property (nonatomic, copy) RotationSettingCellDeleleBtnBlock rotationSettingCellDeleleBtnBlock;
+
+@property (nonatomic, copy) RotationSettingCellSleepBtnBlock rotationSettingCellSleepBtnBlock;
+
 @property (nonatomic , strong) UIImageView *selectImg;
 @property (nonatomic , strong) UIImageView *headerImg;
 @property (nonatomic , strong) UILabel *nameL;

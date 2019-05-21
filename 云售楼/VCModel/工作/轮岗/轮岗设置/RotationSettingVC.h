@@ -10,8 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^RotationSettingVCBlock)(void);
+
 @interface RotationSettingVC : BaseViewController
 
+@property (nonatomic, strong) NSString *project_id;
+
+@property (nonatomic, copy) RotationSettingVCBlock rotationSettingVCBlock;
+
+- (instancetype)initWithData:(NSDictionary *)data;
 
 @end
 

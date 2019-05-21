@@ -21,6 +21,12 @@
 
 @interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource>
 {
+    
+    NSMutableDictionary *_dataDic;
+    
+    
+    NSMutableArray *_teamArr;
+    NSMutableArray *_peopleArr;
     NSMutableArray *companyArr;
 }
 
@@ -40,15 +46,30 @@
 
 @property (nonatomic , strong) AddCompanyView *addCompanyView;
 
-
-
 @end
 
 @implementation RotationSettingVC
 
+- (instancetype)initWithData:(NSDictionary *)data
+{
+    self = [super init];
+    if (self) {
+        
+        _dataDic = [[NSMutableDictionary alloc] initWithDictionary:data];;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _teamArr = [@[] mutableCopy];
+    _peopleArr = [@[] mutableCopy];
     companyArr = [@[] mutableCopy];
+    if (_dataDic.count) {
+        
+        companyArr = [NSMutableArray arrayWithArray:_dataDic[@"person"]];
+    }
     [self initUI];
     
 }
@@ -59,36 +80,153 @@
     self.leftButton.hidden = NO;
     [self.view addSubview:self.SettingTable];
     [self.view addSubview:self.SureBtn];
-    
-    
 }
 
 -(void)action_sure
 {
-    NSString *personjson;
-    NSString *companyjson;
     
-    [BaseRequest POST:Dutyadd_URL
-           parameters:@{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"],
-                        @"exchange_time_min":_downTF.textField.text,
-                        @"tip_time_min":_upTF.textField.text,
-                        @"start_time":_beginTime.content.text,
-                        @"end_time":_endTime.content.text,
-                        @"person_list":personjson,
-                        @"company_list":companyjson
-                        }
-              success:^(id  _Nonnull resposeObject) {
+    if (!_beginTime.content.text.length) {
         
-    } failure:^(NSError * _Nonnull error) {
+        [self alertControllerWithNsstring:@"轮岗设置错误" And:@"请选择开始时间"];
+        return;
+    }
+    if (!_endTime.content.text.length) {
         
-    }];
+        [self alertControllerWithNsstring:@"轮岗设置错误" And:@"请选择开始时间"];
+        return;
+    }
+    if ([self isEmpty:_downTF.textField.text]) {
+        
+        [self alertControllerWithNsstring:@"轮岗设置错误" And:@"请输入下位时间"];
+        return;
+    }
+    if ([self isEmpty:_upTF.textField.text]) {
+        
+        [self alertControllerWithNsstring:@"轮岗设置错误" And:@"请输入上位提醒时间"];
+        return;
+    }
+    
+    if (!companyArr.count) {
+        
+        [self alertControllerWithNsstring:@"轮岗设置错误" And:@"请选择轮岗团队"];
+        return;
+    }
+    
+//    if (!companyArr.count) {
+//
+//        [self alertControllerWithNsstring:@"轮岗设置错误" And:@"请选择轮岗团队"];
+//        return;
+//    }
+    
+    [_teamArr removeAllObjects];
+    [_peopleArr removeAllObjects];
+    for (int i = 0; i < companyArr.count; i++) {
+        
+        NSDictionary *dic = @{@"company_id":companyArr[i][@"company_id"],@"sort":@(i)};
+        [_teamArr addObject:dic];
+        for (int j = 0; j < [companyArr[i][@"list"] count]; j++) {
+            
+            NSDictionary *dic1 = @{@"company_id":companyArr[i][@"company_id"],@"agent_id":companyArr[i][@"list"][j][@"agent_id"],@"sort":@(j)};
+            [_peopleArr addObject:dic1];
+        }
+    }
+    
+    if (!_teamArr.count) {
+        
+        [self alertControllerWithNsstring:@"轮岗设置错误" And:@"请选择轮岗团队"];
+        return;
+    }
+    
+    if (!_peopleArr.count) {
+        
+        [self alertControllerWithNsstring:@"轮岗设置错误" And:@"请选择轮岗人员"];
+        return;
+    }
+    
+    
+    if (_dataDic.count) {
+        
+        NSDictionary *dic = @{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"],
+                              @"exchange_time_min":_downTF.textField.text,
+                              @"tip_time_min":_upTF.textField.text,
+                              @"start_time":_beginTime.content.text,
+                              @"end_time":_endTime.content.text,
+                              @"duty_id":_dataDic[@"duty"][@"duty_id"]
+                              };
+        
+        [BaseRequest POST:DutyUpdate_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if (self.rotationSettingVCBlock) {
+                    
+                    self.rotationSettingVCBlock();
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_teamArr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *companyjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:_peopleArr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *personjson = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];
+        
+        NSDictionary *dic = @{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"],
+                              @"exchange_time_min":_downTF.textField.text,
+                              @"tip_time_min":_upTF.textField.text,
+                              @"start_time":_beginTime.content.text,
+                              @"end_time":_endTime.content.text,
+                              @"person_list":personjson,
+                              @"company_list":companyjson
+                              };
+        
+        [BaseRequest POST:Dutyadd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [BaseRequest GET:DutyStartURL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    if (self.rotationSettingVCBlock) {
+                        
+                        self.rotationSettingVCBlock();
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    if (self.rotationSettingVCBlock) {
+                        
+                        self.rotationSettingVCBlock();
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    NSLog(@"%@",error);
+                }];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }
 }
 
 -(void)action_begin
 {
     HMChooseView *picker = [[HMChooseView alloc] initDatePackerWithStartHour:@"00" endHour:@"24" period:15 selectedHour:@"08" selectedMin:@"13"];
     picker.dateblock = ^(NSString * _Nonnull date) {
-        _beginTime.content.text = date;
+        
+        self->_beginTime.content.text = date;
     };
     [picker show];
 }
@@ -97,7 +235,8 @@
 {
     HMChooseView *picker = [[HMChooseView alloc] initDatePackerWithStartHour:@"00" endHour:@"24" period:1 selectedHour:@"08" selectedMin:@"13"];
     picker.dateblock = ^(NSString * _Nonnull date) {
-        _endTime.content.text = date;
+        
+        self->_endTime.content.text = date;
     };
     [picker show];
 }
@@ -107,10 +246,49 @@
     AddPeopleVC *next_vc = [[AddPeopleVC alloc]init];
     next_vc.company_id = companyArr[sender.tag][@"company_id"];
     next_vc.selectPeople = [companyArr[sender.tag][@"list"] mutableCopy];
+    if (self->_dataDic.count) {
+        
+        next_vc.status = @"direct";
+        next_vc.duty_id = [NSString stringWithFormat:@"%@",self->_dataDic[@"duty"][@"duty_id"]];
+        next_vc.sort = [NSString stringWithFormat:@"%ld",[companyArr[sender.tag][@"list"] count]];
+    }
     next_vc.addBtnBlock = ^(NSDictionary * _Nonnull dic) {
-        NSMutableArray *list = companyArr[sender.tag][@"list"];
-        [list addObject:dic];
-        [_SettingTable reloadData];
+        
+        if (self->_dataDic.count) {
+            
+            if (self->_dataDic.count) {
+                
+                [BaseRequest GET:DutyDetail_URL parameters:@{@"project_id":self.project_id} success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+                        self->companyArr = [NSMutableArray arrayWithArray:self->_dataDic[@"person"]];
+                        self->_addCompanyView.dataArr = self->companyArr;
+                        [self->_addCompanyView.tagColl reloadData];
+                        [self->_SettingTable reloadData];
+                        if (self.rotationSettingVCBlock) {
+                            
+                            self.rotationSettingVCBlock();
+                        }
+                    }else{
+                        
+                        [self->_SettingTable reloadData];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }
+        }else{
+            
+            NSMutableArray *list = [[NSMutableArray alloc] initWithArray:self->companyArr[sender.tag][@"list"]];
+            [list addObject:dic];
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[sender.tag]];
+            [tempDic setObject:list forKey:@"list"];
+            [self->companyArr replaceObjectAtIndex:sender.tag withObject:tempDic];
+            [self->_SettingTable reloadData];
+        }
     };
     [self.navigationController pushViewController:next_vc animated:YES];
 }
@@ -132,7 +310,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSMutableArray *list =companyArr[section][@"list"];
+    
+    NSMutableArray *list = companyArr[section][@"list"];
     return list.count;
 }
 
@@ -168,10 +347,80 @@
         
         cell = [[RotationSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RotationSettingCell"];
     }
+    
     cell.nameL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"name"];
     cell.phoneL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"tel"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    cell.rotationSettingCellDeleleBtnBlock = ^{
+      
+        if (self->_dataDic) {
+            
+            if (self->companyArr.count == 1 && [self->companyArr[indexPath.section][@"list"] count] == 1) {
+                
+                [MBProgressHUD showError:@"至少需要保留一个团队人员"];
+            }else{
+                
+                [BaseRequest POST:DutyAgentUpdate_URL parameters:@{@"duty_agent_id":self->companyArr[indexPath.section][@"list"][indexPath.row][@"duty_agent_id"],@"disabled_state":@"1"} success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->companyArr[indexPath.section][@"list"]];
+                        [tempArr removeObjectAtIndex:indexPath.row];
+                        if (tempArr.count) {
+                            
+                            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[indexPath.section]];
+                            [tempDic setObject:tempArr forKey:@"list"];
+                            [self->companyArr replaceObjectAtIndex:indexPath.section withObject:tempDic];
+                        }else{
+                            
+                            [BaseRequest POST:DutyCompanyUpdate_URL parameters:@{@"duty_company_id":self->companyArr[indexPath.section][@"duty_company_id"],@"disabled_state":@"1"} success:^(id  _Nonnull resposeObject) {
+                                
+                                if ([resposeObject[@"code"] integerValue] == 200) {
+                                    
+                                    [self->companyArr removeObjectAtIndex:indexPath.section];
+                                    [tableView reloadData];
+                                }else{
+                                    
+                                    [MBProgressHUD showError:resposeObject[@"msg"]];
+                                }
+                            } failure:^(NSError * _Nonnull error) {
+                                
+                                [MBProgressHUD showError:@"网络错误"];
+                            }];
+                        }
+                        
+                        [tableView reloadData];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }
+        }else{
+            
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->companyArr[indexPath.section][@"list"]];
+            [tempArr removeObjectAtIndex:indexPath.row];
+            if (tempArr.count) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[indexPath.section]];
+                [tempDic setObject:tempArr forKey:@"list"];
+                [self->companyArr replaceObjectAtIndex:indexPath.section withObject:tempDic];
+            }else{
+                
+                [self->companyArr removeObjectAtIndex:indexPath.section];
+            }
+            
+            [tableView reloadData];
+        }
+    };
     
+    cell.rotationSettingCellSleepBtnBlock = ^{
+        
+    };
     
     return cell;
 }
@@ -208,6 +457,7 @@
 }
 
 -(UIView *)TableHeader{
+    
     if (!_TableHeader) {
         _TableHeader = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 360*SIZE, 350*SIZE)];
         NSArray *arr = @[@"每日轮岗开始时间：",@"每日轮岗结束时间：",@"自然下位时间(分):",@"上位提醒时间(分):"];
@@ -227,9 +477,6 @@
         view.backgroundColor = COLOR(240, 240, 240, 1);
         [_TableHeader addSubview:view];
         [_TableHeader addSubview:self.addCompanyView];
-        
-        
-    
     } 
     return _TableHeader;
 }
@@ -240,7 +487,10 @@
     if (!_beginTime) {
         _beginTime = [[DropBtn alloc]initWithFrame:CGRectMake(121*SIZE, 13*SIZE, 216*SIZE, 33*SIZE)];
         [_beginTime addTarget:self action:@selector(action_begin) forControlEvents:UIControlEventTouchUpInside];
-        
+        if (_dataDic.count) {
+            
+            _beginTime.content.text = [NSString stringWithFormat:@"%@",_dataDic[@"duty"][@"start_time"]];
+        }
     }
     return _beginTime;
 }
@@ -250,7 +500,10 @@
     if (!_endTime) {
         _endTime = [[DropBtn alloc]initWithFrame:CGRectMake(121*SIZE, 68*SIZE, 216*SIZE, 33*SIZE)];
         [_endTime addTarget:self action:@selector(action_end) forControlEvents:UIControlEventTouchUpInside];
-        
+        if (_dataDic.count) {
+            
+            _endTime.content.text = [NSString stringWithFormat:@"%@",_dataDic[@"duty"][@"end_time"]];
+        }
     }
     return _endTime;
 }
@@ -260,6 +513,10 @@
     if (!_downTF) {
         _downTF = [[BorderTextField alloc]initWithFrame:CGRectMake(121*SIZE, 123*SIZE, 216*SIZE, 33*SIZE)];
         _downTF.textField.placeholder = @"设置为0则无自然下岗";
+        if (_dataDic.count) {
+            
+//            _downTF.textField.text = _dataDic[@"duty"][@"exchange_time_min"];
+        }
     }
     return _downTF;
 }
@@ -269,6 +526,10 @@
 {
     if (!_upTF) {
         _upTF = [[BorderTextField alloc]initWithFrame:CGRectMake(121*SIZE, 178*SIZE, 216*SIZE, 33*SIZE)];
+        if (_dataDic.count) {
+            
+            _upTF.textField.text = [NSString stringWithFormat:@"%@",_dataDic[@"duty"][@"tip_time_min"]];
+        }
     }
     return _upTF;
 }
@@ -281,23 +542,64 @@
         _addCompanyView = [[AddCompanyView alloc]initWithFrame:CGRectMake(0, 240*SIZE, 360*SIZE, 103*SIZE)];
         _addCompanyView.dataArr = companyArr;
         
+        SS(strongSelf);
         _addCompanyView.deletBtnBlock = ^{
-            companyArr = _addCompanyView.dataArr;
-            [_SettingTable reloadData];
+            
+            if (strongSelf->_dataDic.count) {
+                
+                if (strongSelf.rotationSettingVCBlock) {
+                    
+                    strongSelf.rotationSettingVCBlock();
+                }
+            }
+            strongSelf->companyArr = strongSelf->_addCompanyView.dataArr;
+            [strongSelf->_SettingTable reloadData];
         };
         
         _addCompanyView.addBtnBlock = ^{
+            
             AddCompanyVC *next_vc = [[AddCompanyVC alloc]init];
-            next_vc.selectCompany = companyArr;
-            next_vc.addBtnBlock = ^(NSMutableDictionary * _Nonnull dic) {
-                [companyArr addObject:dic];
-                _addCompanyView.dataArr = companyArr;
-//                [_addCompanyView.dataArr addObject:dic];
-                [_addCompanyView.tagColl reloadData];
-                [_SettingTable reloadData];
+            next_vc.selectCompany = strongSelf->companyArr;
+            if (strongSelf->_dataDic.count) {
                 
+                next_vc.status = @"add";
+                next_vc.duty_id = [NSString stringWithFormat:@"%@",strongSelf->_dataDic[@"duty"][@"duty_id"]];
+                next_vc.sort = [NSString stringWithFormat:@"%ld",[strongSelf->_dataDic[@"person"] count]];
+            }
+            next_vc.addBtnBlock = ^(NSMutableDictionary * _Nonnull dic) {
+ 
+                if (strongSelf->_dataDic.count) {
+                    
+                    [BaseRequest GET:DutyDetail_URL parameters:@{@"project_id":strongSelf.project_id} success:^(id  _Nonnull resposeObject) {
+                        
+                        if ([resposeObject[@"code"] integerValue] == 200) {
+                            
+                            strongSelf->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+                            strongSelf->companyArr = [NSMutableArray arrayWithArray:strongSelf->_dataDic[@"person"]];
+                            strongSelf->_addCompanyView.dataArr = strongSelf->companyArr;
+                            [strongSelf->_addCompanyView.tagColl reloadData];
+                            [strongSelf->_SettingTable reloadData];
+                            if (strongSelf.rotationSettingVCBlock) {
+                                
+                                strongSelf.rotationSettingVCBlock();
+                            }
+                        }else{
+                            
+                            [strongSelf->_SettingTable reloadData];
+                        }
+                    } failure:^(NSError * _Nonnull error) {
+                        
+                        [strongSelf showContent:@"网络错误"];
+                    }];
+                }else{
+                    
+                    [strongSelf->companyArr addObject:dic];
+                    strongSelf->_addCompanyView.dataArr = strongSelf->companyArr;
+                    [strongSelf->_addCompanyView.tagColl reloadData];
+                    [strongSelf->_SettingTable reloadData];
+                }
             };
-            [self.navigationController pushViewController:next_vc animated:YES];
+            [strongSelf.navigationController pushViewController:next_vc animated:YES];
             
         };
     }
