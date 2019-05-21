@@ -8,7 +8,7 @@
 
 #import "VisitCustomVC.h"
 
-#import "CallTelegramCustomDetailVC.h"
+#import "VisitCustomDetailVC.h"
 #import "AddVisitCustomVC.h"
 
 #import "CallTelegramCell.h"
@@ -184,7 +184,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
+    VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
     nextVC.project_id = _projectId;
     nextVC.info_id = _info_id;
     [self.navigationController pushViewController:nextVC animated:YES];

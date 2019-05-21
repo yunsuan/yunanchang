@@ -10,6 +10,7 @@
 
 #import "FollowRecordVC.h"
 #import "CallTelegramCustomDetailVC.h"
+#import "VisitCustomDetailVC.h"
 #import "WorkPhoneConfrimWaitDetailVC.h"
 #import "WorkRecommendWaitDetailVC.h"
 #import "WorkCompleteCustomVC1.h"
@@ -116,7 +117,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
+    if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2) {
 
         TaskCallFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallFollowCell"];
         if (!cell) {
@@ -135,7 +136,7 @@
         };
         return cell;
 
-    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2){
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1){
 
         TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
         if (!cell) {
@@ -440,16 +441,24 @@
     
     if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
         
-        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
-        nextVC.project_id = _dataArr[indexPath.section][@"project_id"];
-        nextVC.info_id = _dataArr[indexPath.section][@"info_id"];
+        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
+        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
+        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
         [self.navigationController pushViewController:nextVC animated:YES];
+//        VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
+//        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
+//        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
+//        [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2) {
         
-        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
-        nextVC.project_id = _dataArr[indexPath.section][@"project_id"];
-        nextVC.info_id = _dataArr[indexPath.section][@"info_id"];
+        VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
+        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
+        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
         [self.navigationController pushViewController:nextVC animated:YES];
+//        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
+//        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
+//        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
+//        [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 3) {
         
         WorkPhoneConfrimWaitDetailVC *nextVC = [[WorkPhoneConfrimWaitDetailVC alloc] initWithClientId:_dataArr[indexPath.row][@"client_id"]];
