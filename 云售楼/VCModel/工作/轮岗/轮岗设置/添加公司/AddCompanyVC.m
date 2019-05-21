@@ -79,7 +79,7 @@
     
     if (self.addBtnBlock) {
         
-        self.addBtnBlock(_dataarr[ _CompanyTable.indexPathsForSelectedRows[0].row]);
+        self.addBtnBlock([_dataarr[ _CompanyTable.indexPathsForSelectedRows[0].row] mutableCopy]);
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

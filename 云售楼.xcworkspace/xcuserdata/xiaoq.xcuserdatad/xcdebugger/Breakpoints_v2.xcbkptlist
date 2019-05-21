@@ -35,29 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x8f6e;&#x5c97;/&#x8f6e;&#x5c97;&#x8bbe;&#x7f6e;/&#x6dfb;&#x52a0;&#x516c;&#x53f8;/AddCompanyVC.m"
-            timestampString = "580045624.879546"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x8f6e;&#x5c97;/&#x8f6e;&#x5c97;&#x8bbe;&#x7f6e;/RotationSettingVC.m"
+            timestampString = "580097572.218266"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "-ClernSameData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x8f6e;&#x5c97;/&#x8f6e;&#x5c97;&#x8bbe;&#x7f6e;/&#x6dfb;&#x52a0;&#x516c;&#x53f8;/AddCompanyVC.m"
-            timestampString = "580045624.879885"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "-ClernSameData"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-action_people:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

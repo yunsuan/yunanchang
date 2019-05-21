@@ -194,6 +194,8 @@
 		10EF17A922928B1400DE5566 /* AddCompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17A822928B1400DE5566 /* AddCompanyCell.m */; };
 		10EF17AE2292AE3400DE5566 /* AddCompanyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17AD2292AE3400DE5566 /* AddCompanyVC.m */; };
 		10EF17B82292B48000DE5566 /* CompanyChooseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17B72292B48000DE5566 /* CompanyChooseCell.m */; };
+		10EF17BB2293884900DE5566 /* AddPeopleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17BA2293884900DE5566 /* AddPeopleVC.m */; };
+		10EF17BF2293970200DE5566 /* RotationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EF17BE2293970200DE5566 /* RotationModel.m */; };
 		AD247DF2FE90196EA1B639F0 /* libPods-云售楼.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42BF71934FE363E890039BD /* libPods-云售楼.a */; };
 /* End PBXBuildFile section */
 
@@ -588,6 +590,10 @@
 		10EF17AD2292AE3400DE5566 /* AddCompanyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCompanyVC.m; sourceTree = "<group>"; };
 		10EF17B62292B48000DE5566 /* CompanyChooseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyChooseCell.h; sourceTree = "<group>"; };
 		10EF17B72292B48000DE5566 /* CompanyChooseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyChooseCell.m; sourceTree = "<group>"; };
+		10EF17B92293884900DE5566 /* AddPeopleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddPeopleVC.h; sourceTree = "<group>"; };
+		10EF17BA2293884900DE5566 /* AddPeopleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddPeopleVC.m; sourceTree = "<group>"; };
+		10EF17BD2293970200DE5566 /* RotationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationModel.h; sourceTree = "<group>"; };
+		10EF17BE2293970200DE5566 /* RotationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationModel.m; sourceTree = "<group>"; };
 		335396F8374B21B256C88E05 /* Pods-云售楼.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.debug.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.debug.xcconfig"; sourceTree = "<group>"; };
 		7B70C0D1CD5AD3B14A72C332 /* Pods-云售楼.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-云售楼.release.xcconfig"; path = "Target Support Files/Pods-云售楼/Pods-云售楼.release.xcconfig"; sourceTree = "<group>"; };
 		F42BF71934FE363E890039BD /* libPods-云售楼.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-云售楼.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2289,6 +2295,7 @@
 		10BC3A4B228FF7E200DAB2D8 /* 轮岗设置 */ = {
 			isa = PBXGroup;
 			children = (
+				10EF17BC229396EB00DE5566 /* model */,
 				10EF17AA2292AE0F00DE5566 /* 添加公司 */,
 				10EF17AB2292AE0F00DE5566 /* 添加人员 */,
 				10EF17972291611B00DE5566 /* view */,
@@ -2347,6 +2354,8 @@
 		10EF17AB2292AE0F00DE5566 /* 添加人员 */ = {
 			isa = PBXGroup;
 			children = (
+				10EF17B92293884900DE5566 /* AddPeopleVC.h */,
+				10EF17BA2293884900DE5566 /* AddPeopleVC.m */,
 			);
 			path = "添加人员";
 			sourceTree = "<group>";
@@ -2358,6 +2367,15 @@
 				10EF17B72292B48000DE5566 /* CompanyChooseCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		10EF17BC229396EB00DE5566 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				10EF17BD2293970200DE5566 /* RotationModel.h */,
+				10EF17BE2293970200DE5566 /* RotationModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		256FA66B3C2EE540F45796BE /* Frameworks */ = {
@@ -2613,6 +2631,7 @@
 				0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */,
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
 				0CF1A318228E8E04001C77CF /* SignListCell.m in Sources */,
+				10EF17BB2293884900DE5566 /* AddPeopleVC.m in Sources */,
 				0C3A9177225C338500F04804 /* MineCell.m in Sources */,
 				0CD0432E227FD33B002C8BD3 /* WorkRecommendValidVC.m in Sources */,
 				0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */,
@@ -2646,6 +2665,7 @@
 				0CEF8A07225C8E880057F3FD /* AuditTaskCell.m in Sources */,
 				0CEF8A5B225F49C60057F3FD /* RoomCollCell.m in Sources */,
 				0CD7A035225C6D5700EAE816 /* AddressChooseView3.m in Sources */,
+				10EF17BF2293970200DE5566 /* RotationModel.m in Sources */,
 				0CEF8AF722646DBD0057F3FD /* CallTelegramCustomDetailHeader.m in Sources */,
 				0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */,
 				0CD043AA22817622002C8BD3 /* KyoCinameSeatScrollView.m in Sources */,

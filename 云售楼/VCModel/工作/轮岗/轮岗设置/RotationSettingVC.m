@@ -15,6 +15,8 @@
 #import "HMChooseView.h"
 #import "AddCompanyView.h"
 #import "AddCompanyVC.h"
+#import "AddPeopleVC.h"
+#import "RotationModel.h"
 
 
 @interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -100,6 +102,19 @@
     [picker show];
 }
 
+-(void)action_people:(UIButton *)sender
+{
+    AddPeopleVC *next_vc = [[AddPeopleVC alloc]init];
+    next_vc.company_id = companyArr[sender.tag][@"company_id"];
+    next_vc.selectPeople = [companyArr[sender.tag][@"list"] mutableCopy];
+    next_vc.addBtnBlock = ^(NSDictionary * _Nonnull dic) {
+        NSMutableArray *list = companyArr[sender.tag][@"list"];
+        [list addObject:dic];
+        [_SettingTable reloadData];
+    };
+    [self.navigationController pushViewController:next_vc animated:YES];
+}
+
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return  UITableViewCellEditingStyleNone;
 
@@ -117,8 +132,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return 3;
+    NSMutableArray *list =companyArr[section][@"list"];
+    return list.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -138,7 +153,9 @@
         header = [[CompanyHeader alloc]initWithReuseIdentifier: @"CompanyHeader"];
     }
     header.companyL.text = companyArr[section][@"company_name"];
-
+    header.addBtn.tag = section;
+    [header.addBtn addTarget:self action:@selector(action_people:) forControlEvents:UIControlEventTouchUpInside];
+    
     return header;
 }
 
@@ -151,6 +168,8 @@
         
         cell = [[RotationSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RotationSettingCell"];
     }
+    cell.nameL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"name"];
+    cell.phoneL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"tel"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
@@ -270,7 +289,7 @@
         _addCompanyView.addBtnBlock = ^{
             AddCompanyVC *next_vc = [[AddCompanyVC alloc]init];
             next_vc.selectCompany = companyArr;
-            next_vc.addBtnBlock = ^(NSDictionary * _Nonnull dic) {
+            next_vc.addBtnBlock = ^(NSMutableDictionary * _Nonnull dic) {
                 [companyArr addObject:dic];
                 _addCompanyView.dataArr = companyArr;
 //                [_addCompanyView.dataArr addObject:dic];
