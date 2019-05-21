@@ -110,7 +110,7 @@ return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    _reserve_agent = [NSString stringWithFormat:@"%@",_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"duty_agent_id"]];
+    _reserve_agent = [NSString stringWithFormat:@"%@",_dataDic[@"person"][indexPath.section][@"list"][indexPath.row][@"agent_id"]];
     if (tableView.indexPathsForSelectedRows.count>1) {
         [tableView deselectRowAtIndexPath:tableView.indexPathsForSelectedRows[0] animated:NO];
     }
