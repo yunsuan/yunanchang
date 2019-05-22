@@ -119,7 +119,7 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
     
     NSSet *tags;
     
-    [JPUSHService setAlias:[NSString stringWithFormat:@"agent_%@",[UserModel defaultModel].agent_id] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+    [JPUSHService setAlias:[NSString stringWithFormat:@"saleApp_%@",[UserModel defaultModel].agent_id] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
         
         NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);;
     } seq:0];

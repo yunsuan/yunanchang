@@ -791,7 +791,7 @@
                 _phoneTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 217 *SIZE, 33 *SIZE)];
                 _phoneTF.textField.placeholder = @"请输入手机号码";
                 _phoneTF.textField.delegate = self;
-                _phoneTF.textField.keyboardType = UIKeyboardTypeNamePhonePad;
+                _phoneTF.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF];
                 break;
             }
@@ -801,7 +801,7 @@
                 _phoneTF2.hidden = YES;
                 _phoneTF2.textField.placeholder = @"请输入手机号码";
                 _phoneTF2.textField.delegate = self;
-                _phoneTF2.textField.keyboardType = UIKeyboardTypeNamePhonePad;
+                _phoneTF2.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF2];
                 break;
             }
@@ -811,7 +811,7 @@
                 _phoneTF3.hidden = YES;
                 _phoneTF3.textField.placeholder = @"请输入手机号码";
                 _phoneTF3.textField.delegate = self;
-                _phoneTF3.textField.keyboardType = UIKeyboardTypeNamePhonePad;
+                _phoneTF3.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF3];
                 break;
             }

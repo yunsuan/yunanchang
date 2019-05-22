@@ -19,7 +19,7 @@ static dispatch_once_t onceToken;
         model = [UserModelArchiver unarchive];
         if (!model) {
             model = [[UserModel alloc]init];
-            
+            model.projectPowerArr = [@[] mutableCopy];
         }
     });
     return  model;

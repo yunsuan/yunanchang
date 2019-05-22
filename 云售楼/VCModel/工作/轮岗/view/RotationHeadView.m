@@ -35,9 +35,9 @@
         _phoneL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_tel"]];
     }
     
-    if (dataDic[@""]) {
+    if (dataDic[@"agent_name"]) {
         
-        _titleL.text = [NSString stringWithFormat:@"当前%@位",dataDic[@""]];
+        _titleL.text = [NSString stringWithFormat:@"当前A位"];
     }else{
         
         _titleL.text = @"暂无开启";

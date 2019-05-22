@@ -580,7 +580,14 @@
         _downTF.textField.placeholder = @"设置为0则无自然下岗";
         if (_dataDic.count) {
             
-            _downTF.textField.text = _dataDic[@"duty"][@"exchange_time_min"];
+            if (_dataDic[@"duty"][@"exchange_time_min"]) {
+                
+                _downTF.textField.text = [NSString stringWithFormat:@"%@",_dataDic[@"duty"][@"exchange_time_min"]];
+            }else{
+                
+                _downTF.textField.text = @"0";
+            }
+            
         }
     }
     return _downTF;

@@ -19,6 +19,9 @@ static NSString *const Login_URL = @"saleApp/login";
 
 #pragma mark ---  配置  ---
 
+//权限
+static NSString *const PersonProjectRoleProjectPower_URL = @"saleApp/person/project/role/projectPower";
+
 //项目字段配置
 static NSString *const WorkClientAutoColumnConfig_URL = @"saleApp/work/client/auto/column/config";
 

@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDictionary *projectinfo;
 @property (nonatomic, strong) NSDictionary *Configdic;
 
+@property (nonatomic, strong) NSMutableArray *projectPowerArr;
+
 + (UserModel *)defaultModel;
 
 @end

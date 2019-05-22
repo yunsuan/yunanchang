@@ -48,13 +48,14 @@
     [super viewDidLoad];
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
     if ([UserModel defaultModel].agent_company_info_id) {
         
-        _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@""];
+        _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational"];
         _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事",@"轮岗"];
     }
     _projectArr = [UserModel defaultModel].project_list;
@@ -62,6 +63,23 @@
 //    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
 }
 
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:PersonProjectRoleProjectPower_URL parameters:@{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"]} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [UserModel defaultModel].projectPowerArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网路错误"];
+    }];
+}
 
 
 - (void)ActionRightBtn:(UIButton *)btn{

@@ -592,6 +592,7 @@
     }else{
         
         WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
+        nextVC.needConfirm = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }

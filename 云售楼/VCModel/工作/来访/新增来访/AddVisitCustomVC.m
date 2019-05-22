@@ -163,7 +163,10 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_configDic = resposeObject[@"data"];
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+                
+                self->_configDic = resposeObject[@"data"];
+            }
             [self initUI];
         }else{
             
@@ -746,6 +749,7 @@
                 _phoneTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 217 *SIZE, 33 *SIZE)];
                 _phoneTF.textField.placeholder = @"请输入手机号码";
                 _phoneTF.textField.delegate = self;
+                _phoneTF.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF];
                 break;
             }
@@ -755,6 +759,7 @@
                 _phoneTF2.hidden = YES;
                 _phoneTF2.textField.placeholder = @"请输入手机号码";
                 _phoneTF2.textField.delegate = self;
+                _phoneTF2.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF2];
                 break;
             }
@@ -764,6 +769,7 @@
                 _phoneTF3.hidden = YES;
                 _phoneTF3.textField.placeholder = @"请输入手机号码";
                 _phoneTF3.textField.delegate = self;
+                _phoneTF3.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF3];
                 break;
             }
@@ -771,6 +777,7 @@
             {
                 _certNumTF = tf;
                 _certNumTF.textField.placeholder = @"请输入证件号";
+                _certNumTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [_scrollView addSubview:_certNumTF];
                 break;
             }
@@ -778,6 +785,7 @@
             {
                 _mailCodeTF = tf;
                 _mailCodeTF.textField.placeholder = @"请输入邮政编码";
+                _mailCodeTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [_scrollView addSubview:_mailCodeTF];
                 break;
             }
