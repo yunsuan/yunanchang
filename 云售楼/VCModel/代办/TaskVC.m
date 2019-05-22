@@ -222,14 +222,15 @@
             
             [self.navigationController presentViewController:alert animated:YES completion:^{
                 
-                [self showContent:@"复制成功!"];
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = self->_dataArr[indexPath.row][@"tel"];
+    
             }];
         };
         
         cell.taskTakeLookConfirmCellCopyBlock = ^{
             
+            [self showContent:@"复制成功!"];
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = self->_dataArr[indexPath.row][@"tel"];
         };
         return cell;
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 4){
@@ -249,6 +250,119 @@
         
         cell.taskSignAuditCellBtnBlock = ^{
             
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"签字确认" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            UIAlertAction *valid = [UIAlertAction actionWithTitle:@"客户有效" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [BaseRequest GET:AgentSignNextAgent_URL parameters:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"]} success:^(id resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        if ([resposeObject[@"data"][@"agentGroup"] count]) {
+                            
+                            SignSelectWorkerView *view = [[SignSelectWorkerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+                            __strong __typeof(&*view)strongView = view;
+                            view.dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"agentGroup"]];
+                            view.signSelectWorkerViewBlock = ^{
+                                
+                                NSMutableDictionary *dic;
+                                if (![self isEmpty:strongView.markTV.text]) {
+                                    
+                                    dic = [NSMutableDictionary dictionaryWithDictionary:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"],@"agent_id":view.agentId,@"comment":view.markTV.text}];
+                                }else{
+                                    
+                                    dic = [NSMutableDictionary dictionaryWithDictionary:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"],@"agent_id":view.agentId}];
+                                }
+                                [BaseRequest GET:AgentSignValue_URL parameters:dic success:^(id resposeObject) {
+                                    
+                                    NSLog(@"%@",resposeObject);
+                                    if ([resposeObject[@"code"] integerValue] == 200) {
+                                        
+                                        [self showContent:resposeObject[@"msg"]];
+                                        [self RequestMethod];
+                                    }else{
+                                        
+                                        [self showContent:resposeObject[@"msg"]];
+                                    }
+                                } failure:^(NSError *error) {
+                                    
+                                    [self showContent:@"网络错误"];
+                                }];
+                            };
+                            [[UIApplication sharedApplication].keyWindow addSubview:view];
+                        }else{
+                            
+                            [BaseRequest GET:AgentSignValue_URL parameters:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"]} success:^(id resposeObject) {
+                                
+                                NSLog(@"%@",resposeObject);
+                                if ([resposeObject[@"code"] integerValue] == 200) {
+                                    
+                                    [self showContent:resposeObject[@"msg"]];
+                                    [self RequestMethod];
+                                }else{
+                                    
+                                    [self showContent:resposeObject[@"msg"]];
+                                }
+                            } failure:^(NSError *error) {
+                                
+                                [self showContent:@"网络错误"];
+                            }];
+                        }
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError *error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }];
+            
+            UIAlertAction *invalid = [UIAlertAction actionWithTitle:@"客户无效" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                SignFailView *view = [[SignFailView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+                
+                __strong __typeof(&*view)strongView = view;
+                view.signFailViewBlock = ^{
+                    
+                    NSMutableDictionary *dic;
+                    if (![self isEmpty:strongView.markTV.text]) {
+                        
+                        dic = [NSMutableDictionary dictionaryWithDictionary:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"],@"disabled_state":view.agentId,@"comment":view.markTV.text}];
+                    }else{
+                        
+                        dic = [NSMutableDictionary dictionaryWithDictionary:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"],@"disabled_state":view.agentId}];
+                    }
+                    [BaseRequest GET:AgentSignDisabled_URL parameters:dic success:^(id resposeObject) {
+                        
+                        NSLog(@"%@",resposeObject);
+                        if ([resposeObject[@"code"] integerValue] == 200) {
+                            
+                            [self showContent:resposeObject[@"msg"]];
+                            [self RequestMethod];
+                        }else{
+                            
+                            [self showContent:resposeObject[@"msg"]];
+                        }
+                    } failure:^(NSError *error) {
+                        
+                        [self showContent:@"网络错误"];
+                    }];
+                };
+                [[UIApplication sharedApplication].keyWindow addSubview:view];
+            }];
+            
+            [alert addAction:valid];
+            [alert addAction:invalid];
+            [alert addAction:cancel];
+            [self.navigationController presentViewController:alert animated:YES completion:^{
+                
+            }];
         };
         return cell;
     }else{
@@ -470,17 +584,14 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 4) {
         
+        WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
+
+        nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];
+
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
         WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
-        //    if (_dataArr[indexPath.row][@"need_confirm"]) {
-        //
-        //        nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];
-        //    }else{
-        //
-        //        nextVC.needConfirm = @"1";
-        //    }
-        //
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }

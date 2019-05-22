@@ -96,7 +96,10 @@
             [UserModel defaultModel].company_state = resposeObject[@"data"][@"company_info"][@"company_state"];
             [UserModel defaultModel].ex_state = resposeObject[@"data"][@"company_info"][@"ex_state"];
             [UserModel defaultModel].project_list = resposeObject[@"data"][@"company_info"][@"project_list"];
-            [UserModel defaultModel].projectinfo = resposeObject[@"data"][@"company_info"][@"project_list"][0];
+            if ([resposeObject[@"data"][@"company_info"][@"project_list"] count]) {
+                
+                [UserModel defaultModel].projectinfo = resposeObject[@"data"][@"company_info"][@"project_list"][0];
+            }
             
             [UserModelArchiver archive];
             [[NSUserDefaults standardUserDefaults]setValue:LOGINSUCCESS forKey:LOGINENTIFIER];

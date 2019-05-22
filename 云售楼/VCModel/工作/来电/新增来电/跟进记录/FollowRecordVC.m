@@ -6,13 +6,15 @@
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <CoreAudio/CoreAudioTypes.h>
+
 #import "FollowRecordVC.h"
 #import "CallTelegramVC.h"
 #import "VisitCustomVC.h"
-#import <AVFoundation/AVFoundation.h>
-#import <AudioToolbox/AudioToolbox.h>
-//#import <AVFoundation/AVFoundation.h>
-#import <CoreAudio/CoreAudioTypes.h>
+#import "TaskVC.h"
+
 #import "RecordView.h"
 //#import "RecordLongPressView.h"
 #import "DateChooseView.h"
@@ -316,7 +318,7 @@
         
         [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
           
-            if (Isplay==YES) {
+            if (self->Isplay == YES) {
                 NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
                 NSURL* url = [NSURL fileURLWithPath:path];
                 NSError *error;
@@ -346,6 +348,11 @@
                             break;
                         }
                         if ([vc isKindOfClass:[VisitCustomVC class]]) {
+                            
+                            [self.navigationController popToViewController:vc animated:YES];
+                            break;
+                        }
+                        if ([vc isKindOfClass:[TaskVC class]]) {
                             
                             [self.navigationController popToViewController:vc animated:YES];
                             break;
