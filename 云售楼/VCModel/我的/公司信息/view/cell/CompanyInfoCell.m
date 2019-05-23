@@ -44,9 +44,9 @@
     }
     
     _departL.text = [NSString stringWithFormat:@"部门：%@",dataDic[@"department_name"]];
-    _positionL.text = [NSString stringWithFormat:@"岗位：%@",dataDic[@"department_name"]];
-    _roleL.text = [NSString stringWithFormat:@"项目角色：%@",dataDic[@"department_name"]];
-    _timeL.text = [NSString stringWithFormat:@"入职时间：%@",dataDic[@"department_name"]];
+    _positionL.text = [NSString stringWithFormat:@"岗位：%@",dataDic[@"post_name"]];
+    _roleL.text = [NSString stringWithFormat:@"项目角色：%@",dataDic[@"role_name"]];
+    _timeL.text = [NSString stringWithFormat:@"入职时间：%@",dataDic[@"create_time"]];
 }
 
 - (void)initUI{

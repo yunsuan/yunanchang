@@ -690,7 +690,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"新增来电";
+    self.titleLabel.text = @"新增来访";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLWhiteColor;

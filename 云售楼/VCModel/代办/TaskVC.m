@@ -14,6 +14,7 @@
 #import "WorkPhoneConfrimWaitDetailVC.h"
 #import "WorkRecommendWaitDetailVC.h"
 #import "WorkCompleteCustomVC1.h"
+#import "CompanyAuthVC.h"
 
 
 #import "TaskCallBackCell.h"
@@ -109,6 +110,15 @@
     }
     [_table reloadData];
 }
+
+
+- (void)ActionGoBtn:(UIButton *)btn{
+    
+    CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+    [self.navigationController pushViewController:nextVC animated:YES];
+}
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -610,6 +620,34 @@
     [self.rightBtn setTitleColor:CL86Color forState:UIControlStateNormal];
     self.rightBtn.center = CGPointMake(SCREEN_Width - 40 * SIZE, STATUS_BAR_HEIGHT + 20);
     
+    
+    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(3 *SIZE, 7 *SIZE + NAVIGATION_BAR_HEIGHT, SCREEN_Width - 6 *SIZE, 167 *SIZE)];
+    whiteView.backgroundColor = CLWhiteColor;
+    whiteView.layer.cornerRadius = 7 *SIZE;
+    whiteView.clipsToBounds = YES;
+    [self.view addSubview:whiteView];
+    
+    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(151 *SIZE, 36 *SIZE, 57 *SIZE, 57 *SIZE)];
+    img.image = IMAGE_WITH_NAME(@"company");
+    [whiteView addSubview:img];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 110 *SIZE, SCREEN_Width - 6 *SIZE, 13 *SIZE)];
+    label.textColor = CL86Color;
+    label.font = [UIFont systemFontOfSize:13 *SIZE];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"您目前没有进行公司认证，请先认证公司！";
+    [whiteView addSubview:label];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(97 *SIZE, 31 *SIZE + CGRectGetMaxY(whiteView.frame), 167 *SIZE, 40 *SIZE);
+    btn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
+    [btn addTarget:self action:@selector(ActionGoBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitle:@"去认证" forState:UIControlStateNormal];
+    [btn setBackgroundColor:CLBlueBtnColor];
+    btn.layer.cornerRadius = 3 *SIZE;
+    btn.clipsToBounds = YES;
+    [self.view addSubview:btn];
+    
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
@@ -622,6 +660,13 @@
         [self RequestMethod];
     }];
     [self.view addSubview:_table];
+    if ([UserModel defaultModel].projectinfo) {
+        
+        _table.hidden = NO;
+    }else{
+        
+        _table.hidden = YES;
+    }
 }
 
 @end

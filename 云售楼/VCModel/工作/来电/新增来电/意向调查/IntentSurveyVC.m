@@ -139,7 +139,7 @@
         NSMutableArray *tempArr = [@[] mutableCopy];
         NSMutableArray *tempMrr = [@[] mutableCopy];
         
-        for (int j = 0; j < arr.count; j++) {
+        for (int j = 0; j < 2/*arr.count*/; j++) {
             
             NSDictionary *dic = arr[j];
             
@@ -726,7 +726,9 @@
 #pragma mark --coll代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return [_dataArr[collectionView.tag][@"config"] count];
+    NSInteger iNum = collectionView.tag / 100;
+    NSInteger jNum = collectionView.tag % 100;
+    return [_dataArr[iNum][@"list"][jNum][@"option"] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -739,7 +741,9 @@
     cell.selectImg.image = [UIImage imageNamed:@"default"];
     //        [cell setIsSelect:[_selectAllArr[collectionView.tag][indexPath.item] integerValue]];
     
-    cell.titleL.text = _dataArr[collectionView.tag][@"config"][indexPath.item][@"config_name"];
+    NSInteger iNum = collectionView.tag / 100;
+    NSInteger jNum = collectionView.tag % 100;
+    cell.titleL.text = _dataArr[iNum][@"list"][jNum][@"option"][indexPath.item][@"option_name"];
     return cell;
 }
 
@@ -960,7 +964,8 @@
                                     make.left.equalTo(view).offset(80 *SIZE);
                                     make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
                                     make.width.equalTo(@(258 *SIZE));
-                                    make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+                                    make.height.mas_equalTo(100 *SIZE);
+//                                   make.height.mas_equalT make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
                                 }];
                             }
                             

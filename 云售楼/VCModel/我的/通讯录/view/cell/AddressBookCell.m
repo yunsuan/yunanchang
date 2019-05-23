@@ -43,6 +43,14 @@
     }];
 }
 
+- (void)ActionPhone{
+    
+    if (self.addressBookCellPhoneBlock) {
+        
+        self.addressBookCellPhoneBlock();
+    }
+}
+
 - (void)initUI{
     
     _headImg = [[UIImageView alloc] init];
@@ -79,6 +87,9 @@
     
     _phoneImg = [[UIImageView alloc] init];
     _phoneImg.image = IMAGE_WITH_NAME(@"phone");
+    _phoneImg.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionPhone)];
+    [_phoneImg addGestureRecognizer:tap];
     [self.contentView addSubview:_phoneImg];
     
     _line = [[UIView alloc] init];

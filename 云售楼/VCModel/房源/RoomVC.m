@@ -10,6 +10,7 @@
 
 
 #import "RoomDetailVC.h"
+#import "CompanyAuthVC.h"
 
 #import "RoomHeader.h"
 #import "RoomCollCell.h"
@@ -140,6 +141,14 @@
 
 }
 
+
+- (void)ActionGoBtn:(UIButton *)btn{
+    
+    CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+    [self.navigationController pushViewController:nextVC animated:YES];
+}
+
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
     return _dataArr.count;
@@ -248,6 +257,33 @@
     [self.rightBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setTitle: [UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+    
+    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(3 *SIZE, 7 *SIZE + NAVIGATION_BAR_HEIGHT, SCREEN_Width - 6 *SIZE, 167 *SIZE)];
+    whiteView.backgroundColor = CLWhiteColor;
+    whiteView.layer.cornerRadius = 7 *SIZE;
+    whiteView.clipsToBounds = YES;
+    [self.view addSubview:whiteView];
+    
+    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(151 *SIZE, 36 *SIZE, 57 *SIZE, 57 *SIZE)];
+    img.image = IMAGE_WITH_NAME(@"company");
+    [whiteView addSubview:img];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 110 *SIZE, SCREEN_Width - 6 *SIZE, 13 *SIZE)];
+    label.textColor = CL86Color;
+    label.font = [UIFont systemFontOfSize:13 *SIZE];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"您目前没有进行公司认证，请先认证公司！";
+    [whiteView addSubview:label];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(97 *SIZE, 31 *SIZE + CGRectGetMaxY(whiteView.frame), 167 *SIZE, 40 *SIZE);
+    btn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
+    [btn addTarget:self action:@selector(ActionGoBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitle:@"去认证" forState:UIControlStateNormal];
+    [btn setBackgroundColor:CLBlueBtnColor];
+    btn.layer.cornerRadius = 3 *SIZE;
+    btn.clipsToBounds = YES;
+    [self.view addSubview:btn];
   
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 4, 145 *SIZE);
@@ -263,6 +299,14 @@
     [_coll registerClass:[RoomHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"RoomHeader"];
     [_coll registerClass:[RoomFooter class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"RoomFooter"];
     [self.view addSubview:_coll];
+    
+    if ([UserModel defaultModel].projectinfo) {
+        
+        _coll.hidden = NO;
+    }else{
+        
+        _coll.hidden = YES;
+    }
 }
 
 

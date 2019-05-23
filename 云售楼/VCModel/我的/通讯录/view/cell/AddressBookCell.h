@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddressBookCellPhoneBlock)(void);
+
 @interface AddressBookCell : UITableViewCell
+
+@property (nonatomic, copy) AddressBookCellPhoneBlock addressBookCellPhoneBlock;
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 
