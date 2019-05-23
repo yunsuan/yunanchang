@@ -49,6 +49,12 @@ static NSString *const ProjectHouseGetBuildList_URL =  @"saleApp/project/house/g
 
 //获取房源详情
 static NSString *const ProjectHouseGetDetail_URL =  @"/saleApp/project/house/getHouseDetail";
+
+//获取房源具体信息
+static NSString *const ProjectHouseGetDetailInfo_URL =  @"/saleApp/project/house/getHouseInfo";
+
+
+
 #pragma mark ---  工作  ---
 
 #pragma mark -- 来电 --

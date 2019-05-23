@@ -70,7 +70,7 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            [UserModel defaultModel].projectPowerArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+//            [UserModel defaultModel].projectPowerArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
         }else{
             
             [self showContent:resposeObject[@"msg"]];

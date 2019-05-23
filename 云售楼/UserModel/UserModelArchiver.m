@@ -64,6 +64,11 @@
     if (!flag) {
         //        NSLog(@"清空用户信息失败!");
     }
+    
+    BOOL flag1 = [NSKeyedArchiver archiveRootObject:[[UserModel alloc]init] toFile:[self archivePath]];
+    if (!flag1) {
+        //        NSLog(@"清空用户信息失败!");
+    }
 }
 
 @end
