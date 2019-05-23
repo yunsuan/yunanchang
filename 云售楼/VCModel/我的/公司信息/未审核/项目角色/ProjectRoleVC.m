@@ -98,7 +98,7 @@
         
         for (int j = 0; j < [_selectArr[i] count]; j++) {
             
-            if ([_selectArr[i][j] integerValue] == 0) {
+            if ([_selectArr[i][j] integerValue] == 1) {
                 
                 if (!self.roleId.length) {
                     

@@ -176,8 +176,15 @@
         
     }];
     
-    [alert addAction:visit];
-    [alert addAction:quit];
+    if ([self.powerDic[@"vist"] boolValue]) {
+        
+        [alert addAction:visit];
+    }
+    if ([self.powerDic[@"giveUp"] boolValue]) {
+        
+        [alert addAction:quit];
+    }
+
     [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
         
@@ -209,7 +216,21 @@
             return 0;
         }else{
             
-            return 1;
+            if (_index == 1) {
+                
+                if ([self.powerDic[@"update"] boolValue]) {
+                    
+                    return 1;
+                }
+                return 0;
+            }else{
+                
+                if ([self.powerDic[@"follow"] boolValue]) {
+                    
+                    return 1;
+                }
+                return 0;
+            }
         }
     }else{
         
@@ -217,21 +238,11 @@
             
             return [_infoDataArr[_num] count];
         }else if (_index == 1){
-            
-            
-//            NSData *jsonData = [_intentArr[section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
-//            NSError *err;
-//            NSArray *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-//                                                                options:NSJSONReadingAllowFragments
-//                                                                  error:&err];
-////            NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
-//            NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:dic
-//                                                            options:NSJSONReadingAllowFragments
-//                                                              error:&err];
+        
             return [_intentArr[section - 1][@"list"] count];
         }else{
             
-            return _followArr.count;//[_followArr[section - 1] count];
+            return _followArr.count;
         }
     }
 }
@@ -285,6 +296,17 @@
             
             header = [[CallTelegramCustomDetailHeader alloc] initWithReuseIdentifier:@"CallTelegramCustomDetailHeader"];
         }
+        
+        if ([self.powerDic[@"update"] boolValue]) {
+            
+            header.editBtn.hidden = NO;
+            header.addBtn.hidden = NO;
+        }else{
+            
+            header.editBtn.hidden = YES;
+            header.addBtn.hidden = YES;
+        }
+        
         
         header.dataDic = _groupInfoDic;
         header.propertyL.text = [NSString stringWithFormat:@"意向物业："];
@@ -378,6 +400,23 @@
             
             header.tag = section;
             
+            if ([self.powerDic[@"update"] boolValue]) {
+                
+                header.editBtn.hidden = NO;
+                
+            }else{
+                
+                header.editBtn.hidden = YES;
+            }
+            if ([self.powerDic[@"delete"] boolValue]) {
+                
+                header.deleteBtn.hidden = NO;
+                
+            }else{
+                
+                header.deleteBtn.hidden = YES;
+            }
+            
             header.callTelegramCustomDetailIntentHeaderEditBlock = ^(NSInteger index) {
                 
                 NSMutableDictionary *dic = [@{} mutableCopy];
@@ -435,8 +474,23 @@
         
         if (indexPath.row == 0) {
             
-            cell.editBtn.hidden = NO;
-            cell.deleteBtn.hidden = NO;
+            if ([self.powerDic[@"update"] boolValue]) {
+                
+                cell.editBtn.hidden = NO;
+//                cell.deleteBtn.hidden = NO;
+            }else{
+                
+                cell.editBtn.hidden = YES;
+//                cell.deleteBtn.hidden = YES;
+            }
+            if ([self.powerDic[@"delete"] boolValue]) {
+                
+                cell.deleteBtn.hidden = NO;
+                
+            }else{
+                
+                cell.deleteBtn.hidden = YES;
+            }
         }else{
             
             cell.editBtn.hidden = YES;
@@ -677,7 +731,15 @@
     self.titleLabel.text = @"客户详情";
     self.titleLabel.textColor = CLWhiteColor;
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
-    self.rightBtn.hidden = NO;
+    
+    if ([self.powerDic[@"giveUp"] boolValue] || [self.powerDic[@"转来访"] boolValue]) {
+        
+        self.rightBtn.hidden = NO;
+    }else{
+        
+        self.rightBtn.hidden = YES;
+    }
+    
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_2") forState:UIControlStateNormal];
     self.line.hidden = YES;

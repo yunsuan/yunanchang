@@ -558,6 +558,7 @@
         CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
         nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
         nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
+        nextVC.powerDic = @{@"detail":[NSNumber numberWithBool:true],@"add":[NSNumber numberWithBool:true],@"update":[NSNumber numberWithBool:true],@"giveUp":[NSNumber numberWithBool:true],@"delete":[NSNumber numberWithBool:true],@"follow":[NSNumber numberWithBool:true]};
         [self.navigationController pushViewController:nextVC animated:YES];
 //        VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
 //        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
@@ -568,6 +569,7 @@
         VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
         nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
         nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
+        nextVC.powerDic = @{@"detail":[NSNumber numberWithBool:true],@"add":[NSNumber numberWithBool:true],@"update":[NSNumber numberWithBool:true],@"giveUp":[NSNumber numberWithBool:true],@"delete":[NSNumber numberWithBool:true],@"follow":[NSNumber numberWithBool:true]};
         [self.navigationController pushViewController:nextVC animated:YES];
 //        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
 //        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];

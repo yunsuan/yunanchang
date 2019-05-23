@@ -139,9 +139,10 @@
         
     }];
     
-    [alert addAction:sign];
-    [alert addAction:order];
-    [alert addAction:quit];
+    if ([self.powerDic[@"giveUp"] boolValue]) {
+        
+        [alert addAction:quit];
+    }
     [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
         
@@ -173,7 +174,21 @@
             return 0;
         }else{
             
-            return 1;
+            if (_index == 1) {
+                
+                if ([self.powerDic[@"update"] boolValue]) {
+                    
+                    return 1;
+                }
+                return 0;
+            }else{
+                
+                if ([self.powerDic[@"follow"] boolValue]) {
+                    
+                    return 1;
+                }
+                return 0;
+            }
         }
     }else{
         
@@ -238,6 +253,16 @@
         if (!header) {
             
             header = [[CallTelegramCustomDetailHeader alloc] initWithReuseIdentifier:@"CallTelegramCustomDetailHeader"];
+        }
+        
+        if ([self.powerDic[@"update"] boolValue]) {
+            
+            header.editBtn.hidden = NO;
+            header.addBtn.hidden = NO;
+        }else{
+            
+            header.editBtn.hidden = YES;
+            header.addBtn.hidden = YES;
         }
         
         header.dataDic = _groupInfoDic;
@@ -330,6 +355,23 @@
                 header = [[CallTelegramCustomDetailIntentHeader alloc] initWithReuseIdentifier:@"CallTelegramCustomDetailIntentHeader"];
             }
             
+            if ([self.powerDic[@"update"] boolValue]) {
+                
+                header.editBtn.hidden = NO;
+                
+            }else{
+                
+                header.editBtn.hidden = YES;
+            }
+            if ([self.powerDic[@"delete"] boolValue]) {
+                
+                header.deleteBtn.hidden = NO;
+                
+            }else{
+                
+                header.deleteBtn.hidden = YES;
+            }
+            
             header.callTelegramCustomDetailIntentHeaderEditBlock = ^(NSInteger index) {
                 
                 NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:self->_intentArr[0]];
@@ -385,8 +427,23 @@
         
         if (indexPath.row == 0) {
             
-            cell.editBtn.hidden = NO;
-            cell.deleteBtn.hidden = NO;
+            if ([self.powerDic[@"update"] boolValue]) {
+                
+                cell.editBtn.hidden = NO;
+                //                cell.deleteBtn.hidden = NO;
+            }else{
+                
+                cell.editBtn.hidden = YES;
+                //                cell.deleteBtn.hidden = YES;
+            }
+            if ([self.powerDic[@"delete"] boolValue]) {
+                
+                cell.deleteBtn.hidden = NO;
+                
+            }else{
+                
+                cell.deleteBtn.hidden = YES;
+            }
         }else{
             
             cell.editBtn.hidden = YES;
@@ -574,7 +631,13 @@
     self.titleLabel.text = @"客户详情";
     self.titleLabel.textColor = CLWhiteColor;
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
-    self.rightBtn.hidden = NO;
+    if ([self.powerDic[@"giveUp"] boolValue]) {
+        
+        self.rightBtn.hidden = NO;
+    }else{
+        
+        self.rightBtn.hidden = YES;
+    }
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_2") forState:UIControlStateNormal];
     self.line.hidden = YES;
