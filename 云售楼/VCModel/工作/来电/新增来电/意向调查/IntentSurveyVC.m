@@ -31,6 +31,7 @@
     
     NSMutableArray *_dataArr;
     NSMutableArray *_viewArr;
+    NSMutableArray *_headArr;
     NSMutableArray *_labelArr;
     NSMutableArray *_moduleArr;
     NSMutableArray *_lastArr;
@@ -71,6 +72,7 @@
     
     _dataArr = [@[] mutableCopy];
     _viewArr = [@[] mutableCopy];
+    _headArr = [@[] mutableCopy];
     _moduleArr = [@[] mutableCopy];
     _labelArr = [@[] mutableCopy];
     _lastArr = [@[] mutableCopy];;
@@ -122,6 +124,16 @@
         view.backgroundColor = [UIColor whiteColor];
         view.tag = [data[i][@"property_id"] integerValue];
         [_viewArr addObject:view];
+        
+        IntentSurveyHeader *header = [[IntentSurveyHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+        for (int j = 0; j < _countArr.count; j++) {
+            
+            if ([_countArr[j][@"id"] integerValue] == [data[i][@"property_id"] integerValue]) {
+                
+                header.titleL.text = _countArr[j][@"param"];
+            }
+        }
+        [_headArr addObject:header];
         
         NSArray *arr = data[i][@"list"];
         NSMutableArray *tempArr = [@[] mutableCopy];
@@ -800,27 +812,51 @@
                 }];
             }
             
+            [view addSubview:_headArr[i]];
+            
             for (int j = 0; j < [_moduleArr[i] count]; j++) {
                 
                 [view addSubview:_labelArr[i][j]];
                 [view addSubview:_moduleArr[i][j]];
                 if (j == 0) {
                     
-                    [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                    if (_moduleArr.count == 1) {
                         
-                        make.left.equalTo(view).offset(10 *SIZE);
-                        make.top.equalTo(view).offset(21 *SIZE);
-                        make.width.equalTo(@(70 *SIZE));
-                        make.height.equalTo(@(13 *SIZE));
-                    }];
-                    
-                    [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                        [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(view).offset(10 *SIZE);
+                            make.top.equalTo(view).offset(61 *SIZE);
+                            make.width.equalTo(@(70 *SIZE));
+                            make.height.equalTo(@(13 *SIZE));
+//                            make.bottom.equalTo(view).offset(-21 *SIZE);
+                        }];
                         
-                        make.left.equalTo(view).offset(80 *SIZE);
-                        make.top.equalTo(view).offset(11 *SIZE);
-                        make.width.equalTo(@(258 *SIZE));
-                        make.height.equalTo(@(33 *SIZE));
-                    }];
+                        [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(view).offset(80 *SIZE);
+                            make.top.equalTo(view).offset(51 *SIZE);
+                            make.width.equalTo(@(258 *SIZE));
+                            make.height.equalTo(@(33 *SIZE));
+                            make.bottom.equalTo(view).offset(-21 *SIZE);
+                        }];
+                    }else{
+                        
+                        [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(view).offset(10 *SIZE);
+                            make.top.equalTo(view).offset(61 *SIZE);
+                            make.width.equalTo(@(70 *SIZE));
+                            make.height.equalTo(@(13 *SIZE));
+                        }];
+                        
+                        [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(view).offset(80 *SIZE);
+                            make.top.equalTo(view).offset(51 *SIZE);
+                            make.width.equalTo(@(258 *SIZE));
+                            make.height.equalTo(@(33 *SIZE));
+                        }];
+                    }
                 }else{
                     
                     NSDictionary *dic = _dataArr[i][@"list"][j];
@@ -996,21 +1032,43 @@
                 [bomView addSubview:_moduleArr[i][j]];
                 if (j == 0) {
                     
-                    [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                    if (_moduleArr.count == 1) {
                         
-                        make.left.equalTo(bomView).offset(10 *SIZE);
-                        make.top.equalTo(bomView).offset(21 *SIZE);
-                        make.width.equalTo(@(70 *SIZE));
-                        make.height.equalTo(@(13 *SIZE));
-                    }];
-                    
-                    [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                        [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(bomView).offset(10 *SIZE);
+                            make.top.equalTo(bomView).offset(61 *SIZE);
+                            make.width.equalTo(@(70 *SIZE));
+                            make.height.equalTo(@(13 *SIZE));
+//                            make.bottom.equalTo(bomView).offset(-21 *SIZE);
+                        }];
                         
-                        make.left.equalTo(bomView).offset(80 *SIZE);
-                        make.top.equalTo(bomView).offset(11 *SIZE);
-                        make.width.equalTo(@(258 *SIZE));
-                        make.height.equalTo(@(33 *SIZE));
-                    }];
+                        [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(bomView).offset(80 *SIZE);
+                            make.top.equalTo(bomView).offset(51 *SIZE);
+                            make.width.equalTo(@(258 *SIZE));
+                            make.height.equalTo(@(33 *SIZE));
+                            make.bottom.equalTo(bomView).offset(-21 *SIZE);
+                        }];
+                    }else{
+                        
+                        [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(bomView).offset(10 *SIZE);
+                            make.top.equalTo(bomView).offset(61 *SIZE);
+                            make.width.equalTo(@(70 *SIZE));
+                            make.height.equalTo(@(13 *SIZE));
+                        }];
+                        
+                        [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(bomView).offset(80 *SIZE);
+                            make.top.equalTo(bomView).offset(51 *SIZE);
+                            make.width.equalTo(@(258 *SIZE));
+                            make.height.equalTo(@(33 *SIZE));
+                        }];
+                    }
                 }else{
                     
                     NSDictionary *dic = _dataArr[i][@"list"][j];
