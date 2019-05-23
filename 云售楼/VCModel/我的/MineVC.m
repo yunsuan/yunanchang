@@ -228,16 +228,12 @@
                 [BaseRequest GET:UserPersonalLogOut_URL parameters:nil success:^(id  _Nonnull resposeObject) {
                     
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
-                    [UserModel defaultModel].Token = @"";
-                    [UserModelArchiver archive];
-                    [UserModelArchiver ClearUserInfoModel];
+                    [UserModelArchiver ClearModel];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"goLoginVC" object:nil];
                 } failure:^(NSError * _Nonnull error) {
                     
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
-                    [UserModel defaultModel].Token = @"";
-                    [UserModelArchiver archive];
-                    [UserModelArchiver ClearUserInfoModel];
+                    [UserModelArchiver ClearModel];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"goLoginVC" object:nil];
                 }];
             }];

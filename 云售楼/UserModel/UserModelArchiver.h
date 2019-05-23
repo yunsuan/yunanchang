@@ -12,8 +12,12 @@
 
 + (UserModel *)unarchive; //解码
 + (UserInfoModel *)InfoUnarchive;
++ (PowerModel *)PowerUnarchive;
+
 + (void)archive; //归档
 + (void)infoArchive; //iofo归档
-+ (void)ClearUserInfoModel;
++ (void)powerArchive; //iofo归档
+
++ (void)ClearModel;
 
 @end

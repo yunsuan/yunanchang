@@ -7,6 +7,7 @@
 //
 
 #import "LoginVC.h"
+#import "PowerMannerger.h"
 
 #import "RegisterVC.h"
 #import "FindPassWordVC.h"
@@ -100,12 +101,20 @@
                 
                 [UserModel defaultModel].projectinfo = resposeObject[@"data"][@"company_info"][@"project_list"][0];
             }
+            else{
+                [UserModel defaultModel].projectinfo = nil;
+            }
             
             [UserModelArchiver archive];
             [[NSUserDefaults standardUserDefaults]setValue:LOGINSUCCESS forKey:LOGINENTIFIER];
             [self InfoRequest];
             if ([UserModel defaultModel].projectinfo) {
-                
+    
+                [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+                    NSLog(@"%@",result);
+                } failure:^(NSString * _Nonnull error) {
+                    NSLog(@"%@",error);
+                }];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
                 [self.navigationController popViewControllerAnimated:YES];
             }else{

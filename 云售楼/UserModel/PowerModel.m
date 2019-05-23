@@ -1,34 +1,33 @@
 //
-//  UserInfoModel.m
+//  PowerModel.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/5/10.
+//  Created by xiaoq on 2019/5/23.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
+#import "PowerModel.h"
 static dispatch_once_t onceToken;
-static UserInfoModel *model;
+static PowerModel *model;
 
-@implementation UserInfoModel
-
-+ (UserInfoModel *)defaultModel{
+@implementation PowerModel
++ (PowerModel *)defaultModel{
     
     dispatch_once(&onceToken, ^{
-        model = [UserModelArchiver InfoUnarchive];
+        model = [UserModelArchiver PowerUnarchive];
         if (!model) {
-            model = [[UserInfoModel alloc]init];
-            
+            model = [[PowerModel alloc]init];
+            //            model.projectPowerDic = [@{} mutableCopy];
         }
     });
     return  model;
 }
 
-+(void)resetModel{
-    
++ (void)resetModel
+{
     onceToken = 0;
     model = nil;
 }
-
 
 #pragma mark - NSCoding
 //归档
@@ -79,5 +78,5 @@ static UserInfoModel *model;
     }
 }
 
-@end
 
+@end

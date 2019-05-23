@@ -13,7 +13,10 @@
 
 #import "UserModel.h"
 #import "UserInfoModel.h"
+#import "PowerModel.h"
 #import "UserModelArchiver.h"
+//#import "PowerMannerger.h"
+
 
 #import "NetConfig.h"
 #import "BaseRequest.h"
