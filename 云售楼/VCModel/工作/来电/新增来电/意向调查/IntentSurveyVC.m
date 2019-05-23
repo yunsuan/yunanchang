@@ -33,6 +33,7 @@
     NSMutableArray *_viewArr;
     NSMutableArray *_headArr;
     NSMutableArray *_labelArr;
+    NSMutableArray *_selectArr;
     NSMutableArray *_moduleArr;
     NSMutableArray *_lastArr;
     
@@ -73,6 +74,7 @@
     _dataArr = [@[] mutableCopy];
     _viewArr = [@[] mutableCopy];
     _headArr = [@[] mutableCopy];
+    _selectArr = [@[] mutableCopy];
     _moduleArr = [@[] mutableCopy];
     _labelArr = [@[] mutableCopy];
     _lastArr = [@[] mutableCopy];;
@@ -138,8 +140,9 @@
         NSArray *arr = data[i][@"list"];
         NSMutableArray *tempArr = [@[] mutableCopy];
         NSMutableArray *tempMrr = [@[] mutableCopy];
+        NSMutableArray *tempSelect = [@[] mutableCopy];
         
-        for (int j = 0; j < 2/*arr.count*/; j++) {
+        for (int j = 0; j < arr.count; j++) {
             
             NSDictionary *dic = arr[j];
             
@@ -170,6 +173,7 @@
                         }
                     }
                     [tempMrr addObject:tf];
+                    [tempSelect addObject:@[]];
                     break;
                 }
                 case 2:
@@ -186,6 +190,7 @@
                         }
                     }
                     [tempMrr addObject:btn];
+                    [tempSelect addObject:@[]];
                     break;
                 }
                 case 3:
@@ -206,6 +211,12 @@
                     [coll registerClass:[BoxSelectCollCell class] forCellWithReuseIdentifier:@"BoxSelectCollCell"];
                     [tempMrr addObject:coll];
                     
+                    NSMutableArray *collSelect = [@[] mutableCopy];
+                    for (int m = 0; m < [dic[@"option"] count]; m++) {
+                        
+                        [collSelect addObject:@0];
+                    }
+                    [tempSelect addObject:collSelect];
                     break;
                 }
                 case 4:
@@ -222,6 +233,7 @@
                         }
                     }
                     [tempMrr addObject:btn];
+                    [tempSelect addObject:@[]];
                     break;
                 }
                 default:
@@ -231,6 +243,7 @@
         
         [_labelArr addObject:tempArr];
         [_moduleArr addObject:tempMrr];
+        [_selectArr addObject:tempSelect];
     }
 }
 
@@ -330,6 +343,60 @@
                     }
                     case 3:
                     {
+                        NSArray *arr = _selectArr[i][j];
+                        if (arr.count) {
+                            
+                            NSString *strId;
+                            NSString *str;
+                            for (int m = 0; m < arr.count; m++) {
+                                
+                                if ([arr[m] integerValue] == 1) {
+                                    
+                                    if (m == 0) {
+                                        
+                                        str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
+                                        strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];
+                                    }else{
+                                        
+                                        str = [NSString stringWithFormat:@"%@,%@",str,dic[@"option"][m][@"option_name"]];
+                                        strId = [NSString stringWithFormat:@"@%@,%@",strId,dic[@"option"][m][@"option_id"]];
+                                    }
+                                }
+                            }
+                            [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:str forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:strId forKey:@"value_id"];
+                            for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                                
+                                if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                    
+                                    [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    break;
+                                }
+                            }
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }else{
+                                
+                                [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                                [needDic setObject:@"" forKey:@"value"];
+                                [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                                [needDic setObject:@"" forKey:@"value_id"];
+                                for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                                    
+                                    if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                        
+                                        [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                         break;
                     }
                     case 4:
@@ -465,6 +532,46 @@
                     }
                     case 3:
                     {
+                        NSArray *arr = _selectArr[i][j];
+                        if (arr.count) {
+                            
+                            NSString *strId;
+                            NSString *str;
+                            for (int m = 0; m < arr.count; m++) {
+                                
+                                if ([arr[m] integerValue] == 1) {
+                                    
+                                    if (m == 0) {
+                                        
+                                        str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
+                                        strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];
+                                    }else{
+                                        
+                                        str = [NSString stringWithFormat:@"%@,%@",str,dic[@"option"][m][@"option_name"]];
+                                        strId = [NSString stringWithFormat:@"@%@,%@",strId,dic[@"option"][m][@"option_id"]];
+                                    }
+                                }
+                            }
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:str forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:strId forKey:@"value_id"];
+                            
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }else{
+                                
+                                [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                                [needDic setObject:@"" forKey:@"value"];
+                                [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                                [needDic setObject:@"" forKey:@"value_id"];
+                                
+                            }
+                        }
                         break;
                     }
                     case 4:
@@ -593,6 +700,45 @@
                     }
                     case 3:
                     {
+                        NSArray *arr = _selectArr[i][j];
+                        if (arr.count) {
+                            
+                            NSString *strId;
+                            NSString *str;
+                            for (int m = 0; m < arr.count; m++) {
+                                
+                                if ([arr[m] integerValue] == 1) {
+                                    
+                                    if (m == 0) {
+                                        
+                                        str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
+                                        strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];
+                                    }else{
+                                        
+                                        str = [NSString stringWithFormat:@"%@,%@",str,dic[@"option"][m][@"option_name"]];
+                                        strId = [NSString stringWithFormat:@"@%@,%@",strId,dic[@"option"][m][@"option_id"]];
+                                    }
+                                }
+                            }
+                            [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:str forKey:@"value"];
+                            [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                            [needDic setObject:strId forKey:@"value_id"];
+                    
+                        }else{
+                            
+                            if ([dic[@"is_must"] integerValue] == 1) {
+                                
+                                [self alertControllerWithNsstring:@"完善信息" And:[NSString stringWithFormat:@"请选择%@",dic[@"config_name"]]];
+                                return;
+                            }else{
+                                
+                                [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
+                                [needDic setObject:@"" forKey:@"value"];
+                                [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
+                                [needDic setObject:@"" forKey:@"value_id"];
+                            }
+                        }
                         break;
                     }
                     case 4:
@@ -738,13 +884,35 @@
         
         cell = [[BoxSelectCollCell alloc] initWithFrame:CGRectMake(0, 0, 130 *SIZE, 20 *SIZE)];
     }
-    cell.selectImg.image = [UIImage imageNamed:@"default"];
-    //        [cell setIsSelect:[_selectAllArr[collectionView.tag][indexPath.item] integerValue]];
+//    cell.selectImg.image = [UIImage imageNamed:@"default"];
+    
+    cell.tag = 1;
     
     NSInteger iNum = collectionView.tag / 100;
     NSInteger jNum = collectionView.tag % 100;
+    [cell setIsSelect:[_selectArr[iNum][jNum][indexPath.item] integerValue]];
     cell.titleL.text = _dataArr[iNum][@"list"][jNum][@"option"][indexPath.item][@"option_name"];
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSInteger iNum = collectionView.tag / 100;
+    NSInteger jNum = collectionView.tag % 100;
+    
+    NSMutableArray *temp1 = [[NSMutableArray alloc] initWithArray:_selectArr[iNum]];
+    NSMutableArray *temp2 = [[NSMutableArray alloc] initWithArray:temp1[jNum]];
+//    NSMutableArray *temp3 = [[NSMutableArray alloc] initWithArray:temp2[indexPath.item]];
+    if ([temp2[indexPath.item] integerValue] == 1) {
+        
+        [temp2 replaceObjectAtIndex:indexPath.item withObject:@0];
+    }else{
+        
+        [temp2 replaceObjectAtIndex:indexPath.item withObject:@1];
+    }
+    [temp1 replaceObjectAtIndex:jNum withObject:temp2];
+    [_selectArr replaceObjectAtIndex:iNum withObject:temp1];
+    [collectionView reloadData];
 }
 
 - (void)initUI{
@@ -796,7 +964,6 @@
             UIView *view = _viewArr[0];
             if (_viewArr.count == 1) {
                 
-                
                 [view mas_makeConstraints:^(MASConstraintMaker *make) {
                     
                     make.left.equalTo(self->_scrollView).offset(0);
@@ -824,7 +991,7 @@
                 [view addSubview:_moduleArr[i][j]];
                 if (j == 0) {
                     
-                    if (_moduleArr.count == 1) {
+                    if ([_moduleArr[i] count] == 1) {
                         
                         [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                             
@@ -877,7 +1044,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i][j] count] - 1) {
+                            if (j == [_moduleArr[i] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -911,7 +1078,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i][j] count] - 1) {
+                            if (j == [_moduleArr[i] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -947,7 +1114,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i][j] count] - 1) {
+                            if (j == [_moduleArr[i] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -964,8 +1131,8 @@
                                     make.left.equalTo(view).offset(80 *SIZE);
                                     make.top.equalTo(tf.mas_bottom).offset(21 *SIZE);
                                     make.width.equalTo(@(258 *SIZE));
-                                    make.height.mas_equalTo(100 *SIZE);
-//                                   make.height.mas_equalT make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+//                                    make.height.mas_equalTo(100 *SIZE);
+                                    make.height.mas_equalTo(coll.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
                                 }];
                             }
                             
@@ -982,7 +1149,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i][j] count] - 1) {
+                            if (j == [_moduleArr[i] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -1037,7 +1204,7 @@
                 [bomView addSubview:_moduleArr[i][j]];
                 if (j == 0) {
                     
-                    if (_moduleArr.count == 1) {
+                    if ([_moduleArr[i] count] == 1) {
                         
                         [_labelArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                             
@@ -1090,7 +1257,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i][j] count] - 1) {
+                            if (j == [_moduleArr[i] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -1124,7 +1291,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i][j] count] - 1) {
+                            if (j == [_moduleArr[i] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -1160,7 +1327,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i][j] count] - 1) {
+                            if (j == [_moduleArr[i] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -1194,7 +1361,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i][j] count] - 1) {
+                            if (j == [_moduleArr[i] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     

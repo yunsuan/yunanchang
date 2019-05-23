@@ -58,6 +58,8 @@
         }
     }
     [PowerModel defaultModel].WorkListPower = [WorkListPower copy];
+    [PowerModel defaultModel].telCallPower = [datadic[@"app_operate"][0] copy];
+    [PowerModel defaultModel].visitPower = [datadic[@"app_operate"][1] copy];
     [UserModelArchiver powerArchive];
 
 }

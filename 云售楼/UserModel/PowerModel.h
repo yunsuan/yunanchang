@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PowerModel : NSObject
 
 @property (nonatomic , strong) NSArray *WorkListPower;
+@property (nonatomic , strong) NSDictionary *telCallPower;//来电权限
+@property (nonatomic , strong) NSDictionary *visitPower;//来访权限
 
 + (PowerModel *)defaultModel;
 + (void)resetModel;

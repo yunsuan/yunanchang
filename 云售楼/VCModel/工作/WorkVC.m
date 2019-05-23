@@ -66,7 +66,11 @@
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].WorkListPower;
 //    _showArr = [@[] mutableCopy];
-    _powerArr = [@[] mutableCopy];
+//    _powerArr = [@[] mutableCopy];
+//    if (![PowerModel defaultModel].WorkListPower.count) {
+//
+//        [PowerMannerger ]
+//    }
 //    for (int i = 0; i < _imgArr.count; i++) {
 //
 //        [_showArr addObject:@0];
@@ -215,7 +219,7 @@
     if (indexPath.row == 0) {
         
         CallTelegramVC * nextVC = [[CallTelegramVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
-        nextVC.powerDic = _powerArr[0];
+        nextVC.powerDic = [PowerModel defaultModel].telCallPower;//_powerArr[0];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 1){
         
@@ -228,7 +232,7 @@
     }else if(indexPath.row == 3){
         
         VisitCustomVC *nextVC = [[VisitCustomVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
-        nextVC.powerDic = _powerArr[3];
+        nextVC.powerDic = [PowerModel defaultModel].visitPower;//_powerArr[3];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 7){
         
