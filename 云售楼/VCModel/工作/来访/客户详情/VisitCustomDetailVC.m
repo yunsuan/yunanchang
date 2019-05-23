@@ -406,7 +406,8 @@
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
                         [self->_intentArr removeObjectAtIndex:section - 1];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self->_intentArr.count - 1)] withRowAnimation:UITableViewRowAnimationNone];
+                        [self->_propertyArr removeAllObjects];
+                        [tableView reloadData];
                     }else{
                         
                         [self showContent:resposeObject[@"msg"]];
