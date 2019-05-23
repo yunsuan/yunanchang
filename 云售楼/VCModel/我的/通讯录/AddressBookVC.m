@@ -60,6 +60,7 @@
     _positionArr = [@[] mutableCopy];
     _collArr = [@[] mutableCopy];
     _departArr = [@[] mutableCopy];
+    _page = 1;
 }
 
 - (void)RequestDepart{

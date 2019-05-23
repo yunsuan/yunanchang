@@ -184,10 +184,11 @@
     [header.moreBtn setBackgroundColor:_invalidBtn.backgroundColor];
     header.moreBtn.layer.cornerRadius = 3 *SIZE;
     header.moreBtn.clipsToBounds = YES;
+    header.addBtn.hidden = YES;
     [header.moreBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [header.moreBtn setTitle:@"报备单" forState:UIControlStateNormal];
     if (!_dataDic[@"copy_content"]) {
-        
+    
         header.moreBtn.hidden = YES;
     }else{
         

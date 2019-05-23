@@ -10,6 +10,7 @@
 
 #import "FollowRecordVC.h"
 #import "CallTelegramCustomDetailVC.h"
+#import "VisitCustomDetailVC.h"
 #import "WorkPhoneConfrimWaitDetailVC.h"
 #import "WorkRecommendWaitDetailVC.h"
 #import "WorkCompleteCustomVC1.h"
@@ -116,7 +117,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
+    if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2) {
 
         TaskCallFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallFollowCell"];
         if (!cell) {
@@ -135,7 +136,7 @@
         };
         return cell;
 
-    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2){
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1){
 
         TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
         if (!cell) {
@@ -221,14 +222,15 @@
             
             [self.navigationController presentViewController:alert animated:YES completion:^{
                 
-                [self showContent:@"复制成功!"];
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = self->_dataArr[indexPath.row][@"tel"];
+    
             }];
         };
         
         cell.taskTakeLookConfirmCellCopyBlock = ^{
             
+            [self showContent:@"复制成功!"];
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = self->_dataArr[indexPath.row][@"tel"];
         };
         return cell;
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 4){
@@ -248,6 +250,119 @@
         
         cell.taskSignAuditCellBtnBlock = ^{
             
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"签字确认" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            UIAlertAction *valid = [UIAlertAction actionWithTitle:@"客户有效" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [BaseRequest GET:AgentSignNextAgent_URL parameters:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"]} success:^(id resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        if ([resposeObject[@"data"][@"agentGroup"] count]) {
+                            
+                            SignSelectWorkerView *view = [[SignSelectWorkerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+                            __strong __typeof(&*view)strongView = view;
+                            view.dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"agentGroup"]];
+                            view.signSelectWorkerViewBlock = ^{
+                                
+                                NSMutableDictionary *dic;
+                                if (![self isEmpty:strongView.markTV.text]) {
+                                    
+                                    dic = [NSMutableDictionary dictionaryWithDictionary:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"],@"agent_id":view.agentId,@"comment":view.markTV.text}];
+                                }else{
+                                    
+                                    dic = [NSMutableDictionary dictionaryWithDictionary:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"],@"agent_id":view.agentId}];
+                                }
+                                [BaseRequest GET:AgentSignValue_URL parameters:dic success:^(id resposeObject) {
+                                    
+                                    NSLog(@"%@",resposeObject);
+                                    if ([resposeObject[@"code"] integerValue] == 200) {
+                                        
+                                        [self showContent:resposeObject[@"msg"]];
+                                        [self RequestMethod];
+                                    }else{
+                                        
+                                        [self showContent:resposeObject[@"msg"]];
+                                    }
+                                } failure:^(NSError *error) {
+                                    
+                                    [self showContent:@"网络错误"];
+                                }];
+                            };
+                            [[UIApplication sharedApplication].keyWindow addSubview:view];
+                        }else{
+                            
+                            [BaseRequest GET:AgentSignValue_URL parameters:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"]} success:^(id resposeObject) {
+                                
+                                NSLog(@"%@",resposeObject);
+                                if ([resposeObject[@"code"] integerValue] == 200) {
+                                    
+                                    [self showContent:resposeObject[@"msg"]];
+                                    [self RequestMethod];
+                                }else{
+                                    
+                                    [self showContent:resposeObject[@"msg"]];
+                                }
+                            } failure:^(NSError *error) {
+                                
+                                [self showContent:@"网络错误"];
+                            }];
+                        }
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError *error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            }];
+            
+            UIAlertAction *invalid = [UIAlertAction actionWithTitle:@"客户无效" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                SignFailView *view = [[SignFailView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+                
+                __strong __typeof(&*view)strongView = view;
+                view.signFailViewBlock = ^{
+                    
+                    NSMutableDictionary *dic;
+                    if (![self isEmpty:strongView.markTV.text]) {
+                        
+                        dic = [NSMutableDictionary dictionaryWithDictionary:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"],@"disabled_state":view.agentId,@"comment":view.markTV.text}];
+                    }else{
+                        
+                        dic = [NSMutableDictionary dictionaryWithDictionary:@{@"client_id":self->_dataArr[indexPath.row][@"client_id"],@"disabled_state":view.agentId}];
+                    }
+                    [BaseRequest GET:AgentSignDisabled_URL parameters:dic success:^(id resposeObject) {
+                        
+                        NSLog(@"%@",resposeObject);
+                        if ([resposeObject[@"code"] integerValue] == 200) {
+                            
+                            [self showContent:resposeObject[@"msg"]];
+                            [self RequestMethod];
+                        }else{
+                            
+                            [self showContent:resposeObject[@"msg"]];
+                        }
+                    } failure:^(NSError *error) {
+                        
+                        [self showContent:@"网络错误"];
+                    }];
+                };
+                [[UIApplication sharedApplication].keyWindow addSubview:view];
+            }];
+            
+            [alert addAction:valid];
+            [alert addAction:invalid];
+            [alert addAction:cancel];
+            [self.navigationController presentViewController:alert animated:YES completion:^{
+                
+            }];
         };
         return cell;
     }else{
@@ -440,16 +555,24 @@
     
     if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
         
-        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
-        nextVC.project_id = _dataArr[indexPath.section][@"project_id"];
-        nextVC.info_id = _dataArr[indexPath.section][@"info_id"];
+        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
+        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
+        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
         [self.navigationController pushViewController:nextVC animated:YES];
+//        VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
+//        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
+//        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
+//        [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2) {
         
-        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
-        nextVC.project_id = _dataArr[indexPath.section][@"project_id"];
-        nextVC.info_id = _dataArr[indexPath.section][@"info_id"];
+        VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
+        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
+        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
         [self.navigationController pushViewController:nextVC animated:YES];
+//        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
+//        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
+//        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
+//        [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 3) {
         
         WorkPhoneConfrimWaitDetailVC *nextVC = [[WorkPhoneConfrimWaitDetailVC alloc] initWithClientId:_dataArr[indexPath.row][@"client_id"]];
@@ -461,17 +584,15 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 4) {
         
+        WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
+
+        nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];
+
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
         WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
-        //    if (_dataArr[indexPath.row][@"need_confirm"]) {
-        //
-        //        nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];
-        //    }else{
-        //
-        //        nextVC.needConfirm = @"1";
-        //    }
-        //
+        nextVC.needConfirm = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }

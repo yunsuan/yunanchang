@@ -87,14 +87,32 @@
         cell.tailLine.hidden = NO;
     }
     
+    if ([_dataArr[indexPath.item][@"comment"] length]) {
+        
+        cell.tagImg.hidden = NO;
+    }else{
+        
+        cell.tagImg.hidden = YES;
+    }
+    
+    if ([_dataArr[indexPath.item][@"state"] integerValue] == 1) {
+        
+        cell.circleImg.image = IMAGE_WITH_NAME(@"blue");
+    }else{
+        
+        cell.circleImg.image = IMAGE_WITH_NAME(@"grey");
+    }
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.taskSignAuditCellCollBlock) {
+    if ([_dataArr[indexPath.item][@"comment"] length]) {
         
-        self.taskSignAuditCellCollBlock(_dataArr[indexPath.row][@"name"]);
+        if (self.taskSignAuditCellCollBlock) {
+            
+            self.taskSignAuditCellCollBlock(_dataArr[indexPath.row][@"comment"]);
+        }
     }
 }
 

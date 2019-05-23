@@ -163,14 +163,77 @@
         [self.view addSubview:addressChooseView];
     }else{
         
-        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:_approachArr];
-        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+        if (btn.tag == 1) {
             
-            self->_approachBtn.content.text = [NSString stringWithFormat:@"%@",MC];
-            self->_approachBtn->str = [NSString stringWithFormat:@"%@",ID];
-            self->_approachBtn.placeL.text = @"";
-        };
-        [self.view addSubview:view];
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:_approachArr];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                self->_approachBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+                self->_approachBtn->str = [NSString stringWithFormat:@"%@",ID];
+                self->_approachBtn.placeL.text = @"";
+                [self->_approachArr2 removeAllObjects];
+                for (int j = 0; j < self->_approachArr.count; j++) {
+                    
+                    if ([ID integerValue] == [self->_approachArr[j][@"id"] integerValue]) {
+                        
+                        NSArray *arr = self->_approachArr[j][@"child"];
+                        for (NSDictionary *dic in arr) {
+                            
+                            [self->_approachArr2 addObject:@{@"id":dic[@"config_id"],@"param":dic[@"config_name"]}];
+                        }
+                    }
+                }
+                if (self->_approachArr2.count) {
+                    
+                    self->_approachBtn2.hidden = NO;
+                    [self->_sourceTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                        make.top.equalTo(self->_approachBtn2.mas_bottom).offset(31 *SIZE);
+                        make.width.mas_equalTo(70 *SIZE);
+                    }];
+                    
+                    [self->_sourceTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                        make.top.equalTo(self->_approachBtn2.mas_bottom).offset(21 *SIZE);
+                        make.width.mas_equalTo(258 *SIZE);
+                        make.height.mas_equalTo(33 *SIZE);
+                    }];
+                }else{
+                    
+                    self->_approachBtn2.hidden = YES;
+                    self->_approachBtn2.placeL.text = @"请选择认知途径";
+                    self->_approachBtn2.content.text = @"";
+                    self->_approachBtn2->str = @"";
+                    [self->_sourceTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                        make.top.equalTo(self->_approachBtn.mas_bottom).offset(31 *SIZE);
+                        make.width.mas_equalTo(70 *SIZE);
+                    }];
+                    
+                    [self->_sourceTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                        make.top.equalTo(self->_approachBtn.mas_bottom).offset(21 *SIZE);
+                        make.width.mas_equalTo(258 *SIZE);
+                        make.height.mas_equalTo(33 *SIZE);
+                    }];
+                }
+            };
+            [self.view addSubview:view];
+        }else{
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:_approachArr2];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                self->_approachBtn2.content.text = [NSString stringWithFormat:@"%@",MC];
+                self->_approachBtn2->str = [NSString stringWithFormat:@"%@",ID];
+                self->_approachBtn2.placeL.text = @"";
+            };
+            [self.view addSubview:view];
+        }
     }
 }
 
@@ -265,11 +328,12 @@
         }
     }
     
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
         
         DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
         btn.placeL.text = @"请选择证件类型";
         btn.tag = i;
+        [btn addTarget:self action:@selector(ActionTagBtn:) forControlEvents:UIControlEventTouchUpInside];
         switch (i) {
             case 0:
             {
@@ -287,11 +351,7 @@
             {
                 
                 _approachBtn = btn;
-                if ([_dataDic[@"listen_way_detail"] length]) {
-                    
-                    _approachBtn.content.text = _dataDic[@"listen_way_detail"];
-                    _approachBtn.placeL.text = @"";
-                }else if ([_dataDic[@"listen_way"] length]){
+                if ([_dataDic[@"listen_way"] length]){
                     
                     _approachBtn.content.text = _dataDic[@"listen_way"];
                     _approachBtn.placeL.text = @"";
@@ -300,6 +360,21 @@
                 break;
             }
             case 2:
+            {
+                
+                _approachBtn2 = btn;
+                if ([_dataDic[@"listen_way_detail"] length]) {
+                    
+                    _approachBtn2.content.text = _dataDic[@"listen_way_detail"];
+                    _approachBtn2.placeL.text = @"";
+                }else{
+                    
+                    _approachBtn2.hidden = YES;
+                }
+                [_scrollView addSubview:_approachBtn2];
+                break;
+            }
+            case 3:
             {
                 
                 _sourceTypeBtn = btn;
@@ -325,6 +400,25 @@
     [self.view addSubview:_nextBtn];
     
     [self MasonryUI];
+    
+    if ([_dataDic[@"listen_way_detail"] length]) {
+        
+        [_sourceTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+            make.top.equalTo(self->_approachBtn2.mas_bottom).offset(31 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
+        
+        [_sourceTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+            make.top.equalTo(self->_approachBtn2.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
+        }];
+    }
 }
 
 - (void)MasonryUI{
@@ -366,6 +460,15 @@
         make.top.equalTo(self->_customSourceBtn.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_approachBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_approachBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+//        make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
     }];
     
     [_sourceTypeL mas_makeConstraints:^(MASConstraintMaker *make) {

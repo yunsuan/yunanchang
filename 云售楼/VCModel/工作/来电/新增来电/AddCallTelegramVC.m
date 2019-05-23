@@ -590,10 +590,6 @@
         [tempDic setObject:_areaId forKey:@"district"];
     }
 
-    if (_approachBtn2.content.text.length) {
-
-        [tempDic setObject:_approachBtn2->str forKey:@"listen_way_detail"];
-    }
 
     if (![self isEmpty:_markTV.text]) {
 
@@ -612,6 +608,10 @@
     [allDic setObject:@"1" forKey:@"source"];
     [allDic setObject:@"1" forKey:@"type"];
     [allDic setObject:_approachBtn->str forKey:@"listen_way"];
+    if (_approachBtn2.content.text.length) {
+        
+        [allDic setObject:_approachBtn2->str forKey:@"listen_way_detail"];
+    }
 //    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithPropertyId:_property_id];
     IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:_propertyDArr];
     nextVC.allDic = [[NSMutableDictionary alloc] initWithDictionary:allDic];
@@ -791,7 +791,7 @@
                 _phoneTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 217 *SIZE, 33 *SIZE)];
                 _phoneTF.textField.placeholder = @"请输入手机号码";
                 _phoneTF.textField.delegate = self;
-                _phoneTF.textField.keyboardType = UIKeyboardTypeNamePhonePad;
+                _phoneTF.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF];
                 break;
             }
@@ -801,7 +801,7 @@
                 _phoneTF2.hidden = YES;
                 _phoneTF2.textField.placeholder = @"请输入手机号码";
                 _phoneTF2.textField.delegate = self;
-                _phoneTF2.textField.keyboardType = UIKeyboardTypeNamePhonePad;
+                _phoneTF2.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF2];
                 break;
             }
@@ -811,7 +811,7 @@
                 _phoneTF3.hidden = YES;
                 _phoneTF3.textField.placeholder = @"请输入手机号码";
                 _phoneTF3.textField.delegate = self;
-                _phoneTF3.textField.keyboardType = UIKeyboardTypeNamePhonePad;
+                _phoneTF3.textField.keyboardType = UIKeyboardTypePhonePad;
                 [_scrollView addSubview:_phoneTF3];
                 break;
             }

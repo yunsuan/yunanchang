@@ -30,7 +30,10 @@
 
 - (void)ActionCopyBtn:(UIButton *)btn{
     
-    
+    if (self.taskTakeLookConfirmCellCopyBlock) {
+        
+        self.taskTakeLookConfirmCellCopyBlock();
+    }
 }
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{

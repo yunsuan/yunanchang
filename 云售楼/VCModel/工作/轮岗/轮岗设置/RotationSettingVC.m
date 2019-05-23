@@ -193,23 +193,26 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                [BaseRequest GET:DutyStartURL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
-                    NSLog(@"%@",resposeObject);
-                    if (self.rotationSettingVCBlock) {
+                    [BaseRequest GET:DutyStartURL parameters:@{@"project_id":self->_project_id} success:^(id  _Nonnull resposeObject) {
                         
-                        self.rotationSettingVCBlock();
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                } failure:^(NSError * _Nonnull error) {
-                    
-                    if (self.rotationSettingVCBlock) {
+                        NSLog(@"%@",resposeObject);
+                        if (self.rotationSettingVCBlock) {
+                            
+                            self.rotationSettingVCBlock();
+                            [self.navigationController popViewControllerAnimated:YES];
+                        }
+                    } failure:^(NSError * _Nonnull error) {
                         
-                        self.rotationSettingVCBlock();
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                    NSLog(@"%@",error);
-                }];
+                        if (self.rotationSettingVCBlock) {
+                            
+                            self.rotationSettingVCBlock();
+                            [self.navigationController popViewControllerAnimated:YES];
+                        }
+                        NSLog(@"%@",error);
+                    }];
+                });
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];
@@ -352,6 +355,14 @@
     cell.phoneL.text = companyArr[indexPath.section][@"list"][indexPath.row][@"tel"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
+    if ([companyArr[indexPath.section][@"list"][indexPath.row][@"state"] integerValue] == 1) {
+        
+        [cell.sleepBtn setTitle:@"休息" forState:UIControlStateNormal];
+    }else{
+        
+        [cell.sleepBtn setTitle:@"上岗" forState:UIControlStateNormal];
+    }
+    
     cell.rotationSettingCellDeleleBtnBlock = ^{
       
         if (self->_dataDic) {
@@ -420,6 +431,60 @@
     
     cell.rotationSettingCellSleepBtnBlock = ^{
         
+        if (self->_dataDic) {
+            
+            NSDictionary *dic;
+            if ([self->companyArr[indexPath.section][@"list"][indexPath.row][@"state"] integerValue] == 1) {
+                
+                dic = @{@"duty_agent_id":self->companyArr[indexPath.section][@"list"][indexPath.row][@"duty_agent_id"],@"state":@"0"};
+            }else{
+                
+                dic = @{@"duty_agent_id":self->companyArr[indexPath.section][@"list"][indexPath.row][@"duty_agent_id"],@"state":@"1"};
+            }
+            [BaseRequest POST:DutyAgentUpdate_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[indexPath.section]];
+                    NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->companyArr[indexPath.section][@"list"]];
+                    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[indexPath.row]];
+                    if ([tempDic[@"state"] integerValue] == 0) {
+                        
+                        [tempDic setObject:@"1" forKey:@"state"];
+                    }else{
+                        
+                        [tempDic setObject:@"0" forKey:@"state"];
+                    }
+                    [tempArr replaceObjectAtIndex:indexPath.row withObject:tempDic];
+                    [dic setObject:tempArr forKey:@"list"];
+                    [self->companyArr replaceObjectAtIndex:indexPath.section withObject:dic];
+                    [tableView reloadData];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        }else{
+            
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[indexPath.section]];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->companyArr[indexPath.section][@"list"]];
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[indexPath.row]];
+            if ([tempDic[@"state"] integerValue] == 0) {
+                
+                [tempDic setObject:@"1" forKey:@"state"];
+            }else{
+                
+                [tempDic setObject:@"0" forKey:@"state"];
+            }
+            [tempArr replaceObjectAtIndex:indexPath.row withObject:tempDic];
+            [dic setObject:tempArr forKey:@"list"];
+            [self->companyArr replaceObjectAtIndex:indexPath.section withObject:dic];
+            
+            [tableView reloadData];
+        }
     };
     
     return cell;
@@ -515,7 +580,14 @@
         _downTF.textField.placeholder = @"设置为0则无自然下岗";
         if (_dataDic.count) {
             
-//            _downTF.textField.text = _dataDic[@"duty"][@"exchange_time_min"];
+            if (_dataDic[@"duty"][@"exchange_time_min"]) {
+                
+                _downTF.textField.text = [NSString stringWithFormat:@"%@",_dataDic[@"duty"][@"exchange_time_min"]];
+            }else{
+                
+                _downTF.textField.text = @"0";
+            }
+            
         }
     }
     return _downTF;

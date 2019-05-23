@@ -30,7 +30,7 @@
 
 - (void)initDataSource{
     
-    _titleArr = @[@"云算号",@"我的二维码",@"姓名",@"电话号码",@"性别",@"出生年月",@"住址",@"修改密码",@"接收抢/派单消息"];
+    _titleArr = @[@"全部提醒",@"客户跟进提醒",@"移动审核提醒",@"渠道客户到访确认提醒",@"项目数据统计提醒"];
 //    _contentArr = [[NSMutableArray alloc] initWithArray:@[@"云算号",@"",@"姓名",@"电话号码",@"性别",@"出生年月",@"住址",@"******",@""]];
     
 }
@@ -40,7 +40,7 @@
 #pragma mark -- tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 4;
+    return _titleArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -57,7 +57,6 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.titleL.text = _titleArr[(NSUInteger) indexPath.row];
-//    cell.contentL.text = _contentArr[(NSUInteger) indexPath.row];
     
     cell.contentL.hidden = YES;
     cell.headImg.hidden = YES;
@@ -65,49 +64,27 @@
     cell.rightView.hidden = YES;
     cell.pushSettingCellSwitchBlock = ^{
         
-//        if ([[UserInfoModel defaultModel].is_accept_grab integerValue] == 1) {
-        
+        if (cell.OnOff.on) {
+            
             [cell.OnOff setOn:NO];
-//            [BaseRequest POST:UpdatePersonal_URL parameters:@{@"is_accept_grab":@"0",@"is_accept_msg":@"0"} success:^(id resposeObject) {
+        }else{
+            
+            [cell.OnOff setOn:YES];
+        }
+//        switch (indexPath.row) {
+//            case 0:
+//            {
+//                if (cell.OnOff.on) {
 //
-//                if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//
-//                    [UserInfoModel defaultModel].is_accept_grab = @"0";
-//                    [UserInfoModel defaultModel].is_accept_msg = @"0";
-//                    [UserModelArchiver infoArchive];
+//                    [cell.OnOff setOn:NO];
 //                }else{
 //
 //                    [cell.OnOff setOn:YES];
-//                    [self showContent:resposeObject[@"msg"]];
 //                }
-//            } failure:^(NSError *error) {
-//
-//                [cell.OnOff setOn:YES];
-//                NSLog(@"%@",error);
-//                [self showContent:@"网络错误"];
-//            }];
-//        }else{
-        
-            [cell.OnOff setOn:YES];
-//            [BaseRequest POST:UpdatePersonal_URL parameters:@{@"is_accept_grab":@"1",@"is_accept_msg":@"1"} success:^(id resposeObject) {
-//
-//                if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                    [UserInfoModel defaultModel].is_accept_grab = @"1";
-//                    [UserInfoModel defaultModel].is_accept_msg = @"1";
-//                    [UserModelArchiver infoArchive];
-//                }else{
-//
-//                    [cell.OnOff setOn:NO];
-//                    [self showContent:resposeObject[@"msg"]];
-//                }
-//            } failure:^(NSError *error) {
-//
-//                [cell.OnOff setOn:NO];
-//                NSLog(@"%@",error);
-//                [self showContent:@"网络错误"];
-//            }];
+//                break;
+//            }
+//            default:
+//                break;
 //        }
     };
 

@@ -89,7 +89,7 @@
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
-                        self.addBtnBlock(self->_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
+                        self.addBtnBlock(self->_dataarr[ self->_PeopleTable.indexPathsForSelectedRows[0].section]);
                         for (UIViewController *vc in self.navigationController.viewControllers) {
                             
                             if ([vc isKindOfClass:[RotationSettingVC class]]) {
@@ -118,7 +118,7 @@
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
-                        self.addBtnBlock(self->_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section]);
+                        self.addBtnBlock(self->_dataarr[ self->_PeopleTable.indexPathsForSelectedRows[0].section]);
                         for (UIViewController *vc in self.navigationController.viewControllers) {
                             
                             if ([vc isKindOfClass:[RotationSettingVC class]]) {
