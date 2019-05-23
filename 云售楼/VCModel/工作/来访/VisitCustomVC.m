@@ -46,7 +46,10 @@
     
     [self initDataSource];
     [self initUI];
-    [self RequestMethod];
+    if ([self.powerDic[@"detail"] boolValue]) {
+        
+        [self RequestMethod];
+    }
 }
 
 - (void)initDataSource{
@@ -187,13 +190,20 @@
     VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
     nextVC.project_id = _projectId;
     nextVC.info_id = _info_id;
+    nextVC.powerDic = self.powerDic;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{
     
     self.titleLabel.text = @"来访";
-    self.rightBtn.hidden = NO;
+    if ([self.powerDic[@"add"] boolValue]) {
+        
+        self.rightBtn.hidden = NO;
+    }else{
+        
+        self.rightBtn.hidden = YES;
+    }
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_3") forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     

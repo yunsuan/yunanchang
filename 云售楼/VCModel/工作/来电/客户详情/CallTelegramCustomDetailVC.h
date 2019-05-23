@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *info_id;
 
+@property (nonatomic, strong) NSDictionary *powerDic;
+
 - (instancetype)initWithGroupId:(NSString *)groupId;
 
 @end
