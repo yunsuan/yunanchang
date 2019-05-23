@@ -80,8 +80,10 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
+
             [UserModel defaultModel].projectPowerDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
             [self SetData:resposeObject[@"data"]];
+
         }else{
             
             [self showContent:resposeObject[@"msg"]];
