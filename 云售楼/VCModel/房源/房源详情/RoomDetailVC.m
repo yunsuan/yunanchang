@@ -17,7 +17,7 @@
 #define kRowIndexSpace  2.0
 #define kRowIndexViewDefaultColor   [UIColor clearColor]
 #define kCenterLineViewTail 6.0
-#define KweixuanColor COLOR(0xc4, 0xc4, 0xc4, 1)
+#define KweixuanColor COLOR(0x14, 0x80, 0x0d, 1)
 #define KyidingColor COLOR(0xdf, 0xb0, 0x45, 1)
 #define KyishouColor COLOR(0xef, 0x5e, 0x52, 1)
 
@@ -295,19 +295,22 @@
                 //                btnSeat.layer.cornerRadius = 2;
 //                if ([_LDinfo[row][@"houseList"][column][@"FJZT"] integerValue] ==0 ||[_LDinfo[row][@"houseList"][column][@"FJZT"] integerValue] ==1)
 //                {
+                if ([_LDinfo[row][@"houseList"][column][@"state"] integerValue]==0||[_LDinfo[row][@"houseList"][column][@"state"] integerValue]==1) {
                     btnSeat.backgroundColor = KweixuanColor;
+                }
+                
 //
 //                }
-//                else if ([_LDinfo[row][@"LIST"][column][@"FJZT"] integerValue] ==4)
-//                {
-//                    btnSeat.backgroundColor = KyishouColor;
-//                    btnSeat.userInteractionEnabled = NO;
-//                }
-//                else
-//                {
-//                    btnSeat.backgroundColor = KyidingColor;
-//                    btnSeat.userInteractionEnabled = NO;
-//                }
+                else if ([_LDinfo[row][@"houseList"][column][@"state"] integerValue] ==4)
+                {
+                    btnSeat.backgroundColor = KyishouColor;
+                    btnSeat.userInteractionEnabled = NO;
+                }
+                else
+                {
+                    btnSeat.backgroundColor = KyidingColor;
+                    btnSeat.userInteractionEnabled = NO;
+                }
                 
                 //                btnSeat.backgroundColor = [UIColor grayColor];
 
@@ -359,15 +362,15 @@
 //点击座位
 - (void)kyoCinameSeatScrollViewDidTouchInSeatWithRow:(NSUInteger)row withColumn:(NSUInteger)column {
     
-    NSMutableArray *arraySeat = self.dictSeatState[@(row)];
-    KyoCinameSeatState currentState = (KyoCinameSeatState)[arraySeat[column] integerValue];
-    if (currentState == KyoCinameSeatStateNormal) {
-        arraySeat[column] = @(KyoCinameSeatStateSelected);
-    } else if (currentState == KyoCinameSeatStateSelected) {
-        arraySeat[column] = @(KyoCinameSeatStateNormal);
-    } else if (currentState == KyoCinameSeatStateHadBuy || currentState == KyoCinameSeatStateUnexist) {
-        return;
-    }
+//    NSMutableArray *arraySeat = self.dictSeatState[@(row)];
+//    KyoCinameSeatState currentState = (KyoCinameSeatState)[arraySeat[column] integerValue];
+//    if (currentState == KyoCinameSeatStateNormal) {
+//        arraySeat[column] = @(KyoCinameSeatStateSelected);
+//    } else if (currentState == KyoCinameSeatStateSelected) {
+//        arraySeat[column] = @(KyoCinameSeatStateNormal);
+//    } else if (currentState == KyoCinameSeatStateHadBuy || currentState == KyoCinameSeatStateUnexist) {
+//        return;
+//    }
     //
     
     
