@@ -401,7 +401,7 @@
                         needId = [NSString stringWithFormat:@"%@,%@",needId,self->_intentArr[section - 1][@"list"][i][@"need_id"]];
                     }
                 }
-                [BaseRequest GET:WorkClientAutoNeedUpdate_URL parameters:@{@"need_id":needId,@"state":@"0"} success:^(id  _Nonnull resposeObject) {
+                [BaseRequest POST:WorkClientAutoNeedUpdate_URL parameters:@{@"need_id":needId,@"state":@"0"} success:^(id  _Nonnull resposeObject) {
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
