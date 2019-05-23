@@ -877,7 +877,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i] count] - 1) {
+                            if (j == [_moduleArr[i][j] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -911,7 +911,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i] count] - 1) {
+                            if (j == [_moduleArr[i][j] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -947,7 +947,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i] count] - 1) {
+                            if (j == [_moduleArr[i][j] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -982,7 +982,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i] count] - 1) {
+                            if (j == [_moduleArr[i][j] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -1090,7 +1090,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i] count] - 1) {
+                            if (j == [_moduleArr[i][j] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -1124,7 +1124,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i] count] - 1) {
+                            if (j == [_moduleArr[i][j] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -1160,7 +1160,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i] count] - 1) {
+                            if (j == [_moduleArr[i][j] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
@@ -1194,7 +1194,7 @@
                                 make.height.equalTo(@(13 *SIZE));
                             }];
                             
-                            if (j == [_moduleArr[i] count] - 1) {
+                            if (j == [_moduleArr[i][j] count] - 1) {
                                 
                                 [_moduleArr[i][j] mas_makeConstraints:^(MASConstraintMaker *make) {
                                     
