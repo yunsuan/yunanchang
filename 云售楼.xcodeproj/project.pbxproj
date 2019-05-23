@@ -177,6 +177,8 @@
 		0CF1A319228E8E04001C77CF /* SignWorkerPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */; };
 		0CF1A31A228E8E04001C77CF /* SignSelectWorkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */; };
 		0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A314228E8E03001C77CF /* SignFailView.m */; };
+		1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1084D10722969C6E001DB0FD /* PowerMannerger.m */; };
+		1084D10B2296AC53001DB0FD /* PowerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1084D10A2296AC53001DB0FD /* PowerModel.m */; };
 		10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC3A3F228FEA6A00DAB2D8 /* RotationVC.m */; };
 		10BC3A44228FEE4800DAB2D8 /* RotationHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC3A43228FEE4800DAB2D8 /* RotationHeadView.m */; };
 		10BC3A47228FEF2800DAB2D8 /* RotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC3A46228FEF2800DAB2D8 /* RotationCell.m */; };
@@ -554,6 +556,10 @@
 		0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignWorkerPickView.m; sourceTree = "<group>"; };
 		0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignSelectWorkerView.m; sourceTree = "<group>"; };
 		0CF1A314228E8E03001C77CF /* SignFailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignFailView.m; sourceTree = "<group>"; };
+		1084D10622969C6E001DB0FD /* PowerMannerger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PowerMannerger.h; sourceTree = "<group>"; };
+		1084D10722969C6E001DB0FD /* PowerMannerger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PowerMannerger.m; sourceTree = "<group>"; };
+		1084D1092296AC53001DB0FD /* PowerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PowerModel.h; sourceTree = "<group>"; };
+		1084D10A2296AC53001DB0FD /* PowerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PowerModel.m; sourceTree = "<group>"; };
 		10BC3A3E228FEA6A00DAB2D8 /* RotationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationVC.h; sourceTree = "<group>"; };
 		10BC3A3F228FEA6A00DAB2D8 /* RotationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationVC.m; sourceTree = "<group>"; };
 		10BC3A42228FEE4800DAB2D8 /* RotationHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationHeadView.h; sourceTree = "<group>"; };
@@ -871,6 +877,9 @@
 		0C3A9147225B211400F04804 /* 自定义SDK */ = {
 			isa = PBXGroup;
 			children = (
+
+				1084D10522969BEC001DB0FD /* 权限管理 */,
+				0CF1A2F0228D4EB6001C77CF /* 标准json */,
 				0CD043E02283C6EC002C8BD3 /* 日历manger */,
 				0CD043D92283BC04002C8BD3 /* 验证码 */,
 				0CD043D52282DC81002C8BD3 /* MBP提示 */,
@@ -925,6 +934,8 @@
 				0CAC92672284063C006B2B79 /* UserModelArchiver.m */,
 				0CAC928A22855928006B2B79 /* UserInfoModel.h */,
 				0CAC928B22855928006B2B79 /* UserInfoModel.m */,
+				1084D1092296AC53001DB0FD /* PowerModel.h */,
+				1084D10A2296AC53001DB0FD /* PowerModel.m */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -2249,6 +2260,15 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		1084D10522969BEC001DB0FD /* 权限管理 */ = {
+			isa = PBXGroup;
+			children = (
+				1084D10622969C6E001DB0FD /* PowerMannerger.h */,
+				1084D10722969C6E001DB0FD /* PowerMannerger.m */,
+			);
+			path = "权限管理";
+			sourceTree = "<group>";
+		};
 		10BC3A3D228FEA2100DAB2D8 /* 轮岗 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2613,6 +2633,7 @@
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
 				0CF1A318228E8E04001C77CF /* SignListCell.m in Sources */,
 				10EF17BB2293884900DE5566 /* AddPeopleVC.m in Sources */,
+				1084D10B2296AC53001DB0FD /* PowerModel.m in Sources */,
 				0C3A9177225C338500F04804 /* MineCell.m in Sources */,
 				0CD0432E227FD33B002C8BD3 /* WorkRecommendValidVC.m in Sources */,
 				0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */,
@@ -2693,6 +2714,7 @@
 				10EF17A0229163BE00DE5566 /* CompanyHeader.m in Sources */,
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
+				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0C3A9171225B37CF00F04804 /* ReportVC.m in Sources */,

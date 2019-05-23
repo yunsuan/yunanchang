@@ -9,20 +9,27 @@
 #import "UserModel.h"
 
 static dispatch_once_t onceToken;
+static UserModel *model;
+
 
 @implementation UserModel
 
 + (UserModel *)defaultModel{
-    static UserModel *model;
     
     dispatch_once(&onceToken, ^{
         model = [UserModelArchiver unarchive];
         if (!model) {
             model = [[UserModel alloc]init];
-            model.projectPowerDic = [@{} mutableCopy];
+//            model.projectPowerDic = [@{} mutableCopy];
         }
     });
     return  model;
+}
+
++ (void)resetModel
+{
+    onceToken = 0;
+    model = nil;
 }
 
 #pragma mark - NSCoding

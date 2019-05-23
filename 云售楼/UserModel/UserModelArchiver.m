@@ -20,10 +20,17 @@
     return [NSKeyedUnarchiver unarchiveObjectWithFile:[self infoArchivePath]];
 }
 
+
++ (PowerModel *)PowerUnarchive {
+    
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:[self powerArchivePath]];
+}
+
+
 + (void)archive {
     
     BOOL flag = [NSKeyedArchiver archiveRootObject:[UserModel defaultModel] toFile:[self archivePath]];
-    if (!flag) {
+    if (!flag){
         //        NSLog(@"归档失败!");
     }
 }
@@ -32,6 +39,14 @@
 + (void)infoArchive{
     
     BOOL flag = [NSKeyedArchiver archiveRootObject:[UserInfoModel defaultModel] toFile:[self infoArchivePath]];
+    if (!flag) {
+        //        NSLog(@"归档失败!");
+    }
+}
+
++ (void)powerArchive{
+    
+    BOOL flag = [NSKeyedArchiver archiveRootObject:[PowerModel defaultModel] toFile:[self powerArchivePath]];
     if (!flag) {
         //        NSLog(@"归档失败!");
     }
@@ -58,16 +73,49 @@
     
 }
 
-+(void)ClearUserInfoModel
++ (NSString *)powerArchivePath {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    //    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    NSString *basePath = paths.firstObject;
+    
+    return [basePath stringByAppendingPathComponent:@"PowerModel.dat"];
+    
+}
+
+
++(void)ClearModel
 {
+    //清空Userinfo;
     BOOL flag = [NSKeyedArchiver archiveRootObject:[[UserInfoModel alloc]init] toFile:[self infoArchivePath]];
+    [UserInfoModel resetModel];
     if (!flag) {
-        //        NSLog(@"清空用户信息失败!");
+        //        NSLog(@"归档失败!");
     }
     
-    BOOL flag1 = [NSKeyedArchiver archiveRootObject:[[UserModel alloc]init] toFile:[self archivePath]];
+    //清空Userinfo;
+    BOOL flag1 = [NSKeyedArchiver archiveRootObject:[[PowerModel alloc]init] toFile:[self powerArchivePath]];
+    [UserInfoModel resetModel];
     if (!flag1) {
-        //        NSLog(@"清空用户信息失败!");
+        //        NSLog(@"归档失败!");
+    }
+    
+    [UserModel defaultModel].token =@"";
+    [UserModel defaultModel].agent_id = @"";
+    [UserModel defaultModel].user_state = @"";
+    [UserModel defaultModel].agent_company_info_id = @"";
+    [UserModel defaultModel].company_id = @"";
+    [UserModel defaultModel].company_name = @"";
+    [UserModel defaultModel].company_state = @"";
+    [UserModel defaultModel].ex_state = @"";
+    [UserModel defaultModel].project_list = @[];
+    [UserModel defaultModel].projectinfo = @{};
+    [UserModel defaultModel].Configdic = @{};
+//    [UserModel defaultModel].projectPowerDic = @{};
+    BOOL flag2 = [NSKeyedArchiver archiveRootObject:[UserInfoModel defaultModel] toFile:[self infoArchivePath]];
+    if (!flag2) {
+        //        NSLog(@"归档失败!");
     }
 }
 

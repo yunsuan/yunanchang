@@ -7,6 +7,7 @@
 //
 
 #import "ReportVC.h"
+#import "PowerMannerger.h"
 
 #import "CompanyAuthVC.h"
 

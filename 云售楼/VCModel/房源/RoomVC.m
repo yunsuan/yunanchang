@@ -7,6 +7,7 @@
 //
 
 #import "RoomVC.h"
+#import "PowerMannerger.h"
 
 
 #import "RoomDetailVC.h"
@@ -111,6 +112,13 @@
         [self.rightBtn setTitle:MC forState:UIControlStateNormal];
         [UserModel defaultModel].projectinfo =  [UserModel defaultModel].project_list[[ID integerValue]];
         [UserModelArchiver archive];
+        [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+            if ([result isEqualToString:@"获取权限成功"]) {
+    
+            }
+        } failure:^(NSString * _Nonnull error) {
+            [self showContent:error];
+        }];
         [self RequestMethod];
     };
     

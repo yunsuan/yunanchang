@@ -7,6 +7,7 @@
 //
 
 #import "WorkVC.h"
+#import "PowerMannerger.h"
 
 #import "CallTelegramVC.h"
 #import "WorkPhoneConfirmVC.h"
@@ -29,7 +30,7 @@
     NSArray *_imgArr;
     NSArray *_projectArr;
     
-    NSMutableArray *_showArr;
+    NSArray *_showArr;
     NSMutableArray *_powerArr;
 //    NSString *_info_id;
 //    NSString *_project_id;
@@ -52,7 +53,7 @@
     [super viewDidLoad];
     [self initDataSource];
     [self initUI];
-    [self RequestMethod];
+//    [self RequestMethod];
 }
 
 - (void)initDataSource{
@@ -63,77 +64,77 @@
         _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事",@"轮岗"];
     }
     _projectArr = [UserModel defaultModel].project_list;
-    _showArr = [@[] mutableCopy];
+    _showArr = [PowerModel defaultModel].WorkListPower;
+//    _showArr = [@[] mutableCopy];
     _powerArr = [@[] mutableCopy];
-    for (int i = 0; i < _imgArr.count; i++) {
-        
-        [_showArr addObject:@0];
-        [_powerArr addObject:@{}];
-    }
+//    for (int i = 0; i < _imgArr.count; i++) {
+//
+//        [_showArr addObject:@0];
+//        [_powerArr addObject:@{}];
+//    }
 //    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
 //    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
 }
 
 
-- (void)RequestMethod{
-    
-    [BaseRequest GET:PersonProjectRoleProjectPower_URL parameters:@{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"]} success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 200) {
-            
+//- (void)RequestMethod{
+//
+//    [BaseRequest GET:PersonProjectRoleProjectPower_URL parameters:@{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"]} success:^(id  _Nonnull resposeObject) {
+//
+//        if ([resposeObject[@"code"] integerValue] == 200) {
+//
+//            [UserModel defaultModel].projectPowerDic = resposeObject[@"data"];
+//            [self SetData:resposeObject[@"data"]];
+//
+//        }else{
+//
+//            [self showContent:resposeObject[@"msg"]];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//
+//        [self showContent:@"网路错误"];
+//    }];
+//}
 
-            [UserModel defaultModel].projectPowerDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-            [self SetData:resposeObject[@"data"]];
-
-        }else{
-            
-            [self showContent:resposeObject[@"msg"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        
-        [self showContent:@"网路错误"];
-    }];
-}
-
-- (void)SetData:(NSDictionary *)data{
-    
-    for (int i = 0; i < _titleArr.count; i++) {
-        
-        [_showArr replaceObjectAtIndex:i withObject:@0];
-        [_powerArr replaceObjectAtIndex:i withObject:@{}];
-    }
-    NSLog(@"%@",data);
-    NSArray *arr = data[@"app_operate"];
-    for (int i = 0 ; i < arr.count; i++) {
-        
-        for (int j = 0; j < _titleArr.count; j++) {
-            
-            if ([arr[i][@"type"] containsString:_titleArr[j]]) {
-                
-                [_showArr replaceObjectAtIndex:j withObject:@1];
-                [_powerArr replaceObjectAtIndex:j withObject:arr[i]];
-            }
-        }
-    }
-    
-    if ([data[@"duty_operate"] integerValue] == 1) {
-        
-        [_showArr replaceObjectAtIndex:9 withObject:@1];
-    }
-    
-    if ([data[@"is_butter"] integerValue] == 1) {
-        
-        [_showArr replaceObjectAtIndex:1 withObject:@1];
-        [_showArr replaceObjectAtIndex:2 withObject:@1];
-    }
-    
-    if ([data[@"person_check"] integerValue] == 1) {
-        
-        [_showArr replaceObjectAtIndex:8 withObject:@1];
-    }
-    
-    [_table reloadData];
-}
+//- (void)SetData:(NSDictionary *)data{
+//
+//    for (int i = 0; i < _titleArr.count; i++) {
+//
+//        [_showArr replaceObjectAtIndex:i withObject:@0];
+//        [_powerArr replaceObjectAtIndex:i withObject:@{}];
+//    }
+//    NSLog(@"%@",data);
+//    NSArray *arr = data[@"app_operate"];
+//    for (int i = 0 ; i < arr.count; i++) {
+//
+//        for (int j = 0; j < _titleArr.count; j++) {
+//
+//            if ([arr[i][@"type"] containsString:_titleArr[j]]) {
+//
+//                [_showArr replaceObjectAtIndex:j withObject:@1];
+//                [_powerArr replaceObjectAtIndex:j withObject:arr[i]];
+//            }
+//        }
+//    }
+//
+//    if ([data[@"duty_operate"] integerValue] == 1) {
+//
+//        [_showArr replaceObjectAtIndex:9 withObject:@1];
+//    }
+//
+//    if ([data[@"is_butter"] integerValue] == 1) {
+//
+//        [_showArr replaceObjectAtIndex:1 withObject:@1];
+//        [_showArr replaceObjectAtIndex:2 withObject:@1];
+//    }
+//
+//    if ([data[@"person_check"] integerValue] == 1) {
+//
+//        [_showArr replaceObjectAtIndex:8 withObject:@1];
+//    }
+//
+//    [_table reloadData];
+//}
 
 - (void)ActionGoBtn:(UIButton *)btn{
     
@@ -159,13 +160,15 @@
         [self.rightBtn setTitle:MC forState:UIControlStateNormal];
         [UserModel defaultModel].projectinfo =  [UserModel defaultModel].project_list[[ID integerValue]];
         [UserModelArchiver archive];
-        
-        for (int i = 0; i < self->_titleArr.count; i++) {
-            
-            [self->_showArr replaceObjectAtIndex:i withObject:@0];
-            [self->_powerArr replaceObjectAtIndex:i withObject:@{}];
-        }
-        [self RequestMethod];
+        [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+            if ([result isEqualToString:@"获取权限成功"]) {
+                _showArr = [PowerModel defaultModel].WorkListPower;
+                [_table reloadData];
+            }
+        } failure:^(NSString * _Nonnull error) {
+            [self showContent:error];
+        }];
+    
     };
 
     [[UIApplication sharedApplication].keyWindow addSubview:view];
