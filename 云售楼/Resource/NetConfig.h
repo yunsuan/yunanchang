@@ -57,6 +57,9 @@ static NSString *const ProjectHouseGetDetailInfo_URL =  @"/saleApp/project/house
 
 #pragma mark ---  工作  ---
 
+//统计
+static NSString *const WorkCount_URL = @"saleApp/work/count";
+
 #pragma mark -- 来电 --
 
 //来电来访列表

@@ -75,51 +75,98 @@
     
     _dataArr = [NSMutableArray arrayWithArray:data];
     [_intentColl reloadData];
+    NSArray *selectArr = [self.roleId componentsSeparatedByString:@","];
     for (int i = 0; i < _dataArr.count; i++) {
         
         NSMutableArray *tempArr = [@[] mutableCopy];
         for (int j = 0; j < [_dataArr[i][@"list"] count]; j++) {
             
-            [tempArr addObject:@0];
+            if (selectArr.count) {
+                
+                for (int m = 0; m < selectArr.count; m++) {
+                    
+                    if ([_dataArr[i][@"list"][j][@"role_id"] integerValue] == [selectArr[m] integerValue]) {
+                        
+                        [tempArr addObject:@1];
+                    }else{
+                        
+                        [tempArr addObject:@0];
+                    }
+                }
+            }else{
+                
+                [tempArr addObject:@0];
+            }
         }
         [_selectArr addObject:tempArr];
     }
-//    for (int i = 0; i < data.count; i++) {
-//
-//
-//    }
+    [_intentColl reloadData];
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    self.roleId = @"";
-    NSString *name;
-    for (int i = 0; i < _selectArr.count; i++) {
+    if ([self.status isEqualToString:@"modify"]) {
         
-        for (int j = 0; j < [_selectArr[i] count]; j++) {
+        self.roleId = @"";
+        NSString *name;
+        for (int i = 0; i < _selectArr.count; i++) {
             
-            if ([_selectArr[i][j] integerValue] == 1) {
+            for (int j = 0; j < [_selectArr[i] count]; j++) {
                 
-                if (!self.roleId.length) {
+                if ([_selectArr[i][j] integerValue] == 1) {
                     
-                    self.roleId = [NSString stringWithFormat:@"%@",_dataArr[i][@"list"][j][@"role_id"]];
-                    name = [NSString stringWithFormat:@"%@-%@",_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
-                }else{
-                    
-                    self.roleId = [NSString stringWithFormat:@"%@,%@",self.roleId,_dataArr[i][@"list"][j][@"role_id"]];
-                    name = [NSString stringWithFormat:@"%@,%@-%@",name,_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
+                    if (!self.roleId.length) {
+                        
+                        self.roleId = [NSString stringWithFormat:@"%@",_dataArr[i][@"list"][j][@"role_id"]];
+                        name = [NSString stringWithFormat:@"%@-%@",_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
+                    }else{
+                        
+                        self.roleId = [NSString stringWithFormat:@"%@,%@",self.roleId,_dataArr[i][@"list"][j][@"role_id"]];
+                        name = [NSString stringWithFormat:@"%@,%@-%@",name,_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
+                    }
                 }
             }
         }
-    }
-    
-    if (self.roleId.length) {
         
-        if (self.projectRoleVCBlock) {
+        if (self.roleId.length) {
             
-            self.projectRoleVCBlock(self.roleId, name);
+            if (self.projectRoleVCBlock) {
+                
+                self.projectRoleVCBlock(self.roleId, name);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
         }
-        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        
+        self.roleId = @"";
+        NSString *name;
+        for (int i = 0; i < _selectArr.count; i++) {
+            
+            for (int j = 0; j < [_selectArr[i] count]; j++) {
+                
+                if ([_selectArr[i][j] integerValue] == 1) {
+                    
+                    if (!self.roleId.length) {
+                        
+                        self.roleId = [NSString stringWithFormat:@"%@",_dataArr[i][@"list"][j][@"role_id"]];
+                        name = [NSString stringWithFormat:@"%@-%@",_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
+                    }else{
+                        
+                        self.roleId = [NSString stringWithFormat:@"%@,%@",self.roleId,_dataArr[i][@"list"][j][@"role_id"]];
+                        name = [NSString stringWithFormat:@"%@,%@-%@",name,_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
+                    }
+                }
+            }
+        }
+        
+        if (self.roleId.length) {
+            
+            if (self.projectRoleVCBlock) {
+                
+                self.projectRoleVCBlock(self.roleId, name);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 

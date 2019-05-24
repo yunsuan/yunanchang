@@ -57,6 +57,8 @@
                 
                 [self alertControllerWithNsstring:@"离职成功" And:@"你已离职" WithDefaultBlack:^{
                     
+                    [UserModel defaultModel].projectinfo = @{};
+                    [UserModelArchiver archive];
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
             }else{
@@ -114,10 +116,18 @@
         cell.downLine.hidden = NO;
     }
     
+    if (indexPath.row == 0) {
+        
+        cell.timeL.text = [NSString stringWithFormat:@"入职时间：%@",_dataArr[indexPath.row][@"create_time"]];
+    }else{
+        
+        cell.timeL.text = [NSString stringWithFormat:@"任职时间：%@-%@",_dataArr[indexPath.row][@"create_time"],_dataArr[indexPath.row][@"entry_time"]];
+    }
+    
     cell.companyInfoCellBlock = ^(NSInteger index) {
       
         ProjectRoleVC *nextVC = [[ProjectRoleVC alloc] initWithCompanyId:[NSString stringWithFormat:@"%@",self->_dataArr[index][@"company_id"]]];
-        nextVC.roleId = @"";
+        nextVC.roleId = self->_dataArr[index][@"role"];
         nextVC.status = @"modify";
         nextVC.projectRoleVCBlock = ^(NSString * _Nonnull roleId, NSString * _Nonnull name) {
             

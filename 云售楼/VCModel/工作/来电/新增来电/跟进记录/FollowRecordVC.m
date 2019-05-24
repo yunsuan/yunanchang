@@ -113,7 +113,7 @@
 - (void)initDataSource{
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    [_formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     
     
     _directDic = [@{} mutableCopy];
@@ -245,6 +245,7 @@
 - (void)ActionTimeBtn:(UIButton *)btn{
     
     DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+    view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
     [view.pickerView setCalendar:[NSCalendar currentCalendar]];
     [view.pickerView setMaximumDate:[NSDate date]];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];

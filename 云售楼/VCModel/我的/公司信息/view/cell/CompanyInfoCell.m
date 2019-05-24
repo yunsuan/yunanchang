@@ -73,7 +73,7 @@
     _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _addBtn.titleLabel.font = [UIFont systemFontOfSize:12 *SIZE];
     [_addBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_addBtn setTitle:@"增加角色" forState:UIControlStateNormal];
+    [_addBtn setTitle:@"修改角色" forState:UIControlStateNormal];
     _addBtn.layer.cornerRadius = 2 *SIZE;
     _addBtn.layer.borderColor = CLWhiteColor.CGColor;
     _addBtn.layer.borderWidth = SIZE;
@@ -90,6 +90,7 @@
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CL86Color;
+        label.numberOfLines = 0;
         label.font = [UIFont systemFontOfSize:11 *SIZE];
         
         switch (i) {

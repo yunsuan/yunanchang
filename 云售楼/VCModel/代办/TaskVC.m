@@ -38,6 +38,18 @@
 
 @implementation TaskVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    if ([UserModel defaultModel].projectinfo) {
+        
+        _table.hidden = NO;
+    }else{
+        
+        _table.hidden = YES;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
