@@ -435,6 +435,17 @@
             
             header.callTelegramCustomDetailIntentHeaderDeleteBlock = ^(NSInteger index) {
                 
+                NSString *needId;
+                for (int i = 0; i < [self->_intentArr[section - 1][@"list"] count]; i++) {
+                    
+                    if (i == 0) {
+                        
+                        needId = [NSString stringWithFormat:@"%@",self->_intentArr[section - 1][@"list"][i][@"need_id"]];
+                    }else{
+                        
+                        needId = [NSString stringWithFormat:@"%@,%@",needId,self->_intentArr[section - 1][@"list"][i][@"need_id"]];
+                    }
+                }
                 [BaseRequest POST:WorkClientAutoNeedDel_URL parameters:@{@"property_id":self->_intentArr[section - 1][@"property_id"],@"group_id":self->_groupId} success:^(id  _Nonnull resposeObject) {
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {

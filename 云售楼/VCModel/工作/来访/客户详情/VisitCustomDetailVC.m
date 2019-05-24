@@ -390,12 +390,24 @@
             
             header.callTelegramCustomDetailIntentHeaderDeleteBlock = ^(NSInteger index) {
                 
-                [BaseRequest GET:WorkClientAutoNeedUpdate_URL parameters:@{@"need_id":self->_intentArr[section - 1][@"need_id"],@"state":@"0"} success:^(id  _Nonnull resposeObject) {
+                NSString *needId;
+                for (int i = 0; i < [self->_intentArr[section - 1][@"list"] count]; i++) {
+                    
+                    if (i == 0) {
+                        
+                        needId = [NSString stringWithFormat:@"%@",self->_intentArr[section - 1][@"list"][i][@"need_id"]];
+                    }else{
+                        
+                        needId = [NSString stringWithFormat:@"%@,%@",needId,self->_intentArr[section - 1][@"list"][i][@"need_id"]];
+                    }
+                }
+                [BaseRequest POST:WorkClientAutoNeedUpdate_URL parameters:@{@"need_id":needId,@"state":@"0"} success:^(id  _Nonnull resposeObject) {
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
                         [self->_intentArr removeObjectAtIndex:section - 1];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self->_intentArr.count - 1)] withRowAnimation:UITableViewRowAnimationNone];
+                        [self->_propertyArr removeAllObjects];
+                        [tableView reloadData];
                     }else{
                         
                         [self showContent:resposeObject[@"msg"]];
@@ -570,6 +582,11 @@
                     IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
                     nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
                     nextVC.status = @"add";
+                    nextVC.group_id = self->_groupId;
+                    nextVC.intentSurveyVCBlock = ^{
+                      
+                        [self RequestMethod];
+                    };
                     [self.navigationController pushViewController:nextVC animated:YES];
                 };
                 [self.view addSubview:view];
