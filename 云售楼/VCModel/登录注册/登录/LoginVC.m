@@ -119,9 +119,11 @@
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 
-                CompanyApplyVC *nextVC = [[CompanyApplyVC alloc] init];
-                nextVC.status = @"login";
-                [self.navigationController pushViewController:nextVC animated:YES];
+//                CompanyApplyVC *nextVC = [[CompanyApplyVC alloc] init];
+//                nextVC.status = @"login";
+//                [self.navigationController pushViewController:nextVC animated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
+                [self.navigationController popViewControllerAnimated:YES];
             }
             
         }else{

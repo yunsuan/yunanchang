@@ -363,7 +363,7 @@
         header.callTelegramCustomDetailHeaderAddBlock = ^(NSInteger index) {
           
             AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
-            nextVC.group_id = self->_groupInfoDic[@"group_id"];
+            nextVC.group_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"group_id"]];
             nextVC.addCallTelegramGroupMemberDirectVCBlock = ^{
                 
                 [self RequestMethod];

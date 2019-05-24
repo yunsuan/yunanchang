@@ -352,7 +352,7 @@
                                 
                                 if ([arr[m] integerValue] == 1) {
                                     
-                                    if (m == 0) {
+                                    if (!str.length) {
                                         
                                         str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
                                         strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];
@@ -541,7 +541,7 @@
                                 
                                 if ([arr[m] integerValue] == 1) {
                                     
-                                    if (m == 0) {
+                                    if (!str.length) {
                                         
                                         str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
                                         strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];
@@ -709,7 +709,7 @@
                                 
                                 if ([arr[m] integerValue] == 1) {
                                     
-                                    if (m == 0) {
+                                    if (!str.length) {
                                         
                                         str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
                                         strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];

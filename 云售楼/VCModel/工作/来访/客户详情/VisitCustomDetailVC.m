@@ -320,7 +320,7 @@
         header.callTelegramCustomDetailHeaderAddBlock = ^(NSInteger index) {
             
             AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
-            nextVC.group_id = self->_groupInfoDic[@"group_id"];
+            nextVC.group_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"group_id"]];
             nextVC.addCallTelegramGroupMemberDirectVCBlock = ^{
                 
                 [self RequestMethod];
@@ -583,6 +583,7 @@
                     nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
                     nextVC.status = @"add";
                     nextVC.group_id = self->_groupId;
+//                    nextVC.info_id = self.info_id;
                     nextVC.intentSurveyVCBlock = ^{
                       
                         [self RequestMethod];
@@ -636,6 +637,7 @@
                 vc.followDic = [@{} mutableCopy];
             }
             vc.status = @"direct";
+            vc.info_id = self.info_id;
             vc.allDic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":self.project_id}];
             [self.navigationController pushViewController:vc animated:YES];
         }

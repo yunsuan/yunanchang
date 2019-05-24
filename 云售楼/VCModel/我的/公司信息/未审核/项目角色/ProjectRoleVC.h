@@ -16,6 +16,8 @@ typedef void(^ProjectRoleVCBlock)(NSString *roleId, NSString *name);
 
 @property (nonatomic, copy) ProjectRoleVCBlock projectRoleVCBlock;
 
+@property (nonatomic, strong) NSString *status;
+
 @property (nonatomic, strong) NSString *roleId;
 
 - (instancetype)initWithCompanyId:(NSString *)companyId;
