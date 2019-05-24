@@ -129,15 +129,15 @@
     
     if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2) {
 
-        TaskCallFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallFollowCell"];
+        TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
         if (!cell) {
             
-            cell = [[TaskCallFollowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallFollowCell"];
+            cell = [[TaskCallBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCallBackCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
         
-        cell.taskCallFollowCellBlock = ^{
+        cell.taskCallBackCellBlock = ^{
             
             FollowRecordVC *nextVC = [[FollowRecordVC alloc] initWithGroupId:self->_dataArr[indexPath.row][@"group_id"]];
             nextVC.info_id = self->_dataArr[indexPath.row][@"info_id"];

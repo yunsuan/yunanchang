@@ -243,13 +243,11 @@
             return;
         }
     }
-    if ([_configDic[@"tel"] integerValue] == 1) {
+   
+    if ([self isEmpty:_phoneTF.textField.text]) {
         
-        if ([self isEmpty:_phoneTF.textField.text]) {
-            
-            [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
-            return;
-        }
+        [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
+        return;
     }
     
     if ([_configDic[@"birth"] integerValue] == 1) {
@@ -324,7 +322,7 @@
     if (self.group_id.length) {
         
         [tempDic setObject:self.group_id forKey:@"group_id"];
-        [BaseRequest GET:WorkClientAutoClientAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+        [BaseRequest POST:WorkClientAutoClientAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
@@ -332,6 +330,7 @@
                     
                     self.addCallTelegramGroupMemberDirectVCBlock();
                 }
+                [self.navigationController popViewControllerAnimated:YES];
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];

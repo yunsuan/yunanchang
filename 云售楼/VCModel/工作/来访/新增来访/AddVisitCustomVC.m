@@ -546,11 +546,7 @@
         
         
     }
-    
-    if (_approachBtn2.content.text.length) {
-        
-        [tempDic setObject:_approachBtn2->str forKey:@"listen_way_detail"];
-    }
+
     
     
     if (![self isEmpty:_markTV.text]) {
@@ -570,6 +566,10 @@
     [allDic setObject:@"1" forKey:@"source"];
     [allDic setObject:@"2" forKey:@"type"];
     [allDic setObject:_approachBtn->str forKey:@"listen_way"];
+    if (_approachBtn2.content.text.length) {
+        
+        [allDic setObject:_approachBtn2->str forKey:@"listen_way_detail"];
+    }
     //    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithPropertyId:_property_id];
     IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:_propertyDArr];
     nextVC.allDic = [[NSMutableDictionary alloc] initWithDictionary:allDic];

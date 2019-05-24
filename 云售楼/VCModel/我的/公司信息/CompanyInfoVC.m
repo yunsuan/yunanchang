@@ -9,6 +9,7 @@
 #import "CompanyInfoVC.h"
 
 #import "CompanyAuthVC.h"
+#import "ProjectRoleVC.h"
 
 #import "CompanyInfoCell.h"
 
@@ -115,10 +116,10 @@
     
     cell.companyInfoCellBlock = ^(NSInteger index) {
       
-        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
-        nextVC.status = @"reApply";
-        nextVC.authId = self->_dataArr[indexPath.row][@"auth_id"];
-        nextVC.companyAuthVCBlock = ^{
+        ProjectRoleVC *nextVC = [[ProjectRoleVC alloc] initWithCompanyId:[NSString stringWithFormat:@"%@",self->_dataArr[index][@"company_id"]]];
+        nextVC.roleId = @"";
+        nextVC.status = @"modify";
+        nextVC.projectRoleVCBlock = ^(NSString * _Nonnull roleId, NSString * _Nonnull name) {
             
             [BaseRequest GET:CompanyAuthInfo_URL parameters:nil success:^(id  _Nonnull resposeObject) {
                 
@@ -130,8 +131,8 @@
                         [tableView reloadData];
                     }else{
                         
-//                        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
-//                        [self.navigationController pushViewController:nextVC animated:YES];
+                        //                        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+                        //                        [self.navigationController pushViewController:nextVC animated:YES];
                     }
                 }else{
                     
@@ -141,8 +142,36 @@
                 
                 [self showContent:@"网络错误"];
             }];
+
         };
         [self.navigationController pushViewController:nextVC animated:YES];
+//        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+//        nextVC.status = @"reApply";
+//        nextVC.authId = self->_dataArr[indexPath.row][@"auth_id"];
+//        nextVC.companyAuthVCBlock = ^{
+//
+//            [BaseRequest GET:CompanyAuthInfo_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+//
+//                if ([resposeObject[@"code"] integerValue] == 200) {
+//
+//                    if ([resposeObject[@"data"] count]) {
+//
+//                        self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+//                        [tableView reloadData];
+//                    }else{
+//
+////                        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+////                        [self.navigationController pushViewController:nextVC animated:YES];
+//                    }
+//                }else{
+//
+//                    [self showContent:resposeObject[@"msg"]];
+//                }
+//            } failure:^(NSError * _Nonnull error) {
+//
+//                [self showContent:@"网络错误"];
+//            }];
+//        };
     };
     return cell;
 }

@@ -188,8 +188,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
-    nextVC.project_id = _projectId;
-    nextVC.info_id = _info_id;
+    nextVC.project_id = [NSString stringWithFormat:@"%@",_projectId];
+    nextVC.info_id = [NSString stringWithFormat:@"%@",_info_id];
     nextVC.powerDic = self.powerDic;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
