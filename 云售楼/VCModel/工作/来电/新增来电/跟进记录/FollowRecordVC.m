@@ -334,10 +334,15 @@
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 [formatter setDateFormat:@"YYYY-MM-dd"];
-                
-                CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
-                
-                [manger createCalendarWithTitle:@"跟进提醒" location:self->_followPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"86400"]];
+                [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
+                    
+                } WithDefaultBlack:^{
+                    
+                    CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
+                    [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"32400"]];
+                    
+                }];
+
                 if ([self.status isEqualToString:@"add"]) {
                     
                     for (UIViewController *vc in self.navigationController.viewControllers) {
@@ -358,6 +363,10 @@
                             break;
                         }
                     }
+                    
+                }
+                else{
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
             }else{
                 
@@ -403,9 +412,15 @@
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 [formatter setDateFormat:@"YYYY-MM-dd"];
                 
-                CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
+                [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
+                    
+                } WithDefaultBlack:^{
+                    
+                    CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
+                    [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"32400"]];
+                    
+                }];
                 
-                [manger createCalendarWithTitle:@"跟进提醒" location:self->_followPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"86400"]];
                 if ([self.status isEqualToString:@"add"]) {
                     
                     for (UIViewController *vc in self.navigationController.viewControllers) {
@@ -421,6 +436,10 @@
                             break;
                         }
                     }
+                    
+                }
+                else{
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
             }else{
                 
