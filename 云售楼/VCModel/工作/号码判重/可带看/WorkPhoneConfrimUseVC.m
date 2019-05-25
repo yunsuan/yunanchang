@@ -10,7 +10,8 @@
 
 #import "WorkPhoneConfrimUseDetailVC.h"
 
-#import "WorkPhoneConfrimWaitCell.h"
+//#import "WorkPhoneConfrimWaitCell.h"
+#import "WorkRecommendValidCell.h"
 
 @interface WorkPhoneConfrimUseVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -157,16 +158,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    WorkPhoneConfrimWaitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkPhoneConfrimWaitCell"];
+    WorkRecommendValidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkRecommendValidCell"];
     if (!cell) {
         
-        cell = [[WorkPhoneConfrimWaitCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WorkPhoneConfrimWaitCell"];
+        cell = [[WorkRecommendValidCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WorkRecommendValidCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.useDic = _dataArr[indexPath.row];
-    cell.confirmBtn.hidden = YES;
-    cell.copybtn.hidden = YES;
+//    cell.confirmBtn.hidden = YES;
+//    cell.copybtn.hidden = YES;
     return cell;
 }
 

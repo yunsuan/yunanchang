@@ -10,7 +10,7 @@
 
 #import "WorkPhoneConfrimFailDetailVC.h"
 
-#import "WorkPhoneConfrimWaitCell.h"
+#import "WorkPhoneConfrimFailCell.h"
 
 
 @interface WorkPhoneConfrimFailVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -157,15 +157,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    WorkPhoneConfrimWaitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkPhoneConfrimWaitCell"];
+    WorkPhoneConfrimFailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkPhoneConfrimFailCell"];
     if (!cell) {
         
-        cell = [[WorkPhoneConfrimWaitCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WorkPhoneConfrimWaitCell"];
+        cell = [[WorkPhoneConfrimFailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WorkPhoneConfrimFailCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.confirmBtn.hidden = YES;
-    cell.copybtn.hidden = YES;
+//    cell.confirmBtn.hidden = YES;
+//    cell.copybtn.hidden = YES;
     cell.failDic = _dataArr[indexPath.row];
     
     return cell;

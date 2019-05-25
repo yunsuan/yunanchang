@@ -9,7 +9,10 @@
 #import "WorkRecommendFailVC.h"
 #import "WorkRecommendFailDetailVC.h"
 
-#import "WorkRecommendWaitCell.h"
+//#import "WorkRecommendWaitCell.h"
+//#import "WorkPhoneConfrimFailCell.h"
+#import "WorkRecommendValidCell.h"
+
 
 @interface WorkRecommendFailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -146,18 +149,36 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *CellIdentifier = @"WorkRecommendWaitCell";
+    static NSString *CellIdentifier = @"WorkRecommendValidCell";
     
-    WorkRecommendWaitCell *cell  = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    WorkRecommendValidCell *cell  = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[WorkRecommendWaitCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[WorkRecommendValidCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.confirmBtn.hidden = YES;
-    
-    cell.failDic = _dataArr[indexPath.row];
-    
+    cell.inValidDic = _dataArr[indexPath.row];
+    cell.tag = indexPath.row;
+    cell.workRecommendValidCellBlock = ^(NSInteger index) {
+        
+        if ([_dataArr[index][@"tel_complete_state"] integerValue] <= 2) {
+            
+            NSString *phone = [_dataArr[index][@"tel"] componentsSeparatedByString:@","][0];
+            if (phone.length) {
+                
+                //获取目标号码字符串,转换成URL
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                //调用系统方法拨号
+                [[UIApplication sharedApplication] openURL:url];
+            }else{
+                
+                [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+            }
+        }else{
+            
+            
+        }
+    };
     
     return cell;
 }

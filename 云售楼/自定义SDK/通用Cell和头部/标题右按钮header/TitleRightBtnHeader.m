@@ -22,12 +22,12 @@
 
 - (void)ActionMoreBtn:(UIButton *)btn{
     
-//    if (self.secAllRoomDetailMoreBlock) {
+    if (self.titleRightBtnHeaderMoreBlock) {
     
-//        _moreBtn.userInteractionEnabled = NO;
-//        self.secAllRoomDetailMoreBlock();
-//        _moreBtn.userInteractionEnabled = YES;
-//    }
+        _moreBtn.userInteractionEnabled = NO;
+        self.titleRightBtnHeaderMoreBlock();
+        _moreBtn.userInteractionEnabled = YES;
+    }
 }
 
 - (void)initUI{

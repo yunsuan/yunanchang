@@ -10,7 +10,7 @@
 
 #import "WorkRecommendValidDetailVC.h"
 
-#import "WorkRecommendWaitCell.h"
+#import "WorkRecommendValidCell.h"
 
 @interface WorkRecommendValidVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -49,7 +49,7 @@
         
         [dic setObject:self.search forKey:@"search"];
     }
-    [BaseRequest GET:ButterWaitConfirm_URL parameters:dic success:^(id resposeObject) {
+    [BaseRequest GET:ButterValue_URL parameters:dic success:^(id resposeObject) {
         
         [self->_MainTableView.mj_header endRefreshing];
         
@@ -57,9 +57,9 @@
         
             [self->_dataArr removeAllObjects];
             [self->_MainTableView reloadData];
-            if ([resposeObject[@"data"] count]) {
+            if ([resposeObject[@"data"][@"data"] count]) {
         
-                [self SetUnComfirmArr:resposeObject[@"data"]];
+                [self SetUnComfirmArr:resposeObject[@"data"][@"data"]];
                 self->_MainTableView.mj_footer.state = MJRefreshStateIdle;
             }else{
         
@@ -85,13 +85,13 @@
         
         [dic setObject:self.search forKey:@"search"];
     }
-    [BaseRequest GET:ButterWaitConfirm_URL parameters:dic success:^(id resposeObject) {
+    [BaseRequest GET:ButterValue_URL parameters:dic success:^(id resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            if ([resposeObject[@"data"] count]) {
+            if ([resposeObject[@"data"][@"data"] count]) {
                 
-                [self SetUnComfirmArr:resposeObject[@"data"]];
+                [self SetUnComfirmArr:resposeObject[@"data"][@"data"]];
                 self->_MainTableView.mj_footer.state = MJRefreshStateIdle;
             }else{
                 
@@ -144,18 +144,38 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *CellIdentifier = @"WorkRecommendWaitCell";
+    static NSString *CellIdentifier = @"WorkRecommendValidCell";
     
-    WorkRecommendWaitCell *cell  = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    WorkRecommendValidCell *cell  = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[WorkRecommendWaitCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[WorkRecommendValidCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.confirmBtn.hidden = YES;
+//    cell.confirmBtn.hidden = YES;
     
-    cell.validDic = _dataArr[indexPath.row];
+    cell.dataDic = _dataArr[indexPath.row];
     
+    cell.workRecommendValidCellBlock = ^(NSInteger index) {
+        
+        if ([_dataArr[index][@"tel_complete_state"] integerValue] <= 2) {
+            
+            NSString *phone = [_dataArr[index][@"tel"] componentsSeparatedByString:@","][0];
+            if (phone.length) {
+                
+                //获取目标号码字符串,转换成URL
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                //调用系统方法拨号
+                [[UIApplication sharedApplication] openURL:url];
+            }else{
+                
+                [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+            }
+        }else{
+            
+            
+        }
+    };
     
     return cell;
 }

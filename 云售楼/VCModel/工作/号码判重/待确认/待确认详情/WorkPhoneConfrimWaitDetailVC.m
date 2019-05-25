@@ -231,7 +231,7 @@
         cell.titleL.textColor = CLTitleLabColor;
         if (_titleArr.count) {
             
-            
+
             [cell setcountdownbyendtime:[_titleArr[0] substringWithRange:NSMakeRange(6, [_titleArr[0] length] - 6)]];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -319,7 +319,7 @@
     [self.view addSubview:_detailTable];
     
     _invalidBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _invalidBtn.frame = CGRectMake(120, SCREEN_Height - 47 *SIZE - TAB_BAR_MORE, 240 *SIZE, 47 *SIZE + TAB_BAR_MORE);
+    _invalidBtn.frame = CGRectMake(120 *SIZE, SCREEN_Height - 47 *SIZE - TAB_BAR_MORE, 240 *SIZE, 47 *SIZE + TAB_BAR_MORE);
     [_invalidBtn setBackgroundColor:CLBlueBtnColor];
     _invalidBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_invalidBtn addTarget:self action:@selector(ActionInValidBtn:) forControlEvents:UIControlEventTouchUpInside];

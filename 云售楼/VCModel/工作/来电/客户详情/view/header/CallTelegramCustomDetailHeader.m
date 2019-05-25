@@ -42,7 +42,7 @@
         _customSourceL.text = [NSString stringWithFormat:@"客户来源："];
     }
     _sourceTypeL.text = [NSString stringWithFormat:@"来源类型：%@",dataDic[@"source"]];
-    if ([dataDic[@"listen_way_detail"] length]) {
+    if ([[NSString stringWithFormat:@"%@",dataDic[@"listen_way_detail"]] length]) {
         
         _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@"listen_way"]];
     }else{
