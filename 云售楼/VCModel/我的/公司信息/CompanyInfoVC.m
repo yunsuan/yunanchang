@@ -46,30 +46,38 @@
 
 - (void)ActionCancelBtn:(UIButton *)btn{
     
-    [self alertControllerWithNsstring:@"离职确认" And:@"离职后，在没有认证公司的情况下，将不能使用任何功能" WithCancelBlack:^{
+    if ([_dataArr[0][@"state"] integerValue] == 1) {
         
-        
-    } WithDefaultBlack:^{
-       
-        [BaseRequest POST:CompanyAuthQuit_URL parameters:@{@"auth_id":self->_dataArr[0][@"auth_id"]} success:^(id  _Nonnull resposeObject) {
+        [self alertControllerWithNsstring:@"离职确认" And:@"离职后，在没有认证公司的情况下，将不能使用任何功能" WithCancelBlack:^{
             
-            if ([resposeObject[@"code"] integerValue] == 200) {
+            
+        } WithDefaultBlack:^{
+            
+            [BaseRequest POST:CompanyAuthQuit_URL parameters:@{@"auth_id":self->_dataArr[0][@"auth_id"]} success:^(id  _Nonnull resposeObject) {
                 
-                [self alertControllerWithNsstring:@"离职成功" And:@"你已离职" WithDefaultBlack:^{
+                if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    [UserModel defaultModel].projectinfo = @{};
-                    [UserModelArchiver archive];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }];
-            }else{
+                    [self alertControllerWithNsstring:@"离职成功" And:@"你已离职" WithDefaultBlack:^{
+                        
+                        [UserModel defaultModel].projectinfo = @{};
+                        [UserModelArchiver archive];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
                 
-                [self showContent:resposeObject[@"msg"]];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            
-            [self showContent:@"网络错误"];
+                [self showContent:@"网络错误"];
+            }];
         }];
-    }];
+    }else{
+        
+        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+        nextVC.status = @"newApply";
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -90,22 +98,10 @@
     cell.dataDic = _dataArr[indexPath.row];
     if (indexPath.row == 0) {
         
-        cell.backView.backgroundColor = CLBlueBtnColor;
-        cell.companyL.textColor = CLWhiteColor;
-        cell.departL.textColor = CLWhiteColor;
-        cell.positionL.textColor = CLWhiteColor;
-        cell.roleL.textColor = CLWhiteColor;
-        cell.timeL.textColor = CLWhiteColor;
         cell.upLine.hidden = YES;
     }else{
         
         cell.upLine.hidden = NO;
-        cell.backView.backgroundColor = CLWhiteColor;
-        cell.companyL.textColor = CLTitleLabColor;
-        cell.departL.textColor = CL86Color;
-        cell.positionL.textColor = CL86Color;
-        cell.roleL.textColor = CL86Color;
-        cell.timeL.textColor = CL86Color;
     }
     
     if (indexPath.row == _dataArr.count - 1) {
@@ -116,11 +112,25 @@
         cell.downLine.hidden = NO;
     }
     
-    if (indexPath.row == 0) {
+    if ([_dataArr[indexPath.row][@"state"] integerValue] == 1) {
         
+        cell.backView.backgroundColor = CLBlueBtnColor;
+        cell.companyL.textColor = CLWhiteColor;
+        cell.departL.textColor = CLWhiteColor;
+        cell.positionL.textColor = CLWhiteColor;
+        cell.roleL.textColor = CLWhiteColor;
+        cell.timeL.textColor = CLWhiteColor;
+        cell.addBtn.hidden = NO;
         cell.timeL.text = [NSString stringWithFormat:@"入职时间：%@",_dataArr[indexPath.row][@"create_time"]];
     }else{
         
+        cell.backView.backgroundColor = CLWhiteColor;
+        cell.companyL.textColor = CLTitleLabColor;
+        cell.departL.textColor = CL86Color;
+        cell.positionL.textColor = CL86Color;
+        cell.roleL.textColor = CL86Color;
+        cell.timeL.textColor = CL86Color;
+        cell.addBtn.hidden = YES;
         cell.timeL.text = [NSString stringWithFormat:@"任职时间：%@-%@",_dataArr[indexPath.row][@"create_time"],_dataArr[indexPath.row][@"entry_time"]];
     }
     
@@ -155,33 +165,6 @@
 
         };
         [self.navigationController pushViewController:nextVC animated:YES];
-//        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
-//        nextVC.status = @"reApply";
-//        nextVC.authId = self->_dataArr[indexPath.row][@"auth_id"];
-//        nextVC.companyAuthVCBlock = ^{
-//
-//            [BaseRequest GET:CompanyAuthInfo_URL parameters:nil success:^(id  _Nonnull resposeObject) {
-//
-//                if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//                    if ([resposeObject[@"data"] count]) {
-//
-//                        self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-//                        [tableView reloadData];
-//                    }else{
-//
-////                        CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
-////                        [self.navigationController pushViewController:nextVC animated:YES];
-//                    }
-//                }else{
-//
-//                    [self showContent:resposeObject[@"msg"]];
-//                }
-//            } failure:^(NSError * _Nonnull error) {
-//
-//                [self showContent:@"网络错误"];
-//            }];
-//        };
     };
     return cell;
 }
@@ -206,5 +189,12 @@
     [_cancelBtn setTitle:@"离职" forState:UIControlStateNormal];
     [_cancelBtn setBackgroundColor:CLBlueBtnColor];
     [self.view addSubview:_cancelBtn];
+    if ([_dataArr[0][@"state"] integerValue] == 1) {
+        
+        [_cancelBtn setTitle:@"离职" forState:UIControlStateNormal];
+    }else{
+        
+        [_cancelBtn setTitle:@"认证" forState:UIControlStateNormal];
+    }
 }
 @end

@@ -32,8 +32,6 @@
     
     NSArray *_showArr;
     NSMutableArray *_powerArr;
-//    NSString *_info_id;
-//    NSString *_project_id;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -46,12 +44,14 @@
     [super viewWillAppear:animated];
     
     [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
-    if ([UserModel defaultModel].projectinfo) {
+    if ([[UserModel defaultModel].projectinfo count]) {
         
         _table.hidden = NO;
+        self.rightBtn.hidden = NO;
     }else{
         
         _table.hidden = YES;
+        self.rightBtn.hidden = YES;;
     }
 }
 
@@ -59,7 +59,7 @@
     [super viewDidLoad];
     [self initDataSource];
     [self initUI];
-//    [self RequestMethod];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
@@ -71,43 +71,34 @@
     }
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].WorkListPower;
-//    _showArr = [@[] mutableCopy];
-//    _powerArr = [@[] mutableCopy];
-//    if (![PowerModel defaultModel].WorkListPower.count) {
-//
-//        [PowerMannerger ]
-//    }
-//    for (int i = 0; i < _imgArr.count; i++) {
-//
-//        [_showArr addObject:@0];
-//        [_powerArr addObject:@{}];
-//    }
-//    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
-//    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
 }
 
 
-//- (void)RequestMethod{
-//
-//    [BaseRequest GET:PersonProjectRoleProjectPower_URL parameters:@{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"]} success:^(id  _Nonnull resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            [UserModel defaultModel].projectPowerDic = resposeObject[@"data"];
-//            [self SetData:resposeObject[@"data"]];
-//
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//
-//        [self showContent:@"网路错误"];
-//    }];
-//}
+- (void)RequestMethod{
 
-//- (void)SetData:(NSDictionary *)data{
-//
+    if ([[UserModel defaultModel].projectinfo count]) {
+        
+        [BaseRequest GET:WorkCount_URL parameters:@{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"]} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                //            [UserModel defaultModel].projectPowerDic = resposeObject[@"data"];
+                [self SetData:resposeObject[@"data"]];
+                
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网路错误"];
+        }];
+    }
+    
+}
+
+- (void)SetData:(NSDictionary *)data{
+
 //    for (int i = 0; i < _titleArr.count; i++) {
 //
 //        [_showArr replaceObjectAtIndex:i withObject:@0];
@@ -142,9 +133,9 @@
 //
 //        [_showArr replaceObjectAtIndex:8 withObject:@1];
 //    }
-//
-//    [_table reloadData];
-//}
+
+    [_table reloadData];
+}
 
 - (void)ActionGoBtn:(UIButton *)btn{
     
@@ -225,7 +216,7 @@
     if (indexPath.row == 0) {
         
         CallTelegramVC * nextVC = [[CallTelegramVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
-        nextVC.powerDic = [PowerModel defaultModel].telCallPower;//_powerArr[0];
+        nextVC.powerDic = [PowerModel defaultModel].telCallPower;
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 1){
         

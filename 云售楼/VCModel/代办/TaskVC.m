@@ -575,6 +575,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:_dataArr[indexPath.row]];
+    [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        
+        if ([key isEqualToString:@"is_read"]) {
+            
+            [tempDic setObject:@"1" forKey:key];
+        }
+    }];
+    [_dataArr replaceObjectAtIndex:indexPath.row withObject:tempDic];
+    [tableView reloadData];
     if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
         
         CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];

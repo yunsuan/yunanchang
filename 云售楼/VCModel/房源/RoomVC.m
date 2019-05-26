@@ -44,9 +44,11 @@
     if ([UserModel defaultModel].projectinfo) {
         
         _coll.hidden = NO;
+        self.rightBtn.hidden = NO;
     }else{
         
         _coll.hidden = YES;
+        self.rightBtn.hidden = YES;
     }
 }
 
@@ -135,8 +137,8 @@
 
 - (void)RequestMethod{
 
-//    if (_info_id.length) {
-    
+    if ([[UserModel defaultModel].projectinfo count]) {
+        
         [BaseRequest GET:ProjectHouseGetBuildList_URL parameters:@{@"info_id":[UserModel defaultModel].projectinfo[@"info_id"]} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
@@ -152,8 +154,7 @@
             
             [self showContent:@"网络错误"];
         }];
-//    }
-
+    }
 }
 
 

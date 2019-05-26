@@ -175,7 +175,9 @@
                         
                         if ([resposeObject[@"data"][0][@"state"] integerValue] == 0) {
                             
-                            CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+//                            CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
+//                            [self.navigationController pushViewController:nextVC animated:YES];
+                            CompanyInfoVC *nextVC = [[CompanyInfoVC alloc] initWithDataArr:resposeObject[@"data"]];
                             [self.navigationController pushViewController:nextVC animated:YES];
                         }else if ([resposeObject[@"data"][0][@"state"] integerValue] == 1){
                             

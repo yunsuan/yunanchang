@@ -140,13 +140,19 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
         
         [self deleteWebCache];
         if ([logIndentifier isEqualToString:@"logInSuccessdentifier"]) {
-            [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
-                if ([result isEqualToString:@"获取权限成功"]) {
-                    NSLog(@"成功获取权限");
-                }
-            } failure:^(NSString * _Nonnull error) {
-                NSLog(@"获取权限失败");
-            }];
+            if ([[UserModel defaultModel].projectinfo count]) {
+            
+                [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+                    if ([result isEqualToString:@"获取权限成功"]) {
+                        NSLog(@"成功获取权限");
+                    }
+                } failure:^(NSString * _Nonnull error) {
+                    NSLog(@"获取权限失败");
+                }];
+            }else{
+                
+                
+            }
             CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
             _window.rootViewController = tabBarControllerConfig.tabBarController;
         }else {

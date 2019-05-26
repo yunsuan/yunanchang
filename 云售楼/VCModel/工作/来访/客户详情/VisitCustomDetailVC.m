@@ -611,6 +611,11 @@
                             IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
                             nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
                             nextVC.status = @"add";
+                            nextVC.group_id = self->_groupId;
+                            nextVC.intentSurveyVCBlock = ^{
+                                
+                                [self RequestMethod];
+                            };
                             [self.navigationController pushViewController:nextVC animated:YES];
                         };
                         [self.view addSubview:view];

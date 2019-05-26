@@ -107,34 +107,48 @@
     
     if ([self.status isEqualToString:@"modify"]) {
         
-        self.roleId = @"";
-        NSString *name;
+        NSMutableArray *tempArr = [@[] mutableCopy];
         for (int i = 0; i < _selectArr.count; i++) {
             
+            NSString *projectId;
+//            NSMutableArray *
             for (int j = 0; j < [_selectArr[i] count]; j++) {
                 
+                NSMutableArray *roleArr = [@[] mutableCopy];
                 if ([_selectArr[i][j] integerValue] == 1) {
+                
+                    projectId = [NSString stringWithFormat:@"%@",_dataArr[i][@"project_id"]];
+                    [roleArr addObject:[NSString stringWithFormat:@"%@",_dataArr[i][@"list"][j][@"role_id"]]];
+                }
+                if ([roleArr count]) {
                     
-                    if (!self.roleId.length) {
-                        
-                        self.roleId = [NSString stringWithFormat:@"%@",_dataArr[i][@"list"][j][@"role_id"]];
-                        name = [NSString stringWithFormat:@"%@-%@",_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
-                    }else{
-                        
-                        self.roleId = [NSString stringWithFormat:@"%@,%@",self.roleId,_dataArr[i][@"list"][j][@"role_id"]];
-                        name = [NSString stringWithFormat:@"%@,%@-%@",name,_dataArr[i][@"project_name"],_dataArr[i][@"list"][j][@"role_name"]];
-                    }
+                    [tempArr addObject:@{@"project_id":projectId,@"role_id":roleArr}];
                 }
             }
         }
         
-        if (self.roleId.length) {
-            
-            if (self.projectRoleVCBlock) {
+        if (tempArr.count) {
+        
+            [BaseRequest POST:PersonalChangeProjectRole_URL parameters:@{@"project_role":tempArr} success:^(id  _Nonnull resposeObject) {
                 
-                self.projectRoleVCBlock(self.roleId, name);
-            }
-            [self.navigationController popViewControllerAnimated:YES];
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    if (self.projectRoleVCBlock) {
+                        
+                        self.projectRoleVCBlock(@"", @"");
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        }else{
+            
+            
         }
     }else{
         

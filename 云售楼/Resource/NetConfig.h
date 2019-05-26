@@ -309,6 +309,9 @@ static NSString *const CompanyAuthQuit_URL = @"saleApp/company/auth/quit";
 //取消认证
 static NSString *const CompanyAuthCancel_URL = @"saleApp/company/auth/cancel";
 
+//修改项目角色
+static NSString *const PersonalChangeProjectRole_URL = @"saleApp/user/personal/changeProjectRole";
+
 #pragma mark === 轮岗 =====
 
 //开始轮岗
