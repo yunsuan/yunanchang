@@ -35,14 +35,14 @@
 +(void)GetWorkListPowerWithdata:(NSDictionary *)datadic{
     NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];
     if (datadic) {
-        if (datadic[@"is_butter"]) {
+        if ([datadic[@"is_butter"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:1 withObject:@1];
             [WorkListPower replaceObjectAtIndex:2 withObject:@1];
         }
-        if (datadic[@"duty_operate"]) {
+        if ([datadic[@"duty_operate"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:9 withObject:@1];
         }
-        if (datadic[@"person_check"]) {
+        if ([datadic[@"person_check"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:8 withObject:@1];
         }
         NSArray *arr = datadic[@"app_operate"];
