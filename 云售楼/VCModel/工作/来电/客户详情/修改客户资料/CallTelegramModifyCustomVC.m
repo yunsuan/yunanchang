@@ -27,7 +27,7 @@
     NSString *_cityId;
     NSString *_areaId;
     
-    NSDictionary *_dataDic;
+    NSMutableDictionary *_dataDic;
     
     NSMutableArray *_approachArr;
     NSMutableArray *_approachArr2;
@@ -59,7 +59,17 @@
     self = [super init];
     if (self) {
         
-        _dataDic = dataDic;
+        _dataDic = [[NSMutableDictionary alloc] initWithDictionary:dataDic];
+        [_dataDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+           
+            if ([obj isKindOfClass:[NSNull class]]) {
+                
+                [self->_dataDic setObject:@"" forKey:key];
+            }else{
+                
+                [self->_dataDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+            }
+        }];
         _project_id = projectId;
         _info_id = info_id;
     }
@@ -363,9 +373,9 @@
             {
                 
                 _approachBtn2 = btn;
-                if ([_dataDic[@"listen_way_detail"] length]) {
+                if ([[NSString stringWithFormat:@"%@",_dataDic[@"listen_way_detail"]] length]) {
                     
-                    _approachBtn2.content.text = _dataDic[@"listen_way_detail"];
+                    _approachBtn2.content.text = [NSString stringWithFormat:@"%@",_dataDic[@"listen_way_detail"]];
                     _approachBtn2.placeL.text = @"";
                 }else{
                     
@@ -401,7 +411,7 @@
     
     [self MasonryUI];
     
-    if ([_dataDic[@"listen_way_detail"] length]) {
+    if ([[NSString stringWithFormat:@"%@",_dataDic[@"listen_way_detail"]] length]) {
         
         [_sourceTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
             

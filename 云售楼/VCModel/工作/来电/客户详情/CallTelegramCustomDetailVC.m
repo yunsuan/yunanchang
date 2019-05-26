@@ -357,7 +357,10 @@
         header.callTelegramCustomDetailHeaderCollBlock = ^(NSInteger index) {
           
             self->_num = index;
-            [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            if (self->_index == 0) {
+                
+                [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            }
         };
         
         header.callTelegramCustomDetailHeaderAddBlock = ^(NSInteger index) {

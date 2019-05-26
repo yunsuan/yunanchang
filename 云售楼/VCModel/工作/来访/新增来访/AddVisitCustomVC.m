@@ -188,7 +188,7 @@
             
             for (int i = 0; i < [resposeObject[@"data"][0] count]; i++) {
                 
-                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"id":resposeObject[@"data"][0][i][@"config_id"],
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"id":[NSString stringWithFormat:@"%@",resposeObject[@"data"][0][i][@"config_id"]],
                                                                                              @"param":resposeObject[@"data"][0][i][@"config_name"]
                                                                                              }];
                 if (resposeObject[@"data"][0][i][@"child"]) {

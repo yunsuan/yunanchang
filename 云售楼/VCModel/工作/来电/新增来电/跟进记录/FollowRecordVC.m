@@ -415,33 +415,54 @@
                 
                 [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
                     
+                    if ([self.status isEqualToString:@"add"]) {
+                        
+                        for (UIViewController *vc in self.navigationController.viewControllers) {
+                            
+                            if ([vc isKindOfClass:[CallTelegramVC class]]) {
+                                
+                                [self.navigationController popToViewController:vc animated:YES];
+                                break;
+                            }
+                            if ([vc isKindOfClass:[VisitCustomVC class]]) {
+                                
+                                [self.navigationController popToViewController:vc animated:YES];
+                                break;
+                            }
+                        }
+                        
+                    }
+                    else{
+                        
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
                 } WithDefaultBlack:^{
                     
                     CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
                     [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"32400"]];
-                    
+                    if ([self.status isEqualToString:@"add"]) {
+                        
+                        for (UIViewController *vc in self.navigationController.viewControllers) {
+                            
+                            if ([vc isKindOfClass:[CallTelegramVC class]]) {
+                                
+                                [self.navigationController popToViewController:vc animated:YES];
+                                break;
+                            }
+                            if ([vc isKindOfClass:[VisitCustomVC class]]) {
+                                
+                                [self.navigationController popToViewController:vc animated:YES];
+                                break;
+                            }
+                        }
+                        
+                    }
+                    else{
+                        
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
                 }];
                 
-                if ([self.status isEqualToString:@"add"]) {
-                    
-                    for (UIViewController *vc in self.navigationController.viewControllers) {
-                        
-                        if ([vc isKindOfClass:[CallTelegramVC class]]) {
-                            
-                            [self.navigationController popToViewController:vc animated:YES];
-                            break;
-                        }
-                        if ([vc isKindOfClass:[VisitCustomVC class]]) {
-                            
-                            [self.navigationController popToViewController:vc animated:YES];
-                            break;
-                        }
-                    }
-                    
-                }
-                else{
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];
