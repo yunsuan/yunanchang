@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WorkRecommendValidDetailVC : BaseViewController
 
+-(instancetype)initWithClientId:(NSString *)ClientID;
+
 @end
 
 NS_ASSUME_NONNULL_END

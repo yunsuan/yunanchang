@@ -184,7 +184,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    WorkRecommendValidDetailVC *nextVC = [[WorkRecommendValidDetailVC alloc] init];//WithString:_dataArr[indexPath.row][@"client_id"]];
+    WorkRecommendValidDetailVC *nextVC = [[WorkRecommendValidDetailVC alloc] initWithClientId:_dataArr[indexPath.row][@"client_id"]];
 //    if (_dataArr[indexPath.row][@"need_confirm"]) {
 //
 //        nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];
