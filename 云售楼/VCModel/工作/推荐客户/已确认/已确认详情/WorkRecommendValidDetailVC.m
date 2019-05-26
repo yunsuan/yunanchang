@@ -8,6 +8,9 @@
 
 #import "WorkRecommendValidDetailVC.h"
 
+#import "SignNeedInfoVC.h"
+#import "SignListVC.h"
+
 #import "BaseHeader.h"
 #import "InfoDetailCell.h"
 #import "ProcessCell.h"
@@ -271,8 +274,8 @@
             
             cell.infoDetailCellBlock = ^{
                 
-//                SignListVC *nextVC = [[SignListVC alloc] initWithDataArr:_signArr];
-//                [self.navigationController pushViewController:nextVC animated:YES];
+                SignListVC *nextVC = [[SignListVC alloc] initWithDataArr:_signArr];
+                [self.navigationController pushViewController:nextVC animated:YES];
             };
             if (indexPath.section == 2) {
                 
@@ -284,8 +287,8 @@
                         [cell.moreBtn setTitle:@"查看需求信息" forState:UIControlStateNormal];
                         cell.infoDetailCellBlock = ^{
                             
-//                            SignNeedInfoVC *nextVC = [[SignNeedInfoVC alloc] initWithClientId:_clientid];
-//                            [self.navigationController pushViewController:nextVC animated:YES];
+                            SignNeedInfoVC *nextVC = [[SignNeedInfoVC alloc] initWithClientId:_clientid];
+                            [self.navigationController pushViewController:nextVC animated:YES];
                         };
                     }
                 }
@@ -329,8 +332,8 @@
             
             cell.infoDetailCellBlock = ^{
                 
-//                SignListVC *nextVC = [[SignListVC alloc] initWithDataArr:_signArr];
-//                [self.navigationController pushViewController:nextVC animated:YES];
+                SignListVC *nextVC = [[SignListVC alloc] initWithDataArr:_signArr];
+                [self.navigationController pushViewController:nextVC animated:YES];
             };
             
             if (indexPath.section == 1) {
@@ -343,8 +346,8 @@
                         [cell.moreBtn setTitle:@"查看需求信息" forState:UIControlStateNormal];
                         cell.infoDetailCellBlock = ^{
                             
-//                            SignNeedInfoVC *nextVC = [[SignNeedInfoVC alloc] initWithClientId:_clientid];
-//                            [self.navigationController pushViewController:nextVC animated:YES];
+                            SignNeedInfoVC *nextVC = [[SignNeedInfoVC alloc] initWithClientId:_clientid];
+                            [self.navigationController pushViewController:nextVC animated:YES];
                         };
                     }
                 }

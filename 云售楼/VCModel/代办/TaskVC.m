@@ -149,6 +149,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
         
+        cell.titleL.text = @"来访跟进";
+        cell.headImg.image = IMAGE_WITH_NAME(@"laifang");
+        
         cell.taskCallBackCellBlock = ^{
             
             FollowRecordVC *nextVC = [[FollowRecordVC alloc] initWithGroupId:self->_dataArr[indexPath.row][@"group_id"]];
@@ -168,6 +171,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.dataDic = _dataArr[indexPath.row];
         
+        cell.titleL.text = @"来电回访";
+        cell.headImg.image = IMAGE_WITH_NAME(@"laidian");
         cell.taskCallBackCellBlock = ^{
             
             FollowRecordVC *nextVC = [[FollowRecordVC alloc] initWithGroupId:self->_dataArr[indexPath.row][@"group_id"]];
