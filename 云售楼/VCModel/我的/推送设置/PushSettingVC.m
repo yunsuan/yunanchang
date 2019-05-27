@@ -74,9 +74,9 @@
                 [self->_dataArr replaceObjectAtIndex:4 withObject:@"0"];
             }
             [self->_dataArr replaceObjectAtIndex:0 withObject:@"1"];
-            for (NSString *str in self->_dataArr) {
+            for (int i = 0; i < self->_dataArr.count; i++) {
                 
-                if ([str integerValue] == 0) {
+                if ([self->_dataArr[i] integerValue] == 0) {
                     
                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                 }
@@ -152,39 +152,48 @@
         
         if (cell.OnOff.on) {
             
+            [self->_dataArr replaceObjectAtIndex:0 withObject:@"1"];
+            NSInteger newNum = 4;
             switch (indexPath.row) {
                 case 0:
                 {
-                    for (int i = 0; i < 4; i++) {
+                    NSMutableDictionary *tempDic = [@{} mutableCopy];
+                    [self->_dataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                       
+                        if ([obj integerValue] == 0) {
+                            
+                            if (idx == 1) {
+                                
+                                [tempDic setObject:@"1" forKey:@"follow"];
+                            }else if (idx == 2){
+                                
+                                [tempDic setObject:@"1" forKey:@"check_push"];
+                            }else if (idx == 3){
+                                
+                                [tempDic setObject:@"1" forKey:@"confirm"];
+                            }else if (idx == 4){
+                                
+                                [tempDic setObject:@"1" forKey:@"data"];
+                            }
+                        }
+                    }];
+                    [BaseRequest GET:PersonPushTipsUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
                         
-                        NSDictionary *dic;
-                        if (i == 0) {
+                        if ([resposeObject[@"code"] integerValue] == 200) {
                             
-                            dic = @{@"follow":@"1"};
-                        }else if (i == 1){
-                            
-                            dic = @{@"check_push":@"1"};
-                        }else if (i == 2){
-                            
-                            dic = @{@"confirm":@"1"};
+                            for (int i = 0; i < self->_dataArr.count; i++) {
+                                
+                                [self->_dataArr replaceObjectAtIndex:i withObject:@"1"];
+                            }
+                            [self->_personTable reloadData];
                         }else{
                             
-                            dic = @{@"data":@"1"};
+                            [self showContent:resposeObject[@"msg"]];
                         }
-                        [self RequestQueueMethod:^{
-                            
-                            if (self->_num == 3) {
-                                
-                                self->_num = 0;
-                                for (int i = 0; i < 5; i++) {
-                                    
-                                    [self->_dataArr replaceObjectAtIndex:i withObject:@"1"];
-                                    [self->_personTable reloadData];
-                                }
-                            }
-                        } data:dic];
+                    } failure:^(NSError * _Nonnull error) {
                         
-                    }
+                        [self showContent:@"网络错误"];
+                    }];
                     break;
                 }
                 case 1:
@@ -194,9 +203,9 @@
                         if ([resposeObject[@"code"] integerValue] == 200) {
                             
                             [self->_dataArr replaceObjectAtIndex:1 withObject:@"1"];
-                            for (NSString *str in self->_dataArr) {
+                            for (int i = 0; i < self->_dataArr.count; i++) {
                                 
-                                if ([str integerValue] == 0) {
+                                if ([self->_dataArr[i] integerValue] == 0) {
                                     
                                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                                 }
@@ -214,14 +223,14 @@
                 }
                 case 2:
                 {
-                    [BaseRequest GET:PersonPushTipsUpdate_URL parameters:@{@"check_push":@"0"} success:^(id  _Nonnull resposeObject) {
+                    [BaseRequest GET:PersonPushTipsUpdate_URL parameters:@{@"check_push":@"1"} success:^(id  _Nonnull resposeObject) {
                         
                         if ([resposeObject[@"code"] integerValue] == 200) {
                             
                             [self->_dataArr replaceObjectAtIndex:2 withObject:@"1"];
-                            for (NSString *str in self->_dataArr) {
+                            for (int i = 0; i < self->_dataArr.count; i++) {
                                 
-                                if ([str integerValue] == 0) {
+                                if ([self->_dataArr[i] integerValue] == 0) {
                                     
                                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                                 }
@@ -244,9 +253,9 @@
                         if ([resposeObject[@"code"] integerValue] == 200) {
                             
                             [self->_dataArr replaceObjectAtIndex:3 withObject:@"1"];
-                            for (NSString *str in self->_dataArr) {
+                            for (int i = 0; i < self->_dataArr.count; i++) {
                                 
-                                if ([str integerValue] == 0) {
+                                if ([self->_dataArr[i] integerValue] == 0) {
                                     
                                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                                 }
@@ -269,9 +278,9 @@
                         if ([resposeObject[@"code"] integerValue] == 200) {
                             
                             [self->_dataArr replaceObjectAtIndex:4 withObject:@"1"];
-                            for (NSString *str in self->_dataArr) {
+                            for (int i = 0; i < self->_dataArr.count; i++) {
                                 
-                                if ([str integerValue] == 0) {
+                                if ([self->_dataArr[i] integerValue] == 0) {
                                     
                                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                                 }
@@ -295,36 +304,43 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                    for (int i = 0; i < 4; i++) {
+                    NSMutableDictionary *tempDic = [@{} mutableCopy];
+                    [self->_dataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         
-                        NSDictionary *dic;
-                        if (i == 0) {
+                        if ([obj integerValue] == 1) {
                             
-                            dic = @{@"follow":@"0"};
-                        }else if (i == 1){
+                            if (idx == 1) {
+                                
+                                [tempDic setObject:@"0" forKey:@"follow"];
+                            }else if (idx == 2){
+                                
+                                [tempDic setObject:@"0" forKey:@"check_push"];
+                            }else if (idx == 3){
+                                
+                                [tempDic setObject:@"0" forKey:@"confirm"];
+                            }else if (idx == 4){
+                                
+                                [tempDic setObject:@"0" forKey:@"data"];
+                            }
+                        }
+                    }];
+                    [BaseRequest GET:PersonPushTipsUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+                        
+                        if ([resposeObject[@"code"] integerValue] == 200) {
                             
-                            dic = @{@"check_push":@"0"};
-                        }else if (i == 2){
-                            
-                            dic = @{@"confirm":@"0"};
+                            for (int i = 0; i < self->_dataArr.count; i++) {
+                                
+                                [self->_dataArr replaceObjectAtIndex:i withObject:@"0"];
+                            }
+                            [self->_personTable reloadData];
                         }else{
                             
-                            dic = @{@"data":@"0"};
+                            [self showContent:resposeObject[@"msg"]];
                         }
-                        [self RequestQueueMethod:^{
-                            
-                            if (self->_num == 3) {
-                                
-                                self->_num = 0;
-                                for (int i = 0; i < 5; i++) {
-                                    
-                                    [self->_dataArr replaceObjectAtIndex:i withObject:@"0"];
-                                    [self->_personTable reloadData];
-                                }
-                            }
-                        } data:dic];
+                    } failure:^(NSError * _Nonnull error) {
                         
-                    }
+                        [self showContent:@"网络错误"];
+                    }];
                     break;
                 }
                 case 1:
@@ -334,9 +350,9 @@
                         if ([resposeObject[@"code"] integerValue] == 200) {
                             
                             [self->_dataArr replaceObjectAtIndex:1 withObject:@"0"];
-                            for (NSString *str in self->_dataArr) {
+                            for (int i = 0; i < self->_dataArr.count; i++) {
                                 
-                                if ([str integerValue] == 0) {
+                                if ([self->_dataArr[i] integerValue] == 0) {
                                     
                                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                                 }
@@ -359,9 +375,9 @@
                         if ([resposeObject[@"code"] integerValue] == 200) {
                             
                             [self->_dataArr replaceObjectAtIndex:2 withObject:@"0"];
-                            for (NSString *str in self->_dataArr) {
+                            for (int i = 0; i < self->_dataArr.count; i++) {
                                 
-                                if ([str integerValue] == 0) {
+                                if ([self->_dataArr[i] integerValue] == 0) {
                                     
                                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                                 }
@@ -384,9 +400,9 @@
                         if ([resposeObject[@"code"] integerValue] == 200) {
                             
                             [self->_dataArr replaceObjectAtIndex:3 withObject:@"0"];
-                            for (NSString *str in self->_dataArr) {
+                            for (int i = 0; i < self->_dataArr.count; i++) {
                                 
-                                if ([str integerValue] == 0) {
+                                if ([self->_dataArr[i] integerValue] == 0) {
                                     
                                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                                 }
@@ -409,9 +425,9 @@
                         if ([resposeObject[@"code"] integerValue] == 200) {
                             
                             [self->_dataArr replaceObjectAtIndex:4 withObject:@"0"];
-                            for (NSString *str in self->_dataArr) {
+                            for (int i = 0; i < self->_dataArr.count; i++) {
                                 
-                                if ([str integerValue] == 0) {
+                                if ([self->_dataArr[i] integerValue] == 0) {
                                     
                                     [self->_dataArr replaceObjectAtIndex:0 withObject:@"0"];
                                 }

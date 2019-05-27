@@ -513,19 +513,25 @@
         
         cell.callTelegramCustomDetailInfoCellDeleteBlock = ^{
             
-            [BaseRequest POST:WorkClientAutoClientUpdate_URL parameters:@{@"state":@"0",@"client_id":self->_peopleArr[self->_num][@"client_id"]} success:^(id  _Nonnull resposeObject) {
+            if (self->_peopleArr.count > 1) {
                 
-                if ([resposeObject[@"code"] integerValue] == 200) {
+                [BaseRequest POST:WorkClientAutoClientUpdate_URL parameters:@{@"state":@"0",@"client_id":self->_peopleArr[self->_num][@"client_id"]} success:^(id  _Nonnull resposeObject) {
                     
-                    [self RequestMethod];
-                }else{
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self RequestMethod];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
                     
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError * _Nonnull error) {
+                    [self showContent:@"网络错误"];
+                }];
+            }else{
                 
-                [self showContent:@"网络错误"];
-            }];
+                [self showContent:@"唯一客户不能删除"];
+            }
         };
         
         return cell;
