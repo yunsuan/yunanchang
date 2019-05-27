@@ -26,9 +26,11 @@
     _wayL.text = [NSString stringWithFormat:@"跟进方式：%@",dataDic[@"follow_way"]];//@"跟进方式：电话";
     NSString *comment = dataDic[@"comment"];
     if ([comment containsString:@"upload/sale/upload"] ) {
+        
         _speechImg.hidden = NO;
     }
     else{
+        
         _contentL.text = [NSString stringWithFormat:@"%@",dataDic[@"comment"]];
         _speechImg.hidden = YES;
     }

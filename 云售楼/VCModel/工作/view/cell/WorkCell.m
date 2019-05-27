@@ -24,6 +24,7 @@
     
     _headImg.image = IMAGE_WITH_NAME(img);
     _titleL.text = title;
+    _contentL.text = content;
 }
 
 - (void)initUI{

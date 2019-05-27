@@ -442,6 +442,7 @@
                     
                     if ([self.status isEqualToString:@"add"]) {
                         
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCall" object:nil];
                         for (UIViewController *vc in self.navigationController.viewControllers) {
                             
                             if ([vc isKindOfClass:[CallTelegramVC class]]) {

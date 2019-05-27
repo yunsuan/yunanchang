@@ -32,6 +32,7 @@
     
     NSArray *_showArr;
     NSMutableArray *_powerArr;
+    
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -71,6 +72,11 @@
     }
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].WorkListPower;
+    _powerArr = [@[] mutableCopy];
+    for (int i = 0; i < _imgArr.count; i++) {
+        
+        [_powerArr addObject:@""];
+    }
 }
 
 
@@ -99,41 +105,17 @@
 
 - (void)SetData:(NSDictionary *)data{
 
-//    for (int i = 0; i < _titleArr.count; i++) {
-//
-//        [_showArr replaceObjectAtIndex:i withObject:@0];
-//        [_powerArr replaceObjectAtIndex:i withObject:@{}];
-//    }
-//    NSLog(@"%@",data);
-//    NSArray *arr = data[@"app_operate"];
-//    for (int i = 0 ; i < arr.count; i++) {
-//
-//        for (int j = 0; j < _titleArr.count; j++) {
-//
-//            if ([arr[i][@"type"] containsString:_titleArr[j]]) {
-//
-//                [_showArr replaceObjectAtIndex:j withObject:@1];
-//                [_powerArr replaceObjectAtIndex:j withObject:arr[i]];
-//            }
-//        }
-//    }
-//
-//    if ([data[@"duty_operate"] integerValue] == 1) {
-//
-//        [_showArr replaceObjectAtIndex:9 withObject:@1];
-//    }
-//
-//    if ([data[@"is_butter"] integerValue] == 1) {
-//
-//        [_showArr replaceObjectAtIndex:1 withObject:@1];
-//        [_showArr replaceObjectAtIndex:2 withObject:@1];
-//    }
-//
-//    if ([data[@"person_check"] integerValue] == 1) {
-//
-//        [_showArr replaceObjectAtIndex:8 withObject:@1];
-//    }
-
+//    [_powerArr removeAllObjects];
+    [_powerArr replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,到访%@",data[@"telVisit"][@"today"],data[@"telVisit"][@"total"],data[@"telVisit"][@""]]];
+    [_powerArr replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"累计%@,可带看%@",data[@"telCheck"][@"today"],data[@"telCheck"][@"value"]]];
+    [_powerArr replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"累计%@,到访%@",data[@"recommend"][@"today"],data[@"recommend"][@"value"]]];
+    [_powerArr replaceObjectAtIndex:3 withObject:[NSString stringWithFormat:@"今日新增%@,回访%@,累计%@",data[@"visit"][@"today"],data[@"visit"][@"todal"],data[@"visit"][@""]]];
+    [_powerArr replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"row"][@"today"],data[@"row"][@"total"],data[@"row"][@""]]];
+    [_powerArr replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"sub"][@"today"],data[@"sub"][@"totol"],data[@"row"][@"wait"]]];
+    [_powerArr replaceObjectAtIndex:6 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"contract"][@"today"],data[@"contract"][@"totol"],data[@"sub"][@"wait"]]];
+    [_powerArr replaceObjectAtIndex:7 withObject:[NSString stringWithFormat:@"今日新增%@,换票%@",data[@"receive"][@"today"],data[@"receive"][@"wait"]]];
+    [_powerArr replaceObjectAtIndex:8 withObject:[NSString stringWithFormat:@"待审核%@",data[@"matter"][@"wait"]]];
+//    [_powerArr replaceObjectAtIndex:9 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,到访%@",data[@"matter"][@""],data[@"matter"][@""],data[@"receive"][@""]]];
     [_table reloadData];
 }
 
@@ -163,8 +145,8 @@
         [UserModelArchiver archive];
         [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
             if ([result isEqualToString:@"获取权限成功"]) {
-                _showArr = [PowerModel defaultModel].WorkListPower;
-                [_table reloadData];
+                self->_showArr = [PowerModel defaultModel].WorkListPower;
+                [self->_table reloadData];
             }
         } failure:^(NSString * _Nonnull error) {
             [self showContent:error];
@@ -200,7 +182,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    [cell SetImg:_imgArr[indexPath.row] title:_titleArr[indexPath.row] content:@""];
+    [cell SetImg:_imgArr[indexPath.row] title:_titleArr[indexPath.row] content:_powerArr[indexPath.row]];
     if ([_showArr[indexPath.row] integerValue] == 1) {
         
         cell.hidden = NO;

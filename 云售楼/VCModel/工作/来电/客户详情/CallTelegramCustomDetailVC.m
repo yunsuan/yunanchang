@@ -161,6 +161,7 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCall" object:nil];
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 
@@ -309,6 +310,18 @@
         
         
         header.dataDic = _groupInfoDic;
+        if (_peopleArr.count) {
+            
+            if ([_peopleArr[_num][@"sex"] integerValue] == 1) {
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nantouxiang");
+            }else{
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nvtouxiang");
+            }
+        }
+        
+        
         header.propertyL.text = [NSString stringWithFormat:@"意向物业："];
         for (int i = 0; i < _intentArr.count; i++) {
             
@@ -357,6 +370,13 @@
         header.callTelegramCustomDetailHeaderCollBlock = ^(NSInteger index) {
           
             self->_num = index;
+            if ([self->_peopleArr[index][@"sex"] integerValue] == 1) {
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nantouxiang");
+            }else{
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nvtouxiang");
+            }
             if (self->_index == 0) {
                 
                 [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
@@ -625,7 +645,6 @@
             [cell.speechImg addTarget:self action:@selector(action_play:) forControlEvents:UIControlEventTouchUpInside];
         }
 
-        
         return cell;
     }
 }

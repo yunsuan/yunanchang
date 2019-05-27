@@ -32,7 +32,7 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _headImg.image = IMAGE_WITH_NAME(@"def_head");
+//    _headImg.image = IMAGE_WITH_NAME(@"def_head");
     _propertyL.text = [NSString stringWithFormat:@"意向物业：%@",dataDic[@""]];
     if (dataDic[@"province_name"]) {
         

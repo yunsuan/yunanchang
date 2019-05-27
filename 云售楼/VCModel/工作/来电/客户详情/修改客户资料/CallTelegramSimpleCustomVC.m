@@ -692,7 +692,7 @@
     [self MasonryUI];
     
     _nameTF.textField.text = _dataDic[@"name"];
-    if ([_dataDic[@"name"] integerValue] == 1) {
+    if ([_dataDic[@"sex"] integerValue] == 1) {
         
         _maleBtn.selected = YES;
         _gender = @"1";

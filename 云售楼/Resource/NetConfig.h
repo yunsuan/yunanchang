@@ -277,6 +277,12 @@ static NSString *const UserPersonalChangePassword_URL = @"saleApp/user/personal/
 //意见反馈
 static NSString *const UserPersonalSendAdvice_URL = @"saleApp/user/personal/sendAdvice";
 
+//获取推送设置
+static NSString *const PersonalPushTopsGet_URL = @"saleApp/user/personal/pushTips/get";
+
+//修改推送
+static NSString *const PersonPushTipsUpdate_URL = @"saleApp/user/personal/pushTips/update";
+
 //退出登录
 static NSString *const UserPersonalLogOut_URL = @"saleApp/user/personal/logOut";
 

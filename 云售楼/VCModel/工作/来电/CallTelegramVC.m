@@ -54,6 +54,7 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"reloadCall" object:nil];
     _page = 1;
     _dataArr = [@[] mutableCopy];
 }
@@ -183,6 +184,13 @@
     
     cell.dataDic = _dataArr[indexPath.section];;
     
+    if ([_dataArr[indexPath.section][@"sex"] integerValue] == 1) {
+        
+        cell.headImg.image = IMAGE_WITH_NAME(@"nantouxiang");
+    }else{
+        
+        cell.headImg.image = IMAGE_WITH_NAME(@"nvtouxiang");
+    }
     return cell;
 }
 

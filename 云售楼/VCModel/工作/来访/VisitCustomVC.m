@@ -54,6 +54,7 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"reloadCall" object:nil];
     _page = 1;
     _dataArr = [@[] mutableCopy];
 }
