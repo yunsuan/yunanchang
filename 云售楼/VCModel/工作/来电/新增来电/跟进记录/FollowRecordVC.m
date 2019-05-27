@@ -335,6 +335,7 @@
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 [formatter setDateFormat:@"YYYY-MM-dd"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"TaskReolad" object:nil];
                 [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
                     
                     if ([self.status isEqualToString:@"add"]) {

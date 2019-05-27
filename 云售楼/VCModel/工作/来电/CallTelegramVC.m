@@ -61,8 +61,13 @@
 
 - (void)RequestMethod{
     
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"project_id":_projectId}];
     self->_table.mj_footer.state = MJRefreshStateIdle;
-    [BaseRequest GET:WorkClientAutoList_URL parameters:@{@"type":@"1",@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
+    if (![self isEmpty:_searchBar.text]) {
+        
+        [dic setObject:_searchBar.text forKey:@"search"];
+    }
+    [BaseRequest GET:WorkClientAutoList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -88,7 +93,12 @@
 
 - (void)RequestAddMethod{
     
-    [BaseRequest GET:WorkClientAutoList_URL parameters:@{@"type":@"1",@"project_id":_projectId,@"page":@(_page)} success:^(id  _Nonnull resposeObject) {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"project_id":_projectId,@"page":@(_page)}];
+    if (![self isEmpty:_searchBar.text]) {
+        
+        [dic setObject:_searchBar.text forKey:@"search"];
+    }
+    [BaseRequest GET:WorkClientAutoList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -140,6 +150,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
+    [self RequestMethod];
     return YES;
 }
 
@@ -199,7 +210,14 @@
     CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
     nextVC.project_id = _projectId;
     nextVC.info_id = _info_id;
-    nextVC.powerDic = self.powerDic;
+    if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
+        
+        nextVC.powerDic = self.powerDic;
+    }else{
+        
+        nextVC.powerDic = @{};
+    }
+    
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

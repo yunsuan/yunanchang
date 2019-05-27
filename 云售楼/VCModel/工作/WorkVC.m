@@ -107,15 +107,15 @@
 
 //    [_powerArr removeAllObjects];
     [_powerArr replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,到访%@",data[@"telVisit"][@"today"],data[@"telVisit"][@"total"],data[@"telVisit"][@""]]];
-    [_powerArr replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"累计%@,可带看%@",data[@"telCheck"][@"today"],data[@"telCheck"][@"value"]]];
-    [_powerArr replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"累计%@,到访%@",data[@"recommend"][@"today"],data[@"recommend"][@"value"]]];
+    [_powerArr replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"今日推荐%@,可带看%@",data[@"telCheck"][@"today"],data[@"telCheck"][@"value"]]];
+    [_powerArr replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"今日推荐%@,到访%@,累计%@",data[@"recommend"][@"today"],data[@"recommend"][@"value"],data[@"recommend"][@""]]];
     [_powerArr replaceObjectAtIndex:3 withObject:[NSString stringWithFormat:@"今日新增%@,回访%@,累计%@",data[@"visit"][@"today"],data[@"visit"][@"todal"],data[@"visit"][@""]]];
     [_powerArr replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"row"][@"today"],data[@"row"][@"total"],data[@"row"][@""]]];
     [_powerArr replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"sub"][@"today"],data[@"sub"][@"totol"],data[@"row"][@"wait"]]];
     [_powerArr replaceObjectAtIndex:6 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"contract"][@"today"],data[@"contract"][@"totol"],data[@"sub"][@"wait"]]];
     [_powerArr replaceObjectAtIndex:7 withObject:[NSString stringWithFormat:@"今日新增%@,换票%@",data[@"receive"][@"today"],data[@"receive"][@"wait"]]];
     [_powerArr replaceObjectAtIndex:8 withObject:[NSString stringWithFormat:@"待审核%@",data[@"matter"][@"wait"]]];
-//    [_powerArr replaceObjectAtIndex:9 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,到访%@",data[@"matter"][@""],data[@"matter"][@""],data[@"receive"][@""]]];
+    [_powerArr replaceObjectAtIndex:9 withObject:[NSString stringWithFormat:@"当前A位：%@",data[@"receive"][@""]]];
     [_table reloadData];
 }
 
