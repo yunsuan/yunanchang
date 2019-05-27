@@ -81,25 +81,46 @@
         NSMutableArray *tempArr = [@[] mutableCopy];
         for (int j = 0; j < [_dataArr[i][@"list"] count]; j++) {
             
-            if (selectArr.count) {
-                
-                for (int m = 0; m < selectArr.count; m++) {
-                    
-                    if ([_dataArr[i][@"list"][j][@"role_id"] integerValue] == [selectArr[m] integerValue]) {
-                        
-                        [tempArr addObject:@1];
-                    }else{
-                        
-                        [tempArr addObject:@0];
-                    }
-                }
-            }else{
-                
-                [tempArr addObject:@0];
-            }
+            [tempArr addObject:@0];
+//            if (selectArr.count) {
+//
+//                for (int m = 0; m < selectArr.count; m++) {
+//
+//                    if ([_dataArr[i][@"list"][j][@"role_id"] integerValue] == [selectArr[m] integerValue]) {
+//
+//                        [tempArr addObject:@1];
+//                    }else{
+//
+//                        [tempArr addObject:@0];
+//                    }
+//                }
+//            }else{
+//
+//                [tempArr addObject:@0];
+//            }
         }
         [_selectArr addObject:tempArr];
     }
+    
+    for (int m = 0; m < selectArr.count; m++) {
+        
+        for (int i = 0; i < _dataArr.count; i++) {
+            
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:_selectArr[i]];
+            for (int j = 0; j < [_dataArr[i][@"list"] count]; j++) {
+                
+                if ([_dataArr[i][@"list"][j][@"role_id"] integerValue] == [selectArr[m] integerValue]) {
+                    
+                    [tempArr replaceObjectAtIndex:j withObject:@1];
+                }else{
+                    
+                    
+                }
+            }
+            [_selectArr replaceObjectAtIndex:i withObject:tempArr];
+        }
+    }
+    
     [_intentColl reloadData];
 }
 
@@ -127,9 +148,15 @@
             }
         }
         
-        if (tempArr.count) {
         
-            [BaseRequest POST:PersonalChangeProjectRole_URL parameters:@{@"project_role":tempArr} success:^(id  _Nonnull resposeObject) {
+        
+        if (tempArr.count) {
+            
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tempArr options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+            [BaseRequest POST:PersonalChangeProjectRole_URL parameters:@{@"project_role":jsonString} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
@@ -233,18 +260,29 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if ([_selectArr[indexPath.section][indexPath.item] integerValue] == 0) {
+//    for (int i = 0; i < _selectArr.count; i++) {
+//
+//
+//    }
+    NSMutableArray *tempArr = _selectArr[indexPath.section];
+    for (int i = 0; i < tempArr.count; i++) {
         
-        NSMutableArray *tempArr = _selectArr[indexPath.section];
-        [tempArr replaceObjectAtIndex:indexPath.row withObject:@1];
-        [_selectArr replaceObjectAtIndex:indexPath.section withObject:tempArr];
-    }else{
-        
-        NSMutableArray *tempArr = _selectArr[indexPath.section];
-        [tempArr replaceObjectAtIndex:indexPath.row withObject:@0];
-        [_selectArr replaceObjectAtIndex:indexPath.section withObject:tempArr];
+        [tempArr replaceObjectAtIndex:i withObject:@0];
     }
-    [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:indexPath.item inSection:indexPath.section]]];
+//    if ([_selectArr[indexPath.section][indexPath.item] integerValue] == 0) {
+    
+        
+        [tempArr replaceObjectAtIndex:indexPath.row withObject:@1];
+        
+        [_selectArr replaceObjectAtIndex:indexPath.section withObject:tempArr];
+//    }else{
+//
+////        NSMutableArray *tempArr = _selectArr[indexPath.section];
+//        [tempArr replaceObjectAtIndex:indexPath.row withObject:@0];
+//        [_selectArr replaceObjectAtIndex:indexPath.section withObject:tempArr];
+//    }
+    [collectionView reloadData];
+//    [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:indexPath.item inSection:indexPath.section]]];
 //    [collectionView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
 }
 
