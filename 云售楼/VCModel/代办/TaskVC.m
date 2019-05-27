@@ -41,7 +41,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    if ([UserModel defaultModel].projectinfo) {
+    if ([[UserModel defaultModel].projectinfo count]) {
         
         _table.hidden = NO;
     }else{
@@ -61,6 +61,7 @@
 - (void)initDataSource{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"TaskReload" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"recommendReload" object:nil];
     _dataArr = [@[] mutableCopy];
 //    _dataArr = [[NSMutableArray alloc] initWithArray:@[@"来电客户",@"来访客户",@"推荐客户",@"审核待办",@"财务待办"]];
 }
@@ -81,6 +82,7 @@
                 
                 self->_table.mj_footer.state = MJRefreshStateNoMoreData;
             }
+            [_table reloadData];
         }else{
             
             [self showContent:resposeObject[@"msg"]];

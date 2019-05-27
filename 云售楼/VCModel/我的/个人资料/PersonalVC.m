@@ -46,6 +46,9 @@
     
     [super viewWillAppear:animated];
     
+    _imagePickerController = [[UIImagePickerController alloc] init];
+    _imagePickerController.delegate = self;
+    
     _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,[NSString stringWithFormat:@"%@/%@/%@",[UserInfoModel defaultModel].province,[UserInfoModel defaultModel].city,[UserInfoModel defaultModel].district],[UserInfoModel defaultModel].slef_desc]];
     [_personTable reloadData];
 }

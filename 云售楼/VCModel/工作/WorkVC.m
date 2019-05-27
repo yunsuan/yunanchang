@@ -109,7 +109,7 @@
     [_powerArr replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,到访%@",data[@"telVisit"][@"today"],data[@"telVisit"][@"total"],data[@"telVisit"][@"visit"]]];
     [_powerArr replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"今日推荐%@,可带看%@",data[@"telCheck"][@"total"],data[@"telCheck"][@"value"]]];
     [_powerArr replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"今日推荐%@,到访%@,累计%@",data[@"recommend"][@"today"],data[@"recommend"][@"value"],data[@"recommend"][@"total"]]];
-    [_powerArr replaceObjectAtIndex:3 withObject:[NSString stringWithFormat:@"今日新增%@,回访%@,累计%@",data[@"visit"][@"today"],data[@"visit"][@""],data[@"visit"][@"total"]]];
+    [_powerArr replaceObjectAtIndex:3 withObject:[NSString stringWithFormat:@"今日新增%@,回访%@,累计%@",data[@"visit"][@"today"],data[@"visit"][@"review"],data[@"visit"][@"total"]]];
     [_powerArr replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"row"][@"today"],data[@"row"][@"total"],data[@"row"][@""]]];
     [_powerArr replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"sub"][@"today"],data[@"sub"][@"totol"],data[@"row"][@"wait"]]];
     [_powerArr replaceObjectAtIndex:6 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"contract"][@"today"],data[@"contract"][@"totol"],data[@"sub"][@"wait"]]];
