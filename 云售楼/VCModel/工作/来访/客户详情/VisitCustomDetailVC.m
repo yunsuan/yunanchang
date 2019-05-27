@@ -506,6 +506,10 @@
                 [self->_infoDataArr replaceObjectAtIndex:self->_num withObject:arr];
                 
                 [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+                if (self.visitCustomDetailModifyBlock) {
+                    
+                    self.visitCustomDetailModifyBlock();
+                }
             };
             [self.navigationController pushViewController:nextVC animated:YES];
         };

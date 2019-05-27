@@ -218,6 +218,11 @@
         nextVC.powerDic = @{};
     }
     
+    nextVC.callTelegramCustomDetailModifyBlock = ^{
+      
+        [self RequestMethod];
+    };
+    
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

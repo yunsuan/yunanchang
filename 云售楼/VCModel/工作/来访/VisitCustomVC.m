@@ -209,6 +209,10 @@
         
         nextVC.powerDic = @{};
     }
+    nextVC.visitCustomDetailModifyBlock = ^{
+      
+        [self RequestMethod];
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

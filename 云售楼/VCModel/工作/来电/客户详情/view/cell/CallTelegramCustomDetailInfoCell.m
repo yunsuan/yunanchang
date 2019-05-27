@@ -69,14 +69,14 @@
         
         make.right.equalTo(self.contentView).offset(-18 *SIZE);
         make.top.equalTo(self.contentView).offset(11 *SIZE);
-        make.width.height.mas_equalTo(16 *SIZE);
+        make.width.height.mas_equalTo(20 *SIZE);
     }];
     
     [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self->_editBtn.mas_left).offset(-20 *SIZE);
         make.top.equalTo(self.contentView).offset(9 *SIZE);
-        make.width.height.mas_equalTo(20 *SIZE);
+        make.width.height.mas_equalTo(23 *SIZE);
     }];
 }
 

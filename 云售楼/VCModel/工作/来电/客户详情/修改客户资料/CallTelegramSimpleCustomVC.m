@@ -364,7 +364,7 @@
 //        
 //        self.addCallTelegramGroupMemberVCBlock(_nameTF.textField.text,tempDic);
 //    }
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{

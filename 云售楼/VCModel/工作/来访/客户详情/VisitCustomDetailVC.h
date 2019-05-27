@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^VisitCustomDetailModifyBlock)(void);
+
 @interface VisitCustomDetailVC : BaseViewController
+
+@property (nonatomic, copy) VisitCustomDetailModifyBlock visitCustomDetailModifyBlock;
 
 @property (nonatomic, strong) NSString *project_id;
 
