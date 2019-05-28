@@ -24,6 +24,11 @@
 #import "BaseAddCell.h"
 #import "CallTelegramCustomDetailFollowCell.h"
 
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
+//#import <AVFoundation/AVFoundation.h>
+#import <CoreAudio/CoreAudioTypes.h>
+
 @interface VisitCustomDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -39,6 +44,8 @@
     NSMutableArray *_intentArr;
     NSMutableArray *_followArr;
     NSMutableArray *_peopleArr;
+    
+    AVAudioPlayer *_player;
     
 }
 @property (nonatomic, strong) UITableView *table;
@@ -103,6 +110,42 @@
         
         [self showContent:@"网络错误"];
     }];
+}
+
+-(void)action_play:(UIButton *)sender
+{
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+    NSError *playError;
+    
+    NSURL* url = [NSURL URLWithString: [NSString stringWithFormat: @"%@%@",TestBase_Net,_followArr[sender.tag][@"comment"]]];
+    NSString *adress =_followArr[sender.tag][@"comment"];
+    adress =[adress stringByReplacingOccurrencesOfString:@"upload/sale/upload/" withString:@""];
+    NSData * audioData = [NSData dataWithContentsOfURL:url];
+    
+    //将数据保存到本地指定位置
+    NSString *docDirPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", docDirPath , adress];
+    [audioData writeToFile:filePath atomically:YES];
+    
+    //播放本地音乐
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+    if (_player == nil) {
+        NSLog(@"Error crenting player: %@", [playError description]);
+    }else {
+        _player.delegate = self;
+        NSLog(@"开始播放");
+        [_player stop];
+        //开始播放
+        if ([_player prepareToPlay] == YES) {
+            
+            [_player play];
+            
+        }
+    }
+    
+    
 }
 
 
@@ -592,6 +635,10 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         cell.dataDic = _followArr[indexPath.row];
+        if (!cell.speechImg.hidden) {
+            cell.speechImg.tag = indexPath.row;
+            [cell.speechImg addTarget:self action:@selector(action_play:) forControlEvents:UIControlEventTouchUpInside];
+        }
         return cell;
     }
 }
