@@ -147,7 +147,8 @@
     //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell.headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_dataarr[indexPath.row][@"logo"]]] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (error) {
-            image = [UIImage imageNamed:@"company"];
+            
+            cell.headerImg.image = [UIImage imageNamed:@"company"];
         }
     }];
     cell.companyL.text = _dataarr[indexPath.row][@"company_name"];

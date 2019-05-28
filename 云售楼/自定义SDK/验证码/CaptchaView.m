@@ -40,7 +40,7 @@
     self.changeArray = [[NSArray alloc] initWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z",@"a",@"b",@"c",@"d",@"e",@"f",@"g",@"h",@"i",@"j",@"k",@"l",@"m",@"n",@"o",@"p",@"q",@"r",@"s",@"t",@"u",@"v",@"w",@"x",@"y",@"z",nil];
     
     //如果能确定最大需要的容量，使用initWithCapacity:来设置，好处是当元素个数不超过容量时，添加元素不需要重新分配内存
-    NSMutableString *getStr = [[NSMutableString alloc] initWithCapacity:kCharCount];
+    NSMutableString *getStr;// = [[NSMutableString alloc] initWithCapacity:kCharCount];
     self.changeString = [[NSMutableString alloc] initWithCapacity:kCharCount];
     
     //随机从数组中选取需要个数的字符，然后拼接为一个字符串

@@ -96,26 +96,29 @@
             propertyId = [NSString stringWithFormat:@"%@,%@",propertyId,dic[@"id"]];
         }
     }
-    [BaseRequest GET:ProjectConfigPropertyConfigList_URL parameters:@{@"property_id":propertyId} success:^(id  _Nonnull resposeObject) {
+    if (propertyId) {
         
-        if ([resposeObject[@"code"] integerValue] == 200) {
+        [BaseRequest GET:ProjectConfigPropertyConfigList_URL parameters:@{@"property_id":propertyId} success:^(id  _Nonnull resposeObject) {
             
-            for (NSDictionary *dic in resposeObject[@"data"]) {
+            if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                [self->_dataArr addObject:dic];
+                for (NSDictionary *dic in resposeObject[@"data"]) {
+                    
+                    [self->_dataArr addObject:dic];
+                }
+                [self SetData:self->_dataArr];
+                [self initUI];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+                [self initUI];
             }
-            [self SetData:self->_dataArr];
-            [self initUI];
-        }else{
+        } failure:^(NSError * _Nonnull error) {
             
-            [self showContent:resposeObject[@"msg"]];
+            [self showContent:@"网络错误"];
             [self initUI];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        
-        [self showContent:@"网络错误"];
-        [self initUI];
-    }];
+        }];
+    }
 }
 
 - (void)SetData:(NSArray *)data{

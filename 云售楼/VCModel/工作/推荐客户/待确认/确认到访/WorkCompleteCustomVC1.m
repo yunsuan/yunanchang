@@ -371,7 +371,7 @@
         [dic setObject:tel forKey:@"client_tel"];
     }
     else{
-        [dic setObject:tel forKey:@""];
+        [dic setObject:@"" forKey:@"client_tel"];
     }
     if (_cardType) {
 

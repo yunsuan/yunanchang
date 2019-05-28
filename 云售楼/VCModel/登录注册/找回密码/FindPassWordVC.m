@@ -8,24 +8,25 @@
 
 #import "FindPassWordVC.h"
 
+#import "LoginVC.h"
+
+#import "GetCaptchaView.h"
+
 @interface FindPassWordVC ()
 {
     NSInteger surplusTime;//重新发送短信的倒计时时间
     NSTimer *time;
+    NSDateFormatter *_formatter;
 }
 @property (nonatomic , strong) UITextField *Account;
-
 @property (nonatomic , strong) UITextField *Code;
-
 @property (nonatomic , strong) UITextField *PassWord;
-
 @property (nonatomic , strong) UIButton *GetCodeBtn;
-
 @property (nonatomic , strong) UIButton *RegisterBtn;
-
 @property (nonatomic , strong) UITextField *SurePassWord;
-
 @property (nonatomic, strong)  UILabel *timeLabel;
+
+@property (nonatomic, strong) GetCaptchaView *getCaptchaView;
 
 @end
 
@@ -35,15 +36,14 @@
     [super viewDidLoad];
     self.navBackgroundView.hidden = NO;
     self.navBackgroundView.backgroundColor = CLBackColor;
+    
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYYMMdd"];
     [self InitUI];
-    
-    
 }
 
 -(void)InitUI
 {
-    
-    self.navImg.hidden = YES;
     [self.view addSubview:self.RegisterBtn];
     [self.view addSubview:self.Account];
     [self.view addSubview:self.Code];
@@ -95,58 +95,120 @@
                            @"captcha":_Code.text
                            };
     
-//    [BaseRequest POST:ResetPassword_URL parameters:temp success:^(id resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-////            LoginVC *next_vc = [[LoginVC alloc]init];
-////            [UserModel defaultModel].Account = _Account.text;
-////            [UserModel defaultModel].Password = _PassWord.text;
-////            [UserModelArchiver archive];
-//            [self alertControllerWithNsstring:@"系统提示" And:@"修改密码成功，请妥善保管好账号" WithDefaultBlack:^{
-//
-//                [self.navigationController popViewControllerAnimated:YES];
-//            }];
-//        }
-//        else{
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//
-//    } failure:^(NSError *error) {
-//        [self showContent:@"网络错误"];
-//    }];
-
+    [BaseRequest POST:ForgetPassWord_URL parameters:temp success:^(id resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            LoginVC *next_vc = [[LoginVC alloc]init];
+            [UserModel defaultModel].loginAccount = _Account.text;
+            [UserModel defaultModel].passWord = _PassWord.text;
+            [UserModelArchiver archive];
+            [self alertControllerWithNsstring:@"系统提示" And:@"修改密码成功，请妥善保管好账号" WithDefaultBlack:^{
+                
+                [self.navigationController pushViewController:next_vc animated:YES];
+            }];
+        }
+        else{
+            [self showContent:resposeObject[@"msg"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [self showContent:@"网络错误"];
+    }];
+    //    LoginVC *next_vc = [[LoginVC alloc]init];
+    //    [self.navigationController pushViewController:next_vc animated:YES];
 }
 
 -(void)GetCode{
     //获取验证码
-    _GetCodeBtn.userInteractionEnabled = NO;
     if([self checkTel:_Account.text]) {
         
-        NSDictionary *parameter = @{
-                                    @"tel":_Account.text
-                                    };
-//        [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
-//            NSLog(@"%@",resposeObject);
-//            if ([resposeObject[@"code"] integerValue] == 200) {
-//                _GetCodeBtn.hidden = YES;
-//                _timeLabel.hidden = NO;
-//                surplusTime = 60;
-//                _timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
-//                //倒计时
-//                time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
-//
-//            }
-//            else{
-//                [self showContent:resposeObject[@"msg"]];
-//            }
-//            self->_GetCodeBtn.userInteractionEnabled = YES;
-//        } failure:^(NSError *error) {
-//            self->_GetCodeBtn.userInteractionEnabled = YES;
-//            [self showContent:@"网络错误"];
-//        }];
+        if ([[UserModel defaultModel].time isEqualToString:[_formatter stringFromDate:[NSDate date]]]) {
+            
+            if (![UserModel defaultModel].registerUp) {
+                
+                [UserModel defaultModel].registerUp = 1;
+                [UserModelArchiver archive];
+            }else{
+                
+                [UserModel defaultModel].registerUp += 1;
+                [UserModelArchiver archive];
+            }
+        }else{
+            
+            [UserModel defaultModel].time = [_formatter stringFromDate:[NSDate date]];
+            [UserModel defaultModel].registerUp = 1;
+            [UserModelArchiver archive];
+        }
+        
+        if ([UserModel defaultModel].registerUp > 5) {
+            
+            _GetCodeBtn.userInteractionEnabled = YES;
+            _getCaptchaView = [[GetCaptchaView alloc] initWithFrame:self.view.bounds];
+            _getCaptchaView.getCaptchaViewBlock = ^{
+                
+                _GetCodeBtn.userInteractionEnabled = NO;
+                NSDictionary *parameter = @{
+                                            @"tel":_Account.text,
+                                            @"token":[self md5:@"yunsuankeji"]
+                                            };
+                [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self showContent:@"验证码有效期为60分钟"];
+                        
+                        _GetCodeBtn.hidden = YES;
+                        _timeLabel.hidden = NO;
+                        surplusTime = 60;
+                        _timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
+                        //倒计时
+                        time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+                        
+                    }
+                    else{
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                    _GetCodeBtn.userInteractionEnabled = YES;
+                } failure:^(NSError *error) {
+                    _GetCodeBtn.userInteractionEnabled = YES;
+                    [self showContent:@"网络错误"];
+                }];
+            };
+            [self.view addSubview:_getCaptchaView];
+        }else{
+            
+            _GetCodeBtn.userInteractionEnabled = NO;
+            NSDictionary *parameter = @{
+                                        @"tel":_Account.text,
+                                        @"token":[self md5:@"yunsuankeji"]
+                                        };
+            [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
+                NSLog(@"%@",resposeObject);
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self showContent:@"验证码有效期为60分钟"];
+                    
+                    _GetCodeBtn.hidden = YES;
+                    _timeLabel.hidden = NO;
+                    surplusTime = 60;
+                    _timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
+                    //倒计时
+                    time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+                    
+                }
+                else{
+                    [self showContent:resposeObject[@"msg"]];
+                }
+                _GetCodeBtn.userInteractionEnabled = YES;
+            } failure:^(NSError *error) {
+                _GetCodeBtn.userInteractionEnabled = YES;
+                [self showContent:@"网络错误"];
+            }];
+        }
     }
     else
     {
+        
         _GetCodeBtn.userInteractionEnabled = YES;
         [self showContent:@"请输入正确的电话号码"];
     }
@@ -225,8 +287,8 @@
         _RegisterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _RegisterBtn.frame = CGRectMake(22*SIZE, 340*SIZE+STATUS_BAR_HEIGHT, 316*SIZE, 41*SIZE);
         _RegisterBtn.layer.masksToBounds = YES;
-        _RegisterBtn.layer.cornerRadius = 20 *SIZE;
-        _RegisterBtn.backgroundColor = CLLoginBtnColor;
+        _RegisterBtn.layer.cornerRadius = 2*SIZE;
+        _RegisterBtn.backgroundColor = CLBlueBtnColor;
         [_RegisterBtn setTitle:@"找回密码" forState:UIControlStateNormal];
         [_RegisterBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _RegisterBtn.titleLabel.font = [UIFont systemFontOfSize:16*SIZE];

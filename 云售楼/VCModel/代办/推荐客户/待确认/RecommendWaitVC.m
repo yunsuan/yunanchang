@@ -43,7 +43,7 @@
 
 -(void)postWithpage:(NSString *)page{
     
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"page":page,@"type":@"1"}];
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"page":page,@"type":@"1"}];
     //    [BaseRequest GET:TakeDealAllList_URL parameters:dic success:^(id resposeObject) {
     //        [_table.mj_footer endRefreshing];
     //        [_table.mj_header endRefreshing];

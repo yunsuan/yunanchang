@@ -153,13 +153,13 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    
-    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转订单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
+//    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }];
+//    
+//    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转订单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }];
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"放弃跟进" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         

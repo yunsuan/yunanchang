@@ -446,8 +446,8 @@
             
             header.callTelegramCustomDetailIntentHeaderEditBlock = ^(NSInteger index) {
                 
-                NSMutableDictionary *dic = [@{} mutableCopy];
-                dic = [NSMutableDictionary dictionaryWithDictionary:self->_intentArr[index - 1]];
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:self->_intentArr[index - 1]];//[@{} mutableCopy];
+//                dic = [NSMutableDictionary dictionaryWithDictionary:self->_intentArr[index - 1]];
                 [dic setObject:[NSString stringWithFormat:@"%@",dic[@"property_id"]] forKey:@"id"];
                 IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[dic]];
                 nextVC.status = @"modify";

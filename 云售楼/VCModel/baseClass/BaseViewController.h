@@ -112,6 +112,8 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
 
 - (void)showContent:(NSString *)str;
 
+- (NSString *)md5:(NSString *)str;
+
 - (BOOL)isEmpty:(NSString *)str;
 
 //图片压缩至希望的大小

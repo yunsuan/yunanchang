@@ -8,10 +8,15 @@
 
 #import "RegisterVC.h"
 
+#import "LoginVC.h"
+
+#import "GetCaptchaView.h"
+
 @interface RegisterVC ()<UITextFieldDelegate>
 {
     NSInteger surplusTime;//重新发送短信的倒计时时间
     NSTimer *time;
+    NSDateFormatter *_formatter;
 }
 @property (nonatomic , strong) UITextField *AccountTF;
 
@@ -31,6 +36,8 @@
 
 @property (nonatomic, strong)  UILabel *timeLabel;
 
+@property (nonatomic, strong) GetCaptchaView *getCaptchaView;
+
 @end
 
 @implementation RegisterVC
@@ -39,8 +46,11 @@
     [super viewDidLoad];
     
     self.navBackgroundView.backgroundColor = CLBackColor;
-    [self InitUI];
     
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYYMMdd"];
+    
+    [self InitUI];
 }
 
 -(void)InitUI
@@ -100,75 +110,114 @@
                            @"captcha":_CodeTF.text
                            };
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:temp];
-//    if (![self isEmpty:self.recommendTF.text]) {
-//
-//        if (![self checkTel:self.recommendTF.text]) {
-//
-//            [self showContent:@"请输入正确的推荐人号码！"];
-//            return;
-//        }else{
-//
-//            [parameter setObject:self.recommendTF.text forKey:@"consultant_tel"];
-//        }
-//    }
-    
-//    [BaseRequest POST:Register_URL parameters:parameter success:^(id resposeObject) {
-//        NSLog(@"%@",resposeObject);
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-////            LoginVC *next_vc = [[LoginVC alloc]init];
-////            [UserModel defaultModel].Account = _Account.text;
-////            [UserModel defaultModel].Password = _PassWord.text;
-////            [UserModelArchiver archive];
-////            [self.navigationController pushViewController:next_vc animated:YES];
-////            [self alertControllerWithNsstring:@"系统提示" And:@"恭喜你注册成功，请妥善保管好账号"];
-//        }
-//        else{
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError *error) {
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest POST:Register_URL parameters:parameter success:^(id resposeObject) {
+        NSLog(@"%@",resposeObject);
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            LoginVC *next_vc = [[LoginVC alloc]init];
+            [UserModel defaultModel].loginAccount = self->_AccountTF.text;
+            [UserModel defaultModel].passWord = self->_PassWordTF.text;
+            [UserModelArchiver archive];
+            [self.navigationController pushViewController:next_vc animated:YES];
+            [self alertControllerWithNsstring:@"系统提示" And:@"恭喜你注册成功，请妥善保管好账号"];
+        }
+        else{
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [self showContent:@"网络错误"];
+    }];
     
 }
 
 -(void)GetCode{
     //获取验证码
     
-    
-    _GetCodeBtn.userInteractionEnabled = NO;
     if([self checkTel:_AccountTF.text]) {
         
-        //        NetConfitModel *model = [[NetConfitModel alloc]init];
-        //
-        //        [BaseNetRequest startpost:@"/TelService.ashx" parameters:[model configgetCodebyphone:@"13438339177"] success:^(id resposeObject) {
-        //
-        //            NSLog(@"%@",resposeObject);
-        //            [self showContent:[NSString stringWithFormat:@"%@",resposeObject[0][@"content"]]];
-        //            if ([resposeObject[0][@"state"] isEqualToString:@"1"])
-        //            {
-//        NSDictionary *parameter = @{
-//                                    @"tel":_AccountTF.text
-//                                    };
-//        [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
-//            NSLog(@"%@",resposeObject);
-//            if ([resposeObject[@"code"] integerValue] == 200) {
-//                self->_GetCodeBtn.hidden = YES;
-//                self->_timeLabel.hidden = NO;
-//                self->surplusTime = 60;
-//                self->_timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
-//                //倒计时
-//                self->time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
-//                
-//            }
-//            else{
-//                [self showContent:resposeObject[@"msg"]];
-//            }
-//            self->_GetCodeBtn.userInteractionEnabled = YES;
-//        } failure:^(NSError *error) {
-//            self->_GetCodeBtn.userInteractionEnabled = YES;
-//            [self showContent:@"网络错误"];
-//        }];
+        if ([[UserModel defaultModel].time isEqualToString:[_formatter stringFromDate:[NSDate date]]]) {
+            
+            if (![UserModel defaultModel].registerUp) {
+                
+                [UserModel defaultModel].registerUp = 1;
+                [UserModelArchiver archive];
+            }else{
+                
+                [UserModel defaultModel].registerUp += 1;
+                [UserModelArchiver archive];
+            }
+        }else{
+            
+            [UserModel defaultModel].time = [_formatter stringFromDate:[NSDate date]];
+            [UserModel defaultModel].registerUp = 1;
+            [UserModelArchiver archive];
+        }
+        if ([UserModel defaultModel].registerUp > 5) {
+            
+            _GetCodeBtn.userInteractionEnabled = YES;
+            _getCaptchaView = [[GetCaptchaView alloc] initWithFrame:self.view.bounds];
+            _getCaptchaView.getCaptchaViewBlock = ^{
+                
+                _GetCodeBtn.userInteractionEnabled = NO;
+                NSDictionary *parameter = @{
+                                            @"tel":_AccountTF.text,
+                                            @"token":[self md5:@"yunsuankeji"]
+                                            };
+                [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [self showContent:@"验证码有效期为60分钟"];
+                        
+                        _GetCodeBtn.hidden = YES;
+                        _timeLabel.hidden = NO;
+                        surplusTime = 60;
+                        _timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
+                        //倒计时
+                        time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+                        
+                    }
+                    else{
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                    _GetCodeBtn.userInteractionEnabled = YES;
+                } failure:^(NSError *error) {
+                    _GetCodeBtn.userInteractionEnabled = YES;
+                    [self showContent:@"网络错误"];
+                }];
+            };
+            [self.view addSubview:_getCaptchaView];
+        }else{
+            
+            _GetCodeBtn.userInteractionEnabled = NO;
+            NSDictionary *parameter = @{
+                                        @"tel":_AccountTF.text,
+                                        @"token":[self md5:@"yunsuankeji"]
+                                        };
+            [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
+                NSLog(@"%@",resposeObject);
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self showContent:@"验证码有效期为60分钟"];
+                    
+                    _GetCodeBtn.hidden = YES;
+                    _timeLabel.hidden = NO;
+                    surplusTime = 60;
+                    _timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
+                    //倒计时
+                    time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+                    
+                }
+                else{
+                    [self showContent:resposeObject[@"msg"]];
+                }
+                _GetCodeBtn.userInteractionEnabled = YES;
+            } failure:^(NSError *error) {
+                _GetCodeBtn.userInteractionEnabled = YES;
+                [self showContent:@"网络错误"];
+            }];
+        }
     }
     else
     {

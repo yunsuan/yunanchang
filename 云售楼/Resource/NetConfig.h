@@ -17,6 +17,15 @@ static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 //登录
 static NSString *const Login_URL = @"saleApp/login";
 
+//2验证码
+static NSString *const Captcha_URL = @"saleApp/user/captcha";
+
+//3注册
+static NSString *const Register_URL = @"saleApp/user/register";
+
+//4忘记密码
+static NSString *const ForgetPassWord_URL = @"user/resetPassword";
+
 #pragma mark ---  配置  ---
 
 //权限
