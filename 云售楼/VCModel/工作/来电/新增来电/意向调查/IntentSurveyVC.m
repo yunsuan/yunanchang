@@ -861,7 +861,9 @@
                         
                         btn.content.text = [self->_formatter stringFromDate:date];
                         btn->str = [self->_formatter stringFromDate:date];
-                        [self->_moduleArr replaceObjectAtIndex:i withObject:btn];
+                        NSMutableArray *arr = [NSMutableArray arrayWithArray:self->_moduleArr[i]];
+                        [arr replaceObjectAtIndex:j withObject:btn];
+                        [self->_moduleArr replaceObjectAtIndex:i withObject:arr];
                     };
                     [self.view addSubview:view];
                     break;

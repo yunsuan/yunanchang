@@ -17,6 +17,7 @@
 
 #import "SinglePickView.h"
 #import "DateChooseView.h"
+#import "AdressChooseView.h"
 
 #import "BorderTextField.h"
 #import "DropBtn.h"
@@ -30,6 +31,9 @@
     NSString *_info_id;
     NSString *_project_id;
     NSString *_gender;
+    NSString *_proId;
+    NSString *_cityId;
+    NSString *_areaId;
     
     NSDictionary *_configDic;
     
@@ -273,6 +277,39 @@
         }
         case 2:{
             
+            AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.bounds withdata:@[]];
+            WS(weakself);
+            addressChooseView.selectedBlock = ^(NSString *province, NSString *city, NSString *area, NSString *proviceid, NSString *cityid, NSString *areaid) {
+                
+                NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region" ofType:@"json"]];
+                
+                NSError *err;
+                NSArray *proArr = [NSJSONSerialization JSONObjectWithData:JSONData
+                                                                  options:NSJSONReadingMutableContainers
+                                                                    error:&err];
+                NSString *pro = [cityid substringToIndex:2];
+                pro = [NSString stringWithFormat:@"%@0000",pro];
+                NSString *proName;
+                if ([pro isEqualToString:@"900000"]) {
+                    proName = @"海外";
+                }
+                else{
+                    for (NSDictionary *dic in proArr) {
+                        
+                        if([dic[@"code"] isEqualToString:pro]){
+                            
+                            proName = dic[@"name"];
+                            break;
+                        }
+                    }
+                }
+                self->_customSourceBtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",proName,city,area];
+                self->_customSourceBtn.placeL.text = @"";
+                self->_proId = pro;
+                self->_cityId = cityid;
+                self->_areaId = areaid;
+            };
+            [self.view addSubview:addressChooseView];
             break;
         }
         case 3:{
@@ -544,10 +581,10 @@
     
     if (_customSourceBtn.content.text.length) {
         
-        
+        [tempDic setObject:_proId forKey:@"province"];
+        [tempDic setObject:_cityId forKey:@"city"];
+        [tempDic setObject:_areaId forKey:@"district"];
     }
-
-    
     
     if (![self isEmpty:_markTV.text]) {
         
