@@ -360,6 +360,10 @@
         header.callTelegramCustomDetailHeaderEditBlock = ^(NSInteger index) {
           
             CallTelegramModifyCustomVC *vc = [[CallTelegramModifyCustomVC alloc] initWithDataDic:self->_groupInfoDic projectId:self->_project_id info_id:self->_info_id];
+            if ([self->_groupInfoDic[@"source"] isEqualToString:@"分配分销"]) {
+                
+                vc.status = @"分配";
+            }
             vc.callTelegramModifyCustomVCBlock = ^{
                 
                 [self RequestMethod];

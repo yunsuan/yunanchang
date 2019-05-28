@@ -251,11 +251,13 @@
     
     NSMutableDictionary *tempDic = [@{} mutableCopy];
     
-    
-    if (!_approachBtn.content.text.length) {
-        
-        [self alertControllerWithNsstring:@"必填信息" And:@"请选择认知途径"];
-        return;
+    if (![self.status isEqualToString:@"分配"]) {
+       
+        if (!_approachBtn.content.text.length) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请选择认知途径"];
+            return;
+        }
     }
     
     if (_customSourceBtn.content.text.length) {
@@ -266,10 +268,18 @@
     }
     
     [tempDic setObject:_dataDic[@"group_id"] forKey:@"group_id"];
-    [tempDic setObject:_approachBtn->str forKey:@"listen_way"];
-    [tempDic setObject:@"1" forKey:@"source"];
     
-    [BaseRequest GET:WorkClientAutoGroupUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+    if (![self.status isEqualToString:@"分配"]) {
+     
+        if (!_approachBtn.content.text.length) {
+            
+            [tempDic setObject:_approachBtn->str forKey:@"listen_way"];
+        }
+    }
+    
+//    [tempDic setObject:@"1" forKey:@"source"];
+    
+    [BaseRequest POST:WorkClientAutoGroupUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -367,6 +377,11 @@
                     _approachBtn.placeL.text = @"";
                 }
                 [_scrollView addSubview:_approachBtn];
+                if ([self.status isEqualToString:@"分配"]) {
+                    
+                    _approachBtn.userInteractionEnabled = NO;
+                    _approachBtn.backgroundColor = CLLineColor;
+                }
                 break;
             }
             case 2:
@@ -381,6 +396,11 @@
                     
                     _approachBtn2.hidden = YES;
                 }
+                if ([self.status isEqualToString:@"分配"]) {
+                    
+                    _approachBtn2.userInteractionEnabled = NO;
+                    _approachBtn2.backgroundColor = CLLineColor;
+                }
                 [_scrollView addSubview:_approachBtn2];
                 break;
             }
@@ -391,6 +411,11 @@
                 _sourceTypeBtn.dropimg.hidden = YES;
                 _sourceTypeBtn.content.text = _dataDic[@"source"];
                 _sourceTypeBtn.placeL.text = @"";
+                if ([self.status isEqualToString:@"分配"]) {
+                    
+                    _sourceTypeBtn.userInteractionEnabled = NO;
+                    _sourceTypeBtn.backgroundColor = CLLineColor;
+                }
                 [_scrollView addSubview:_sourceTypeBtn];
                 break;
             }

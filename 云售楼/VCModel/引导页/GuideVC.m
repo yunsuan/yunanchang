@@ -76,9 +76,9 @@
         
         UIImageView *guideImg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_Width * i, 0, SCREEN_Width, SCREEN_Height)];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:imgArr[i] ofType:@"png"];
-        UIImage *image = [UIImage imageWithContentsOfFile:path];
-        guideImg.image = image;
+//        NSString *path = [[NSBundle mainBundle] pathForResource:imgArr[i] ofType:@"png"];
+//        UIImage *image = [UIImage imageWithContentsOfFile:path];
+        guideImg.image = IMAGE_WITH_NAME(imgArr[i]);//image;
         guideImg.contentMode = UIViewContentModeScaleAspectFill;
         [_scrollView addSubview:guideImg];
     }
