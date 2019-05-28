@@ -82,7 +82,7 @@
                 
                 self->_table.mj_footer.state = MJRefreshStateNoMoreData;
             }
-            [_table reloadData];
+            [self->_table reloadData];
         }else{
             
             [self showContent:resposeObject[@"msg"]];

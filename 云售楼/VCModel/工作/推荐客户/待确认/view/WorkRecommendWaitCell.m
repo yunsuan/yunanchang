@@ -39,6 +39,20 @@
     _timeL.attributedText = attr;
 //    _phoneL.text = @"123123123";
     _phoneL.text = dataDic[@"tel"];
+    
+    if (dataDic[@"need_confirm"]) {
+        
+        if ([dataDic[@"need_confirm"] integerValue] == 1) {
+            
+            _confirmBtn.hidden = NO;
+        }else{
+            
+            _confirmBtn.hidden = YES;;
+        }
+    }else{
+        
+        _confirmBtn.hidden = NO;
+    }
 }
 
 - (void)setFailDic:(NSMutableDictionary *)failDic{

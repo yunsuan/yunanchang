@@ -70,6 +70,8 @@
     [BaseRequest GET:WorkClientAutoList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
+        [self->_dataArr removeAllObjects];
+        [self->_table reloadData];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             if ([resposeObject[@"data"][@"data"] count]) {

@@ -68,7 +68,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%88%91%E7%9A%84/%E6%8E%A8%E9%80%81%E8%AE%BE%E7%BD%AE/PushSettingVC.m"
-                  timestampString = "580652242.881724"
+                  timestampString = "580702528.95832"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "99"
@@ -83,7 +83,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%88%91%E7%9A%84/%E6%8E%A8%E9%80%81%E8%AE%BE%E7%BD%AE/PushSettingVC.m"
-                  timestampString = "580652242.88503"
+                  timestampString = "580702528.960131"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "99"
@@ -100,12 +100,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x63a8;&#x8350;&#x5ba2;&#x6237;/&#x5f85;&#x786e;&#x8ba4;/WorkRecommendWaitVC.m"
-            timestampString = "580651725.740024"
+            timestampString = "580655080.418934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6765;&#x8bbf;/&#x5ba2;&#x6237;&#x8be6;&#x60c5;/VisitCustomDetailVC.m"
+            timestampString = "580655080.419003"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "-ActionRightBtn:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

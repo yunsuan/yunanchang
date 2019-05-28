@@ -103,7 +103,7 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
     if (logIndentifier) {
         NSSet *tags;
         
-        [JPUSHService setAlias:[NSString stringWithFormat:@"agent_%@",[UserModel defaultModel].agent_id] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+        [JPUSHService setAlias:[NSString stringWithFormat:@"saleApp_%@",[UserModel defaultModel].agent_id] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
             
             NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);;
         } seq:0];
@@ -194,12 +194,12 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
 
 - (void)comeBackLoginVC {
     //未登录
-//    NSSet *tags;
+    NSSet *tags;
     
-//    [JPUSHService setAlias:@"exit" completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
-//
-//        NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);
-//    } seq:0];
+    [JPUSHService setAlias:@"exit" completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+
+        NSLog(@"rescode: %ld, \ntags: %@, \nalias: %@\n", (long)iResCode, tags , iAlias);
+    } seq:0];
     LoginVC *mainLogin_vc = [[LoginVC alloc] init];
     UINavigationController *mainLogin_nav = [[UINavigationController alloc] initWithRootViewController:mainLogin_vc];
     mainLogin_nav.navigationBarHidden = YES;

@@ -157,7 +157,7 @@
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"放弃跟进" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
        
-        [BaseRequest GET:WorkClientAutoGroupUpdate_URL parameters:@{@"group_id":self->_groupInfoDic[@"group_id"],@"state":@"0"} success:^(id  _Nonnull resposeObject) {
+        [BaseRequest POST:WorkClientAutoGroupUpdate_URL parameters:@{@"group_id":self->_groupInfoDic[@"group_id"],@"disabled_state":@"1"} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
@@ -539,6 +539,7 @@
             CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:self->_peopleArr[self->_num] projectId:self->_project_id info_id:self.info_id];
             nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
                 
+//                [self RequestMethod];
                 NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_peopleArr[self->_num]];
                 [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                    

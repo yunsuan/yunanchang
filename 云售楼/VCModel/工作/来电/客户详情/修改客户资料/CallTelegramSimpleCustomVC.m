@@ -327,7 +327,10 @@
     
     if (_birthBtn.content.text.length) {
         
-        [tempDic setObject:_birthBtn.content.text forKey:@"birth"];
+        if (![_birthBtn.content.text isEqualToString:@"0000-00-00"]) {
+            
+            [tempDic setObject:_birthBtn.content.text forKey:@"birth"];
+        }
     }
     if (![self isEmpty:_mailCodeTF.textField.text]) {
         

@@ -120,7 +120,7 @@
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"放弃跟进" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        [BaseRequest GET:WorkClientAutoGroupUpdate_URL parameters:@{@"group_id":self->_groupInfoDic[@"group_id"],@"state":@"0"} success:^(id  _Nonnull resposeObject) {
+        [BaseRequest POST:WorkClientAutoGroupUpdate_URL parameters:@{@"group_id":self->_groupInfoDic[@"group_id"],@"disabled_state":@"1"} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
