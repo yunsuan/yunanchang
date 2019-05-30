@@ -23,6 +23,7 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _timeL.text = [NSString stringWithFormat:@"跟进时间：%@",dataDic[@"create_time"]];//@"跟进时间：2019-04-10";
+    _goalL.text = [NSString stringWithFormat:@"跟进目的：%@",dataDic[@"follow_goal"]];
     _wayL.text = [NSString stringWithFormat:@"跟进方式：%@",dataDic[@"follow_way"]];//@"跟进方式：电话";
     NSString *comment = dataDic[@"comment"];
     if ([comment containsString:@"upload/sale/upload"] ) {
@@ -48,13 +49,13 @@
     _whiteView.clipsToBounds = YES;
     [self.contentView addSubview:_whiteView];
 
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12 *SIZE, 49 *SIZE, 100 *SIZE, 11 *SIZE)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12 *SIZE, 65 *SIZE, 100 *SIZE, 11 *SIZE)];
     label.textColor = CL170Color;
     label.font = [UIFont systemFontOfSize:12 *SIZE];
     label.text = @"跟进内容：";
     [_whiteView addSubview:label];
     
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CL86Color;
@@ -99,6 +100,16 @@
                 [_whiteView addSubview:_nextL];
                 break;
             }
+            case 4:
+            {
+                
+                _goalL = label;
+                _goalL.textColor = CLTitleLabColor;
+                _goalL.font = FONT(12 *SIZE);
+                _goalL.adjustsFontSizeToFitWidth = YES;
+                [_whiteView addSubview:_goalL];
+                break;
+            }
             default:
                 break;
         }
@@ -136,11 +147,18 @@
         make.top.equalTo(self->_whiteView).offset(21 *SIZE);
         make.width.mas_equalTo(100 *SIZE);
     }];
+    
+    [_goalL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_whiteView).offset(12 *SIZE);
+        make.top.equalTo(self->_whiteView).offset(42 *SIZE);
+        make.width.mas_equalTo(302 *SIZE);
+    }];
 
     [_contentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(12 *SIZE);
-        make.top.equalTo(self->_whiteView).offset(74 *SIZE);
+        make.top.equalTo(self->_whiteView).offset(84 *SIZE);
         make.width.mas_equalTo(302 *SIZE);
     }];
     

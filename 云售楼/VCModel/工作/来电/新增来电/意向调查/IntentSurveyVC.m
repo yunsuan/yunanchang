@@ -722,10 +722,18 @@
                                     }
                                 }
                             }
+                            if (str.length) {
+                                
+                                [needDic setObject:str forKey:@"value"];
+                                [needDic setObject:strId forKey:@"value_id"];
+                            }else{
+                                
+                                [needDic setObject:@"" forKey:@"value"];
+                                [needDic setObject:@"" forKey:@"value_id"];
+                            }
                             [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
-                            [needDic setObject:str forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:strId forKey:@"value_id"];
+                            
                     
                         }else{
                             
@@ -957,7 +965,7 @@
         make.left.equalTo(self.view).offset(0);
         make.top.equalTo(self.view).offset(NAVIGATION_BAR_HEIGHT);
         make.right.equalTo(self.view).offset(0);
-        make.bottom.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(-47 *SIZE + TAB_BAR_MORE);
     }];
 
     for (int i = 0; i < _viewArr.count; i++) {

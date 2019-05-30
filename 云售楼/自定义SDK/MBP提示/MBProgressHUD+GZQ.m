@@ -20,14 +20,10 @@
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    hud.bezelView.color = [UIColor colorWithWhite:0.f alpha:0.7f];
-    hud.label.textColor = [UIColor whiteColor];
-    hud.margin = 10.f;
-    [hud setOffset:CGPointMake(0, 10.f*SIZE)];
-    hud.label.text = text;
+    
     // 判断是否显示图片
     if (icon == nil) {
+        
         hud.mode = MBProgressHUDModeText;
     }else{
         // 设置图片
@@ -37,6 +33,13 @@
         // 再设置模式
         hud.mode = MBProgressHUDModeCustomView;
     }
+    
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.color = [UIColor colorWithWhite:0.f alpha:0.7f];
+    hud.label.textColor = [UIColor whiteColor];
+    hud.margin = 10.f;
+    [hud setOffset:CGPointMake(0, 10.f*SIZE)];
+    hud.label.text = text;
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
     // 指定时间之后再消失

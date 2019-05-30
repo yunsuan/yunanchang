@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *wayL;
 
+@property (nonatomic, strong) UILabel *goalL;
+
 @property (nonatomic, strong) UILabel *contentL;
 
 @property (nonatomic, strong) UIButton *speechImg;

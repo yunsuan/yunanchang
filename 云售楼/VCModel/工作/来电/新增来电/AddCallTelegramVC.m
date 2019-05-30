@@ -567,33 +567,42 @@
 
         [tempDic setObject:_certTypeBtn.content.text forKey:@"card_type"];
         [tempDic setObject:_certNumTF.textField.text forKey:@"card_num"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"card_type"];
+        [tempDic setObject:@"" forKey:@"card_num"];
     }
 
     if (_birthBtn.content.text.length) {
 
         [tempDic setObject:_birthBtn.content.text forKey:@"birth"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"birth"];
     }
     if (![self isEmpty:_mailCodeTF.textField.text]) {
 
         [tempDic setObject:_mailCodeTF.textField.text forKey:@"mail_code"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"mail_code"];
     }
 
     if (![self isEmpty:_addressBtn.textField.text]) {
 
         [tempDic setObject:_addressBtn.textField.text forKey:@"address"];
-    }
-
-    if (_customSourceBtn.content.text.length) {
-
-        [tempDic setObject:_proId forKey:@"province"];
-        [tempDic setObject:_cityId forKey:@"city"];
-        [tempDic setObject:_areaId forKey:@"district"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"address"];
     }
 
 
     if (![self isEmpty:_markTV.text]) {
 
         [tempDic setObject:_markTV.text forKey:@"comment"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"comment"];
     }
 
     [_clientArr removeAllObjects];
@@ -608,6 +617,12 @@
     [allDic setObject:@"1" forKey:@"source"];
     [allDic setObject:@"1" forKey:@"type"];
     [allDic setObject:_approachBtn->str forKey:@"listen_way"];
+    if (_customSourceBtn.content.text.length) {
+        
+        [allDic setObject:_proId forKey:@"province"];
+        [allDic setObject:_cityId forKey:@"city"];
+        [allDic setObject:_areaId forKey:@"district"];
+    }
     if (_approachBtn2.content.text.length) {
         
         [allDic setObject:_approachBtn2->str forKey:@"listen_way_detail"];
