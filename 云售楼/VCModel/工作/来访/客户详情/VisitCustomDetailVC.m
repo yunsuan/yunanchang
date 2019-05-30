@@ -310,6 +310,7 @@
         }
         
         header.dataDic = _groupInfoDic;
+        header.belongL.text = [NSString stringWithFormat:@"归属人：%@",self.name];
         if (_peopleArr.count) {
             
             if ([_peopleArr[_num][@"sex"] integerValue] == 1) {
@@ -334,6 +335,19 @@
         }
         
         header.dataArr = _peopleArr;
+        
+        if (_peopleArr.count) {
+            
+            if (_num < _peopleArr.count) {
+                
+                header.num = _num;
+            }else{
+             
+                _num = _peopleArr.count - 1;
+                header.num = _num;
+            }
+        }
+        
         
         [header.infoBtn setBackgroundColor:CL248Color];
         [header.infoBtn setTitleColor:CL178Color forState:UIControlStateNormal];
@@ -373,6 +387,7 @@
         header.callTelegramCustomDetailHeaderCollBlock = ^(NSInteger index) {
             
             self->_num = index;
+            self->_index = 0;
             if ([self->_peopleArr[index][@"sex"] integerValue] == 1) {
                 
                 header.headImg.image = IMAGE_WITH_NAME(@"nan");
@@ -380,10 +395,7 @@
                 
                 header.headImg.image = IMAGE_WITH_NAME(@"nv");
             }
-            if (self->_index == 0) {
-                
-                [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-            }
+            [tableView reloadData];
         };
         
         header.callTelegramCustomDetailHeaderAddBlock = ^(NSInteger index) {
@@ -424,6 +436,8 @@
                 header = [[CallTelegramCustomDetailIntentHeader alloc] initWithReuseIdentifier:@"CallTelegramCustomDetailIntentHeader"];
             }
             
+             header.tag = section;
+            
             if ([self.powerDic[@"update"] boolValue]) {
                 
                 header.editBtn.hidden = NO;
@@ -443,14 +457,8 @@
             
             header.callTelegramCustomDetailIntentHeaderEditBlock = ^(NSInteger index) {
                 
-                NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:self->_intentArr[0]];
-                [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                    
-                    if ([key isEqualToString:@"property_id"]) {
-                        
-                        [dic setObject:obj forKey:@"id"];
-                    }
-                }];
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:self->_intentArr[index - 1]];
+                [dic setObject:[NSString stringWithFormat:@"%@",dic[@"property_id"]] forKey:@"id"];
                 IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[dic]];
                 nextVC.status = @"modify";
                 nextVC.property_id = dic[@"id"];
@@ -659,6 +667,17 @@
             
             if (self->_propertyArr.count) {
                 
+                for (int i = 0; i < self->_intentArr.count; i++) {
+                    
+                    for (int j = 0; j < self->_propertyArr.count; j++) {
+                        
+                        if ([self->_intentArr[i][@"property_id"] integerValue] == [self->_propertyArr[j][@"id"] integerValue]) {
+                            
+                            [self->_propertyArr removeObjectAtIndex:j];
+                        }
+                    }
+                }
+
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_propertyArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
                     
@@ -666,7 +685,6 @@
                     nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
                     nextVC.status = @"add";
                     nextVC.group_id = self->_groupId;
-//                    nextVC.info_id = self.info_id;
                     nextVC.intentSurveyVCBlock = ^{
                       
                         [self RequestMethod];
@@ -680,13 +698,22 @@
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
-                        //                        self->_propertyArr = resposeObject[@"data"][3];
                         for (NSDictionary *dic in resposeObject[@"data"][3]) {
                             
                             NSDictionary *tempDic = @{@"id":dic[@"config_id"],
                                                       @"param":dic[@"config_name"]
                                                       };
                             [self->_propertyArr addObject:tempDic];
+                        }
+                        for (int i = 0; i < self->_intentArr.count; i++) {
+                            
+                            for (int j = 0; j < self->_propertyArr.count; j++) {
+                                
+                                if ([self->_intentArr[i][@"property_id"] integerValue] == [self->_propertyArr[j][@"id"] integerValue]) {
+                                    
+                                    [self->_propertyArr removeObjectAtIndex:j];
+                                }
+                            }
                         }
                         SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_propertyArr];
                         view.selectedBlock = ^(NSString *MC, NSString *ID) {
@@ -727,6 +754,10 @@
             vc.status = @"direct";
             vc.info_id = self.info_id;
             vc.allDic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":self.project_id}];
+            vc.followRecordVCBlock = ^{
+                
+                [self RequestMethod];
+            };
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^FollowRecordVCBlock)(void);
+
 @interface FollowRecordVC : BaseViewController
+
+@property (nonatomic, copy) FollowRecordVCBlock followRecordVCBlock;
 
 @property (nonatomic, strong) NSString *info_id;
 

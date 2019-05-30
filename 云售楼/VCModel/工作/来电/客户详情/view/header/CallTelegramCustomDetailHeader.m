@@ -32,7 +32,6 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-//    _headImg.image = IMAGE_WITH_NAME(@"def_head");
     _propertyL.text = [NSString stringWithFormat:@"意向物业：%@",dataDic[@""]];
     if (dataDic[@"province_name"]) {
         
@@ -61,12 +60,22 @@
             _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@"listen_way_detail"]];
         }
     }
+}
+
+- (void)setNum:(NSInteger)num{
     
+//    _num = num;
+    if (_selectArr.count) {
+        
+        for (int i = 0; i < _collArr.count; i++) {
+            
+            [_selectArr addObject:@0];
+        }
+        [_selectArr replaceObjectAtIndex:num withObject:@1];
+    }
 }
 
 - (void)setDataArr:(NSMutableArray *)dataArr{
-    
-//    self.dataArr = [NSMutableArray arrayWithArray:dataArr];
     
     _collArr = [NSMutableArray arrayWithArray:dataArr];
     _selectArr = [@[] mutableCopy];
@@ -77,7 +86,7 @@
     [_groupColl reloadData];
     if (dataArr.count) {
         
-        [_groupColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        [_groupColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:_num inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     }
     [_groupColl reloadData];
 }
@@ -163,7 +172,7 @@
     _headImg.clipsToBounds = YES;
     [_blueView addSubview:_headImg];
     
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLWhiteColor;
@@ -191,6 +200,12 @@
             {
                 _approachL = label;
                 [_blueView addSubview:_approachL];
+                break;
+            }
+            case 4:
+            {
+                _belongL = label;
+                [_blueView addSubview:_belongL];
                 break;
             }
             default:
@@ -310,6 +325,14 @@
         
         make.left.equalTo(self->_blueView).offset(94 *SIZE);
         make.top.equalTo(self->_sourceTypeL.mas_bottom).offset(8 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-100 *SIZE);
+//        make.bottom.equalTo(self->_blueView).offset(-19 *SIZE);
+    }];
+    
+    [_belongL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_blueView).offset(94 *SIZE);
+        make.top.equalTo(self->_approachL.mas_bottom).offset(8 *SIZE);
         make.right.equalTo(self->_blueView.mas_right).offset(-100 *SIZE);
         make.bottom.equalTo(self->_blueView).offset(-19 *SIZE);
     }];

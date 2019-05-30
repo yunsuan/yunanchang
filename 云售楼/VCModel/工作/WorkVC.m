@@ -86,6 +86,7 @@
         
         [BaseRequest GET:WorkCount_URL parameters:@{@"project_id":[UserModel defaultModel].projectinfo[@"project_id"]} success:^(id  _Nonnull resposeObject) {
             
+            [self->_table.mj_header endRefreshing];
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
                 //            [UserModel defaultModel].projectPowerDic = resposeObject[@"data"];
@@ -97,6 +98,7 @@
             }
         } failure:^(NSError * _Nonnull error) {
             
+            [self->_table.mj_header endRefreshing];
             [self showContent:@"网路错误"];
         }];
     }
@@ -285,6 +287,10 @@
     _table.delegate = self;
     _table.dataSource = self;
     [self.view addSubview:_table];
+    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
+        
+        [self RequestMethod];
+    }];
     
     if ([UserModel defaultModel].projectinfo) {
         

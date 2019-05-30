@@ -310,6 +310,7 @@
         
         
         header.dataDic = _groupInfoDic;
+        header.belongL.text = [NSString stringWithFormat:@"归属人：%@",self.name];
         if (_peopleArr.count) {
             
             if ([_peopleArr[_num][@"sex"] integerValue] == 1) {
@@ -335,6 +336,17 @@
         }
         
         header.dataArr = _peopleArr;
+        if (_peopleArr.count) {
+            
+            if (_num < _peopleArr.count) {
+                
+                header.num = _num;
+            }else{
+                
+                _num = _peopleArr.count - 1;
+                header.num = _num;
+            }
+        }
         
         [header.infoBtn setBackgroundColor:CL248Color];
         [header.infoBtn setTitleColor:CL178Color forState:UIControlStateNormal];
@@ -374,6 +386,7 @@
         header.callTelegramCustomDetailHeaderCollBlock = ^(NSInteger index) {
           
             self->_num = index;
+            self->_index = 0;
             if ([self->_peopleArr[index][@"sex"] integerValue] == 1) {
                 
                 header.headImg.image = IMAGE_WITH_NAME(@"nantouxiang");
@@ -762,6 +775,10 @@
             vc.status = @"direct";
             vc.info_id = self.info_id;
             vc.allDic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":self.project_id}];
+            vc.followRecordVCBlock = ^{
+                
+                [self RequestMethod];
+            };
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

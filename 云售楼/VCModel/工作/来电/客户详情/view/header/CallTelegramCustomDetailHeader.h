@@ -23,9 +23,18 @@ typedef void(^CallTelegramCustomDetailHeaderEditBlock)(NSInteger index);
 
 typedef void(^CallTelegramCustomDetailHeaderAddBlock)(NSInteger index);
 
+
+@protocol CallTelegramCustomDetailHeaderDelegate <NSObject>
+
+//- (void)
+
+@end
+
 @interface CallTelegramCustomDetailHeader : UITableViewHeaderFooterView
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
+
+@property (nonatomic, weak) id<CallTelegramCustomDetailHeaderDelegate> delegate;
 
 @property (nonatomic, copy) CallTelegramCustomDetailHeaderCollBlock callTelegramCustomDetailHeaderCollBlock;
 
@@ -36,6 +45,8 @@ typedef void(^CallTelegramCustomDetailHeaderAddBlock)(NSInteger index);
 //@property (nonatomic, copy) CallTelegramCustomDetailHeaderDeleteBlock callTelegramCustomDetailHeaderDeleteBlock;
 
 @property (nonatomic, copy) CallTelegramCustomDetailHeaderAddBlock callTelegramCustomDetailHeaderAddBlock;
+
+@property (nonatomic, assign) NSInteger num;
 
 @property (nonatomic, strong) UIView *blueView;
 
@@ -48,6 +59,8 @@ typedef void(^CallTelegramCustomDetailHeaderAddBlock)(NSInteger index);
 @property (nonatomic, strong) UILabel *sourceTypeL;
 
 @property (nonatomic, strong) UILabel *approachL;
+
+@property (nonatomic, strong) UILabel *belongL;
 
 @property (nonatomic, strong) UIButton *editBtn;
 

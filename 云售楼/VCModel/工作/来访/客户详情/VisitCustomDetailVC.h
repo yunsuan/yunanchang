@@ -22,6 +22,8 @@ typedef void(^VisitCustomDetailModifyBlock)(void);
 
 @property (nonatomic, strong) NSDictionary *powerDic;
 
+@property (nonatomic, strong) NSString *name;
+
 - (instancetype)initWithGroupId:(NSString *)groupId;
 
 @end

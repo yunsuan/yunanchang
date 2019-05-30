@@ -411,11 +411,11 @@
                 _sourceTypeBtn.dropimg.hidden = YES;
                 _sourceTypeBtn.content.text = _dataDic[@"source"];
                 _sourceTypeBtn.placeL.text = @"";
-                if ([self.status isEqualToString:@"分配"]) {
-                    
+//                if ([self.status isEqualToString:@"分配"]) {
+                
                     _sourceTypeBtn.userInteractionEnabled = NO;
                     _sourceTypeBtn.backgroundColor = CLLineColor;
-                }
+//                }
                 [_scrollView addSubview:_sourceTypeBtn];
                 break;
             }
@@ -436,23 +436,26 @@
     
     [self MasonryUI];
     
-    if ([[NSString stringWithFormat:@"%@",_dataDic[@"listen_way_detail"]] length]) {
+    if ([[NSString stringWithFormat:@"%@",_dataDic[@"listen_way_detail"]] integerValue] != 0) {
         
-        [_sourceTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        if ([[NSString stringWithFormat:@"%@",_dataDic[@"listen_way_detail"]] length]) {
             
-            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-            make.top.equalTo(self->_approachBtn2.mas_bottom).offset(31 *SIZE);
-            make.width.mas_equalTo(70 *SIZE);
-        }];
-        
-        [_sourceTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [_sourceTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                make.top.equalTo(self->_approachBtn2.mas_bottom).offset(31 *SIZE);
+                make.width.mas_equalTo(70 *SIZE);
+            }];
             
-            make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-            make.top.equalTo(self->_approachBtn2.mas_bottom).offset(21 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
-            make.height.mas_equalTo(33 *SIZE);
-            make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
-        }];
+            [_sourceTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                make.top.equalTo(self->_approachBtn2.mas_bottom).offset(21 *SIZE);
+                make.width.mas_equalTo(258 *SIZE);
+                make.height.mas_equalTo(33 *SIZE);
+                make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
+            }];
+        }
     }
 }
 

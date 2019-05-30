@@ -219,12 +219,6 @@
     NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
     NSURL* url = [NSURL fileURLWithPath:path];
     
-//    NSString *recordUrl = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSURL *tmpUrl = [NSURL URLWithString:[recordUrl stringByAppendingPathComponent:@"selfRecord.wav"]];
-//
-//    NSString *recordUrl = [NSHomeDirectory() stringByAppendingString:@"selfRecord.wav"];
-//    NSURL *tmpUrl = [NSURL URLWithString:recordUrl];
-    
     _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&playError];
     //当播放录音为空, 打印错误信息
     if (_player == nil) {
@@ -244,20 +238,27 @@
 
 - (void)ActionTimeBtn:(UIButton *)btn{
     
-    DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
-    view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
-    [view.pickerView setCalendar:[NSCalendar currentCalendar]];
-    [view.pickerView setMaximumDate:[NSDate date]];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    [comps setDay:30];//设置最大时间为：当前时间推后10天
-    [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
-    view.dateblock = ^(NSDate *date) {
-      
-        self->_remindTimeBtn.content.text = [self->_formatter stringFromDate:date];
-        self->_remindTimeBtn.placeL.text = @"";
-    };
-    [self.view addSubview:view];
+    if (_nextTimeBtn.content.text.length) {
+        
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
+        [view.pickerView setCalendar:[NSCalendar currentCalendar]];
+        [view.pickerView setMaximumDate:[NSDate date]];
+//        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+//        NSDateComponents *comps = [[NSDateComponents alloc] init];
+//        [comps setDay:30];//设置最大时间为：当前时间推后10天
+        [view.pickerView setMinimumDate:[NSDate date]];
+        [view.pickerView setMaximumDate:[_formatter dateFromString:_nextTimeBtn.content.text]];
+        view.dateblock = ^(NSDate *date) {
+            
+            self->_remindTimeBtn.content.text = [self->_formatter stringFromDate:date];
+            self->_remindTimeBtn.placeL.text = @"";
+        };
+        [self.view addSubview:view];
+    }else{
+        
+        [self alertControllerWithNsstring:@"错误" And:@"请先选择客户等级"];
+    }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
@@ -338,61 +339,21 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"TaskReolad" object:nil];
                 [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
                     
-                    if ([self.status isEqualToString:@"add"]) {
+                    if (self.followRecordVCBlock) {
                         
-                        for (UIViewController *vc in self.navigationController.viewControllers) {
-                            
-                            if ([vc isKindOfClass:[CallTelegramVC class]]) {
-                                
-                                [self.navigationController popToViewController:vc animated:YES];
-                                break;
-                            }
-                            if ([vc isKindOfClass:[VisitCustomVC class]]) {
-                                
-                                [self.navigationController popToViewController:vc animated:YES];
-                                break;
-                            }
-                            if ([vc isKindOfClass:[TaskVC class]]) {
-                                
-                                [self.navigationController popToViewController:vc animated:YES];
-                                break;
-                            }
-                        }
-                        
+                        self.followRecordVCBlock();
                     }
-                    else{
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
+                    [self.navigationController popViewControllerAnimated:YES];
                 } WithDefaultBlack:^{
                     
                     CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
                     [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"32400"]];
                     
-                    if ([self.status isEqualToString:@"add"]) {
+                    if (self.followRecordVCBlock) {
                         
-                        for (UIViewController *vc in self.navigationController.viewControllers) {
-                            
-                            if ([vc isKindOfClass:[CallTelegramVC class]]) {
-                                
-                                [self.navigationController popToViewController:vc animated:YES];
-                                break;
-                            }
-                            if ([vc isKindOfClass:[VisitCustomVC class]]) {
-                                
-                                [self.navigationController popToViewController:vc animated:YES];
-                                break;
-                            }
-                            if ([vc isKindOfClass:[TaskVC class]]) {
-                                
-                                [self.navigationController popToViewController:vc animated:YES];
-                                break;
-                            }
-                        }
-                        
+                        self.followRecordVCBlock();
                     }
-                    else{
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
+                    [self.navigationController popViewControllerAnimated:YES];
                 }];
 
             }else{
@@ -417,14 +378,13 @@
             [self.allDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];
         }
         
-
         if (Isplay == YES) {
              [_directDic removeObjectForKey:@"comment"];
         }
         
         [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
             
-            if (Isplay == YES) {
+            if (self->Isplay == YES) {
                 NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
                 NSURL* url = [NSURL fileURLWithPath:path];
                 NSError *error;
@@ -457,7 +417,6 @@
                                 break;
                             }
                         }
-                        
                     }
                     else{
                         
@@ -482,7 +441,6 @@
                                 break;
                             }
                         }
-                        
                     }
                     else{
                         
