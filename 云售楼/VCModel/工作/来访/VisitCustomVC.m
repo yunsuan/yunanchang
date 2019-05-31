@@ -204,7 +204,7 @@
     VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
     nextVC.project_id = [NSString stringWithFormat:@"%@",_projectId];
     nextVC.info_id = [NSString stringWithFormat:@"%@",_info_id];
-    nextVC.name = _dataArr[indexPath.row][@"agent_name"];
+    nextVC.name = @"";//_dataArr[indexPath.row][@"agent_name"];
     if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
         
         nextVC.powerDic = self.powerDic;

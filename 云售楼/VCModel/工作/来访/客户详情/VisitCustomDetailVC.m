@@ -91,7 +91,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_groupInfoDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"][@"group_info"]];
-            
+            self->_name = self->_groupInfoDic[@"advicer_name"];
             self->_intentArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"need"]];
             self->_followArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"follow"]];
             self->_peopleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"client_info"]];
