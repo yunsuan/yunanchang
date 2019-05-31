@@ -212,7 +212,7 @@
     CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
     nextVC.project_id = _projectId;
     nextVC.info_id = _info_id;
-    nextVC.name = _dataArr[indexPath.row][@"agent_name"];
+    nextVC.name = @"";//_dataArr[indexPath.row][@"agent_name"];
     if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
         
         nextVC.powerDic = self.powerDic;

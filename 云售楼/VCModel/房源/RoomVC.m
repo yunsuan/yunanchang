@@ -40,16 +40,16 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
-    if ([[UserModel defaultModel].projectinfo count]) {
-        
-        _coll.hidden = NO;
-        self.rightBtn.hidden = NO;
-    }else{
-        
-        _coll.hidden = YES;
-        self.rightBtn.hidden = YES;
-    }
+//    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+//    if ([[UserModel defaultModel].projectinfo count]) {
+//
+//        _coll.hidden = NO;
+//        self.rightBtn.hidden = NO;
+//    }else{
+//
+//        _coll.hidden = YES;
+//        self.rightBtn.hidden = YES;
+//    }
 }
 
 - (void)viewDidLoad {
@@ -64,11 +64,27 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
+    
     _projectArr = [UserModel defaultModel].project_list;
 //    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
 //    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
     _dataArr = [@[] mutableCopy];
 
+}
+
+- (void)ActionNSNotificationMethod{
+    
+    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+    if ([[UserModel defaultModel].projectinfo count]) {
+        
+        _coll.hidden = NO;
+        self.rightBtn.hidden = NO;
+    }else{
+        
+        _coll.hidden = YES;
+        self.rightBtn.hidden = YES;
+    }
 }
 
 
@@ -121,6 +137,7 @@
         [self.rightBtn setTitle:MC forState:UIControlStateNormal];
         [UserModel defaultModel].projectinfo =  [UserModel defaultModel].project_list[[ID integerValue]];
         [UserModelArchiver archive];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
         [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
             if ([result isEqualToString:@"获取权限成功"]) {
     

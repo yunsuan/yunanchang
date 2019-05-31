@@ -48,23 +48,22 @@
             _approachL.text = [NSString stringWithFormat:@"公司名称：%@",dataDic[@"listen_way"]];
         }else{
             
-            _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@"listen_way"]];
+            _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@"listen_way_detail"]];
         }
     }else{
         
         if ([dataDic[@"source"] isEqualToString:@"分配分销"]) {
             
-            _approachL.text = [NSString stringWithFormat:@"公司名称：%@",dataDic[@"listen_way_detail"]];
+            _approachL.text = [NSString stringWithFormat:@"公司名称：%@",dataDic[@"listen_way"]];
         }else{
             
-            _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@"listen_way_detail"]];
+            _approachL.text = [NSString stringWithFormat:@"认知途径：%@",dataDic[@"listen_way"]];
         }
     }
 }
 
 - (void)setNum:(NSInteger)num{
     
-//    _num = num;
     if (_selectArr.count) {
         
         for (int i = 0; i < _collArr.count; i++) {

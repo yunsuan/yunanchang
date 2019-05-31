@@ -116,6 +116,7 @@
                     [self.navigationController popViewControllerAnimated:YES];
                 }
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
             }else{
 
                 [self showContent:resposeObject[@"msg"]];
@@ -138,6 +139,7 @@
                     [self.navigationController popViewControllerAnimated:YES];
                 }
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];

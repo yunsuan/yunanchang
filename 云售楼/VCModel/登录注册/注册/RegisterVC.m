@@ -159,9 +159,9 @@
             _getCaptchaView = [[GetCaptchaView alloc] initWithFrame:self.view.bounds];
             _getCaptchaView.getCaptchaViewBlock = ^{
                 
-                _GetCodeBtn.userInteractionEnabled = NO;
+                self->_GetCodeBtn.userInteractionEnabled = NO;
                 NSDictionary *parameter = @{
-                                            @"tel":_AccountTF.text,
+                                            @"tel":self->_AccountTF.text,
                                             @"token":[self md5:@"yunsuankeji"]
                                             };
                 [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
@@ -170,20 +170,20 @@
                         
                         [self showContent:@"验证码有效期为60分钟"];
                         
-                        _GetCodeBtn.hidden = YES;
-                        _timeLabel.hidden = NO;
-                        surplusTime = 60;
-                        _timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
+                        self->_GetCodeBtn.hidden = YES;
+                        self->_timeLabel.hidden = NO;
+                        self->surplusTime = 60;
+                        self->_timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)self->surplusTime];
                         //倒计时
-                        time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+                        self->time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
                         
                     }
                     else{
                         [self showContent:resposeObject[@"msg"]];
                     }
-                    _GetCodeBtn.userInteractionEnabled = YES;
+                    self->_GetCodeBtn.userInteractionEnabled = YES;
                 } failure:^(NSError *error) {
-                    _GetCodeBtn.userInteractionEnabled = YES;
+                    self->_GetCodeBtn.userInteractionEnabled = YES;
                     [self showContent:@"网络错误"];
                 }];
             };
@@ -201,20 +201,20 @@
                     
                     [self showContent:@"验证码有效期为60分钟"];
                     
-                    _GetCodeBtn.hidden = YES;
-                    _timeLabel.hidden = NO;
-                    surplusTime = 60;
-                    _timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)surplusTime];
+                    self->_GetCodeBtn.hidden = YES;
+                    self->_timeLabel.hidden = NO;
+                    self->surplusTime = 60;
+                    self->_timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)self->surplusTime];
                     //倒计时
-                    time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+                    self->time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
                     
                 }
                 else{
                     [self showContent:resposeObject[@"msg"]];
                 }
-                _GetCodeBtn.userInteractionEnabled = YES;
+                self->_GetCodeBtn.userInteractionEnabled = YES;
             } failure:^(NSError *error) {
-                _GetCodeBtn.userInteractionEnabled = YES;
+                self->_GetCodeBtn.userInteractionEnabled = YES;
                 [self showContent:@"网络错误"];
             }];
         }

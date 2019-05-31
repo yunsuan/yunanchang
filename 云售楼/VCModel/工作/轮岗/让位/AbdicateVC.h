@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AbdicateVCBlock)(void);
+
 @interface AbdicateVC : BaseViewController
+
+@property (nonatomic, copy) AbdicateVCBlock abdicateVCBlock;
 
 - (instancetype)initWithData:(NSDictionary *)data;
 

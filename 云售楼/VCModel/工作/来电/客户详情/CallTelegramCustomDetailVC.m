@@ -125,7 +125,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_groupInfoDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"][@"group_info"]];
-            
+            self->_name = self->_groupInfoDic[@"advicer_name"];
             self->_intentArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"need"]];
             self->_followArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"follow"]];
             self->_peopleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"client_info"]];
@@ -331,7 +331,7 @@
                 header.propertyL.text = [NSString stringWithFormat:@"意向物业：%@",_intentArr[0][@"property_name"]];
             }else{
                 
-                header.propertyL.text = [NSString stringWithFormat:@"%@,%@",header.propertyL.text,_intentArr[0][@"property_name"]];
+                header.propertyL.text = [NSString stringWithFormat:@"%@,%@",header.propertyL.text,_intentArr[1][@"property_name"]];
             }
         }
         

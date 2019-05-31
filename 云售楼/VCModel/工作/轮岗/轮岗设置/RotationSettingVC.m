@@ -284,9 +284,10 @@
                 }];
             }
         }else{
-            
+            NSMutableDictionary *stateDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
+            [stateDic setObject:@"1" forKey:@"state"];
             NSMutableArray *list = [[NSMutableArray alloc] initWithArray:self->companyArr[sender.tag][@"list"]];
-            [list addObject:dic];
+            [list addObject:stateDic];
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[sender.tag]];
             [tempDic setObject:list forKey:@"list"];
             [self->companyArr replaceObjectAtIndex:sender.tag withObject:tempDic];
@@ -578,6 +579,7 @@
     if (!_downTF) {
         _downTF = [[BorderTextField alloc]initWithFrame:CGRectMake(121*SIZE, 123*SIZE, 216*SIZE, 33*SIZE)];
         _downTF.textField.placeholder = @"设置为0则无自然下岗";
+        _downTF.textField.keyboardType = UIKeyboardTypeNumberPad;
         if (_dataDic.count) {
             
             if (_dataDic[@"duty"][@"exchange_time_min"]) {
@@ -598,6 +600,7 @@
 {
     if (!_upTF) {
         _upTF = [[BorderTextField alloc]initWithFrame:CGRectMake(121*SIZE, 178*SIZE, 216*SIZE, 33*SIZE)];
+        _upTF.textField.keyboardType = UIKeyboardTypeNumberPad;
         if (_dataDic.count) {
             
             _upTF.textField.text = [NSString stringWithFormat:@"%@",_dataDic[@"duty"][@"tip_time_min"]];

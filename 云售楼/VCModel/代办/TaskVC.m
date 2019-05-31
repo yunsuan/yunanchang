@@ -83,6 +83,14 @@
                 self->_table.mj_footer.state = MJRefreshStateNoMoreData;
             }
             [self->_table reloadData];
+            if ([resposeObject[@"data"][@"unread_number"] integerValue] < 1) {
+                
+                [self.navigationController.tabBarItem setBadgeValue:nil];
+            }else{
+                
+                [self.navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"][@"unread_number"]]];
+            }
+            [UIApplication sharedApplication].applicationIconBadgeNumber = [resposeObject[@"data"][@"unread_number"] integerValue];
         }else{
             
             [self showContent:resposeObject[@"msg"]];
@@ -133,6 +141,25 @@
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
+
+- (void)ActionRightBtn:(UIButton *)btn{
+    
+    [BaseRequest POST:HandleEmptyMessage_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self->_dataArr removeAllObjects];
+            [self->_table reloadData];
+            [self RequestMethod];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -584,20 +611,41 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:_dataArr[indexPath.row]];
-    [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    if ([tempDic[@"is_read"] integerValue] == 0) {
         
-        if ([key isEqualToString:@"is_read"]) {
+        [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             
-            [tempDic setObject:@"1" forKey:key];
+            if ([key isEqualToString:@"is_read"]) {
+                
+                [tempDic setObject:@"1" forKey:key];
+            }
+        }];
+        [BaseRequest GET:@"saleApp/handle/message/read" parameters:@{@"message_id":[NSString stringWithFormat:@"%@",tempDic[@"message_id"]]} success:^(id  _Nonnull resposeObject) {
+            
+            
+        } failure:^(NSError * _Nonnull error) {
+            
+        }];
+        [_dataArr replaceObjectAtIndex:indexPath.row withObject:tempDic];
+        
+        [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
+        if ([UIApplication sharedApplication].applicationIconBadgeNumber < 1) {
+            
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+            [self.navigationController.tabBarItem setBadgeValue:nil];
+        }else{
+            
+            [self.navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld",[UIApplication sharedApplication].applicationIconBadgeNumber]];
         }
-    }];
-    [_dataArr replaceObjectAtIndex:indexPath.row withObject:tempDic];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    }
     [tableView reloadData];
     if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
         
         CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
         nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
         nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
+        nextVC.name = @"";
         nextVC.powerDic = @{@"detail":[NSNumber numberWithBool:true],@"add":[NSNumber numberWithBool:true],@"update":[NSNumber numberWithBool:true],@"giveUp":[NSNumber numberWithBool:true],@"delete":[NSNumber numberWithBool:true],@"follow":[NSNumber numberWithBool:true]};
         [self.navigationController pushViewController:nextVC animated:YES];
 //        VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
@@ -610,6 +658,7 @@
         nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
         nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
         nextVC.powerDic = @{@"detail":[NSNumber numberWithBool:true],@"add":[NSNumber numberWithBool:true],@"update":[NSNumber numberWithBool:true],@"giveUp":[NSNumber numberWithBool:true],@"delete":[NSNumber numberWithBool:true],@"follow":[NSNumber numberWithBool:true]};
+        nextVC.name = @"";
         [self.navigationController pushViewController:nextVC animated:YES];
 //        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
 //        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
@@ -647,6 +696,7 @@
     self.rightBtn.hidden = NO;
     [self.rightBtn setTitle:@"清空数据" forState:UIControlStateNormal];
     self.rightBtn.titleLabel.font = FONT(13 *SIZE);
+    [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setTitleColor:CL86Color forState:UIControlStateNormal];
     self.rightBtn.center = CGPointMake(SCREEN_Width - 40 * SIZE, STATUS_BAR_HEIGHT + 20);
     

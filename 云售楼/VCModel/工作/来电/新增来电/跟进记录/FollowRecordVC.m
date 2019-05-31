@@ -339,6 +339,7 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"TaskReolad" object:nil];
                 [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
                     
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                     if (self.followRecordVCBlock) {
                         
                         self.followRecordVCBlock();
@@ -349,6 +350,7 @@
                     CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
                     [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"32400"]];
                     
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                     if (self.followRecordVCBlock) {
                         
                         self.followRecordVCBlock();
@@ -379,6 +381,7 @@
         }
         
         if (Isplay == YES) {
+            
              [_directDic removeObjectForKey:@"comment"];
         }
         
@@ -428,6 +431,7 @@
                     [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"32400"]];
                     if ([self.status isEqualToString:@"add"]) {
                         
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCall" object:nil];
                         for (UIViewController *vc in self.navigationController.viewControllers) {
                             
                             if ([vc isKindOfClass:[CallTelegramVC class]]) {

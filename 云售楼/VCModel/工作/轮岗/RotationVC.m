@@ -148,6 +148,10 @@
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"让位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         AbdicateVC *next_vc = [[AbdicateVC alloc] initWithData:self->_dataDic];
+        next_vc.abdicateVCBlock = ^{
+          
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:next_vc animated:YES];
     }];
     
@@ -159,20 +163,37 @@
     }];
 }
 
-
-
 - (void)RequestMethod{
     
-    //    if (_info_id.length) {
     
     [BaseRequest GET:DutyDetail_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
 
         if ([resposeObject[@"code"] integerValue] == 200) {
 
-//            [self->_dataArr removeAllObjects];
-//            self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-//            [self->_coll reloadData];
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"person"]];
+            for (int a = 0; a < tempArr.count; a++) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[a]];
+                NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
+                NSDictionary *dic;
+                for (int i = 0; i < listArr.count; i++) {
+                    
+                    if ([listArr[i][@"current_state"] integerValue] == 1) {
+                        
+                        dic = listArr[i];
+                        [listArr removeObjectAtIndex:i];
+                    }
+                }
+                if (dic.count) {
+                    
+                    [listArr insertObject:dic atIndex:0];
+                }
+                
+                [tempDic setObject:listArr forKey:@"list"];
+                [tempArr replaceObjectAtIndex:a withObject:tempDic];
+            }
+            [self->_dataDic setObject:tempArr forKey:@"person"];
             [self->_rotationCV reloadData];
         }else{
 
@@ -183,6 +204,11 @@
                 } WithDefaultBlack:^{
                     
                     RotationSettingVC *next_vc = [[RotationSettingVC alloc]init];
+                    next_vc.project_id = self->_project_id;
+                    next_vc.rotationSettingVCBlock = ^{
+                      
+                        [self RequestMethod];
+                    };
                     [self.navigationController pushViewController:next_vc animated:YES];
                 }];
             }else{
@@ -289,7 +315,10 @@
     self.titleLabel.text = @"轮岗";
     
     self.leftButton.hidden = NO;
-    self.rightBtn.hidden = NO;
+    if (self.status == 1) {
+        
+        self.rightBtn.hidden = NO;
+    }
     self.rightBtn.center = CGPointMake(SCREEN_Width - 20 * SIZE, STATUS_BAR_HEIGHT + 20);
     self.rightBtn.bounds = CGRectMake(0, 0, 40 * SIZE, 33 * SIZE);
 //    self.rightBtn.titleLabel.font = FONT(13 *SIZE);

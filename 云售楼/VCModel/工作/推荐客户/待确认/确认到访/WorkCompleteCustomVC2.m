@@ -535,6 +535,7 @@
                 if ([vc isKindOfClass:[WorkRecommendVC class]] || [vc isKindOfClass:[TaskVC class]]) {
 
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                     [self.navigationController popToViewController:vc animated:YES];
                 }
             }

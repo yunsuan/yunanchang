@@ -317,7 +317,11 @@
         
         tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
     }
-    [tempDic setObject:tel forKey:@"tel"];
+    if (![tel isEqualToString:_dataDic[@"tel"]]) {
+        
+        [tempDic setObject:tel forKey:@"tel"];
+    }
+    
     
     if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
         
@@ -363,11 +367,6 @@
         
         [self showContent:@"网络错误"];
     }];
-//    if (self.addCallTelegramGroupMemberVCBlock) {
-//        
-//        self.addCallTelegramGroupMemberVCBlock(_nameTF.textField.text,tempDic);
-//    }
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{

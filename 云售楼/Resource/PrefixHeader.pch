@@ -32,6 +32,8 @@
 #import "GZQGifFooter.h"
 #import "UIImageView+WebCache.h"
 
+
+#define YQDversion @"2.0"
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
 

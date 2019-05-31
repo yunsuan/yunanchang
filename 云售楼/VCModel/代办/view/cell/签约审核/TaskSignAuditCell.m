@@ -39,6 +39,13 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
+    if ([dataDic[@"is_read"] integerValue] == 0) {
+        
+        _readImg.image = IMAGE_WITH_NAME(@"SMS");
+    }else{
+        
+        _readImg.image = IMAGE_WITH_NAME(@"");
+    }
     _nameL.text = [NSString stringWithFormat:@"渠道人员姓名：%@",dataDic[@"broker_name"]];
     _phoneL.text = [NSString stringWithFormat:@"手机号：%@",dataDic[@"broker_tel"]];
     _timeL.text = [NSString stringWithFormat:@"报备时间：%@",dataDic[@"create_time"]];

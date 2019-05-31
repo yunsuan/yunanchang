@@ -170,6 +170,7 @@
 
                     [self->_dataArr removeObjectAtIndex:indexPath.row];
                     [tableView reloadData];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
                 }else{
 
@@ -194,6 +195,7 @@
                         [self->_dataArr removeObjectAtIndex:indexPath.row];
                         [tableView reloadData];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneConfirm" object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                     }else{
 
                         [self showContent:resposeObject[@"msg"]];
@@ -233,11 +235,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     WorkPhoneConfrimWaitDetailVC *nextVC = [[WorkPhoneConfrimWaitDetailVC alloc] initWithClientId:_dataArr[indexPath.row][@"client_id"]];
-//    if (_dataArr[indexPath.row][@"copy_content"]) {
-//
-//        nextVC.content = _dataArr[indexPath.row][@"copy_content"];
-//    }
-
+    
     nextVC.workPhoneConfrimWaitDetailVCBlock = ^{
 
         [self->_dataArr removeObjectAtIndex:indexPath.row];

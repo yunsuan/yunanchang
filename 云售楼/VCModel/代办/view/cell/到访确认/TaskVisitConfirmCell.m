@@ -30,7 +30,7 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    if ([dataDic[@"is_read"] integerValue] == 1) {
+    if ([dataDic[@"is_read"] integerValue] == 0) {
         
         _readImg.image = IMAGE_WITH_NAME(@"SMS");
     }else{

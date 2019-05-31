@@ -47,9 +47,9 @@
     _endL.text = [NSString stringWithFormat:@"今日截止时间：%@",dataDic[@"end_time"]];
     
     _timeL.text = [NSString stringWithFormat:@"自然下位时间：%@",dataDic[@"exchange_time_min"]];
-    if (_dataDic[@"agent_tel"]) {
+    if (dataDic[@"agent_tel"]) {
         
-        if ([_dataDic[@"agent_tel"] isEqualToString:[UserInfoModel defaultModel].tel]) {
+        if ([dataDic[@"agent_tel"] isEqualToString:[UserInfoModel defaultModel].tel]) {
             
             _compleBtn.hidden = NO;
         }else{

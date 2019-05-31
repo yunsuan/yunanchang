@@ -37,7 +37,7 @@
             NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
             [listArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                
-                if ([obj[@"duty_agent_id"] isEqualToString:self->_dataDic[@"duty"][@"duty_agent_id"]]) {
+                if ([[NSString stringWithFormat:@"%@",obj[@"duty_agent_id"]] isEqualToString:[NSString stringWithFormat:@"%@",self->_dataDic[@"duty"][@"duty_agent_id"]]]) {
                     
                     [listArr removeObjectAtIndex:idx];
                     *stop = YES;
@@ -81,7 +81,11 @@
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
-                
+                if (self.abdicateVCBlock) {
+                    
+                    self.abdicateVCBlock();
+                }
+                [self.navigationController popViewControllerAnimated:YES];
             }else{
                 
                 [self showContent:resposeObject[@"msg"]];
@@ -99,7 +103,8 @@
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
     
 }
 

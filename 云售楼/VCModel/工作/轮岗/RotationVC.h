@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RotationVC : BaseViewController
 
-
+@property (nonatomic, assign) NSInteger status;
 
 - (instancetype)initWithProjectId:(NSString *)projectId;
 @end
