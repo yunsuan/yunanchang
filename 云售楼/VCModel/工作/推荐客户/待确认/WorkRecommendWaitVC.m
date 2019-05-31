@@ -201,6 +201,7 @@
 
                                         [self showContent:resposeObject[@"msg"]];
                                         [self RequestMethod];
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                                     }else{
 
                                         [self showContent:resposeObject[@"msg"]];
@@ -220,6 +221,7 @@
 
                                     [self showContent:resposeObject[@"msg"]];
                                     [self RequestMethod];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                                 }else{
 
                                     [self showContent:resposeObject[@"msg"]];
@@ -261,6 +263,7 @@
 
                             [self showContent:resposeObject[@"msg"]];
                             [self RequestMethod];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                         }else{
 
                             [self showContent:resposeObject[@"msg"]];
@@ -306,7 +309,7 @@
 
                             [self alertControllerWithNsstring:@"失效确认成功" And:@""];
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
-
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                         }else{
 
                             [self alertControllerWithNsstring:@"温馨提示" And:resposeObject[@"msg"]];

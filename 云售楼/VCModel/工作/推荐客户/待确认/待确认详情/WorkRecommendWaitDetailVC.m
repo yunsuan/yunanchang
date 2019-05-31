@@ -190,6 +190,7 @@
         
                                                     [self showContent:resposeObject[@"msg"]];
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+                                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                                                     [self.navigationController popViewControllerAnimated:YES];
                                                 }else{
         
@@ -210,6 +211,7 @@
         
                                                 [self showContent:resposeObject[@"msg"]];
                                                 [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+                                                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                                                 [self.navigationController popViewControllerAnimated:YES];
                                             }else{
         
@@ -252,6 +254,7 @@
         
                                         [self showContent:resposeObject[@"msg"]];
                                         [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                                         [self.navigationController popViewControllerAnimated:YES];
                                     }else{
         
@@ -547,6 +550,7 @@
 
                     [weakSelf alertControllerWithNsstring:@"失效确认成功" And:@""];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"recommendReload" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 }else{
 

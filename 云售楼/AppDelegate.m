@@ -39,6 +39,7 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
     [self configThirdWithOptions:launchOptions];
     [self initUI];
     [self UpdateRequest];
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     return YES;
 }
 
