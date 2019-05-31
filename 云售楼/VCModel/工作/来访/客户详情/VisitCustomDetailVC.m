@@ -685,7 +685,7 @@
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_propertyArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
                     
-                    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
+                    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID],@"param":MC}]];
                     nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
                     nextVC.status = @"add";
                     nextVC.group_id = self->_groupId;
@@ -722,7 +722,7 @@
                         SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_propertyArr];
                         view.selectedBlock = ^(NSString *MC, NSString *ID) {
                             
-                            IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID]}]];
+                            IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[@{@"id":[NSString stringWithFormat:@"%@",ID],@"param":MC}]];
                             nextVC.property_id = [NSString stringWithFormat:@"%@",ID];
                             nextVC.status = @"add";
                             nextVC.group_id = self->_groupId;

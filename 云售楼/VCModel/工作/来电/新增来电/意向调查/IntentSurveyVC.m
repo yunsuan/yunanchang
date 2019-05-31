@@ -298,7 +298,7 @@
                                 
                                 if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                     
-                                    [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    [needDic setObject:[NSString stringWithFormat:@"%@",_countArr[0][@"list"][j][@"need_id"]] forKey:@"need_id"];
                                      break;
                                 }
                             }
@@ -317,7 +317,7 @@
                                     
                                     if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                         
-                                        [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        [needDic setObject:[NSString stringWithFormat:@"%@",_countArr[0][@"list"][j][@"need_id"]] forKey:@"need_id"];
                                         break;
                                     }
                                 }
@@ -338,7 +338,7 @@
                                 
                                 if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                     
-                                    [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    [needDic setObject:[NSString stringWithFormat:@"%@",_countArr[0][@"list"][j][@"need_id"]] forKey:@"need_id"];
                                     break;
                                 }
                             }
@@ -358,7 +358,7 @@
                                     
                                     if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                         
-                                        [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        [needDic setObject:[NSString stringWithFormat:@"%@",_countArr[0][@"list"][j][@"need_id"]] forKey:@"need_id"];
                                         break;
                                     }
                                 }
@@ -396,7 +396,7 @@
                                 
                                 if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                     
-                                    [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    [needDic setObject:[NSString stringWithFormat:@"%@",_countArr[0][@"list"][j][@"need_id"]] forKey:@"need_id"];
                                     break;
                                 }
                             }
@@ -416,7 +416,7 @@
                                     
                                     if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                         
-                                        [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        [needDic setObject:[NSString stringWithFormat:@"%@",_countArr[0][@"list"][j][@"need_id"]] forKey:@"need_id"];
                                         break;
                                     }
                                 }
@@ -437,7 +437,7 @@
                                 
                                 if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                     
-                                    [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    [needDic setObject:[NSString stringWithFormat:@"%@",_countArr[0][@"list"][j][@"need_id"]] forKey:@"need_id"];
                                     break;
                                 }
                             }
@@ -457,7 +457,7 @@
                                     
                                     if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                         
-                                        [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        [needDic setObject:[NSString stringWithFormat:@"%@",_countArr[0][@"list"][j][@"need_id"]] forKey:@"need_id"];
                                         break;
                                     }
                                 }
@@ -479,13 +479,13 @@
             
             _num = 0;
             for (int i = 0; i < _lastArr.count; i++) {
-
+            
                 [self RequestQueueMethod:^{
-                    
+
                     if (self->_num == self->_lastArr.count - 1) {
-                        
+
                         if (self.intentSurveyVCBlock) {
-                            
+
                             self.intentSurveyVCBlock();
                             [self.navigationController popViewControllerAnimated:YES];
                         }
@@ -827,28 +827,24 @@
     }
 }
 
+
 - (void)RequestQueueMethod:(void(^)(void))finish data:(NSDictionary *)data {
     
     [BaseRequest POST:WorkClientAutoNeedUpdate_URL parameters:data success:^(id  _Nonnull resposeObject) {
         
         self->_num += 1;
-        finish();
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-//            if (self.intentSurveyVCBlock) {
-//
-//                self.intentSurveyVCBlock();
-//                [self.navigationController popViewControllerAnimated:YES];
-//            }
         }else{
+
             
-//            [self showContent:resposeObject[@"msg"]];
         }
+        finish();
     } failure:^(NSError * _Nonnull error) {
         
         self->_num += 1;
-        finish();
         [self showContent:@"网络错误"];
+        finish();
     }];
 }
 
