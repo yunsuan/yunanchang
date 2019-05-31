@@ -19,7 +19,7 @@
 #import "RotationModel.h"
 
 
-@interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface RotationSettingVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     
     NSMutableDictionary *_dataDic;
@@ -296,6 +296,22 @@
     };
     [self.navigationController pushViewController:next_vc animated:YES];
 }
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    if (textField == _upTF.textField) {
+        
+        if ([textField.text integerValue] > 59) {
+            
+            textField.text = @"59";
+        }
+    }else{
+        
+        textField.text = @"59";
+    }
+}
+
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return  UITableViewCellEditingStyleNone;
@@ -579,6 +595,7 @@
     if (!_downTF) {
         _downTF = [[BorderTextField alloc]initWithFrame:CGRectMake(121*SIZE, 123*SIZE, 216*SIZE, 33*SIZE)];
         _downTF.textField.placeholder = @"设置为0则无自然下岗";
+        _downTF.textField.delegate = self;
         _downTF.textField.keyboardType = UIKeyboardTypeNumberPad;
         if (_dataDic.count) {
             
@@ -600,6 +617,7 @@
 {
     if (!_upTF) {
         _upTF = [[BorderTextField alloc]initWithFrame:CGRectMake(121*SIZE, 178*SIZE, 216*SIZE, 33*SIZE)];
+        _upTF.textField.delegate = self;
         _upTF.textField.keyboardType = UIKeyboardTypeNumberPad;
         if (_dataDic.count) {
             
