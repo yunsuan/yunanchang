@@ -229,6 +229,7 @@
     }else if (indexPath.row == 9){
         
         RotationVC *nextVC = [[RotationVC alloc]initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        nextVC.status = [[PowerModel defaultModel].WorkListPower[9] integerValue];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
     else{

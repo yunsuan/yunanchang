@@ -183,6 +183,11 @@
                 } WithDefaultBlack:^{
                     
                     RotationSettingVC *next_vc = [[RotationSettingVC alloc]init];
+                    next_vc.project_id = self->_project_id;
+                    next_vc.rotationSettingVCBlock = ^{
+                      
+                        [self RequestMethod];
+                    };
                     [self.navigationController pushViewController:next_vc animated:YES];
                 }];
             }else{
@@ -289,7 +294,10 @@
     self.titleLabel.text = @"轮岗";
     
     self.leftButton.hidden = NO;
-    self.rightBtn.hidden = NO;
+    if (self.status == 1) {
+        
+        self.rightBtn.hidden = NO;
+    }
     self.rightBtn.center = CGPointMake(SCREEN_Width - 20 * SIZE, STATUS_BAR_HEIGHT + 20);
     self.rightBtn.bounds = CGRectMake(0, 0, 40 * SIZE, 33 * SIZE);
 //    self.rightBtn.titleLabel.font = FONT(13 *SIZE);
