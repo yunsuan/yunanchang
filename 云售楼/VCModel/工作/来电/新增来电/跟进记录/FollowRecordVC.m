@@ -26,7 +26,7 @@
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
-@interface FollowRecordVC ()<AVAudioRecorderDelegate,AVAudioPlayerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface FollowRecordVC ()<AVAudioRecorderDelegate,AVAudioPlayerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     
     AVAudioPlayer *_player;
@@ -54,6 +54,7 @@
 
 @property (nonatomic, strong) UILabel *followWayL;
 
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout1;
 @property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 
 @property (nonatomic, strong) UICollectionView *followWayColl;
@@ -140,6 +141,8 @@
                 
                 [self->_levelSelectArr addObject:@0];
             }
+//            self.levelColl.contentOffset = CGPointZero;
+//            self.followWayColl.contentOffset = CGPointZero;
             [self->_levelColl reloadData];
             [self->_followWayColl reloadData];
             [self->_followWayColl mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -466,6 +469,7 @@
 
 #pragma mark -- CollectionView
 
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     if (collectionView == _followWayColl) {
@@ -479,7 +483,7 @@
     
     BoxSelectCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BoxSelectCollCell" forIndexPath:indexPath];
     if (!cell) {
-        
+    
         cell = [[BoxSelectCollCell alloc] initWithFrame:CGRectMake(0, 0, 60 *SIZE, 20 *SIZE)];
     }
     
@@ -635,9 +639,11 @@
     [_scrollView addSubview:_nextTimeBtn];
     
     
-    
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.itemSize = CGSizeMake(100 *SIZE, 20 *SIZE);
+//    _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    _flowLayout1 = [[UICollectionViewFlowLayout alloc] init];
+    _flowLayout1.itemSize = CGSizeMake(100 *SIZE, 20 *SIZE);
     
     _followWayColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 255 *SIZE, 100 *SIZE) collectionViewLayout:_flowLayout];
     _followWayColl.backgroundColor = CLWhiteColor;
@@ -646,7 +652,7 @@
     [_followWayColl registerClass:[BoxSelectCollCell class] forCellWithReuseIdentifier:@"BoxSelectCollCell"];
     [_scrollView addSubview:_followWayColl];
     
-    _levelColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 255 *SIZE, 100 *SIZE) collectionViewLayout:_flowLayout];
+    _levelColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 255 *SIZE, 100 *SIZE) collectionViewLayout:_flowLayout1];
     _levelColl.backgroundColor = CLWhiteColor;
     _levelColl.delegate = self;
     _levelColl.dataSource = self;
