@@ -32,7 +32,7 @@
     }
     if ([dataDic[@"level"] length]) {
         
-        _nameL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"name"],dataDic[@"level"]];
+        _nameL.text = [NSString stringWithFormat:@"%@(%@)",dataDic[@"name"],dataDic[@"level"]];
     }else{
         
         _nameL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];

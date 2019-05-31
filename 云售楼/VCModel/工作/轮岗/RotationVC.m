@@ -171,35 +171,22 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
 
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-//            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"person"]];
-//            for (int a = 0; a < tempArr.count; a++) {
-//
-//                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[a]];
-//                NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"person"]];
+            for (int a = 0; a < tempArr.count; a++) {
+
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[a]];
+                NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
 //                NSDictionary *dic;
-//                [listArr sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-//
-//                    if (obj1[@"current_state"]) {
-//                        <#statements#>
-//                    }
-//                }];
-////                for (int i = 0; i < listArr.count; i++) {
-////
-////                    if ([listArr[i][@"current_state"] integerValue] == 1) {
-////
-////                        dic = listArr[i];
-////                        [listArr removeObjectAtIndex:i];
-////                    }
-////                }
-////                if (dic.count) {
-////
-////                    [listArr insertObject:dic atIndex:0];
-////                }
-//
-//                [tempDic setObject:listArr forKey:@"list"];
-//                [tempArr replaceObjectAtIndex:a withObject:tempDic];
-//            }
-//            [self->_dataDic setObject:tempArr forKey:@"person"];
+                listArr = [listArr sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+
+                    return [[NSNumber numberWithInteger:[obj1[@"duty_sort"] integerValue]] compare:[NSNumber numberWithInteger:[obj2[@"duty_sort"] integerValue]]];
+
+                }];
+
+                [tempDic setObject:listArr forKey:@"list"];
+                [tempArr replaceObjectAtIndex:a withObject:tempDic];
+            }
+            [self->_dataDic setObject:tempArr forKey:@"person"];
             [self->_rotationCV reloadData];
         }else{
 

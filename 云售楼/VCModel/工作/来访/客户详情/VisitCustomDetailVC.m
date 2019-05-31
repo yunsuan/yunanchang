@@ -462,6 +462,10 @@
                 IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[dic]];
                 nextVC.status = @"modify";
                 nextVC.property_id = dic[@"id"];
+                nextVC.intentSurveyVCBlock = ^{
+                    
+                    [self RequestMethod];
+                };
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
             

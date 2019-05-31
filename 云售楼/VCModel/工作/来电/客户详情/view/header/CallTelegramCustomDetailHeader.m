@@ -175,6 +175,7 @@
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLWhiteColor;
+        label.numberOfLines = 0;
         label.font = [UIFont systemFontOfSize:12 *SIZE];
         switch (i) {
             case 0:
@@ -289,7 +290,7 @@
         
         make.right.equalTo(self.contentView).offset(-18 *SIZE);
         make.top.equalTo(self.contentView).offset(11 *SIZE);
-        make.width.height.mas_equalTo(16 *SIZE);
+        make.width.height.mas_equalTo(26 *SIZE);
     }];
     
 //    [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -303,28 +304,28 @@
         
         make.left.equalTo(self->_blueView).offset(94 *SIZE);
         make.top.equalTo(self->_blueView).offset(9 *SIZE);
-        make.right.equalTo(self->_blueView.mas_right).offset(-100 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
     }];
     
     [_customSourceL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_blueView).offset(94 *SIZE);
         make.top.equalTo(self->_propertyL.mas_bottom).offset(8 *SIZE);
-        make.right.equalTo(self->_blueView.mas_right).offset(-100 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
     }];
     
     [_sourceTypeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_blueView).offset(94 *SIZE);
         make.top.equalTo(self->_customSourceL.mas_bottom).offset(8 *SIZE);
-        make.right.equalTo(self->_blueView.mas_right).offset(-100 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
     }];
     
     [_approachL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_blueView).offset(94 *SIZE);
         make.top.equalTo(self->_sourceTypeL.mas_bottom).offset(8 *SIZE);
-        make.right.equalTo(self->_blueView.mas_right).offset(-100 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
 //        make.bottom.equalTo(self->_blueView).offset(-19 *SIZE);
     }];
     
@@ -332,7 +333,7 @@
         
         make.left.equalTo(self->_blueView).offset(94 *SIZE);
         make.top.equalTo(self->_approachL.mas_bottom).offset(8 *SIZE);
-        make.right.equalTo(self->_blueView.mas_right).offset(-100 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
         make.bottom.equalTo(self->_blueView).offset(-19 *SIZE);
     }];
 

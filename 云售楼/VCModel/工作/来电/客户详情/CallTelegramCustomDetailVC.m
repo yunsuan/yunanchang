@@ -625,21 +625,14 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        
+        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"config_name"],_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"value"]];
+        
         [cell.contentL mas_updateConstraints:^(MASConstraintMaker *make) {
            
             make.left.equalTo(cell.contentView).offset(28 *SIZE);
         }];
         
-//        NSData *jsonData = [_intentArr[indexPath.section - 1][@"list"][0][@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
-//        NSError *err;
-//        NSArray *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-//                                                       options:NSJSONReadingAllowFragments
-//                                                         error:&err];
-//        NSData *jsonData1 = [dic[@"need_list"] dataUsingEncoding:NSUTF8StringEncoding];
-//        NSArray *arr1 = [NSJSONSerialization JSONObjectWithData:jsonData1
-//                                                       options:NSJSONReadingAllowFragments
-//                                                         error:&err];
-        cell.contentL.text = [NSString stringWithFormat:@"%@：%@",_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"config_name"],_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"value"]];
         return cell;
     }else{
         

@@ -135,7 +135,14 @@
             
             if ([_countArr[j][@"id"] integerValue] == [data[i][@"property_id"] integerValue]) {
                 
-                header.titleL.text = _countArr[j][@"param"];
+                if (_countArr[j][@"param"]) {
+                    
+                    header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"param"]];
+                }else{
+                    
+                    header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"property_name"]];
+                }
+                
             }
         }
         [_headArr addObject:header];
@@ -216,8 +223,24 @@
                     NSMutableArray *collSelect = [@[] mutableCopy];
                     for (int m = 0; m < [dic[@"option"] count]; m++) {
                         
+                    
                         [collSelect addObject:@0];
                     }
+                    for (int m = 0; m < [dic[@"option"] count]; m++) {
+                        
+                        if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
+                            
+                            NSArray *arrC = [_countArr[0][@"list"][j][@"value_id"] componentsSeparatedByString:@","];
+                            for (int n = 0; n < arrC.count; n++) {
+                                
+                                if ([dic[@"option"][m][@"option_id"] integerValue] == [arrC[n] integerValue]) {
+                                    
+                                    [collSelect replaceObjectAtIndex:m withObject:@1];
+                                }
+                            }
+                        }
+                    }
+                    
                     [tempSelect addObject:collSelect];
                     break;
                 }
@@ -268,14 +291,14 @@
                         BorderTextField *tf = _moduleArr[i][j];
                         if (![self isEmpty:tf.textField.text]) {
                             
-                            [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
                             [needDic setObject:tf.textField.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                            for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                 
-                                if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                     
-                                    [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
                                      break;
                                 }
                             }
@@ -287,14 +310,14 @@
                                 return;
                             }else{
                                 
-                                [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                                [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
                                 [needDic setObject:@"" forKey:@"value"];
                                 [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                                for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                                for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                     
-                                    if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                         
-                                        [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
                                         break;
                                     }
                                 }
@@ -307,15 +330,15 @@
                         DropBtn *btn = _moduleArr[i][j];
                         if (btn.content.text) {
                             
-                            [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
                             [needDic setObject:btn->str forKey:@"value_id"];
-                            for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                            for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                 
-                                if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                     
-                                    [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
                                     break;
                                 }
                             }
@@ -327,15 +350,15 @@
                                 return;
                             }else{
                                 
-                                [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                                [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
                                 [needDic setObject:@"" forKey:@"value"];
                                 [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
                                 [needDic setObject:@"" forKey:@"value_id"];
-                                for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                                for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                     
-                                    if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                         
-                                        [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
                                         break;
                                     }
                                 }
@@ -357,23 +380,23 @@
                                     if (!str.length) {
                                         
                                         str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
-                                        strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];
+                                        strId = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_id"]];
                                     }else{
                                         
                                         str = [NSString stringWithFormat:@"%@,%@",str,dic[@"option"][m][@"option_name"]];
-                                        strId = [NSString stringWithFormat:@"@%@,%@",strId,dic[@"option"][m][@"option_id"]];
+                                        strId = [NSString stringWithFormat:@"%@,%@",strId,dic[@"option"][m][@"option_id"]];
                                     }
                                 }
                             }
-                            [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
                             [needDic setObject:str forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
                             [needDic setObject:strId forKey:@"value_id"];
-                            for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                            for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                 
-                                if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                     
-                                    [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
                                     break;
                                 }
                             }
@@ -385,15 +408,15 @@
                                 return;
                             }else{
                                 
-                                [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                                [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
                                 [needDic setObject:@"" forKey:@"value"];
                                 [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
                                 [needDic setObject:@"" forKey:@"value_id"];
-                                for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                                for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                     
-                                    if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                         
-                                        [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
                                         break;
                                     }
                                 }
@@ -406,15 +429,15 @@
                         DropBtn *btn = _moduleArr[i][j];
                         if (btn.content.text) {
                             
-                            [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                            [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
                             [needDic setObject:btn.content.text forKey:@"value"];
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
                             [needDic setObject:btn->str forKey:@"value_id"];
-                            for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                            for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                 
-                                if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                     
-                                    [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                    [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
                                     break;
                                 }
                             }
@@ -426,15 +449,15 @@
                                 return;
                             }else{
                                 
-                                [needDic setObject:_dataArr[0][@"property_id"] forKey:@"property_id"];
+                                [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
                                 [needDic setObject:@"" forKey:@"value"];
                                 [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
                                 [needDic setObject:@"" forKey:@"value_id"];
-                                for (int j = 0; j < [_dataArr[0][@"list"] count]; j++) {
+                                for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                     
-                                    if ([dic[@"config_name"] isEqualToString:_dataArr[0][@"list"][j][@"config_name"]]) {
+                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
                                         
-                                        [needDic setObject:_dataArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
+                                        [needDic setObject:_countArr[0][@"list"][j][@"need_id"] forKey:@"need_id"];
                                         break;
                                     }
                                 }
@@ -453,7 +476,8 @@
         }
         
         if (_lastArr.count) {
-
+            
+            _num = 0;
             for (int i = 0; i < _lastArr.count; i++) {
 
                 [self RequestQueueMethod:^{
@@ -546,11 +570,11 @@
                                     if (!str.length) {
                                         
                                         str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
-                                        strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];
+                                        strId = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_id"]];
                                     }else{
                                         
                                         str = [NSString stringWithFormat:@"%@,%@",str,dic[@"option"][m][@"option_name"]];
-                                        strId = [NSString stringWithFormat:@"@%@,%@",strId,dic[@"option"][m][@"option_id"]];
+                                        strId = [NSString stringWithFormat:@"%@,%@",strId,dic[@"option"][m][@"option_id"]];
                                     }
                                 }
                             }
@@ -714,11 +738,11 @@
                                     if (!str.length) {
                                         
                                         str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
-                                        strId = [NSString stringWithFormat:@"@%@",dic[@"option"][0][@"option_id"]];
+                                        strId = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_id"]];
                                     }else{
                                         
                                         str = [NSString stringWithFormat:@"%@,%@",str,dic[@"option"][m][@"option_name"]];
-                                        strId = [NSString stringWithFormat:@"@%@,%@",strId,dic[@"option"][m][@"option_id"]];
+                                        strId = [NSString stringWithFormat:@"%@,%@",strId,dic[@"option"][m][@"option_id"]];
                                     }
                                 }
                             }
@@ -1190,6 +1214,7 @@
             
             UIView *view = _viewArr[i - 1];
             UIView *bomView = _viewArr[i];
+            
             if (i == _viewArr.count - 1) {
                 
                 [_viewArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1210,6 +1235,9 @@
                     make.width.equalTo(@(SCREEN_Width));
                 }];
             }
+            
+            [view addSubview:_headArr[i]];
+            
             for (int j = 0; j < [_moduleArr[i] count]; j++) {
                 
                 [bomView addSubview:_labelArr[i][j]];
