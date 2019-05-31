@@ -203,9 +203,6 @@
         }];
     };
     [self.view addSubview:view];
-////    [view startRecord];
-//    RecordLongPressView *view = [[RecordLongPressView alloc] initWithFrame:self.view.bounds];
-//    [self.view addSubview:view];
     
 }
 
