@@ -127,28 +127,28 @@
         make.left.equalTo(self.contentView).offset(0 *SIZE);
         make.top.equalTo(self.contentView).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(133 *SIZE);
+        make.height.mas_equalTo(133 *SIZE + STATUS_BAR_HEIGHT - 20);
         make.bottom.equalTo(self.contentView).offset(-4 *SIZE);
     }];
     
     [_headerImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(14 *SIZE);
-        make.top.equalTo(self.contentView).offset(42 *SIZE);
+        make.top.equalTo(self.contentView).offset(42 *SIZE + STATUS_BAR_HEIGHT - 20);
         make.width.height.mas_equalTo(60 *SIZE);
     }];
     
     [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(91 *SIZE);
-        make.top.equalTo(self.contentView).offset(55 *SIZE);
+        make.top.equalTo(self.contentView).offset(55 *SIZE + STATUS_BAR_HEIGHT - 20);
         make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
     }];
     
     [_genderImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_nameL.mas_right).offset(2 *SIZE);
-        make.top.equalTo(self.contentView).offset(57 *SIZE);
+        make.top.equalTo(self.contentView).offset(57 *SIZE + STATUS_BAR_HEIGHT - 20);
         make.width.height.mas_equalTo(12 *SIZE);
     }];
     

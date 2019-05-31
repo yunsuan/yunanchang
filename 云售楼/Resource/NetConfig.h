@@ -20,7 +20,7 @@ static NSString *const TestBase_Net = @"http://47.107.246.94/";
 static NSString *const Login_URL = @"saleApp/login";
 
 //2验证码
-static NSString *const Captcha_URL = @"saleApp/user/captcha";
+static NSString *const Captcha_URL = @"saleApp/captcha";
 
 //3注册
 static NSString *const Register_URL = @"saleApp/user/register";
@@ -49,6 +49,9 @@ static NSString *const ProjectConfigPropertyConfigList_URL = @"saleApp/project/c
 static NSString *const ProjectGetAdvicer_URL = @"user/project/getAdvicer";
 
 #pragma mark ---  待办  ---
+
+//清空消息
+static NSString *const HandleEmptyMessage_URL = @"saleApp/handle/emptyMessage";
 
 //获取待办首页
 static NSString *const HandleGetMessageList_URL = @"saleApp/handle/getMessageList";

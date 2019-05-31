@@ -30,7 +30,14 @@
         
         _headImg.image = IMAGE_WITH_NAME(@"nv");
     }
-    _nameL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"name"],dataDic[@"level"]];//@"张三/A";
+    if ([dataDic[@"level"] length]) {
+        
+        _nameL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"name"],dataDic[@"level"]];
+    }else{
+        
+        _nameL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
+    }
+    //@"张三/A";
     _effectTagL.text = dataDic[@"current_state"];//@"有效";
     _groupL.text = [NSString stringWithFormat:@"组别：%@人",dataDic[@"client_num"]];//@"组别：云算购房组";
     _dayL.text = [NSString stringWithFormat:@"%@",dataDic[@"time_limit"]];//@"3天";

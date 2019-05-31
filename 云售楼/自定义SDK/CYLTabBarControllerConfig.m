@@ -57,11 +57,11 @@
     room_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
     
     
-    ReportVC *reportVC = [[ReportVC alloc] init];
-    UIViewController *report_nav = [[CYLBaseNavigationController alloc] initWithRootViewController:reportVC];
-    reportVC.navigationController.navigationBar.hidden = YES;
-    //调整文字位置
-    report_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
+//    ReportVC *reportVC = [[ReportVC alloc] init];
+//    UIViewController *report_nav = [[CYLBaseNavigationController alloc] initWithRootViewController:reportVC];
+//    reportVC.navigationController.navigationBar.hidden = YES;
+//    //调整文字位置
+//    report_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
     
     TaskVC *taskVC = [[TaskVC alloc] init];
     UIViewController *task_nav = [[CYLBaseNavigationController alloc]
@@ -95,7 +95,7 @@
                                  task_nav,
                                  work_nav,
                                  room_nav,
-                                 report_nav,
+//                                 report_nav,
                                  mine_nav
                                  ];
     return viewControllers;
@@ -121,11 +121,11 @@
                             CYLTabBarItemImage : @"fangyuan",
                             CYLTabBarItemSelectedImage : @"fangyuan_1",
                             };
-    NSDictionary *dict4 = @{
-                            CYLTabBarItemTitle : @"报表",
-                            CYLTabBarItemImage : @"report_2",
-                            CYLTabBarItemSelectedImage : @"report",
-                            };
+//    NSDictionary *dict4 = @{
+//                            CYLTabBarItemTitle : @"报表",
+//                            CYLTabBarItemImage : @"report_2",
+//                            CYLTabBarItemSelectedImage : @"report",
+//                            };
     NSDictionary *dict5 = @{
                             CYLTabBarItemTitle : @"我的",
                             CYLTabBarItemImage : @"me",
@@ -137,7 +137,7 @@
                               dict1,
                               dict2,
                               dict3,
-                              dict4,
+//                              dict4,
                               dict5
                               ];
     return tabBarItemsAttributes;

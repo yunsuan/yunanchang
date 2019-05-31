@@ -134,6 +134,25 @@
 }
 
 
+- (void)ActionRightBtn:(UIButton *)btn{
+    
+    [BaseRequest POST:HandleEmptyMessage_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self->_dataArr removeAllObjects];
+            [self->_table reloadData];
+            [self RequestMethod];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -647,6 +666,7 @@
     self.rightBtn.hidden = NO;
     [self.rightBtn setTitle:@"清空数据" forState:UIControlStateNormal];
     self.rightBtn.titleLabel.font = FONT(13 *SIZE);
+    [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setTitleColor:CL86Color forState:UIControlStateNormal];
     self.rightBtn.center = CGPointMake(SCREEN_Width - 40 * SIZE, STATUS_BAR_HEIGHT + 20);
     

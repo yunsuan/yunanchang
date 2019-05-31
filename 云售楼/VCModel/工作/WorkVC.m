@@ -44,26 +44,29 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
-    if ([[UserModel defaultModel].projectinfo count]) {
-        
-        _table.hidden = NO;
-        self.rightBtn.hidden = NO;
-    }else{
-        
-        _table.hidden = YES;
-        self.rightBtn.hidden = YES;;
-    }
+//    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+//    if ([[UserModel defaultModel].projectinfo count]) {
+//
+//        _table.hidden = NO;
+//        self.rightBtn.hidden = NO;
+//    }else{
+//
+//        _table.hidden = YES;
+//        self.rightBtn.hidden = YES;;
+//    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
 }
 
 - (void)initDataSource{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
     if ([UserModel defaultModel].agent_company_info_id) {
         
@@ -76,6 +79,29 @@
     for (int i = 0; i < _imgArr.count; i++) {
         
         [_powerArr addObject:@""];
+    }
+}
+
+- (void)ActionNSNotificationMethod{
+    
+    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+    if ([[UserModel defaultModel].projectinfo count]) {
+    
+        _table.hidden = NO;
+        self.rightBtn.hidden = NO;
+        [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+            if ([result isEqualToString:@"获取权限成功"]) {
+                self->_showArr = [PowerModel defaultModel].WorkListPower;
+                [self->_table reloadData];
+                [self RequestMethod];
+            }
+        } failure:^(NSString * _Nonnull error) {
+            [self showContent:error];
+        }];
+    }else{
+    
+        _table.hidden = YES;
+        self.rightBtn.hidden = YES;;
     }
 }
 
@@ -145,9 +171,11 @@
     
     SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:temparr];
     view.selectedBlock = ^(NSString *MC, NSString *ID) {
+        
         [self.rightBtn setTitle:MC forState:UIControlStateNormal];
         [UserModel defaultModel].projectinfo =  [UserModel defaultModel].project_list[[ID integerValue]];
         [UserModelArchiver archive];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
         [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
             if ([result isEqualToString:@"获取权限成功"]) {
                 self->_showArr = [PowerModel defaultModel].WorkListPower;
@@ -156,7 +184,6 @@
         } failure:^(NSString * _Nonnull error) {
             [self showContent:error];
         }];
-    
     };
 
     [[UIApplication sharedApplication].keyWindow addSubview:view];
