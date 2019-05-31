@@ -148,6 +148,10 @@
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"让位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         AbdicateVC *next_vc = [[AbdicateVC alloc] initWithData:self->_dataDic];
+        next_vc.abdicateVCBlock = ^{
+          
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:next_vc animated:YES];
     }];
     
@@ -163,15 +167,11 @@
 
 - (void)RequestMethod{
     
-    //    if (_info_id.length) {
     
     [BaseRequest GET:DutyDetail_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
 
         if ([resposeObject[@"code"] integerValue] == 200) {
 
-//            [self->_dataArr removeAllObjects];
-//            self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-//            [self->_coll reloadData];
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
             [self->_rotationCV reloadData];
         }else{
