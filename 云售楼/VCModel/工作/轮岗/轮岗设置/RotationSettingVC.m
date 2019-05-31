@@ -284,9 +284,10 @@
                 }];
             }
         }else{
-            
+            NSMutableDictionary *stateDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
+            [stateDic setObject:@"1" forKey:@"state"];
             NSMutableArray *list = [[NSMutableArray alloc] initWithArray:self->companyArr[sender.tag][@"list"]];
-            [list addObject:dic];
+            [list addObject:stateDic];
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[sender.tag]];
             [tempDic setObject:list forKey:@"list"];
             [self->companyArr replaceObjectAtIndex:sender.tag withObject:tempDic];
