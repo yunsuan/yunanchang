@@ -133,6 +133,15 @@
 
 - (void)SetData:(NSDictionary *)data{
 
+    if (!_powerArr.count) {
+        
+        _powerArr = [@[] mutableCopy];
+        for (int i = 0; i < 10; i++) {
+            
+            [_powerArr addObject:@""];
+        }
+    }
+    
 //    [_powerArr removeAllObjects];
     [_powerArr replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,到访%@",data[@"telVisit"][@"today"],data[@"telVisit"][@"total"],data[@"telVisit"][@"visit"]]];
     [_powerArr replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"今日推荐%@,可带看%@",data[@"telCheck"][@"total"],data[@"telCheck"][@"value"]]];

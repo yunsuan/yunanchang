@@ -510,8 +510,8 @@
             
             [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
                 
-                [formData appendPartWithFileData:data name:@"id_card" fileName:@"id_card.jpg" mimeType:@"image/jpg"];
-            } url:UploadFile_URL parameters:@{@"file_name":@"id_card"} success:^(id  _Nonnull resposeObject) {
+                [formData appendPartWithFileData:data name:@"img" fileName:@"img.jpg" mimeType:@"image/jpg"];
+            } url:UploadFile_URL parameters:@{@"file_name":@"img"} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
@@ -541,8 +541,8 @@
         
         [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
             
-            [formData appendPartWithFileData:data name:@"id_card" fileName:@"id_card.jpg" mimeType:@"image/jpg"];
-        } url:UploadFile_URL parameters:@{@"file_name":@"id_card"} success:^(id  _Nonnull resposeObject) {
+            [formData appendPartWithFileData:data name:@"img" fileName:@"img.jpg" mimeType:@"image/jpg"];
+        } url:UploadFile_URL parameters:@{@"file_name":@"img"} success:^(id  _Nonnull resposeObject) {
             
             if ([resposeObject[@"code"] integerValue] == 200) {
                 

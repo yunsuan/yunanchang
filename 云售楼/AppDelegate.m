@@ -320,6 +320,42 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *title = content.title;  // 推送消息的标题
     NSLog(@"22222222%@",userInfo);
     
+    if ([userInfo[@"aps"][@"alert"] isEqualToString:@"您在云案场的公司认证申请未通过"]) {
+        
+        [UserModel defaultModel].project_list = @[];
+        [UserModel defaultModel].projectinfo = @{};
+        [UserModelArchiver archive];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
+    }else if ([userInfo[@"aps"][@"alert"] isEqualToString:@"您在云案场的公司认证申请已通过"]){
+        
+        [BaseRequest GET:@"saleApp/work/project/list" parameters:nil success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [UserModel defaultModel].project_list = resposeObject[@"data"];
+                if ([resposeObject[@"data"] count]) {
+                    
+                    [UserModel defaultModel].projectinfo = resposeObject[@"data"][0];
+                    [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+                        if ([result isEqualToString:@"获取权限成功"]) {
+                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
+                        }
+                    } failure:^(NSString * _Nonnull error) {
+                        
+                    }];
+                    [UserModelArchiver archive];
+                }
+            }else{
+                
+                [MBProgressHUD showError:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [MBProgressHUD showError:@"获取项目失败"];
+        }];
+    }
+    
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
         
@@ -347,6 +383,42 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *subtitle = content.subtitle;  // 推送消息的副标题
     NSString *title = content.title;  // 推送消息的标题
     NSLog(@"1111111%@",userInfo);
+    
+    if ([userInfo[@"aps"][@"alert"] isEqualToString:@"您在云案场的公司认证申请未通过"]) {
+        
+        [UserModel defaultModel].project_list = @[];
+        [UserModel defaultModel].projectinfo = @{};
+        [UserModelArchiver archive];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
+    }else if ([userInfo[@"aps"][@"alert"] isEqualToString:@"您在云案场的公司认证申请已通过"]){
+        
+        [BaseRequest GET:@"saleApp/work/project/list" parameters:nil success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [UserModel defaultModel].project_list = resposeObject[@"data"];
+                if ([resposeObject[@"data"] count]) {
+                    
+                    [UserModel defaultModel].projectinfo = resposeObject[@"data"][0];
+                    [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+                        if ([result isEqualToString:@"获取权限成功"]) {
+                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
+                        }
+                    } failure:^(NSString * _Nonnull error) {
+                        
+                    }];
+                    [UserModelArchiver archive];
+                }
+            }else{
+                
+                [MBProgressHUD showError:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [MBProgressHUD showError:@"获取项目失败"];
+        }];
+    }
     
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];

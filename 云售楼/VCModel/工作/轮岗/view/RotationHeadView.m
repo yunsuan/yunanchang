@@ -65,16 +65,22 @@
     _endL.text = [NSString stringWithFormat:@"今日截止时间：%@",dataDic[@"end_time"]];
     
 //    _timeL.text = [NSString stringWithFormat:@"自然下位时间：%@",[_formatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSince1970:[dataDic[@"finish_time"] doubleValue]]]];
-    __block double time = [dataDic[@"finish_time"] doubleValue] - [[NSDate date] timeIntervalSince1970];
+    __block double time = [dataDic[@"finish_time"] doubleValue];
     
-    if (time == 0) {
+    if (time < 1) {
         
         [_timer invalidate];
-        if (self.rotationHeadViewBlock) {
+        if (time == 0) {
             
-            self.rotationHeadViewBlock();
+            if (self.rotationHeadViewBlock) {
+                
+                self.rotationHeadViewBlock();
+            }
         }
+        
+        _timeL.text = [NSString stringWithFormat:@"自然下岗时间：0:0:0"];
     }else{
+        
         
         self->_day =  (int)time /86400;
         self->_hour =(int)time%86400/3600;

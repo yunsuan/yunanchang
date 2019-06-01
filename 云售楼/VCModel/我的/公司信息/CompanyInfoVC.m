@@ -59,8 +59,10 @@
                     
                     [self alertControllerWithNsstring:@"离职成功" And:@"你已离职" WithDefaultBlack:^{
                         
+                        [UserModel defaultModel].project_list = @[];
                         [UserModel defaultModel].projectinfo = @{};
                         [UserModelArchiver archive];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
                         [self.navigationController popViewControllerAnimated:YES];
                     }];
                 }else{

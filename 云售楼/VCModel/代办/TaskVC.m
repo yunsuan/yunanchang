@@ -62,8 +62,20 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"TaskReload" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"recommendReload" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     _dataArr = [@[] mutableCopy];
 //    _dataArr = [[NSMutableArray alloc] initWithArray:@[@"来电客户",@"来访客户",@"推荐客户",@"审核待办",@"财务待办"]];
+}
+
+- (void)ActionNSNotificationMethod{
+    
+    if ([[UserModel defaultModel].projectinfo count]) {
+        
+        _table.hidden = NO;
+    }else{
+        
+        _table.hidden = YES;
+    }
 }
 
 - (void)RequestMethod{
