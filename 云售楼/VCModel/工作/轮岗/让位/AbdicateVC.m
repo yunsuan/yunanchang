@@ -37,7 +37,7 @@
             NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
             [listArr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                
-                if ([[NSString stringWithFormat:@"%@",obj[@"duty_agent_id"]] isEqualToString:[NSString stringWithFormat:@"%@",self->_dataDic[@"duty"][@"duty_agent_id"]]]) {
+                if ([[NSString stringWithFormat:@"%@",obj[@"tel"]] isEqualToString:[NSString stringWithFormat:@"%@",self->_dataDic[@"duty"][@"agent_tel"]]]) {
                     
                     [listArr removeObjectAtIndex:idx];
                     *stop = YES;

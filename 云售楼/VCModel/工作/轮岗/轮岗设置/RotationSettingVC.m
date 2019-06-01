@@ -74,6 +74,25 @@
     
 }
 
+- (void)RequestMethod{
+    
+    [BaseRequest GET:DutyDetail_URL parameters:@{@"project_id":_project_id, @"type":@"0"} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            _dataDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"]];
+            companyArr = [NSMutableArray arrayWithArray:_dataDic[@"person"]];
+            [_SettingTable reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
 - (void)initUI{
     
     self.titleLabel.text = @"轮岗设置";
@@ -314,8 +333,41 @@
 
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     return  UITableViewCellEditingStyleNone;
+}
 
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    
+    NSLog(@"%@",sourceIndexPath);
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->companyArr[sourceIndexPath.section]];
+    NSMutableArray *list = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
+    [BaseRequest POST:DutyAgentUpdate_URL parameters:@{@"duty_agent_id":self->companyArr[sourceIndexPath.section][@"list"][sourceIndexPath.row][@"duty_agent_id"],@"sort":[NSString stringWithFormat:@"%ld",destinationIndexPath.row + 1]} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if (self.rotationSettingVCBlock) {
+                
+                self.rotationSettingVCBlock();
+            }
+            [list exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+            [tempDic setObject:list forKey:@"list"];
+            [self->companyArr replaceObjectAtIndex:sourceIndexPath.section withObject:tempDic];
+//            [self RequestMethod];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+            [tableView reloadData];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -518,7 +570,7 @@
         _SettingTable.dataSource = self;
         _SettingTable.backgroundColor = CLWhiteColor;
         _SettingTable.tableHeaderView = self.TableHeader;
-//        _SettingTable.editing = YES;
+        _SettingTable.editing = YES;
         [_SettingTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     }
     return _SettingTable;

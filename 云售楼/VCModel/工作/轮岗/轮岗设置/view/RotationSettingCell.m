@@ -59,7 +59,7 @@
     [self addSubview:_phoneL];
     
     _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _deleteBtn.frame = CGRectMake(220*SIZE, 40*SIZE, 60*SIZE, 23*SIZE);
+    _deleteBtn.frame = CGRectMake(240*SIZE, 40*SIZE, 60*SIZE, 23*SIZE);
     _deleteBtn.backgroundColor = COLOR(232, 78, 78, 1);
     [_deleteBtn setTitle:@"移除" forState:UIControlStateNormal];
     [_deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -70,7 +70,7 @@
     [self addSubview:_deleteBtn];
     
     _sleepBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _sleepBtn.frame = CGRectMake(290*SIZE, 40*SIZE, 60*SIZE, 23*SIZE);
+    _sleepBtn.frame = CGRectMake(240*SIZE, 10*SIZE, 60*SIZE, 23*SIZE);
     _sleepBtn.backgroundColor = COLOR(27, 152, 255, 1);
     [_sleepBtn setTitle:@"休息" forState:UIControlStateNormal];
     [_sleepBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

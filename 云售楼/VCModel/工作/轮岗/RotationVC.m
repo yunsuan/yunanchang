@@ -113,13 +113,42 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    RotationSettingVC *next_vc = [[RotationSettingVC alloc]initWithData:_dataDic];
-    next_vc.project_id = _project_id;
-    next_vc.rotationSettingVCBlock = ^{
+    [BaseRequest GET:DutyDetail_URL parameters:@{@"project_id":_project_id, @"type":@"0"} success:^(id  _Nonnull resposeObject) {
         
-        [self RequestMethod];
-    };
-    [self.navigationController pushViewController:next_vc animated:YES];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            NSMutableDictionary *nextDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"]];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:nextDic[@"person"]];
+            for (int a = 0; a < tempArr.count; a++) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[a]];
+                NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
+                //                NSDictionary *dic;
+                listArr = [listArr sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                    
+                    return [[NSNumber numberWithInteger:[obj1[@"duty_sort"] integerValue]] compare:[NSNumber numberWithInteger:[obj2[@"duty_sort"] integerValue]]];
+                    
+                }];
+                
+                [tempDic setObject:listArr forKey:@"list"];
+                [tempArr replaceObjectAtIndex:a withObject:tempDic];
+            }
+            [nextDic setObject:tempArr forKey:@"person"];
+            RotationSettingVC *next_vc = [[RotationSettingVC alloc]initWithData:nextDic];
+            next_vc.project_id = _project_id;
+            next_vc.rotationSettingVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:next_vc animated:YES];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 -(void)action_comple
@@ -171,22 +200,22 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
 
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"person"]];
-            for (int a = 0; a < tempArr.count; a++) {
-
-                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[a]];
-                NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
-//                NSDictionary *dic;
-                listArr = [listArr sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-
-                    return [[NSNumber numberWithInteger:[obj1[@"duty_sort"] integerValue]] compare:[NSNumber numberWithInteger:[obj2[@"duty_sort"] integerValue]]];
-
-                }];
-
-                [tempDic setObject:listArr forKey:@"list"];
-                [tempArr replaceObjectAtIndex:a withObject:tempDic];
-            }
-            [self->_dataDic setObject:tempArr forKey:@"person"];
+//            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"person"]];
+//            for (int a = 0; a < tempArr.count; a++) {
+//
+//                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[a]];
+//                NSMutableArray *listArr = [[NSMutableArray alloc] initWithArray:tempDic[@"list"]];
+////                NSDictionary *dic;
+//                listArr = [listArr sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+//
+//                    return [[NSNumber numberWithInteger:[obj1[@"duty_sort"] integerValue]] compare:[NSNumber numberWithInteger:[obj2[@"duty_sort"] integerValue]]];
+//
+//                }];
+//
+//                [tempDic setObject:listArr forKey:@"list"];
+//                [tempArr replaceObjectAtIndex:a withObject:tempDic];
+//            }
+//            [self->_dataDic setObject:tempArr forKey:@"person"];
             [self->_rotationCV reloadData];
         }else{
 
