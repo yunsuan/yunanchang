@@ -327,7 +327,10 @@
         }
     }else{
         
-        textField.text = @"59";
+        if ([textField.text integerValue] > 59) {
+            
+            textField.text = @"59";
+        }
     }
 }
 

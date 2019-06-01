@@ -8,6 +8,21 @@
 
 #import "RotationHeadView.h"
 
+@interface RotationHeadView ()
+
+{
+    
+    NSTimer *_timer;
+    NSDateFormatter *_formatter;
+}
+
+@property (nonatomic , assign)  NSInteger day;
+@property (nonatomic , assign)  NSInteger hour;
+@property (nonatomic , assign)  NSInteger min;
+@property (nonatomic , assign)  NSInteger sec;
+
+@end
+
 @implementation RotationHeadView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -15,6 +30,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         
+        _timer = [[NSTimer alloc] init];
+        _formatter = [[NSDateFormatter alloc] init];
+        [_formatter setDateFormat:@"HH:mm:ss"];
         [self initUI];
     }
     return self;
@@ -46,7 +64,33 @@
     _beginL.text = [NSString stringWithFormat:@"今日开始时间：%@",dataDic[@"start_time"]];
     _endL.text = [NSString stringWithFormat:@"今日截止时间：%@",dataDic[@"end_time"]];
     
-    _timeL.text = [NSString stringWithFormat:@"自然下位时间：%@",dataDic[@"exchange_time_min"]];
+//    _timeL.text = [NSString stringWithFormat:@"自然下位时间：%@",[_formatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSince1970:[dataDic[@"finish_time"] doubleValue]]]];
+    __block double time = [dataDic[@"finish_time"] doubleValue] - [[NSDate date] timeIntervalSince1970];
+    
+    if (time == 0) {
+        
+        [_timer invalidate];
+        if (self.rotationHeadViewBlock) {
+            
+            self.rotationHeadViewBlock();
+        }
+    }else{
+        
+        self->_day =  (int)time /86400;
+        self->_hour =(int)time%86400/3600;
+        self->_min = (int)time%86400%3600/60;
+        self->_sec = (int)time%86400%3600%60;
+        //     修改倒计时标签及显示内容
+        
+        _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+        if (!_timer) {
+            
+            _timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(timerUpdate) userInfo:nil repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+            [_timer fire];
+        }
+    }
+    
     if (dataDic[@"agent_tel"]) {
         
         if ([dataDic[@"agent_tel"] isEqualToString:[UserInfoModel defaultModel].tel]) {
@@ -59,6 +103,57 @@
     }else{
         
         _compleBtn.hidden = YES;
+    }
+}
+
+-(void)timerUpdate
+{
+    if (_sec >0) {
+        _sec--;
+        _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+    }
+    else
+    {
+        if (_min > 0) {
+            _min--;
+            _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+            _sec = 59;
+            _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+        }
+        else{
+            if (_hour > 0) {
+                _hour--;
+                _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+                _min = 59;
+                _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+                _sec = 59;
+                _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+            }
+            else
+            {
+                if (_day > 0) {
+                    _day--;
+                    _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+                    _hour= 23;
+                    _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+                    _min = 59;
+                    _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+                    _sec = 59;
+                    _timeL.text = [NSString stringWithFormat:@"自然下岗时间：%ld:%ld:%ld",(long)_hour,(long)_min,(long)_sec];
+                }
+                else
+                {
+                    
+                    [_timer invalidate];
+                    _timer = nil;
+                    if (self.rotationHeadViewBlock) {
+                        
+                        self.rotationHeadViewBlock();
+                    }
+                }
+            }
+            
+        }
     }
 }
 
@@ -109,7 +204,7 @@
     _titleL.textColor = CLTitleLabColor;
     [self addSubview:_titleL];
     
-    _timeL = [[UILabel alloc]initWithFrame:CGRectMake(123*SIZE, 92*SIZE, 140*SIZE, 14*SIZE)];
+    _timeL = [[UILabel alloc]initWithFrame:CGRectMake(120*SIZE, 92*SIZE, 140*SIZE, 14*SIZE)];
 //    _timeL.text = @"自然下位时间：11:30:33";
     _timeL.font = FONT(13);
     _timeL.textColor = CLBlueBtnColor;

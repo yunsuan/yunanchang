@@ -279,6 +279,10 @@
         }
         [header.compleBtn addTarget:self action:@selector(action_comple) forControlEvents:UIControlEventTouchUpInside];
         header.dataDic = _dataDic[@"duty"];
+        header.rotationHeadViewBlock = ^{
+            
+            [self RequestMethod];
+        };
         header.companyL.text = [NSString stringWithFormat:@"%@",_dataDic[@"person"][indexPath.section][@"company_name"]];
         return header;
     }
