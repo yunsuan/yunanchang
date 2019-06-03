@@ -24,6 +24,8 @@ typedef void(^FollowRecordVCBlock)(void);
 
 @property (nonatomic, strong) NSString *status;
 
+@property (nonatomic, strong) NSString *visit_id;
+
 - (instancetype)initWithGroupId:(NSString *)groupId;
 
 @end

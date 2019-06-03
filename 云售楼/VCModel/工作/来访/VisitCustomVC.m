@@ -250,6 +250,7 @@
                         vc.followDic = [@{} mutableCopy];
                         vc.status = @"direct";
                         vc.info_id = self->_info_id;
+                        vc.visit_id = self->_visitDic[@"visit_id"];
                         vc.allDic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":self->_projectId}];
                         vc.followRecordVCBlock = ^{
                             

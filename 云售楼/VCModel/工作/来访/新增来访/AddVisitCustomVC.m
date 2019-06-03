@@ -617,7 +617,10 @@
         
         [allDic setObject:_approachBtn2->str forKey:@"listen_way_detail"];
     }
-    //    IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithPropertyId:_property_id];
+    if (self.visit_id.length) {
+        
+        [allDic setObject:self.visit_id forKey:@"visit_id"];
+    }
     IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:_propertyDArr];
     nextVC.allDic = [[NSMutableDictionary alloc] initWithDictionary:allDic];
     nextVC.info_id = _info_id;
