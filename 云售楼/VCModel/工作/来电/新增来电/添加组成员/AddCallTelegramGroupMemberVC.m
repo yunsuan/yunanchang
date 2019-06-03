@@ -158,6 +158,23 @@
                 self->_certTypeBtn.content.text = [NSString stringWithFormat:@"%@",MC];
                 self->_certTypeBtn->str = [NSString stringWithFormat:@"%@",ID];
                 self->_certTypeBtn.placeL.text = @"";
+                if ([self->_certTypeBtn.content.text containsString:@"身份证"]) {
+                    
+                    if (self->_certNumTF.textField.text.length) {
+                        
+                        if ([self validateIDCardNumber:self->_certNumTF.textField.text]) {
+                            
+                            self->_birthBtn.placeL.text = @"";
+                            self->_birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                        }else{
+                            
+                            [self showContent:@"请输入正确的身份证号"];
+                        }
+                    }else{
+                        
+                        [self showContent:@"请输入正确的身份证号"];
+                    }
+                }
             };
             [self.view addSubview:view];
             break;
@@ -248,6 +265,29 @@
         
         [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
         return;
+    }
+    
+    if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
+        
+        if ([_certTypeBtn.content.text containsString:@"身份证"]) {
+            
+            if (_certNumTF.textField.text.length) {
+                
+                if ([self validateIDCardNumber:_certNumTF.textField.text]) {
+                    
+                    _birthBtn.placeL.text = @"";
+                    _birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                }else{
+                    
+                    [self showContent:@"请输入正确的身份证号"];
+                    return;
+                }
+            }else{
+                
+                [self showContent:@"请输入正确的身份证号"];
+                return;
+            }
+        }
     }
     
     if ([_configDic[@"birth"] integerValue] == 1) {
@@ -367,45 +407,67 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
-    if (([_phoneTF.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF.textField.text.length && _phoneTF2.textField.text.length)) {
+    if (textField == _certNumTF.textField){
         
-        [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+        if ([_certTypeBtn.content.text containsString:@"身份证"]) {
             
-            self->_phoneTF2.textField.text = @"";
-        }];
-        return;
-    }else if (([_phoneTF.textField.text isEqualToString:_phoneTF3.textField.text] && _phoneTF.textField.text.length && _phoneTF3.textField.text.length)){
-        
-        [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
-            
-            self->_phoneTF3.textField.text = @"";
-        }];
-        return;
-    }else if (([_phoneTF3.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF3.textField.text.length && _phoneTF2.textField.text.length)){
-        
-        [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
-            
-            self->_phoneTF3.textField.text = @"";
-        }];
-        return;
-    }
-    
-    [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 400) {
-            
-            [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
+            if (_certNumTF.textField.text.length) {
                 
-                textField.text = @"";
-            }];
-        }else{
-            
-            
+                if ([self validateIDCardNumber:_certNumTF.textField.text]) {
+                    
+                    _birthBtn.placeL.text = @"";
+                    _birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                }else{
+                    
+                    [self showContent:@"请输入正确的身份证号"];
+                }
+            }else{
+                
+                [self showContent:@"请输入正确的身份证号"];
+            }
         }
-    } failure:^(NSError * _Nonnull error) {
+    }else{
         
-        //            self
-    }];
+        if (([_phoneTF.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF.textField.text.length && _phoneTF2.textField.text.length)) {
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF2.textField.text = @"";
+            }];
+            return;
+        }else if (([_phoneTF.textField.text isEqualToString:_phoneTF3.textField.text] && _phoneTF.textField.text.length && _phoneTF3.textField.text.length)){
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF3.textField.text = @"";
+            }];
+            return;
+        }else if (([_phoneTF3.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF3.textField.text.length && _phoneTF2.textField.text.length)){
+            
+            [self alertControllerWithNsstring:@"号码重复" And:@"请检查号码" WithDefaultBlack:^{
+                
+                self->_phoneTF3.textField.text = @"";
+            }];
+            return;
+        }
+        
+        [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 400) {
+                
+                [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
+                    
+                    textField.text = @"";
+                }];
+            }else{
+                
+                
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            //            self
+        }];
+    }
 }
 
 - (void)initUI{
@@ -497,7 +559,8 @@
             {
                 _certNumTF = tf;
                 _certNumTF.textField.placeholder = @"请输入证件号";
-                _certNumTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+                _certNumTF.textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+                _certNumTF.textField.delegate = self;
                 [_scrollView addSubview:_certNumTF];
                 break;
             }

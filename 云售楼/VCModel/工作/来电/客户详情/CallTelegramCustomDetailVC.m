@@ -394,10 +394,7 @@
                 
                 header.headImg.image = IMAGE_WITH_NAME(@"nvtouxiang");
             }
-            if (self->_index == 0) {
-                
-                [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-            }
+            [tableView reloadData];
         };
         
         header.callTelegramCustomDetailHeaderAddBlock = ^(NSInteger index) {
@@ -570,7 +567,8 @@
                 NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",tempDic[@"name"]],[NSString stringWithFormat:@"联系电话：%@",tempDic[@"tel"]],[NSString stringWithFormat:@"证件类型：%@",tempDic[@"card_type"]],[NSString stringWithFormat:@"证件号：%@",tempDic[@"card_num"]],[NSString stringWithFormat:@"邮政编码：%@",tempDic[@"mail_code"]],[NSString stringWithFormat:@"通讯地址：%@",tempDic[@"address"]],[NSString stringWithFormat:@"出生日期：%@",tempDic[@"birth"]],[NSString stringWithFormat:@"备注：%@",tempDic[@"comment"]]];
                 [self->_infoDataArr replaceObjectAtIndex:self->_num withObject:arr];
                 
-                [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+                [tableView reloadData];
+//                [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
                 if (self.callTelegramCustomDetailModifyBlock) {
                     
                     self.callTelegramCustomDetailModifyBlock();

@@ -72,9 +72,12 @@
         [_timer invalidate];
         if (time == 0) {
             
-            if (self.rotationHeadViewBlock) {
+            if (dataDic[@"agent_name"]) {
                 
-                self.rotationHeadViewBlock();
+                if (self.rotationHeadViewBlock) {
+                    
+                    self.rotationHeadViewBlock();
+                }
             }
         }
         

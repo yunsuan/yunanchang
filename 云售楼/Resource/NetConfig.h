@@ -74,6 +74,8 @@ static NSString *const ProjectHouseGetDetailInfo_URL =  @"/saleApp/project/house
 //统计
 static NSString *const WorkCount_URL = @"saleApp/work/count";
 
+
+
 #pragma mark -- 来电 --
 
 //来电来访列表
@@ -333,6 +335,12 @@ static NSString *const CompanyAuthCancel_URL = @"saleApp/company/auth/cancel";
 static NSString *const PersonalChangeProjectRole_URL = @"saleApp/user/personal/changeProjectRole";
 
 #pragma mark === 轮岗 =====
+
+//获取待处理轮岗信息列表
+static NSString *const ProjectDutyVisitLog_URL = @"saleApp/project/duty/visit/log";
+
+//获取渠道分配客户
+static NSString *const WorkClientRecommendList_URL = @"saleApp/work/client/recommend/list";
 
 //开始轮岗
 static NSString *const DutyStartURL = @"saleApp/project/duty/start";

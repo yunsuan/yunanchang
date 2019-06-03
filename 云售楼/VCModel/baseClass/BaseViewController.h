@@ -115,7 +115,15 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
  */
 - (BOOL)validateIDCardNumber:(NSString *)value;
 
+/**
+ *  截取身份证的出生日期并转换为日期格式
+ */
 - (NSString *)subsIDStrToDate:(NSString *)str;
+
+/**
+ *  身份证号辨别男女
+ */
+- (NSInteger)genderOfIDNumber:(NSString *)IDNumber;
 
 - (void)showContent:(NSString *)str;
 

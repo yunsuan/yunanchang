@@ -135,7 +135,7 @@
             }
             [nextDic setObject:tempArr forKey:@"person"];
             RotationSettingVC *next_vc = [[RotationSettingVC alloc]initWithData:nextDic];
-            next_vc.project_id = _project_id;
+            next_vc.project_id = self->_project_id;
             next_vc.rotationSettingVCBlock = ^{
                 
                 [self RequestMethod];
@@ -344,6 +344,9 @@
     if (self.status == 1) {
         
         self.rightBtn.hidden = NO;
+    }else{
+        
+        self.rightBtn.hidden = YES;
     }
     self.rightBtn.center = CGPointMake(SCREEN_Width - 20 * SIZE, STATUS_BAR_HEIGHT + 20);
     self.rightBtn.bounds = CGRectMake(0, 0, 40 * SIZE, 33 * SIZE);

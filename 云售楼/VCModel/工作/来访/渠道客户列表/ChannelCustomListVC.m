@@ -1,25 +1,24 @@
 //
-//  CallTelegramVC.m
+//  ChannelCustomListVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/4/15.
+//  Created by 谷治墙 on 2019/6/3.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "CallTelegramVC.h"
-
-#import "CallTelegramCustomDetailVC.h"
-#import "AddCallTelegramVC.h"
+#import "ChannelCustomListVC.h"
 
 #import "CallTelegramCell.h"
 
-@interface CallTelegramVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface ChannelCustomListVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
     
-    NSMutableArray *_dataArr;
+    NSInteger _page;
+    
     NSString *_projectId;
     NSString *_info_id;
-    NSInteger _page;
+    
+    NSMutableArray *_dataArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -28,7 +27,7 @@
 
 @end
 
-@implementation CallTelegramVC
+@implementation ChannelCustomListVC
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id
 {
@@ -46,28 +45,27 @@
     
     [self initDataSource];
     [self initUI];
-    if ([self.powerDic[@"detail"] boolValue]) {
-        
-        [self RequestMethod];
-    }
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"reloadCall" object:nil];
+    
     _page = 1;
     _dataArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
     
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"project_id":_projectId}];
+    
+
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_projectId}];
     self->_table.mj_footer.state = MJRefreshStateIdle;
     if (![self isEmpty:_searchBar.text]) {
         
         [dic setObject:_searchBar.text forKey:@"search"];
     }
-    [BaseRequest GET:WorkClientAutoList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:WorkClientRecommendList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
         [self->_dataArr removeAllObjects];
@@ -88,19 +86,18 @@
         }
     } failure:^(NSError * _Nonnull error) {
         
-        [self->_table.mj_header endRefreshing];
         [self showContent:@"网络错误"];
     }];
 }
 
 - (void)RequestAddMethod{
     
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"project_id":_projectId,@"page":@(_page)}];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_projectId,@"page":@(_page)}];
     if (![self isEmpty:_searchBar.text]) {
         
         [dic setObject:_searchBar.text forKey:@"search"];
     }
-    [BaseRequest GET:WorkClientAutoList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:WorkClientRecommendList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -144,15 +141,6 @@
     [_table reloadData];
 }
 
-- (void)ActionRightBtn:(UIButton *)btn{
-    
-    AddCallTelegramVC *nextVC = [[AddCallTelegramVC alloc] initWithProjectId:_projectId info_id:_info_id];
-    nextVC.addCallTelegramVCBlock = ^{
-      
-        [self RequestMethod];
-    };
-    [self.navigationController pushViewController:nextVC animated:YES];
-}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
@@ -181,12 +169,12 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-
+    
     return [[UIView alloc] init];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-
+    
     return [[UIView alloc] init];
 }
 
@@ -201,50 +189,22 @@
     
     cell.dataDic = _dataArr[indexPath.section];;
     
-    if ([_dataArr[indexPath.section][@"sex"] integerValue] == 1) {
-        
-        cell.headImg.image = IMAGE_WITH_NAME(@"nantouxiang");
-    }else{
-        
-        cell.headImg.image = IMAGE_WITH_NAME(@"nvtouxiang");
-    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
-    nextVC.project_id = _projectId;
-    nextVC.info_id = _info_id;
-    nextVC.name = @"";//_dataArr[indexPath.row][@"agent_name"];
-    if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
+    if (self.channelCustomListVCBlock) {
         
-        nextVC.powerDic = self.powerDic;
-    }else{
-        
-        nextVC.powerDic = @{};
+        self.channelCustomListVCBlock(_dataArr[indexPath.section]);
     }
-    
-    nextVC.callTelegramCustomDetailModifyBlock = ^{
-      
-        [self RequestMethod];
-    };
-    
-    [self.navigationController pushViewController:nextVC animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)initUI{
     
-    self.titleLabel.text = @"来电";
-    if ([self.powerDic[@"add"] boolValue]) {
-        
-        self.rightBtn.hidden = NO;
-    }else{
-        
-        self.rightBtn.hidden = YES;
-    }
-    [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_3") forState:UIControlStateNormal];
-    [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    self.titleLabel.text = @"来访";
+    self.rightBtn.hidden = NO;
     
     self.line.hidden = YES;
     
@@ -282,7 +242,7 @@
     [self.view addSubview:_table];
     
     _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
-       
+        
         self->_page = 1;
         [self RequestMethod];
     }];

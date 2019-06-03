@@ -224,6 +224,35 @@
     return result;
 }
 
+//身份证号辨别男女
+- (NSInteger)genderOfIDNumber:(NSString *)IDNumber
+{
+    //  记录校验结果：0未知，1男，2女
+    NSInteger result = 0;
+    NSString *fontNumer = nil;
+    
+    if (IDNumber.length == 15)
+    { // 15位身份证号码：第15位代表性别，奇数为男，偶数为女。
+        fontNumer = [IDNumber substringWithRange:NSMakeRange(14, 1)];
+        
+    }else if (IDNumber.length == 18)
+    { // 18位身份证号码：第17位代表性别，奇数为男，偶数为女。
+        fontNumer = [IDNumber substringWithRange:NSMakeRange(16, 1)];
+    }else
+    { //  不是15位也不是18位，则不是正常的身份证号码，直接返回
+        return result;
+    }
+    
+    NSInteger genderNumber = [fontNumer integerValue];
+    
+    if(genderNumber % 2 == 1)
+        result = 1;
+    
+    else if (genderNumber % 2 == 0)
+        result = 2;
+    return result;
+}
+
 - (void)showContent:(NSString *)str {
     
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

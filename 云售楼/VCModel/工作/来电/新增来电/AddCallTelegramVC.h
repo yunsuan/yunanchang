@@ -10,8 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddCallTelegramVCBlock)(void);
 
 @interface AddCallTelegramVC : BaseViewController
+
+@property (nonatomic, copy) AddCallTelegramVCBlock addCallTelegramVCBlock;
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 

@@ -10,7 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddVisitCustomVCBlock)(void);
+
 @interface AddVisitCustomVC : BaseViewController
+
+@property (nonatomic, copy) AddVisitCustomVCBlock addVisitCustomVCBlock;
+
+@property (nonatomic, strong) NSString *visit_id;
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 
