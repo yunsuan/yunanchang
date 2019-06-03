@@ -320,16 +320,30 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
     if (textField == _upTF.textField) {
-        
-        if ([textField.text integerValue] > 59) {
+
+        if (![_downTF.textField.text integerValue]) {
             
-            textField.text = @"59";
+            textField.text = @"";
+            [self showContent:@"请先设置下位时间"];
+        }else{
+            
+            if ([_downTF.textField.text integerValue] < [textField.text integerValue]) {
+                
+                textField.text = @"";
+                [self showContent:@"提醒时间应该小于下位时间"];
+            }else{
+                
+                if ([textField.text integerValue] > 599) {
+                    
+                    textField.text = @"599";
+                }
+            }
         }
     }else{
-        
-        if ([textField.text integerValue] > 59) {
+
+        if ([textField.text integerValue] > 600) {
             
-            textField.text = @"59";
+            textField.text = @"600";
         }
     }
 }

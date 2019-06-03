@@ -252,13 +252,10 @@
         return;
     }
     
-    if ([_configDic[@"sex"] integerValue] == 1) {
+    if (!_gender.length) {
         
-        if (!_gender.length) {
-            
-            [self alertControllerWithNsstring:@"必填信息" And:@"请选择性别"];
-            return;
-        }
+        [self alertControllerWithNsstring:@"必填信息" And:@"请选择性别"];
+        return;
     }
    
     if ([self isEmpty:_phoneTF.textField.text]) {
@@ -607,12 +604,9 @@
             {
 
                 _nameL = label;
-                if ([_configDic[@"name"] integerValue] == 1) {
-                    
-                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_nameL.text]];
-                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
-                    _nameL.attributedText = attr;
-                }
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_nameL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _nameL.attributedText = attr;
                 [_scrollView addSubview:_nameL];
                 break;
             }
@@ -620,12 +614,9 @@
             case 1:
             {
                 _genderL = label;
-                if ([_configDic[@"sex"] integerValue] == 1) {
-                    
-                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_genderL.text]];
-                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
-                    _genderL.attributedText = attr;
-                }
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_genderL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _genderL.attributedText = attr;
                 [_scrollView addSubview:_genderL];
                 break;
             }
@@ -633,12 +624,9 @@
             case 2:
             {
                 _phoneL = label;
-                if ([_configDic[@"tel"] integerValue] == 1) {
-                    
-                    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_phoneL.text]];
-                    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
-                    _phoneL.attributedText = attr;
-                }
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_phoneL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _phoneL.attributedText = attr;
                 [_scrollView addSubview:_phoneL];
                 break;
             }
