@@ -482,7 +482,7 @@
             
                 [self RequestQueueMethod:^{
 
-                    if (self->_num == self->_lastArr.count - 1) {
+                    if (self->_num == self->_lastArr.count) {
 
                         if (self.intentSurveyVCBlock) {
 
