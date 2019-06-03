@@ -26,6 +26,8 @@
 		0C2A7011226D95C100571EC1 /* IntentSurveyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7010226D95C100571EC1 /* IntentSurveyVC.m */; };
 		0C2A7015226D9A7200571EC1 /* GZQFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7014226D9A7200571EC1 /* GZQFlowLayout.m */; };
 		0C2A701A226D9E2600571EC1 /* IntentSurveyCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7019226D9E2600571EC1 /* IntentSurveyCollCell.m */; };
+		0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C310E3822A4F80300083504 /* ARotationFollowCell.m */; };
+		0C310E3D22A5050B00083504 /* VisitCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C310E3C22A5050B00083504 /* VisitCustomCell.m */; };
 		0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9115225B20C400F04804 /* AppDelegate.m */; };
 		0C3A9119225B20C400F04804 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9118225B20C400F04804 /* ViewController.m */; };
 		0C3A911C225B20C400F04804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3A911A225B20C400F04804 /* Main.storyboard */; };
@@ -257,6 +259,10 @@
 		0C2A7014226D9A7200571EC1 /* GZQFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZQFlowLayout.m; sourceTree = "<group>"; };
 		0C2A7018226D9E2600571EC1 /* IntentSurveyCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentSurveyCollCell.h; sourceTree = "<group>"; };
 		0C2A7019226D9E2600571EC1 /* IntentSurveyCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentSurveyCollCell.m; sourceTree = "<group>"; };
+		0C310E3722A4F80300083504 /* ARotationFollowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARotationFollowCell.h; sourceTree = "<group>"; };
+		0C310E3822A4F80300083504 /* ARotationFollowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARotationFollowCell.m; sourceTree = "<group>"; };
+		0C310E3B22A5050B00083504 /* VisitCustomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomCell.h; sourceTree = "<group>"; };
+		0C310E3C22A5050B00083504 /* VisitCustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomCell.m; sourceTree = "<group>"; };
 		0C3A9111225B20C400F04804 /* 云售楼.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "云售楼.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3A9114225B20C400F04804 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0C3A9115225B20C400F04804 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -814,6 +820,31 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		0C310E3322A4F66900083504 /* 签约 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "签约";
+			sourceTree = "<group>";
+		};
+		0C310E3622A4F7EF00083504 /* A位跟进 */ = {
+			isa = PBXGroup;
+			children = (
+				0C310E3722A4F80300083504 /* ARotationFollowCell.h */,
+				0C310E3822A4F80300083504 /* ARotationFollowCell.m */,
+			);
+			path = "A位跟进";
+			sourceTree = "<group>";
+		};
+		0C310E3A22A504F600083504 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C310E3B22A5050B00083504 /* VisitCustomCell.h */,
+				0C310E3C22A5050B00083504 /* VisitCustomCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0C3A9108225B20C400F04804 = {
 			isa = PBXGroup;
 			children = (
@@ -1007,6 +1038,7 @@
 		0C3A9161225B372D00F04804 /* 工作 */ = {
 			isa = PBXGroup;
 			children = (
+				0C310E3322A4F66900083504 /* 签约 */,
 				10BC3A3D228FEA2100DAB2D8 /* 轮岗 */,
 				0CF1A2EC228D15D2001C77CF /* 来访 */,
 				0CD0436B228033CE002C8BD3 /* 收款 */,
@@ -1756,6 +1788,7 @@
 		0CEF89E6225C80670057F3FD /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				0C310E3622A4F7EF00083504 /* A位跟进 */,
 				0C221A57227EB0EF006B0510 /* 签约审核 */,
 				0C221A53227EB05D006B0510 /* 到访确认 */,
 				0C221A4B227EAC2F006B0510 /* 带看确认 */,
@@ -2209,6 +2242,7 @@
 		0CF1A2EC228D15D2001C77CF /* 来访 */ = {
 			isa = PBXGroup;
 			children = (
+				0C310E3A22A504F600083504 /* view */,
 				0CF1A2FA228D8225001C77CF /* 客户详情 */,
 				0CF1A2FB228D8226001C77CF /* 新增来访 */,
 				0CF1A2ED228D15E6001C77CF /* VisitCustomVC.h */,
@@ -2650,6 +2684,7 @@
 				0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */,
 				10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
+				0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
 				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
 				10EF17AE2292AE3400DE5566 /* AddCompanyVC.m in Sources */,
@@ -2783,6 +2818,7 @@
 				0C221A7B227EED67006B0510 /* WorkPhoneConfrimWaitVC.m in Sources */,
 				0CEF89FB225C886F0057F3FD /* NumeralAuditVC.m in Sources */,
 				0CD043DE2283BC05002C8BD3 /* GetCaptchaView.m in Sources */,
+				0C310E3D22A5050B00083504 /* VisitCustomCell.m in Sources */,
 				0C3A9119225B20C400F04804 /* ViewController.m in Sources */,
 				0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */,
 				0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */,

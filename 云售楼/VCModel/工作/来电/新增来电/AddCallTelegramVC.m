@@ -262,6 +262,23 @@
                 self->_certTypeBtn.content.text = [NSString stringWithFormat:@"%@",MC];
                 self->_certTypeBtn->str = [NSString stringWithFormat:@"%@",ID];
                 self->_certTypeBtn.placeL.text = @"";
+                if ([self->_certTypeBtn.content.text containsString:@"身份证"]) {
+                    
+                    if (self->_certNumTF.textField.text.length) {
+                        
+                        if ([self validateIDCardNumber:self->_certNumTF.textField.text]) {
+                            
+                            self->_birthBtn.placeL.text = @"";
+                            self->_birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                        }else{
+                            
+                            [self showContent:@"请输入正确的身份证号"];
+                        }
+                    }else{
+                        
+                        [self showContent:@"请输入正确的身份证号"];
+                    }
+                }
             };
             [self.view addSubview:view];
             break;
@@ -486,6 +503,29 @@
             return;
         }
     }
+    
+    if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
+        
+        if ([_certTypeBtn.content.text containsString:@"身份证"]) {
+            
+            if (_certNumTF.textField.text.length) {
+                
+                if ([self validateIDCardNumber:_certNumTF.textField.text]) {
+                    
+                    _birthBtn.placeL.text = @"";
+                    _birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                }else{
+                    
+                    [self showContent:@"请输入正确的身份证号"];
+                    return;
+                }
+            }else{
+                
+                [self showContent:@"请输入正确的身份证号"];
+                return;
+            }
+        }
+    }
 
     if ([_configDic[@"birth"] integerValue] == 1) {
 
@@ -567,6 +607,7 @@
 
         [tempDic setObject:_certTypeBtn.content.text forKey:@"card_type"];
         [tempDic setObject:_certNumTF.textField.text forKey:@"card_num"];
+        
     }else{
         
         [tempDic setObject:@"" forKey:@"card_type"];
@@ -656,6 +697,25 @@
             }else{
                 
                 _groupL.text = [NSString stringWithFormat:@"组别成员：%@",textField.text];
+            }
+        }
+    }else if (textField == _certNumTF.textField){
+        
+        if ([_certTypeBtn.content.text containsString:@"身份证"]) {
+            
+            if (_certNumTF.textField.text.length) {
+                
+                if ([self validateIDCardNumber:_certNumTF.textField.text]) {
+                    
+                    _birthBtn.placeL.text = @"";
+                    _birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                }else{
+                    
+                    [self showContent:@"请输入正确的身份证号"];
+                }
+            }else{
+                
+                [self showContent:@"请输入正确的身份证号"];
             }
         }
     }else{
@@ -834,7 +894,8 @@
             {
                 _certNumTF = tf;
                 _certNumTF.textField.placeholder = @"请输入证件号";
-                _certNumTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+                _certNumTF.textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+                _certNumTF.textField.delegate = self;
                 [_scrollView addSubview:_certNumTF];
                 break;
             }

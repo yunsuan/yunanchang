@@ -11,7 +11,10 @@
 #import "VisitCustomDetailVC.h"
 #import "AddVisitCustomVC.h"
 
+
 #import "CallTelegramCell.h"
+#import "VisitCustomCell.h"
+
 
 @interface VisitCustomVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
@@ -187,16 +190,57 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    CallTelegramCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCell"];
-    if (!cell) {
+//    if (indexPath.section == 0) {
+//
+//        VisitCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VisitCustomCell"];
+//        if (!cell) {
+//
+//            cell = [[VisitCustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"VisitCustomCell"];
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//
+//        cell.dataDic = @{};
+//
+//
+//        cell.visitCustomCellBlock = ^{
+//
+//            UIAlertController *source = [UIAlertController alertControllerWithTitle:@"客户来源" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//            UIAlertAction *channel = [UIAlertAction actionWithTitle:@"渠道客户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//            }];
+//
+//            UIAlertAction *visit = [UIAlertAction actionWithTitle:@"自然来访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//            }];
+//
+//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            }];
+//
+//            [source addAction:channel];
+//            [source addAction:visit];
+//            [source addAction:cancel];
+//
+//            [self.navigationController presentViewController:source animated:YES completion:^{
+//
+//            }];
+//        };
+//
+//        return cell;
+//    }else{
+    
+        CallTelegramCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCell"];
+        if (!cell) {
+            
+            cell = [[CallTelegramCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CallTelegramCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell = [[CallTelegramCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CallTelegramCell"];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.dataDic = _dataArr[indexPath.section];;
-    
-    return cell;
+        cell.dataDic = _dataArr[indexPath.section];;
+        
+        return cell;
+//    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
