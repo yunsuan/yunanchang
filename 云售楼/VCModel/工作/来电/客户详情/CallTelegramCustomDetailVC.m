@@ -769,6 +769,10 @@
             vc.followRecordVCBlock = ^{
                 
                 [self RequestMethod];
+                if (self.callTelegramCustomDetailModifyBlock) {
+                    
+                    self.callTelegramCustomDetailModifyBlock();
+                }
             };
             [self.navigationController pushViewController:vc animated:YES];
         }

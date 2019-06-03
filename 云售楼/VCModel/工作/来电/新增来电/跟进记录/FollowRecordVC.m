@@ -161,14 +161,19 @@
                     
                     if ([self.followDic[@"follow_way"] isEqualToString:self->_followArr[i][@"param"]]) {
                         
-                        [self->_followWayColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+//                        [self->_followWayColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+                        self->_followWay = [NSString stringWithFormat:@"%@",self->_followArr[i][@"id"]];
+                        [self->_followSelectArr replaceObjectAtIndex:i withObject:@1];
                     }
                 }
                 for (int i = 0; i < self->_levelArr.count; i++) {
                     
                     if ([self.followDic[@"level"] isEqualToString:self->_levelArr[i][@"config_name"]]) {
                         
-                        [self->_levelColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+                        self->_level = [NSString stringWithFormat:@"%@",self->_levelArr[i][@"config_name"]];
+                        NSDate *newDate = [[NSDate date] dateByAddingTimeInterval:24 * 60 * 60  * [self->_levelArr[i][@"value_time"] integerValue]];
+                        self->_nextTimeBtn.content.text = [NSString stringWithFormat:@"%@", [self->_formatter stringFromDate:newDate]];
+                        [self->_levelSelectArr replaceObjectAtIndex:i withObject:@1];
                     }
                 }
             }
@@ -626,6 +631,13 @@
     _contentView.layer.borderWidth = SIZE;
     _contentView.layer.borderColor = _followPurposeTF.layer.borderColor;
     _contentView.clipsToBounds = YES;
+    if ([self.followDic count]) {
+        
+        if (self.followDic[@"comment"]) {
+            
+            _contentView.text = [NSString stringWithFormat:@"%@",self.followDic[@"comment"]];
+        }
+    }
     _contentView.textContainerInset = UIEdgeInsetsMake(3 *SIZE, 3 *SIZE, 5 *SIZE, 30 *SIZE);
 //    _contentView.backgroundColor = CLLightGrayColor;
     _recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];

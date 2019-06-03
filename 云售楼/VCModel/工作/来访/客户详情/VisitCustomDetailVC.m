@@ -763,6 +763,10 @@
             vc.followRecordVCBlock = ^{
                 
                 [self RequestMethod];
+                if (self.visitCustomDetailModifyBlock) {
+                    
+                    self.visitCustomDetailModifyBlock();
+                }
             };
             [self.navigationController pushViewController:vc animated:YES];
         }
