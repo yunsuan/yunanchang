@@ -823,6 +823,13 @@
         nextVC.allDic = self.allDic;
         nextVC.status = @"add";
         nextVC.info_id = self.info_id;
+        nextVC.followRecordVCBlock = ^{
+            
+            if (self.intentSurveyVCBlock) {
+                
+                self.intentSurveyVCBlock();
+            }
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }

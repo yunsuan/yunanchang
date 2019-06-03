@@ -583,6 +583,7 @@
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
+                        self->_num -= 1;
                         [self RequestMethod];
                     }else{
                         

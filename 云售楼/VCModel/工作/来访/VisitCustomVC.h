@@ -10,8 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^VisitCustomVCBlock)(void);
 
 @interface VisitCustomVC : BaseViewController
+
+@property (nonatomic, copy) VisitCustomVCBlock visitCustomVCBlock;
 
 @property (nonatomic, strong) NSDictionary *powerDic;
 

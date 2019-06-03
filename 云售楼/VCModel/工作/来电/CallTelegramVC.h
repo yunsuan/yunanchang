@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CallTelegramVCBlock)(void);
+
 @interface CallTelegramVC : BaseViewController
+
+@property (nonatomic, copy) CallTelegramVCBlock callTelegramVCBlock;
 
 @property (nonatomic, strong) NSDictionary *powerDic;
 

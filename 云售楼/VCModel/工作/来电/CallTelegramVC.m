@@ -150,6 +150,10 @@
     nextVC.addCallTelegramVCBlock = ^{
       
         [self RequestMethod];
+        if (self.callTelegramVCBlock) {
+            
+            self.callTelegramVCBlock();
+        }
     };
     [self.navigationController pushViewController:nextVC animated:YES];
 }

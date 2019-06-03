@@ -177,6 +177,10 @@
     nextVC.addVisitCustomVCBlock = ^{
         
         [self RequestMethod];
+        if (self.visitCustomVCBlock) {
+            
+            self.visitCustomVCBlock();
+        }
     };
     [self.navigationController pushViewController:nextVC animated:YES];
 }

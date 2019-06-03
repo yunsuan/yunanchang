@@ -240,6 +240,10 @@
         
         CallTelegramVC * nextVC = [[CallTelegramVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         nextVC.powerDic = [PowerModel defaultModel].telCallPower;
+        nextVC.callTelegramVCBlock = ^{
+          
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 1){
         
@@ -253,6 +257,10 @@
         
         VisitCustomVC *nextVC = [[VisitCustomVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         nextVC.powerDic = [PowerModel defaultModel].visitPower;//_powerArr[3];
+        nextVC.visitCustomVCBlock = ^{
+          
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 7){
         
