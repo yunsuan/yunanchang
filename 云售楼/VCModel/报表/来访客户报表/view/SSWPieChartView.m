@@ -1,9 +1,9 @@
 //
-//  SSWPieChartView.m
-//  SSWCharts
+//  SSWPieChartView.h
+//  云售楼
 //
-//  Created by WangShaoShuai on 2018/5/2.
-//  Copyright © 2018年 com.sswang.www. All rights reserved.
+//  Created by 谷治墙 on 2019/6/4.
+//  Copyright © 2019 谷治墙. All rights reserved.
 //
 
 #import "SSWPieChartView.h"

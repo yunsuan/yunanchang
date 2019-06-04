@@ -8,6 +8,7 @@
 
 #import "ReportVC.h"
 #import "VisitCustomReportVC.h"
+#import "ChannelAnalysisVC.h"
 
 #import "PowerMannerger.h"
 
@@ -18,7 +19,7 @@
 @interface ReportVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
-    
+    NSArray *_titleArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -41,7 +42,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+}
+
+- (void)initDataSource{
+    
+    _titleArr = @[@"来访客户分析表",@"渠道分析表"];
 }
 
 
@@ -53,7 +60,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
+    return _titleArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -65,15 +72,22 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.titleL.text = @"123";
+    cell.titleL.text = _titleArr[indexPath.row];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    VisitCustomReportVC *nextVC = [[VisitCustomReportVC alloc] init];
-    [self.navigationController pushViewController:nextVC animated:YES];
+    if (indexPath.row == 0) {
+        
+        VisitCustomReportVC *nextVC = [[VisitCustomReportVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else{
+        
+        ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 - (void)initUI{

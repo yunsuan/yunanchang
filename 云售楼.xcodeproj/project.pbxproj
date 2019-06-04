@@ -22,6 +22,9 @@
 		0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A7D227EED76006B0510 /* WorkPhoneConfrimUseVC.m */; };
 		0C221A81227EED87006B0510 /* WorkPhoneConfrimFailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A80227EED87006B0510 /* WorkPhoneConfrimFailVC.m */; };
 		0C221A85227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A84227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m */; };
+		0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9EC22A667FC00A7CF47 /* ChannelAnalysisVC.m */; };
+		0C26C9F122A669B900A7CF47 /* ChannelAnalysisHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */; };
+		0C26C9F422A66C7000A7CF47 /* SSWMutipleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */; };
 		0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A700D226D8E5C00571EC1 /* BoxSelectCollCell.m */; };
 		0C2A7011226D95C100571EC1 /* IntentSurveyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7010226D95C100571EC1 /* IntentSurveyVC.m */; };
 		0C2A7015226D9A7200571EC1 /* GZQFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7014226D9A7200571EC1 /* GZQFlowLayout.m */; };
@@ -257,6 +260,12 @@
 		0C221A80227EED87006B0510 /* WorkPhoneConfrimFailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimFailVC.m; sourceTree = "<group>"; };
 		0C221A83227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimWaitCell.h; sourceTree = "<group>"; };
 		0C221A84227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimWaitCell.m; sourceTree = "<group>"; };
+		0C26C9EB22A667FC00A7CF47 /* ChannelAnalysisVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisVC.h; sourceTree = "<group>"; };
+		0C26C9EC22A667FC00A7CF47 /* ChannelAnalysisVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisVC.m; sourceTree = "<group>"; };
+		0C26C9EF22A669B900A7CF47 /* ChannelAnalysisHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisHeader.h; sourceTree = "<group>"; };
+		0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisHeader.m; sourceTree = "<group>"; };
+		0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSWMutipleBarChartView.m; sourceTree = "<group>"; };
+		0C26C9F322A66C7000A7CF47 /* SSWMutipleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSWMutipleBarChartView.h; sourceTree = "<group>"; };
 		0C2A700C226D8E5C00571EC1 /* BoxSelectCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxSelectCollCell.h; sourceTree = "<group>"; };
 		0C2A700D226D8E5C00571EC1 /* BoxSelectCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoxSelectCollCell.m; sourceTree = "<group>"; };
 		0C2A700F226D95C100571EC1 /* IntentSurveyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentSurveyVC.h; sourceTree = "<group>"; };
@@ -802,6 +811,27 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0C26C9EA22A667C700A7CF47 /* 渠道分析报表 */ = {
+			isa = PBXGroup;
+			children = (
+				0C26C9EE22A669A300A7CF47 /* view */,
+				0C26C9EB22A667FC00A7CF47 /* ChannelAnalysisVC.h */,
+				0C26C9EC22A667FC00A7CF47 /* ChannelAnalysisVC.m */,
+			);
+			path = "渠道分析报表";
+			sourceTree = "<group>";
+		};
+		0C26C9EE22A669A300A7CF47 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C26C9F322A66C7000A7CF47 /* SSWMutipleBarChartView.h */,
+				0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */,
+				0C26C9EF22A669B900A7CF47 /* ChannelAnalysisHeader.h */,
+				0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0C2A700B226D8E3A00571EC1 /* 方框选择Coll */ = {
 			isa = PBXGroup;
 			children = (
@@ -1056,6 +1086,7 @@
 		0C3A9160225B372D00F04804 /* 报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C26C9EA22A667C700A7CF47 /* 渠道分析报表 */,
 				0CFF71D922A6422B0066732B /* 来访客户报表 */,
 				0C3A916F225B37CF00F04804 /* ReportVC.h */,
 				0C3A9170225B37CF00F04804 /* ReportVC.m */,
@@ -2758,6 +2789,7 @@
 				0CD0435B2280219C002C8BD3 /* WorkCompleteCustomVC1.m in Sources */,
 				0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
+				0C26C9F122A669B900A7CF47 /* ChannelAnalysisHeader.m in Sources */,
 				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
 				0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */,
@@ -2850,6 +2882,7 @@
 				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
+				0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */,
 				0C3A9171225B37CF00F04804 /* ReportVC.m in Sources */,
 				0CAD45682298092A00A5C1D0 /* WorkPhoneConfrimFailCell.m in Sources */,
 				0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */,
@@ -2908,6 +2941,7 @@
 				0CD04344228007A3002C8BD3 /* ProcessCell.m in Sources */,
 				0CD0435722801643002C8BD3 /* WorkPersonAuditDetailVC.m in Sources */,
 				0CEF89F1225C87FC0057F3FD /* AuditTaskVC.m in Sources */,
+				0C26C9F422A66C7000A7CF47 /* SSWMutipleBarChartView.m in Sources */,
 				0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
