@@ -23,7 +23,7 @@
 - (void)setDataDic:(NSDictionary *)dataDic{
     
     _colorView.backgroundColor = [UIColor orangeColor];
-    _titleL.text = @"渠道分销";
+    _titleL.text = dataDic[@"name"];
     _numL.text = @"50";
     _percentL.text = [NSString stringWithFormat:@"占比：%@",@"50%"];
 }

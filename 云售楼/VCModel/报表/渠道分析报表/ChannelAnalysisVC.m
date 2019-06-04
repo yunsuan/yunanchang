@@ -8,12 +8,17 @@
 
 #import "ChannelAnalysisVC.h"
 
+#import "ChannelRankListVC.h"
+
 #import "ChannelAnalysisHeader.h"
 #import "VisitCustomReportCell.h"
 
 @interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     
+    NSString *_project_id;
+    
+    NSMutableDictionary *_dataDic;
 }
 
 @property (nonatomic, strong) UISegmentedControl *segment;
@@ -24,10 +29,45 @@
 
 @implementation ChannelAnalysisVC
 
+- (instancetype)initWithProjectId:(NSString *)project_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = project_id;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+    [self RequestMethod];
+}
+
+- (void)initDataSource{
+    
+    _dataDic = [@{} mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:ProjectClientCount_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            [self->_table reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)valueChanged:(UISegmentedControl *)sender{
@@ -37,7 +77,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
+    return [_dataDic[@"company"] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -53,10 +93,12 @@
         header = [[ChannelAnalysisHeader alloc] initWithReuseIdentifier:@"ChannelAnalysisHeader"];
     }
     
-    header.dataDic = @{};
+    header.dataDic = _dataDic;
     
     header.channelAnalysisHeaderBlock = ^{
         
+        ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
     };
     
     return header;
@@ -86,7 +128,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+    cell.dataDic = _dataDic[@"company"][indexPath.row];
     
     return cell;
 }

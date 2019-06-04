@@ -1,5 +1,5 @@
 //
-//  ChannelAnalysisVC.h
+//  ChannelRankListVC.h
 //  云售楼
 //
 //  Created by 谷治墙 on 2019/6/4.
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChannelAnalysisVC : BaseViewController
+@interface ChannelRankListVC : BaseViewController
 
-- (instancetype)initWithProjectId:(NSString *)project_id;
+- (instancetype)initWithTitleStr:(NSString *)str;
 
 @end
 

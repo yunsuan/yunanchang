@@ -11,12 +11,18 @@
 #import "VisitCustomHeader.h"
 #import "VisitCustomReportCell.h"
 
-@interface VisitCustomReportVC ()<UITableViewDataSource,UITableViewDelegate>
+#import "TypeTagCollCell.h"
+
+@interface VisitCustomReportVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
+    NSArray *_titleArr;
 }
 
-@property (nonatomic, strong) UISegmentedControl *segment;
+//@property (nonatomic, strong) UISegmentedControl *segment;
+@property (nonatomic, strong) UICollectionView *segmentColl;
+
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 
 @property (nonatomic, strong) UITableView *table;
 
@@ -27,13 +33,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+}
+
+- (void)initDataSource{
+    
+    _titleArr = @[@"今日统计",@"累计统计"];
 }
 
 - (void)valueChanged:(UISegmentedControl *)sender{
 
 
 }
+
+#pragma mark -- collectionview
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return _titleArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TypeTagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TypeTagCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[TypeTagCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 2, 40 *SIZE)];
+        cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 2, 11 *SIZE);
+        cell.line.frame = CGRectMake(75 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
+    }
+    
+    cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 2, 11 *SIZE);
+    cell.line.frame = CGRectMake(75 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
+    cell.titleL.text = _titleArr[indexPath.item];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    [_scrollView setContentOffset:CGPointMake(SCREEN_Width * indexPath.item, 0) animated:NO];
+}
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -91,17 +133,33 @@
     
     self.titleLabel.text = @"来访客户分析表";
     
-    _segment = [[UISegmentedControl alloc] initWithItems:[NSMutableArray arrayWithObjects:@"今日统计",@"累计统计", nil]];
-    _segment.frame = CGRectMake(80 *SIZE, NAVIGATION_BAR_HEIGHT, 200 *SIZE, 30 *SIZE);
-    //添加到视图
+//    _segment = [[UISegmentedControl alloc] initWithItems:[NSMutableArray arrayWithObjects:@"今日统计",@"累计统计", nil]];
+//    _segment.frame = CGRectMake(80 *SIZE, NAVIGATION_BAR_HEIGHT, 200 *SIZE, 30 *SIZE);
+//    //添加到视图
+//
+////    [_segment setTintColor:CLWhiteColor];
+////    [_segment setEnabled:NO forSegmentAtIndex:0];
+//    [_segment setWidth:100 *SIZE forSegmentAtIndex:0];
+//    [_segment addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
+//    [self.view addSubview:_segment];
     
-//    [_segment setTintColor:CLWhiteColor];
-//    [_segment setEnabled:NO forSegmentAtIndex:0];
-    [_segment setWidth:100 *SIZE forSegmentAtIndex:0];
-    [_segment addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
-    [self.view addSubview:_segment];
+    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 2, 40 *SIZE);
+    _flowLayout.minimumLineSpacing = 0;
+    _flowLayout.minimumInteritemSpacing = 0;
+    _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 30 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT - 30 *SIZE) style:UITableViewStyleGrouped];
+    
+    _segmentColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT , SCREEN_Width, 40 *SIZE) collectionViewLayout:_flowLayout];
+    _segmentColl.backgroundColor = [UIColor whiteColor];
+    _segmentColl.delegate = self;
+    _segmentColl.dataSource = self;
+    _segmentColl.showsHorizontalScrollIndicator = NO;
+    _segmentColl.bounces = NO;
+    [_segmentColl registerClass:[TypeTagCollCell class] forCellWithReuseIdentifier:@"TypeTagCollCell"];
+    [self.view addSubview:_segmentColl];
+    
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT - 40 *SIZE) style:UITableViewStyleGrouped];
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
     _table.backgroundColor = self.view.backgroundColor;

@@ -19,4 +19,7 @@
 @property(nonatomic,assign)NSInteger    yAxiasValus;
 @property(nonatomic,copy)NSString       *unit;
 @property(nonatomic)NSMutableArray      *legendTitlesArr;
+
+- (void)setUp;
+- (void)layoutSubviews;
 @end

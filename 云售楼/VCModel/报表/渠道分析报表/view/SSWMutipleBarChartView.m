@@ -36,8 +36,8 @@
     
     self.barWidth = 30 *SIZE;
     self.gapWidth = 30 *SIZE;
-    self.yAxiasCount = 10 *SIZE;
-    self.yAxiasValus = 50 *SIZE;
+    self.yAxiasCount = 10;
+    self.yAxiasValus = 20;
     
     [self addSubview:self.scrollView];
     [self.scrollView addSubview:self.contentView];
@@ -157,7 +157,7 @@
     for (int i = 0 ; i < self.yAxiasCount; i++) {
         
         UILabel  *lab = [[UILabel alloc]init];
-        lab.text = [NSString stringWithFormat:@"%ld",self.yAxiasValus*(self.yAxiasCount - i)];
+        lab.text = [NSString stringWithFormat:@"%ld",self.yAxiasValus * (self.yAxiasCount - i)];
         lab.textAlignment = NSTextAlignmentRight;
         lab.font = [UIFont systemFontOfSize:10 *SIZE];
         lab.frame = CGRectMake(-5 *SIZE, i * (_totalHeight/self.yAxiasCount) - 10 *SIZE, -25 *SIZE, 20 *SIZE);
@@ -180,6 +180,7 @@
 //添加柱形条
 -(void)addBars{
     //判断条形图是否设置颜色数组
+    [self.barColorArr removeAllObjects];
     if (self.barColorArr.count <= 0 && self.yValuesArr.count > 0) {
         
         for (int i = 0 ; i< [self.yValuesArr[0] count]; i++) {

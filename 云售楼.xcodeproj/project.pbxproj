@@ -25,6 +25,9 @@
 		0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9EC22A667FC00A7CF47 /* ChannelAnalysisVC.m */; };
 		0C26C9F122A669B900A7CF47 /* ChannelAnalysisHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */; };
 		0C26C9F422A66C7000A7CF47 /* SSWMutipleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */; };
+		0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9F722A67E0D00A7CF47 /* ChannelRankListVC.m */; };
+		0C26C9FC22A67F0E00A7CF47 /* ChannelRankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9FB22A67F0E00A7CF47 /* ChannelRankListCell.m */; };
+		0C26CA0022A6811D00A7CF47 /* TitleCollHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9FF22A6811D00A7CF47 /* TitleCollHeader.m */; };
 		0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A700D226D8E5C00571EC1 /* BoxSelectCollCell.m */; };
 		0C2A7011226D95C100571EC1 /* IntentSurveyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7010226D95C100571EC1 /* IntentSurveyVC.m */; };
 		0C2A7015226D9A7200571EC1 /* GZQFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2A7014226D9A7200571EC1 /* GZQFlowLayout.m */; };
@@ -266,6 +269,12 @@
 		0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisHeader.m; sourceTree = "<group>"; };
 		0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSWMutipleBarChartView.m; sourceTree = "<group>"; };
 		0C26C9F322A66C7000A7CF47 /* SSWMutipleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSWMutipleBarChartView.h; sourceTree = "<group>"; };
+		0C26C9F622A67E0D00A7CF47 /* ChannelRankListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelRankListVC.h; sourceTree = "<group>"; };
+		0C26C9F722A67E0D00A7CF47 /* ChannelRankListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelRankListVC.m; sourceTree = "<group>"; };
+		0C26C9FA22A67F0E00A7CF47 /* ChannelRankListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelRankListCell.h; sourceTree = "<group>"; };
+		0C26C9FB22A67F0E00A7CF47 /* ChannelRankListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelRankListCell.m; sourceTree = "<group>"; };
+		0C26C9FE22A6811D00A7CF47 /* TitleCollHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TitleCollHeader.h; sourceTree = "<group>"; };
+		0C26C9FF22A6811D00A7CF47 /* TitleCollHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TitleCollHeader.m; sourceTree = "<group>"; };
 		0C2A700C226D8E5C00571EC1 /* BoxSelectCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxSelectCollCell.h; sourceTree = "<group>"; };
 		0C2A700D226D8E5C00571EC1 /* BoxSelectCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoxSelectCollCell.m; sourceTree = "<group>"; };
 		0C2A700F226D95C100571EC1 /* IntentSurveyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentSurveyVC.h; sourceTree = "<group>"; };
@@ -814,6 +823,7 @@
 		0C26C9EA22A667C700A7CF47 /* 渠道分析报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C26C9F522A67DDE00A7CF47 /* 排行榜 */,
 				0C26C9EE22A669A300A7CF47 /* view */,
 				0C26C9EB22A667FC00A7CF47 /* ChannelAnalysisVC.h */,
 				0C26C9EC22A667FC00A7CF47 /* ChannelAnalysisVC.m */,
@@ -830,6 +840,34 @@
 				0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		0C26C9F522A67DDE00A7CF47 /* 排行榜 */ = {
+			isa = PBXGroup;
+			children = (
+				0C26C9F922A67EFA00A7CF47 /* view */,
+				0C26C9F622A67E0D00A7CF47 /* ChannelRankListVC.h */,
+				0C26C9F722A67E0D00A7CF47 /* ChannelRankListVC.m */,
+			);
+			path = "排行榜";
+			sourceTree = "<group>";
+		};
+		0C26C9F922A67EFA00A7CF47 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C26C9FA22A67F0E00A7CF47 /* ChannelRankListCell.h */,
+				0C26C9FB22A67F0E00A7CF47 /* ChannelRankListCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C26C9FD22A680F800A7CF47 /* 蓝点标题CollHeader */ = {
+			isa = PBXGroup;
+			children = (
+				0C26C9FE22A6811D00A7CF47 /* TitleCollHeader.h */,
+				0C26C9FF22A6811D00A7CF47 /* TitleCollHeader.m */,
+			);
+			path = "蓝点标题CollHeader";
 			sourceTree = "<group>";
 		};
 		0C2A700B226D8E3A00571EC1 /* 方框选择Coll */ = {
@@ -1165,6 +1203,7 @@
 		0C3A917F225C484400F04804 /* 通用Cell和头部 */ = {
 			isa = PBXGroup;
 			children = (
+				0C26C9FD22A680F800A7CF47 /* 蓝点标题CollHeader */,
 				0CD043412280078E002C8BD3 /* 流程通用cell */,
 				0C221A67227EDE5D006B0510 /* 添加cell */,
 				0C2A7012226D9A7200571EC1 /* flowLayout */,
@@ -2778,6 +2817,7 @@
 				0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */,
 				10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
+				0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */,
 				0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
 				0CFF71F922A655090066732B /* VisitCustomReportCell.m in Sources */,
@@ -2845,6 +2885,7 @@
 				0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */,
 				10EF17B82292B48000DE5566 /* CompanyChooseCell.m in Sources */,
 				10BC3A4A228FF77700DAB2D8 /* TitelHeaderView.m in Sources */,
+				0C26C9FC22A67F0E00A7CF47 /* ChannelRankListCell.m in Sources */,
 				0CD0438C2281219D002C8BD3 /* CompanyInfoCell.m in Sources */,
 				0CD04331227FD348002C8BD3 /* WorkRecommendFailVC.m in Sources */,
 				0CEF8AFD2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m in Sources */,
@@ -2928,6 +2969,7 @@
 				0CAD457422980B9E00A5C1D0 /* WorkRecommendValidCell.m in Sources */,
 				0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */,
 				0C3A9124225B20C600F04804 /* main.m in Sources */,
+				0C26CA0022A6811D00A7CF47 /* TitleCollHeader.m in Sources */,
 				0CEF89F8225C88480057F3FD /* ContractAuditVC.m in Sources */,
 				0CD04335227FDB24002C8BD3 /* WorkRecommendWaitCell.m in Sources */,
 				0CF1A315228E8E04001C77CF /* SignListVC.m in Sources */,

@@ -48,7 +48,24 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
+    
     _titleArr = @[@"来访客户分析表",@"渠道分析表"];
+}
+
+- (void)ActionNSNotificationMethod{
+    
+    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+    if ([[UserModel defaultModel].projectinfo count]) {
+        
+        _table.hidden = NO;
+        self.rightBtn.hidden = NO;
+        
+    }else{
+        
+        _table.hidden = YES;
+        self.rightBtn.hidden = YES;;
+    }
 }
 
 
@@ -85,7 +102,7 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
-        ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] init];
+        ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
@@ -95,6 +112,13 @@
     self.leftButton.hidden = YES;
     
     self.titleLabel.text = @"报表";
+    self.rightBtn.hidden = NO;
+    self.rightBtn.center = CGPointMake(SCREEN_Width - 45 * SIZE, STATUS_BAR_HEIGHT + 20);
+    self.rightBtn.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
+    self.rightBtn.titleLabel.font = FONT(13 *SIZE);
+    [self.rightBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.rowHeight = UITableViewAutomaticDimension;

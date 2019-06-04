@@ -35,13 +35,38 @@
     
     _header.titleL.text = @"客户来源";
     
+    [_mutipleBarChartView removeFromSuperview];
+    
+    _mutipleBarChartView = [[SSWMutipleBarChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 240 *SIZE)];
+    _mutipleBarChartView.backgroundColor = CLWhiteColor;
+    _mutipleBarChartView.barColorArr = [@[[UIColor blueColor],[UIColor greenColor]] mutableCopy];
+    [self.contentView addSubview:_mutipleBarChartView];
+    
+    [_mutipleBarChartView.yValuesArr removeAllObjects];
+    [_mutipleBarChartView.legendTitlesArr removeAllObjects];
+    
     _mutipleBarChartView.xValuesArr = [@[@"推荐客户",@"到访客户",@"成交客户"] mutableCopy];
-    _mutipleBarChartView.yValuesArr = [@[@[@"100",@"200"],
-                                         @[@"80",@"210"],
-                                         @[@"200",@"300"]] mutableCopy];
+    NSMutableArray *recommendArr = [@[] mutableCopy];
+    NSMutableArray *visitArr = [@[] mutableCopy];
+    NSMutableArray *dealArr = [@[] mutableCopy];
+    for (int i = 0; i < [dataDic[@"source"] count]; i++) {
+
+        [recommendArr addObject:dataDic[@"source"][i][@"count"][@"recommend"]];
+        [visitArr addObject:dataDic[@"source"][i][@"count"][@"visit"]];
+        [dealArr addObject:dataDic[@"source"][i][@"count"][@"deal"]];
+    }
+
+    _mutipleBarChartView.yValuesArr = [@[recommendArr,
+                                         visitArr,
+                                         dealArr] mutableCopy];
+    
+    NSMutableArray *recommendNameArr = [@[] mutableCopy];
+    for (int i = 0; i < [dataDic[@"source"] count]; i++) {
+
+        [recommendNameArr addObject:dataDic[@"source"][i][@"name"]];
+    }
+    _mutipleBarChartView.legendTitlesArr = recommendNameArr;
     _mutipleBarChartView.unit = @"人";
-    //    mutipleBarChartView.delegate = self;
-    _mutipleBarChartView.legendTitlesArr = @[@"分销",@"全民"];
 }
 
 - (void)ActionMoreBtn:(UIButton *)btn{
@@ -56,6 +81,8 @@
     
     _header = [[TitleRightBtnHeader alloc] initWithFrame:CGRectMake(0, 240 *SIZE, SCREEN_Width, 40 *SIZE)];
     _header.addBtn.hidden = YES;
+    _header.titleL.text = @"分销公司排行榜";
+    [_header.moreBtn setTitle:@">>" forState:UIControlStateNormal];
     [_header.moreBtn addTarget:self action:@selector(ActionMoreBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_header];
     
