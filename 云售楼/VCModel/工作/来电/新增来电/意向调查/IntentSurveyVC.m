@@ -388,10 +388,19 @@
                                     }
                                 }
                             }
+                            if (str.length) {
+                                
+                                [needDic setObject:str forKey:@"value"];
+                                [needDic setObject:strId forKey:@"value_id"];
+                            }else{
+                                
+                                [needDic setObject:@"" forKey:@"value"];
+                                [needDic setObject:@"" forKey:@"value_id"];
+                            }
                             [needDic setObject:_countArr[0][@"property_id"] forKey:@"property_id"];
-                            [needDic setObject:str forKey:@"value"];
+                            
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:strId forKey:@"value_id"];
+                            
                             for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
                                 
                                 if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
@@ -579,9 +588,17 @@
                                 }
                             }
                             [needDic setObject:dic[@"property_id"] forKey:@"property_id"];
-                            [needDic setObject:str forKey:@"value"];
+                            if (str.length) {
+                            
+                                [needDic setObject:str forKey:@"value"];
+                                [needDic setObject:strId forKey:@"value_id"];
+                            }else{
+                                
+                                [needDic setObject:@"" forKey:@"value"];
+                                [needDic setObject:@"" forKey:@"value_id"];
+                            }
+                            
                             [needDic setObject:dic[@"config_id"] forKey:@"config_id"];
-                            [needDic setObject:strId forKey:@"value_id"];
                             
                         }else{
                             

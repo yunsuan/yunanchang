@@ -68,7 +68,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%88%91%E7%9A%84/%E6%8E%A8%E9%80%81%E8%AE%BE%E7%BD%AE/PushSettingVC.m"
-                  timestampString = "581311052.7094851"
+                  timestampString = "581329565.297146"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "99"
@@ -83,7 +83,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%88%91%E7%9A%84/%E6%8E%A8%E9%80%81%E8%AE%BE%E7%BD%AE/PushSettingVC.m"
-                  timestampString = "581311052.712798"
+                  timestampString = "581329565.300424"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "99"
@@ -164,7 +164,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%88%91%E7%9A%84/%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99/PersonalVC.m"
-                  timestampString = "581311052.728737"
+                  timestampString = "581329565.327417"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"
@@ -179,7 +179,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%88%91%E7%9A%84/%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99/PersonalVC.m"
-                  timestampString = "581311052.730371"
+                  timestampString = "581329565.332117"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"
@@ -244,7 +244,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%88%91%E7%9A%84/%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99/PersonalVC.m"
-                  timestampString = "581311052.7416151"
+                  timestampString = "581329565.354946"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
@@ -259,7 +259,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%88%91%E7%9A%84/%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99/PersonalVC.m"
-                  timestampString = "581311052.7437429"
+                  timestampString = "581329565.358341"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "167"
@@ -267,22 +267,6 @@
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x6211;&#x7684;/MineVC.m"
-            timestampString = "581311359.123961"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

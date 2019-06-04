@@ -57,11 +57,11 @@
     room_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
     
     
-//    ReportVC *reportVC = [[ReportVC alloc] init];
-//    UIViewController *report_nav = [[CYLBaseNavigationController alloc] initWithRootViewController:reportVC];
-//    reportVC.navigationController.navigationBar.hidden = YES;
-//    //调整文字位置
-//    report_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
+    ReportVC *reportVC = [[ReportVC alloc] init];
+    UIViewController *report_nav = [[CYLBaseNavigationController alloc] initWithRootViewController:reportVC];
+    reportVC.navigationController.navigationBar.hidden = YES;
+    //调整文字位置
+    report_nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4);
     
     TaskVC *taskVC = [[TaskVC alloc] init];
     UIViewController *task_nav = [[CYLBaseNavigationController alloc]

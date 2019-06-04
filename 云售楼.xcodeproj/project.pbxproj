@@ -182,6 +182,11 @@
 		0CF1A319228E8E04001C77CF /* SignWorkerPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */; };
 		0CF1A31A228E8E04001C77CF /* SignSelectWorkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */; };
 		0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1A314228E8E03001C77CF /* SignFailView.m */; };
+		0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */; };
+		0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71DF22A644D60066732B /* VisitCustomHeader.m */; };
+		0CFF71F322A64D6F0066732B /* PieCircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71F222A64D6F0066732B /* PieCircleModel.m */; };
+		0CFF71F622A650540066732B /* SSWPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71F522A650540066732B /* SSWPieChartView.m */; };
+		0CFF71F922A655090066732B /* VisitCustomReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71F822A655090066732B /* VisitCustomReportCell.m */; };
 		1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1084D10722969C6E001DB0FD /* PowerMannerger.m */; };
 		1084D10B2296AC53001DB0FD /* PowerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1084D10A2296AC53001DB0FD /* PowerModel.m */; };
 		10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC3A3F228FEA6A00DAB2D8 /* RotationVC.m */; };
@@ -571,6 +576,16 @@
 		0CF1A312228E8E03001C77CF /* SignWorkerPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignWorkerPickView.m; sourceTree = "<group>"; };
 		0CF1A313228E8E03001C77CF /* SignSelectWorkerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignSelectWorkerView.m; sourceTree = "<group>"; };
 		0CF1A314228E8E03001C77CF /* SignFailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignFailView.m; sourceTree = "<group>"; };
+		0CFF71DA22A6423E0066732B /* VisitCustomReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomReportVC.h; sourceTree = "<group>"; };
+		0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomReportVC.m; sourceTree = "<group>"; };
+		0CFF71DE22A644D60066732B /* VisitCustomHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomHeader.h; sourceTree = "<group>"; };
+		0CFF71DF22A644D60066732B /* VisitCustomHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomHeader.m; sourceTree = "<group>"; };
+		0CFF71F122A64D6F0066732B /* PieCircleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PieCircleModel.h; sourceTree = "<group>"; };
+		0CFF71F222A64D6F0066732B /* PieCircleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PieCircleModel.m; sourceTree = "<group>"; };
+		0CFF71F422A650540066732B /* SSWPieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSWPieChartView.h; sourceTree = "<group>"; };
+		0CFF71F522A650540066732B /* SSWPieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSWPieChartView.m; sourceTree = "<group>"; };
+		0CFF71F722A655090066732B /* VisitCustomReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomReportCell.h; sourceTree = "<group>"; };
+		0CFF71F822A655090066732B /* VisitCustomReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomReportCell.m; sourceTree = "<group>"; };
 		1084D10622969C6E001DB0FD /* PowerMannerger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PowerMannerger.h; sourceTree = "<group>"; };
 		1084D10722969C6E001DB0FD /* PowerMannerger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PowerMannerger.m; sourceTree = "<group>"; };
 		1084D1092296AC53001DB0FD /* PowerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PowerModel.h; sourceTree = "<group>"; };
@@ -1041,6 +1056,7 @@
 		0C3A9160225B372D00F04804 /* 报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0CFF71D922A6422B0066732B /* 来访客户报表 */,
 				0C3A916F225B37CF00F04804 /* ReportVC.h */,
 				0C3A9170225B37CF00F04804 /* ReportVC.m */,
 			);
@@ -2339,6 +2355,39 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0CFF71D922A6422B0066732B /* 来访客户报表 */ = {
+			isa = PBXGroup;
+			children = (
+				0CFF71E722A649620066732B /* Model */,
+				0CFF71DD22A644BA0066732B /* view */,
+				0CFF71DA22A6423E0066732B /* VisitCustomReportVC.h */,
+				0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */,
+			);
+			path = "来访客户报表";
+			sourceTree = "<group>";
+		};
+		0CFF71DD22A644BA0066732B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0CFF71F422A650540066732B /* SSWPieChartView.h */,
+				0CFF71F522A650540066732B /* SSWPieChartView.m */,
+				0CFF71DE22A644D60066732B /* VisitCustomHeader.h */,
+				0CFF71DF22A644D60066732B /* VisitCustomHeader.m */,
+				0CFF71F722A655090066732B /* VisitCustomReportCell.h */,
+				0CFF71F822A655090066732B /* VisitCustomReportCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0CFF71E722A649620066732B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0CFF71F122A64D6F0066732B /* PieCircleModel.h */,
+				0CFF71F222A64D6F0066732B /* PieCircleModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		1084D10522969BEC001DB0FD /* 权限管理 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2700,6 +2749,7 @@
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
+				0CFF71F922A655090066732B /* VisitCustomReportCell.m in Sources */,
 				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
 				10EF17AE2292AE3400DE5566 /* AddCompanyVC.m in Sources */,
 				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
@@ -2710,6 +2760,7 @@
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
 				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
+				0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */,
 				0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */,
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
 				0CF1A318228E8E04001C77CF /* SignListCell.m in Sources */,
@@ -2774,6 +2825,7 @@
 				0C3A916E225B37B200F04804 /* TaskVC.m in Sources */,
 				0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */,
 				0CEF8AE4226427260057F3FD /* CallTelegramVC.m in Sources */,
+				0CFF71F622A650540066732B /* SSWPieChartView.m in Sources */,
 				0C2A701A226D9E2600571EC1 /* IntentSurveyCollCell.m in Sources */,
 				0CEF8AFA226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m in Sources */,
 				0CEF8A10225C96020057F3FD /* RecommendWaitVC.m in Sources */,
@@ -2806,6 +2858,7 @@
 				0CBD712422925B1E002A6B48 /* PushSettingCell.m in Sources */,
 				0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */,
 				0CEF8A53225F1D440057F3FD /* SelectCompanyCollCell.m in Sources */,
+				0CFF71F322A64D6F0066732B /* PieCircleModel.m in Sources */,
 				10EF17A922928B1400DE5566 /* AddCompanyCell.m in Sources */,
 				0CD043A2228175D4002C8BD3 /* SingleHouseCell.m in Sources */,
 				0CF1A317228E8E04001C77CF /* SignNeedInfoVC.m in Sources */,
@@ -2840,6 +2893,7 @@
 				0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */,
 				0CD0439222816ED9002C8BD3 /* RoomHeader.m in Sources */,
 				0CAD457422980B9E00A5C1D0 /* WorkRecommendValidCell.m in Sources */,
+				0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */,
 				0C3A9124225B20C600F04804 /* main.m in Sources */,
 				0CEF89F8225C88480057F3FD /* ContractAuditVC.m in Sources */,
 				0CD04335227FDB24002C8BD3 /* WorkRecommendWaitCell.m in Sources */,

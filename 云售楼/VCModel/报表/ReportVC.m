@@ -7,12 +7,21 @@
 //
 
 #import "ReportVC.h"
+#import "VisitCustomReportVC.h"
+
 #import "PowerMannerger.h"
+
+#import "WorkCell.h"
 
 #import "CompanyAuthVC.h"
 
-@interface ReportVC ()
+@interface ReportVC ()<UITableViewDelegate,UITableViewDataSource>
+{
+    
+    
+}
 
+@property (nonatomic, strong) UITableView *table;
 @end
 
 @implementation ReportVC
@@ -42,38 +51,57 @@
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    WorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkCell"];
+    if (!cell) {
+        
+        cell = [[WorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WorkCell"];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    cell.titleL.text = @"123";
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    VisitCustomReportVC *nextVC = [[VisitCustomReportVC alloc] init];
+    [self.navigationController pushViewController:nextVC animated:YES];
+}
+
 - (void)initUI{
     
     self.leftButton.hidden = YES;
     
     self.titleLabel.text = @"报表";
     
-//    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(3 *SIZE, 7 *SIZE + NAVIGATION_BAR_HEIGHT, SCREEN_Width - 6 *SIZE, 167 *SIZE)];
-//    whiteView.backgroundColor = CLWhiteColor;
-//    whiteView.layer.cornerRadius = 7 *SIZE;
-//    whiteView.clipsToBounds = YES;
-//    [self.view addSubview:whiteView];
-//
-//    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(151 *SIZE, 36 *SIZE, 57 *SIZE, 57 *SIZE)];
-//    img.image = IMAGE_WITH_NAME(@"company");
-//    [whiteView addSubview:img];
-//
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 110 *SIZE, SCREEN_Width - 6 *SIZE, 13 *SIZE)];
-//    label.textColor = CL86Color;
-//    label.font = [UIFont systemFontOfSize:13 *SIZE];
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.text = @"您目前没有进行公司认证，请先认证公司！";
-//    [whiteView addSubview:label];
-//
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = CGRectMake(97 *SIZE, 31 *SIZE + CGRectGetMaxY(whiteView.frame), 167 *SIZE, 40 *SIZE);
-//    btn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
-//    [btn addTarget:self action:@selector(ActionGoBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [btn setTitle:@"去认证" forState:UIControlStateNormal];
-//    [btn setBackgroundColor:CLBlueBtnColor];
-//    btn.layer.cornerRadius = 3 *SIZE;
-//    btn.clipsToBounds = YES;
-//    [self.view addSubview:btn];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
+    _table.rowHeight = UITableViewAutomaticDimension;
+    _table.estimatedRowHeight = 100 *SIZE;
+    _table.backgroundColor = self.view.backgroundColor;
+    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _table.delegate = self;
+    _table.dataSource = self;
+    [self.view addSubview:_table];
+//    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
+//        
+////        [self RequestMethod];
+//    }];
+    
+    if ([UserModel defaultModel].projectinfo) {
+        
+        _table.hidden = NO;
+    }else{
+        
+        _table.hidden = YES;
+    }
 }
 
 @end
