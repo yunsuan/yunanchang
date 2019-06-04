@@ -210,6 +210,11 @@
                 [self alertControllerWithNsstring:@"缺少岗位信息" And:@"请选择岗位信息"];
                 return;
             }
+            if (!_roleId.length) {
+                
+                [self alertControllerWithNsstring:@"缺少角色信息" And:@"请选择角色信息"];
+                return;
+            }
             NSDictionary *dic = @{@"before_auth_id":self.authId,
                                   @"company_id":_companyId,
                                   @"department_id":_departId,
@@ -262,6 +267,11 @@
                 [self alertControllerWithNsstring:@"缺少岗位信息" And:@"请选择岗位信息"];
                 return;
             }
+            if (!_roleId.length) {
+                
+                [self alertControllerWithNsstring:@"缺少角色信息" And:@"请选择角色信息"];
+                return;
+            }
             NSDictionary *dic = @{@"company_id":_companyId,
                                   @"department_id":_departId,
                                   @"post_id":_posiId,
@@ -300,6 +310,11 @@
             if (!_posiId.length) {
                 
                 [self alertControllerWithNsstring:@"缺少岗位信息" And:@"请选择岗位信息"];
+                return;
+            }
+            if (!_roleId.length) {
+                
+                [self alertControllerWithNsstring:@"缺少角色信息" And:@"请选择角色信息"];
                 return;
             }
             NSDictionary *dic = @{@"company_id":_companyId,
