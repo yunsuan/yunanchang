@@ -10,12 +10,13 @@
 
 #import "ChannelRankListVC.h"
 
-#import "ChannelAnalysisHeader.h"
 #import "BaseHeader.h"
+#import "TitleRightBtnHeader.h"
 #import "ChannelAnalysisCell.h"
 #import "ChanelAnalysisChartCell.h"
+#import "ChannelSingleChartCell.h"
 
-@interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate>///,SingleBarChartViewDelegate>
 {
     
     NSString *_status;
@@ -104,14 +105,22 @@
     }
 }
 
+
+//- (void)SingleBarChart:(SingleBarChartView *)chartView didSelectIndex:(NSInteger)index{
+//
+//    WorkRecommendVC *nextVC = [[WorkRecommendVC alloc] init];
+//    [self.navigationController pushViewController:nextVC animated:YES];
+//}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section == 0) {
+    if (section == 2) {
         
         if ([_status isEqualToString:@"1"]) {
             
@@ -126,47 +135,36 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    if (section == 0) {
-        
-        return 280 *SIZE;
-    }
     return UITableViewAutomaticDimension;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    if (section == 0) {
+    if (section == 2) {
         
-        ChannelAnalysisHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"ChannelAnalysisHeader"];
+        TitleRightBtnHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleRightBtnHeader"];
         if (!header) {
             
-            header = [[ChannelAnalysisHeader alloc] initWithReuseIdentifier:@"ChannelAnalysisHeader"];
+            header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
         }
         
-        if ([_status isEqualToString:@"1"]) {
-            
-            header.dataDic = _dataDic;
-        }else{
-            
-            header.dataDic = _yearDic;
-        }
+        header.titleL.text = @"分销公司排行榜";
         
-        
-        header.channelAnalysisHeaderBlock = ^{
-            
-            if ([self->_status isEqualToString:@"1"]) {
-                
-                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
-                nextVC.titleStr = @"今日分销公司排行榜";
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else{
-                
-                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_yearDic[@"company"]];
-                nextVC.titleStr = @"累计分销公司排行榜";
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }
-            
-        };
+//        header.channelAnalysisHeaderBlock = ^{
+//
+//            if ([self->_status isEqualToString:@"1"]) {
+//
+//                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
+//                nextVC.titleStr = @"今日分销公司排行榜";
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else{
+//
+//                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_yearDic[@"company"]];
+//                nextVC.titleStr = @"累计分销公司排行榜";
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }
+//
+//        };
         
         return header;
     }else{
@@ -177,8 +175,20 @@
             header = [[BaseHeader alloc] initWithReuseIdentifier:@"BaseHeader"];
         }
         
-        header.titleL.text = @"年度统计图";
-        
+        if (section == 0) {
+            
+            header.titleL.text = @"客户统计图";
+        }else{
+            
+            if (section == 1) {
+                
+                 header.titleL.text = @"渠道来源分析图";
+            }else{
+                
+                header.titleL.text = @"年度统计图";
+            }
+        }
+       
         return header;
     }
 }
@@ -195,7 +205,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 2) {
         
         return UITableViewAutomaticDimension;
     }
@@ -204,7 +214,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 2) {
         
         ChannelAnalysisCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelAnalysisCell"];
         if (!cell) {
@@ -224,6 +234,37 @@
         return cell;
     }else{
         
+        if (indexPath.section == 0) {
+            
+            ChannelSingleChartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelSingleChartCell"];
+            if (!cell) {
+                
+                cell = [[ChannelSingleChartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ChannelSingleChartCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+//            cell.singleBarChartView.delegate = self;
+            cell.channelSingleChartCellBlock = ^(NSInteger index) {
+                
+            };
+            
+            if ([_status isEqualToString:@"1"]) {
+                
+                if (_dataDic.count) {
+                    
+                    cell.dataDic =  _dataDic[@"totalCount"];
+                }else{
+                    
+                    cell.dataDic = @{};
+                }
+                
+            }else{
+                
+                cell.dataDic = @{};
+            }
+            
+            return cell;
+        }
         ChanelAnalysisChartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChanelAnalysisChartCell"];
         if (!cell) {
             

@@ -23,8 +23,6 @@
 		0C221A81227EED87006B0510 /* WorkPhoneConfrimFailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A80227EED87006B0510 /* WorkPhoneConfrimFailVC.m */; };
 		0C221A85227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A84227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m */; };
 		0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9EC22A667FC00A7CF47 /* ChannelAnalysisVC.m */; };
-		0C26C9F122A669B900A7CF47 /* ChannelAnalysisHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */; };
-		0C26C9F422A66C7000A7CF47 /* SSWMutipleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */; };
 		0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9F722A67E0D00A7CF47 /* ChannelRankListVC.m */; };
 		0C26C9FC22A67F0E00A7CF47 /* ChannelRankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9FB22A67F0E00A7CF47 /* ChannelRankListCell.m */; };
 		0C26CA0022A6811D00A7CF47 /* TitleCollHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C26C9FF22A6811D00A7CF47 /* TitleCollHeader.m */; };
@@ -61,8 +59,12 @@
 		0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A918A225C484500F04804 /* TitleBaseHeader.m */; };
 		0C3A919D225C484500F04804 /* TagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9190225C484500F04804 /* TagCollCell.m */; };
 		0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */; };
-		0C7451E222A75AB9008F2F07 /* ChannelAnalysisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451E122A75AB9008F2F07 /* ChannelAnalysisCell.m */; };
-		0C7451E522A762B7008F2F07 /* ChanelAnalysisChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451E422A762B7008F2F07 /* ChanelAnalysisChartCell.m */; };
+		0C7451F522A7B14A008F2F07 /* SingleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */; };
+		0C7451F622A7B14A008F2F07 /* SSWMutipleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451ED22A7B14A008F2F07 /* SSWMutipleBarChartView.m */; };
+		0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451F322A7B14A008F2F07 /* ChannelAnalysisCell.m */; };
+		0C7451F922A7B14A008F2F07 /* ChanelAnalysisChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451F422A7B14A008F2F07 /* ChanelAnalysisChartCell.m */; };
+		0C7451FC22A7B2A3008F2F07 /* ChannelSingleChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451FB22A7B2A3008F2F07 /* ChannelSingleChartCell.m */; };
+		0C7451FF22A7B996008F2F07 /* MutiLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451FE22A7B996008F2F07 /* MutiLineChartView.m */; };
 		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
@@ -267,10 +269,6 @@
 		0C221A84227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimWaitCell.m; sourceTree = "<group>"; };
 		0C26C9EB22A667FC00A7CF47 /* ChannelAnalysisVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisVC.h; sourceTree = "<group>"; };
 		0C26C9EC22A667FC00A7CF47 /* ChannelAnalysisVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisVC.m; sourceTree = "<group>"; };
-		0C26C9EF22A669B900A7CF47 /* ChannelAnalysisHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisHeader.h; sourceTree = "<group>"; };
-		0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisHeader.m; sourceTree = "<group>"; };
-		0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSWMutipleBarChartView.m; sourceTree = "<group>"; };
-		0C26C9F322A66C7000A7CF47 /* SSWMutipleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSWMutipleBarChartView.h; sourceTree = "<group>"; };
 		0C26C9F622A67E0D00A7CF47 /* ChannelRankListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelRankListVC.h; sourceTree = "<group>"; };
 		0C26C9F722A67E0D00A7CF47 /* ChannelRankListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelRankListVC.m; sourceTree = "<group>"; };
 		0C26C9FA22A67F0E00A7CF47 /* ChannelRankListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelRankListCell.h; sourceTree = "<group>"; };
@@ -345,10 +343,18 @@
 		0C3A9191225C484500F04804 /* TagCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCollCell.h; sourceTree = "<group>"; };
 		0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleRightBtnHeader.m; sourceTree = "<group>"; };
 		0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
-		0C7451E022A75AB9008F2F07 /* ChannelAnalysisCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisCell.h; sourceTree = "<group>"; };
-		0C7451E122A75AB9008F2F07 /* ChannelAnalysisCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisCell.m; sourceTree = "<group>"; };
-		0C7451E322A762B7008F2F07 /* ChanelAnalysisChartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChanelAnalysisChartCell.h; sourceTree = "<group>"; };
-		0C7451E422A762B7008F2F07 /* ChanelAnalysisChartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChanelAnalysisChartCell.m; sourceTree = "<group>"; };
+		0C7451EA22A7B14A008F2F07 /* SingleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleBarChartView.h; sourceTree = "<group>"; };
+		0C7451EB22A7B14A008F2F07 /* SSWMutipleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSWMutipleBarChartView.h; sourceTree = "<group>"; };
+		0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleBarChartView.m; sourceTree = "<group>"; };
+		0C7451ED22A7B14A008F2F07 /* SSWMutipleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSWMutipleBarChartView.m; sourceTree = "<group>"; };
+		0C7451F022A7B14A008F2F07 /* ChannelAnalysisCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisCell.h; sourceTree = "<group>"; };
+		0C7451F122A7B14A008F2F07 /* ChanelAnalysisChartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChanelAnalysisChartCell.h; sourceTree = "<group>"; };
+		0C7451F322A7B14A008F2F07 /* ChannelAnalysisCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisCell.m; sourceTree = "<group>"; };
+		0C7451F422A7B14A008F2F07 /* ChanelAnalysisChartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChanelAnalysisChartCell.m; sourceTree = "<group>"; };
+		0C7451FA22A7B2A3008F2F07 /* ChannelSingleChartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelSingleChartCell.h; sourceTree = "<group>"; };
+		0C7451FB22A7B2A3008F2F07 /* ChannelSingleChartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelSingleChartCell.m; sourceTree = "<group>"; };
+		0C7451FD22A7B996008F2F07 /* MutiLineChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MutiLineChartView.h; sourceTree = "<group>"; };
+		0C7451FE22A7B996008F2F07 /* MutiLineChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MutiLineChartView.m; sourceTree = "<group>"; };
 		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
 		0C991C592272B32700AF2817 /* ProjectRoleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectRoleVC.m; sourceTree = "<group>"; };
 		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
@@ -840,14 +846,8 @@
 		0C26C9EE22A669A300A7CF47 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				0C26C9F322A66C7000A7CF47 /* SSWMutipleBarChartView.h */,
-				0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */,
-				0C26C9EF22A669B900A7CF47 /* ChannelAnalysisHeader.h */,
-				0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */,
-				0C7451E022A75AB9008F2F07 /* ChannelAnalysisCell.h */,
-				0C7451E122A75AB9008F2F07 /* ChannelAnalysisCell.m */,
-				0C7451E322A762B7008F2F07 /* ChanelAnalysisChartCell.h */,
-				0C7451E422A762B7008F2F07 /* ChanelAnalysisChartCell.m */,
+				0C7451EE22A7B14A008F2F07 /* cell */,
+				0C7451E922A7B14A008F2F07 /* view */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1274,6 +1274,32 @@
 				0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */,
 			);
 			path = "标题右按钮header";
+			sourceTree = "<group>";
+		};
+		0C7451E922A7B14A008F2F07 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C7451EA22A7B14A008F2F07 /* SingleBarChartView.h */,
+				0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */,
+				0C7451EB22A7B14A008F2F07 /* SSWMutipleBarChartView.h */,
+				0C7451ED22A7B14A008F2F07 /* SSWMutipleBarChartView.m */,
+				0C7451FD22A7B996008F2F07 /* MutiLineChartView.h */,
+				0C7451FE22A7B996008F2F07 /* MutiLineChartView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C7451EE22A7B14A008F2F07 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C7451F022A7B14A008F2F07 /* ChannelAnalysisCell.h */,
+				0C7451F322A7B14A008F2F07 /* ChannelAnalysisCell.m */,
+				0C7451F122A7B14A008F2F07 /* ChanelAnalysisChartCell.h */,
+				0C7451F422A7B14A008F2F07 /* ChanelAnalysisChartCell.m */,
+				0C7451FA22A7B2A3008F2F07 /* ChannelSingleChartCell.h */,
+				0C7451FB22A7B2A3008F2F07 /* ChannelSingleChartCell.m */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		0C991C572272B30C00AF2817 /* 项目角色 */ = {
@@ -2821,8 +2847,8 @@
 				0CD04340228006BF002C8BD3 /* WorkRecommendValidDetailVC.m in Sources */,
 				0CD7A031225C6D5700EAE816 /* BDDynamicTreeNode.m in Sources */,
 				0C221A5A227EB117006B0510 /* TaskSignAuditCell.m in Sources */,
+				0C7451F522A7B14A008F2F07 /* SingleBarChartView.m in Sources */,
 				0CD7A03E225C6F1100EAE816 /* FeedbackVC.m in Sources */,
-				0C7451E522A762B7008F2F07 /* ChanelAnalysisChartCell.m in Sources */,
 				0CF1A2EF228D15E6001C77CF /* VisitCustomVC.m in Sources */,
 				0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */,
 				0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */,
@@ -2830,6 +2856,7 @@
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */,
 				0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */,
+				0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
 				0CFF71F922A655090066732B /* VisitCustomReportCell.m in Sources */,
 				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
@@ -2840,8 +2867,9 @@
 				0CD0435B2280219C002C8BD3 /* WorkCompleteCustomVC1.m in Sources */,
 				0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
-				0C26C9F122A669B900A7CF47 /* ChannelAnalysisHeader.m in Sources */,
 				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
+				0C7451F922A7B14A008F2F07 /* ChanelAnalysisChartCell.m in Sources */,
+				0C7451FF22A7B996008F2F07 /* MutiLineChartView.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
 				0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */,
 				0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */,
@@ -2866,6 +2894,7 @@
 				0C221A72227EED08006B0510 /* WorkPhoneConfirmVC.m in Sources */,
 				0CEF8A40225F0F940057F3FD /* CompanyAuthingVC.m in Sources */,
 				0CEF8A31225D863A0057F3FD /* CountDownCell.m in Sources */,
+				0C7451F622A7B14A008F2F07 /* SSWMutipleBarChartView.m in Sources */,
 				0CEF8AED2264295F0057F3FD /* CallTelegramCell.m in Sources */,
 				0C3A919A225C484500F04804 /* TitleContentBaseCell.m in Sources */,
 				0CD0438722811DF7002C8BD3 /* CompanyAuthingCell.m in Sources */,
@@ -2889,6 +2918,7 @@
 				0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */,
 				10BC3A5922912F9200DAB2D8 /* AbdicateHeaderView.m in Sources */,
 				0C221A66227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m in Sources */,
+				0C7451FC22A7B2A3008F2F07 /* ChannelSingleChartCell.m in Sources */,
 				0CEF8A55225F1D440057F3FD /* CompanyModel.m in Sources */,
 				0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */,
 				0CBD711C2292567E002A6B48 /* WorkerPickView.m in Sources */,
@@ -2932,7 +2962,6 @@
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
 				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
-				0C7451E222A75AB9008F2F07 /* ChannelAnalysisCell.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */,
@@ -2995,7 +3024,6 @@
 				0CD04344228007A3002C8BD3 /* ProcessCell.m in Sources */,
 				0CD0435722801643002C8BD3 /* WorkPersonAuditDetailVC.m in Sources */,
 				0CEF89F1225C87FC0057F3FD /* AuditTaskVC.m in Sources */,
-				0C26C9F422A66C7000A7CF47 /* SSWMutipleBarChartView.m in Sources */,
 				0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
