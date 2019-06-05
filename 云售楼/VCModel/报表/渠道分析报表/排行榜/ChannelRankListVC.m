@@ -13,7 +13,7 @@
 @interface ChannelRankListVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
-    NSString *_str;
+    NSArray *_dataArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -21,12 +21,12 @@
 
 @implementation ChannelRankListVC
 
-- (instancetype)initWithTitleStr:(NSString *)str
+- (instancetype)initWithDataArr:(NSArray *)dataArr
 {
     self = [super init];
     if (self) {
         
-        _str = str;
+        _dataArr = dataArr;
     }
     return self;
 }
@@ -39,7 +39,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 4;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -52,15 +52,15 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.rankL.text = [NSString stringWithFormat:@"%ld",indexPath.row + 1];
-    cell.titleL.text = @"大唐房屋";
-    cell.contentL.text = @"推荐客户200 到访客户180 成交客户150";
+    cell.titleL.text = _dataArr[indexPath.row][@"name"];
+    cell.contentL.text = [NSString stringWithFormat:@"推荐客户%@ 到访客户%@ 成交客户%@",_dataArr[indexPath.row][@"recommendNum"],_dataArr[indexPath.row][@"visitNum"],_dataArr[indexPath.row][@"dealNum"]];
     
     return cell;
 }
 
 - (void)initUI{
     
-    self.titleLabel.text = _str;
+    self.titleLabel.text = self.titleStr;
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.backgroundColor = self.view.backgroundColor;

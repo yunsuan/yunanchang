@@ -12,7 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChannelRankListVC : BaseViewController
 
-- (instancetype)initWithTitleStr:(NSString *)str;
+@property (nonatomic, strong) NSString *titleStr;
+
+- (instancetype)initWithDataArr:(NSArray *)dataArr;
 
 @end
 

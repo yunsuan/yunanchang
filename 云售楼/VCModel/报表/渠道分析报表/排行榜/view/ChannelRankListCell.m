@@ -43,7 +43,7 @@
     _titleL = [[UILabel alloc] init];
     _titleL.textColor = CLBlackColor;
     _titleL.font = [UIFont systemFontOfSize:16 *SIZE];
-    //    _titleL.numberOfLines = 0;
+    _titleL.numberOfLines = 0;
     [self.contentView addSubview:_titleL];
     
 
@@ -72,20 +72,21 @@
         
         make.left.equalTo(self.contentView).offset(81 *SIZE);
         make.top.equalTo(self.contentView).offset(19 *SIZE);
-        make.width.mas_equalTo(200 *SIZE);
+        make.right.equalTo(self.contentView).offset(-15 *SIZE);
+//        make.width.mas_equalTo(200 *SIZE);
     }];
     
     [_contentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(81 *SIZE);
-        make.top.equalTo(self.contentView).offset(52 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(230*SIZE);
     }];
     
     [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(0);
-        make.top.equalTo(self->_rankL.mas_bottom).offset(13 *SIZE);
+        make.top.equalTo(self->_contentL.mas_bottom).offset(13 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(SIZE);
         make.bottom.equalTo(self.contentView).offset(0);

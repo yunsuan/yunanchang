@@ -33,13 +33,11 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _header.titleL.text = @"客户来源";
-    
     [_mutipleBarChartView removeFromSuperview];
     
     _mutipleBarChartView = [[SSWMutipleBarChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 240 *SIZE)];
     _mutipleBarChartView.backgroundColor = CLWhiteColor;
-    _mutipleBarChartView.barColorArr = [@[[UIColor blueColor],[UIColor greenColor]] mutableCopy];
+    _mutipleBarChartView.barColorArr = [@[[UIColor blueColor],[UIColor greenColor],[UIColor redColor],[UIColor orangeColor]] mutableCopy];
     [self.contentView addSubview:_mutipleBarChartView];
     
     [_mutipleBarChartView.yValuesArr removeAllObjects];
@@ -82,7 +80,7 @@
     _header = [[TitleRightBtnHeader alloc] initWithFrame:CGRectMake(0, 240 *SIZE, SCREEN_Width, 40 *SIZE)];
     _header.addBtn.hidden = YES;
     _header.titleL.text = @"分销公司排行榜";
-    [_header.moreBtn setTitle:@">>" forState:UIControlStateNormal];
+    [_header.moreBtn setTitle:@"查看更多 >>" forState:UIControlStateNormal];
     [_header.moreBtn addTarget:self action:@selector(ActionMoreBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_header];
     

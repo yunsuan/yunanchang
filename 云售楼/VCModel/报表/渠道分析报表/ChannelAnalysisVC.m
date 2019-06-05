@@ -11,14 +11,18 @@
 #import "ChannelRankListVC.h"
 
 #import "ChannelAnalysisHeader.h"
-#import "VisitCustomReportCell.h"
+#import "BaseHeader.h"
+#import "ChannelAnalysisCell.h"
+#import "ChanelAnalysisChartCell.h"
 
 @interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     
+    NSString *_status;
     NSString *_project_id;
     
     NSMutableDictionary *_dataDic;
+    NSMutableDictionary *_yearDic;
 }
 
 @property (nonatomic, strong) UISegmentedControl *segment;
@@ -49,16 +53,24 @@
 
 - (void)initDataSource{
     
+    _status = @"1";
     _dataDic = [@{} mutableCopy];
+    _yearDic = [@{} mutableCopy];
 }
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:ProjectClientCount_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ProjectClientCount_URL parameters:@{@"project_id":_project_id,@"sell_count":_status} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            if ([self->_status isEqualToString:@"1"]) {
+                
+                self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            }else{
+                
+                self->_yearDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            }
             [self->_table reloadData];
         }else{
             
@@ -72,36 +84,103 @@
 
 - (void)valueChanged:(UISegmentedControl *)sender{
     
+//    NSLog(@"%@",sender.)
+    if (sender.selectedSegmentIndex == 0) {
+        
+        _status = @"1";
+        if (!_dataDic.count) {
+            
+            [self RequestMethod];
+        }
+        [_table reloadData];
+    }else{
+        
+        _status = @"0";
+        if (!_yearDic.count) {
+            
+            [self RequestMethod];
+        }
+        [_table reloadData];
+    }
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return [_dataDic[@"company"] count];
+    if (section == 0) {
+        
+        if ([_status isEqualToString:@"1"]) {
+            
+            return [_dataDic[@"company"] count] > 3? 3:[_dataDic[@"company"] count];
+        }else{
+        
+            return [_yearDic[@"company"] count] > 3? 3:[_yearDic[@"company"] count];
+        }
+    }
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 280 *SIZE;
+    if (section == 0) {
+        
+        return 280 *SIZE;
+    }
+    return UITableViewAutomaticDimension;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    ChannelAnalysisHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"ChannelAnalysisHeader"];
-    if (!header) {
+    if (section == 0) {
         
-        header = [[ChannelAnalysisHeader alloc] initWithReuseIdentifier:@"ChannelAnalysisHeader"];
+        ChannelAnalysisHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"ChannelAnalysisHeader"];
+        if (!header) {
+            
+            header = [[ChannelAnalysisHeader alloc] initWithReuseIdentifier:@"ChannelAnalysisHeader"];
+        }
+        
+        if ([_status isEqualToString:@"1"]) {
+            
+            header.dataDic = _dataDic;
+        }else{
+            
+            header.dataDic = _yearDic;
+        }
+        
+        
+        header.channelAnalysisHeaderBlock = ^{
+            
+            if ([self->_status isEqualToString:@"1"]) {
+                
+                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
+                nextVC.titleStr = @"今日分销公司排行榜";
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_yearDic[@"company"]];
+                nextVC.titleStr = @"累计分销公司排行榜";
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+            
+        };
+        
+        return header;
+    }else{
+        
+        BaseHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BaseHeader"];
+        if (!header) {
+            
+            header = [[BaseHeader alloc] initWithReuseIdentifier:@"BaseHeader"];
+        }
+        
+        header.titleL.text = @"年度统计图";
+        
+        return header;
     }
-    
-    header.dataDic = _dataDic;
-    
-    header.channelAnalysisHeaderBlock = ^{
-        
-        ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    };
-    
-    return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -116,21 +195,52 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 40 *SIZE;
+    if (indexPath.section == 0) {
+        
+        return UITableViewAutomaticDimension;
+    }
+    return 240 *SIZE;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    VisitCustomReportCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VisitCustomReportCell"];
-    if (!cell) {
+    if (indexPath.section == 0) {
         
-        cell = [[VisitCustomReportCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"VisitCustomReportCell"];
+        ChannelAnalysisCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelAnalysisCell"];
+        if (!cell) {
+            
+            cell = [[ChannelAnalysisCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ChannelAnalysisCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if ([_status isEqualToString:@"1"]) {
+            
+            cell.titleL.text = _dataDic[@"company"][indexPath.row][@"name"];
+        }else{
+
+            cell.titleL.text = _yearDic[@"company"][indexPath.row][@"name"];
+        }
+
+        return cell;
+    }else{
+        
+        ChanelAnalysisChartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChanelAnalysisChartCell"];
+        if (!cell) {
+            
+            cell = [[ChanelAnalysisChartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ChanelAnalysisChartCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if ([_status isEqualToString:@"1"]) {
+            
+            cell.dataDic = _dataDic;
+        }else{
+            
+            cell.dataDic = _yearDic;
+        }
+        
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.dataDic = _dataDic[@"company"][indexPath.row];
-    
-    return cell;
 }
 
 - (void)initUI{
@@ -147,9 +257,10 @@
     [_segment addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
     [self.view addSubview:_segment];
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 30 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT - 30 *SIZE) style:UITableViewStyleGrouped];
-    _table.rowHeight = UITableViewAutomaticDimension;
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 30 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 30 *SIZE) style:UITableViewStyleGrouped];
+//    _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
+    _table.estimatedSectionHeaderHeight = 100 *SIZE;
     _table.backgroundColor = self.view.backgroundColor;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.delegate = self;

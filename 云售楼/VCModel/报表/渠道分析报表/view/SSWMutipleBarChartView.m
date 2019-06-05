@@ -10,11 +10,15 @@
 @interface SSWMutipleBarChartView(){
     CGFloat         _totalWidth;
     CGFloat         _totalHeight;
+    CAShapeLayer  *_lineLayer;//刻度layer;
 }
 @property(nonatomic)UIScrollView    *scrollView;
 @property(nonatomic)UIView          *contentView;
 @property(nonatomic)UILabel         *unitLab;
 @property(nonatomic)NSMutableArray  *totalPointArr;
+@property(nonatomic)NSMutableArray      *barsStartPointsArr;
+@property(nonatomic)NSMutableArray      *barsEndPointsArr;
+@property(nonatomic)NSMutableArray      *barsLayersArr;
 @end
 
 @implementation SSWMutipleBarChartView
@@ -34,10 +38,15 @@
     self.barColorArr = [@[] mutableCopy];
     self.totalPointArr = [@[] mutableCopy];
     
+    self.barsStartPointsArr  = [@[] mutableCopy];
+    self.barsEndPointsArr = [@[] mutableCopy];
+    self.barsLayersArr = [@[] mutableCopy];
+    
     self.barWidth = 30 *SIZE;
     self.gapWidth = 30 *SIZE;
     self.yAxiasCount = 10;
     self.yAxiasValus = 20;
+    self.showEachYValus=YES;
     
     [self addSubview:self.scrollView];
     [self.scrollView addSubview:self.contentView];
@@ -105,17 +114,43 @@
 -(void)layoutSubviews{
     
     self.scrollView.frame = self.bounds;
-    _totalWidth = ([self.yValuesArr[0] count] * self.barWidth) * self.xValuesArr.count + ( self.xValuesArr.count + 1) * self.gapWidth;
+    if (self.yValuesArr.count) {
+        
+         _totalWidth = ([self.yValuesArr[0] count] * self.barWidth) * self.xValuesArr.count + ( self.xValuesArr.count + 1) * self.gapWidth;
+    }else{
+        
+         _totalWidth = (self.xValuesArr.count + 1) * self.gapWidth;
+    }
+   
     _totalHeight = self.bounds.size.height - 20 *SIZE - 30*SIZE;
     self.scrollView.contentSize = CGSizeMake(30 *SIZE + _totalWidth, 0);
     self.contentView.frame = CGRectMake(30 *SIZE, 20 *SIZE, _totalWidth, _totalHeight);
     self.unitLab.frame = CGRectMake(5 *SIZE, 0, 80 *SIZE, 20 *SIZE);
+    [self clear];
     [self drawAxias];
     [self addYAxaisLabs];
     [self addXAxiasLabs];
     [self addBars];
     [self addLegends];
+//    [self showBarChartYValus];
     
+}
+
+//当触发界面重新布局的时候先移除之前的绘制
+-(void)clear{
+    [self.barsStartPointsArr removeAllObjects];
+    [self.barsEndPointsArr removeAllObjects];
+    for (CAShapeLayer *layer in self.barsLayersArr) {
+        [layer removeFromSuperlayer];
+    }
+    [self.barsLayersArr removeAllObjects];
+    [_lineLayer removeFromSuperlayer];
+    _lineLayer=nil;
+    for (UIView *view in self.contentView.subviews) {
+        if([view isEqual:self.unitLab])continue;
+        [view removeFromSuperview];
+        
+    }
 }
 //画坐标轴
 -(void)drawAxias{
@@ -188,7 +223,7 @@
         }
     }
 
-    for (int i =0; i < self.xValuesArr.count; i++) {
+    for (int i = 0; i < self.xValuesArr.count; i++) {
         CGPoint  startPoint;
         CGPoint  endPoint;
         NSMutableArray  *pointArr = [@[] mutableCopy];
@@ -214,6 +249,29 @@
     }
  
 }
+
+//显示每个柱形图的值
+-(void)showBarChartYValus{
+    
+    if(!self.showEachYValus)return;
+    
+    for (int i = 0; i < self.xValuesArr.count; i++) {
+        
+        for (int j = 0; j < [self.yValuesArr[i] count]; j++) {
+            
+            CGPoint  point = [self.barsEndPointsArr[i] CGPointValue];
+            UILabel  *lab = [[UILabel alloc]init];
+            lab.textColor = [UIColor lightGrayColor];//self.barCorlor;
+            lab.font = [UIFont systemFontOfSize:10 *SIZE];
+            lab.textAlignment = NSTextAlignmentCenter;
+            lab.text = [NSString stringWithFormat:@"%@",self.yValuesArr[i][j]];
+            lab.bounds = CGRectMake(0, 0, self.barWidth + self.gapWidth * 4 / 5, 20 *SIZE);
+            lab.center = CGPointMake(point.x, point.y-10);
+            [self.contentView addSubview:lab];
+        }
+    }
+}
+
 //添加图例
 -(void)addLegends{
     for (int i = 0; i < self.legendTitlesArr.count; i++) {
@@ -229,7 +287,11 @@
         [lengendView addSubview:legendLab];
         
         UILabel  *lengendLayer = [[UILabel alloc]init];;
-        lengendLayer.backgroundColor = self.barColorArr[i] ;
+        if (self.barColorArr.count) {
+            
+            lengendLayer.backgroundColor = self.barColorArr[i] ;
+        }
+        
         lengendLayer.frame = CGRectMake(0, lengendView.bounds.size.height/2- 5 *SIZE, 10 *SIZE, 10 *SIZE);
         [lengendView addSubview:lengendLayer];
     }

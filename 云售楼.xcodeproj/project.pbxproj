@@ -61,6 +61,8 @@
 		0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A918A225C484500F04804 /* TitleBaseHeader.m */; };
 		0C3A919D225C484500F04804 /* TagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9190225C484500F04804 /* TagCollCell.m */; };
 		0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */; };
+		0C7451E222A75AB9008F2F07 /* ChannelAnalysisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451E122A75AB9008F2F07 /* ChannelAnalysisCell.m */; };
+		0C7451E522A762B7008F2F07 /* ChanelAnalysisChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451E422A762B7008F2F07 /* ChanelAnalysisChartCell.m */; };
 		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
@@ -343,6 +345,10 @@
 		0C3A9191225C484500F04804 /* TagCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCollCell.h; sourceTree = "<group>"; };
 		0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleRightBtnHeader.m; sourceTree = "<group>"; };
 		0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
+		0C7451E022A75AB9008F2F07 /* ChannelAnalysisCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisCell.h; sourceTree = "<group>"; };
+		0C7451E122A75AB9008F2F07 /* ChannelAnalysisCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisCell.m; sourceTree = "<group>"; };
+		0C7451E322A762B7008F2F07 /* ChanelAnalysisChartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChanelAnalysisChartCell.h; sourceTree = "<group>"; };
+		0C7451E422A762B7008F2F07 /* ChanelAnalysisChartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChanelAnalysisChartCell.m; sourceTree = "<group>"; };
 		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
 		0C991C592272B32700AF2817 /* ProjectRoleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectRoleVC.m; sourceTree = "<group>"; };
 		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
@@ -838,6 +844,10 @@
 				0C26C9F222A66C7000A7CF47 /* SSWMutipleBarChartView.m */,
 				0C26C9EF22A669B900A7CF47 /* ChannelAnalysisHeader.h */,
 				0C26C9F022A669B900A7CF47 /* ChannelAnalysisHeader.m */,
+				0C7451E022A75AB9008F2F07 /* ChannelAnalysisCell.h */,
+				0C7451E122A75AB9008F2F07 /* ChannelAnalysisCell.m */,
+				0C7451E322A762B7008F2F07 /* ChanelAnalysisChartCell.h */,
+				0C7451E422A762B7008F2F07 /* ChanelAnalysisChartCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2812,6 +2822,7 @@
 				0CD7A031225C6D5700EAE816 /* BDDynamicTreeNode.m in Sources */,
 				0C221A5A227EB117006B0510 /* TaskSignAuditCell.m in Sources */,
 				0CD7A03E225C6F1100EAE816 /* FeedbackVC.m in Sources */,
+				0C7451E522A762B7008F2F07 /* ChanelAnalysisChartCell.m in Sources */,
 				0CF1A2EF228D15E6001C77CF /* VisitCustomVC.m in Sources */,
 				0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */,
 				0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */,
@@ -2921,6 +2932,7 @@
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
 				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
+				0C7451E222A75AB9008F2F07 /* ChannelAnalysisCell.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */,

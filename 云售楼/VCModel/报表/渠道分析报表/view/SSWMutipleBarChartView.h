@@ -18,6 +18,7 @@
 @property(nonatomic,assign)NSInteger    yAxiasCount;
 @property(nonatomic,assign)NSInteger    yAxiasValus;
 @property(nonatomic,copy)NSString       *unit;
+@property(nonatomic,assign)BOOL                 showEachYValus;//是否显示每个Y值
 @property(nonatomic)NSMutableArray      *legendTitlesArr;
 
 - (void)setUp;
