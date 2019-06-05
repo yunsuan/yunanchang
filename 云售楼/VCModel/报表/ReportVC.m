@@ -98,7 +98,7 @@
     
     if (indexPath.row == 0) {
         
-        VisitCustomReportVC *nextVC = [[VisitCustomReportVC alloc] init];
+        VisitCustomReportVC *nextVC = [[VisitCustomReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         

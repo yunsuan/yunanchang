@@ -16,6 +16,10 @@
 @interface VisitCustomReportVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
+    NSString *_status;
+    NSString *_project_id;
+
+    
     NSArray *_titleArr;
 }
 
@@ -30,16 +34,46 @@
 
 @implementation VisitCustomReportVC
 
+- (instancetype)initWithProjectId:(NSString *)project_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = project_id;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
+    _status = @"1";
+    
     _titleArr = @[@"今日统计",@"累计统计"];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:ProjectReportClientType_URL parameters:@{@"project_id":_project_id,@"type":_status} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)valueChanged:(UISegmentedControl *)sender{

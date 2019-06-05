@@ -60,11 +60,12 @@
 		0C3A919D225C484500F04804 /* TagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9190225C484500F04804 /* TagCollCell.m */; };
 		0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */; };
 		0C7451F522A7B14A008F2F07 /* SingleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */; };
-		0C7451F622A7B14A008F2F07 /* SSWMutipleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451ED22A7B14A008F2F07 /* SSWMutipleBarChartView.m */; };
 		0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451F322A7B14A008F2F07 /* ChannelAnalysisCell.m */; };
-		0C7451F922A7B14A008F2F07 /* ChanelAnalysisChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451F422A7B14A008F2F07 /* ChanelAnalysisChartCell.m */; };
 		0C7451FC22A7B2A3008F2F07 /* ChannelSingleChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451FB22A7B2A3008F2F07 /* ChannelSingleChartCell.m */; };
 		0C7451FF22A7B996008F2F07 /* MutiLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451FE22A7B996008F2F07 /* MutiLineChartView.m */; };
+		0C74520322A7DC82008F2F07 /* ChannelMutiChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74520222A7DC82008F2F07 /* ChannelMutiChartCell.m */; };
+		0C74520622A7DCB5008F2F07 /* MutiBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74520522A7DCB5008F2F07 /* MutiBarChartView.m */; };
+		0C74520922A7E454008F2F07 /* ChannelMutiLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74520822A7E454008F2F07 /* ChannelMutiLineCell.m */; };
 		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
@@ -344,17 +345,19 @@
 		0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleRightBtnHeader.m; sourceTree = "<group>"; };
 		0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
 		0C7451EA22A7B14A008F2F07 /* SingleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleBarChartView.h; sourceTree = "<group>"; };
-		0C7451EB22A7B14A008F2F07 /* SSWMutipleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSWMutipleBarChartView.h; sourceTree = "<group>"; };
 		0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleBarChartView.m; sourceTree = "<group>"; };
-		0C7451ED22A7B14A008F2F07 /* SSWMutipleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSWMutipleBarChartView.m; sourceTree = "<group>"; };
 		0C7451F022A7B14A008F2F07 /* ChannelAnalysisCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisCell.h; sourceTree = "<group>"; };
-		0C7451F122A7B14A008F2F07 /* ChanelAnalysisChartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChanelAnalysisChartCell.h; sourceTree = "<group>"; };
 		0C7451F322A7B14A008F2F07 /* ChannelAnalysisCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelAnalysisCell.m; sourceTree = "<group>"; };
-		0C7451F422A7B14A008F2F07 /* ChanelAnalysisChartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChanelAnalysisChartCell.m; sourceTree = "<group>"; };
 		0C7451FA22A7B2A3008F2F07 /* ChannelSingleChartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelSingleChartCell.h; sourceTree = "<group>"; };
 		0C7451FB22A7B2A3008F2F07 /* ChannelSingleChartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelSingleChartCell.m; sourceTree = "<group>"; };
 		0C7451FD22A7B996008F2F07 /* MutiLineChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MutiLineChartView.h; sourceTree = "<group>"; };
 		0C7451FE22A7B996008F2F07 /* MutiLineChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MutiLineChartView.m; sourceTree = "<group>"; };
+		0C74520122A7DC82008F2F07 /* ChannelMutiChartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelMutiChartCell.h; sourceTree = "<group>"; };
+		0C74520222A7DC82008F2F07 /* ChannelMutiChartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelMutiChartCell.m; sourceTree = "<group>"; };
+		0C74520422A7DCB5008F2F07 /* MutiBarChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MutiBarChartView.h; sourceTree = "<group>"; };
+		0C74520522A7DCB5008F2F07 /* MutiBarChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MutiBarChartView.m; sourceTree = "<group>"; };
+		0C74520722A7E454008F2F07 /* ChannelMutiLineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelMutiLineCell.h; sourceTree = "<group>"; };
+		0C74520822A7E454008F2F07 /* ChannelMutiLineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelMutiLineCell.m; sourceTree = "<group>"; };
 		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
 		0C991C592272B32700AF2817 /* ProjectRoleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectRoleVC.m; sourceTree = "<group>"; };
 		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
@@ -1281,10 +1284,10 @@
 			children = (
 				0C7451EA22A7B14A008F2F07 /* SingleBarChartView.h */,
 				0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */,
-				0C7451EB22A7B14A008F2F07 /* SSWMutipleBarChartView.h */,
-				0C7451ED22A7B14A008F2F07 /* SSWMutipleBarChartView.m */,
 				0C7451FD22A7B996008F2F07 /* MutiLineChartView.h */,
 				0C7451FE22A7B996008F2F07 /* MutiLineChartView.m */,
+				0C74520422A7DCB5008F2F07 /* MutiBarChartView.h */,
+				0C74520522A7DCB5008F2F07 /* MutiBarChartView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1294,10 +1297,12 @@
 			children = (
 				0C7451F022A7B14A008F2F07 /* ChannelAnalysisCell.h */,
 				0C7451F322A7B14A008F2F07 /* ChannelAnalysisCell.m */,
-				0C7451F122A7B14A008F2F07 /* ChanelAnalysisChartCell.h */,
-				0C7451F422A7B14A008F2F07 /* ChanelAnalysisChartCell.m */,
 				0C7451FA22A7B2A3008F2F07 /* ChannelSingleChartCell.h */,
 				0C7451FB22A7B2A3008F2F07 /* ChannelSingleChartCell.m */,
+				0C74520122A7DC82008F2F07 /* ChannelMutiChartCell.h */,
+				0C74520222A7DC82008F2F07 /* ChannelMutiChartCell.m */,
+				0C74520722A7E454008F2F07 /* ChannelMutiLineCell.h */,
+				0C74520822A7E454008F2F07 /* ChannelMutiLineCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2868,7 +2873,6 @@
 				0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
 				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
-				0C7451F922A7B14A008F2F07 /* ChanelAnalysisChartCell.m in Sources */,
 				0C7451FF22A7B996008F2F07 /* MutiLineChartView.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
 				0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */,
@@ -2894,7 +2898,6 @@
 				0C221A72227EED08006B0510 /* WorkPhoneConfirmVC.m in Sources */,
 				0CEF8A40225F0F940057F3FD /* CompanyAuthingVC.m in Sources */,
 				0CEF8A31225D863A0057F3FD /* CountDownCell.m in Sources */,
-				0C7451F622A7B14A008F2F07 /* SSWMutipleBarChartView.m in Sources */,
 				0CEF8AED2264295F0057F3FD /* CallTelegramCell.m in Sources */,
 				0C3A919A225C484500F04804 /* TitleContentBaseCell.m in Sources */,
 				0CD0438722811DF7002C8BD3 /* CompanyAuthingCell.m in Sources */,
@@ -2966,11 +2969,13 @@
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */,
 				0C3A9171225B37CF00F04804 /* ReportVC.m in Sources */,
+				0C74520922A7E454008F2F07 /* ChannelMutiLineCell.m in Sources */,
 				0CAD45682298092A00A5C1D0 /* WorkPhoneConfrimFailCell.m in Sources */,
 				0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */,
 				0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */,
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
 				0CBD712422925B1E002A6B48 /* PushSettingCell.m in Sources */,
+				0C74520622A7DCB5008F2F07 /* MutiBarChartView.m in Sources */,
 				0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */,
 				0CEF8A53225F1D440057F3FD /* SelectCompanyCollCell.m in Sources */,
 				0CFF71F322A64D6F0066732B /* PieCircleModel.m in Sources */,
@@ -3003,6 +3008,7 @@
 				0C310E3D22A5050B00083504 /* VisitCustomCell.m in Sources */,
 				0C3A9119225B20C400F04804 /* ViewController.m in Sources */,
 				0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */,
+				0C74520322A7DC82008F2F07 /* ChannelMutiChartCell.m in Sources */,
 				0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */,
 				10EF17A622928A6700DE5566 /* AddCompanyView.m in Sources */,
 				0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */,

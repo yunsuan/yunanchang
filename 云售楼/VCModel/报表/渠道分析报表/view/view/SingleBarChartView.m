@@ -20,7 +20,7 @@
 @property(nonatomic)NSMutableArray      *barsEndPointsArr;
 @property(nonatomic)NSMutableArray      *barsLayersArr;
 @property(nonatomic)UILabel             *unitLab;
-@property(nonatomic,assign)BOOL                 showEachYValus;//是否显示每个Y值
+@property(nonatomic,assign)BOOL         showEachYValus;//是否显示每个Y值
 
 @end
 
@@ -46,7 +46,7 @@
     self.barsLayersArr = [@[] mutableCopy];
     self.barWidth = 80 *SIZE;
     self.gapWidth = 20 *SIZE;
-    self.yScaleValue = 50;
+//    self.yScaleValue = 50;
     self.yAxisCount = 10;
     self.showEachYValus=YES;
     self.barCorlor = [UIColor lightGrayColor];
@@ -59,6 +59,7 @@
 -(void)setUnit:(NSString *)unit{
     
     _unit = unit;
+    self.unitLab.hidden = YES;
     self.unitLab.text = [NSString stringWithFormat:@"单位:%@",unit];
 }
 -(UIScrollView *)scrollView{

@@ -375,6 +375,9 @@ static NSString *const GetPeople_URL = @"saleApp/project/duty/company/person/lis
 
 #pragma mark === 报表 =====
 
+//客户来源
+static NSString *const ProjectReportClientType_URL = @"saleApp/report/client/type";
+
 //项目客户统计
 static NSString *const ProjectClientCount_URL = @"saleApp/project/client/count";
 #endif /* NetConfig_h */

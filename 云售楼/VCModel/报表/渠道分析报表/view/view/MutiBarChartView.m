@@ -1,13 +1,15 @@
 //
-//  SSWMutipleBarChartView.h
+//  MutiBarChartView.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/6/4.
+//  Created by 谷治墙 on 2019/6/5.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "SSWMutipleBarChartView.h"
-@interface SSWMutipleBarChartView(){
+#import "MutiBarChartView.h"
+
+@interface MutiBarChartView (){
+    
     CGFloat         _totalWidth;
     CGFloat         _totalHeight;
     CAShapeLayer  *_lineLayer;//刻度layer;
@@ -19,9 +21,10 @@
 @property(nonatomic)NSMutableArray      *barsStartPointsArr;
 @property(nonatomic)NSMutableArray      *barsEndPointsArr;
 @property(nonatomic)NSMutableArray      *barsLayersArr;
+
 @end
 
-@implementation SSWMutipleBarChartView
+@implementation MutiBarChartView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -61,19 +64,19 @@
 }
 - (void)tap:(UITapGestureRecognizer *)ges{
     
-//    CGPoint  point = [ges locationInView:self.contentView];
-//    for (int i = 0 ; i<self.totalPointArr.count; i++) {
-//        NSArray  *tempArr = self.totalPointArr[i];
-//        for (int j=0; j<tempArr.count; j++) {
-//            CGPoint  startPoint = [tempArr[j][0] CGPointValue];
-//            CGPoint  endPoint = [tempArr[j][1] CGPointValue];
-//            if (point.x>=startPoint.x-self.barWidth/2&&point.x<=startPoint.x+self.barWidth/2&&point.y>=endPoint.y&&point.y<=startPoint.y) {
-//                if (self.delegate && [self.delegate respondsToSelector:@selector(SSWChartView:didSelectMutipleBarChartIndex:)]) {
-//                    [self.delegate SSWChartView:self didSelectMutipleBarChartIndex:@[@(i),@(j)]];
-//                }
-//            }
-//        }
-//    }
+    //    CGPoint  point = [ges locationInView:self.contentView];
+    //    for (int i = 0 ; i<self.totalPointArr.count; i++) {
+    //        NSArray  *tempArr = self.totalPointArr[i];
+    //        for (int j=0; j<tempArr.count; j++) {
+    //            CGPoint  startPoint = [tempArr[j][0] CGPointValue];
+    //            CGPoint  endPoint = [tempArr[j][1] CGPointValue];
+    //            if (point.x>=startPoint.x-self.barWidth/2&&point.x<=startPoint.x+self.barWidth/2&&point.y>=endPoint.y&&point.y<=startPoint.y) {
+    //                if (self.delegate && [self.delegate respondsToSelector:@selector(SSWChartView:didSelectMutipleBarChartIndex:)]) {
+    //                    [self.delegate SSWChartView:self didSelectMutipleBarChartIndex:@[@(i),@(j)]];
+    //                }
+    //            }
+    //        }
+    //    }
 }
 
 
@@ -97,7 +100,7 @@
     if (!_contentView) {
         
         _contentView = [[UIView alloc]init];
-//        _contentView.backgroundColor = [UIColor greenColor];
+        //        _contentView.backgroundColor = [UIColor greenColor];
     }
     return _contentView;
 }
@@ -107,7 +110,7 @@
         
         _unitLab = [[UILabel alloc]init];
         _unitLab.font = [UIFont systemFontOfSize:10];
-//        _unitLab.textAlignment = NSTextAlignmentCenter;
+        //        _unitLab.textAlignment = NSTextAlignmentCenter;
     }
     return _unitLab;
 }
@@ -116,12 +119,12 @@
     self.scrollView.frame = self.bounds;
     if (self.yValuesArr.count) {
         
-         _totalWidth = ([self.yValuesArr[0] count] * self.barWidth) * self.xValuesArr.count + ( self.xValuesArr.count + 1) * self.gapWidth;
+        _totalWidth = ([self.yValuesArr[0] count] * self.barWidth) * self.xValuesArr.count + ( self.xValuesArr.count + 1) * self.gapWidth;
     }else{
         
-         _totalWidth = (self.xValuesArr.count + 1) * self.gapWidth;
+        _totalWidth = (self.xValuesArr.count + 1) * self.gapWidth;
     }
-   
+    
     _totalHeight = self.bounds.size.height - 20 *SIZE - 30*SIZE;
     self.scrollView.contentSize = CGSizeMake(30 *SIZE + _totalWidth, 0);
     self.contentView.frame = CGRectMake(30 *SIZE, 20 *SIZE, _totalWidth, _totalHeight);
@@ -132,7 +135,7 @@
     [self addXAxiasLabs];
     [self addBars];
     [self addLegends];
-//    [self showBarChartYValus];
+    [self showBarChartYValus];
     
 }
 
@@ -218,20 +221,22 @@
     [self.barColorArr removeAllObjects];
     if (self.barColorArr.count <= 0 && self.yValuesArr.count > 0) {
         
-        for (int i = 0 ; i< [self.yValuesArr[0] count]; i++) {
-            [self.barColorArr addObject:[UIColor colorWithRed:(arc4random()%255)/255.0 green:(arc4random()%255)/255.0 blue:(arc4random()%255)/255.0 alpha:1]];
+        for (int i = 0 ; i < [self.yValuesArr[0] count]; i++) {
+            [self.barColorArr addObject:CLArr[i]];
         }
     }
-
+    
     for (int i = 0; i < self.xValuesArr.count; i++) {
         CGPoint  startPoint;
         CGPoint  endPoint;
+        NSMutableArray  *endPointArr = [@[] mutableCopy];
         NSMutableArray  *pointArr = [@[] mutableCopy];
         for (int j = 0 ; j < [self.yValuesArr[i] count]; j++) {
             
             startPoint = CGPointMake(self.gapWidth + i * ([self.yValuesArr[i] count] * self.barWidth + self.gapWidth) + self.barWidth/2 + j * self.barWidth, _totalHeight);
             endPoint = CGPointMake(self.gapWidth + i * ([self.yValuesArr[i] count] * self.barWidth + self.gapWidth) + self.barWidth/2 + j * self.barWidth, _totalHeight - [self.yValuesArr[i][j] floatValue] * _totalHeight/(self.yAxiasCount * self.yAxiasValus));
             [pointArr addObject:@[[NSValue valueWithCGPoint:startPoint],[NSValue valueWithCGPoint:endPoint]]];
+            [endPointArr addObject:[NSValue valueWithCGPoint:endPoint]];
             
             //绘制条形图
             UIBezierPath  *layerPath = [UIBezierPath bezierPath];
@@ -242,12 +247,13 @@
             layer.lineWidth = self.barWidth;
             layer.strokeColor = [self.barColorArr[j] CGColor];
             layer.path = layerPath.CGPath;
-//            [layer addAnimation:[self animationWithDuration:(i+1)*0.3] forKey:nil];
+            //            [layer addAnimation:[self animationWithDuration:(i+1)*0.3] forKey:nil];
             [self.contentView.layer addSublayer:layer];
         }
         [self.totalPointArr addObject:pointArr];
+        [self.barsEndPointsArr addObject:endPointArr];
     }
- 
+    
 }
 
 //显示每个柱形图的值
@@ -259,7 +265,7 @@
         
         for (int j = 0; j < [self.yValuesArr[i] count]; j++) {
             
-            CGPoint  point = [self.barsEndPointsArr[i] CGPointValue];
+            CGPoint  point = [self.barsEndPointsArr[i][j] CGPointValue];
             UILabel  *lab = [[UILabel alloc]init];
             lab.textColor = [UIColor lightGrayColor];//self.barCorlor;
             lab.font = [UIFont systemFontOfSize:10 *SIZE];

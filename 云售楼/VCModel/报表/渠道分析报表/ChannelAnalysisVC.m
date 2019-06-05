@@ -13,8 +13,9 @@
 #import "BaseHeader.h"
 #import "TitleRightBtnHeader.h"
 #import "ChannelAnalysisCell.h"
-#import "ChanelAnalysisChartCell.h"
+#import "ChannelMutiChartCell.h"
 #import "ChannelSingleChartCell.h"
+#import "ChannelMutiLineCell.h"
 
 @interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate>///,SingleBarChartViewDelegate>
 {
@@ -149,22 +150,23 @@
         }
         
         header.titleL.text = @"分销公司排行榜";
+        header.addBtn.hidden = YES;
         
-//        header.channelAnalysisHeaderBlock = ^{
-//
-//            if ([self->_status isEqualToString:@"1"]) {
-//
-//                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
-//                nextVC.titleStr = @"今日分销公司排行榜";
-//                [self.navigationController pushViewController:nextVC animated:YES];
-//            }else{
-//
-//                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_yearDic[@"company"]];
-//                nextVC.titleStr = @"累计分销公司排行榜";
-//                [self.navigationController pushViewController:nextVC animated:YES];
-//            }
-//
-//        };
+        header.titleRightBtnHeaderMoreBlock = ^{
+            
+            if ([self->_status isEqualToString:@"1"]) {
+                
+                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
+                nextVC.titleStr = @"今日分销公司排行榜";
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else{
+                
+                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_yearDic[@"company"]];
+                nextVC.titleStr = @"累计分销公司排行榜";
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }
+
+        };
         
         return header;
     }else{
@@ -264,23 +266,43 @@
             }
             
             return cell;
-        }
-        ChanelAnalysisChartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChanelAnalysisChartCell"];
-        if (!cell) {
+        }else if (indexPath.section == 1){
             
-            cell = [[ChanelAnalysisChartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ChanelAnalysisChartCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        if ([_status isEqualToString:@"1"]) {
+            ChannelMutiChartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelMutiChartCell"];
+            if (!cell) {
+                
+                cell = [[ChannelMutiChartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ChannelMutiChartCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.dataDic = _dataDic;
+            if ([_status isEqualToString:@"1"]) {
+                
+                cell.dataDic = _dataDic;
+            }else{
+                
+                cell.dataDic = _yearDic;
+            }
+            
+            return cell;
         }else{
             
-            cell.dataDic = _yearDic;
+            ChannelMutiLineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelMutiLineCell"];
+            if (!cell) {
+                
+                cell = [[ChannelMutiLineCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ChannelMutiLineCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            if ([_status isEqualToString:@"1"]) {
+                
+                cell.dataDic = _dataDic;
+            }else{
+                
+                cell.dataDic = _yearDic;
+            }
+            
+            return cell;
         }
-        
-        return cell;
     }
 }
 

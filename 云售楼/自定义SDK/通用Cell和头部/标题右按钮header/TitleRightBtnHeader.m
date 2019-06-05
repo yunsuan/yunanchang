@@ -42,7 +42,7 @@
     _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _moreBtn.titleLabel.font = [UIFont systemFontOfSize:11 *SIZE];
     [_moreBtn addTarget:self action:@selector(ActionMoreBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_moreBtn setTitle:@"小区详情 >>" forState:UIControlStateNormal];
+    [_moreBtn setTitle:@"查看更多 >>" forState:UIControlStateNormal];
     [_moreBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
     [self.contentView addSubview:_moreBtn];
     
@@ -71,7 +71,7 @@
     [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(287 *SIZE);
-        make.top.equalTo(self.contentView).offset(5 *SIZE);
+        make.top.equalTo(self.contentView).offset(10 *SIZE);
         //        make.bottom.equalTo(self.contentView).offset(10 *SIZE);
         make.width.equalTo(@(65 *SIZE));
         make.height.equalTo(@(20 *SIZE));
@@ -80,7 +80,7 @@
     [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(325 *SIZE);
-        make.top.equalTo(self.contentView).offset(5 *SIZE);
+        make.top.equalTo(self.contentView).offset(10 *SIZE);
         //        make.bottom.equalTo(self.contentView).offset(10 *SIZE);
         make.width.equalTo(@(20 *SIZE));
         make.height.equalTo(@(20 *SIZE));

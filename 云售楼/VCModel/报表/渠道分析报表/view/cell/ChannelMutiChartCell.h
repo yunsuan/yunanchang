@@ -1,5 +1,5 @@
 //
-//  ChanelAnalysisChartCell.h
+//  ChannelMutiChartCell.h
 //  云售楼
 //
 //  Created by 谷治墙 on 2019/6/5.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChanelAnalysisChartCell : UITableViewCell
+@interface ChannelMutiChartCell : UITableViewCell
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 
