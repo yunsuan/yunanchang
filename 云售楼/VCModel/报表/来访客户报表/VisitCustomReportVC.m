@@ -16,11 +16,17 @@
 @interface VisitCustomReportVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
+    NSInteger _percent;
+    
     NSString *_status;
     NSString *_project_id;
-
     
     NSArray *_titleArr;
+    
+    NSMutableDictionary *_dataDic;
+    NSMutableDictionary *_yearDic;
+    
+    NSMutableArray *_dataArr;
 }
 
 //@property (nonatomic, strong) UISegmentedControl *segment;
@@ -57,6 +63,9 @@
     _status = @"1";
     
     _titleArr = @[@"今日统计",@"累计统计"];
+    
+    _dataDic = [@{} mutableCopy];
+    _dataArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -65,7 +74,13 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            
+            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+//            [self->_dataArr removeAllObjects];
+//            [self->_dataDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+//
+//                [self->_dataArr addObject:key];
+//            }];
+            [self->_table reloadData];
         }else{
             
             [self showContent:resposeObject[@"msg"]];
@@ -107,13 +122,35 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
 //    [_scrollView setContentOffset:CGPointMake(SCREEN_Width * indexPath.item, 0) animated:NO];
+    _status = [NSString stringWithFormat:@"%ld",indexPath.item + 1];
+    if (!_yearDic.count) {
+        
+        [self  RequestMethod];
+    }
+    if (!_dataDic.count) {
+        
+        [self  RequestMethod];
+    }
 }
 
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return _dataDic.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
+    if (_dataDic.count) {
+        
+        if (section == 0) {
+            
+            return 3;
+        }else{
+            
+            return [_dataDic[@"property"] count];
+        }
+    }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -129,8 +166,16 @@
         header = [[VisitCustomHeader alloc] initWithReuseIdentifier:@"VisitCustomHeader"];
     }
     
-    header.dataDic = @{};
-    
+    if (_dataDic.count) {
+        
+        if (section == 0) {
+            
+            header.dataDic = _dataDic[@"basic"];
+        }else{
+            
+            header.dataArr = _dataDic[@"property"];
+        }
+    }
     return header;
 }
 
@@ -158,7 +203,61 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+    if (indexPath.section == 0) {
+        
+//        cell.dataDic = [_dataDic objectForKey:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section]]][indexPath.row];
+        NSMutableArray *percentArr = [@[] mutableCopy];
+        if (indexPath.row == 0) {
+            
+            cell.titleL.text = @"自然来访";
+            cell.numL.text = [NSString stringWithFormat:@"%@",_dataDic[@"basic"][@"auto_visit"]];
+            if ([cell.numL.text integerValue] == 0) {
+                
+                cell.percentL.text = @"占比：0%";
+            }else{
+                
+                cell.percentL.text = [NSString stringWithFormat:@"%.2f",[_dataDic[@"basic"][@"auto_visit"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue])];
+            }
+        }else if (indexPath.row == 1){
+            
+            cell.titleL.text = @"渠道分销";
+            cell.numL.text = [NSString stringWithFormat:@"%@",_dataDic[@"basic"][@"company"]];
+            if ([cell.numL.text integerValue] == 0) {
+                
+                cell.percentL.text = @"占比：0%";
+            }else{
+                
+                cell.percentL.text = [NSString stringWithFormat:@"%.2f",[_dataDic[@"basic"][@"company"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue])];
+            }
+        }else{
+            
+            cell.titleL.text = @"全民营销";
+            cell.numL.text = [NSString stringWithFormat:@"%@",_dataDic[@"basic"][@"person"]];
+            if ([cell.numL.text integerValue] == 0) {
+                
+                cell.percentL.text = @"占比：0%";
+            }else{
+                
+                cell.percentL.text = [NSString stringWithFormat:@"%.2f",[_dataDic[@"basic"][@"person"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue])];
+            }
+        }
+    }else{
+        
+        cell.dataDic = _dataDic[@"property"][indexPath.row];
+        
+        _percent = 0;
+        for (int i = 0; i < [_dataDic[@"property"] count]; i++) {
+            
+            _percent = _percent + [_dataDic[@"property"][i][@"count"] integerValue];
+        }
+        if ([_dataDic[@"property"][indexPath.row][@"count"] integerValue] == 0) {
+            
+            cell.percentL.text = @"占比：0%";
+        }else{
+            
+            cell.percentL.text = [NSString stringWithFormat:@"%.2f",[_dataDic[@"property"][indexPath.row][@"count"] floatValue] / _percent];
+        }
+    }
     
     return cell;
 }
@@ -193,7 +292,7 @@
     [_segmentColl registerClass:[TypeTagCollCell class] forCellWithReuseIdentifier:@"TypeTagCollCell"];
     [self.view addSubview:_segmentColl];
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT - 40 *SIZE) style:UITableViewStyleGrouped];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 40 *SIZE) style:UITableViewStyleGrouped];
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
     _table.backgroundColor = self.view.backgroundColor;

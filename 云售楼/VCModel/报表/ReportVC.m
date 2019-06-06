@@ -90,7 +90,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.titleL.text = _titleArr[indexPath.row];
-    
+    cell.headImg.image = IMAGE_WITH_NAME(@"laifangfenxi");
     return cell;
 }
 

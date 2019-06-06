@@ -7,7 +7,7 @@
 //
 
 #import "ChannelAnalysisVC.h"
-
+#import "ChannelCustomVC.h"
 #import "ChannelRankListVC.h"
 
 #import "BaseHeader.h"
@@ -16,18 +16,26 @@
 #import "ChannelMutiChartCell.h"
 #import "ChannelSingleChartCell.h"
 #import "ChannelMutiLineCell.h"
+#import "TypeTagCollCell.h"
 
-@interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate>///,SingleBarChartViewDelegate>
+@interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>///,SingleBarChartViewDelegate>
 {
     
     NSString *_status;
     NSString *_project_id;
     
+    NSArray *_titleArr;
+    
     NSMutableDictionary *_dataDic;
     NSMutableDictionary *_yearDic;
+    
+    NSDateFormatter *_formatter;
 }
 
-@property (nonatomic, strong) UISegmentedControl *segment;
+//@property (nonatomic, strong) UISegmentedControl *segment;
+@property (nonatomic, strong) UICollectionView *segmentColl;
+
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 
 @property (nonatomic, strong) UITableView *table;
 
@@ -56,8 +64,12 @@
 - (void)initDataSource{
     
     _status = @"1";
+    _titleArr = @[@"今日统计",@"累计统计"];
     _dataDic = [@{} mutableCopy];
     _yearDic = [@{} mutableCopy];
+    
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
 }
 
 - (void)RequestMethod{
@@ -112,6 +124,51 @@
 //    WorkRecommendVC *nextVC = [[WorkRecommendVC alloc] init];
 //    [self.navigationController pushViewController:nextVC animated:YES];
 //}
+
+#pragma mark -- collectionview
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return _titleArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TypeTagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TypeTagCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[TypeTagCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 2, 40 *SIZE)];
+        cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 2, 11 *SIZE);
+        cell.line.frame = CGRectMake(75 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
+    }
+    
+    cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 2, 11 *SIZE);
+    cell.line.frame = CGRectMake(75 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
+    cell.titleL.text = _titleArr[indexPath.item];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //    [_scrollView setContentOffset:CGPointMake(SCREEN_Width * indexPath.item, 0) animated:NO];
+    if (indexPath.item == 0) {
+        
+        _status = @"1";
+        if (!_dataDic.count) {
+            
+            [self RequestMethod];
+        }
+        [_table reloadData];
+    }else{
+        
+        _status = @"0";
+        if (!_yearDic.count) {
+            
+            [self RequestMethod];
+        }
+        [_table reloadData];
+    }
+}
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -248,13 +305,21 @@
 //            cell.singleBarChartView.delegate = self;
             cell.channelSingleChartCellBlock = ^(NSInteger index) {
                 
+                ChannelCustomVC *nextVC = [[ChannelCustomVC alloc] init];
+                nextVC.index = index;
+                nextVC.project_id = self->_project_id;
+                if ([self->_status isEqualToString:@"1"]) {
+                    
+                    nextVC.date = [self->_formatter stringFromDate:[NSDate date]];
+                }
+                [self.navigationController pushViewController:nextVC animated:YES];
             };
             
             if ([_status isEqualToString:@"1"]) {
                 
                 if (_dataDic.count) {
                     
-                    cell.dataDic =  _dataDic[@"totalCount"];
+                    cell.dataDic =  _dataDic[@"todayCount"];
                 }else{
                     
                     cell.dataDic = @{};
@@ -262,7 +327,7 @@
                 
             }else{
                 
-                cell.dataDic = @{};
+                cell.dataDic = _dataDic[@"totalCount"];
             }
             
             return cell;
@@ -310,17 +375,25 @@
     
     self.titleLabel.text = @"渠道分析表";
     
-    _segment = [[UISegmentedControl alloc] initWithItems:[NSMutableArray arrayWithObjects:@"今日统计",@"累计统计", nil]];
-    _segment.frame = CGRectMake(80 *SIZE, NAVIGATION_BAR_HEIGHT, 200 *SIZE, 30 *SIZE);
-    //添加到视图
+    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 2, 40 *SIZE);
+    _flowLayout.minimumLineSpacing = 0;
+    _flowLayout.minimumInteritemSpacing = 0;
+    _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    //    [_segment setTintColor:CLWhiteColor];
-    //    [_segment setEnabled:NO forSegmentAtIndex:0];
-    [_segment setWidth:100 *SIZE forSegmentAtIndex:0];
-    [_segment addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
-    [self.view addSubview:_segment];
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 30 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 30 *SIZE) style:UITableViewStyleGrouped];
+    _segmentColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT , SCREEN_Width, 40 *SIZE) collectionViewLayout:_flowLayout];
+    _segmentColl.backgroundColor = [UIColor whiteColor];
+    _segmentColl.delegate = self;
+    _segmentColl.dataSource = self;
+    _segmentColl.showsHorizontalScrollIndicator = NO;
+    _segmentColl.bounces = NO;
+    [_segmentColl registerClass:[TypeTagCollCell class] forCellWithReuseIdentifier:@"TypeTagCollCell"];
+    [self.view addSubview:_segmentColl];
+    
+    [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 40 *SIZE) style:UITableViewStyleGrouped];
 //    _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
     _table.estimatedSectionHeaderHeight = 100 *SIZE;

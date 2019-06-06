@@ -378,6 +378,15 @@ static NSString *const GetPeople_URL = @"saleApp/project/duty/company/person/lis
 //客户来源
 static NSString *const ProjectReportClientType_URL = @"saleApp/report/client/type";
 
+//到访客户列表
+static NSString *const ProjectClientValue_URL = @"saleApp/project/client/value";
+
+//推荐客户列表
+static NSString *const ProjectClientWaitConfirmed_URL = @"saleApp/project/client/waitConfirmed";
+
+//成交客户列表
+static NSString *const ProjectClientDeal_URL = @"saleApp/project/client/deal";
+
 //项目客户统计
 static NSString *const ProjectClientCount_URL = @"saleApp/project/client/count";
 #endif /* NetConfig_h */

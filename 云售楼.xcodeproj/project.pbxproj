@@ -66,6 +66,12 @@
 		0C74520322A7DC82008F2F07 /* ChannelMutiChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74520222A7DC82008F2F07 /* ChannelMutiChartCell.m */; };
 		0C74520622A7DCB5008F2F07 /* MutiBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74520522A7DCB5008F2F07 /* MutiBarChartView.m */; };
 		0C74520922A7E454008F2F07 /* ChannelMutiLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74520822A7E454008F2F07 /* ChannelMutiLineCell.m */; };
+		0C74520D22A8AC86008F2F07 /* ChannelCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74520C22A8AC86008F2F07 /* ChannelCustomVC.m */; };
+		0C74521322A8B574008F2F07 /* ChannelRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521222A8B574008F2F07 /* ChannelRecommendVC.m */; };
+		0C74521622A8B582008F2F07 /* ChannelVisitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521522A8B582008F2F07 /* ChannelVisitVC.m */; };
+		0C74521922A8B5AA008F2F07 /* ChannelDealVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521822A8B5AA008F2F07 /* ChannelDealVC.m */; };
+		0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521C22A8FDB6008F2F07 /* ChannelRecommendCell.m */; };
+		0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522022A91131008F2F07 /* ChannelDealCell.m */; };
 		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
@@ -358,6 +364,18 @@
 		0C74520522A7DCB5008F2F07 /* MutiBarChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MutiBarChartView.m; sourceTree = "<group>"; };
 		0C74520722A7E454008F2F07 /* ChannelMutiLineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelMutiLineCell.h; sourceTree = "<group>"; };
 		0C74520822A7E454008F2F07 /* ChannelMutiLineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelMutiLineCell.m; sourceTree = "<group>"; };
+		0C74520B22A8AC86008F2F07 /* ChannelCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelCustomVC.h; sourceTree = "<group>"; };
+		0C74520C22A8AC86008F2F07 /* ChannelCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelCustomVC.m; sourceTree = "<group>"; };
+		0C74521122A8B574008F2F07 /* ChannelRecommendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelRecommendVC.h; sourceTree = "<group>"; };
+		0C74521222A8B574008F2F07 /* ChannelRecommendVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelRecommendVC.m; sourceTree = "<group>"; };
+		0C74521422A8B582008F2F07 /* ChannelVisitVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelVisitVC.h; sourceTree = "<group>"; };
+		0C74521522A8B582008F2F07 /* ChannelVisitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelVisitVC.m; sourceTree = "<group>"; };
+		0C74521722A8B5AA008F2F07 /* ChannelDealVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelDealVC.h; sourceTree = "<group>"; };
+		0C74521822A8B5AA008F2F07 /* ChannelDealVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelDealVC.m; sourceTree = "<group>"; };
+		0C74521B22A8FDB6008F2F07 /* ChannelRecommendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelRecommendCell.h; sourceTree = "<group>"; };
+		0C74521C22A8FDB6008F2F07 /* ChannelRecommendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelRecommendCell.m; sourceTree = "<group>"; };
+		0C74521F22A91131008F2F07 /* ChannelDealCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelDealCell.h; sourceTree = "<group>"; };
+		0C74522022A91131008F2F07 /* ChannelDealCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelDealCell.m; sourceTree = "<group>"; };
 		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
 		0C991C592272B32700AF2817 /* ProjectRoleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectRoleVC.m; sourceTree = "<group>"; };
 		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
@@ -838,6 +856,7 @@
 		0C26C9EA22A667C700A7CF47 /* 渠道分析报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C74520A22A8AC6F008F2F07 /* 客户统计 */,
 				0C26C9F522A67DDE00A7CF47 /* 排行榜 */,
 				0C26C9EE22A669A300A7CF47 /* view */,
 				0C26C9EB22A667FC00A7CF47 /* ChannelAnalysisVC.h */,
@@ -1305,6 +1324,65 @@
 				0C74520822A7E454008F2F07 /* ChannelMutiLineCell.m */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		0C74520A22A8AC6F008F2F07 /* 客户统计 */ = {
+			isa = PBXGroup;
+			children = (
+				0C74521022A8ACAE008F2F07 /* 成交客户 */,
+				0C74520F22A8ACA3008F2F07 /* 到访客户 */,
+				0C74520E22A8AC9A008F2F07 /* 推荐客户 */,
+				0C74520B22A8AC86008F2F07 /* ChannelCustomVC.h */,
+				0C74520C22A8AC86008F2F07 /* ChannelCustomVC.m */,
+			);
+			path = "客户统计";
+			sourceTree = "<group>";
+		};
+		0C74520E22A8AC9A008F2F07 /* 推荐客户 */ = {
+			isa = PBXGroup;
+			children = (
+				0C74521A22A8FDA2008F2F07 /* view */,
+				0C74521122A8B574008F2F07 /* ChannelRecommendVC.h */,
+				0C74521222A8B574008F2F07 /* ChannelRecommendVC.m */,
+			);
+			path = "推荐客户";
+			sourceTree = "<group>";
+		};
+		0C74520F22A8ACA3008F2F07 /* 到访客户 */ = {
+			isa = PBXGroup;
+			children = (
+				0C74521422A8B582008F2F07 /* ChannelVisitVC.h */,
+				0C74521522A8B582008F2F07 /* ChannelVisitVC.m */,
+			);
+			path = "到访客户";
+			sourceTree = "<group>";
+		};
+		0C74521022A8ACAE008F2F07 /* 成交客户 */ = {
+			isa = PBXGroup;
+			children = (
+				0C74521E22A91120008F2F07 /* view */,
+				0C74521722A8B5AA008F2F07 /* ChannelDealVC.h */,
+				0C74521822A8B5AA008F2F07 /* ChannelDealVC.m */,
+			);
+			path = "成交客户";
+			sourceTree = "<group>";
+		};
+		0C74521A22A8FDA2008F2F07 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C74521B22A8FDB6008F2F07 /* ChannelRecommendCell.h */,
+				0C74521C22A8FDB6008F2F07 /* ChannelRecommendCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C74521E22A91120008F2F07 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C74521F22A91131008F2F07 /* ChannelDealCell.h */,
+				0C74522022A91131008F2F07 /* ChannelDealCell.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		0C991C572272B30C00AF2817 /* 项目角色 */ = {
@@ -2854,6 +2932,7 @@
 				0C221A5A227EB117006B0510 /* TaskSignAuditCell.m in Sources */,
 				0C7451F522A7B14A008F2F07 /* SingleBarChartView.m in Sources */,
 				0CD7A03E225C6F1100EAE816 /* FeedbackVC.m in Sources */,
+				0C74520D22A8AC86008F2F07 /* ChannelCustomVC.m in Sources */,
 				0CF1A2EF228D15E6001C77CF /* VisitCustomVC.m in Sources */,
 				0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */,
 				0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */,
@@ -2871,6 +2950,7 @@
 				0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */,
 				0CD0435B2280219C002C8BD3 /* WorkCompleteCustomVC1.m in Sources */,
 				0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */,
+				0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
 				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
 				0C7451FF22A7B996008F2F07 /* MutiLineChartView.m in Sources */,
@@ -2894,6 +2974,7 @@
 				0CF1A304228D8354001C77CF /* VisitCustomDetailVC.m in Sources */,
 				0CD04339227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m in Sources */,
 				0CD043B122819009002C8BD3 /* RecordLongPressView.m in Sources */,
+				0C74521922A8B5AA008F2F07 /* ChannelDealVC.m in Sources */,
 				0CD04325227FD2BD002C8BD3 /* WorkRecommendVC.m in Sources */,
 				0C221A72227EED08006B0510 /* WorkPhoneConfirmVC.m in Sources */,
 				0CEF8A40225F0F940057F3FD /* CompanyAuthingVC.m in Sources */,
@@ -2930,6 +3011,7 @@
 				10EF17B82292B48000DE5566 /* CompanyChooseCell.m in Sources */,
 				10BC3A4A228FF77700DAB2D8 /* TitelHeaderView.m in Sources */,
 				0C26C9FC22A67F0E00A7CF47 /* ChannelRankListCell.m in Sources */,
+				0C74521622A8B582008F2F07 /* ChannelVisitVC.m in Sources */,
 				0CD0438C2281219D002C8BD3 /* CompanyInfoCell.m in Sources */,
 				0CD04331227FD348002C8BD3 /* WorkRecommendFailVC.m in Sources */,
 				0CEF8AFD2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m in Sources */,
@@ -2966,6 +3048,7 @@
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
 				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
+				0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */,
 				0C3A9171225B37CF00F04804 /* ReportVC.m in Sources */,
@@ -3023,6 +3106,7 @@
 				0CD043BB2282715F002C8BD3 /* GZQGifHeader.m in Sources */,
 				0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */,
 				0C221A5E227EC763006B0510 /* IntentSurveyHeader.m in Sources */,
+				0C74521322A8B574008F2F07 /* ChannelRecommendVC.m in Sources */,
 				0CBD71152292437A002A6B48 /* InvalidView.m in Sources */,
 				0CD7A02E225C6D5700EAE816 /* AddressTableCell.m in Sources */,
 				0CD043BA2282715F002C8BD3 /* GZQGifFooter.m in Sources */,

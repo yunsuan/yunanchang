@@ -87,7 +87,7 @@
     float  lastSumPercentage=0;
     float  lastPercentage=0;
     float  totalSumPercentage=0;
-    for (int i = 0 ; i<self.percentageArr.count; i++) {
+    for (int i = 0 ; i < self.percentageArr.count; i++) {
         float percentage = [self.percentageArr[i] floatValue];
         totalSumPercentage = totalSumPercentage+percentage;
         UIBezierPath  *path = [UIBezierPath bezierPath];
