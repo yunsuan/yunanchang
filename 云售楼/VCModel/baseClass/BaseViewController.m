@@ -97,7 +97,22 @@
 {
     NSDictionary *configdic = [UserModelArchiver unarchive].Configdic;
     NSDictionary *dic =  [configdic valueForKey:[NSString stringWithFormat:@"%lu",(unsigned long)configState]];
-    return dic[@"param"];
+    if (dic.count>0) {
+        return dic[@"param"];
+    }
+    else{
+        [BaseRequest GET:@"config" parameters:nil success:^(id resposeObject) {
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                [UserModel defaultModel].Configdic = resposeObject[@"data"];
+                [UserModelArchiver archive];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+        
+       return dic[@"param"];
+    }
+    
 }
 
 - (void)ActionMaskBtn:(UIButton *)btn{
@@ -540,5 +555,7 @@
     }
     return _rightBtn;
 }
+
+
 
 @end
