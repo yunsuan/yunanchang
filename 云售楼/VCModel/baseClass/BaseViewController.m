@@ -32,6 +32,65 @@
     [self.navBackgroundView addSubview:self.titleLabel];
     [self.navBackgroundView addSubview:self.leftButton];
     [self.navBackgroundView addSubview:self.rightBtn];
+    
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        // 当网络状态改变时调用
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                NSLog(@"未知网络");
+                break;
+            case AFNetworkReachabilityStatusNotReachable:{
+                NSLog(@"没有网络");
+                [self alertControllerWithNsstring:@"打开[无线数据权限]来允许[云渠道]使用网络" And:@"请在系统设置中开启网络服务(设置>云渠道>无线数据>WLAN与蜂窝移动网)" WithCancelBlack:^{
+                    
+                    
+                } WithDefaultBlack:^{
+                    
+                    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                    if( [[UIApplication sharedApplication]canOpenURL:url] ) {
+                        [[UIApplication sharedApplication] openURL:url];
+                    }
+                }];
+                //                if (restrictedState == kCTCellularDataRestricted || re kCTCellularDataRestrictedStateUnknown) {
+                //
+                //                    [self alertControllerWithNsstring:@"打开[蜂窝移动网络]来允许[云渠道]使用网络" And:@"请在系统设置中开启蜂窝移动服务(设置>蜂窝移动网络)" WithCancelBlack:^{
+                //
+                //
+                //                    } WithDefaultBlack:^{
+                //
+                //                        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                //                        if( [[UIApplication sharedApplication]canOpenURL:url] ) {
+                //                            [[UIApplication sharedApplication] openURL:url];
+                //                        }
+                //                    }];
+                //                }else{
+                //
+                //                    [self alertControllerWithNsstring:@"打开[无线数据权限]来允许[云渠道]使用网络" And:@"请在系统设置中开启网络服务(设置>云渠道>无线数据>WLAN与蜂窝移动网)" WithCancelBlack:^{
+                //
+                //
+                //                    } WithDefaultBlack:^{
+                //
+                //                        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                //                        if( [[UIApplication sharedApplication]canOpenURL:url] ) {
+                //                            [[UIApplication sharedApplication] openURL:url];
+                //                        }
+                //                    }];
+                //                }
+            }
+                
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                NSLog(@"手机自带网络");
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                NSLog(@"WIFI");
+                break;
+        }
+    }];
+    [manager startMonitoring];
 }
 
 - (NSArray *)getDetailConfigArrByConfigState:(ConfigState)configState

@@ -8,6 +8,8 @@
 
 #import "VisitCustomReportVC.h"
 
+#import "ChannelAnalysisVC.h"
+
 #import "VisitCustomHeader.h"
 #import "VisitCustomReportCell.h"
 
@@ -216,7 +218,7 @@
                 cell.percentL.text = @"占比：0%";
             }else{
                 
-                cell.percentL.text = [NSString stringWithFormat:@"%.2f",[_dataDic[@"basic"][@"auto_visit"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue])];
+                cell.percentL.text = [NSString stringWithFormat:@"占比：%.2f%@",[_dataDic[@"basic"][@"auto_visit"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue]) * 100,@"%"];
             }
         }else if (indexPath.row == 1){
             
@@ -227,7 +229,7 @@
                 cell.percentL.text = @"占比：0%";
             }else{
                 
-                cell.percentL.text = [NSString stringWithFormat:@"%.2f",[_dataDic[@"basic"][@"company"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue])];
+                cell.percentL.text = [NSString stringWithFormat:@"占比：%.2f%@",[_dataDic[@"basic"][@"company"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue]) * 100,@"%"];
             }
         }else{
             
@@ -238,7 +240,7 @@
                 cell.percentL.text = @"占比：0%";
             }else{
                 
-                cell.percentL.text = [NSString stringWithFormat:@"%.2f",[_dataDic[@"basic"][@"person"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue])];
+                cell.percentL.text = [NSString stringWithFormat:@"占比：%.2f%@",[_dataDic[@"basic"][@"person"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue]) * 100,@"%"];
             }
         }
     }else{
@@ -255,11 +257,30 @@
             cell.percentL.text = @"占比：0%";
         }else{
             
-            cell.percentL.text = [NSString stringWithFormat:@"%.2f",[_dataDic[@"property"][indexPath.row][@"count"] floatValue] / _percent];
+            cell.percentL.text = [NSString stringWithFormat:@"占比：%.2f%@",[_dataDic[@"property"][indexPath.row][@"count"] floatValue] / _percent * 100,@"%"];
         }
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        
+        if (indexPath.row == 1) {
+            
+            ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:_project_id];
+            if ([_status isEqualToString:@"1"]) {
+                
+                nextVC.status = @"1";
+            }else{
+                
+                nextVC.status = @"0";
+            }
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
+    }
 }
 
 - (void)initUI{
@@ -291,6 +312,8 @@
     _segmentColl.bounces = NO;
     [_segmentColl registerClass:[TypeTagCollCell class] forCellWithReuseIdentifier:@"TypeTagCollCell"];
     [self.view addSubview:_segmentColl];
+    
+    [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 40 *SIZE) style:UITableViewStyleGrouped];
     _table.rowHeight = UITableViewAutomaticDimension;

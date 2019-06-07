@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChannelAnalysisVC : BaseViewController
 
+@property (nonatomic, strong) NSString *status;
+
 - (instancetype)initWithProjectId:(NSString *)project_id;
 
 @end

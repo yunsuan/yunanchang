@@ -111,10 +111,10 @@
 -(void)locationTheNoticeLab{
     CGFloat   radius = self.radius;
     CGPoint   centerPoint =CGPointMake(self.bounds.size.width/2.0, self.bounds.size.height/2.0);
-    CGFloat   offSetRidus = 10;
-    CGFloat   offSetX = 10;
-    CGFloat   labWidth = 60;
-    CGFloat   labHeight= 15;
+    CGFloat   offSetRidus = 10 *SIZE;
+    CGFloat   offSetX = 10 *SIZE;
+    CGFloat   labWidth = 60 *SIZE;
+    CGFloat   labHeight= 15 *SIZE;
     for (int i =0; i<self.percentageArr.count; i++) {
         NSNumber   *number = self.halfAngleArr[i];
         float    angle = [number floatValue];

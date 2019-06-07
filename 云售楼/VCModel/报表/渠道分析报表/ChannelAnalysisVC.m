@@ -21,7 +21,7 @@
 @interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>///,SingleBarChartViewDelegate>
 {
     
-    NSString *_status;
+//    NSString *_status;
     NSString *_project_id;
     
     NSArray *_titleArr;
@@ -63,7 +63,14 @@
 
 - (void)initDataSource{
     
-    _status = @"1";
+//    _status = @"1";
+    if ([_status isEqualToString:@"1"]) {
+        
+        _status = @"1";
+    }else{
+        
+        _status = @"0";
+    }
     _titleArr = @[@"今日统计",@"累计统计"];
     _dataDic = [@{} mutableCopy];
     _yearDic = [@{} mutableCopy];
@@ -327,7 +334,13 @@
                 
             }else{
                 
-                cell.dataDic = _dataDic[@"totalCount"];
+                if (_yearDic.count) {
+                    
+                    cell.dataDic = _yearDic[@"totalCount"];
+                }else{
+                    
+                    cell.dataDic = @{};
+                }
             }
             
             return cell;
@@ -391,7 +404,14 @@
     [_segmentColl registerClass:[TypeTagCollCell class] forCellWithReuseIdentifier:@"TypeTagCollCell"];
     [self.view addSubview:_segmentColl];
     
-    [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    if ([_status isEqualToString:@"0"]) {
+        
+        [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    }else{
+        
+        [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    }
+    
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 40 *SIZE) style:UITableViewStyleGrouped];
 //    _table.rowHeight = UITableViewAutomaticDimension;

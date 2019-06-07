@@ -72,6 +72,7 @@
 		0C74521922A8B5AA008F2F07 /* ChannelDealVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521822A8B5AA008F2F07 /* ChannelDealVC.m */; };
 		0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521C22A8FDB6008F2F07 /* ChannelRecommendCell.m */; };
 		0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522022A91131008F2F07 /* ChannelDealCell.m */; };
+		0C74522522A91CAB008F2F07 /* MinMaxDateChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */; };
 		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
@@ -376,6 +377,8 @@
 		0C74521C22A8FDB6008F2F07 /* ChannelRecommendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelRecommendCell.m; sourceTree = "<group>"; };
 		0C74521F22A91131008F2F07 /* ChannelDealCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelDealCell.h; sourceTree = "<group>"; };
 		0C74522022A91131008F2F07 /* ChannelDealCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelDealCell.m; sourceTree = "<group>"; };
+		0C74522322A91CAB008F2F07 /* MinMaxDateChooseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinMaxDateChooseView.h; sourceTree = "<group>"; };
+		0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinMaxDateChooseView.m; sourceTree = "<group>"; };
 		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
 		0C991C592272B32700AF2817 /* ProjectRoleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectRoleVC.m; sourceTree = "<group>"; };
 		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
@@ -1329,6 +1332,7 @@
 		0C74520A22A8AC6F008F2F07 /* 客户统计 */ = {
 			isa = PBXGroup;
 			children = (
+				0C74522222A91C6F008F2F07 /* view */,
 				0C74521022A8ACAE008F2F07 /* 成交客户 */,
 				0C74520F22A8ACA3008F2F07 /* 到访客户 */,
 				0C74520E22A8AC9A008F2F07 /* 推荐客户 */,
@@ -1381,6 +1385,13 @@
 			children = (
 				0C74521F22A91131008F2F07 /* ChannelDealCell.h */,
 				0C74522022A91131008F2F07 /* ChannelDealCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C74522222A91C6F008F2F07 /* view */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1900,6 +1911,8 @@
 				0CD7A01B225C6C9100EAE816 /* DateChooseView.m */,
 				10EF17A12292790600DE5566 /* HMChooseView.h */,
 				10EF17A22292790600DE5566 /* HMChooseView.m */,
+				0C74522322A91CAB008F2F07 /* MinMaxDateChooseView.h */,
+				0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */,
 			);
 			path = "自定义时间选择器";
 			sourceTree = "<group>";
@@ -3065,6 +3078,7 @@
 				10EF17A922928B1400DE5566 /* AddCompanyCell.m in Sources */,
 				0CD043A2228175D4002C8BD3 /* SingleHouseCell.m in Sources */,
 				0CF1A317228E8E04001C77CF /* SignNeedInfoVC.m in Sources */,
+				0C74522522A91CAB008F2F07 /* MinMaxDateChooseView.m in Sources */,
 				0CD7A032225C6D5700EAE816 /* BDDynamicTreeCell.m in Sources */,
 				0CD04365228025D4002C8BD3 /* WorkCompleteCustomVC2.m in Sources */,
 				10BC3A47228FEF2800DAB2D8 /* RotationCell.m in Sources */,

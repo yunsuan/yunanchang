@@ -38,12 +38,12 @@
     _titleL.font = [UIFont systemFontOfSize:13 *SIZE];
     [self.contentView addSubview:_titleL];
     
-    _numL = [[UILabel alloc] initWithFrame:CGRectMake(220 *SIZE, 10 *SIZE, 40 *SIZE, 20 *SIZE)];
+    _numL = [[UILabel alloc] initWithFrame:CGRectMake(210 *SIZE, 10 *SIZE, 40 *SIZE, 20 *SIZE)];
     _numL.textColor = CLTitleLabColor;
     _numL.font = [UIFont systemFontOfSize:13 *SIZE];
     [self.contentView addSubview:_numL];
     
-    _percentL = [[UILabel alloc] initWithFrame:CGRectMake(270 *SIZE, 10 *SIZE, 80 *SIZE, 20 *SIZE)];
+    _percentL = [[UILabel alloc] initWithFrame:CGRectMake(250 *SIZE, 10 *SIZE, 100 *SIZE, 20 *SIZE)];
     _percentL.textColor = CLTitleLabColor;
     _percentL.font = [UIFont systemFontOfSize:13 *SIZE];
     [self.contentView addSubview:_percentL];

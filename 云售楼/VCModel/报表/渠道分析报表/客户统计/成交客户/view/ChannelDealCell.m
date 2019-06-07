@@ -36,7 +36,7 @@
     }
     
     _phoneL.text = [NSString stringWithFormat:@"客户电话：%@",dataDic[@"tel"]];
-    _roomL.text = [NSString stringWithFormat:@"房间号码：%@",dataDic[@"tel"]];
+    _roomL.text = [NSString stringWithFormat:@"房间号码：%@",dataDic[@"house_info"]];
     _recommendL.text = [NSString stringWithFormat:@"推荐人：%@",dataDic[@"broker_name"]];
     _typeL.text = [NSString stringWithFormat:@"类型：%@",dataDic[@"rule_type"]];
     _companyL.text = [NSString stringWithFormat:@"公司名称：%@",dataDic[@"company_name"]];
