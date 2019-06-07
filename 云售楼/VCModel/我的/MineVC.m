@@ -154,6 +154,9 @@
     
     cell.titleL.text = _titleArr[indexPath.section][indexPath.row];
     cell.titleImg.image = IMAGE_WITH_NAME(_imgArr[indexPath.section][indexPath.row]);
+    if (indexPath.section ==1&&indexPath.row ==1) {
+        cell.contentL.text = YACversion;
+    }
     return cell;
 }
 

@@ -36,7 +36,7 @@
     [self.contentView addSubview:_contentL];
     
     _rightImg = [[UIImageView alloc] init];
-    _rightImg.image = [UIImage imageNamed:@"jiantou black"];
+    _rightImg.image = [UIImage imageNamed:@"rightarrow"];
     [self.contentView addSubview:_rightImg];
     
     _lineView = [[UIView alloc] init];

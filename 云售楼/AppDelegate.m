@@ -61,7 +61,7 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
     NSArray *array = appInfoDic[@"results"];
     NSDictionary *dic = array[0];
     NSString *appStoreVersion = dic[@"version"];
-    if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YQDversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {
+    if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YACversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {
 
         [BaseRequest GET:@"getSaleVersionInfo" parameters:nil success:^(id resposeObject) {
             
@@ -494,7 +494,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSArray *array = appInfoDic[@"results"];
     NSDictionary *dic = array[0];
     NSString *appStoreVersion = dic[@"version"];
-    if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YQDversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {
+    if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YACversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {
         
         [BaseRequest GET:@"getSaleVersionInfo" parameters:nil success:^(id resposeObject) {
             
@@ -556,7 +556,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSArray *array = appInfoDic[@"results"];
     NSDictionary *dic = array[0];
     NSString *appStoreVersion = dic[@"version"];
-    if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YQDversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {
+    if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YACversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {
         
         [BaseRequest GET:@"getSaleVersionInfo" parameters:nil success:^(id resposeObject) {
             
@@ -612,7 +612,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSArray *array = appInfoDic[@"results"];
     NSDictionary *dic = array[0];
     NSString *appStoreVersion = dic[@"version"];
-    if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YQDversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {
+    if ([[appStoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue] > [[YACversion stringByReplacingOccurrencesOfString:@"." withString:@""] floatValue]) {
         
         [BaseRequest GET:@"getSaleVersionInfo" parameters:nil success:^(id resposeObject) {
             

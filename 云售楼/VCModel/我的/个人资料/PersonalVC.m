@@ -48,8 +48,15 @@
     
     _imagePickerController = [[UIImagePickerController alloc] init];
     _imagePickerController.delegate = self;
+    NSString *adreess;
+    if ([UserInfoModel defaultModel].province) {
+        adreess =[NSString stringWithFormat:@"%@/%@/%@",[UserInfoModel defaultModel].province,[UserInfoModel defaultModel].city,[UserInfoModel defaultModel].district];
+    }
+    else{
+        adreess = @"";
+    }
     
-    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,[NSString stringWithFormat:@"%@/%@/%@",[UserInfoModel defaultModel].province,[UserInfoModel defaultModel].city,[UserInfoModel defaultModel].district],[UserInfoModel defaultModel].slef_desc]];
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,adreess,[UserInfoModel defaultModel].slef_desc]];
     [_personTable reloadData];
 }
 
@@ -255,9 +262,8 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.titleL.text = _titleArr[(NSUInteger) indexPath.row];
-//    cell.contentL.text = @"333333";
     cell.contentL.text = _contentArr[indexPath.row];
-    if (indexPath.row > 3) {
+    if (indexPath.row >1) {
         
         cell.rightImg.hidden = NO;
     }else{
