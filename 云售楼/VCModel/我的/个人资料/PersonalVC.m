@@ -56,7 +56,7 @@
         adreess = @"";
     }
     
-    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,adreess,[UserInfoModel defaultModel].slef_desc]];
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,adreess,[UserInfoModel defaultModel].slef_desc?[UserInfoModel defaultModel].slef_desc:@""]];
     [_personTable reloadData];
 }
 
@@ -66,7 +66,7 @@
     [_formatter setDateFormat:@"YYYY-MM-dd"];
     
     _titleArr = @[@"云算号：",@"手机号：",@"姓名：",@"性别：",@"生日：",@"所在地：",@"个人说明："];
-    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,[UserInfoModel defaultModel].absolute_address,[UserInfoModel defaultModel].slef_desc]];
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,[UserInfoModel defaultModel].absolute_address,[UserInfoModel defaultModel].slef_desc?[UserInfoModel defaultModel].slef_desc:@""]];
 }
 
 
@@ -281,6 +281,10 @@
         nextVC.changeNameVCBlock = ^(NSString *str) {
             
             [self->_contentArr replaceObjectAtIndex:2 withObject:[UserInfoModel defaultModel].name];
+            if (self.personalVCBlock) {
+                
+                self.personalVCBlock();
+            }
             [tableView reloadData];
         };
         [self.navigationController pushViewController:nextVC animated:YES];
@@ -297,6 +301,10 @@
                     
                     [UserInfoModel defaultModel].sex = @"1";
                     [UserModelArchiver archive];
+                    if (self.personalVCBlock) {
+                        
+                        self.personalVCBlock();
+                    }
                     [self initDataSource];
                     [tableView reloadData];
                 }else{
@@ -318,6 +326,10 @@
                     
                     [UserInfoModel defaultModel].sex = @"2";
                     [UserModelArchiver archive];
+                    if (self.personalVCBlock) {
+                        
+                        self.personalVCBlock();
+                    }
                     [self initDataSource];
                     [tableView reloadData];
                 }else{
@@ -351,6 +363,10 @@
                     
                     [UserInfoModel defaultModel].birth = [self->_formatter stringFromDate:date];
                     [UserModelArchiver archive];
+                    if (self.personalVCBlock) {
+                        
+                        self.personalVCBlock();
+                    }
                     [self initDataSource];
                     [tableView reloadData];
                 }else{
@@ -406,7 +422,10 @@
                     [UserInfoModel defaultModel].district = area;
                     [self initDataSource];
                     [UserModelArchiver archive];
-                    
+                    if (self.personalVCBlock) {
+                        
+                        self.personalVCBlock();
+                    }
                     [self->_personTable reloadData];
 //                    [self.navigationController popViewControllerAnimated:YES];
                 }else{
@@ -424,6 +443,12 @@
         PersonalIntroVC *nextVC = [[PersonalIntroVC alloc] initWithIntro:@""];
         nextVC.personalIntroVCBlock = ^(NSString *str) {
             
+            [self initDataSource];
+            [tableView reloadData];
+            if (self.personalVCBlock) {
+                
+                self.personalVCBlock();
+            }
         };
         [self.navigationController pushViewController:nextVC animated:YES];
     }

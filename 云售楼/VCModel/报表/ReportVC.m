@@ -11,6 +11,7 @@
 #import "ChannelAnalysisVC.h"
 
 #import "PowerMannerger.h"
+#import "SinglePickView.h"
 
 #import "WorkCell.h"
 
@@ -20,6 +21,7 @@
 {
     
     NSArray *_titleArr;
+    NSArray *_projectArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -51,6 +53,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
     _titleArr = @[@"来访客户分析表",@"渠道分析表"];
+    _projectArr = [UserModel defaultModel].project_list;
 }
 
 - (void)ActionNSNotificationMethod{
@@ -73,6 +76,38 @@
     
     CompanyAuthVC *nextVC = [[CompanyAuthVC alloc] init];
     [self.navigationController pushViewController:nextVC animated:YES];
+}
+
+- (void)ActionRightBtn:(UIButton *)btn{
+    
+    NSMutableArray *temparr = [@[] mutableCopy];
+    for (int i = 0; i < [_projectArr count]; i++) {
+        
+        NSDictionary *dic = @{@"id":[NSString stringWithFormat:@"%d",i],
+                              @"param":_projectArr[i][@"project_name"]
+                              };
+        [temparr addObject:dic];
+        
+    }
+    
+    SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:temparr];
+    view.selectedBlock = ^(NSString *MC, NSString *ID) {
+        
+        [self.rightBtn setTitle:MC forState:UIControlStateNormal];
+        [UserModel defaultModel].projectinfo =  [UserModel defaultModel].project_list[[ID integerValue]];
+        [UserModelArchiver archive];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
+        [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+            if ([result isEqualToString:@"获取权限成功"]) {
+//                self->_showArr = [PowerModel defaultModel].WorkListPower;
+                [self->_table reloadData];
+            }
+        } failure:^(NSString * _Nonnull error) {
+            [self showContent:error];
+        }];
+    };
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:view];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -103,6 +138,7 @@
     }else{
         
         ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }

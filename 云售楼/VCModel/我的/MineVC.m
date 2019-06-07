@@ -133,6 +133,10 @@
         header.mineHeaderImgBlock = ^{
             
             PersonalVC *nextVC = [[PersonalVC alloc] init];
+            nextVC.personalVCBlock = ^{
+              
+                [tableView reloadData];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         
