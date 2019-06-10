@@ -45,7 +45,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:UserPersonalGetAgentInfo_URL parameters:nil success:^(id resposeObject) {
+    [BaseRequest GET:UserPersonalGetAgentInfo_URL parameters:@{} success:^(id resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -174,7 +174,7 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         }else if (indexPath.row == 1){
             
-            [BaseRequest GET:CompanyAuthInfo_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+            [BaseRequest GET:CompanyAuthInfo_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
@@ -234,7 +234,7 @@
                 
             } WithDefaultBlack:^{
                 
-                [BaseRequest GET:UserPersonalLogOut_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+                [BaseRequest GET:UserPersonalLogOut_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
                     
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGINENTIFIER];
                     [UserModelArchiver ClearModel];

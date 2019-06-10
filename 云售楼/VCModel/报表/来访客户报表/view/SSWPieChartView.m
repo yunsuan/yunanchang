@@ -129,9 +129,10 @@
         
         UIBezierPath  *linePath = [UIBezierPath bezierPath];
         UILabel  *titleLab = [[UILabel alloc]init];
-        titleLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:10];
+        titleLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:10 *SIZE];
         titleLab.text = [NSString stringWithFormat:@"%@%.1f%%",self.titlesArr[i],[self.percentageArr[i] floatValue]*100];
-        titleLab.textColor =self.colorsArr[i];
+        titleLab.adjustsFontSizeToFitWidth = YES;
+        titleLab.textColor = self.colorsArr[i];
         [self addSubview:titleLab];
         
         [self.polyLineLayerArr addObject:layer];//将折线layer添加到折线数组中

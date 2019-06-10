@@ -587,7 +587,7 @@
     [BaseRequest GET:ProjectHouseGetDetailInfo_URL parameters:@{@"house_id":_LDinfo[btn.tag][@"houseList"][columns][@"house_id"]} success:^(id  _Nonnull resposeObject) {
         if ([resposeObject[@"code"] integerValue] == 200) {
             NSLog(@"%@",resposeObject);
-            _fjxx = resposeObject[@"data"];
+            self->_fjxx = resposeObject[@"data"];
             [self.view addSubview:self.maskView];
             [self.view addSubview:self.tanchuanView];
         }

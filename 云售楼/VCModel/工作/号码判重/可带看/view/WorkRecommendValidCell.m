@@ -111,21 +111,21 @@
     [_codeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(9 *SIZE);
-        make.top.equalTo(_nameL.mas_bottom).offset(14 *SIZE);
+        make.top.equalTo(self->_nameL.mas_bottom).offset(14 *SIZE);
         make.right.equalTo(self.contentView).offset(-150 *SIZE);
     }];
     
     [_projectL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(9 *SIZE);
-        make.top.equalTo(_codeL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_codeL.mas_bottom).offset(10 *SIZE);
         make.right.equalTo(self.contentView).offset(-150 *SIZE);
     }];
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(9 *SIZE);
-        make.top.equalTo(_projectL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_projectL.mas_bottom).offset(10 *SIZE);
         make.right.equalTo(self.contentView).offset(-150 *SIZE);
     }];
     
@@ -146,7 +146,7 @@
     [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(0 *SIZE);
-        make.top.equalTo(_timeL.mas_bottom).offset(15 *SIZE);
+        make.top.equalTo(self->_timeL.mas_bottom).offset(15 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(SIZE);
         make.bottom.equalTo(self.contentView).offset(0 *SIZE);

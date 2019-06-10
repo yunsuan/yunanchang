@@ -1199,7 +1199,7 @@
         __weak __typeof(&*self)weakSelf = self;
         _dateView.dateblock = ^(NSDate *date) {
 
-            _date = date;
+            self->_date = date;
             weakSelf.timeL.text = [weakSelf.formatter stringFromDate:date];
         };
     }

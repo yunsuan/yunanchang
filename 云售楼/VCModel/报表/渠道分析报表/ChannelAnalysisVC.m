@@ -384,6 +384,21 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        
+//        ChannelCustomVC *nextVC = [[ChannelCustomVC alloc] init];
+//        nextVC.index = 0;
+//        nextVC.project_id = self->_project_id;
+//        if ([self->_status isEqualToString:@"1"]) {
+//            
+//            nextVC.date = [self->_formatter stringFromDate:[NSDate date]];
+//        }
+//        [self.navigationController pushViewController:nextVC animated:YES];
+    }
+}
+
 - (void)initUI{
     
     self.titleLabel.text = @"渠道分析表";

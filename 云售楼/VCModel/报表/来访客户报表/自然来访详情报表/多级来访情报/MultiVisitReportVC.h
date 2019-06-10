@@ -1,5 +1,5 @@
 //
-//  AutoVisitReportVC.h
+//  MultiVisitReportVC.h
 //  云售楼
 //
 //  Created by 谷治墙 on 2019/6/10.
@@ -10,13 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AutoVisitReportVC : BaseViewController
+@interface MultiVisitReportVC : BaseViewController
 
 @property (nonatomic, strong) NSString *titleStr;
 
 @property (nonatomic, strong) NSString *status;
 
-- (instancetype)initWithProjectId:(NSString *)project_id;
+- (instancetype)initWithDataArr:(NSArray *)dataArr;
 
 @end
 

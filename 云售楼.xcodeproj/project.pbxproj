@@ -249,6 +249,8 @@
 		0CA8264722AE0C810005F3ED /* shoukuan_2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA8259A22AE0C800005F3ED /* shoukuan_2@3x.png */; };
 		0CA8264B22AE26D30005F3ED /* AutoVisitReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA8264A22AE26D30005F3ED /* AutoVisitReportVC.m */; };
 		0CA8264D22AE2BCA0005F3ED /* logo_anchang.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA8264C22AE2BCA0005F3ED /* logo_anchang.png */; };
+		0CA8265122AE60A00005F3ED /* MultiVisitReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA8265022AE60A00005F3ED /* MultiVisitReportVC.m */; };
+		0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA8265422AE69290005F3ED /* PropertyVisitReportVC.m */; };
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
 		0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */; };
@@ -732,6 +734,10 @@
 		0CA8264922AE26D30005F3ED /* AutoVisitReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoVisitReportVC.h; sourceTree = "<group>"; };
 		0CA8264A22AE26D30005F3ED /* AutoVisitReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoVisitReportVC.m; sourceTree = "<group>"; };
 		0CA8264C22AE2BCA0005F3ED /* logo_anchang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_anchang.png; sourceTree = "<group>"; };
+		0CA8264F22AE60A00005F3ED /* MultiVisitReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiVisitReportVC.h; sourceTree = "<group>"; };
+		0CA8265022AE60A00005F3ED /* MultiVisitReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultiVisitReportVC.m; sourceTree = "<group>"; };
+		0CA8265322AE69290005F3ED /* PropertyVisitReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropertyVisitReportVC.h; sourceTree = "<group>"; };
+		0CA8265422AE69290005F3ED /* PropertyVisitReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PropertyVisitReportVC.m; sourceTree = "<group>"; };
 		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
 		0CAC92642283FE09006B2B79 /* GuideVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuideVC.m; sourceTree = "<group>"; };
 		0CAC92662284063C006B2B79 /* UserModelArchiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelArchiver.h; sourceTree = "<group>"; };
@@ -2101,10 +2107,29 @@
 		0CA8264822AE26BE0005F3ED /* 自然来访详情报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0CA8264E22AE60820005F3ED /* 多级来访情报 */,
 				0CA8264922AE26D30005F3ED /* AutoVisitReportVC.h */,
 				0CA8264A22AE26D30005F3ED /* AutoVisitReportVC.m */,
 			);
 			path = "自然来访详情报表";
+			sourceTree = "<group>";
+		};
+		0CA8264E22AE60820005F3ED /* 多级来访情报 */ = {
+			isa = PBXGroup;
+			children = (
+				0CA8264F22AE60A00005F3ED /* MultiVisitReportVC.h */,
+				0CA8265022AE60A00005F3ED /* MultiVisitReportVC.m */,
+			);
+			path = "多级来访情报";
+			sourceTree = "<group>";
+		};
+		0CA8265222AE690F0005F3ED /* 物业意向详情报表 */ = {
+			isa = PBXGroup;
+			children = (
+				0CA8265322AE69290005F3ED /* PropertyVisitReportVC.h */,
+				0CA8265422AE69290005F3ED /* PropertyVisitReportVC.m */,
+			);
+			path = "物业意向详情报表";
 			sourceTree = "<group>";
 		};
 		0CAC92622283FDFA006B2B79 /* 引导页 */ = {
@@ -3262,6 +3287,7 @@
 		0CFF71D922A6422B0066732B /* 来访客户报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0CA8265222AE690F0005F3ED /* 物业意向详情报表 */,
 				0CA8264822AE26BE0005F3ED /* 自然来访详情报表 */,
 				0CFF71E722A649620066732B /* Model */,
 				0CFF71DD22A644BA0066732B /* view */,
@@ -3807,6 +3833,7 @@
 				0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */,
 				10BC3A4E228FF80300DAB2D8 /* RotationSettingVC.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
+				0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */,
 				0CEF89FE225C88910057F3FD /* SubscribeAuditVC.m in Sources */,
 				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,
 				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
@@ -3934,6 +3961,7 @@
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
+				0CA8265122AE60A00005F3ED /* MultiVisitReportVC.m in Sources */,
 				10BC3A522291297E00DAB2D8 /* AbdicateVC.m in Sources */,
 				0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */,
 				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,

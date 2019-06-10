@@ -269,7 +269,7 @@
                         if ([self validateIDCardNumber:self->_certNumTF.textField.text]) {
                             
                             self->_birthBtn.placeL.text = @"";
-                            self->_birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                            self->_birthBtn.content.text = [self subsIDStrToDate:self->_certNumTF.textField.text];
                         }else{
                             
                             [self showContent:@"请输入正确的身份证号"];

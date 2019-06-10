@@ -286,7 +286,7 @@
         
                     UIAlertAction *valid = [UIAlertAction actionWithTitle:@"已到访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-                        WorkCompleteCustomVC1 *nextVC = [[WorkCompleteCustomVC1 alloc] initWithClientID:_str name:_name dataDic:_dataDic];
+                        WorkCompleteCustomVC1 *nextVC = [[WorkCompleteCustomVC1 alloc] initWithClientID:self->_str name:self->_name dataDic:self->_dataDic];
                         [self.navigationController pushViewController:nextVC animated:YES];
                     }];
         

@@ -9,6 +9,8 @@
 #import "VisitCustomReportVC.h"
 
 #import "ChannelAnalysisVC.h"
+#import "AutoVisitReportVC.h"
+#import "PropertyVisitReportVC.h"
 
 #import "VisitCustomHeader.h"
 #import "VisitCustomReportCell.h"
@@ -276,11 +278,32 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         }else if (indexPath.row == 0){
             
-            
+            AutoVisitReportVC *nextVC = [[AutoVisitReportVC alloc] initWithProjectId:_project_id];
+            if ([_status isEqualToString:@"1"]) {
+                
+                nextVC.status = @"1";
+            }else{
+                
+                nextVC.status = @"0";
+            }
+            nextVC.titleStr = @"自然来访";
+            [self.navigationController pushViewController:nextVC animated:YES];
         }else{
             
             
         }
+    }else{
+        
+        PropertyVisitReportVC *nextVC = [[PropertyVisitReportVC alloc] initWithProjectId:_project_id configId:[NSString stringWithFormat:@"%@",_dataDic[@"property"][indexPath.row][@"config_id"]]];
+        if ([_status isEqualToString:@"1"]) {
+            
+            nextVC.status = @"1";
+        }else{
+            
+            nextVC.status = @"0";
+        }
+        nextVC.titleStr = _dataDic[@"property"][indexPath.row][@"config_name"];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 

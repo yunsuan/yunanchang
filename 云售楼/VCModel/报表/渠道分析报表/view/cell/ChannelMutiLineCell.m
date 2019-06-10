@@ -58,7 +58,7 @@
     
     _mutiLineChartView = [[MutiLineChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 240 *SIZE)];
     _mutiLineChartView.backgroundColor = CLWhiteColor;
-    _mutiLineChartView.barColorArr = [@[[UIColor blueColor],[UIColor greenColor],[UIColor redColor]] mutableCopy];
+    _mutiLineChartView.barColorArr = [CLArr mutableCopy];
     [self.contentView addSubview:_mutiLineChartView];
     
     [_mutiLineChartView.yValuesArr removeAllObjects];

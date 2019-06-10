@@ -138,7 +138,7 @@
 
 - (void)InfoRequest{
     
-    [BaseRequest GET:UserPersonalGetAgentInfo_URL parameters:nil success:^(id resposeObject) {
+    [BaseRequest GET:UserPersonalGetAgentInfo_URL parameters:@{} success:^(id resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

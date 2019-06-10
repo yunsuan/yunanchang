@@ -20,12 +20,12 @@
     return self;
 }
 
-//- (void)SetImg:(NSString *)img title:(NSString *)title content:(NSString *)content{
+- (void)SetImg:(NSString *)img title:(NSString *)title content:(NSString *)content{
 //
 //    _headImg.image = IMAGE_WITH_NAME(img);
 //    _titleL.text = title;
 //    _contentL.text = content;
-//}
+}
 
 - (void)initUI{
     

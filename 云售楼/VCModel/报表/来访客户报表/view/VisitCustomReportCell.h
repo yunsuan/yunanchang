@@ -22,6 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 
+@property (nonatomic, strong) NSDictionary *approachDic;
+
+@property (nonatomic, strong) NSDictionary *propertyDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

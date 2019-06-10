@@ -38,7 +38,7 @@
 
     _mutiBarChartView = [[MutiBarChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 240 *SIZE)];
     _mutiBarChartView.backgroundColor = CLWhiteColor;
-    _mutiBarChartView.barColorArr = [@[[UIColor blueColor],[UIColor greenColor],[UIColor redColor]] mutableCopy];
+    _mutiBarChartView.barColorArr = [CLArr mutableCopy];
     [self.contentView addSubview:_mutiBarChartView];
 
     [_mutiBarChartView.yValuesArr removeAllObjects];
@@ -155,7 +155,7 @@
     _mutiBarChartView = [[MutiBarChartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 240 *SIZE)];
     _mutiBarChartView.backgroundColor = CLWhiteColor;
     //    barChartView.yScaleValue=60;
-    _mutiBarChartView.barColorArr = [@[[UIColor blueColor],[UIColor greenColor]] mutableCopy];
+    _mutiBarChartView.barColorArr = [CLArr mutableCopy];
     [self.contentView addSubview:_mutiBarChartView];
 }
 

@@ -545,8 +545,8 @@
     [self.view addSubview:_table];
     _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
 
-        _page = 1;
-        if (_isSearch) {
+        self->_page = 1;
+        if (self->_isSearch) {
 
             [self SearchRequest];
         }else{
@@ -558,8 +558,8 @@
 
     _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
 
-        _page += 1;
-        if (_isSearch) {
+        self->_page += 1;
+        if (self->_isSearch) {
 
             [self SearchRequest];
         }else{

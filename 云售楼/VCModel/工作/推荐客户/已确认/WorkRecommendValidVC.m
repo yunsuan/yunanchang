@@ -160,9 +160,9 @@
     
     cell.workRecommendValidCellBlock = ^(NSInteger index) {
         
-        if ([_dataArr[index][@"tel_complete_state"] integerValue] <= 2) {
+        if ([self->_dataArr[index][@"tel_complete_state"] integerValue] <= 2) {
             
-            NSString *phone = [_dataArr[index][@"tel"] componentsSeparatedByString:@","][0];
+            NSString *phone = [self->_dataArr[index][@"tel"] componentsSeparatedByString:@","][0];
             if (phone.length) {
                 
                 //获取目标号码字符串,转换成URL

@@ -28,6 +28,18 @@
 //    _percentL.text = [NSString stringWithFormat:@"占比：%@",@"50%"];
 }
 
+- (void)setApproachDic:(NSDictionary *)approachDic{
+    
+    _titleL.text = approachDic[@"listen_way"];
+    _numL.text = [NSString stringWithFormat:@"%@",approachDic[@"count"]];
+}
+
+- (void)setPropertyDic:(NSDictionary *)propertyDic{
+    
+    _titleL.text = propertyDic[@"option_name"];
+    _numL.text = [NSString stringWithFormat:@"%@",propertyDic[@"count"]];
+}
+
 - (void)initUI{
     
     _colorView = [[UIView alloc] initWithFrame:CGRectMake(12 *SIZE, 10 *SIZE, 20 *SIZE, 20 *SIZE)];

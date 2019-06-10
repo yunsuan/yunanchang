@@ -423,7 +423,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
         }else if ([userInfo[@"aps"][@"alert"] isEqualToString:@"您在云案场的公司认证申请已通过"]){
             
-            [BaseRequest GET:@"saleApp/work/project/list" parameters:nil success:^(id  _Nonnull resposeObject) {
+            [BaseRequest GET:@"saleApp/work/project/list" parameters:@{} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     

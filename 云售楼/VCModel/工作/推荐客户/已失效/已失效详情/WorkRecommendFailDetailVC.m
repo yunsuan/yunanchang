@@ -449,7 +449,7 @@
         
         cell.infoDetailCellBlock = ^{
             
-            SignListVC *nextVC = [[SignListVC alloc] initWithDataArr:_signArr];
+            SignListVC *nextVC = [[SignListVC alloc] initWithDataArr:self->_signArr];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         if (indexPath.section == 1) {
@@ -462,7 +462,7 @@
                     [cell.moreBtn setTitle:@"查看需求信息" forState:UIControlStateNormal];
                     cell.infoDetailCellBlock = ^{
                         
-                        SignNeedInfoVC *nextVC = [[SignNeedInfoVC alloc] initWithClientId:_clientId];
+                        SignNeedInfoVC *nextVC = [[SignNeedInfoVC alloc] initWithClientId:self->_clientId];
                         [self.navigationController pushViewController:nextVC animated:YES];
                     };
                 }

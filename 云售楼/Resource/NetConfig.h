@@ -378,6 +378,12 @@ static NSString *const GetPeople_URL = @"saleApp/project/duty/company/person/lis
 //客户来源
 static NSString *const ProjectReportClientType_URL = @"saleApp/report/client/type";
 
+//自然来访认知途径
+static NSString *const ReportClientAutoListenWay_URL = @"saleApp/report/client/auto/listenWay";
+
+//单物业客户需求统计
+static NSString *const ReportClientAutoPropertyNeed_URL = @"saleApp/report/client/auto/property/need";
+
 //到访客户列表
 static NSString *const ProjectClientValue_URL = @"saleApp/project/client/value";
 

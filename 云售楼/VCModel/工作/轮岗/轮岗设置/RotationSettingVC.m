@@ -80,9 +80,9 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            _dataDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"]];
-            companyArr = [NSMutableArray arrayWithArray:_dataDic[@"person"]];
-            [_SettingTable reloadData];
+            self->_dataDic = [[NSMutableDictionary alloc] initWithDictionary:resposeObject[@"data"]];
+            self->companyArr = [NSMutableArray arrayWithArray:self->_dataDic[@"person"]];
+            [self->_SettingTable reloadData];
         }else{
             
             [self showContent:resposeObject[@"msg"]];

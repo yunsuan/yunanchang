@@ -41,7 +41,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:PersonalPushTopsGet_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:PersonalPushTopsGet_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

@@ -46,8 +46,7 @@
     [self initUI];
     
     [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.index inSection:0] animated:NO scrollPosition:0];
-    
-    
+    [_scrollView setContentOffset:CGPointMake(SCREEN_Width * self.index, 0) animated:NO];
 }
 
 - (void)initDataSource{

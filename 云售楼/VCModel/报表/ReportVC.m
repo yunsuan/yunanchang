@@ -22,6 +22,7 @@
     
     NSArray *_titleArr;
     NSArray *_projectArr;
+    NSArray *_showArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -54,6 +55,7 @@
     
     _titleArr = @[@"来访客户分析表",@"渠道分析表"];
     _projectArr = [UserModel defaultModel].project_list;
+    _showArr = [PowerModel defaultModel].WorkListPower;
 }
 
 - (void)ActionNSNotificationMethod{
@@ -63,7 +65,15 @@
         
         _table.hidden = NO;
         self.rightBtn.hidden = NO;
-        
+        [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
+            if ([result isEqualToString:@"获取权限成功"]) {
+                self->_showArr = [PowerModel defaultModel].WorkListPower;
+                [self->_table reloadData];
+//                [self RequestMethod];
+            }
+        } failure:^(NSString * _Nonnull error) {
+            [self showContent:error];
+        }];
     }else{
         
         _table.hidden = YES;
@@ -115,6 +125,17 @@
     return _titleArr.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([_showArr[indexPath.row] integerValue] == 1) {
+        
+        return UITableViewAutomaticDimension;
+    }else{
+        
+        return 0;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     WorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkCell"];
@@ -126,6 +147,13 @@
     
     cell.titleL.text = _titleArr[indexPath.row];
     cell.headImg.image = IMAGE_WITH_NAME(@"laifangfenxi");
+    if ([_showArr[indexPath.row] integerValue] == 1) {
+        
+        cell.hidden = NO;
+    }else{
+        
+        cell.hidden = YES;
+    }
     return cell;
 }
 
@@ -157,7 +185,7 @@
     [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT) style:UITableViewStylePlain];
-    _table.rowHeight = UITableViewAutomaticDimension;
+//    _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
     _table.backgroundColor = self.view.backgroundColor;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;

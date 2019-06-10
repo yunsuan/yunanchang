@@ -8,7 +8,7 @@
 
 #import "TitleCollHeader.h"
 
-@interface TitleCollHeader ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+@interface TitleCollHeader ()///<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
     NSMutableArray *_dataArr;

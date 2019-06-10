@@ -81,7 +81,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:HandleGetMessageList_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:HandleGetMessageList_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
         
         NSLog(@"%@",resposeObject);
         [self->_table.mj_header endRefreshing];
@@ -157,7 +157,7 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    [BaseRequest POST:HandleEmptyMessage_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+    [BaseRequest POST:HandleEmptyMessage_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

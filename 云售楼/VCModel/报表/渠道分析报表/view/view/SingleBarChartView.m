@@ -49,7 +49,7 @@
 //    self.yScaleValue = 50;
     self.yAxisCount = 10;
     self.showEachYValus=YES;
-    self.barCorlor = [UIColor lightGrayColor];
+    self.barCorlor = CLArr[0];
     
     [self addSubview:self.scrollView];
     [self.scrollView addSubview:self.contentView];

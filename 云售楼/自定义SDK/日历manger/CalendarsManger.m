@@ -34,7 +34,7 @@ static CalendarsManger *calendar;
         [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error){
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                __strong typeof(weakSelf) strongSelf = weakSelf;
+//                __strong typeof(weakSelf) strongSelf = weakSelf;
                 if (error)
                 {
 //                    [strongSelf showAlert:@"添加失败，请稍后重试"];

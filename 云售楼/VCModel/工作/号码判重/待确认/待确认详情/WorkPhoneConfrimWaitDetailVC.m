@@ -106,7 +106,7 @@
     
     UIAlertAction *unuse = [UIAlertAction actionWithTitle:@"可带看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        [BaseRequest GET:ClientTelCheckValue_URL parameters:@{@"client_id":_clientId} success:^(id resposeObject) {
+        [BaseRequest GET:ClientTelCheckValue_URL parameters:@{@"client_id":self->_clientId} success:^(id resposeObject) {
 
             if ([resposeObject[@"code"] integerValue] == 200) {
 
