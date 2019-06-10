@@ -123,6 +123,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.colorView.backgroundColor = CLArr[indexPath.row % CLArr.count];
     cell.approachDic = _dataArr[indexPath.row];
     
     _percent = 0;

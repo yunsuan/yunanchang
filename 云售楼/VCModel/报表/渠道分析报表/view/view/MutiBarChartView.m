@@ -45,7 +45,7 @@
     self.barsEndPointsArr = [@[] mutableCopy];
     self.barsLayersArr = [@[] mutableCopy];
     
-    self.barWidth = 30 *SIZE;
+    self.barWidth = 40 *SIZE;
     self.gapWidth = 30 *SIZE;
     self.yAxiasCount = 10;
     self.yAxiasValus = 20;
@@ -212,6 +212,7 @@
         lab.textAlignment = NSTextAlignmentCenter;
         lab.text = self.xValuesArr[i];
         lab.frame = CGRectMake(i * ([self.yValuesArr[i] count] * self.barWidth + self.gapWidth) + self.gapWidth, _totalHeight, [self.yValuesArr[i] count] * self.barWidth, 30 *SIZE);
+        lab.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:lab];
     }
 }

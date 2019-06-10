@@ -203,6 +203,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.colorView.backgroundColor = CLArr[indexPath.row % CLArr.count];
     if (indexPath.section == 0) {
 
         NSMutableArray *percentArr = [@[] mutableCopy];
@@ -267,15 +268,18 @@
         
         if (indexPath.row == 1) {
             
-            ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:_project_id];
-            if ([_status isEqualToString:@"1"]) {
+            if ([[PowerModel defaultModel].ReportListPower[1] integerValue]) {
                 
-                nextVC.status = @"1";
-            }else{
-                
-                nextVC.status = @"0";
+                ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:_project_id];
+                if ([_status isEqualToString:@"1"]) {
+                    
+                    nextVC.status = @"1";
+                }else{
+                    
+                    nextVC.status = @"0";
+                }
+                [self.navigationController pushViewController:nextVC animated:YES];
             }
-            [self.navigationController pushViewController:nextVC animated:YES];
         }else if (indexPath.row == 0){
             
             AutoVisitReportVC *nextVC = [[AutoVisitReportVC alloc] initWithProjectId:_project_id];
@@ -284,7 +288,7 @@
                 nextVC.status = @"1";
             }else{
                 
-                nextVC.status = @"0";
+                nextVC.status = @"2";
             }
             nextVC.titleStr = @"自然来访";
             [self.navigationController pushViewController:nextVC animated:YES];
@@ -300,7 +304,7 @@
             nextVC.status = @"1";
         }else{
             
-            nextVC.status = @"0";
+            nextVC.status = @"2";
         }
         nextVC.titleStr = _dataDic[@"property"][indexPath.row][@"config_name"];
         [self.navigationController pushViewController:nextVC animated:YES];
@@ -339,7 +343,7 @@
     
     [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 40 *SIZE) style:UITableViewStyleGrouped];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 41 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 41 *SIZE) style:UITableViewStyleGrouped];
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
     _table.backgroundColor = self.view.backgroundColor;

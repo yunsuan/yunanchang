@@ -17,6 +17,8 @@
 @interface WorkRecommendVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITextFieldDelegate>
 {
     
+    NSString *_project_id;
+    
     NSArray *_titleArr;
 }
 @property (nonatomic, strong) UITextField *searchBar;
@@ -36,6 +38,16 @@
 @end
 
 @implementation WorkRecommendVC
+
+- (instancetype)initWithProjectId:(NSString *)project_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = project_id;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -200,8 +212,11 @@
     
     // 创建控制器
     _workRecommendWaitVC = [[WorkRecommendWaitVC alloc] init];
+    _workRecommendWaitVC.project_id = _project_id;
     _workRecommendValidVC = [[WorkRecommendValidVC alloc] init];
+    _workRecommendValidVC.project_id = _project_id;
     _workRecommendFailVC = [[WorkRecommendFailVC alloc] init];
+    _workRecommendFailVC.project_id = _project_id;
     
     // 添加为self的子控制器
     [self addChildViewController:_workRecommendWaitVC];

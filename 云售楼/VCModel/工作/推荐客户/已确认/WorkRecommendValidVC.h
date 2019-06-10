@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WorkRecommendValidVC : BaseViewController
 
+@property (nonatomic, strong) NSString *project_id;
+
 @property (nonatomic, strong) NSString *search;
 
 - (void)RequestMethod;

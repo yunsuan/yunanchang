@@ -247,11 +247,11 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 1){
         
-        WorkPhoneConfirmVC *nextVC = [[WorkPhoneConfirmVC alloc] init];
+        WorkPhoneConfirmVC *nextVC = [[WorkPhoneConfirmVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 2){
         
-        WorkRecommendVC *nextVC = [[WorkRecommendVC alloc] init];
+        WorkRecommendVC *nextVC = [[WorkRecommendVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 3){
         

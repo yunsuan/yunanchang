@@ -63,22 +63,35 @@
     NSMutableArray * ReportListPower =[@[@0,@0] mutableCopy];
     if (datadic) {
         NSArray *arr = datadic[@"app_operate"];
-        for (int i = 0 ; i < arr.count; i++) {
-            if ([arr[i][@"detail"] integerValue] == 1) {
-                if (i == 2) {
-                    [ReportListPower replaceObjectAtIndex:0 withObject:@1];
-                }
-                else if(i == 3){
-                    [ReportListPower replaceObjectAtIndex:1 withObject:@1];
-                }
+        if (arr.count > 2) {
+            
+            NSDictionary *dic = arr[2];
+            if ([dic[@"report"][@"LFKHFXB"][@"detail"] integerValue] == 1) {
+                
+                [ReportListPower replaceObjectAtIndex:0 withObject:@1];
+            }
+            if ([dic[@"report"][@"QDFXB"][@"detail"] integerValue] == 1) {
+                
+                [ReportListPower replaceObjectAtIndex:1 withObject:@1];
             }
         }
+//        for (int i = 0 ; i < arr.count; i++) {
+//
+//            if ([arr[2][@"detail"] integerValue] == 1) {
+//                if (i == 2) {
+//                    [ReportListPower replaceObjectAtIndex:0 withObject:@1];
+//                }
+//                else if(i == 3){
+//                    [ReportListPower replaceObjectAtIndex:1 withObject:@1];
+//                }
+//            }
+//        }
     }
     [PowerModel defaultModel].ReportListPower = [ReportListPower copy];
     [PowerModel defaultModel].telCallPower = [datadic[@"app_operate"][0] copy];
     [PowerModel defaultModel].visitPower = [datadic[@"app_operate"][1] copy];
-    [PowerModel defaultModel].visitReport = [datadic[@"app_operate"][2] copy];
-    [PowerModel defaultModel].channelReport = [datadic[@"app_operate"][3] copy];
+//    [PowerModel defaultModel].visitReport = [datadic[@"app_operate"][2] copy];
+//    [PowerModel defaultModel].channelReport = [datadic[@"app_operate"][3] copy];
     [UserModelArchiver powerArchive];
 
 }

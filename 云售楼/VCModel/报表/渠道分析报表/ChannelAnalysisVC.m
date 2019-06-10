@@ -428,7 +428,7 @@
     }
     
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 40 *SIZE) style:UITableViewStyleGrouped];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 41 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 41 *SIZE) style:UITableViewStyleGrouped];
 //    _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 100 *SIZE;
     _table.estimatedSectionHeaderHeight = 100 *SIZE;

@@ -55,7 +55,7 @@
     
     _titleArr = @[@"来访客户分析表",@"渠道分析表"];
     _projectArr = [UserModel defaultModel].project_list;
-    _showArr = [PowerModel defaultModel].WorkListPower;
+    _showArr = [PowerModel defaultModel].ReportListPower;
 }
 
 - (void)ActionNSNotificationMethod{

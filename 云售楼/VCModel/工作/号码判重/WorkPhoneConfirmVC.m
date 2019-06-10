@@ -17,6 +17,8 @@
 @interface WorkPhoneConfirmVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UITextFieldDelegate>
 {
     
+    NSString *_project_id;
+    
     NSArray *_titleArr;
 }
 @property (nonatomic, strong) UITextField *searchBar;
@@ -36,6 +38,17 @@
 @end
 
 @implementation WorkPhoneConfirmVC
+
+- (instancetype)initWithProjectId:(NSString *)project_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = project_id;
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -189,8 +202,11 @@
     
     // 创建控制器
     _confirmPhoneWaitVC = [[WorkPhoneConfrimWaitVC alloc] init];
+    _confirmPhoneWaitVC.project_id = _project_id;
     _confirmPhoneUseVC = [[WorkPhoneConfrimUseVC alloc] init];
+    _confirmPhoneUseVC.project_id = _project_id;
     _confirmPhoneFailVC = [[WorkPhoneConfrimFailVC alloc] init];
+    _confirmPhoneFailVC.project_id = _project_id;
     
     // 添加为self的子控制器
     [self addChildViewController:_confirmPhoneWaitVC];

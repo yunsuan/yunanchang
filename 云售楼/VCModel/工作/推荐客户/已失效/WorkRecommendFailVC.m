@@ -46,7 +46,7 @@
     _page = 1;
     _MainTableView.mj_footer.state = MJRefreshStateIdle;
     
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"page":@(_page)}];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"page":@(_page),@"project_id":self.project_id}];
     if (![self isEmpty:self.search]) {
         
         [dic setObject:self.search forKey:@"search"];
@@ -85,7 +85,7 @@
     
     _page += 1;
     _MainTableView.mj_footer.state = MJRefreshStateIdle;
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"page":@(_page)}];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"page":@(_page),@"project_id":self.project_id}];
     if (![self isEmpty:self.search]) {
         
         [dic setObject:self.search forKey:@"search"];

@@ -95,7 +95,7 @@
 
 - (void)setDataArr:(NSArray *)dataArr{
     
-    _header.titleL.text = @"意向单价";
+    _header.titleL.text = @"意向物业";
     
     [_pieChartView removeFromSuperview];
     

@@ -127,6 +127,8 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.colorView.backgroundColor = CLArr[indexPath.row % CLArr.count];
+    
     cell.propertyDic = _dataArr[indexPath.section][@"option"][indexPath.row];
     
     _percent = 0;
