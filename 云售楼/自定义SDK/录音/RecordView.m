@@ -50,7 +50,6 @@
             [_recorder stop];
             _recorder = nil;
             [_recordTimer invalidate];
-//            [self removeFromSuperview];
             [MBProgressHUD showError:@"录音创建失败"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
@@ -63,8 +62,6 @@
         [_recorder stop];
         _recorder = nil;
         [_recordTimer invalidate];
-        NSLog(@"录音创建失败");
-//        [self removeFromSuperview];
         [MBProgressHUD showError:@"录音创建失败"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
@@ -75,7 +72,6 @@
 
 //停止录音
 - (void)stopAction {
-    NSLog(@"停止录音");
     //停止录音
     
     
@@ -119,17 +115,17 @@
 //    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:_tmpFile error:&playError];
     //当播放录音为空, 打印错误信息
     if (_player == nil) {
-        NSLog(@"Error crenting player: %@", [playError description]);
+        
+        
     }else {
+        
         _player.delegate = self;
-        NSLog(@"开始播放");
+        
         //开始播放
         _playSecond = _recordSecond;
         if ([_player prepareToPlay] == YES) {
-//            playImg.userInteractionEnabled = NO;
+            
             [_player play];
-//            playTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playSecondChange) userInfo:nil repeats:YES];
-//            [playTimer fire];
         }
     }
 }

@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>2.0.2</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -47,12 +47,15 @@
 	<string>是否允许开启日历权限</string>
 	<key>NSCameraUsageDescription</key>
 	<string>是否允许云案场开启相机拍照以便拍照发送图片</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>是否允许云案场开启定位以便找到周边的公司</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>开启麦克风</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>是否允许云案场打开相册以供你选择要发送的图片</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
