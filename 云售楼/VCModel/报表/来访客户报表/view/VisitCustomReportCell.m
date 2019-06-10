@@ -22,7 +22,7 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _colorView.backgroundColor = [UIColor orangeColor];
+//    _colorView.backgroundColor = CLBlueBtnColor;
     _titleL.text = dataDic[@"config_name"];
     _numL.text = [NSString stringWithFormat:@"%@",dataDic[@"count"]];
 //    _percentL.text = [NSString stringWithFormat:@"占比：%@",@"50%"];
@@ -31,6 +31,7 @@
 - (void)initUI{
     
     _colorView = [[UIView alloc] initWithFrame:CGRectMake(12 *SIZE, 10 *SIZE, 20 *SIZE, 20 *SIZE)];
+    _colorView.backgroundColor = CLBlueBtnColor;
     [self.contentView addSubview:_colorView];
     
     _titleL = [[UILabel alloc] initWithFrame:CGRectMake(40 *SIZE, 10 *SIZE, 150 *SIZE, 20 *SIZE)];

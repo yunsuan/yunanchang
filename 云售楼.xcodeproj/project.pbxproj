@@ -247,6 +247,8 @@
 		0CA8264522AE0C810005F3ED /* SMS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA8259822AE0C800005F3ED /* SMS@2x.png */; };
 		0CA8264622AE0C810005F3ED /* signing_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA8259922AE0C800005F3ED /* signing_2@2x.png */; };
 		0CA8264722AE0C810005F3ED /* shoukuan_2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA8259A22AE0C800005F3ED /* shoukuan_2@3x.png */; };
+		0CA8264B22AE26D30005F3ED /* AutoVisitReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA8264A22AE26D30005F3ED /* AutoVisitReportVC.m */; };
+		0CA8264D22AE2BCA0005F3ED /* logo_anchang.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA8264C22AE2BCA0005F3ED /* logo_anchang.png */; };
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
 		0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */; };
@@ -727,6 +729,9 @@
 		0CA8259822AE0C800005F3ED /* SMS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SMS@2x.png"; sourceTree = "<group>"; };
 		0CA8259922AE0C800005F3ED /* signing_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signing_2@2x.png"; sourceTree = "<group>"; };
 		0CA8259A22AE0C800005F3ED /* shoukuan_2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoukuan_2@3x.png"; sourceTree = "<group>"; };
+		0CA8264922AE26D30005F3ED /* AutoVisitReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoVisitReportVC.h; sourceTree = "<group>"; };
+		0CA8264A22AE26D30005F3ED /* AutoVisitReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoVisitReportVC.m; sourceTree = "<group>"; };
+		0CA8264C22AE2BCA0005F3ED /* logo_anchang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_anchang.png; sourceTree = "<group>"; };
 		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
 		0CAC92642283FE09006B2B79 /* GuideVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuideVC.m; sourceTree = "<group>"; };
 		0CAC92662284063C006B2B79 /* UserModelArchiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelArchiver.h; sourceTree = "<group>"; };
@@ -1755,6 +1760,7 @@
 		0CA824D922AE0C800005F3ED /* 图片 */ = {
 			isa = PBXGroup;
 			children = (
+				0CA8264C22AE2BCA0005F3ED /* logo_anchang.png */,
 				0CA824DA22AE0C800005F3ED /* 8831558580869_.pic_hd.jpg */,
 				0CA824DB22AE0C800005F3ED /* 我的 */,
 				0CA824E922AE0C800005F3ED /* room@2x.png */,
@@ -2090,6 +2096,15 @@
 				0CA8259022AE0C800005F3ED /* laifangfenxi@3x.png */,
 			);
 			path = "报表";
+			sourceTree = "<group>";
+		};
+		0CA8264822AE26BE0005F3ED /* 自然来访详情报表 */ = {
+			isa = PBXGroup;
+			children = (
+				0CA8264922AE26D30005F3ED /* AutoVisitReportVC.h */,
+				0CA8264A22AE26D30005F3ED /* AutoVisitReportVC.m */,
+			);
+			path = "自然来访详情报表";
 			sourceTree = "<group>";
 		};
 		0CAC92622283FDFA006B2B79 /* 引导页 */ = {
@@ -3247,6 +3262,7 @@
 		0CFF71D922A6422B0066732B /* 来访客户报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0CA8264822AE26BE0005F3ED /* 自然来访详情报表 */,
 				0CFF71E722A649620066732B /* Model */,
 				0CFF71DD22A644BA0066732B /* view */,
 				0CFF71DA22A6423E0066732B /* VisitCustomReportVC.h */,
@@ -3597,6 +3613,7 @@
 				0CA8262D22AE0C810005F3ED /* 2@3x.png in Resources */,
 				0CA825F522AE0C800005F3ED /* grey@3x.png in Resources */,
 				0CA8263722AE0C810005F3ED /* play@2x.png in Resources */,
+				0CA8264D22AE2BCA0005F3ED /* logo_anchang.png in Resources */,
 				0CA8259D22AE0C800005F3ED /* about@3x.png in Resources */,
 				0CA8260E22AE0C800005F3ED /* warning@2x.png in Resources */,
 				0CA825FD22AE0C800005F3ED /* leftarrow_white@3x.png in Resources */,
@@ -3816,6 +3833,7 @@
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */,
 				0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */,
+				0CA8264B22AE26D30005F3ED /* AutoVisitReportVC.m in Sources */,
 				0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */,
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
 				0CFF71F922A655090066732B /* VisitCustomReportCell.m in Sources */,

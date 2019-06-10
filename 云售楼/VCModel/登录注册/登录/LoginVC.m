@@ -212,11 +212,11 @@
 //    self.line.hidden = YES;
     self.navBackgroundView.hidden = YES;
     
-    _Headerimg = [[UIImageView alloc]initWithFrame:CGRectMake(130*SIZE, 39 *SIZE + NAVIGATION_BAR_HEIGHT, 100*SIZE, 68*SIZE)];
-    _Headerimg.image = [UIImage imageNamed:@"logo_3"];
+    _Headerimg = [[UIImageView alloc]initWithFrame:CGRectMake(130*SIZE, 39 *SIZE + NAVIGATION_BAR_HEIGHT, 100*SIZE, 100*SIZE)];
+    _Headerimg.image = [UIImage imageNamed:@"logo_anchang"];
     [self.view addSubview:_Headerimg];
     
-    _AccountTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, 219*SIZE, 314*SIZE, 15*SIZE)];
+    _AccountTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, 219*SIZE, 314*SIZE, 30*SIZE)];
     _AccountTF.placeholder = @"请输入帐号";
     _AccountTF.keyboardType = UIKeyboardTypeNumberPad;
     _AccountTF.font = [UIFont systemFontOfSize:14*SIZE];
@@ -225,7 +225,7 @@
     [self.view addSubview:_AccountTF];
     _AccountTF.text = [UserModel defaultModel].loginAccount;
     
-    _PassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, 266*SIZE, 314*SIZE, 15*SIZE)];
+    _PassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, 266*SIZE, 314*SIZE, 30*SIZE)];
     _PassWordTF.placeholder = @"请输入密码";
     _PassWordTF.font = [UIFont systemFontOfSize:14*SIZE];
     [_PassWordTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

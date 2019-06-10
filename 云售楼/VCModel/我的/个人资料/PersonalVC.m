@@ -24,6 +24,15 @@
     NSArray *_titleArr;
     NSMutableArray *_contentArr;
     
+    NSData *_imageData;
+    NSString *_name;
+    NSString *_sex;
+    NSString *_birth;
+    NSString *_pro;
+    NSString *_city;
+    NSString *_area;
+    NSString *_intro;
+    
     UIImagePickerController *_imagePickerController; /**< 相册拾取器 */
     NSDateFormatter *_formatter;
 }
@@ -48,16 +57,7 @@
     
     _imagePickerController = [[UIImagePickerController alloc] init];
     _imagePickerController.delegate = self;
-    NSString *adreess;
-    if ([UserInfoModel defaultModel].province) {
-        adreess =[NSString stringWithFormat:@"%@/%@/%@",[UserInfoModel defaultModel].province,[UserInfoModel defaultModel].city,[UserInfoModel defaultModel].district];
-    }
-    else{
-        adreess = @"";
-    }
-    
-    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,adreess,[UserInfoModel defaultModel].slef_desc?[UserInfoModel defaultModel].slef_desc:@""]];
-    [_personTable reloadData];
+
 }
 
 - (void)initDataSource{
@@ -66,7 +66,46 @@
     [_formatter setDateFormat:@"YYYY-MM-dd"];
     
     _titleArr = @[@"云算号：",@"手机号：",@"姓名：",@"性别：",@"生日：",@"所在地：",@"个人说明："];
-    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,[UserInfoModel defaultModel].absolute_address,[UserInfoModel defaultModel].slef_desc?[UserInfoModel defaultModel].slef_desc:@""]];
+    
+    NSString *adreess;
+    
+    if ([UserInfoModel defaultModel].province) {
+        
+        NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region" ofType:@"json"]];
+        
+        NSError *err;
+        NSArray *provice = [NSJSONSerialization JSONObjectWithData:JSONData
+                                                           options:NSJSONReadingMutableContainers
+                                                             error:&err];
+        for (NSUInteger i = 0; i < provice.count; i++) {
+            
+            if([provice[i][@"code"] integerValue] == [[UserInfoModel defaultModel].province integerValue]){
+                
+                NSArray *city = provice[i][@"city"];
+                for (NSUInteger j = 0; j < city.count; j++) {
+                    
+                    if([city[j][@"code"] integerValue] == [[UserInfoModel defaultModel].city integerValue]){
+                        
+                        NSArray *area = city[j][@"district"];
+                        
+                        for (NSUInteger k = 0; k < area.count; k++) {
+                            
+                            if([area[k][@"code"] integerValue] == [[UserInfoModel defaultModel].district integerValue]){
+                                
+                                adreess = [NSString stringWithFormat:@"%@/%@/%@",provice[i][@"name"],city[0][@"name"],area[k][@"name"]];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+//        adreess =[NSString stringWithFormat:@"%@/%@/%@",[UserInfoModel defaultModel].province,[UserInfoModel defaultModel].city,[UserInfoModel defaultModel].district];
+    }else{
+        
+        adreess = @"";
+    }
+
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,adreess,[UserInfoModel defaultModel].slef_desc?[UserInfoModel defaultModel].slef_desc:@""]];
 }
 
 
@@ -74,7 +113,144 @@
 
 - (void)ActionExitBtn:(UIButton *)btn{
     
+    NSMutableDictionary *dic = [@{} mutableCopy];
     
+    if (_name) {
+        
+        [dic setObject:_name forKey:@"name"];
+    }
+    if (_sex) {
+        
+        [dic setObject:_sex forKey:@"sex"];
+    }
+    if (_birth) {
+        
+        [dic setObject:_birth forKey:@"birth"];
+    }
+    
+    if (_pro) {
+        
+        [dic setObject:_pro forKey:@"province"];
+        [dic setObject:_city forKey:@"city"];
+        [dic setObject:_area forKey:@"district"];
+    }
+    if (_intro) {
+        
+        [dic setObject:_intro forKey:@"slef_desc"];
+    }
+    
+    if (_imageData) {
+        
+        [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            [formData appendPartWithFileData:self->_imageData name:@"headimg" fileName:@"headimg.jpg" mimeType:@"image/jpg"];
+        } url:UploadFile_URL parameters:@{
+                                          @"file_name":@"headimg"
+                                          }
+        success:^(id  _Nonnull resposeObject) {
+                                              
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                                                  
+                NSDictionary *dic = @{@"head_img":resposeObject[@"data"]};
+                [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
+                
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                                                          
+                        [UserInfoModel defaultModel].head_img = dic[@"head_img"];
+                        if (self->_name) {
+                            
+                            [UserInfoModel defaultModel].name = self->_name;
+                        }
+                        if (self->_sex) {
+                            
+                            [UserInfoModel defaultModel].sex = self->_sex;
+                        }
+                        if (self->_birth) {
+                            
+                            [UserInfoModel defaultModel].birth = self->_birth;
+                        }
+                        
+                        if (self->_pro) {
+                            
+                            [UserInfoModel defaultModel].province = self->_pro;
+                            [UserInfoModel defaultModel].city = self->_city;
+                            [UserInfoModel defaultModel].district = self->_area;
+                        }
+                        if (self->_intro) {
+                            
+                            [UserInfoModel defaultModel].slef_desc = self->_intro;
+                        }
+                        [UserModelArchiver infoArchive];
+                        if (self.personalVCBlock) {
+                                                              
+                            self.personalVCBlock();
+                        }
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }else{
+                                                          
+                        [self showContent:resposeObject[@"msg"]];
+                     }
+                } failure:^(NSError *error) {
+                
+                    [self showContent:@"网络错误"];
+                }];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        if (dic.count) {
+            
+            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    if (self->_name) {
+                        
+                        [UserInfoModel defaultModel].name = self->_name;
+                    }
+                    if (self->_sex) {
+                        
+                        [UserInfoModel defaultModel].sex = self->_sex;
+                    }
+                    if (self->_birth) {
+                        
+                        [UserInfoModel defaultModel].birth = self->_birth;
+                    }
+                    
+                    if (self->_pro) {
+                        
+                        [UserInfoModel defaultModel].province = self->_pro;
+                        [UserInfoModel defaultModel].city = self->_city;
+                        [UserInfoModel defaultModel].district = self->_area;
+                    }
+                    if (self->_intro) {
+                        
+                        [UserInfoModel defaultModel].slef_desc = self->_intro;
+                    }
+                    if (self.personalVCBlock) {
+                        
+                        self.personalVCBlock();
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        }else{
+        
+            [self showContent:@"您未修改任何个人信息"];
+        }
+    }
 }
 
 
@@ -148,6 +324,7 @@
             [self updateheadimgbyimg:originalImage];
         }
     }else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary){
+        
         UIImage *originalImage = [self fixOrientation:info[UIImagePickerControllerEditedImage]];
         [self updateheadimgbyimg:originalImage];
         
@@ -159,40 +336,8 @@
 {
     NSData *data = [self resetSizeOfImageData:img maxSize:150];
     
-    [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
-        
-        [formData appendPartWithFileData:data name:@"headimg" fileName:@"headimg.jpg" mimeType:@"image/jpg"];
-    } url:UploadFile_URL parameters:@{
-                                      @"file_name":@"headimg"
-                                      } success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 200) {
-            
-            NSDictionary *dic = @{@"head_img":resposeObject[@"data"]};
-            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
-                
-                if ([resposeObject[@"code"] integerValue] == 200) {
-                    
-                    [UserInfoModel defaultModel].head_img = dic[@"head_img"];
-                    [UserModelArchiver infoArchive];
-                    [self->_personTable reloadData];
-                }else{
-                    
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError *error) {
-                
-                //                NSLog(@"%@",error);
-                [self showContent:@"网络错误"];
-            }];
-        }else{
-            
-            [self showContent:resposeObject[@"msg"]];
-        }
-                                      } failure:^(NSError * _Nonnull error) {
-                                          
-                                          [self showContent:@"网络错误"];
-                                      }];
+    _imageData = data;
+    [_personTable reloadData];
 }
 
 // 用户点击了取消按钮
@@ -215,13 +360,19 @@
         header = [[PersonalHeader alloc] initWithReuseIdentifier:@"PersonalHeader"];
     }
     
-    [header.headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,[UserInfoModel defaultModel].head_img]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    if (_imageData) {
         
-        if (error) {
+        header.headerImg.image = [UIImage imageWithData:_imageData];
+    }else{
+        
+        [header.headerImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,[UserInfoModel defaultModel].head_img]] placeholderImage:IMAGE_WITH_NAME(@"def_head") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             
-            header.headerImg.image = IMAGE_WITH_NAME(@"def_head");
-        }
-    }];;
+            if (error) {
+                
+                header.headerImg.image = IMAGE_WITH_NAME(@"def_head");
+            }
+        }];;
+    }
     
     header.personalHeaderBlock = ^{
       
@@ -247,10 +398,6 @@
     return header;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    return 51 *SIZE;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -277,14 +424,11 @@
     
     if (indexPath.row == 2) {
         
-        ChangeNameVC *nextVC = [[ChangeNameVC alloc] initWithName:@""];
+        ChangeNameVC *nextVC = [[ChangeNameVC alloc] initWithName:self->_contentArr[2]];
         nextVC.changeNameVCBlock = ^(NSString *str) {
             
-            [self->_contentArr replaceObjectAtIndex:2 withObject:[UserInfoModel defaultModel].name];
-            if (self.personalVCBlock) {
-                
-                self.personalVCBlock();
-            }
+            self->_name = str;
+            [self->_contentArr replaceObjectAtIndex:2 withObject:self->_name];
             [tableView reloadData];
         };
         [self.navigationController pushViewController:nextVC animated:YES];
@@ -294,52 +438,19 @@
         
         UIAlertAction *male = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            NSDictionary *dic = @{@"sex":@"1"};
-            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
-                
-                if ([resposeObject[@"code"] integerValue] == 200) {
-                    
-                    [UserInfoModel defaultModel].sex = @"1";
-                    [UserModelArchiver archive];
-                    if (self.personalVCBlock) {
-                        
-                        self.personalVCBlock();
-                    }
-                    [self initDataSource];
-                    [tableView reloadData];
-                }else{
-                    
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError *error) {
-                
-                [self showContent:@"网络错误"];
-            }];
+            
+            self->_sex = @"1";
+            [self->_contentArr replaceObjectAtIndex:3 withObject:@"男"];
+            
+            [tableView reloadData];
         }];
         
         UIAlertAction *female = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            NSDictionary *dic = @{@"sex":@"2"};
-            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
-                
-                if ([resposeObject[@"code"] integerValue] == 200) {
-                    
-                    [UserInfoModel defaultModel].sex = @"2";
-                    [UserModelArchiver archive];
-                    if (self.personalVCBlock) {
-                        
-                        self.personalVCBlock();
-                    }
-                    [self initDataSource];
-                    [tableView reloadData];
-                }else{
-                    
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError *error) {
-                
-                [self showContent:@"网络错误"];
-            }];
+            self->_sex = @"2";
+            [self->_contentArr replaceObjectAtIndex:3 withObject:@"女"];
+            
+            [tableView reloadData];
         }];
         
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -356,34 +467,16 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
         view.dateblock = ^(NSDate *date) {
             
-            NSDictionary *dic = @{@"birth":[self->_formatter stringFromDate:date]};
-            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
-                
-                if ([resposeObject[@"code"] integerValue] == 200) {
-                    
-                    [UserInfoModel defaultModel].birth = [self->_formatter stringFromDate:date];
-                    [UserModelArchiver archive];
-                    if (self.personalVCBlock) {
-                        
-                        self.personalVCBlock();
-                    }
-                    [self initDataSource];
-                    [tableView reloadData];
-                }else{
-                    
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError *error) {
-                
-                [self showContent:@"网络错误"];
-            }];
+            self->_birth = [self->_formatter stringFromDate:date];
+            [self->_contentArr replaceObjectAtIndex:4 withObject:self->_birth];
+            
+            [tableView reloadData];
         };
         [self.view addSubview:view];
     }else if (indexPath.row == 5){
-        
-//        AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.frame withdata:@[]];
+
         AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.bounds withdata:@[]];
-        WS(weakself);
+//        WS(weakself);
         addressChooseView.selectedBlock = ^(NSString *province, NSString *city, NSString *area, NSString *proviceid, NSString *cityid, NSString *areaid) {
 
             
@@ -395,6 +488,11 @@
                                                                 error:&err];
             NSString *pro = [cityid substringToIndex:2];
             pro = [NSString stringWithFormat:@"%@0000",pro];
+            
+            self->_pro = pro;
+            self->_city = cityid;
+            self->_area = areaid;
+            
             NSString *proName;
             if ([pro isEqualToString:@"900000"]) {
                 proName = @"海外";
@@ -409,46 +507,18 @@
                     }
                 }
             }
-            
-            NSDictionary *dic = @{@"province":pro,@"city":cityid,@"district":areaid};
-            [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
-                
-                //            NSLog(@"%@",resposeObject);
-                
-                if ([resposeObject[@"code"] integerValue] == 200) {
-                    
-                    [UserInfoModel defaultModel].province = proName;
-                    [UserInfoModel defaultModel].city = city;
-                    [UserInfoModel defaultModel].district = area;
-                    [self initDataSource];
-                    [UserModelArchiver archive];
-                    if (self.personalVCBlock) {
-                        
-                        self.personalVCBlock();
-                    }
-                    [self->_personTable reloadData];
-//                    [self.navigationController popViewControllerAnimated:YES];
-                }else{
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError *error) {
-                
-                [self showContent:@"网络错误"];
-                //            NSLog(@"%@",error);
-            }];
+            [self->_contentArr replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"%@/%@/%@",proName,city,area]];
+            [tableView reloadData];
         };
         [self.view addSubview:addressChooseView];
     }else if (indexPath.row == 6){
         
-        PersonalIntroVC *nextVC = [[PersonalIntroVC alloc] initWithIntro:@""];
+        PersonalIntroVC *nextVC = [[PersonalIntroVC alloc] initWithIntro:self->_contentArr[6]];
         nextVC.personalIntroVCBlock = ^(NSString *str) {
             
-            [self initDataSource];
+            self->_intro = str;
+            [self->_contentArr replaceObjectAtIndex:6 withObject:self->_intro];
             [tableView reloadData];
-            if (self.personalVCBlock) {
-                
-                self.personalVCBlock();
-            }
         };
         [self.navigationController pushViewController:nextVC animated:YES];
     }

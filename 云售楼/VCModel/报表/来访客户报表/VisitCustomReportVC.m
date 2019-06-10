@@ -77,11 +77,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-//            [self->_dataArr removeAllObjects];
-//            [self->_dataDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//
-//                [self->_dataArr addObject:key];
-//            }];
+
             [self->_table reloadData];
         }else{
             

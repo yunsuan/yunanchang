@@ -125,7 +125,7 @@
 
 -(UITextField *)Account{
     if (!_Account) {
-        _Account = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+119*SIZE, 200*SIZE, 25*SIZE)];
+        _Account = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+119*SIZE, 300*SIZE, 30*SIZE)];
         _Account.placeholder = @"请输入原始密码";
         _Account.keyboardType = UIKeyboardTypeDefault;
         _Account.delegate = self;
@@ -140,7 +140,7 @@
 -(UITextField *)PassWord
 {
     if (!_PassWord) {
-        _PassWord = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+166*SIZE, 200*SIZE, 25*SIZE)];
+        _PassWord = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+166*SIZE, 300*SIZE, 30*SIZE)];
         _PassWord.placeholder = @"请输入新密码";
         _PassWord.secureTextEntry = YES;
         _PassWord.keyboardType = UIKeyboardTypeDefault;
@@ -153,7 +153,7 @@
 -(UITextField *)SurePassWord
 {
     if (!_SurePassWord) {
-        _SurePassWord = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+213*SIZE, 200*SIZE, 25*SIZE)];
+        _SurePassWord = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+213*SIZE, 300*SIZE, 30*SIZE)];
         _SurePassWord.placeholder = @"再次输入新密码";
         _SurePassWord.secureTextEntry = YES;
         _SurePassWord.keyboardType = UIKeyboardTypeDefault;

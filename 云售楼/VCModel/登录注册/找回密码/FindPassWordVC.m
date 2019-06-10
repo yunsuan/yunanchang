@@ -99,8 +99,8 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             LoginVC *next_vc = [[LoginVC alloc]init];
-            [UserModel defaultModel].loginAccount = _Account.text;
-            [UserModel defaultModel].passWord = _PassWord.text;
+            [UserModel defaultModel].loginAccount = self->_Account.text;
+            [UserModel defaultModel].passWord = self->_PassWord.text;
             [UserModelArchiver archive];
             [self alertControllerWithNsstring:@"系统提示" And:@"修改密码成功，请妥善保管好账号" WithDefaultBlack:^{
                 
@@ -238,7 +238,7 @@
 
 -(UITextField *)Account{
     if (!_Account) {
-        _Account = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+124*SIZE, 200*SIZE, 15*SIZE)];
+        _Account = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+124*SIZE, 300*SIZE, 30*SIZE)];
         _Account.placeholder = @"请输入手机号码";
         _Account.keyboardType = UIKeyboardTypeNumberPad;
         _Account.font = [UIFont systemFontOfSize:14*SIZE];
@@ -249,7 +249,7 @@
 
 -(UITextField *)Code{
     if (!_Code) {
-        _Code = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+171*SIZE, 200*SIZE, 15*SIZE)];
+        _Code = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+171*SIZE, 200*SIZE, 30*SIZE)];
         _Code.placeholder = @"请输入验证码";
         _Code.keyboardType = UIKeyboardTypeNumberPad;
         _Code.font = [UIFont systemFontOfSize:14*SIZE];
@@ -261,7 +261,7 @@
 -(UITextField *)PassWord
 {
     if (!_PassWord) {
-        _PassWord = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+218*SIZE, 200*SIZE, 15*SIZE)];
+        _PassWord = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+218*SIZE, 300*SIZE, 30*SIZE)];
         _PassWord.placeholder = @"请输入密码";
         _PassWord.secureTextEntry = YES;
         _PassWord.font = [UIFont systemFontOfSize:14*SIZE];
@@ -273,7 +273,7 @@
 -(UITextField *)SurePassWord
 {
     if (!_SurePassWord) {
-        _SurePassWord = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+265*SIZE, 200*SIZE, 15*SIZE)];
+        _SurePassWord = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+265*SIZE, 300*SIZE, 30*SIZE)];
         _SurePassWord.placeholder = @"再次输入密码";
         _SurePassWord.secureTextEntry = YES;
         _SurePassWord.font = [UIFont systemFontOfSize:14*SIZE];
@@ -301,12 +301,12 @@
 {
     if (!_GetCodeBtn) {
         _GetCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _GetCodeBtn.frame =  CGRectMake(236*SIZE, 171*SIZE+STATUS_BAR_HEIGHT, 100*SIZE, 15*SIZE);
+        _GetCodeBtn.frame =  CGRectMake(236*SIZE, 171*SIZE+STATUS_BAR_HEIGHT, 100*SIZE, 30*SIZE);
         [_GetCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_GetCodeBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
         _GetCodeBtn.titleLabel.font = [UIFont systemFontOfSize:14*SIZE];
         [_GetCodeBtn addTarget:self action:@selector(GetCode) forControlEvents:UIControlEventTouchUpInside];
-        _GetCodeBtn.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
+        _GetCodeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     }
     return _GetCodeBtn;
 }

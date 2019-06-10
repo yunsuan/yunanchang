@@ -251,7 +251,7 @@
 
 -(UITextField *)AccountTF{
     if (!_AccountTF) {
-        _AccountTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+124*SIZE, 314*SIZE, 15*SIZE)];
+        _AccountTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+124*SIZE, 314*SIZE, 30*SIZE)];
         _AccountTF.placeholder = @"请输入手机号码";
         _AccountTF.keyboardType = UIKeyboardTypeNumberPad;
         _AccountTF.font = [UIFont systemFontOfSize:14*SIZE];
@@ -263,7 +263,7 @@
 
 -(UITextField *)CodeTF{
     if (!_CodeTF) {
-        _CodeTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+171*SIZE, 200*SIZE, 15*SIZE)];
+        _CodeTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+171*SIZE, 200*SIZE, 30*SIZE)];
         _CodeTF.placeholder = @"请输入验证码";
         _CodeTF.keyboardType = UIKeyboardTypeNumberPad;
         _CodeTF.font = [UIFont systemFontOfSize:14*SIZE];
@@ -275,7 +275,7 @@
 -(UITextField *)PassWordTF
 {
     if (!_PassWordTF) {
-        _PassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+218*SIZE, 314*SIZE, 15*SIZE)];
+        _PassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+218*SIZE, 314*SIZE, 30*SIZE)];
         _PassWordTF.placeholder = @"请输入密码";
         _PassWordTF.font = [UIFont systemFontOfSize:14*SIZE];
         [_PassWordTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -288,7 +288,7 @@
 -(UITextField *)SurePassWordTF
 {
     if (!_SurePassWordTF) {
-        _SurePassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+265*SIZE, 314*SIZE, 15*SIZE)];
+        _SurePassWordTF = [[UITextField alloc]initWithFrame:CGRectMake(22*SIZE, STATUS_BAR_HEIGHT+265*SIZE, 314*SIZE, 30*SIZE)];
         _SurePassWordTF.placeholder = @"再次输入密码";
         _SurePassWordTF.font = [UIFont systemFontOfSize:14*SIZE];
         [_SurePassWordTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -328,7 +328,7 @@
 {
     if (!_GetCodeBtn) {
         _GetCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _GetCodeBtn.frame =  CGRectMake(236*SIZE, 171*SIZE+STATUS_BAR_HEIGHT, 100*SIZE, 15*SIZE);
+        _GetCodeBtn.frame =  CGRectMake(236*SIZE, 171*SIZE+STATUS_BAR_HEIGHT, 100*SIZE, 30*SIZE);
         [_GetCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_GetCodeBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
         _GetCodeBtn.titleLabel.font = [UIFont systemFontOfSize:14*SIZE];

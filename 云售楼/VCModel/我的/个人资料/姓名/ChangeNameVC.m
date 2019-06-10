@@ -43,25 +43,29 @@
         if (self.changeNameVCBlock) {
             
             self.changeNameVCBlock(_nameTF.text);
+            [self.navigationController popViewControllerAnimated:YES];
         }
-        NSDictionary *dic = @{@"name":_nameTF.text};
-        [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
-
-            //            NSLog(@"%@",resposeObject);
-
-            if ([resposeObject[@"code"] integerValue] == 200) {
-
-                [UserInfoModel defaultModel].name = self->_nameTF.text;
-                [UserModelArchiver archive];
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                [self showContent:resposeObject[@"msg"]];
-            }
-        } failure:^(NSError *error) {
-
-            [self showContent:@"网络错误"];
-            //            NSLog(@"%@",error);
-        }];
+//        NSDictionary *dic = @{@"name":_nameTF.text};
+//        [BaseRequest POST:UserPersonalChangeAgentInfo_URL parameters:dic success:^(id resposeObject) {
+//
+//            //            NSLog(@"%@",resposeObject);
+//
+//            if ([resposeObject[@"code"] integerValue] == 200) {
+//
+//                [UserInfoModel defaultModel].name = self->_nameTF.text;
+//                [UserModelArchiver archive];
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }else{
+//                [self showContent:resposeObject[@"msg"]];
+//            }
+//        } failure:^(NSError *error) {
+//
+//            [self showContent:@"网络错误"];
+//            //            NSLog(@"%@",error);
+//        }];
+    }else{
+        
+        [self showContent:@"请输入姓名"];
     }
 }
 

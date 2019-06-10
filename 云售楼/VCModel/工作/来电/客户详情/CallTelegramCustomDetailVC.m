@@ -403,6 +403,7 @@
             nextVC.group_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"group_id"]];
             nextVC.addCallTelegramGroupMemberDirectVCBlock = ^{
                 
+                self->_num += 1;
                 [self RequestMethod];
             };
             [self.navigationController pushViewController:nextVC animated:YES];
