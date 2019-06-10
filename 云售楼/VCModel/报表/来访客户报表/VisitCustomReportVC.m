@@ -202,8 +202,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (indexPath.section == 0) {
-        
-//        cell.dataDic = [_dataDic objectForKey:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section]]][indexPath.row];
+
         NSMutableArray *percentArr = [@[] mutableCopy];
         if (indexPath.row == 0) {
             
@@ -275,6 +274,12 @@
                 nextVC.status = @"0";
             }
             [self.navigationController pushViewController:nextVC animated:YES];
+        }else if (indexPath.row == 0){
+            
+            
+        }else{
+            
+            
         }
     }
 }

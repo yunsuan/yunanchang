@@ -63,6 +63,25 @@ static NSString *const kACCESSROLE = @"saleApp";
     }];
 }
 
++ (void)VersionUpdateSuccess:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
+    
+    AFHTTPSessionManager *htttmanger  =   [BaseRequest sharedHttpSessionManager];
+    NSString *str = @"https://itunes.apple.com/cn/lookup?id=1371990304";
+    [htttmanger POST:str parameters:@{} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        success(responseObject);
+        return ;
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
 + (void)POST:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(id resposeObject))success failure:(void(^)(NSError *error))failure{
     
     [WaitAnimation startAnimation];
