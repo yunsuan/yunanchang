@@ -97,8 +97,37 @@
     [super viewDidLoad];
     
     [self initDataSource];
-    [self initUI];
+    if (self.configDic.count) {
+        
+        [self initUI];
+    }else{
+        
+        [self RequestMethod];
+    }
     [self PropertyRequestMethod];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:WorkClientAutoColumnConfig_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if (![resposeObject[@"data"] isKindOfClass:[NSNull class]]) {
+                
+                self->_configDic = resposeObject[@"data"];
+            }
+            [self initUI];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+            [self initUI];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self initUI];
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)initDataSource{
@@ -134,9 +163,12 @@
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     _maleBtn.selected = NO;
     _femaleBtn.selected = NO;
@@ -153,9 +185,12 @@
 
 - (void)ActionDropBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     switch (btn.tag) {
         case 0:
@@ -210,9 +245,12 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     if (_numAdd == 0) {
         
@@ -256,9 +294,12 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     NSMutableDictionary *tempDic = [@{} mutableCopy];
     

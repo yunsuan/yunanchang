@@ -100,7 +100,13 @@
     [super viewDidLoad];
     
     [self initDataSource];
-    [self initUI];
+    if (self.configDic.count) {
+        
+        [self initUI];
+    }else{
+        
+        [self RequestMethod];
+    }
     [self PropertyRequestMethod];
 }
 

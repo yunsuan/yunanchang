@@ -238,9 +238,12 @@
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     _maleBtn.selected = NO;
     _femaleBtn.selected = NO;
@@ -257,9 +260,12 @@
 
 - (void)ActionDropBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     switch (btn.tag) {
         case 0:
@@ -443,9 +449,12 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     if (_numAdd == 0) {
         
@@ -489,9 +498,12 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
 //    NSMutableArray *clientArr = [@[] mutableCopy];
     NSMutableDictionary *allDic = [@{} mutableCopy];

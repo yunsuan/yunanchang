@@ -1256,7 +1256,7 @@
                 }];
             }
             
-            [view addSubview:_headArr[i]];
+            [bomView addSubview:_headArr[i]];
             
             for (int j = 0; j < [_moduleArr[i] count]; j++) {
                 

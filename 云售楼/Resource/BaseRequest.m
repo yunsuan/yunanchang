@@ -77,7 +77,7 @@ static NSString *const kACCESSROLE = @"saleApp";
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        [htttmanger invalidateSessionCancelingTasks:YES];
+//        [htttmanger invalidateSessionCancelingTasks:YES];
         if (failure) {
             failure(error);
         }

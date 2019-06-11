@@ -190,9 +190,12 @@
 
 - (void)ActionRecordBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     Isplay = YES;
     RecordView *view = [[RecordView alloc] initWithFrame:self.view.bounds];
@@ -220,9 +223,12 @@
 
 - (void)ActionPlayBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -250,9 +256,12 @@
 
 - (void)ActionTimeBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     if (_nextTimeBtn.content.text.length) {
         
@@ -279,9 +288,12 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
 
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     if ([self isEmpty:_followPurposeTF.textField.text]) {
         

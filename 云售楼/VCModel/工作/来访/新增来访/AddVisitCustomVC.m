@@ -236,9 +236,12 @@
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     _maleBtn.selected = NO;
     _femaleBtn.selected = NO;
@@ -255,9 +258,12 @@
 
 - (void)ActionDropBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     switch (btn.tag) {
         case 0:
@@ -286,7 +292,7 @@
         case 2:{
             
             AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.bounds withdata:@[]];
-            WS(weakself);
+//            WS(weakself);
             addressChooseView.selectedBlock = ^(NSString *province, NSString *city, NSString *area, NSString *proviceid, NSString *cityid, NSString *areaid) {
                 
                 NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region" ofType:@"json"]];
@@ -402,9 +408,12 @@
 
 - (void)ActionAddGroupBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:_project_id info_id:_info_id];
     nextVC.configDic = self->_configDic;
@@ -425,9 +434,12 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     if (_numAdd == 0) {
         
@@ -471,9 +483,12 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    for (BorderTextField *tf in self.view.subviews) {
+    for (BorderTextField *tf in _scrollView.subviews) {
         
-        [tf.textField endEditing:YES];
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
     }
     //    NSMutableArray *clientArr = [@[] mutableCopy];
     NSMutableDictionary *allDic = [@{} mutableCopy];
