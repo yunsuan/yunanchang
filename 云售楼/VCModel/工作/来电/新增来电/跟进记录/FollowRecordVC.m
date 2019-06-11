@@ -197,6 +197,9 @@
             [tf.textField endEditing:YES];
         }
     }
+    
+    [_contentView endEditing:YES];
+    
     Isplay = YES;
     RecordView *view = [[RecordView alloc] initWithFrame:self.view.bounds];
     view. recordViewBlock = ^{
@@ -230,6 +233,8 @@
             [tf.textField endEditing:YES];
         }
     }
+    [_contentView endEditing:YES];
+    
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     NSError *playError;
@@ -263,6 +268,8 @@
             [tf.textField endEditing:YES];
         }
     }
+    
+    [_contentView endEditing:YES];
     if (_nextTimeBtn.content.text.length) {
         
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
@@ -295,6 +302,8 @@
             [tf.textField endEditing:YES];
         }
     }
+    [_contentView endEditing:YES];
+    
     if ([self isEmpty:_followPurposeTF.textField.text]) {
         
         [self alertControllerWithNsstring:@"补充信息" And:@"请输入跟进目的"];
@@ -370,7 +379,7 @@
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd"];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"TaskReolad" object:nil];
                 [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
                     
@@ -383,7 +392,7 @@
                 } WithDefaultBlack:^{
                     
                     CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
-                    [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"32400"]];
+                    [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"-1800"]];
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTask" object:nil];
                     if (self.followRecordVCBlock) {
@@ -435,7 +444,7 @@
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd"];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
                 
                 [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
                     
@@ -467,7 +476,7 @@
                 } WithDefaultBlack:^{
                     
                     CalendarsManger *manger = [CalendarsManger sharedCalendarsManger];
-                    [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"32400"]];
+                    [manger createCalendarWithTitle:@"跟进提醒" location:self->_remindPurposeTF.textField.text startDate:[formatter dateFromString:self->_remindTimeBtn.content.text] endDate:[formatter dateFromString:self->_remindTimeBtn.content.text] allDay:NO alarmArray:@[@"-1800"]];
                     if ([self.status isEqualToString:@"add"]) {
                         
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCall" object:nil];

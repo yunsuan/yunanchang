@@ -16,7 +16,7 @@
     if (self) {
         
         [self initUI];
-        _type_id =@"0";
+        _type_id = @"0";
     }
     return self;
 }
@@ -24,7 +24,7 @@
 - (void)ActionConfirmBtn:(UIButton *)btn{
 
     
-    if (!_type_id.length) {
+    if ([_type_id integerValue] == 0) {
     
         if (self.invalidViewBlockFail) {
             
@@ -112,7 +112,7 @@
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cancelBtn.frame = CGRectMake(220 *SIZE, 4 *SIZE, 26 *SIZE, 26 *SIZE);
     [cancelBtn addTarget:self action:@selector(ActionCancelBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [cancelBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+    [cancelBtn setImage:[UIImage imageNamed:@"fork"] forState:UIControlStateNormal];
     [whiteView addSubview:cancelBtn];
     
     for (int i = 0; i < 3; i++) {

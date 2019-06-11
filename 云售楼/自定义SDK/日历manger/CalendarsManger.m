@@ -67,7 +67,7 @@ static CalendarsManger *calendar;
                     NSError *err;
                     [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
 //                    [strongSelf showAlert:@"已添加到系统日历中"];
-                    
+                    NSLog(@"%@",err);
                 }
             });
         }];

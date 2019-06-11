@@ -163,6 +163,13 @@
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in _scrollView.subviews) {
+        
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
+    }
     _maleBtn.selected = NO;
     _femaleBtn.selected = NO;
     if (btn.tag == 0) {
@@ -178,6 +185,13 @@
 
 - (void)ActionDropBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in _scrollView.subviews) {
+        
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
+    }
     switch (btn.tag) {
         case 0:
         {
@@ -214,6 +228,13 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in _scrollView.subviews) {
+        
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
+    }
     if (_numAdd == 0) {
         
         _numAdd += 1;
@@ -256,6 +277,13 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in _scrollView.subviews) {
+        
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
+    }
     NSMutableDictionary *tempDic = [@{} mutableCopy];
     
     if ([self isEmpty:_nameTF.textField.text]) {
@@ -429,6 +457,30 @@
             self->_phoneTF3.textField.text = @"";
         }];
         return;
+    }else if (textField == _certNumTF.textField){
+        
+        if ([_certTypeBtn.content.text containsString:@"身份证"]) {
+            
+            if (_certNumTF.textField.text.length) {
+                
+                if ([self validateIDCardNumber:_certNumTF.textField.text]) {
+                    
+                    _birthBtn.placeL.text = @"";
+                    _birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                    return;
+                }else{
+                    
+                    textField.text = @"";
+                    [self showContent:@"请输入正确的身份证号"];
+                    return;
+                }
+            }else{
+                
+                textField.text = @"";
+                [self showContent:@"请输入正确的身份证号"];
+                return;
+            }
+        }
     }
     if (textField == _phoneTF.textField || textField == _phoneTF2.textField || textField == _phoneTF3.textField) {
         
@@ -543,7 +595,8 @@
             {
                 _certNumTF = tf;
                 _certNumTF.textField.placeholder = @"请输入证件号";
-                _certNumTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+                _certNumTF.textField.delegate = self;
+                _certNumTF.textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
                 [_scrollView addSubview:_certNumTF];
                 break;
             }

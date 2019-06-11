@@ -502,13 +502,18 @@
                     
                     _birthBtn.placeL.text = @"";
                     _birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                    return;
                 }else{
                     
+                    textField.text = @"";
                     [self showContent:@"请输入正确的身份证号"];
+                    return;
                 }
             }else{
                 
+                textField.text = @"";
                 [self showContent:@"请输入正确的身份证号"];
+                return;
             }
         }
     }else{
