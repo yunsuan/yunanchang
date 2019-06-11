@@ -55,6 +55,7 @@ static NSString *const kACCESSROLE = @"saleApp";
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
+        [htttmanger invalidateSessionCancelingTasks:YES];
         [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);
@@ -76,6 +77,7 @@ static NSString *const kACCESSROLE = @"saleApp";
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
+        [htttmanger invalidateSessionCancelingTasks:YES];
         if (failure) {
             failure(error);
         }
@@ -118,6 +120,7 @@ static NSString *const kACCESSROLE = @"saleApp";
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
+        [htttmanger invalidateSessionCancelingTasks:YES];
         [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);
@@ -164,6 +167,7 @@ static NSString *const kACCESSROLE = @"saleApp";
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
+        [htttmanger invalidateSessionCancelingTasks:YES];
         [WaitAnimation stopAnimation];
         if (failure) {
             failure(error);

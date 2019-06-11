@@ -238,6 +238,10 @@
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in self.view.subviews) {
+        
+        [tf.textField endEditing:YES];
+    }
     _maleBtn.selected = NO;
     _femaleBtn.selected = NO;
     if (btn.tag == 0) {
@@ -253,6 +257,10 @@
 
 - (void)ActionDropBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in self.view.subviews) {
+        
+        [tf.textField endEditing:YES];
+    }
     switch (btn.tag) {
         case 0:
         {
@@ -435,6 +443,10 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in self.view.subviews) {
+        
+        [tf.textField endEditing:YES];
+    }
     if (_numAdd == 0) {
         
         _numAdd += 1;
@@ -477,6 +489,10 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in self.view.subviews) {
+        
+        [tf.textField endEditing:YES];
+    }
 //    NSMutableArray *clientArr = [@[] mutableCopy];
     NSMutableDictionary *allDic = [@{} mutableCopy];
     NSMutableDictionary *tempDic = [@{} mutableCopy];

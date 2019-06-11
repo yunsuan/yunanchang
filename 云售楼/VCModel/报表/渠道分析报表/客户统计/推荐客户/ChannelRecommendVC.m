@@ -50,7 +50,10 @@
     if (self.date.length) {
         
         [dic setObject:self.date forKey:@"startTime"];
-        [dic setObject:self.endTime forKey:@"endTime"];
+        if (self.endTime.length) {
+            
+            [dic setObject:self.endTime forKey:@"endTime"];
+        }
     }
     [BaseRequest GET:ProjectClientWaitConfirmed_URL parameters:dic success:^(id resposeObject) {
         
@@ -91,7 +94,10 @@
     if (self.date.length) {
         
         [dic setObject:self.date forKey:@"startTime"];
-        [dic setObject:self.endTime forKey:@"endTime"];
+        if (self.endTime.length) {
+            
+            [dic setObject:self.endTime forKey:@"endTime"];
+        }
     }
     [BaseRequest GET:ProjectClientWaitConfirmed_URL parameters:dic success:^(id resposeObject) {
         

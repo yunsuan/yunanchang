@@ -190,6 +190,10 @@
 
 - (void)ActionRecordBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in self.view.subviews) {
+        
+        [tf.textField endEditing:YES];
+    }
     Isplay = YES;
     RecordView *view = [[RecordView alloc] initWithFrame:self.view.bounds];
     view. recordViewBlock = ^{
@@ -216,7 +220,10 @@
 
 - (void)ActionPlayBtn:(UIButton *)btn{
     
-    
+    for (BorderTextField *tf in self.view.subviews) {
+        
+        [tf.textField endEditing:YES];
+    }
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     NSError *playError;
@@ -243,6 +250,10 @@
 
 - (void)ActionTimeBtn:(UIButton *)btn{
     
+    for (BorderTextField *tf in self.view.subviews) {
+        
+        [tf.textField endEditing:YES];
+    }
     if (_nextTimeBtn.content.text.length) {
         
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
@@ -268,6 +279,10 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
 
+    for (BorderTextField *tf in self.view.subviews) {
+        
+        [tf.textField endEditing:YES];
+    }
     if ([self isEmpty:_followPurposeTF.textField.text]) {
         
         [self alertControllerWithNsstring:@"补充信息" And:@"请输入跟进目的"];

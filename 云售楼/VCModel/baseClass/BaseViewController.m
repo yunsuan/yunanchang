@@ -95,24 +95,35 @@
 
 - (NSArray *)getDetailConfigArrByConfigState:(ConfigState)configState
 {
+    
     NSDictionary *configdic = [UserModelArchiver unarchive].Configdic;
     NSDictionary *dic =  [configdic valueForKey:[NSString stringWithFormat:@"%lu",(unsigned long)configState]];
-    if (dic.count>0) {
+    if (dic.count > 0) {
+        
         return dic[@"param"];
     }
     else{
+        
         [BaseRequest GET:@"config" parameters:@{} success:^(id resposeObject) {
             if ([resposeObject[@"code"] integerValue] == 200) {
+                
                 [UserModel defaultModel].Configdic = resposeObject[@"data"];
                 [UserModelArchiver archive];
+//                [self ConfigState:configState];
             }
         } failure:^(NSError *error) {
             
         }];
-        
-       return dic[@"param"];
+        return dic[@"param"];
     }
+}
+
+- (NSArray *)ConfigState:(ConfigState)configState
+{
     
+    NSDictionary *configdic = [UserModelArchiver unarchive].Configdic;
+    NSDictionary *dic =  [configdic valueForKey:[NSString stringWithFormat:@"%lu",(unsigned long)configState]];
+    return dic[@"param"];
 }
 
 - (void)ActionMaskBtn:(UIButton *)btn{

@@ -249,8 +249,10 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
 //网络请求
 - (void)NetworkingStart {
     
-    [BaseRequest GET:@"config" parameters:nil success:^(id resposeObject) {
+    [BaseRequest GET:@"config" parameters:@{} success:^(id resposeObject) {
+       
         if ([resposeObject[@"code"] integerValue] == 200) {
+            
             [UserModel defaultModel].Configdic = resposeObject[@"data"];
             [UserModelArchiver archive];
         }

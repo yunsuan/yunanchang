@@ -66,7 +66,7 @@
         if (all) {
             
             _pieChartView.colorsArr= CLArr;
-            _pieChartView.titlesArr = @[@"自然来访",@"渠道分销",@"全民营销"];//标题数组
+//            _pieChartView.titlesArr = @[@"自然来访",@"渠道分销",@"全民营销"];//标题数组
             
             
             
@@ -74,19 +74,24 @@
             NSString *company = [dataDic[@"company"] integerValue] == 0? @"0":[NSString stringWithFormat:@"%.2f",[dataDic[@"company"] floatValue]/ all];
             NSString *person = [dataDic[@"person"] integerValue] == 0? @"0":[NSString stringWithFormat:@"%.2f",[dataDic[@"person"] floatValue]/ all];
             
+            NSMutableArray *nameArr = [@[] mutableCopy];
             NSMutableArray *tempArr = [@[] mutableCopy];
             if ([visit integerValue]) {
                 
+                [nameArr addObject:@"自然来访"];
                 [tempArr addObject:visit];
             }
             if ([company integerValue]) {
                 
+                [nameArr addObject:@"渠道分销"];
                 [tempArr addObject:company];
             }
             if ([person integerValue]) {
                 
+                [nameArr addObject:@"全民营销"];
                 [tempArr addObject:person];
             }
+            _pieChartView.titlesArr = nameArr;
             _pieChartView.percentageArr = tempArr; //@[visit,company,person];
         }
     }
@@ -107,8 +112,8 @@
         NSInteger index = 0;
         NSMutableArray *tempArr = [@[] mutableCopy];
         for (int i = 0; i < dataArr.count; i++) {
+        
             
-            [tempArr addObject:dataArr[i][@"config_name"]];
             index = index + [dataArr[i][@"count"] integerValue];
         }
         if (index) {
@@ -116,16 +121,17 @@
             _pieChartView.colorsArr = CLArr;
             
             
-            _pieChartView.titlesArr = tempArr;
             NSMutableArray *percentArr = [@[] mutableCopy];
             for (int i = 0; i < dataArr.count; i++) {
                 
                 float x = [dataArr[i][@"count"] floatValue] / index;
                 if (x > 0) {
                     
+                    [tempArr addObject:dataArr[i][@"config_name"]];
                     [percentArr addObject:[NSString stringWithFormat:@"%.2f",x]];
                 }
             }
+            _pieChartView.titlesArr = tempArr;
             _pieChartView.percentageArr = percentArr;
         }
     }

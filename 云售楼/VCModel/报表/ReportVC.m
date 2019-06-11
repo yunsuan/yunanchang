@@ -67,7 +67,7 @@
         self.rightBtn.hidden = NO;
         [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
             if ([result isEqualToString:@"获取权限成功"]) {
-                self->_showArr = [PowerModel defaultModel].WorkListPower;
+                self->_showArr = [PowerModel defaultModel].ReportListPower;
                 [self->_table reloadData];
 //                [self RequestMethod];
             }
