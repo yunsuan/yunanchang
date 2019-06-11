@@ -586,6 +586,10 @@
                         
                         self->_num -= 1;
                         [self RequestMethod];
+                        if (self.visitCustomDetailModifyBlock) {
+                            
+                            self.visitCustomDetailModifyBlock();
+                        }
                     }else{
                         
                         [self showContent:resposeObject[@"msg"]];

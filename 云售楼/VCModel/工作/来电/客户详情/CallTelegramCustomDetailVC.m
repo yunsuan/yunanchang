@@ -587,6 +587,11 @@
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
+                        self->_num -= 1;
+                        if (self.callTelegramCustomDetailModifyBlock) {
+                            
+                            self.callTelegramCustomDetailModifyBlock();
+                        }
                         [self RequestMethod];
                     }else{
                         

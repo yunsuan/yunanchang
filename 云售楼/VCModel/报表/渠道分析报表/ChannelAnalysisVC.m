@@ -326,7 +326,7 @@
                 
                 if (_dataDic.count) {
                     
-                    cell.dataDic =  _dataDic[@"todayCount"];
+                    cell.dataDic =  _dataDic[@"currentDayCount"];
                 }else{
                     
                     cell.dataDic = @{};

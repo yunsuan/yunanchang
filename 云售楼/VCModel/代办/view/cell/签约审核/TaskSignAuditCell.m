@@ -286,7 +286,7 @@
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(7 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_phoneL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -300,56 +300,56 @@
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_nameL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_companyL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self->_whiteView).offset(-8 *SIZE);
         make.top.equalTo(self->_nameL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_customNameL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_timeL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_customPhoneL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self->_whiteView).offset(-8 *SIZE);
         make.top.equalTo(self->_timeL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_areaL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_customNameL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_isRecognitionL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self->_whiteView).offset(-8 *SIZE);
         make.top.equalTo(self->_customNameL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_customVisitNumL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_areaL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_visitTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_customVisitNumL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_lessThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     

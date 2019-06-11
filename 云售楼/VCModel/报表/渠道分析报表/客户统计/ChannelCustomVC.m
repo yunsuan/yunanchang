@@ -217,14 +217,14 @@
     _channelVisitVC.project_id = self->_project_id;
     if (self.date.length) {
         
-        _channelRecommendVC.date = self.date;
-        _channelRecommendVC.endTime = self.date;
+        _channelVisitVC.date = self.date;
+        _channelVisitVC.endTime = self.date;
     }
     _channelDealVC = [[ChannelDealVC alloc] init];
     if (self.date.length) {
         
-        _channelRecommendVC.date = self.date;
-        _channelRecommendVC.endTime = self.date;
+        _channelDealVC.date = self.date;
+        _channelDealVC.endTime = self.date;
     }
     _channelDealVC.project_id = self->_project_id;
     

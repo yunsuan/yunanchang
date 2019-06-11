@@ -369,6 +369,37 @@
     }];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == _phoneTF.textField) {
+        
+        return [self validateNumber:string];
+    }else if (textField == _phoneTF2.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _phoneTF3.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _mailCodeTF.textField){
+        
+        return [self validateNumber:string];
+    }else{
+        
+        return YES;
+    }
+}
+
+- (void)textFieldDidChange:(UITextField *)textField{
+    
+    if (textField == _phoneTF.textField || textField == _phoneTF2.textField || textField == _phoneTF3.textField) {
+        
+        if (textField.text.length > 11) {
+            
+            textField.text = [textField.text substringToIndex:11];
+        }
+    }
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField{
 
     if (([_phoneTF.textField.text isEqualToString:_phoneTF2.textField.text] && _phoneTF.textField.text.length && _phoneTF2.textField.text.length)) {
@@ -393,22 +424,25 @@
         }];
         return;
     }
-    [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
+    if (textField == _phoneTF.textField || textField == _phoneTF2.textField || textField == _phoneTF3.textField) {
         
-        if ([resposeObject[@"code"] integerValue] == 400) {
+        [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
             
-            [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
+            if ([resposeObject[@"code"] integerValue] == 400) {
                 
-                textField.text = @"";
-            }];
-        }else{
+                [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
+                    
+                    textField.text = @"";
+                }];
+            }else{
+                
+                
+            }
+        } failure:^(NSError * _Nonnull error) {
             
-            
-        }
-    } failure:^(NSError * _Nonnull error) {
-        
-        //            self
-    }];
+            //            self
+        }];
+    }
 }
 
 - (void)initUI{
@@ -473,6 +507,7 @@
                 _phoneTF.textField.placeholder = @"请输入手机号码";
                 _phoneTF.textField.delegate = self;
                 _phoneTF.textField.keyboardType = UIKeyboardTypePhonePad;
+                [_phoneTF.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 [_scrollView addSubview:_phoneTF];
                 break;
             }
@@ -483,6 +518,7 @@
                 _phoneTF2.textField.placeholder = @"请输入手机号码";
                 _phoneTF2.textField.delegate = self;
                 _phoneTF2.textField.keyboardType = UIKeyboardTypePhonePad;
+                [_phoneTF2.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 [_scrollView addSubview:_phoneTF2];
                 break;
             }
@@ -493,6 +529,7 @@
                 _phoneTF3.textField.placeholder = @"请输入手机号码";
                 _phoneTF3.textField.delegate = self;
                 _phoneTF3.textField.keyboardType = UIKeyboardTypePhonePad;
+                [_phoneTF3.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 [_scrollView addSubview:_phoneTF3];
                 break;
             }
@@ -509,6 +546,7 @@
                 _mailCodeTF = tf;
                 _mailCodeTF.textField.placeholder = @"请输入邮政编码";
                 _mailCodeTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+                _mailCodeTF.textField.delegate = self;
                 [_scrollView addSubview:_mailCodeTF];
                 break;
             }

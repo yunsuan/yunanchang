@@ -52,7 +52,7 @@
         self.changeString = (NSMutableString *)[self.changeString stringByAppendingString:getStr];
     }
     
-    //<2>从网络获取字符串，然后把得到的字符串在本地绘制出来（网络获取步骤在这省略）
+    ///<>从网络获取字符串，然后把得到的字符串在本地绘制出来（网络获取步骤在这省略）
     //    self.changeString = [NSMutableString stringWithString:@"杰瑞教育"];
 }
 

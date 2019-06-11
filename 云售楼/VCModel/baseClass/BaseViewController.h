@@ -111,6 +111,11 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
 - (BOOL)checkTel:(NSString *)str;
 
 /**
+ *  检查输入的是否是数字
+ */
+- (BOOL)validateNumber:(NSString*)number;
+
+/**
  *  检查输入的身份证号正确与否
  */
 - (BOOL)validateIDCardNumber:(NSString *)value;

@@ -268,18 +268,18 @@
         
         if (indexPath.row == 1) {
             
-            if ([[PowerModel defaultModel].ReportListPower[1] integerValue]) {
-                
-                ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:_project_id];
-                if ([_status isEqualToString:@"1"]) {
-                    
-                    nextVC.status = @"1";
-                }else{
-                    
-                    nextVC.status = @"0";
-                }
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }
+//            if ([[PowerModel defaultModel].ReportListPower[1] integerValue]) {
+//                
+//                ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:_project_id];
+//                if ([_status isEqualToString:@"1"]) {
+//                    
+//                    nextVC.status = @"1";
+//                }else{
+//                    
+//                    nextVC.status = @"0";
+//                }
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }
         }else if (indexPath.row == 0){
             
             AutoVisitReportVC *nextVC = [[AutoVisitReportVC alloc] initWithProjectId:_project_id];

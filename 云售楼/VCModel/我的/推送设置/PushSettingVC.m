@@ -129,7 +129,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    __strong PushSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PushSettingCell"];
+    PushSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PushSettingCell"];
     if (!cell) {
         
         cell = [[PushSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PushSettingCell"];
@@ -148,12 +148,14 @@
         
         [cell.OnOff setOn:NO];
     }
+    
+    __weak __typeof(&*cell)weakCell = cell;
     cell.pushSettingCellSwitchBlock = ^{
         
-        if (cell.OnOff.on) {
+        if (weakCell.OnOff.on) {
             
             [self->_dataArr replaceObjectAtIndex:0 withObject:@"1"];
-            NSInteger newNum = 4;
+//            NSInteger newNum = 4;
             switch (indexPath.row) {
                 case 0:
                 {
