@@ -21,6 +21,7 @@
 {
     
     NSArray *_titleArr;
+    NSArray *_imgArr;
     NSArray *_projectArr;
     NSArray *_showArr;
 }
@@ -54,6 +55,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
     _titleArr = @[@"来访客户分析表",@"渠道分析表"];
+    _imgArr = @[@"laifangfenxi",@"xiaoshoupaiming"];
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].ReportListPower;
 }
@@ -146,7 +148,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.titleL.text = _titleArr[indexPath.row];
-    cell.headImg.image = IMAGE_WITH_NAME(@"laifangfenxi");
+    cell.headImg.image = IMAGE_WITH_NAME(_imgArr[indexPath.row]);
     if ([_showArr[indexPath.row] integerValue] == 1) {
         
         cell.hidden = NO;
