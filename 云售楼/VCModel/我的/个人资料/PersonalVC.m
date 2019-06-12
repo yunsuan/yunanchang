@@ -67,7 +67,7 @@
     
     _titleArr = @[@"云算号：",@"手机号：",@"姓名：",@"性别：",@"生日：",@"所在地：",@"个人说明："];
     
-    NSString *adreess;
+    NSString *adreess = @"";
     
     if ([UserInfoModel defaultModel].province) {
         
@@ -105,7 +105,7 @@
         adreess = @"";
     }
 
-    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth,adreess,[UserInfoModel defaultModel].slef_desc?[UserInfoModel defaultModel].slef_desc:@""]];
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth.length?[UserInfoModel defaultModel].birth:@"",adreess,[UserInfoModel defaultModel].slef_desc.length?[UserInfoModel defaultModel].slef_desc:@""]];
 }
 
 
