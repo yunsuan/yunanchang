@@ -251,6 +251,7 @@
 		0CA8264D22AE2BCA0005F3ED /* logo_anchang.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA8264C22AE2BCA0005F3ED /* logo_anchang.png */; };
 		0CA8265122AE60A00005F3ED /* MultiVisitReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA8265022AE60A00005F3ED /* MultiVisitReportVC.m */; };
 		0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA8265422AE69290005F3ED /* PropertyVisitReportVC.m */; };
+		0CA8265B22B0FCD20005F3ED /* EmptyPieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA8265A22B0FCD20005F3ED /* EmptyPieView.m */; };
 		0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92642283FE09006B2B79 /* GuideVC.m */; };
 		0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC92672284063C006B2B79 /* UserModelArchiver.m */; };
 		0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC926B228408F5006B2B79 /* CompanyApplyVC.m */; };
@@ -738,6 +739,8 @@
 		0CA8265022AE60A00005F3ED /* MultiVisitReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultiVisitReportVC.m; sourceTree = "<group>"; };
 		0CA8265322AE69290005F3ED /* PropertyVisitReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropertyVisitReportVC.h; sourceTree = "<group>"; };
 		0CA8265422AE69290005F3ED /* PropertyVisitReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PropertyVisitReportVC.m; sourceTree = "<group>"; };
+		0CA8265922B0FCD20005F3ED /* EmptyPieView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmptyPieView.h; sourceTree = "<group>"; };
+		0CA8265A22B0FCD20005F3ED /* EmptyPieView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmptyPieView.m; sourceTree = "<group>"; };
 		0CAC92632283FE09006B2B79 /* GuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
 		0CAC92642283FE09006B2B79 /* GuideVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuideVC.m; sourceTree = "<group>"; };
 		0CAC92662284063C006B2B79 /* UserModelArchiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelArchiver.h; sourceTree = "<group>"; };
@@ -3306,6 +3309,8 @@
 				0CFF71DF22A644D60066732B /* VisitCustomHeader.m */,
 				0CFF71F722A655090066732B /* VisitCustomReportCell.h */,
 				0CFF71F822A655090066732B /* VisitCustomReportCell.m */,
+				0CA8265922B0FCD20005F3ED /* EmptyPieView.h */,
+				0CA8265A22B0FCD20005F3ED /* EmptyPieView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3873,6 +3878,7 @@
 				0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */,
 				0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
+				0CA8265B22B0FCD20005F3ED /* EmptyPieView.m in Sources */,
 				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
 				0C7451FF22A7B996008F2F07 /* MutiLineChartView.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,

@@ -18,18 +18,26 @@
 #import "ChannelMutiLineCell.h"
 #import "TypeTagCollCell.h"
 
+#import "DateChooseView.h"
+#import "SinglePickView.h"
+
 @interface ChannelAnalysisVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>///,SingleBarChartViewDelegate>
 {
     
 //    NSString *_status;
     NSString *_project_id;
+    NSString *_year;
     
     NSArray *_titleArr;
+    
     
     NSMutableDictionary *_dataDic;
     NSMutableDictionary *_yearDic;
     
+    NSMutableArray *_yearArr;
+    
     NSDateFormatter *_formatter;
+    NSDateFormatter *_yearMatter;
 }
 
 //@property (nonatomic, strong) UISegmentedControl *segment;
@@ -75,13 +83,25 @@
     _dataDic = [@{} mutableCopy];
     _yearDic = [@{} mutableCopy];
     
+    
+    _yearArr = [@[] mutableCopy];
+    
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
+    
+    _yearMatter = [[NSDateFormatter alloc] init];
+    [_yearMatter setDateFormat:@"YYYY"];
+    
+    _year = [_yearMatter stringFromDate:[NSDate date]];
+    for (int i = 0; i < 10; i++) {
+        
+        [_yearArr addObject:@{@"param":[NSString stringWithFormat:@"%ld",[_year integerValue] - i],@"id":[NSString stringWithFormat:@"%ld",[_year integerValue] - i]}];
+    }
 }
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:ProjectClientCount_URL parameters:@{@"project_id":_project_id,@"sell_count":_status} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ProjectClientCount_URL parameters:@{@"project_id":_project_id,@"sell_count":_status,@"year":_year} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -205,32 +225,61 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    if (section == 2) {
+    if (section == 2 || section == 3) {
         
         TitleRightBtnHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleRightBtnHeader"];
         if (!header) {
             
             header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
         }
-        
-        header.titleL.text = @"分销公司排行榜";
-        header.addBtn.hidden = YES;
-        
-        header.titleRightBtnHeaderMoreBlock = ^{
+        if (section == 2) {
             
-            if ([self->_status isEqualToString:@"1"]) {
+            header.titleL.text = @"分销公司排行榜";
+            header.addBtn.hidden = YES;
+            
+            header.titleRightBtnHeaderMoreBlock = ^{
                 
-                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
-                nextVC.titleStr = @"今日分销公司排行榜";
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else{
+                if ([self->_status isEqualToString:@"1"]) {
+                    
+                    ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
+                    nextVC.titleStr = @"今日分销公司排行榜";
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }else{
+                    
+                    ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_yearDic[@"company"]];
+                    nextVC.titleStr = @"累计分销公司排行榜";
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }
+            };
+        }else{
+            
+            header.titleL.text = @"年度趋势图";
+            header.addBtn.hidden = YES;
+            
+            [header.moreBtn setTitle:[NSString stringWithFormat:@"%@年 >",_year] forState:UIControlStateNormal];
+            header.moreBtn.titleLabel.font = FONT(13 *SIZE);
+            
+            header.titleRightBtnHeaderMoreBlock = ^{
                 
-                ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_yearDic[@"company"]];
-                nextVC.titleStr = @"累计分销公司排行榜";
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }
-
-        };
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:self->_yearArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    self->_year = MC;
+                    [tableView reloadData];
+                    [self RequestMethod];
+                };
+                [self.view addSubview:view];
+//                DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.frame];
+//
+//                view.dateblock = ^(NSDate *date) {
+//
+//                    self->_year = [_yearMatter stringFromDate:date];
+//                    [tableView reloadData];
+//                    [self RequestMethod];
+//                };
+//                [self.view addSubview:view];
+            };
+        }
         
         return header;
     }else{
@@ -246,13 +295,13 @@
             header.titleL.text = @"客户统计图";
         }else{
             
-            if (section == 1) {
-                
+//            if (section == 1) {
+            
                  header.titleL.text = @"渠道来源分析图";
-            }else{
-                
-                header.titleL.text = @"年度统计图";
-            }
+//            }else{
+//
+//                header.titleL.text = @"年度趋势图";
+//            }
         }
        
         return header;

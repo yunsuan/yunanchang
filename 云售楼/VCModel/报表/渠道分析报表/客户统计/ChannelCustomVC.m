@@ -130,7 +130,7 @@
 - (void)initUI{
     
     self.navBackgroundView.hidden = NO;
-//    self.titleLabel.text = @"推荐客户";
+    self.titleLabel.text = @"客户统计";
     self.line.hidden = YES;
     
     self.rightBtn.hidden = NO;

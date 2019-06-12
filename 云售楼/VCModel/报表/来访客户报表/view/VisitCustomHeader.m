@@ -10,10 +10,14 @@
 
 #import "SSWPieChartView.h"
 
+#import "EmptyPieView.h"
+
 
 @interface VisitCustomHeader ()
 
 @property (nonatomic, strong) SSWPieChartView *pieChartView;
+
+@property (nonatomic, strong) EmptyPieView *emptyPieView;
 
 @end
 
@@ -34,66 +38,48 @@
     _header.titleL.text = @"客户来源";
     
     [_pieChartView removeFromSuperview];
+    [_emptyPieView removeFromSuperview];
     
     _pieChartView = [[SSWPieChartView alloc] initWithFrame:CGRectMake(0, 40 *SIZE, SCREEN_Width, 240 *SIZE)];
     [self.contentView addSubview:_pieChartView];
     
     if (dataDic.count) {
-        
-//        //标题数组与颜色数组个数应一致，如果标题数组过多，颜色数组自己可随机生成。
-//        _pieChartView.colorsArr= @[[UIColor orangeColor],
-//                                   [UIColor redColor],
-//                                   [UIColor blueColor],
-//                                   [UIColor grayColor],
-//                                   [UIColor greenColor],
-//                                   [UIColor blackColor],
-//                                   [UIColor grayColor],
-//                                   [UIColor darkGrayColor],
-//                                   [UIColor grayColor],
-//                                   [UIColor yellowColor]];//颜色数组
-//        _pieChartView.titlesArr = @[@"小麦",
-//                                    @"玉米",
-//                                    @"大豆",
-//                                    @"早籼稻",
-//                                    @"旱籼稻",
-//                                    @"小麦",
-//                                    @"玉米",
-//                                    @"大豆",
-//                                    @"早籼稻",
-//                                    @"旱籼稻"];//标题数组
-//        _pieChartView.percentageArr = @[@"0.05",@"0.2",@"0.07",@"0.1",@"0.15",@"0.1",@"0.08",@"0.12",@"0.13"];
+
         NSInteger all = [dataDic[@"auto_visit"] integerValue] + [dataDic[@"company"] integerValue] + [dataDic[@"person"] integerValue];
         if (all) {
             
             _pieChartView.colorsArr= CLArr;
-//            _pieChartView.titlesArr = @[@"自然来访",@"渠道分销",@"全民营销"];//标题数组
             
-            
-            
-            NSString *visit = [dataDic[@"auto_visit"] integerValue] == 0? @"0":[NSString stringWithFormat:@"%.2f",[dataDic[@"auto_visit"] floatValue]/ all];
-            NSString *company = [dataDic[@"company"] integerValue] == 0? @"0":[NSString stringWithFormat:@"%.2f",[dataDic[@"company"] floatValue]/ all];
-            NSString *person = [dataDic[@"person"] integerValue] == 0? @"0":[NSString stringWithFormat:@"%.2f",[dataDic[@"person"] floatValue]/ all];
+            NSString *visit = [dataDic[@"auto_visit"] integerValue] == 0? @"0":[NSString stringWithFormat:@"%.4f",[dataDic[@"auto_visit"] doubleValue]/ all];
+            NSString *company = [dataDic[@"company"] integerValue] == 0? @"0":[NSString stringWithFormat:@"%.4f",[dataDic[@"company"] doubleValue]/ all];
+            NSString *person = [dataDic[@"person"] integerValue] == 0? @"0":[NSString stringWithFormat:@"%.4f",[dataDic[@"person"] doubleValue]/ all];
             
             NSMutableArray *nameArr = [@[] mutableCopy];
             NSMutableArray *tempArr = [@[] mutableCopy];
-            if ([visit integerValue]) {
+            if ([visit floatValue]) {
                 
                 [nameArr addObject:@"自然来访"];
                 [tempArr addObject:visit];
             }
-            if ([company integerValue]) {
+            if ([company floatValue]) {
                 
                 [nameArr addObject:@"渠道分销"];
                 [tempArr addObject:company];
             }
-            if ([person integerValue]) {
+            if ([person floatValue]) {
                 
                 [nameArr addObject:@"全民营销"];
                 [tempArr addObject:person];
             }
             _pieChartView.titlesArr = nameArr;
             _pieChartView.percentageArr = tempArr; //@[visit,company,person];
+        }else{
+            
+            [self.contentView addSubview:_emptyPieView];
         }
+    }else{
+        
+        [self.contentView addSubview:_emptyPieView];
     }
     
 }
@@ -103,6 +89,7 @@
     _header.titleL.text = @"意向物业";
     
     [_pieChartView removeFromSuperview];
+    [_emptyPieView removeFromSuperview];
     
     _pieChartView = [[SSWPieChartView alloc] initWithFrame:CGRectMake(0, 40 *SIZE, SCREEN_Width, 240 *SIZE)];
     [self.contentView addSubview:_pieChartView];
@@ -133,13 +120,20 @@
             }
             _pieChartView.titlesArr = tempArr;
             _pieChartView.percentageArr = percentArr;
+        }else{
+            
+            [self.contentView addSubview:_emptyPieView];
         }
+    }else{
+        
+        [self.contentView addSubview:_emptyPieView];
     }
 }
 
 - (void)setApproachArr:(NSArray *)approachArr{
     
     [_pieChartView removeFromSuperview];
+    [_emptyPieView removeFromSuperview];
     
     _pieChartView = [[SSWPieChartView alloc] initWithFrame:CGRectMake(0, 40 *SIZE, SCREEN_Width, 240 *SIZE)];
     [self.contentView addSubview:_pieChartView];
@@ -169,7 +163,13 @@
                 }
             }
             _pieChartView.percentageArr = percentArr;
+        }else{
+            
+            [self.contentView addSubview:_emptyPieView];
         }
+    }else{
+        
+        [self.contentView addSubview:_emptyPieView];
     }
 }
 
@@ -216,6 +216,8 @@
     
     _pieChartView = [[SSWPieChartView alloc] initWithFrame:CGRectMake(0, 40 *SIZE, SCREEN_Width, 240 *SIZE)];
     [self.contentView addSubview:_pieChartView];
+    
+    _emptyPieView = [[EmptyPieView alloc] initWithFrame:CGRectMake(0, 40 *SIZE, SCREEN_Width, 240 *SIZE)];
 }
 
 

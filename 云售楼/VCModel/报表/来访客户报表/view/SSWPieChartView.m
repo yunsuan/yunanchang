@@ -130,7 +130,7 @@
         UIBezierPath  *linePath = [UIBezierPath bezierPath];
         UILabel  *titleLab = [[UILabel alloc]init];
         titleLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:10 *SIZE];
-        titleLab.text = [NSString stringWithFormat:@"%@%.1f%%",self.titlesArr[i],[self.percentageArr[i] floatValue]*100];
+        titleLab.text = [NSString stringWithFormat:@"%@%.2f%%",self.titlesArr[i],[self.percentageArr[i] floatValue]*100];
         titleLab.adjustsFontSizeToFitWidth = YES;
         titleLab.textColor = self.colorsArr[i];
         [self addSubview:titleLab];
