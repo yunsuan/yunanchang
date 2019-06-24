@@ -60,7 +60,17 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            [self SetData:resposeObject[@"data"][@"self"]];
+            if ([resposeObject[@"data"][@"self"] count]) {
+                
+                [self SetData:resposeObject[@"data"][@"self"]];
+            }else if([resposeObject[@"data"][@"agency"] count]){
+                
+                [self SetData:resposeObject[@"data"][@"agency"]];
+            }else{
+                
+                [self->_dataArr removeAllObjects];
+                [_intentColl reloadData];
+            }
         }else{
             
             [self showContent:resposeObject[@"msg"]];

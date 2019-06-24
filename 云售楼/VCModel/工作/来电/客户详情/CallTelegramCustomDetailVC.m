@@ -630,11 +630,16 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
+//        cell.contentL.text = @"qwertyuioplkjhgfdsazxcvbnm,poiuytrewqasdfghjkllmnbvcxz";
         cell.contentL.text = [NSString stringWithFormat:@"%@：%@",_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"config_name"],_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"value"]];
         
-        [cell.contentL mas_updateConstraints:^(MASConstraintMaker *make) {
+        [cell.contentL mas_remakeConstraints:^(MASConstraintMaker *make) {
            
             make.left.equalTo(cell.contentView).offset(28 *SIZE);
+//            make.left.equalTo(self.contentView).offset(16 *SIZE);
+            make.top.equalTo(cell.contentView).offset(7 *SIZE);
+            make.width.mas_equalTo(316 *SIZE);
+//            make.right.equalTo(cell.contentView).offset(-16 *SIZE);
         }];
         
         return cell;

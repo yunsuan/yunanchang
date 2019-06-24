@@ -175,7 +175,7 @@
         
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
         make.top.equalTo(self->_contactL.mas_bottom).offset(8 *SIZE);
-        make.width.mas_equalTo(100 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-17 *SIZE);
     }];
 }

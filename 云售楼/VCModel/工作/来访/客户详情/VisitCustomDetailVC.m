@@ -626,11 +626,15 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        [cell.contentL mas_updateConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.equalTo(cell.contentView).offset(28 *SIZE);
-        }];
         cell.contentL.text = [NSString stringWithFormat:@"%@：%@",_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"config_name"],_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"value"]];
+//
+        [cell.contentL mas_updateConstraints:^(MASConstraintMaker *make) {
+
+            make.left.equalTo(cell.contentView).offset(28 *SIZE);
+//            make.top.equalTo(cell.contentView).offset(7 *SIZE);
+//            make.width.mas_equalTo(316 *SIZE);
+//            make.right.equalTo(cell.contentView).offset(-16 *SIZE);
+        }];
         return cell;
     }else{
         
@@ -654,6 +658,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         cell.dataDic = _followArr[indexPath.row];
+        
         if (!cell.speechImg.hidden) {
             cell.speechImg.tag = indexPath.row;
             [cell.speechImg addTarget:self action:@selector(action_play:) forControlEvents:UIControlEventTouchUpInside];

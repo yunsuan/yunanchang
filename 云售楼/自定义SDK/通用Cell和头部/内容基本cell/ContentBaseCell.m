@@ -28,11 +28,12 @@
     _contentL.textColor = CL95Color;
     _contentL.font = [UIFont systemFontOfSize:14 *SIZE];
     _contentL.numberOfLines = 0;
+    _contentL.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:_contentL];
 
 
     _textContent = [[UITextView alloc] init];
-    _textContent.font = [UIFont systemFontOfSize:13.3*SIZE];
+    _textContent.font = [UIFont systemFontOfSize:14*SIZE];
     _textContent.editable = NO;
     _textContent.scrollEnabled = NO;
     _textContent.hidden = YES;
@@ -55,7 +56,6 @@
         make.left.equalTo(self.contentView).offset(16 *SIZE);
         make.top.equalTo(self.contentView).offset(7 *SIZE);
         make.right.equalTo(self.contentView).offset(-16 *SIZE);
-//        make.bottom.equalTo(self.contentView).offset(-7 *SIZE);
     }];
     
     [_textContent mas_makeConstraints:^(MASConstraintMaker *make) {
