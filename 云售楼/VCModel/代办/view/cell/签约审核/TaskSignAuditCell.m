@@ -229,13 +229,13 @@
     [_whiteView addSubview:_signL];
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    _flowLayout.itemSize = CGSizeMake(67 *SIZE, 60 *SIZE);
+    _flowLayout.itemSize = CGSizeMake(67 *SIZE, 67 *SIZE);
     _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     _flowLayout.minimumInteritemSpacing = 0;
     _flowLayout.minimumLineSpacing = 0;
 //    _flowLayout.
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 270 *SIZE, 60 *SIZE) collectionViewLayout:_flowLayout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 270 *SIZE, 67 *SIZE) collectionViewLayout:_flowLayout];
     _collectionView.backgroundColor = CLWhiteColor;
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.delegate = self;

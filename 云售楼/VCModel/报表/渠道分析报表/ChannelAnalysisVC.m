@@ -395,6 +395,11 @@
                 if ([self->_status isEqualToString:@"1"]) {
                     
                     nextVC.date = [self->_formatter stringFromDate:[NSDate date]];
+                }else if ([self->_status isEqualToString:@"2"]){
+                    
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    [formatter setDateFormat:@"YYYY-MM-01"];
+                    nextVC.date = [formatter stringFromDate:[NSDate date]];
                 }
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
