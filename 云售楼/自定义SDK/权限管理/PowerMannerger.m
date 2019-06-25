@@ -60,7 +60,7 @@
     [PowerModel defaultModel].WorkListPower = [WorkListPower copy];
     
     //报表
-    NSMutableArray * ReportListPower =[@[@0,@0] mutableCopy];
+    NSMutableArray * ReportListPower =[@[@0,@0,@0,@0] mutableCopy];
     if (datadic) {
         NSArray *arr = datadic[@"app_operate"];
         if (arr.count > 2) {
@@ -75,17 +75,6 @@
                 [ReportListPower replaceObjectAtIndex:1 withObject:@1];
             }
         }
-//        for (int i = 0 ; i < arr.count; i++) {
-//
-//            if ([arr[2][@"detail"] integerValue] == 1) {
-//                if (i == 2) {
-//                    [ReportListPower replaceObjectAtIndex:0 withObject:@1];
-//                }
-//                else if(i == 3){
-//                    [ReportListPower replaceObjectAtIndex:1 withObject:@1];
-//                }
-//            }
-//        }
     }
     [PowerModel defaultModel].ReportListPower = [ReportListPower copy];
     [PowerModel defaultModel].telCallPower = [datadic[@"app_operate"][0] copy];
