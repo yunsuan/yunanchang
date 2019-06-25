@@ -627,13 +627,10 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         cell.contentL.text = [NSString stringWithFormat:@"%@：%@",_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"config_name"],_intentArr[indexPath.section - 1][@"list"][indexPath.row][@"value"]];
-//
+
         [cell.contentL mas_updateConstraints:^(MASConstraintMaker *make) {
 
             make.left.equalTo(cell.contentView).offset(28 *SIZE);
-//            make.top.equalTo(cell.contentView).offset(7 *SIZE);
-//            make.width.mas_equalTo(316 *SIZE);
-//            make.right.equalTo(cell.contentView).offset(-16 *SIZE);
         }];
         return cell;
     }else{

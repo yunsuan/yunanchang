@@ -32,9 +32,11 @@
     
     
     NSMutableDictionary *_dataDic;
+    NSMutableDictionary *_monthDic;
     NSMutableDictionary *_yearDic;
     
     NSMutableArray *_yearArr;
+//    NSMutableArray *_monthArr;
     
     NSDateFormatter *_formatter;
     NSDateFormatter *_yearMatter;
@@ -75,12 +77,16 @@
     if ([_status isEqualToString:@"1"]) {
         
         _status = @"1";
+    }else if([_status isEqualToString:@"2"]){
+     
+        _status = @"2";
     }else{
         
         _status = @"0";
     }
-    _titleArr = @[@"今日统计",@"累计统计"];
+    _titleArr = @[@"今日统计",@"本月统计",@"累计统计"];
     _dataDic = [@{} mutableCopy];
+    _monthDic = [@{} mutableCopy];
     _yearDic = [@{} mutableCopy];
     
     
@@ -108,6 +114,9 @@
             if ([self->_status isEqualToString:@"1"]) {
                 
                 self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            }else if([self->_status isEqualToString:@"2"]) {
+                
+                self->_monthDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
             }else{
                 
                 self->_yearDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
@@ -123,27 +132,27 @@
     }];
 }
 
-- (void)valueChanged:(UISegmentedControl *)sender{
-    
-//    NSLog(@"%@",sender.)
-    if (sender.selectedSegmentIndex == 0) {
-        
-        _status = @"1";
-        if (!_dataDic.count) {
-            
-            [self RequestMethod];
-        }
-        [_table reloadData];
-    }else{
-        
-        _status = @"0";
-        if (!_yearDic.count) {
-            
-            [self RequestMethod];
-        }
-        [_table reloadData];
-    }
-}
+//- (void)valueChanged:(UISegmentedControl *)sender{
+//
+////    NSLog(@"%@",sender.)
+//    if (sender.selectedSegmentIndex == 0) {
+//
+//        _status = @"1";
+//        if (!_dataDic.count) {
+//
+//            [self RequestMethod];
+//        }
+//        [_table reloadData];
+//    }else{
+//
+//        _status = @"0";
+//        if (!_yearDic.count) {
+//
+//            [self RequestMethod];
+//        }
+//        [_table reloadData];
+//    }
+//}
 
 
 //- (void)SingleBarChart:(SingleBarChartView *)chartView didSelectIndex:(NSInteger)index{
@@ -163,13 +172,13 @@
     TypeTagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TypeTagCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[TypeTagCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 2, 40 *SIZE)];
-        cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 2, 11 *SIZE);
-        cell.line.frame = CGRectMake(75 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
+        cell = [[TypeTagCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 3, 40 *SIZE)];
+        cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 3, 11 *SIZE);
+        cell.line.frame = CGRectMake(45 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
     }
     
-    cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 2, 11 *SIZE);
-    cell.line.frame = CGRectMake(75 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
+    cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 3, 11 *SIZE);
+    cell.line.frame = CGRectMake(45 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
     cell.titleL.text = _titleArr[indexPath.item];
     
     return cell;
@@ -182,6 +191,14 @@
         
         _status = @"1";
         if (!_dataDic.count) {
+            
+            [self RequestMethod];
+        }
+        [_table reloadData];
+    }else if(indexPath.item == 1){
+     
+        _status = @"2";
+        if (!_monthDic.count) {
             
             [self RequestMethod];
         }
@@ -210,6 +227,9 @@
         if ([_status isEqualToString:@"1"]) {
             
             return [_dataDic[@"company"] count] > 3? 3:[_dataDic[@"company"] count];
+        }else if([_status isEqualToString:@"2"]){
+            
+            return [_monthDic[@"company"] count] > 3? 3:[_monthDic[@"company"] count];
         }else{
         
             return [_yearDic[@"company"] count] > 3? 3:[_yearDic[@"company"] count];
@@ -243,6 +263,11 @@
                     
                     ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
                     nextVC.titleStr = @"今日分销公司排行榜";
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }else if ([self->_status isEqualToString:@"2"]) {
+                    
+                    ChannelRankListVC *nextVC = [[ChannelRankListVC alloc] initWithDataArr:self->_dataDic[@"company"]];
+                    nextVC.titleStr = @"本月分销公司排行榜";
                     [self.navigationController pushViewController:nextVC animated:YES];
                 }else{
                     
@@ -341,6 +366,9 @@
         if ([_status isEqualToString:@"1"]) {
             
             cell.titleL.text = _dataDic[@"company"][indexPath.row][@"name"];
+        }else if ([_status isEqualToString:@"2"]) {
+            
+            cell.titleL.text = _monthDic[@"company"][indexPath.row][@"name"];
         }else{
 
             cell.titleL.text = _yearDic[@"company"][indexPath.row][@"name"];
@@ -381,6 +409,16 @@
                     cell.dataDic = @{};
                 }
                 
+            }else if ([_status isEqualToString:@"2"]) {
+                
+                if (_monthDic.count) {
+                    
+                    cell.dataDic =  _monthDic[@"currentMonthCount"];
+                }else{
+                    
+                    cell.dataDic = @{};
+                }
+                
             }else{
                 
                 if (_yearDic.count) {
@@ -405,6 +443,9 @@
             if ([_status isEqualToString:@"1"]) {
                 
                 cell.dataDic = _dataDic;
+            }else if ([_status isEqualToString:@"2"]) {
+                
+                cell.dataDic = _monthDic;
             }else{
                 
                 cell.dataDic = _yearDic;
@@ -423,6 +464,9 @@
             if ([_status isEqualToString:@"1"]) {
                 
                 cell.dataDic = _dataDic;
+            }else if ([_status isEqualToString:@"2"]) {
+                
+                cell.dataDic = _monthDic;
             }else{
                 
                 cell.dataDic = _yearDic;
@@ -453,7 +497,7 @@
     self.titleLabel.text = @"渠道分析表";
     
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 2, 40 *SIZE);
+    _flowLayout.itemSize = CGSizeMake(SCREEN_Width / 3, 40 *SIZE);
     _flowLayout.minimumLineSpacing = 0;
     _flowLayout.minimumInteritemSpacing = 0;
     _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -469,6 +513,9 @@
     [self.view addSubview:_segmentColl];
     
     if ([_status isEqualToString:@"0"]) {
+        
+        [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    }else if ([_status isEqualToString:@"2"]) {
         
         [_segmentColl selectItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     }else{

@@ -59,6 +59,10 @@
 		0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A918A225C484500F04804 /* TitleBaseHeader.m */; };
 		0C3A919D225C484500F04804 /* TagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9190225C484500F04804 /* TagCollCell.m */; };
 		0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */; };
+		0C743A5722C1B22200F5CB6B /* CommissionReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A5622C1B22200F5CB6B /* CommissionReportVC.m */; };
+		0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A5A22C1B52200F5CB6B /* CommissReportCell.m */; };
+		0C743A9422C1BC9200F5CB6B /* CompanyCommissionReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A9322C1BC9200F5CB6B /* CompanyCommissionReportVC.m */; };
+		0C743A9822C1BCE300F5CB6B /* CompanyCommissionReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A9722C1BCE300F5CB6B /* CompanyCommissionReportCell.m */; };
 		0C7451F522A7B14A008F2F07 /* SingleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */; };
 		0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451F322A7B14A008F2F07 /* ChannelAnalysisCell.m */; };
 		0C7451FC22A7B2A3008F2F07 /* ChannelSingleChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451FB22A7B2A3008F2F07 /* ChannelSingleChartCell.m */; };
@@ -531,6 +535,14 @@
 		0C3A9191225C484500F04804 /* TagCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCollCell.h; sourceTree = "<group>"; };
 		0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleRightBtnHeader.m; sourceTree = "<group>"; };
 		0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
+		0C743A5522C1B22200F5CB6B /* CommissionReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommissionReportVC.h; sourceTree = "<group>"; };
+		0C743A5622C1B22200F5CB6B /* CommissionReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommissionReportVC.m; sourceTree = "<group>"; };
+		0C743A5922C1B52200F5CB6B /* CommissReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommissReportCell.h; sourceTree = "<group>"; };
+		0C743A5A22C1B52200F5CB6B /* CommissReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommissReportCell.m; sourceTree = "<group>"; };
+		0C743A9222C1BC9200F5CB6B /* CompanyCommissionReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyCommissionReportVC.h; sourceTree = "<group>"; };
+		0C743A9322C1BC9200F5CB6B /* CompanyCommissionReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCommissionReportVC.m; sourceTree = "<group>"; };
+		0C743A9622C1BCE200F5CB6B /* CompanyCommissionReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyCommissionReportCell.h; sourceTree = "<group>"; };
+		0C743A9722C1BCE300F5CB6B /* CompanyCommissionReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCommissionReportCell.m; sourceTree = "<group>"; };
 		0C7451EA22A7B14A008F2F07 /* SingleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleBarChartView.h; sourceTree = "<group>"; };
 		0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleBarChartView.m; sourceTree = "<group>"; };
 		0C7451F022A7B14A008F2F07 /* ChannelAnalysisCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisCell.h; sourceTree = "<group>"; };
@@ -1524,6 +1536,7 @@
 		0C3A9160225B372D00F04804 /* 报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C743A5422C1B20500F5CB6B /* 佣金分析报表 */,
 				0C26C9EA22A667C700A7CF47 /* 渠道分析报表 */,
 				0CFF71D922A6422B0066732B /* 来访客户报表 */,
 				0C3A916F225B37CF00F04804 /* ReportVC.h */,
@@ -1664,6 +1677,45 @@
 				0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */,
 			);
 			path = "标题右按钮header";
+			sourceTree = "<group>";
+		};
+		0C743A5422C1B20500F5CB6B /* 佣金分析报表 */ = {
+			isa = PBXGroup;
+			children = (
+				0C743A9122C1BC8500F5CB6B /* 公司佣金统计表 */,
+				0C743A5822C1B4FE00F5CB6B /* view */,
+				0C743A5522C1B22200F5CB6B /* CommissionReportVC.h */,
+				0C743A5622C1B22200F5CB6B /* CommissionReportVC.m */,
+			);
+			path = "佣金分析报表";
+			sourceTree = "<group>";
+		};
+		0C743A5822C1B4FE00F5CB6B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C743A5922C1B52200F5CB6B /* CommissReportCell.h */,
+				0C743A5A22C1B52200F5CB6B /* CommissReportCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C743A9122C1BC8500F5CB6B /* 公司佣金统计表 */ = {
+			isa = PBXGroup;
+			children = (
+				0C743A9522C1BCD400F5CB6B /* view */,
+				0C743A9222C1BC9200F5CB6B /* CompanyCommissionReportVC.h */,
+				0C743A9322C1BC9200F5CB6B /* CompanyCommissionReportVC.m */,
+			);
+			path = "公司佣金统计表";
+			sourceTree = "<group>";
+		};
+		0C743A9522C1BCD400F5CB6B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C743A9622C1BCE200F5CB6B /* CompanyCommissionReportCell.h */,
+				0C743A9722C1BCE300F5CB6B /* CompanyCommissionReportCell.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		0C7451E922A7B14A008F2F07 /* view */ = {
@@ -3878,6 +3930,7 @@
 				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
 				0CFF71F922A655090066732B /* VisitCustomReportCell.m in Sources */,
 				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
+				0C743A9822C1BCE300F5CB6B /* CompanyCommissionReportCell.m in Sources */,
 				10EF17AE2292AE3400DE5566 /* AddCompanyVC.m in Sources */,
 				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
 				0CD0439E228175AE002C8BD3 /* SMScrollView.m in Sources */,
@@ -3920,6 +3973,7 @@
 				0CD043AC22817622002C8BD3 /* KyoRowIndexView.m in Sources */,
 				0CD043532280107F002C8BD3 /* WorkPersonAuditCell.m in Sources */,
 				0C221A56227EB078006B0510 /* TaskVisitConfirmCell.m in Sources */,
+				0C743A5722C1B22200F5CB6B /* CommissionReportVC.m in Sources */,
 				0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */,
 				0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */,
 				0CD043DF2283BC05002C8BD3 /* CaptchaView.m in Sources */,
@@ -3975,7 +4029,9 @@
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
+				0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */,
 				0CA8265122AE60A00005F3ED /* MultiVisitReportVC.m in Sources */,
+				0C743A9422C1BC9200F5CB6B /* CompanyCommissionReportVC.m in Sources */,
 				10BC3A522291297E00DAB2D8 /* AbdicateVC.m in Sources */,
 				0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */,
 				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,

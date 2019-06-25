@@ -10,9 +10,9 @@
 #define NetConfig_h
 
 //新服务器
-//static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
-static NSString *const TestBase_Net = @"http://47.107.246.94/";
+//static NSString *const TestBase_Net = @"http://47.107.246.94/";
 
 #pragma mark --- 登录注册 ---
 
@@ -395,4 +395,11 @@ static NSString *const ProjectClientDeal_URL = @"saleApp/project/client/deal";
 
 //项目客户统计
 static NSString *const ProjectClientCount_URL = @"saleApp/project/client/count";
+
+//渠道规则佣金统计
+static NSString *const BrokerRuleCompanyList_URL = @"saleApp/broker/rule/company/list";
+
+//佣金详情列表
+static NSString *const BrokerCompanyList_URL = @"saleApp/broker/company/list";
+
 #endif /* NetConfig_h */

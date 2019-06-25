@@ -9,6 +9,7 @@
 #import "ReportVC.h"
 #import "VisitCustomReportVC.h"
 #import "ChannelAnalysisVC.h"
+#import "CommissionReportVC.h"
 
 #import "PowerMannerger.h"
 #import "SinglePickView.h"
@@ -54,8 +55,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
-    _titleArr = @[@"来访客户分析表",@"渠道分析表"];
-    _imgArr = @[@"laifangfenxi",@"xiaoshoupaiming"];
+    _titleArr = @[@"来访客户分析表",@"渠道分析表",@"佣金分析表"];
+    _imgArr = @[@"laifangfenxi",@"xiaoshoupaiming",@""];
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].ReportListPower;
 }
@@ -129,13 +130,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if ([_showArr[indexPath.row] integerValue] == 1) {
-        
+//    if ([_showArr[indexPath.row] integerValue] == 1) {
+//
         return UITableViewAutomaticDimension;
-    }else{
-        
-        return 0;
-    }
+//    }else{
+//
+//        return 0;
+//    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -149,13 +150,13 @@
     
     cell.titleL.text = _titleArr[indexPath.row];
     cell.headImg.image = IMAGE_WITH_NAME(_imgArr[indexPath.row]);
-    if ([_showArr[indexPath.row] integerValue] == 1) {
-        
-        cell.hidden = NO;
-    }else{
-        
-        cell.hidden = YES;
-    }
+//    if ([_showArr[indexPath.row] integerValue] == 1) {
+//
+//        cell.hidden = NO;
+//    }else{
+//
+//        cell.hidden = YES;
+//    }
     return cell;
 }
 
@@ -165,10 +166,14 @@
         
         VisitCustomReportVC *nextVC = [[VisitCustomReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else{
+    }else if(indexPath.row == 1){
         
         ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         nextVC.status = @"1";
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else{
+        
+        CommissionReportVC *nextVC = [[CommissionReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
