@@ -63,6 +63,8 @@
 		0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A5A22C1B52200F5CB6B /* CommissReportCell.m */; };
 		0C743A9422C1BC9200F5CB6B /* CompanyCommissionReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A9322C1BC9200F5CB6B /* CompanyCommissionReportVC.m */; };
 		0C743A9822C1BCE300F5CB6B /* CompanyCommissionReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A9722C1BCE300F5CB6B /* CompanyCommissionReportCell.m */; };
+		0C743A9F22C20BEC00F5CB6B /* Clinchadeal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C743A9D22C20BEC00F5CB6B /* Clinchadeal@2x.png */; };
+		0C743AA022C20BEC00F5CB6B /* Clinchadeal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C743A9E22C20BEC00F5CB6B /* Clinchadeal@3x.png */; };
 		0C7451F522A7B14A008F2F07 /* SingleBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */; };
 		0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451F322A7B14A008F2F07 /* ChannelAnalysisCell.m */; };
 		0C7451FC22A7B2A3008F2F07 /* ChannelSingleChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7451FB22A7B2A3008F2F07 /* ChannelSingleChartCell.m */; };
@@ -543,6 +545,8 @@
 		0C743A9322C1BC9200F5CB6B /* CompanyCommissionReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCommissionReportVC.m; sourceTree = "<group>"; };
 		0C743A9622C1BCE200F5CB6B /* CompanyCommissionReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyCommissionReportCell.h; sourceTree = "<group>"; };
 		0C743A9722C1BCE300F5CB6B /* CompanyCommissionReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCommissionReportCell.m; sourceTree = "<group>"; };
+		0C743A9D22C20BEC00F5CB6B /* Clinchadeal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clinchadeal@2x.png"; sourceTree = "<group>"; };
+		0C743A9E22C20BEC00F5CB6B /* Clinchadeal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clinchadeal@3x.png"; sourceTree = "<group>"; };
 		0C7451EA22A7B14A008F2F07 /* SingleBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleBarChartView.h; sourceTree = "<group>"; };
 		0C7451EC22A7B14A008F2F07 /* SingleBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleBarChartView.m; sourceTree = "<group>"; };
 		0C7451F022A7B14A008F2F07 /* ChannelAnalysisCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelAnalysisCell.h; sourceTree = "<group>"; };
@@ -2157,6 +2161,8 @@
 		0CA8258E22AE0C800005F3ED /* 报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C743A9D22C20BEC00F5CB6B /* Clinchadeal@2x.png */,
+				0C743A9E22C20BEC00F5CB6B /* Clinchadeal@3x.png */,
 				0CA8265C22B122030005F3ED /* xiaoshoupaiming@2x.png */,
 				0CA8265D22B122040005F3ED /* xiaoshoupaiming@3x.png */,
 				0CA8258F22AE0C800005F3ED /* laifangfenxi@2x.png */,
@@ -3800,12 +3806,14 @@
 				0CA825D922AE0C800005F3ED /* nantouxiang@3x.png in Resources */,
 				0CA825B922AE0C800005F3ED /* fangyuan@3x.png in Resources */,
 				0CA825C322AE0C800005F3ED /* paihao@3x.png in Resources */,
+				0C743A9F22C20BEC00F5CB6B /* Clinchadeal@2x.png in Resources */,
 				0CA8262422AE0C810005F3ED /* uploadphotos@3x.png in Resources */,
 				0CA825E822AE0C800005F3ED /* add_2@3x.png in Resources */,
 				0CA825B022AE0C800005F3ED /* work_2@2x.png in Resources */,
 				0CA8263522AE0C810005F3ED /* voice_2@3x.png in Resources */,
 				0CA825F922AE0C800005F3ED /* multi-select_1@2x.png in Resources */,
 				0CA825A822AE0C800005F3ED /* version@3x.png in Resources */,
+				0C743AA022C20BEC00F5CB6B /* Clinchadeal@3x.png in Resources */,
 				0CA825D322AE0C800005F3ED /* bg@3x.png in Resources */,
 				0CA825AB22AE0C800005F3ED /* recommended@3x.png in Resources */,
 				0CA825DD22AE0C800005F3ED /* nvtouxiang@3x.png in Resources */,
