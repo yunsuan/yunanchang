@@ -16,6 +16,8 @@ typedef void(^ChannelCustomListVCBlock)(NSDictionary *dic);
 
 @property (nonatomic, copy) ChannelCustomListVCBlock channelCustomListVCBlock;
 
+@property (nonatomic, strong) NSString *visit_id;
+
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 
 @end

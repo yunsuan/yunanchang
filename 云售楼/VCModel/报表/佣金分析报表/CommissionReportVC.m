@@ -54,6 +54,7 @@
     
     [BaseRequest GET:BrokerRuleCompanyList_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
         
+        [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
@@ -64,6 +65,7 @@
         }
     } failure:^(NSError * _Nonnull error) {
         
+        [self->_table.mj_header endRefreshing];
         [self showContent:@"网络错误"];
     }];
 }

@@ -8,6 +8,8 @@
 
 #import "ChannelCustomListVC.h"
 
+#import "FollowRecordVC.h"
+
 #import "CallTelegramCell.h"
 
 @interface ChannelCustomListVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
@@ -194,11 +196,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.channelCustomListVCBlock) {
+    FollowRecordVC *vc = [[FollowRecordVC alloc] initWithGroupId:_dataArr[indexPath.section][@"group_id"]];
+    vc.followDic = [@{} mutableCopy];
+    vc.status = @"direct";
+    vc.info_id = self->_info_id;
+    vc.visit_id = self.visit_id;
+    vc.allDic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":self->_projectId}];
+    vc.followRecordVCBlock = ^{
         
-        self.channelCustomListVCBlock(_dataArr[indexPath.section]);
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+        if (self.channelCustomListVCBlock) {
+            
+            self.channelCustomListVCBlock(@{});
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+//    if (self.channelCustomListVCBlock) {
+//
+//        self.channelCustomListVCBlock(_dataArr[indexPath.section]);
+//    }
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)initUI{

@@ -183,7 +183,7 @@
     _headImg.image= [UIImage imageNamed:@"def_head"];
     [self addSubview:_headImg];
     
-    _nameL = [[UILabel alloc]initWithFrame:CGRectMake(81*SIZE, 30*SIZE, 80*SIZE, 14*SIZE)];
+    _nameL = [[UILabel alloc]initWithFrame:CGRectMake(81*SIZE, 30*SIZE, 120*SIZE, 14*SIZE)];
 //    _nameL.text = @"小煤球";
     _nameL.font = FONT(13);
     _nameL.textColor = CLTitleLabColor;

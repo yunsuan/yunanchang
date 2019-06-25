@@ -41,6 +41,7 @@
     _titleL = [[UILabel alloc] initWithFrame:CGRectMake(0, 76*SIZE, 67*SIZE, 11 *SIZE)];
     _titleL.textColor = CL86Color;
     _titleL.font = [UIFont systemFontOfSize:10 *SIZE];
+    _titleL.adjustsFontSizeToFitWidth = YES;
     _titleL.textAlignment = NSTextAlignmentCenter;;
     [self.contentView addSubview:_titleL];
 }

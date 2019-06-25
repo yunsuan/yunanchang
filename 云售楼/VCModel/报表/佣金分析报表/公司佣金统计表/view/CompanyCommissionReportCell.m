@@ -27,6 +27,7 @@
     _codeL.font = [UIFont systemFontOfSize:13 *SIZE];
     _codeL.adjustsFontSizeToFitWidth = YES;
     _codeL.textAlignment = NSTextAlignmentCenter;
+    _codeL.numberOfLines = 0;
     [self.contentView addSubview:_codeL];
     
     _roomL = [[UILabel alloc] init];
@@ -34,6 +35,7 @@
     _roomL.font = [UIFont systemFontOfSize:13 *SIZE];
     _roomL.adjustsFontSizeToFitWidth = YES;
     _roomL.textAlignment = NSTextAlignmentCenter;
+    _roomL.numberOfLines = 0;
     [self.contentView addSubview:_roomL];
     
     _nameL = [[UILabel alloc] init];
@@ -41,6 +43,7 @@
     _nameL.font = [UIFont systemFontOfSize:13 *SIZE];
     _nameL.adjustsFontSizeToFitWidth = YES;
     _nameL.textAlignment = NSTextAlignmentCenter;
+    _nameL.numberOfLines = 0;
     [self.contentView addSubview:_nameL];
     
     _phoneL = [[UILabel alloc] init];
@@ -48,6 +51,7 @@
     _phoneL.font = [UIFont systemFontOfSize:13 *SIZE];
     _phoneL.adjustsFontSizeToFitWidth = YES;
     _phoneL.textAlignment = NSTextAlignmentCenter;
+    _phoneL.numberOfLines = 0;
     [self.contentView addSubview:_phoneL];
     
     _moneyL = [[UILabel alloc] init];
@@ -55,6 +59,7 @@
     _moneyL.font = [UIFont systemFontOfSize:13 *SIZE];
     _moneyL.adjustsFontSizeToFitWidth = YES;
     _moneyL.textAlignment = NSTextAlignmentCenter;
+    _moneyL.numberOfLines = 0;
     [self.contentView addSubview:_moneyL];
     
 //    _numL = [[UILabel alloc] init];
@@ -69,6 +74,7 @@
     _typeL.font = [UIFont systemFontOfSize:13 *SIZE];
     _typeL.adjustsFontSizeToFitWidth = YES;
     _typeL.textAlignment = NSTextAlignmentCenter;
+    _typeL.numberOfLines = 0;
     [self.contentView addSubview:_typeL];
     
     _ruleL = [[UILabel alloc] init];
@@ -76,6 +82,7 @@
     _ruleL.font = [UIFont systemFontOfSize:13 *SIZE];
     _ruleL.adjustsFontSizeToFitWidth = YES;
     _ruleL.textAlignment = NSTextAlignmentCenter;
+    _ruleL.numberOfLines = 0;
     [self.contentView addSubview:_ruleL];
     
     _timeL = [[UILabel alloc] init];
@@ -83,6 +90,7 @@
     _timeL.font = [UIFont systemFontOfSize:13 *SIZE];
     _timeL.adjustsFontSizeToFitWidth = YES;
     _timeL.textAlignment = NSTextAlignmentCenter;
+    _timeL.numberOfLines = 0;
     [self.contentView addSubview:_timeL];
     
     for (int i = 0 ; i < 8; i++) {
@@ -148,7 +156,7 @@
         make.left.equalTo(self.contentView).offset(10 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
     [_roomL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -156,7 +164,7 @@
         make.left.equalTo(self.contentView).offset(130 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
     [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -164,7 +172,7 @@
         make.left.equalTo(self.contentView).offset(250 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
     [_phoneL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,7 +180,7 @@
         make.left.equalTo(self.contentView).offset(370 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
 //    [_numL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -188,7 +196,7 @@
         make.left.equalTo(self.contentView).offset(490 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
     [_moneyL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -196,7 +204,7 @@
         make.left.equalTo(self.contentView).offset(610 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
     [_ruleL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -204,7 +212,7 @@
         make.left.equalTo(self.contentView).offset(730 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -212,7 +220,7 @@
         make.left.equalTo(self.contentView).offset(850 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -112,7 +112,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
         [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
             if ([result isEqualToString:@"获取权限成功"]) {
-//                self->_showArr = [PowerModel defaultModel].WorkListPower;
+                self->_showArr = [PowerModel defaultModel].WorkListPower;
                 [self->_table reloadData];
             }
         } failure:^(NSString * _Nonnull error) {
@@ -130,13 +130,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    if ([_showArr[indexPath.row] integerValue] == 1) {
-//
+    if (indexPath.row < _showArr.count) {
+        
+        if ([_showArr[indexPath.row] integerValue] == 1) {
+            
+            return UITableViewAutomaticDimension;
+        }else{
+            
+            return 0;
+        }
+    }else{
+        
         return UITableViewAutomaticDimension;
-//    }else{
-//
-//        return 0;
-//    }
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -150,13 +156,20 @@
     
     cell.titleL.text = _titleArr[indexPath.row];
     cell.headImg.image = IMAGE_WITH_NAME(_imgArr[indexPath.row]);
-//    if ([_showArr[indexPath.row] integerValue] == 1) {
-//
-//        cell.hidden = NO;
-//    }else{
-//
-//        cell.hidden = YES;
-//    }
+    if (indexPath.row < _showArr.count) {
+        
+        if ([_showArr[indexPath.row] integerValue] == 1) {
+            
+            cell.hidden = NO;
+        }else{
+            
+            cell.hidden = YES;
+        }
+    }else{
+        
+         cell.hidden = NO;
+    }
+    
     return cell;
 }
 

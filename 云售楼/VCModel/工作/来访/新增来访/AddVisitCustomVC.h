@@ -16,7 +16,7 @@ typedef void(^AddVisitCustomVCBlock)(void);
 
 @property (nonatomic, copy) AddVisitCustomVCBlock addVisitCustomVCBlock;
 
-//@property (nonatomic, strong) NSString *visit_id;
+@property (nonatomic, strong) NSString *visit_id;
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 

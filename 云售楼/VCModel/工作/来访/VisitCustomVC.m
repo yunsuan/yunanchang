@@ -26,7 +26,7 @@
     NSString *_projectId;
     NSString *_info_id;
     
-//    NSMutableDictionary *_visitDic;
+    NSMutableArray *_visitArr;
     
     NSMutableArray *_dataArr;
 }
@@ -66,28 +66,27 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RequestMethod) name:@"reloadCall" object:nil];
     _page = 1;
     _dataArr = [@[] mutableCopy];
-//    _visitDic = [@{} mutableCopy];
+    _visitArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
     
-//    [_visitDic removeAllObjects];
-//    [BaseRequest GET:ProjectDutyVisitLog_URL parameters:@{@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
-//        
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//            
-//            self->_visitDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-//            
-//        }else{
-//            
-//            
-//        }
-//        [self->_table reloadData];
-//    } failure:^(NSError * _Nonnull error) {
-//        
-//        [self->_table reloadData];
-//        NSLog(@"%@",error);
-//    }];
+    [_visitArr removeAllObjects];
+    [BaseRequest GET:ProjectDutyVisitLog_URL parameters:@{@"project_id":_projectId} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_visitArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+        }else{
+            
+            
+        }
+        [self->_table reloadData];
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self->_table reloadData];
+        NSLog(@"%@",error);
+    }];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"2",@"project_id":_projectId}];
     self->_table.mj_footer.state = MJRefreshStateIdle;
@@ -193,10 +192,10 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-//    if (_visitDic.count) {
-//
-//        return _dataArr.count + 1;
-//    }
+    if (_visitArr.count) {
+
+        return _dataArr.count + _visitArr.count;
+    }
     return _dataArr.count;
 }
 
@@ -227,84 +226,78 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    if (_visitDic.count) {
-//
-//        if (indexPath.section == 0) {
-//
-//            VisitCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VisitCustomCell"];
-//            if (!cell) {
-//
-//                cell = [[VisitCustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"VisitCustomCell"];
-//            }
-//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//            cell.dataDic = _visitDic;
-//
-//
-//            cell.visitCustomCellBlock = ^{
-//
-//                UIAlertController *source = [UIAlertController alertControllerWithTitle:@"客户来源" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//
-//                UIAlertAction *channel = [UIAlertAction actionWithTitle:@"渠道客户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//                    ChannelCustomListVC *nextVC = [[ChannelCustomListVC alloc] initWithProjectId:self->_projectId info_id:self->_info_id];
-//                    nextVC.channelCustomListVCBlock = ^(NSDictionary * _Nonnull dic) {
-//
-//                        FollowRecordVC *vc = [[FollowRecordVC alloc] initWithGroupId:dic[@"group_id"]];
-//                        vc.followDic = [@{} mutableCopy];
-//                        vc.status = @"direct";
-//                        vc.info_id = self->_info_id;
-//                        vc.visit_id = self->_visitDic[@"visit_id"];
-//                        vc.allDic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":self->_projectId}];
-//                        vc.followRecordVCBlock = ^{
-//
-//                            [self RequestMethod];
-//                        };
-//                        [self.navigationController pushViewController:vc animated:YES];
-//
-//                    };
-//                    [self.navigationController pushViewController:nextVC animated:YES];
-//                }];
-//
-//                UIAlertAction *visit = [UIAlertAction actionWithTitle:@"自然来访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//                    AddVisitCustomVC *nextVC = [[AddVisitCustomVC alloc] initWithProjectId:self->_projectId info_id:self->_info_id];
-//                    nextVC.visit_id = self->_visitDic[@"visit_id"];
-//                    nextVC.addVisitCustomVCBlock = ^{
-//
-//                        [self RequestMethod];
-//                    };
-//                    [self.navigationController pushViewController:nextVC animated:YES];
-//                }];
-//
-//                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//                }];
-//
-//                [source addAction:channel];
-//                [source addAction:visit];
-//                [source addAction:cancel];
-//
-//                [self.navigationController presentViewController:source animated:YES completion:^{
-//
-//                }];
-//            };
-//
-//            return cell;
-//        }else{
-//
-//            CallTelegramCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCell"];
-//            if (!cell) {
-//
-//                cell = [[CallTelegramCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CallTelegramCell"];
-//            }
-//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//            cell.dataDic = _dataArr[indexPath.section - 1];;
-//
-//            return cell;
-//        }
-//    }else{
+    if (_visitArr.count) {
+
+        if (indexPath.section < _visitArr.count) {
+
+            VisitCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VisitCustomCell"];
+            if (!cell) {
+
+                cell = [[VisitCustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"VisitCustomCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+            cell.dataDic = _visitArr[indexPath.section];
+
+
+            cell.visitCustomCellBlock = ^{
+
+                UIAlertController *source = [UIAlertController alertControllerWithTitle:@"客户来源" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+                UIAlertAction *channel = [UIAlertAction actionWithTitle:@"渠道客户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+                    ChannelCustomListVC *nextVC = [[ChannelCustomListVC alloc] initWithProjectId:self->_projectId info_id:self->_info_id];
+                    nextVC.visit_id = [NSString stringWithFormat:@"%@",self->_visitArr[indexPath.section][@"visit_id"]];
+                    nextVC.channelCustomListVCBlock = ^(NSDictionary * _Nonnull dic) {
+
+                        [self->_visitArr removeObjectAtIndex:indexPath.section];
+                        [self->_table reloadData];
+                        [self RequestMethod];
+                    };
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }];
+
+                UIAlertAction *visit = [UIAlertAction actionWithTitle:@"自然来访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+                    AddVisitCustomVC *nextVC = [[AddVisitCustomVC alloc] initWithProjectId:self->_projectId info_id:self->_info_id];
+                    nextVC.visit_id = [NSString stringWithFormat:@"%@",self->_visitArr[indexPath.section][@"visit_id"]];
+                    nextVC.addVisitCustomVCBlock = ^{
+
+                        [self->_visitArr removeObjectAtIndex:indexPath.section];
+                        [self->_table reloadData];
+                        [self RequestMethod];
+                    };
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }];
+
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+
+                }];
+
+                [source addAction:channel];
+                [source addAction:visit];
+                [source addAction:cancel];
+
+                [self.navigationController presentViewController:source animated:YES completion:^{
+
+                }];
+            };
+
+            return cell;
+        }else{
+
+            CallTelegramCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCell"];
+            if (!cell) {
+
+                cell = [[CallTelegramCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CallTelegramCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+            cell.dataDic = _dataArr[indexPath.section - 1];;
+
+            return cell;
+        }
+    }else{
     
         CallTelegramCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCell"];
         if (!cell) {
@@ -316,27 +309,51 @@
         cell.dataDic = _dataArr[indexPath.section];;
         
         return cell;
-//    }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
-    nextVC.project_id = [NSString stringWithFormat:@"%@",_projectId];
-    nextVC.info_id = [NSString stringWithFormat:@"%@",_info_id];
-    nextVC.name = @"";//_dataArr[indexPath.row][@"agent_name"];
-    if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
+    if (!_visitArr.count) {
         
-        nextVC.powerDic = self.powerDic;
+        VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section][@"group_id"]]];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",_projectId];
+        nextVC.info_id = [NSString stringWithFormat:@"%@",_info_id];
+        nextVC.name = @"";//_dataArr[indexPath.row][@"agent_name"];
+        if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
+            
+            nextVC.powerDic = self.powerDic;
+        }else{
+            
+            nextVC.powerDic = @{};
+        }
+        nextVC.visitCustomDetailModifyBlock = ^{
+            
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
-        nextVC.powerDic = @{};
+        if (indexPath.section < _visitArr.count) {
+            
+            VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section - 1][@"group_id"]]];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",_projectId];
+            nextVC.info_id = [NSString stringWithFormat:@"%@",_info_id];
+            nextVC.name = @"";//_dataArr[indexPath.row][@"agent_name"];
+            if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
+                
+                nextVC.powerDic = self.powerDic;
+            }else{
+                
+                nextVC.powerDic = @{};
+            }
+            nextVC.visitCustomDetailModifyBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
     }
-    nextVC.visitCustomDetailModifyBlock = ^{
-      
-        [self RequestMethod];
-    };
-    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{

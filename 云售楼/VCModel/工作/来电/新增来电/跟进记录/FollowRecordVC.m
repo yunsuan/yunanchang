@@ -348,10 +348,10 @@
         [_directDic setObject:_nextTimeBtn.content.text forKey:@"time_limit"];
         [_directDic setObject:_contentView.text forKey:@"comment"];
         [_directDic setObject:_remindTimeBtn.content.text forKey:@"next_tip_time"];
-//        if (self.visit_id.length) {
-//            
-//            [_directDic setObject:self.visit_id forKey:@"visit_id"];
-//        }
+        if (self.visit_id.length) {
+            
+            [_directDic setObject:self.visit_id forKey:@"visit_id"];
+        }
         if (![self isEmpty:_remindPurposeTF.textField.text]) {
             
             [_directDic setObject:_remindPurposeTF.textField.text forKey:@"tip_comment"];

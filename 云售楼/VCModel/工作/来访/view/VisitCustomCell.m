@@ -22,8 +22,8 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _titleL.text = [NSString stringWithFormat:@"项目名称：%@",dataDic[@""]];
-    _timeL.text = [NSString stringWithFormat:@"接待时间：%@",dataDic[@""]];
+//    _titleL.text = [NSString stringWithFormat:@"项目名称：%@",dataDic[@""]];
+    _timeL.text = [NSString stringWithFormat:@"接待时间：%@",dataDic[@"update_time"]];
 }
 
 - (void)ActionFollowBtn:(UIButton *)btn{
@@ -41,17 +41,18 @@
     _headImg = [[UIImageView alloc] init];
     _headImg.layer.cornerRadius = 21.5 *SIZE;
     _headImg.clipsToBounds = YES;
+    _headImg.image = IMAGE_WITH_NAME(@"rotational");
     [self.contentView addSubview:_headImg];
     
     _titleL = [[UILabel alloc] init];
     _titleL.textColor = CLTitleLabColor;
+    _titleL.text = @"A位接待 待跟进客户";
     _titleL.font = [UIFont boldSystemFontOfSize:15 *SIZE];
     [self.contentView addSubview:_titleL];
 
-    
     _timeL = [[UILabel alloc] init];
     _timeL.textColor = CL95Color;
-    _timeL.textAlignment = NSTextAlignmentRight;
+//    _timeL.textAlignment = NSTextAlignmentRight;
     _timeL.font = [UIFont systemFontOfSize:11 *SIZE];
     [self.contentView addSubview:_timeL];
     
@@ -88,9 +89,9 @@
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.contentView).offset(-10 *SIZE);
-        make.top.equalTo(self->_titleL.mas_bottom).offset(8 *SIZE);
-        make.width.mas_equalTo(120 *SIZE);
+        make.left.equalTo(self.contentView).offset(68 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(11 *SIZE);
+        make.width.mas_equalTo(200 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-33 *SIZE);
     }];
     
