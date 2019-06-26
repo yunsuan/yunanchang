@@ -34,7 +34,7 @@
 #import "UIImageView+WebCache.h"
 
 
-#define YACversion @"2.0.4"
+#define YACversion @"2.0.5"
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
 

@@ -72,7 +72,7 @@
             [self->_table reloadData];
             if ([resposeObject[@"data"][@"data"] count]) {
                 
-                self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+                self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"data"]];
                 self->_table.mj_footer.state = MJRefreshStateIdle;
             }else{
                 

@@ -56,7 +56,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
     _titleArr = @[@"来访客户分析表",@"渠道分析表",@"佣金分析表"];
-    _imgArr = @[@"laifangfenxi",@"xiaoshoupaiming",@"Clinchadeal"];
+    _imgArr = @[@"report_visit",@"report_channel",@"report_commission"];
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].ReportListPower;
 }
@@ -112,7 +112,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyInfo" object:nil];
         [PowerMannerger RequestPowerByprojectID:[UserModel defaultModel].projectinfo[@"project_id"] success:^(NSString * _Nonnull result) {
             if ([result isEqualToString:@"获取权限成功"]) {
-                self->_showArr = [PowerModel defaultModel].WorkListPower;
+                self->_showArr = [PowerModel defaultModel].ReportListPower;
                 [self->_table reloadData];
             }
         } failure:^(NSString * _Nonnull error) {
