@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyCommissionReportVC : BaseViewController
 
+@property (nonatomic, strong) NSString *money;
+
+@property (nonatomic, strong) NSString *num;
+
 - (instancetype)initWithRuleId:(NSString *)rule_id project_id:(NSString *)project_id;
 
 @end

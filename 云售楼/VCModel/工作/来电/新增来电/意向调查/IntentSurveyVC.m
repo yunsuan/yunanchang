@@ -123,6 +123,28 @@
 
 - (void)SetData:(NSArray *)data{
     
+    if (!data.count) {
+        
+        for (int j = 0; j < _countArr.count; j++) {
+            
+            UIView *view = [[UIView alloc] init];
+            view.backgroundColor = [UIColor whiteColor];
+            view.tag = [_countArr[j][@"id"] integerValue];
+            [_viewArr addObject:view];
+            
+            IntentSurveyHeader *header = [[IntentSurveyHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+            
+            if (_countArr[j][@"param"]) {
+                
+                header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"param"]];
+            }else{
+                
+                header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"property_name"]];
+            }
+            [_headArr addObject:header];
+        }
+    }
+    
     for (int i = 0; i < data.count; i++) {
         
         UIView *view = [[UIView alloc] init];

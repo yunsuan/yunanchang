@@ -75,6 +75,16 @@
     return _dataArr.count + 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.row == 0) {
+        
+        return 40 *SIZE;
+    }
+    
+    return UITableViewAutomaticDimension;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CommissReportCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommissReportCell"];
@@ -86,12 +96,37 @@
     
     if (indexPath.row == 0) {
         
+        cell.contentView.backgroundColor = CLBlueBtnColor;
+        cell.companyL.textColor = CLWhiteColor;
+        cell.contactL.textColor = CLWhiteColor;
+        cell.phoneL.textColor = CLWhiteColor;
+        cell.moneyL.textColor = CLWhiteColor;
+        cell.numL.textColor = CLWhiteColor;
+        
+        cell.line1.hidden = YES;
+        cell.line2.hidden = YES;
+        cell.line3.hidden = YES;
+        cell.line4.hidden = YES;
+        
+        
         cell.companyL.text = @"乙方公司";
         cell.contactL.text = @"乙方负责人";
         cell.phoneL.text = @"乙方联系电话";
         cell.moneyL.text = @"累计金额（￥）";
         cell.numL.text = @"累计笔数";
     }else{
+        
+        cell.contentView.backgroundColor = CLWhiteColor;
+        cell.companyL.textColor = CL86Color;
+        cell.contactL.textColor = CL86Color;
+        cell.phoneL.textColor = CL86Color;
+        cell.moneyL.textColor = CL86Color;
+        cell.numL.textColor = CL86Color;
+        
+        cell.line1.hidden = NO;
+        cell.line2.hidden = NO;
+        cell.line3.hidden = NO;
+        cell.line4.hidden = NO;
         
         cell.companyL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_company_name"]];
         cell.contactL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_docker"]];
@@ -110,6 +145,8 @@
     }else{
         
         CompanyCommissionReportVC *nextVC = [[CompanyCommissionReportVC alloc] initWithRuleId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"rule_id"]] project_id:_project_id];
+        nextVC.money = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"broker_num"]];;
+        nextVC.num = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"count"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
@@ -120,6 +157,7 @@
     
     _scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT)];
     _scroll.delegate = self;
+    _scroll.bounces = NO;
     [_scroll setContentSize:CGSizeMake(120 *SIZE * 5, SCREEN_Height - NAVIGATION_BAR_HEIGHT)];
     [self.view addSubview:_scroll];
     
@@ -127,7 +165,7 @@
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 40 *SIZE;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.backgroundColor = self.view.backgroundColor;
+    _table.backgroundColor = CLBackColor;
     _table.delegate = self;
     _table.dataSource = self;
     [_scroll addSubview:_table];

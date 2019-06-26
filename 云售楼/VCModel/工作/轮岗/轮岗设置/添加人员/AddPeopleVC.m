@@ -79,7 +79,7 @@
         
             if ([self.status isEqualToString:@"add"]) {
                 
-                NSArray *arr = @[@{@"company_id":_dataarr[0][@"company_id"],@"agent_id":_dataarr[0][@"agent_id"],@"sort":@"0"}];
+                NSArray *arr = @[@{@"company_id":_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section][@"company_id"],@"agent_id":_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section][@"agent_id"],@"sort":@"0"}];
                 NSError *error;
                 NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
                 NSString *personjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -108,7 +108,7 @@
                 }];
             }else if([self.status isEqualToString:@"direct"]){
                 
-                NSArray *arr = @[@{@"company_id":_dataarr[0][@"company_id"],@"agent_id":_dataarr[0][@"agent_id"],@"sort":@"0"}];
+                NSArray *arr = @[@{@"company_id":_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section][@"company_id"],@"agent_id":_dataarr[ _PeopleTable.indexPathsForSelectedRows[0].section][@"agent_id"],@"sort":@"0"}];
                 NSError *error;
                 NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
                 NSString *personjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
