@@ -18,6 +18,7 @@
 #import "AuditTaskVC.h"
 #import "RotationVC.h"
 #import "CompanyAuthVC.h"
+#import "NumeralVC.h"
 
 #import "SinglePickView.h"
 
@@ -268,8 +269,10 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 8){
         
-        WorkPersonAuditVC *nextVC = [[WorkPersonAuditVC alloc] init];
+        NumeralVC *nextVC = [[NumeralVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
+//        WorkPersonAuditVC *nextVC = [[WorkPersonAuditVC alloc] init];
+//        [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 9){
         
         RotationVC *nextVC = [[RotationVC alloc]initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
@@ -278,8 +281,10 @@
     }
     else{
         
-        AuditTaskVC *nextVC = [[AuditTaskVC alloc] init];
+        NumeralVC *nextVC = [[NumeralVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
+//        AuditTaskVC *nextVC = [[AuditTaskVC alloc] init];
+//        [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 
