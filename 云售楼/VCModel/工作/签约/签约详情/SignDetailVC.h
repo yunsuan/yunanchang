@@ -1,8 +1,8 @@
 //
-//  NumeralVC.h
+//  SignDetailVC.h
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/1.
+//  Created by 谷治墙 on 2019/7/3.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
@@ -10,9 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NumeralVC : BaseViewController
-
-- (instancetype)initWithProjectId:(NSString *)projectId;
+@interface SignDetailVC : BaseViewController
 
 @end
 

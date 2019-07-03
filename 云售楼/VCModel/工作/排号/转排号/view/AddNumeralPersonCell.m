@@ -14,6 +14,9 @@
 {
     
     NSInteger _num;
+    NSInteger _numAdd;
+    
+    NSString *_gender;
     
     NSMutableArray *_selectArr;
     NSMutableArray *_collArr;
@@ -53,6 +56,187 @@
         [_coll selectItemAtIndexPath:[NSIndexPath indexPathForItem:_num inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     }
     [_coll reloadData];
+}
+
+- (void)ActionTagBtn:(UIButton *)btn{
+    
+    for (BorderTextField *tf in self.contentView.subviews) {
+        
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
+    }
+    _maleBtn.selected = NO;
+    _femaleBtn.selected = NO;
+    if (btn.tag == 0) {
+        
+        _maleBtn.selected = YES;
+        _gender = @"1";
+    }else{
+        
+        _femaleBtn.selected = YES;
+        _gender = @"2";
+    }
+}
+
+- (void)textFieldDidChange:(UITextField *)textfield{
+    
+    
+}
+
+- (void)ActionAddBtn:(UIButton *)btn{
+    
+    for (BorderTextField *tf in self.contentView.subviews) {
+        
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
+    }
+    if (_numAdd == 0) {
+        
+        _numAdd += 1;
+        _phoneTF2.hidden = NO;
+        
+        [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(9 *SIZE);
+            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(31 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
+        
+        [_certTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+    }else{
+        
+        _phoneTF3.hidden = NO;
+        
+        [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(9 *SIZE);
+            make.top.equalTo(self->_phoneTF3.mas_bottom).offset(31 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
+        
+        [_certTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF3.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+    }
+}
+
+- (void)ActionPersonAddBtn:(UIButton *)btn{
+    
+    
+}
+
+- (void)ActionDropBtn:(UIButton *)btn{
+    
+    for (BorderTextField *tf in self.contentView.subviews) {
+        
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
+    }
+    switch (btn.tag) {
+        case 0:
+        {
+//            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:_certArr];
+//            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+//
+//                self->_certTypeBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+//                self->_certTypeBtn->str = [NSString stringWithFormat:@"%@",ID];
+//                self->_certTypeBtn.placeL.text = @"";
+//                if ([self->_certTypeBtn.content.text containsString:@"身份证"]) {
+//
+//                    if (self->_certNumTF.textField.text.length) {
+//
+//                        if ([self validateIDCardNumber:self->_certNumTF.textField.text]) {
+//
+//                            self->_birthBtn.placeL.text = @"";
+//                            self->_birthBtn.content.text = [self subsIDStrToDate:self->_certNumTF.textField.text];
+//                        }else{
+//
+//                            [self showContent:@"请输入正确的身份证号"];
+//                        }
+//                    }else{
+//
+//                        [self showContent:@"请输入正确的身份证号"];
+//                    }
+//                }
+//            };
+//            [self.view addSubview:view];
+            break;
+        }
+        case 1:{
+            
+//            DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.frame];
+//            view.dateblock = ^(NSDate *date) {
+//
+//                self->_birthBtn.content.text = [self->_formatter stringFromDate:date];
+//                self->_birthBtn.placeL.text = @"";
+//            };
+//            [self.view addSubview:view];
+            break;
+        }
+        case 2:{
+            
+//            AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.bounds withdata:@[]];
+//            WS(weakself);
+//            addressChooseView.selectedBlock = ^(NSString *province, NSString *city, NSString *area, NSString *proviceid, NSString *cityid, NSString *areaid) {
+//
+//                NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region" ofType:@"json"]];
+//
+//                NSError *err;
+//                NSArray *proArr = [NSJSONSerialization JSONObjectWithData:JSONData
+//                                                                  options:NSJSONReadingMutableContainers
+//                                                                    error:&err];
+//                NSString *pro = [cityid substringToIndex:2];
+//                pro = [NSString stringWithFormat:@"%@0000",pro];
+//                NSString *proName;
+//                if ([pro isEqualToString:@"900000"]) {
+//                    proName = @"海外";
+//                }
+//                else{
+//                    for (NSDictionary *dic in proArr) {
+//
+//                        if([dic[@"code"] isEqualToString:pro]){
+//
+//                            proName = dic[@"name"];
+//                            break;
+//                        }
+//                    }
+//                }
+//                self->_proId = pro;
+//                self->_cityId = cityid;
+//                self->_areaId = areaid;
+//            };
+//            [self.view addSubview:addressChooseView];
+            break;
+        }
+        case 3:{
+            
+            
+            break;
+        }
+        case 5:{
+            
+            
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -209,6 +393,11 @@
                 break;
         }
     }
+    
+    _personBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_personBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_personBtn setImage:IMAGE_WITH_NAME(@"add_1") forState:UIControlStateNormal];
+    [self.contentView addSubview:_personBtn];
     
     _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_addBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -396,34 +585,38 @@
                 break;
         }
     }
+    _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:13 *SIZE];
+    _flowLayout.itemSize = CGSizeMake(67 *SIZE, 30 *SIZE);
+    _flowLayout.minimumLineSpacing = 8 *SIZE;
+    _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10 *SIZE, 0, 0);
+    _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    //    _markTV = [[UITextView alloc] init];
-    //    _markTV.layer.cornerRadius = 5 *SIZE;
-    //    _markTV.layer.borderColor = COLOR(219, 219, 219, 1).CGColor;
-    //    _markTV.layer.borderWidth = SIZE;
-    //    _markTV.clipsToBounds = YES;
-    //    [self.contentView addSubview:_markTV];
-    
-//    _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _nextBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
-//    _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
-//    [_nextBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [_nextBtn setTitle:@"确认提交" forState:UIControlStateNormal];
-//    [_nextBtn setBackgroundColor:CLBlueTagColor];
-//    [self.contentView addSubview:_nextBtn];
+    _coll = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_flowLayout];
+    _coll.backgroundColor = CLWhiteColor;
+    _coll.delegate = self;
+    _coll.dataSource = self;
+    [_coll registerClass:[CallTelegramCustomDetailHeaderCollCell class] forCellWithReuseIdentifier:@"CallTelegramCustomDetailHeaderCollCell"];
+    [self.contentView addSubview:_coll];
     
     [self MasonryUI];
 }
 
 - (void)MasonryUI{
     
-//    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        
-//        make.left.equalTo(self.contentView).offset(0);
-//        make.top.equalTo(self.contentView).offset(NAVIGATION_BAR_HEIGHT);
-//        make.width.mas_equalTo(SCREEN_Width);
-//        make.height.mas_equalTo(SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE);
-//    }];
+    [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(0 *SIZE);
+        make.top.equalTo(self.contentView).offset(0 *SIZE);
+        make.width.mas_equalTo(300 *SIZE);
+        make.height.mas_equalTo(47 *SIZE);
+    }];
+    
+    [_personBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-13 *SIZE);
+        make.top.equalTo(self.contentView).offset(11 *SIZE);
+        make.width.height.mas_equalTo(25 *SIZE);
+    }];
     
     [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
         

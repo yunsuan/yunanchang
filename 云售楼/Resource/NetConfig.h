@@ -266,6 +266,16 @@ static NSString *const ButterTelValueDetail_URL = @"saleApp/work/butter/tel/valu
 //无效列表
 static NSString *const ButterTelDisabledList_URL = @"saleApp/work/butter/tel/disabled/list";
 
+#pragma mark -- 排号 --
+
+//转排号
+static NSString *const ProjectRowAddRow_URL = @"saleApp/project/row/addRow";
+
+//排号列表
+static NSString *const ProjectRowGetProjectRowList_URL = @"saleApp/project/row/getProjectRowList";
+
+//排号详情
+static NSString *const ProjectRowGetRowDetail_URL = @"saleApp/project/row/getRowDetail";
 #pragma mark --- 我的 ---
 
 #pragma mark -- 通讯录 --

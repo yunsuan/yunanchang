@@ -1,22 +1,20 @@
 //
-//  AddNumeralVC.m
+//  AddOrderVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/2.
+//  Created by 谷治墙 on 2019/7/3.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddNumeralVC.h"
+#import "AddOrderVC.h"
 
 #import "TitleRightBtnHeader.h"
 #import "AddNumeralPersonCell.h"
 #import "AddNumeralInfoCell.h"
 #import "AddNumeralProcessCell.h"
 
-@interface AddNumeralVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface AddOrderVC ()<UITableViewDelegate,UITableViewDataSource>
 {
-    
-    NSString *_project_id;
     
     NSArray *_titleArr;
     
@@ -30,18 +28,7 @@
 
 @end
 
-@implementation AddNumeralVC
-
-- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr
-{
-    self = [super init];
-    if (self) {
-        
-        _project_id = project_id;
-        _personArr = [[NSMutableArray alloc] initWithArray:personArr];
-    }
-    return self;
-}
+@implementation AddOrderVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,28 +39,14 @@
 
 - (void)initDataSource{
     
-    _titleArr = @[@"权益人信息",@"排号信息",@"流程信息"];
-//    _personArr = [@[] mutableCopy];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0]];
+    _titleArr = @[@"权益人信息",@"房源信息",@"订单信息"];
+    _personArr = [@[] mutableCopy];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@1,@1]];
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    NSDictionary *dic = @{@"project_id":_project_id};
     
-    [BaseRequest POST:ProjectRowAddRow_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 200) {
-            
-            
-        }else{
-            
-            [self showContent:resposeObject[@"msg"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        
-        [self showContent:@"网络错误"];
-    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -112,7 +85,7 @@
     }
     
     header.titleRightBtnHeaderMoreBlock = ^{
-      
+        
         if ([self->_selectArr[section] integerValue] == 1) {
             
             [self->_selectArr replaceObjectAtIndex:section withObject:@0];
@@ -136,8 +109,6 @@
             cell = [[AddNumeralPersonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddNumeralPersonCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.dataArr = _personArr;
         
         return cell;
     }else{
@@ -168,7 +139,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"转排号";
+    self.titleLabel.text = @"转认购";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE) style:UITableViewStylePlain];
     _table.backgroundColor = self.view.backgroundColor;
@@ -189,5 +160,4 @@
     [_nextBtn setBackgroundColor:CLBlueTagColor];
     [self.view addSubview:_nextBtn];
 }
-
 @end

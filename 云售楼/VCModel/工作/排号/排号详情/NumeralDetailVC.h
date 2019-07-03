@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NumeralDetailVC : BaseViewController
 
+- (instancetype)initWithRowId:(NSString *)row_id;
+
 @end
 
 NS_ASSUME_NONNULL_END

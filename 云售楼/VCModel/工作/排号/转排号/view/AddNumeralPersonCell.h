@@ -16,9 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddNumeralPersonCell : UITableViewCell
 
+@property (nonatomic, assign) NSInteger num;
+
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
 
 @property (nonatomic, strong) UICollectionView *coll;
+
+@property (nonatomic, strong) UIButton *personBtn;
 
 @property (nonatomic, strong) UILabel *nameL;
 
@@ -69,6 +73,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) BorderTextField *proportionTF;
 
 @property (nonatomic, strong) NSDictionary *dataDic;
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 

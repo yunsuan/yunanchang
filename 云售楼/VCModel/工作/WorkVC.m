@@ -269,7 +269,7 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 8){
         
-        NumeralVC *nextVC = [[NumeralVC alloc] init];
+        NumeralVC *nextVC = [[NumeralVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
 //        WorkPersonAuditVC *nextVC = [[WorkPersonAuditVC alloc] init];
 //        [self.navigationController pushViewController:nextVC animated:YES];

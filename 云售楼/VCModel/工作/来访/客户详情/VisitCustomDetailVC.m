@@ -164,7 +164,7 @@
     
     UIAlertAction *numeral = [UIAlertAction actionWithTitle:@"转排号" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
       
-        AddNumeralVC *nextVC = [[AddNumeralVC alloc] init];
+        AddNumeralVC *nextVC = [[AddNumeralVC alloc] initWithProject_id:self->_project_id personArr:self->_peopleArr];
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     

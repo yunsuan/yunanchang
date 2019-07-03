@@ -15,6 +15,10 @@
 @interface NumeralVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
+    NSInteger _page;
+    
+    NSString *_project_id;
+    
     NSMutableArray *_dataArr;
 }
 
@@ -23,21 +27,113 @@
 
 @implementation NumeralVC
 
+- (instancetype)initWithProjectId:(NSString *)projectId
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = projectId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
+    _page = 1;
     _dataArr = [@[] mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id,@"page":@(_page)}];
+    
+    _table.mj_footer.state = MJRefreshStateIdle;
+    [BaseRequest GET:ProjectRowGetProjectRowList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        [self->_table.mj_header endRefreshing];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"][@"data"] count]) {
+                
+                [self SetData:resposeObject[@"data"][@"data"]];
+            }else{
+                
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self->_table.mj_header endRefreshing];
+        [self showContent:@"网络错误"];
+        
+    }];
+}
+
+- (void)RequestAddMethod{
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id,@"page":@(_page)}];
+    
+//    _table.mj_footer.state = MJRefreshStateIdle;
+    [BaseRequest GET:ProjectRowGetProjectRowList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        [self->_table.mj_footer endRefreshing];
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"][@"data"] count]) {
+                
+                [self SetData:resposeObject[@"data"][@"data"]];
+            }else{
+                
+                self->_table.mj_footer.state = MJRefreshStateNoMoreData;
+            }
+        }else{
+            
+            _page -= 1;
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        _page -= 1;
+        [self->_table.mj_footer endRefreshing];
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSArray *)data{
+    
+    for (int i = 0; i < data.count; i++) {
+        
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:data[i]];
+        [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+           
+            if ([obj isKindOfClass:[NSNull class]]) {
+                
+                [dic setObject:@"" forKey:key];
+            }else{
+                
+                [dic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+            }
+        }];
+        
+        [_dataArr addObject:dic];
+    }
+    [_table reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 5;//_dataArr.count;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -72,6 +168,15 @@
     _table.estimatedRowHeight = 100 *SIZE;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_table];
+    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
+        
+        [self RequestMethod];
+    }];
+    _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{
+       
+        self->_page += 1;
+        [self RequestAddMethod];
+    }];
 }
 
 @end

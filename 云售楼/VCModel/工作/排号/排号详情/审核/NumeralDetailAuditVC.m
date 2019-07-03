@@ -9,6 +9,7 @@
 #import "NumeralDetailAuditVC.h"
 
 #import "TitleContentRightBaseCell.h"
+#import "NumeralDetailAuditAdviseCell.h"
 #import "TitleBaseHeader.h"
 
 @interface NumeralDetailAuditVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -39,12 +40,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section == 0) {
+    if (section != 1) {
         
         return 1;
     }else{
@@ -55,7 +56,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    if (section == 0) {
+    if (section != 1) {
         
         return 0;
     }
@@ -70,7 +71,7 @@
         header = [[TitleBaseHeader alloc] initWithReuseIdentifier:@"TitleBaseHeader"];
     }
     
-    header.lineView.hidden = YES;
+//    header.lineView.hidden = YES;
     header.titleL.text = @"序号";
     
     return header;
@@ -88,16 +89,34 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    TitleContentRightBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TitleContentRightBaseCell"];
-    if (!cell) {
+    if (indexPath.section < 2) {
         
-        cell = [[TitleContentRightBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TitleContentRightBaseCell"];
+        TitleContentRightBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TitleContentRightBaseCell"];
+        if (!cell) {
+            
+            cell = [[TitleContentRightBaseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TitleContentRightBaseCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.titleL.text = @"123123";
+        cell.titleL.textColor = CLTitleLabColor;
+        cell.contentL.textAlignment = NSTextAlignmentLeft;
+        cell.contentL.text = @"1231231231";
+        cell.lineView.hidden = YES;
+        cell.rightImg.hidden = YES;
+        
+        return cell;
+    }else{
+        
+        NumeralDetailAuditAdviseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NumeralDetailAuditAdviseCell"];
+        if (!cell) {
+            
+            cell = [[NumeralDetailAuditAdviseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NumeralDetailAuditAdviseCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.contentL.text = @"1231231231";
-    
-    return cell;
 }
 
 
@@ -105,7 +124,7 @@
     
     self.titleLabel.text = @"排号详情";
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 47 *SIZE) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.backgroundColor = self.view.backgroundColor;
     _table.delegate = self;
@@ -118,7 +137,7 @@
     _agreeBtn.frame = CGRectMake(0, SCREEN_Height - 47 *SIZE - TAB_BAR_MORE, 240 *SIZE, 47 *SIZE + TAB_BAR_MORE);
     _agreeBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_agreeBtn addTarget:self action:@selector(ActionAuditBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_agreeBtn setTitle:@"审核" forState:UIControlStateNormal];
+    [_agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
     [_agreeBtn setBackgroundColor:CLBlueBtnColor];
     [self.view addSubview:_agreeBtn];
     
@@ -126,8 +145,8 @@
     _disagreeBtn.frame = CGRectMake(240 *SIZE, SCREEN_Height - 47 *SIZE - TAB_BAR_MORE, 120 *SIZE, 47 *SIZE + TAB_BAR_MORE);
     _disagreeBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_disagreeBtn addTarget:self action:@selector(ActionAuditBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_disagreeBtn setTitle:@"审核" forState:UIControlStateNormal];
-    [_disagreeBtn setBackgroundColor:CLBlueBtnColor];
+    [_disagreeBtn setTitle:@"不同意" forState:UIControlStateNormal];
+    [_disagreeBtn setBackgroundColor:CLLineColor];
     [self.view addSubview:_disagreeBtn];
 }
 

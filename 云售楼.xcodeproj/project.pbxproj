@@ -70,6 +70,13 @@
 		0C4B7F7422CA050600BBC34F /* AddEncumbrancerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B7F7322CA050600BBC34F /* AddEncumbrancerVC.m */; };
 		0C4B8EC422CB593600D505BE /* AddNumeralProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EC322CB593600D505BE /* AddNumeralProcessCell.m */; };
 		0C4B8EC822CB670D00D505BE /* NumeralDetailAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EC722CB670D00D505BE /* NumeralDetailAuditVC.m */; };
+		0C4B8ED622CC3F0300D505BE /* NumeralDetailAuditAdviseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8ED522CC3F0300D505BE /* NumeralDetailAuditAdviseCell.m */; };
+		0C4B8ED922CC43E900D505BE /* NumeralDetailInvalidView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8ED822CC43E900D505BE /* NumeralDetailInvalidView.m */; };
+		0C4B8EDD22CC461300D505BE /* OrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EDC22CC461300D505BE /* OrderVC.m */; };
+		0C4B8EE122CC478400D505BE /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EE022CC478400D505BE /* OrderDetailVC.m */; };
+		0C4B8EE422CC49A200D505BE /* SignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EE322CC49A200D505BE /* SignVC.m */; };
+		0C4B8EE822CC49BB00D505BE /* SignDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EE722CC49BB00D505BE /* SignDetailVC.m */; };
+		0C4B8EEC22CC4B1600D505BE /* AddOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EEB22CC4B1600D505BE /* AddOrderVC.m */; };
 		0C743A5722C1B22200F5CB6B /* CommissionReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A5622C1B22200F5CB6B /* CommissionReportVC.m */; };
 		0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A5A22C1B52200F5CB6B /* CommissReportCell.m */; };
 		0C743A9422C1BC9200F5CB6B /* CompanyCommissionReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A9322C1BC9200F5CB6B /* CompanyCommissionReportVC.m */; };
@@ -573,6 +580,20 @@
 		0C4B8EC322CB593600D505BE /* AddNumeralProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralProcessCell.m; sourceTree = "<group>"; };
 		0C4B8EC622CB670D00D505BE /* NumeralDetailAuditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralDetailAuditVC.h; sourceTree = "<group>"; };
 		0C4B8EC722CB670D00D505BE /* NumeralDetailAuditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralDetailAuditVC.m; sourceTree = "<group>"; };
+		0C4B8ED422CC3F0300D505BE /* NumeralDetailAuditAdviseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralDetailAuditAdviseCell.h; sourceTree = "<group>"; };
+		0C4B8ED522CC3F0300D505BE /* NumeralDetailAuditAdviseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralDetailAuditAdviseCell.m; sourceTree = "<group>"; };
+		0C4B8ED722CC43E900D505BE /* NumeralDetailInvalidView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralDetailInvalidView.h; sourceTree = "<group>"; };
+		0C4B8ED822CC43E900D505BE /* NumeralDetailInvalidView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralDetailInvalidView.m; sourceTree = "<group>"; };
+		0C4B8EDB22CC461300D505BE /* OrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderVC.h; sourceTree = "<group>"; };
+		0C4B8EDC22CC461300D505BE /* OrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderVC.m; sourceTree = "<group>"; };
+		0C4B8EDF22CC478400D505BE /* OrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailVC.h; sourceTree = "<group>"; };
+		0C4B8EE022CC478400D505BE /* OrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailVC.m; sourceTree = "<group>"; };
+		0C4B8EE222CC49A200D505BE /* SignVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignVC.h; sourceTree = "<group>"; };
+		0C4B8EE322CC49A200D505BE /* SignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignVC.m; sourceTree = "<group>"; };
+		0C4B8EE622CC49BB00D505BE /* SignDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignDetailVC.h; sourceTree = "<group>"; };
+		0C4B8EE722CC49BB00D505BE /* SignDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignDetailVC.m; sourceTree = "<group>"; };
+		0C4B8EEA22CC4B1600D505BE /* AddOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddOrderVC.h; sourceTree = "<group>"; };
+		0C4B8EEB22CC4B1600D505BE /* AddOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderVC.m; sourceTree = "<group>"; };
 		0C743A5522C1B22200F5CB6B /* CommissionReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommissionReportVC.h; sourceTree = "<group>"; };
 		0C743A5622C1B22200F5CB6B /* CommissionReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommissionReportVC.m; sourceTree = "<group>"; };
 		0C743A5922C1B52200F5CB6B /* CommissReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommissReportCell.h; sourceTree = "<group>"; };
@@ -1386,6 +1407,9 @@
 		0C310E3322A4F66900083504 /* 签约 */ = {
 			isa = PBXGroup;
 			children = (
+				0C4B8EE522CC49AF00D505BE /* 签约详情 */,
+				0C4B8EE222CC49A200D505BE /* SignVC.h */,
+				0C4B8EE322CC49A200D505BE /* SignVC.m */,
 			);
 			path = "签约";
 			sourceTree = "<group>";
@@ -1614,6 +1638,7 @@
 		0C3A9161225B372D00F04804 /* 工作 */ = {
 			isa = PBXGroup;
 			children = (
+				0C4B8EDA22CC45F700D505BE /* 认购 */,
 				0C4B7F5922C9955200BBC34F /* 排号 */,
 				0C310E3322A4F66900083504 /* 签约 */,
 				10BC3A3D228FEA2100DAB2D8 /* 轮岗 */,
@@ -1820,8 +1845,50 @@
 			children = (
 				0C4B8EC622CB670D00D505BE /* NumeralDetailAuditVC.h */,
 				0C4B8EC722CB670D00D505BE /* NumeralDetailAuditVC.m */,
+				0C4B8ED422CC3F0300D505BE /* NumeralDetailAuditAdviseCell.h */,
+				0C4B8ED522CC3F0300D505BE /* NumeralDetailAuditAdviseCell.m */,
+				0C4B8ED722CC43E900D505BE /* NumeralDetailInvalidView.h */,
+				0C4B8ED822CC43E900D505BE /* NumeralDetailInvalidView.m */,
 			);
 			path = "审核";
+			sourceTree = "<group>";
+		};
+		0C4B8EDA22CC45F700D505BE /* 认购 */ = {
+			isa = PBXGroup;
+			children = (
+				0C4B8EE922CC4B0400D505BE /* 转认购 */,
+				0C4B8EDE22CC470A00D505BE /* 认购详情 */,
+				0C4B8EDB22CC461300D505BE /* OrderVC.h */,
+				0C4B8EDC22CC461300D505BE /* OrderVC.m */,
+			);
+			path = "认购";
+			sourceTree = "<group>";
+		};
+		0C4B8EDE22CC470A00D505BE /* 认购详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C4B8EDF22CC478400D505BE /* OrderDetailVC.h */,
+				0C4B8EE022CC478400D505BE /* OrderDetailVC.m */,
+			);
+			path = "认购详情";
+			sourceTree = "<group>";
+		};
+		0C4B8EE522CC49AF00D505BE /* 签约详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C4B8EE622CC49BB00D505BE /* SignDetailVC.h */,
+				0C4B8EE722CC49BB00D505BE /* SignDetailVC.m */,
+			);
+			path = "签约详情";
+			sourceTree = "<group>";
+		};
+		0C4B8EE922CC4B0400D505BE /* 转认购 */ = {
+			isa = PBXGroup;
+			children = (
+				0C4B8EEA22CC4B1600D505BE /* AddOrderVC.h */,
+				0C4B8EEB22CC4B1600D505BE /* AddOrderVC.m */,
+			);
+			path = "转认购";
 			sourceTree = "<group>";
 		};
 		0C743A5422C1B20500F5CB6B /* 佣金分析报表 */ = {
@@ -4062,6 +4129,7 @@
 				0CF1A31A228E8E04001C77CF /* SignSelectWorkerView.m in Sources */,
 				0C3A916B225B377D00F04804 /* WorkVC.m in Sources */,
 				0CF1A319228E8E04001C77CF /* SignWorkerPickView.m in Sources */,
+				0C4B8EEC22CC4B1600D505BE /* AddOrderVC.m in Sources */,
 				0CEF8A1B225C9BA40057F3FD /* RecommendCustomCell.m in Sources */,
 				0C3A9157225B223400F04804 /* BaseModel.m in Sources */,
 				0CD043C82282BFDC002C8BD3 /* SubScribeAuditDetailVC.m in Sources */,
@@ -4096,6 +4164,7 @@
 				0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
 				0CA8265B22B0FCD20005F3ED /* EmptyPieView.m in Sources */,
+				0C4B8EE122CC478400D505BE /* OrderDetailVC.m in Sources */,
 				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
 				0C7451FF22A7B996008F2F07 /* MutiLineChartView.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
@@ -4135,6 +4204,7 @@
 				0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */,
 				0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */,
 				0C4B8EC822CB670D00D505BE /* NumeralDetailAuditVC.m in Sources */,
+				0C4B8EDD22CC461300D505BE /* OrderVC.m in Sources */,
 				0CD043DF2283BC05002C8BD3 /* CaptchaView.m in Sources */,
 				0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */,
 				0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */,
@@ -4177,7 +4247,9 @@
 				0CEF8AE4226427260057F3FD /* CallTelegramVC.m in Sources */,
 				0CFF71F622A650540066732B /* SSWPieChartView.m in Sources */,
 				0C2A701A226D9E2600571EC1 /* IntentSurveyCollCell.m in Sources */,
+				0C4B8ED622CC3F0300D505BE /* NumeralDetailAuditAdviseCell.m in Sources */,
 				0CEF8AFA226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m in Sources */,
+				0C4B8EE422CC49A200D505BE /* SignVC.m in Sources */,
 				0CEF8A10225C96020057F3FD /* RecommendWaitVC.m in Sources */,
 				0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */,
 				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
@@ -4229,8 +4301,10 @@
 				0C4B7F6322C9A9B400BBC34F /* NumeralCell.m in Sources */,
 				0C221A6A227EDE73006B0510 /* BaseAddCell.m in Sources */,
 				0CD0433C227FE66B002C8BD3 /* InfoDetailCell.m in Sources */,
+				0C4B8ED922CC43E900D505BE /* NumeralDetailInvalidView.m in Sources */,
 				0CEF8B042265ADA20057F3FD /* AddCallTelegramVC.m in Sources */,
 				0CEF8A54225F1D440057F3FD /* SelectCompanyTableCell.m in Sources */,
+				0C4B8EE822CC49BB00D505BE /* SignDetailVC.m in Sources */,
 				0CD0436F2280344E002C8BD3 /* WorkReceiptDetailVC.m in Sources */,
 				0C3A9153225B219300F04804 /* BaseViewController.m in Sources */,
 				0CEF8A3D225F0CF10057F3FD /* CompanyAuthVC.m in Sources */,
