@@ -120,7 +120,7 @@
         cell.companyL.textColor = CL86Color;
         cell.contactL.textColor = CL86Color;
         cell.phoneL.textColor = CL86Color;
-        cell.moneyL.textColor = CL86Color;
+        cell.moneyL.textColor = CLBlueBtnColor;
         cell.numL.textColor = CL86Color;
         
         cell.line1.hidden = NO;
@@ -158,10 +158,10 @@
     _scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT)];
     _scroll.delegate = self;
     _scroll.bounces = NO;
-    [_scroll setContentSize:CGSizeMake(120 *SIZE * 5, SCREEN_Height - NAVIGATION_BAR_HEIGHT)];
+    [_scroll setContentSize:CGSizeMake(120 *SIZE * 3, SCREEN_Height - NAVIGATION_BAR_HEIGHT)];
     [self.view addSubview:_scroll];
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE * 5, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE * 3, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 40 *SIZE;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;

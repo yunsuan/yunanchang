@@ -39,9 +39,9 @@
             [WorkListPower replaceObjectAtIndex:1 withObject:@1];
             [WorkListPower replaceObjectAtIndex:2 withObject:@1];
         }
-//        if ([datadic[@"duty_operate"] boolValue]) {
+        if ([datadic[@"duty_operate"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:9 withObject:@1];
-//        }
+        }
         if ([datadic[@"person_check"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:8 withObject:@1];
         }

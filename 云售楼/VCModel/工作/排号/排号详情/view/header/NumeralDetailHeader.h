@@ -22,6 +22,8 @@ typedef void(^NumeralDetailHeaderEditBlock)(void);
 
 @property (nonatomic, copy) NumeralDetailHeaderEditBlock numeralDetailHeaderEditBlock;
 
+@property (nonatomic, strong) UIView *blueView;
+
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
 
 @property (nonatomic, strong) UICollectionView *coll;
@@ -33,6 +35,8 @@ typedef void(^NumeralDetailHeaderEditBlock)(void);
 @property (nonatomic, strong) UIImageView *headImg;
 
 @property (nonatomic, strong) UILabel *titleL;
+
+@property (nonatomic, strong) UILabel *customL;
 
 @property (nonatomic, strong) UILabel *moneyL;
 

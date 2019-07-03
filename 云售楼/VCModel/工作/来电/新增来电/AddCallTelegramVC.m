@@ -12,6 +12,8 @@
 #import "IntentSurveyVC.h"
 #import "AddCallTelegramGroupMemberVC.h"
 
+#import "AddNumeralVC.h"
+
 #import "BoxSelectCollCell.h"
 #import "BaseHeader.h"
 

@@ -30,21 +30,21 @@
     _companyL.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_companyL];
     
-    _contactL = [[UILabel alloc] init];
-    _contactL.textColor = CLContentLabColor;
-    _contactL.font = [UIFont systemFontOfSize:13 *SIZE];
-    _contactL.adjustsFontSizeToFitWidth = YES;
-    _contactL.numberOfLines = 0;
-    _contactL.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:_contactL];
-    
-    _phoneL = [[UILabel alloc] init];
-    _phoneL.textColor = CLContentLabColor;
-    _phoneL.font = [UIFont systemFontOfSize:13 *SIZE];
-    _phoneL.adjustsFontSizeToFitWidth = YES;
-    _phoneL.numberOfLines = 0;
-    _phoneL.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:_phoneL];
+//    _contactL = [[UILabel alloc] init];
+//    _contactL.textColor = CLContentLabColor;
+//    _contactL.font = [UIFont systemFontOfSize:13 *SIZE];
+//    _contactL.adjustsFontSizeToFitWidth = YES;
+//    _contactL.numberOfLines = 0;
+//    _contactL.textAlignment = NSTextAlignmentCenter;
+//    [self.contentView addSubview:_contactL];
+//
+//    _phoneL = [[UILabel alloc] init];
+//    _phoneL.textColor = CLContentLabColor;
+//    _phoneL.font = [UIFont systemFontOfSize:13 *SIZE];
+//    _phoneL.adjustsFontSizeToFitWidth = YES;
+//    _phoneL.numberOfLines = 0;
+//    _phoneL.textAlignment = NSTextAlignmentCenter;
+//    [self.contentView addSubview:_phoneL];
     
     _moneyL = [[UILabel alloc] init];
     _moneyL.textColor = CLContentLabColor;
@@ -87,14 +87,14 @@
             }
             case 3:
             {
-                _line3 = line;
-                [self.contentView addSubview:_line3];
+//                _line3 = line;
+//                [self.contentView addSubview:_line3];
                 break;
             }
             case 4:
             {
-                _line4 = line;
-                [self.contentView addSubview:_line4];
+//                _line4 = line;
+//                [self.contentView addSubview:_line4];
                 break;
             }
             default:
@@ -111,7 +111,25 @@
         make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
     }];
     
-    [_contactL mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [_contactL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(170 *SIZE);
+//        make.top.equalTo(self.contentView).offset(10 *SIZE);
+//        make.width.mas_offset(100 *SIZE);
+//        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
+////        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+//    }];
+//
+//    [_phoneL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(290 *SIZE);
+//        make.top.equalTo(self.contentView).offset(10 *SIZE);
+//        make.width.mas_offset(100 *SIZE);
+//        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
+////        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+//    }];
+    
+    [_moneyL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(170 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
@@ -120,27 +138,9 @@
 //        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
     }];
     
-    [_phoneL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(290 *SIZE);
-        make.top.equalTo(self.contentView).offset(10 *SIZE);
-        make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
-//        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
-    }];
-    
-    [_moneyL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(410 *SIZE);
-        make.top.equalTo(self.contentView).offset(10 *SIZE);
-        make.width.mas_offset(100 *SIZE);
-        make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
-//        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
-    }];
-    
     [_numL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(530 *SIZE);
+        make.left.equalTo(self.contentView).offset(290 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
         make.width.mas_offset(60 *SIZE);
         make.bottom.equalTo(self->_line.mas_top).offset(-9 *SIZE);
@@ -172,20 +172,20 @@
         make.bottom.equalTo(self.contentView).offset(0 *SIZE);
     }];
     
-    [_line3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(self.contentView).offset(0);
-        make.left.equalTo(self.contentView).offset(400 *SIZE);
-        make.width.mas_equalTo(SIZE);
-        make.bottom.equalTo(self.contentView).offset(0 *SIZE);
-    }];
-    
-    [_line4 mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(self.contentView).offset(0);
-        make.left.equalTo(self.contentView).offset(520 *SIZE);
-        make.width.mas_equalTo(SIZE);
-        make.bottom.equalTo(self.contentView).offset(0 *SIZE);
-    }];
+//    [_line3 mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(self.contentView).offset(0);
+//        make.left.equalTo(self.contentView).offset(400 *SIZE);
+//        make.width.mas_equalTo(SIZE);
+//        make.bottom.equalTo(self.contentView).offset(0 *SIZE);
+//    }];
+//
+//    [_line4 mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(self.contentView).offset(0);
+//        make.left.equalTo(self.contentView).offset(520 *SIZE);
+//        make.width.mas_equalTo(SIZE);
+//        make.bottom.equalTo(self.contentView).offset(0 *SIZE);
+//    }];
 }
 @end

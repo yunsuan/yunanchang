@@ -35,6 +35,7 @@
     _statusL.text = @"排号";
     _auditL.text = @"审核";
     _payL.text = @"未收款";
+    _customL.text = @"罗大海";
     _titleL.text = [NSString stringWithFormat:@"排号类别：%@",@"一批次"];
     _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",@"一批次"];
     
@@ -95,6 +96,10 @@
     
     self.contentView.backgroundColor = CLWhiteColor;
     
+    _blueView = [[UIView alloc] init];
+    _blueView.backgroundColor = CLBlueBtnColor;
+    [self.contentView addSubview:_blueView];
+    
     _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:13 *SIZE];
     _flowLayout.itemSize = CGSizeMake(67 *SIZE, 30 *SIZE);
     _flowLayout.minimumLineSpacing = 8 *SIZE;
@@ -116,46 +121,52 @@
     _headImg = [[UIImageView alloc] init];
     _headImg.layer.cornerRadius = 33.5 *SIZE;
     _headImg.clipsToBounds = YES;
-    [self.contentView addSubview:_headImg];
+    [_blueView addSubview:_headImg];
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 6; i++) {
         
         UILabel *label = [[UILabel alloc] init];
-        label.textColor = CLTitleLabColor;
+        label.textColor = CLWhiteColor;
         label.numberOfLines = 0;
         label.font = [UIFont systemFontOfSize:12 *SIZE];
         switch (i) {
             case 0:
             {
                 _titleL = label;
-                [self.contentView addSubview:_titleL];
+                [_blueView addSubview:_titleL];
                 break;
             }
             case 1:
             {
                 _payL = label;
                 _payL.textAlignment = NSTextAlignmentCenter;
-                [self.contentView addSubview:_payL];
+                [_blueView addSubview:_payL];
                 break;
             }
             case 2:
             {
                 _auditL = label;
                 _auditL.textAlignment = NSTextAlignmentCenter;
-                [self.contentView addSubview:_auditL];
+                [_blueView addSubview:_auditL];
                 break;
             }
             case 3:
             {
                 _moneyL = label;
-                [self.contentView addSubview:_moneyL];
+                [_blueView addSubview:_moneyL];
                 break;
             }
             case 4:
             {
                 _statusL = label;
                 _statusL.textAlignment = NSTextAlignmentCenter;
-                [self.contentView addSubview:_statusL];
+                [_blueView addSubview:_statusL];
+                break;
+            }
+            case 5:
+            {
+                _customL = label;
+                [_blueView addSubview:_customL];
                 break;
             }
             default:
@@ -166,68 +177,67 @@
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_editBtn addTarget:self action:@selector(ActionEditBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_editBtn setImage:IMAGE_WITH_NAME(@"editor_3") forState:UIControlStateNormal];
-    [self.contentView addSubview:_editBtn];
+    [_blueView addSubview:_editBtn];
     
     [self MasonryUI];
 }
 
 - (void)MasonryUI{
     
-    [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_blueView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(0 *SIZE);
         make.top.equalTo(self.contentView).offset(0 *SIZE);
-        make.width.mas_equalTo(300 *SIZE);
-        make.height.mas_equalTo(47 *SIZE);
-    }];
-    
-    [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.right.equalTo(self.contentView).offset(-13 *SIZE);
-        make.top.equalTo(self.contentView).offset(11 *SIZE);
-        make.width.height.mas_equalTo(25 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
     }];
     
     [_headImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(10 *SIZE);
-        make.top.equalTo(self.contentView).offset(10 *SIZE);
+        make.left.equalTo(self->_blueView).offset(10 *SIZE);
+        make.top.equalTo(self->_blueView).offset(10 *SIZE);
         make.width.height.mas_equalTo(67 *SIZE);
     }];
     
     [_editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self.contentView).offset(-18 *SIZE);
-        make.top.equalTo(self->_coll.mas_bottom).offset(11 *SIZE);
+        make.top.equalTo(self.contentView).offset(11 *SIZE);
         make.width.height.mas_equalTo(26 *SIZE);
     }];
     
     [_titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(94 *SIZE);
-        make.top.equalTo(self->_coll.mas_bottom).offset(9 *SIZE);
-        make.right.equalTo(self.contentView.mas_right).offset(-70 *SIZE);
+        make.left.equalTo(self->_blueView).offset(94 *SIZE);
+        make.top.equalTo(self->_blueView).offset(9 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
+    }];
+    
+    [_customL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_blueView).offset(94 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(8 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
     }];
     
     [_moneyL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(94 *SIZE);
-        make.top.equalTo(self->_titleL.mas_bottom).offset(8 *SIZE);
-        make.right.equalTo(self.contentView.mas_right).offset(-70 *SIZE);
+        make.left.equalTo(self->_blueView).offset(94 *SIZE);
+        make.top.equalTo(self->_customL.mas_bottom).offset(8 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
     }];
     
     [_statusL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(0 *SIZE);
+        make.left.equalTo(self->_blueView).offset(0 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(47 *SIZE);
         make.width.mas_equalTo(125 *SIZE);
 //        make.height.mas_equalTo(40 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(0 *SIZE);
+        make.bottom.equalTo(self->_blueView).offset(-19 *SIZE);
     }];
     
     [_auditL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(125 *SIZE);
+        make.left.equalTo(self->_blueView).offset(125 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(47 *SIZE);
         make.width.mas_equalTo(125 *SIZE);
 //        make.height.mas_equalTo(40 *SIZE);
@@ -235,9 +245,26 @@
     
     [_payL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(250 *SIZE);
+        make.left.equalTo(self->_blueView).offset(250 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(47 *SIZE);
         make.width.mas_equalTo(125 *SIZE);
+        make.bottom.equalTo(self->_blueView).offset(-19 *SIZE);
+    }];
+    
+    [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(0 *SIZE);
+        make.top.equalTo(self->_blueView.mas_bottom).offset(0 *SIZE);
+        make.width.mas_equalTo(300 *SIZE);
+        make.height.mas_equalTo(47 *SIZE);
+        make.bottom.equalTo(self.contentView).offset(0 *SIZE);
+    }];
+    
+    [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView).offset(-13 *SIZE);
+        make.top.equalTo(self->_blueView.mas_bottom).offset(11 *SIZE);
+        make.width.height.mas_equalTo(25 *SIZE);
     }];
 }
 

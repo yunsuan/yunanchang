@@ -322,11 +322,11 @@
     }else if ([_dataDic[@"tel_complete_state"] integerValue] == 0){
 
         tel = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",_phoneTF1.text,_phoneTF2.text,_phoneTF3.text,_phoneTF4.text,_phoneTF5.text,_phoneTF6.text,_phoneTF7.text,_phoneTF8.text,_phoneTF9.text,_phoneTF10.text,_phoneTF11.text];
-        if (![self checkTel:tel]) {
-
-            [self alertControllerWithNsstring:@"温馨提示" And:@"请填写正确的电话号码"];
-            return;
-        }
+//        if (![self checkTel:tel]) {
+//
+//            [self alertControllerWithNsstring:@"温馨提示" And:@"请填写正确的电话号码"];
+//            return;
+//        }
     }else{
 
         if (!_phoneTF1.text.length || !_phoneTF2.text.length || !_phoneTF3.text.length || !_phoneTF8.text.length || !_phoneTF9.text.length || !_phoneTF10.text.length || !_phoneTF11.text.length) {
@@ -336,27 +336,27 @@
 
             if (!_phoneTF4.text.length) {
 
-                _phoneTF4.text = @"X";
+                _phoneTF4.text = @"*";
             }
             if (!_phoneTF5.text.length){
 
-                _phoneTF5.text = @"X";
+                _phoneTF5.text = @"*";
             }
             if (!_phoneTF6.text.length){
 
-                _phoneTF6.text = @"X";
+                _phoneTF6.text = @"*";
             }
             if (!_phoneTF7.text.length){
 
-                _phoneTF7.text = @"X";
+                _phoneTF7.text = @"*";
             }
 
-            if ([_phoneTF4.text isEqualToString:@"X"] || [_phoneTF5.text isEqualToString:@"X"] || [_phoneTF6.text isEqualToString:@"X"] || [_phoneTF7.text isEqualToString:@"X"]) {
+            if ([_phoneTF4.text isEqualToString:@"*"] || [_phoneTF5.text isEqualToString:@"*"] || [_phoneTF6.text isEqualToString:@"*"] || [_phoneTF7.text isEqualToString:@"*"]) {
 
-                _phoneTF4.text = @"X";
-                _phoneTF5.text = @"X";
-                _phoneTF6.text = @"X";
-                _phoneTF7.text = @"X";
+                _phoneTF4.text = @"*";
+                _phoneTF5.text = @"*";
+                _phoneTF6.text = @"*";
+                _phoneTF7.text = @"*";
             }
 
             tel = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",_phoneTF1.text,_phoneTF2.text,_phoneTF3.text,_phoneTF4.text,_phoneTF5.text,_phoneTF6.text,_phoneTF7.text,_phoneTF8.text,_phoneTF9.text,_phoneTF10.text,_phoneTF11.text];
@@ -710,6 +710,10 @@
         borderTF.layer.borderColor = COLOR(219, 219, 219, 1).CGColor;
         borderTF.layer.borderWidth = 1*SIZE;
         borderTF.delegate = self;
+        if ([_dataDic[@"tel_complete_state"] integerValue] == 0 && [[NSString stringWithFormat:@"%@",_dataDic[@"tel"]] containsString:@"****"]) {
+            
+            borderTF.userInteractionEnabled = NO;
+        }
         [borderTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         borderTF.textAlignment = NSTextAlignmentCenter;
         switch (i) {

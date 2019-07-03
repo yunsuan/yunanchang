@@ -102,7 +102,7 @@
         view.layer.masksToBounds = YES;
         view.layer.cornerRadius = 2*SIZE;
         if (i == 0) {
-            view.backgroundColor = KweixuanColor;
+            view.backgroundColor = COLOR(0, 197, 198, 1);//KweixuanColor;
         }
         else if(i == 1)
         {
@@ -293,7 +293,7 @@
 //                if ([_LDinfo[row][@"houseList"][column][@"FJZT"] integerValue] ==0 ||[_LDinfo[row][@"houseList"][column][@"FJZT"] integerValue] ==1)
 //                {
                 if ([_LDinfo[row][@"houseList"][column][@"state"] integerValue]==0||[_LDinfo[row][@"houseList"][column][@"state"] integerValue]==1) {
-                    btnSeat.backgroundColor = KweixuanColor;
+                    btnSeat.backgroundColor = COLOR(0, 197, 198, 1);//KweixuanColor;
                 }
                 
 //

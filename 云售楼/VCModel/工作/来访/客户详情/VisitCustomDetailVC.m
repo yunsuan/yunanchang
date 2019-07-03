@@ -14,6 +14,7 @@
 #import "IntentSurveyVC.h"
 #import "FollowRecordVC.h"
 #import "IntentSurveyVC.h"
+#import "AddNumeralVC.h"
 
 #import "SinglePickView.h"
 
@@ -161,6 +162,12 @@
 //        
 //    }];
     
+    UIAlertAction *numeral = [UIAlertAction actionWithTitle:@"转排号" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      
+        AddNumeralVC *nextVC = [[AddNumeralVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
+    
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"放弃跟进" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         [BaseRequest POST:WorkClientAutoGroupUpdate_URL parameters:@{@"group_id":self->_groupInfoDic[@"group_id"],@"disabled_state":@"1"} success:^(id  _Nonnull resposeObject) {
@@ -182,6 +189,8 @@
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
+    
+    [alert addAction:numeral];
     
     if ([self.powerDic[@"giveUp"] boolValue]) {
         
