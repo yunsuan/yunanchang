@@ -1,12 +1,14 @@
 //
-//  AddNumeralPersonCell.h
+//  AddNumeralPersonView.h
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/2.
+//  Created by 谷治墙 on 2019/7/4.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+
+#import "CallTelegramCustomDetailHeaderCollCell.h"
 
 #import "GZQFlowLayout.h"
 #import "BorderTextField.h"
@@ -14,27 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^AddNumeralPersonCellAddPhoneBlock)(NSInteger num);
-
-typedef void(^AddNumeralPersonCellCollBlock)(NSInteger num);
-
-typedef void(^AddNumeralPersonCellDropBtnBlock)(NSInteger num);
-
-typedef void(^AddNumeralPersonCellStrBlock)(NSString *str ,NSInteger num);
-
-@interface AddNumeralPersonCell : UITableViewCell
-
-@property (nonatomic, copy) AddNumeralPersonCellAddPhoneBlock addNumeralPersonCellAddPhoneBlock;
-
-@property (nonatomic, copy) AddNumeralPersonCellCollBlock addNumeralPersonCellCollBlock;
-
-@property (nonatomic, copy) AddNumeralPersonCellDropBtnBlock addNumeralPersonCellDropBtnBlock;
-
-@property (nonatomic, copy) AddNumeralPersonCellStrBlock addNumeralPersonCellStrBlock;
-
-@property (nonatomic, assign) NSInteger num;
-
-@property (nonatomic, assign) NSInteger phoneNum;
+@interface AddNumeralPersonView : UIView
 
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
 
@@ -89,12 +71,6 @@ typedef void(^AddNumeralPersonCellStrBlock)(NSString *str ,NSInteger num);
 @property (nonatomic, strong) UILabel *proportionL;
 
 @property (nonatomic, strong) BorderTextField *proportionTF;
-
-@property (nonatomic, strong) NSArray *cerArr;
-
-@property (nonatomic, strong) NSDictionary *dataDic;
-
-@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 

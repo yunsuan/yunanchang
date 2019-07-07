@@ -8,6 +8,13 @@
 
 #import "AddNumeralInfoCell.h"
 
+@interface AddNumeralInfoCell ()<UITextFieldDelegate>
+{
+    
+    NSMutableArray *_cateArr;
+}
+@end
+
 @implementation AddNumeralInfoCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -18,6 +25,19 @@
         [self initUI];
     }
     return self;
+}
+
+- (void)setTypeArr:(NSMutableArray *)typeArr{
+    
+    _cateArr = [[NSMutableArray alloc] initWithArray:typeArr];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    if (self.addNumeralInfoCellStrBlock) {
+        
+        self.addNumeralInfoCellStrBlock(textField.text, textField.tag);
+    }
 }
 
 - (void)initUI{
@@ -41,26 +61,28 @@
             [self.contentView addSubview:_typeBtn];
         }else{
             
+            BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+            tf.textField.tag = i;
             if (i == 0) {
                 
                 _nameL = label;
                 [self.contentView addSubview:_nameL];
                 
-                _nameTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+                _nameTF = tf;
                 [self.contentView addSubview:_nameTF];
             }else if (i == 2){
                 
                 _numL = label;
                 [self.contentView addSubview:_numL];
                 
-                _numTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+                _numTF = tf;
                 [self.contentView addSubview:_numTF];
             }else{
                 
                 _freeL = label;
                 [self.contentView addSubview:_freeL];
                 
-                _freeTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+                _freeTF = tf;
                 [self.contentView addSubview:_freeTF];
             }
         }

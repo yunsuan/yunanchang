@@ -20,6 +20,7 @@
     
     NSMutableArray *_selectArr;
     NSMutableArray *_collArr;
+    NSMutableArray *_certArr;
 }
 
 @end
@@ -42,6 +43,11 @@
     
 }
 
+- (void)setCerArr:(NSArray *)cerArr{
+    
+    _certArr = [[NSMutableArray alloc] initWithArray:cerArr];
+}
+
 - (void)setDataArr:(NSMutableArray *)dataArr{
     
     _collArr = [NSMutableArray arrayWithArray:dataArr];
@@ -56,6 +62,265 @@
         [_coll selectItemAtIndexPath:[NSIndexPath indexPathForItem:_num inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     }
     [_coll reloadData];
+}
+
+- (void)setNum:(NSInteger)num{
+    
+    _numAdd = 0;
+    if (_selectArr.count) {
+        
+        for (int i = 0; i < _collArr.count; i++) {
+            
+            [_selectArr addObject:@0];
+        }
+        [_selectArr replaceObjectAtIndex:num withObject:@1];
+    }
+    _nameTF.textField.text = _collArr[num][@"name"];
+    
+    _maleBtn.selected = NO;
+    _femaleBtn.selected = NO;
+    if ([_collArr[num][@"sex"] integerValue] == 1) {
+        
+        _maleBtn.selected = YES;
+        _gender = @"1";
+    }else if ([_collArr[num][@"sex"] integerValue] == 2){
+        
+        _femaleBtn.selected = YES;
+        _gender = @"2";
+    }else{
+        
+        _maleBtn.selected = NO;
+        _femaleBtn.selected = NO;
+        _gender = @"";
+    }
+    
+    NSArray *arr = [_collArr[num][@"tel"] componentsSeparatedByString:@","];
+    if (arr.count == 1) {
+        
+        _phoneTF.textField.text = arr[0];
+        _phoneTF2.textField.text = @"";
+        _phoneTF3.textField.text = @"";
+    }else if (arr.count == 2){
+        
+        _numAdd = 1;
+        _phoneTF.textField.text = arr[0];
+        _phoneTF2.textField.text = arr[1];
+//        [self ActionAddBtn:_addBtn];
+    }else{
+        
+        _numAdd = 2;
+        _phoneTF.textField.text = arr[0];
+        _phoneTF2.textField.text = arr[1];
+        _phoneTF3.textField.text = arr[2];
+
+    }
+    
+//    if (_numAdd == 0) {
+//
+//        _phoneTF2.hidden = YES;
+//        _phoneTF3.hidden = YES;
+//
+//        [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(9 *SIZE);
+//            make.top.equalTo(self->_phoneTF.mas_bottom).offset(31 *SIZE);
+//            make.width.mas_equalTo(70 *SIZE);
+//        }];
+//
+//        [_certTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(80 *SIZE);
+//            make.top.equalTo(self->_phoneTF.mas_bottom).offset(21 *SIZE);
+//            make.width.mas_equalTo(258 *SIZE);
+//            make.height.mas_equalTo(33 *SIZE);
+//        }];
+//
+//    }else if (_numAdd == 1){
+//
+//        _phoneTF3.textField.text = @"";
+//        _phoneTF2.hidden = NO;
+//        _phoneTF3.hidden = YES;
+//
+//        [_phoneTF2 mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(80 *SIZE);
+//            make.top.equalTo(self->_phoneTF.mas_bottom).offset(21 *SIZE);
+//            make.width.mas_equalTo(258 *SIZE);
+//            make.height.mas_equalTo(33 *SIZE);
+//        }];
+//
+//        [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(9 *SIZE);
+//            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(31 *SIZE);
+//            make.width.mas_equalTo(70 *SIZE);
+//        }];
+//
+//        [_certTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(80 *SIZE);
+//            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(21 *SIZE);
+//            make.width.mas_equalTo(258 *SIZE);
+//            make.height.mas_equalTo(33 *SIZE);
+//        }];
+//
+//    }else{
+//
+//        _phoneTF2.hidden = NO;
+//        _phoneTF3.hidden = NO;
+//
+//        _numAdd = 2;
+//
+//        [_phoneTF2 mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(80 *SIZE);
+//            make.top.equalTo(self->_phoneTF.mas_bottom).offset(21 *SIZE);
+//            make.width.mas_equalTo(258 *SIZE);
+//            make.height.mas_equalTo(33 *SIZE);
+//        }];
+//
+//        [_phoneTF3 mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(80 *SIZE);
+//            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(21 *SIZE);
+//            make.width.mas_equalTo(258 *SIZE);
+//            make.height.mas_equalTo(33 *SIZE);
+//        }];
+//
+//        [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(9 *SIZE);
+//            make.top.equalTo(self->_phoneTF3.mas_bottom).offset(31 *SIZE);
+//            make.width.mas_equalTo(70 *SIZE);
+//        }];
+//        //
+//        [_certTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//            make.left.equalTo(self.contentView).offset(80 *SIZE);
+//            make.top.equalTo(self->_phoneTF3.mas_bottom).offset(21 *SIZE);
+//            make.width.mas_equalTo(258 *SIZE);
+//            make.height.mas_equalTo(33 *SIZE);
+//        }];
+//    }
+    
+    if ([_collArr[num][@"card_type"] length]) {
+        
+        _certTypeBtn.content.text = _collArr[num][@"card_type"];
+        _certTypeBtn.placeL.text = @"";
+        _certNumTF.textField.text = _collArr[num][@"card_num"];
+        for (int i = 0; i < _certArr.count; i++) {
+            
+            if ([_collArr[num][@"card_type"] isEqualToString:_certArr[i][@"param"]]) {
+                
+                _certTypeBtn->str = _certArr[i][@"id"];
+                break;
+            }
+        }
+    }else{
+        
+        _certNumTF.textField.text = @"";
+    }
+    
+    if ([_collArr[num][@"birth"] length]) {
+        
+        _birthBtn.content.text = _collArr[num][@"birth"];
+        _birthBtn.placeL.text = @"";
+    }
+    _mailCodeTF.textField.text = _collArr[num][@"mail_code"];
+    _addressBtn.textField.text = _collArr[num][@"address"];
+    _markTV.text = _collArr[num][@"comment"];
+}
+
+- (void)setPhoneNum:(NSInteger)phoneNum{
+    
+    _numAdd = phoneNum;
+    if (_numAdd == 0) {
+        
+        _phoneTF2.hidden = YES;
+        _phoneTF3.hidden = YES;
+        
+        [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(9 *SIZE);
+            make.top.equalTo(self->_phoneTF.mas_bottom).offset(31 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
+        
+        [_certTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
+    }else if (_numAdd == 1){
+        
+        _phoneTF3.textField.text = @"";
+        _phoneTF2.hidden = NO;
+        _phoneTF3.hidden = YES;
+        
+        [_phoneTF2 mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
+        [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(9 *SIZE);
+            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(31 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
+        
+        [_certTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
+    }else{
+        
+        _phoneTF2.hidden = NO;
+        _phoneTF3.hidden = NO;
+        
+        _numAdd = 2;
+        
+        [_phoneTF2 mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
+        [_phoneTF3 mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
+        [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(9 *SIZE);
+            make.top.equalTo(self->_phoneTF3.mas_bottom).offset(31 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
+        //
+        [_certTypeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF3.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+    }
 }
 
 - (void)ActionTagBtn:(UIButton *)btn{
@@ -85,6 +350,39 @@
     
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    if (textField == _nameTF.textField) {
+        
+        
+    }else if (textField == _phoneTF.textField){
+        
+        
+    }else if (textField == _phoneTF2.textField){
+        
+        
+    }else if (textField == _phoneTF3.textField){
+        
+        
+    }else if (textField == _certNumTF.textField){
+        
+        
+    }else if (textField == _mailCodeTF.textField){
+        
+        
+    }else if (textField == _addressBtn.textField){
+        
+        
+    }else{
+        
+        
+    }
+    if (self.addNumeralPersonCellStrBlock) {
+        
+        self.addNumeralPersonCellStrBlock(textField.text, textField.tag);
+    }
+}
+
 - (void)ActionAddBtn:(UIButton *)btn{
     
     for (BorderTextField *tf in self.contentView.subviews) {
@@ -98,6 +396,14 @@
         
         _numAdd += 1;
         _phoneTF2.hidden = NO;
+        
+        [_phoneTF2 mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
         
         [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -113,9 +419,21 @@
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
         }];
+        if (self.addNumeralPersonCellAddPhoneBlock) {
+
+            self.addNumeralPersonCellAddPhoneBlock(_numAdd);
+        }
     }else{
         
         _phoneTF3.hidden = NO;
+        
+        [_phoneTF3 mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(80 *SIZE);
+            make.top.equalTo(self->_phoneTF2.mas_bottom).offset(21 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
         
         [_certTypeL mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -131,6 +449,10 @@
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
         }];
+        if (self.addNumeralPersonCellAddPhoneBlock) {
+
+            self.addNumeralPersonCellAddPhoneBlock(_numAdd);
+        }
     }
 }
 
@@ -138,6 +460,11 @@
     
     
 }
+
+//- (void)textFieldDidChange:(UITextField *)textfield{
+//
+//    
+//}
 
 - (void)ActionDropBtn:(UIButton *)btn{
     
@@ -148,6 +475,11 @@
             [tf.textField endEditing:YES];
         }
     }
+    if (self.addNumeralPersonCellDropBtnBlock) {
+        
+        self.addNumeralPersonCellDropBtnBlock(btn.tag);
+    }
+    
     switch (btn.tag) {
         case 0:
         {
@@ -268,10 +600,10 @@
     
     [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
     [collectionView reloadData];
-//    if (self.callTelegramCustomDetailHeaderCollBlock) {
-//
-//        self.callTelegramCustomDetailHeaderCollBlock(indexPath.item);
-//    }
+    if (self.addNumeralPersonCellCollBlock) {
+
+        self.addNumeralPersonCellCollBlock(indexPath.item);
+    }
 }
 
 - (void)initUI{
@@ -313,6 +645,7 @@
     for (int i = 0; i < 8; i++) {
         
         BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+        tf.textField.tag = i;
         switch (i) {
             case 0:
             {
@@ -395,7 +728,7 @@
     }
     
     _personBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_personBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_personBtn addTarget:self action:@selector(ActionPersonAddBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_personBtn setImage:IMAGE_WITH_NAME(@"add_1") forState:UIControlStateNormal];
     [self.contentView addSubview:_personBtn];
     
@@ -785,22 +1118,6 @@
         make.height.mas_equalTo(33 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
     }];
-    
-    //    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
-    //
-    //        make.left.equalTo(self.contentView).offset(9 *SIZE);
-    //        make.top.equalTo(self->_addressBtn.mas_bottom).offset(31 *SIZE);
-    //        make.width.mas_equalTo(70 *SIZE);
-    //    }];
-    //
-    //    [_markTV mas_makeConstraints:^(MASConstraintMaker *make) {
-    //
-    //        make.left.equalTo(self.contentView).offset(80 *SIZE);
-    //        make.top.equalTo(self->_addressBtn.mas_bottom).offset(24 *SIZE);
-    //        make.width.mas_equalTo(258 *SIZE);
-    //        make.height.mas_equalTo(77 *SIZE);
-    //        make.bottom.equalTo(self.contentView).offset(-20 *SIZE);
-    //    }];
 }
 
 @end

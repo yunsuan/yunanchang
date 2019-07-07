@@ -23,14 +23,63 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _titleL.text = @"一批次";
-    _customL.text = @"任志远";
-    _numL.text = [NSString stringWithFormat:@"组别人数：%@",@"2"];
-    _timeL.text = @"2019-12-2";
+    _titleL.text = dataDic[@"batch_name"];
+    _customL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
+    _numL.text = [NSString stringWithFormat:@"组别人数：%@",dataDic[@"client_num"]];
+    _timeL.text = dataDic[@"create_time"];
     _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",@"温嘉琪"];
-    _statusL.text = @"作废";
-    _auditL.text = @"已审核";
-    _payL.text = @"已收款";
+    switch ([dataDic[@"disabled_state"] integerValue]) {
+        case 0:
+        {
+            _statusL.text = @"排号";
+            break;
+        }
+        case 1:
+        {
+            _statusL.text = @"变更";
+            break;
+        }
+        case 2:
+        {
+            _statusL.text = @"作废";
+            break;
+        }
+        case 3:
+        {
+            _statusL.text = @"转签约";
+            break;
+        }
+        default:
+            _statusL.text = @"排号";
+            break;
+    }
+    switch ([dataDic[@"check_state"] integerValue]) {
+        case 0:
+        {
+            _auditL.text = @"不通过";
+            break;
+        }
+        case 1:
+        {
+            _auditL.text = @"已审核";
+            break;
+        }
+        case 2:
+        {
+            _auditL.text = @"未审核";
+            break;
+        }
+        case 3:
+        {
+            _auditL.text = @"审核中";
+            break;
+        }
+        default:
+            _auditL.text = @"未审核";
+            break;
+    }
+    
+    _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
 }
 
 - (void)initUI{

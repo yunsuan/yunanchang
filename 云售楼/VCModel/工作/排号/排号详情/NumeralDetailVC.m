@@ -21,9 +21,13 @@
 @interface NumeralDetailVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     
+    NSInteger _num;
+    
     NSString *_row_id;
     
-    NSArray *_dataArr;
+    NSMutableDictionary *_dataDic;
+    
+    NSMutableArray *_dataArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -47,11 +51,14 @@
  
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
-    _dataArr = @[@[],@[@"姓名：李翠花",@"手机：183333333",@"证件类型：身份证",@"证件号码：123123123123",@"出生日期：2019.01.01",@"通讯地址：四川成都市",@"邮政编码：232323",@"产权比例：50",@"类型：附权益人"],@[@"f登记时间：2019-03-19",@"登记人：李强",@"归属时间：2019-03-10"]];
+//    _dataArr = @[@[],@[@"姓名：李翠花",@"手机：183333333",@"证件类型：身份证",@"证件号码：123123123123",@"出生日期：2019.01.01",@"通讯地址：四川成都市",@"邮政编码：232323",@"产权比例：50",@"类型：附权益人"],@[@"f登记时间：2019-03-19",@"登记人：李强",@"归属时间：2019-03-10"]];
+    _dataArr = [@[] mutableCopy];
+    _dataDic = [@{} mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -60,7 +67,9 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            
+            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][0][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[]]];
+            [self->_table reloadData];
         }else{
             
             [self showContent:resposeObject[@"msg"]];
@@ -119,7 +128,9 @@
             header = [[NumeralDetailHeader alloc] initWithReuseIdentifier:@"NumeralDetailHeader"];
         }
         
-        header.dataDic = @{};
+//
+        header.dataDic = self->_dataDic;
+        header.num = _num;
         
         header.numeralDetailHeaderAddBlock = ^{
             
@@ -129,6 +140,14 @@
         
         header.numeralDetailHeaderEditBlock = ^{
             
+        };
+        
+        header.numeralDetailHeaderCollBlock = ^(NSInteger index) {
+            
+            self->_num = index;
+            NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][index][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][index][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][index][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][index][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][index][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][index][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][index][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][index][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][index][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]];
+            [self->_dataArr replaceObjectAtIndex:1 withObject:arr];
+            [tableView reloadData];
         };
         
         return header;

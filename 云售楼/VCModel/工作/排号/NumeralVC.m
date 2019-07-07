@@ -12,7 +12,7 @@
 
 #import "NumeralCell.h"
 
-@interface NumeralVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface NumeralVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     
     NSInteger _page;
@@ -21,6 +21,7 @@
     
     NSMutableArray *_dataArr;
 }
+@property (nonatomic, strong) UITextField *searchBar;
 
 @property (nonatomic, strong) UITableView *table;
 @end
@@ -55,12 +56,19 @@
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id,@"page":@(_page)}];
     
+    if (![self isEmpty:_searchBar.text]) {
+        
+        [dic setObject:_searchBar.text forKey:@"search"];
+    }
+    
     _table.mj_footer.state = MJRefreshStateIdle;
     [BaseRequest GET:ProjectRowGetProjectRowList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
+            [self->_dataArr removeAllObjects];
+            [self->_table reloadData];
             if ([resposeObject[@"data"][@"data"] count]) {
                 
                 [self SetData:resposeObject[@"data"][@"data"]];
@@ -84,6 +92,10 @@
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id,@"page":@(_page)}];
     
+    if (![self isEmpty:_searchBar.text]) {
+        
+        [dic setObject:_searchBar.text forKey:@"search"];
+    }
 //    _table.mj_footer.state = MJRefreshStateIdle;
     [BaseRequest GET:ProjectRowGetProjectRowList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
@@ -99,12 +111,12 @@
             }
         }else{
             
-            _page -= 1;
+            self->_page -= 1;
             [self showContent:resposeObject[@"msg"]];
         }
     } failure:^(NSError * _Nonnull error) {
         
-        _page -= 1;
+        self->_page -= 1;
         [self->_table.mj_footer endRefreshing];
         [self showContent:@"网络错误"];
     }];
@@ -131,6 +143,12 @@
     [_table reloadData];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [self RequestMethod];
+    return YES;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return _dataArr.count;
@@ -145,20 +163,44 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+    cell.dataDic = _dataArr[indexPath.row];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] init];
+    NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"row_id"]]];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{
     
     self.titleLabel.text = @"排号";
+    
+    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, 40 *SIZE)];
+    whiteView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:whiteView];
+    
+    _searchBar = [[UITextField alloc] initWithFrame:CGRectMake(10 *SIZE, 3 *SIZE, 340 *SIZE, 33 *SIZE)];
+    _searchBar.backgroundColor = CLLineColor;
+    _searchBar.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 11 *SIZE, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    _searchBar.delegate = self;
+    _searchBar.leftViewMode = UITextFieldViewModeAlways;
+    _searchBar.placeholder = @"输入电话/姓名";
+    _searchBar.font = [UIFont systemFontOfSize:12 *SIZE];
+    _searchBar.layer.cornerRadius = 2 *SIZE;
+    _searchBar.returnKeyType = UIReturnKeySearch;
+    
+    UIImageView *rightImg = [[UIImageView alloc] initWithFrame:CGRectMake(0 *SIZE, 8 *SIZE, 17 *SIZE, 17 *SIZE)];
+    //    rightImg.backgroundColor = [UIColor whiteColor];
+    rightImg.image = [UIImage imageNamed:@"search"];
+    _searchBar.rightView = rightImg;
+    _searchBar.rightViewMode = UITextFieldViewModeUnlessEditing;
+    _searchBar.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _searchBar.delegate = self;
+    [whiteView addSubview:_searchBar];
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 40 *SIZE) style:UITableViewStylePlain];
     _table.backgroundColor = self.view.backgroundColor;

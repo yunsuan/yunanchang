@@ -13,7 +13,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddNumeralInfoCellDropBlock)(void);
+
+typedef void(^AddNumeralInfoCellStrBlock)(NSString *str ,NSInteger num);
+
 @interface AddNumeralInfoCell : UITableViewCell
+
+@property (nonatomic, copy) AddNumeralInfoCellDropBlock addNumeralInfoCellDropBlock;
+
+@property (nonatomic, copy) AddNumeralInfoCellStrBlock addNumeralInfoCellStrBlock;
 
 @property (nonatomic, strong) UILabel *nameL;
 
@@ -30,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *freeL;
 
 @property (nonatomic, strong) BorderTextField *freeTF;
+
+@property (nonatomic, strong) NSMutableArray *typeArr;
 
 @end
 

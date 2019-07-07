@@ -16,11 +16,17 @@ typedef void(^NumeralDetailHeaderAddBlock)(void);
 
 typedef void(^NumeralDetailHeaderEditBlock)(void);
 
+typedef void(^NumeralDetailHeaderCollBlock)(NSInteger index);
+
 @interface NumeralDetailHeader : UITableViewHeaderFooterView
+
+@property (nonatomic, copy) NumeralDetailHeaderCollBlock numeralDetailHeaderCollBlock;
 
 @property (nonatomic, copy) NumeralDetailHeaderAddBlock numeralDetailHeaderAddBlock;
 
 @property (nonatomic, copy) NumeralDetailHeaderEditBlock numeralDetailHeaderEditBlock;
+
+@property (nonatomic, assign) NSInteger num;
 
 @property (nonatomic, strong) UIView *blueView;
 

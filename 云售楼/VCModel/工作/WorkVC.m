@@ -263,16 +263,23 @@
             [self RequestMethod];
         };
         [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.row == 4){
+        
+        NumeralVC *nextVC = [[NumeralVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.row == 5){
+        
+    }else if (indexPath.row == 6){
+        
     }else if (indexPath.row == 7){
         
         WorkReceiptDetailVC *nextVC = [[WorkReceiptDetailVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 8){
         
-        NumeralVC *nextVC = [[NumeralVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        
+        WorkPersonAuditVC *nextVC = [[WorkPersonAuditVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
-//        WorkPersonAuditVC *nextVC = [[WorkPersonAuditVC alloc] init];
-//        [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 9){
         
         RotationVC *nextVC = [[RotationVC alloc]initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
@@ -281,10 +288,10 @@
     }
     else{
         
-        NumeralVC *nextVC = [[NumeralVC alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
-//        AuditTaskVC *nextVC = [[AuditTaskVC alloc] init];
+//        NumeralVC *nextVC = [[NumeralVC alloc] init];
 //        [self.navigationController pushViewController:nextVC animated:YES];
+        AuditTaskVC *nextVC = [[AuditTaskVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 

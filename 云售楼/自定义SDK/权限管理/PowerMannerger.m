@@ -35,6 +35,11 @@
 +(void)GetWorkListPowerWithdata:(NSDictionary *)datadic{
     NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];
     if (datadic) {
+        
+//        [WorkListPower replaceObjectAtIndex:4 withObject:@1];
+//        [WorkListPower replaceObjectAtIndex:6 withObject:@1];
+//        [WorkListPower replaceObjectAtIndex:7 withObject:@1];
+        
         if ([datadic[@"is_butter"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:1 withObject:@1];
             [WorkListPower replaceObjectAtIndex:2 withObject:@1];
@@ -42,9 +47,9 @@
         if ([datadic[@"duty_operate"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:9 withObject:@1];
         }
-        if ([datadic[@"person_check"] boolValue]) {
-            [WorkListPower replaceObjectAtIndex:8 withObject:@1];
-        }
+//        if ([datadic[@"person_check"] boolValue]) {
+//            [WorkListPower replaceObjectAtIndex:8 withObject:@1];
+//        }
         NSArray *arr = datadic[@"app_operate"];
         for (int i = 0 ; i < arr.count; i++) {
             if ([arr[i][@"detail"] integerValue] == 1) {

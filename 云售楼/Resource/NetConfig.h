@@ -10,9 +10,9 @@
 #define NetConfig_h
 
 //新服务器
-static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+//static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
-//static NSString *const TestBase_Net = @"http://47.107.246.94/";
+static NSString *const TestBase_Net = @"http://47.107.246.94/";
 
 #pragma mark --- 登录注册 ---
 
@@ -276,6 +276,10 @@ static NSString *const ProjectRowGetProjectRowList_URL = @"saleApp/project/row/g
 
 //排号详情
 static NSString *const ProjectRowGetRowDetail_URL = @"saleApp/project/row/getRowDetail";
+
+//获取排号类别
+static NSString *const ProjectRowGetRowList_URL = @"saleApp/project/row/getRowList";
+
 #pragma mark --- 我的 ---
 
 #pragma mark -- 通讯录 --

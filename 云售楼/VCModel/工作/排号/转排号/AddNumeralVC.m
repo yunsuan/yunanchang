@@ -9,22 +9,37 @@
 #import "AddNumeralVC.h"
 
 #import "TitleRightBtnHeader.h"
-#import "AddNumeralPersonCell.h"
-#import "AddNumeralInfoCell.h"
-#import "AddNumeralProcessCell.h"
+//#import "AddNumeralPersonCell.h"
+//#import "AddNumeralInfoCell.h"
+//#import "AddNumeralProcessCell.h"
+//#import "ba"
+#import "AddNumeralPersonView.h"
 
-@interface AddNumeralVC ()<UITableViewDelegate,UITableViewDataSource>
+#import "SinglePickView.h"
+#import "DateChooseView.h"
+#import "AdressChooseView.h"
+
+@interface AddNumeralVC ()<UIScrollViewDelegate>
 {
     
+    NSInteger _num;
+    
     NSString *_project_id;
+    NSString *_info_id;
     
     NSArray *_titleArr;
     
+    NSMutableDictionary *_infoDic;
+    
+    NSMutableArray *_certArr;
     NSMutableArray *_personArr;
     NSMutableArray *_selectArr;
+    NSMutableArray *_typeArr;
 }
 
-@property (nonatomic, strong) UITableView *table;
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) AddNumeralPersonView *addNumeralPersonView;
 
 @property (nonatomic, strong) UIButton *nextBtn;
 
@@ -32,13 +47,15 @@
 
 @implementation AddNumeralVC
 
-- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr
+- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr info_id:(NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _project_id = project_id;
         _personArr = [[NSMutableArray alloc] initWithArray:personArr];
+        _info_id = info_id;
+        _infoDic = [@{} mutableCopy];
     }
     return self;
 }
@@ -48,13 +65,50 @@
     
     [self initDataSource];
     [self initUI];
+    [self PropertyRequestMethod];
 }
 
 - (void)initDataSource{
     
     _titleArr = @[@"权益人信息",@"排号信息",@"流程信息"];
-//    _personArr = [@[] mutableCopy];
+    _certArr = [@[] mutableCopy];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0]];
+}
+
+- (void)PropertyRequestMethod{
+    
+    [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"info_id":_info_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            for (int i = 0; i < [resposeObject[@"data"][2] count]; i++) {
+                
+                NSDictionary *dic = @{@"id":resposeObject[@"data"][2][i][@"config_id"],
+                                      @"param":resposeObject[@"data"][2][i][@"config_name"]};
+                [self->_certArr addObject:dic];
+            }
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+    
+    [BaseRequest GET:ProjectRowGetRowList_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_typeArr = [[NSMutableArray alloc] initWithArray:resposeObject[@"data"]];
+//            [self->_table reloadData];
+        }else{
+            
+            
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+    }];
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
@@ -76,111 +130,31 @@
     }];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 3;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    if ([_selectArr[section] integerValue] == 1) {
-        
-        return 1;
-    }else{
-        
-        return 0;
-    }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    TitleRightBtnHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleRightBtnHeader"];
-    if (!header) {
-        
-        header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
-    }
-    
-    header.titleL.text = _titleArr[section];
-    
-    header.addBtn.hidden = YES;
-    if ([_selectArr[section] integerValue] == 1) {
-        
-        [header.moreBtn setTitle:@"收起" forState:UIControlStateNormal];
-    }else{
-        
-        [header.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-    }
-    
-    header.titleRightBtnHeaderMoreBlock = ^{
-      
-        if ([self->_selectArr[section] integerValue] == 1) {
-            
-            [self->_selectArr replaceObjectAtIndex:section withObject:@0];
-        }else{
-            
-            [self->_selectArr replaceObjectAtIndex:section withObject:@1];
-        }
-        [tableView reloadData];
-    };
-    
-    return header;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (indexPath.section == 0) {
-        
-        AddNumeralPersonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddNumeralPersonCell"];
-        if (!cell) {
-            
-            cell = [[AddNumeralPersonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddNumeralPersonCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.dataArr = _personArr;
-        
-        return cell;
-    }else{
-        
-        if (indexPath.section == 1) {
-            
-            AddNumeralInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddNumeralInfoCell"];
-            if (!cell) {
-                
-                cell = [[AddNumeralInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddNumeralInfoCell"];
-            }
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            return cell;
-        }else{
-            
-            AddNumeralProcessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddNumeralProcessCell"];
-            if (!cell) {
-                
-                cell = [[AddNumeralProcessCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddNumeralProcessCell"];
-            }
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            return cell;
-        }
-    }
-}
 
 - (void)initUI{
     
     self.titleLabel.text = @"转排号";
     
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE) style:UITableViewStylePlain];
-    _table.backgroundColor = self.view.backgroundColor;
-    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _table.rowHeight = UITableViewAutomaticDimension;
-    _table.estimatedRowHeight = 100 *SIZE;
-    _table.sectionHeaderHeight = UITableViewAutomaticDimension;
-    _table.estimatedSectionHeaderHeight = 40 *SIZE;
-    _table.delegate = self;
-    _table.dataSource = self;
-    [self.view addSubview:_table];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE)];
+    _scrollView.backgroundColor = CLBackColor;
+    [self.view addSubview:_scrollView];
     
+    TitleRightBtnHeader *header = [[TitleRightBtnHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+    header.titleL.text = @"权益人信息";
+    [_scrollView addSubview:header];
+    
+    _addNumeralPersonView = [[AddNumeralPersonView alloc] init];
+    [_scrollView addSubview:_addNumeralPersonView];
+    
+    [_addNumeralPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(_scrollView).offset(0);
+        make.top.equalTo(_scrollView).offset(40 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.right.equalTo(_scrollView).offset(0);
+        make.bottom.equalTo(_scrollView.mas_bottom).offset(0);
+    }];
+
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];

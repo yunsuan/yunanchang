@@ -13,6 +13,8 @@
 @interface NumeralDetailHeader ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     
+    NSInteger _selectNum;
+    
     NSMutableArray *_collArr;
     NSMutableArray *_selectArr;
 }
@@ -25,6 +27,7 @@
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         
+        _selectArr = [@[] mutableCopy];
         [self initUI];
     }
     return self;
@@ -32,13 +35,80 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _statusL.text = @"排号";
-    _auditL.text = @"审核";
-    _payL.text = @"未收款";
-    _customL.text = @"罗大海";
-    _titleL.text = [NSString stringWithFormat:@"排号类别：%@",@"一批次"];
-    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",@"一批次"];
+    _collArr = [[NSMutableArray alloc] initWithArray:dataDic[@"beneficiary"]];
+    [_coll reloadData];
     
+//    for (int i = 0; i < _collArr.count; i++) {
+//
+//        [_selectArr addObject:@0];
+//    }
+//    _statusL.text = @"排号";
+    switch ([dataDic[@"disabled_state"] integerValue]) {
+        case 0:
+        {
+            _statusL.text = @"排号";
+            break;
+        }
+        case 1:
+        {
+            _statusL.text = @"变更";
+            break;
+        }
+        case 2:
+        {
+            _statusL.text = @"作废";
+            break;
+        }
+        case 3:
+        {
+            _statusL.text = @"转签约";
+            break;
+        }
+        default:
+            _statusL.text = @"排号";
+            break;
+    }
+    switch ([dataDic[@"check_state"] integerValue]) {
+        case 0:
+        {
+            _auditL.text = @"不通过";
+            break;
+        }
+        case 1:
+        {
+            _auditL.text = @"已审核";
+            break;
+        }
+        case 2:
+        {
+            _auditL.text = @"未审核";
+            break;
+        }
+        case 3:
+        {
+            _auditL.text = @"审核中";
+            break;
+        }
+        default:
+            _auditL.text = @"未审核";
+            break;
+    }
+    
+    _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+    _customL.text = @"罗大海";
+    _titleL.text = [NSString stringWithFormat:@"排号类别：%@",dataDic[@"batch_name"]];
+    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"sincerity"]];
+}
+
+- (void)setNum:(NSInteger)num{
+    
+    [_selectArr removeAllObjects];
+    for (int i = 0; i < _collArr.count; i++) {
+        
+        [_selectArr addObject:@0];
+    }
+    _selectNum = num;
+    [_selectArr replaceObjectAtIndex:num withObject:@1];
 }
 
 - (void)ActionAddBtn:(UIButton *)btn{
@@ -86,10 +156,10 @@
     
     [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
     [collectionView reloadData];
-//    if (self.callTelegramCustomDetailHeaderCollBlock) {
-//
-//        self.callTelegramCustomDetailHeaderCollBlock(indexPath.item);
-//    }
+    if (self.numeralDetailHeaderCollBlock) {
+
+        self.numeralDetailHeaderCollBlock(indexPath.item);
+    }
 }
 
 - (void)initUI{
