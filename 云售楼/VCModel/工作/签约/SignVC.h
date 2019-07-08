@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SignVC : BaseViewController
 
+- (instancetype)initWithProjectId:(NSString *)projectId;
+
 @end
 
 NS_ASSUME_NONNULL_END

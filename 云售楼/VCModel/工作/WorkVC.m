@@ -19,6 +19,8 @@
 #import "RotationVC.h"
 #import "CompanyAuthVC.h"
 #import "NumeralVC.h"
+#import "OrderVC.h"
+#import "SignVC.h"
 
 #import "SinglePickView.h"
 
@@ -269,8 +271,12 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 5){
         
+        OrderVC *nextVC = [[OrderVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 6){
         
+        SignVC *nextVC = [[SignVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 7){
         
         WorkReceiptDetailVC *nextVC = [[WorkReceiptDetailVC alloc] init];

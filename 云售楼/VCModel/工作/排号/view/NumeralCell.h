@@ -34,6 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 
+@property (nonatomic, strong) NSDictionary *orderDic;
+
+@property (nonatomic, strong) NSDictionary *signDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

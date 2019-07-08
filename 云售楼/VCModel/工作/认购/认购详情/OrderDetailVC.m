@@ -15,7 +15,13 @@
 @interface OrderDetailVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     
-    NSArray *_dataArr;
+    NSInteger _num;
+    
+    NSString *_sub_id;
+    
+    NSMutableDictionary *_dataDic;
+    
+    NSMutableArray *_dataArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -24,22 +30,54 @@
 
 @implementation OrderDetailVC
 
+- (instancetype)initWithSubId:(NSString *)sub_id
+{
+    self = [super init];
+    if (self) {
+        
+        _sub_id = sub_id;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
 }
 
 - (void)initDataSource{
     
-    _dataArr = @[@[],@[@"姓名：李翠花",@"手机：183333333",@"证件类型：身份证",@"证件号码：123123123123",@"出生日期：2019.01.01",@"通讯地址：四川成都市",@"邮政编码：232323",@"产权比例：50",@"类型：附权益人"],@[@"房号：3-2701",@"公示总价：",@"计价规则：",@"物业类型：",@"户型：",@"建筑面积：",@"套内面积：",@"公摊面积："],@[@"订单编号",@"公示总价：",@"优惠金额：",@"认购总价：",@"套内单价：",@"建筑单价：",@"定金金额：",@"付款日期：",@"付款方式："],@[@"登记时间：2019-03-19",@"登记人：李强",@"归属时间：2019-03-10"]];
+    //    _dataArr = @[@[],@[@"姓名：李翠花",@"手机：183333333",@"证件类型：身份证",@"证件号码：123123123123",@"出生日期：2019.01.01",@"通讯地址：四川成都市",@"邮政编码：232323",@"产权比例：50",@"类型：附权益人"],@[@"f登记时间：2019-03-19",@"登记人：李强",@"归属时间：2019-03-10"]];
+    _dataArr = [@[] mutableCopy];
+    _dataDic = [@{} mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:ProjectHouseGetProjectSubDetail_URL parameters:@{@"sub_id":_sub_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][0][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[]]];
+            [self->_table reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-    
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+//
 //    UIAlertAction *numeral = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //
 //        NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
@@ -84,7 +122,9 @@
             header = [[NumeralDetailHeader alloc] initWithReuseIdentifier:@"NumeralDetailHeader"];
         }
         
-        header.dataDic = @{};
+        //
+        header.dataDic = self->_dataDic;
+        header.num = _num;
         
         header.numeralDetailHeaderAddBlock = ^{
             
@@ -94,6 +134,14 @@
         
         header.numeralDetailHeaderEditBlock = ^{
             
+        };
+        
+        header.numeralDetailHeaderCollBlock = ^(NSInteger index) {
+            
+            self->_num = index;
+            NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][index][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][index][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][index][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][index][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][index][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][index][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][index][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][index][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][index][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]];
+            [self->_dataArr replaceObjectAtIndex:1 withObject:arr];
+            [tableView reloadData];
         };
         
         return header;
@@ -107,12 +155,6 @@
         if (section == 1) {
             
             header.titleL.text = @"权益人信息";
-        }else if (section == 2) {
-            
-            header.titleL.text = @"房屋概况";
-        }else if (section == 3) {
-            
-            header.titleL.text = @"订单信息";
         }else{
             
             header.titleL.text = @"审核信息";
@@ -137,7 +179,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"订单详情";
+    self.titleLabel.text = @"排号详情";
     self.navBackgroundView.backgroundColor = CLBlueBtnColor;
     self.line.hidden = YES;
     self.titleLabel.textColor = CLWhiteColor;

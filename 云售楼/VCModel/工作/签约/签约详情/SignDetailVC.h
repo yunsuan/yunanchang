@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SignDetailVC : BaseViewController
 
+- (instancetype)initWithSubId:(NSString *)sub_id;
+
 @end
 
 NS_ASSUME_NONNULL_END
