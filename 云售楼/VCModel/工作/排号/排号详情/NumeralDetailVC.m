@@ -10,6 +10,7 @@
 
 #import "AddEncumbrancerVC.h"
 #import "NumeralDetailAuditVC.h"
+#import "AddOrderVC.h"
 
 #import "NumeralDetailInvalidView.h"
 
@@ -98,6 +99,8 @@
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
+        AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
     [alert addAction:numeral];

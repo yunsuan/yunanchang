@@ -16,7 +16,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddNumeralPersonViewCollBlock)(NSInteger num);
+
+typedef void(^AddNumeralPersonViewEditBlock)(NSInteger num);
+
+typedef void(^AddNumeralPersonViewAddBlock)(NSInteger num);
+
 @interface AddNumeralPersonView : UIView
+
+@property (nonatomic, copy) AddNumeralPersonViewCollBlock addNumeralPersonViewCollBlock;
+
+@property (nonatomic, copy) AddNumeralPersonViewEditBlock addNumeralPersonViewEditBlock;
+
+@property (nonatomic, copy) AddNumeralPersonViewAddBlock addNumeralPersonViewAddBlock;
+
+@property (nonatomic, assign) NSInteger num;
 
 @property (nonatomic, strong) GZQFlowLayout *flowLayout;
 
@@ -27,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *nameL;
 
 @property (nonatomic, strong) BorderTextField *nameTF;
+
+@property (nonatomic, strong) UIButton *editBtn;
 
 @property (nonatomic, strong) UILabel *genderL;
 
@@ -41,8 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) BorderTextField *phoneTF2;
 
 @property (nonatomic, strong) BorderTextField *phoneTF3;
-
-@property (nonatomic, strong) UIButton *addBtn;
 
 @property (nonatomic, strong) UILabel *certTypeL;
 
@@ -71,6 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *proportionL;
 
 @property (nonatomic, strong) BorderTextField *proportionTF;
+
+@property (nonatomic, strong) NSArray *dataArr;
 
 @end
 

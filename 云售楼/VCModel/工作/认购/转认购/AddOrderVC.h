@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddOrderVC : BaseViewController
 
+//- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr info_id:(NSString *)info_id group_id:(NSString *)group_id;
+
+- (instancetype)initWithRow_id:(NSString *)row_id personArr:(NSArray *)personArr;
+
 @end
 
 NS_ASSUME_NONNULL_END

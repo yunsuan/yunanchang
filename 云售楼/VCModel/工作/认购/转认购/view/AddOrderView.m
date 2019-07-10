@@ -1,0 +1,599 @@
+//
+//  AddOrderView.m
+//  云售楼
+//
+//  Created by 谷治墙 on 2019/7/9.
+//  Copyright © 2019 谷治墙. All rights reserved.
+//
+
+#import "AddOrderView.h"
+
+#import "preferentialCollCell.h"
+#import "installmentCollCell.h"
+
+@interface AddOrderView ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+{
+    
+    NSMutableArray *_preferentialArr;
+    NSMutableArray *_installmentArr;
+}
+@end
+
+@implementation AddOrderView
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+        [self initUI];
+    }
+    return self;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
+    if (collectionView == _coll) {
+        
+        return 1;
+    }else{
+        
+        return _installmentArr.count;
+    }
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    if (collectionView == _coll) {
+        
+        return _preferentialArr.count;
+    }else{
+        
+        return 1;
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (collectionView == _coll) {
+        
+        preferentialCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"preferentialCollCell" forIndexPath:indexPath];
+        if (!cell) {
+            
+            cell = [[preferentialCollCell alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 40 *SIZE)];
+        }
+        
+        return cell;
+    }else{
+        
+        installmentCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"installmentCollCell" forIndexPath:indexPath];
+        if (!cell) {
+            
+            cell = [[installmentCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+        }
+        
+        return cell;
+    }
+}
+
+- (void)initUI{
+    
+    self.backgroundColor = CLWhiteColor;
+    
+    NSArray *titleArr = @[@"定单编号：",@"定金金额：",@"优惠方案：",@"特殊优惠：",@"优惠价格：",@"公示总价：",@"成交价格：",@"付款方式：",@"首付金额：",@"商业贷款金额：",@"商业按揭银行：",@"商业按揭年限：",@"公积金贷款金额：",@"公积金按揭银行：",@"公积金按揭年限：",@"贷款金额：",@"按揭银行：",@"按揭年限："];
+    for (int i = 0; i < 18; i++) {
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.textColor = CLTitleLabColor;
+        label.font = [UIFont systemFontOfSize:13 *SIZE];
+        label.adjustsFontSizeToFitWidth = YES;
+        label.text = titleArr[i];
+        
+        BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+        tf.userInteractionEnabled = NO;
+        tf.backgroundColor = CLBackColor;
+        tf.textField.placeholder = @"请选择房间";
+        switch (i) {
+            case 0:
+            {
+                _codeL = label;
+                [self addSubview:_codeL];
+                
+                _codeTF = tf;
+                [self addSubview:_codeTF];
+                break;
+            }
+            case 1:
+            {
+                _depositL = label;
+                [self addSubview:_depositL];
+                
+                _depositTF = tf;
+                [self addSubview:_depositTF];
+                break;
+            }
+            case 2:
+            {
+                _preferentialL = label;
+                [self addSubview:_preferentialL];
+                
+                
+                break;
+            }
+            case 3:
+            {
+                _spePreferentialL = label;
+                [self addSubview:_spePreferentialL];
+                
+                _spePreferentialTF = tf;
+                [self addSubview:_spePreferentialTF];
+                break;
+            }
+            case 4:
+            {
+                _preferPriceL = label;
+                [self addSubview:_preferPriceL];
+                
+                _preferPriceTF = tf;
+                [self addSubview:_preferPriceTF];
+                break;
+            }
+            case 5:
+            {
+                _totalL = label;
+                [self addSubview:_totalL];
+                
+                _totalTF = tf;
+                [self addSubview:_totalTF];
+                break;
+            }
+            case 6:
+            {
+                _priceL = label;
+                [self addSubview:_priceL];
+                
+                _priceTF = tf;
+                [self addSubview:_priceTF];
+                break;
+            }
+            case 7:
+            {
+                _payWayL = label;
+                [self addSubview:_payWayL];
+                
+                _payWayBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [self addSubview:_payWayBtn];
+                break;
+            }
+            case 8:
+            {
+                _paymentL = label;
+                [self addSubview:_paymentL];
+                
+                _paymentTF = tf;
+                [self addSubview:_paymentTF];
+                break;
+            }
+            case 9:
+            {
+                _businessLoanPriceL = label;
+                _businessLoanPriceL.hidden = YES;
+                [self addSubview:_businessLoanPriceL];
+                
+                _businessLoanPriceTF = tf;
+                _businessLoanPriceTF.hidden = YES;
+                [self addSubview:_businessLoanPriceTF];
+                break;
+            }
+            case 10:
+            {
+                _businessLoanBankL = label;
+                _businessLoanBankL.hidden = YES;
+                [self addSubview:_businessLoanBankL];
+                
+                _businessLoanBankBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                _businessLoanBankBtn.hidden = YES;
+                [self addSubview:_businessLoanBankBtn];
+                break;
+            }
+            case 11:
+            {
+                _businessLoanYearL = label;
+                _businessLoanYearL.hidden = YES;
+                [self addSubview:_businessLoanYearL];
+                
+                _businessLoanYearTF = tf;
+                _businessLoanYearTF.hidden = YES;
+                [self addSubview:_businessLoanYearTF];
+                break;
+            }
+            case 12:
+            {
+                _fundLoanL = label;
+                _fundLoanL.hidden = YES;
+                [self addSubview:_fundLoanL];
+                
+                _fundLoanTF = tf;
+                _fundLoanTF.hidden = YES;
+                [self addSubview:_fundLoanTF];
+                break;
+            }
+            case 13:
+            {
+                _fundLoanBankL = label;
+                _fundLoanBankL.hidden = YES;
+                [self addSubview:_fundLoanBankL];
+                
+                _fundLoanBankBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                _fundLoanBankBtn.hidden = YES;
+                [self addSubview:_fundLoanBankBtn];
+                break;
+            }
+            case 14:
+            {
+                _fundLoanYearL = label;
+                _fundLoanYearL.hidden = YES;
+                [self addSubview:_fundLoanYearL];
+                
+                _fundLoanYearTF = tf;
+                _fundLoanYearTF.hidden = YES;
+                [self addSubview:_fundLoanYearTF];
+                break;
+            }
+            case 15:
+            {
+                _loanPriceL = label;
+                _loanPriceL.hidden = YES;
+                [self addSubview:_loanPriceL];
+                
+                _loanPriceTF = tf;
+                _loanPriceTF.hidden = YES;
+                [self addSubview:_loanPriceTF];
+                break;
+            }
+            case 16:
+            {
+                _loanBankL = label;
+                _loanBankL.hidden = YES;
+                [self addSubview:_loanBankL];
+                
+                _loanBankBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                _loanBankBtn.hidden = YES;
+                [self addSubview:_loanBankBtn];
+                break;
+            }
+            case 17:
+            {
+                _loanYearL = label;
+                _loanYearL.hidden = YES;
+                [self addSubview:_loanYearL];
+                
+                _loanYearTF = tf;
+                _loanYearTF.hidden = YES;
+                [self addSubview:_loanYearTF];
+                break;
+            }
+            default:
+                break;
+        }
+    }
+    
+    _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [_addBtn addTarget:self action:@selector(<#selector#>) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_addBtn];
+    
+    
+    _layout = [[GZQFlowLayout alloc] initWithType:AlignWithCenter betweenOfCell:5 *SIZE];
+    _layout.itemSize = CGSizeMake(258 *SIZE, 40 *SIZE);
+    
+    _coll = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
+    _coll.backgroundColor = CLWhiteColor;
+    [_coll registerClass:[preferentialCollCell class] forCellWithReuseIdentifier:@"preferentialCollCell"];
+    _coll.hidden = YES;
+    [self addSubview:_coll];
+    
+    _installmentLayout = [[GZQFlowLayout alloc] initWithType:AlignWithCenter betweenOfCell:5 *SIZE];
+    _installmentLayout.itemSize = CGSizeMake(SCREEN_Width, 40 *SIZE);
+
+    
+    _installmentColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_installmentLayout];
+    _installmentColl.backgroundColor = CLWhiteColor;
+    _installmentColl.hidden = YES;
+    [_installmentColl registerClass:[installmentCollCell class] forCellWithReuseIdentifier:@"installmentCollCell"];
+    [self addSubview:_installmentColl];
+    
+    
+    [self MasonryUI];
+}
+
+- (void)MasonryUI{
+    
+    [_codeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self).offset(22 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_codeTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self).offset(17 *SIZE);
+        make.width.mas_equalTo(217 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_depositL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_codeTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_depositTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_codeTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_payWayL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_depositTF.mas_bottom).offset(31 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_payWayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_depositTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_preferentialL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_payWayBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_payWayBtn.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(33 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_addBtn.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+    }];
+    
+    [_spePreferentialL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_coll.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_spePreferentialTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_coll.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_preferPriceL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_spePreferentialTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_preferPriceTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_spePreferentialTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_totalL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_preferPriceTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_totalTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_preferPriceTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_priceL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_totalTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_priceTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_totalTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_paymentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_priceTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_paymentTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_priceTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+        make.bottom.equalTo(self).offset(-20 *SIZE);
+    }];
+    
+    [_installmentColl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
+    }];
+    
+    [_loanPriceL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_paymentTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_loanPriceTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_businessLoanPriceL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_paymentTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_businessLoanPriceTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_loanBankL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_loanPriceTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_loanBankBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_loanPriceTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_businessLoanBankL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_businessLoanPriceTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_businessLoanBankBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_businessLoanPriceTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_loanYearL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_loanYearTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_businessLoanYearL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_businessLoanBankBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_businessLoanYearTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_businessLoanBankBtn.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_fundLoanL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_businessLoanYearTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_fundLoanTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_businessLoanYearTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_fundLoanBankL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_fundLoanTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_fundLoanBankBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_fundLoanTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_fundLoanYearL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_fundLoanBankBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_fundLoanYearTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_fundLoanBankBtn.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+}
+
+@end

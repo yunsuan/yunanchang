@@ -45,5 +45,37 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/&#x81ea;&#x5b9a;&#x4e49;SDK/&#x901a;&#x7528;Cell&#x548c;&#x5934;&#x90e8;/&#x6807;&#x9898;&#x53f3;&#x6309;&#x94ae;header/TitleRightBtnHeader.m"
+            timestampString = "584345533.154783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-ActionMoreBtn:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/&#x81ea;&#x5b9a;&#x4e49;SDK/&#x901a;&#x7528;Cell&#x548c;&#x5934;&#x90e8;/&#x6807;&#x9898;&#x53f3;&#x6309;&#x94ae;header/TitleRightBtnHeader.m"
+            timestampString = "584345533.154855"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "-ActionMoreBtn:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

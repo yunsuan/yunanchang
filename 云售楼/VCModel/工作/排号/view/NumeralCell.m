@@ -94,7 +94,7 @@
     switch ([orderDic[@"disabled_state"] integerValue]) {
         case 0:
         {
-            _statusL.text = @"排号";
+            _statusL.text = @"有效";
             break;
         }
         case 1:
@@ -109,11 +109,21 @@
         }
         case 3:
         {
+            _statusL.text = @"定单";
+            break;
+        }
+        case 4:
+        {
             _statusL.text = @"转签约";
             break;
         }
+        case 5:
+        {
+            _statusL.text = @"退号";
+            break;
+        }
         default:
-            _statusL.text = @"排号";
+            _statusL.text = @"有效";
             break;
     }
     switch ([orderDic[@"check_state"] integerValue]) {
@@ -156,7 +166,7 @@
     switch ([signDic[@"disabled_state"] integerValue]) {
         case 0:
         {
-            _statusL.text = @"排号";
+            _statusL.text = @"有效";
             break;
         }
         case 1:
@@ -171,11 +181,21 @@
         }
         case 3:
         {
+            _statusL.text = @"定单";
+            break;
+        }
+        case 4:
+        {
             _statusL.text = @"转签约";
             break;
         }
+        case 5:
+        {
+            _statusL.text = @"退号";
+            break;
+        }
         default:
-            _statusL.text = @"排号";
+            _statusL.text = @"有效";
             break;
     }
     switch ([signDic[@"check_state"] integerValue]) {

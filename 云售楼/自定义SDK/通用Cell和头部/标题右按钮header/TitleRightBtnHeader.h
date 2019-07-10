@@ -14,6 +14,8 @@ typedef void(^TitleRightBtnHeaderMoreBlock)(void);
 
 @interface TitleRightBtnHeader : UITableViewHeaderFooterView
 
+- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title;
+
 @property (nonatomic, copy) TitleRightBtnHeaderMoreBlock titleRightBtnHeaderMoreBlock;
 
 @property (nonatomic, strong) UILabel *titleL;

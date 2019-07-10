@@ -1,25 +1,26 @@
 //
-//  AddNumeralInfoCell.m
+//  AddNumeralInfoView.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/2.
+//  Created by 谷治墙 on 2019/7/9.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddNumeralInfoCell.h"
+#import "AddNumeralInfoView.h"
 
-@interface AddNumeralInfoCell ()<UITextFieldDelegate>
+@interface AddNumeralInfoView ()<UITextFieldDelegate>
 {
     
     NSMutableArray *_cateArr;
 }
+
 @end
 
-@implementation AddNumeralInfoCell
+@implementation AddNumeralInfoView
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)init
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super init];
     if (self) {
         
         [self initUI];
@@ -34,13 +35,15 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
-    if (self.addNumeralInfoCellStrBlock) {
+    if (self.addNumeralInfoViewStrBlock) {
         
-        self.addNumeralInfoCellStrBlock(textField.text, textField.tag);
+        self.addNumeralInfoViewStrBlock(textField.text, textField.tag);
     }
 }
 
 - (void)initUI{
+    
+    self.backgroundColor = CLWhiteColor;
     
     NSArray *titleArr = @[@"项目名称：",@"排号类别：",@"排号号码：",@"排号费用："];
     for (int i = 0; i < 4; i++) {
@@ -50,15 +53,15 @@
         label.adjustsFontSizeToFitWidth = YES;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         label.text = titleArr[i];
-//        [self.contentView addSubview:label];
+        //        [self addSubview:label];
         
         if (i == 1) {
             
             _typeL = label;
-            [self.contentView addSubview:_typeL];
+            [self addSubview:_typeL];
             
             _typeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
-            [self.contentView addSubview:_typeBtn];
+            [self addSubview:_typeBtn];
         }else{
             
             BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
@@ -66,53 +69,53 @@
             if (i == 0) {
                 
                 _nameL = label;
-                [self.contentView addSubview:_nameL];
+                [self addSubview:_nameL];
                 
                 _nameTF = tf;
-                [self.contentView addSubview:_nameTF];
+                [self addSubview:_nameTF];
             }else if (i == 2){
                 
                 _numL = label;
-                [self.contentView addSubview:_numL];
+                [self addSubview:_numL];
                 
                 _numTF = tf;
-                [self.contentView addSubview:_numTF];
+                [self addSubview:_numTF];
             }else{
                 
                 _freeL = label;
-                [self.contentView addSubview:_freeL];
+                [self addSubview:_freeL];
                 
                 _freeTF = tf;
-                [self.contentView addSubview:_freeTF];
+                [self addSubview:_freeTF];
             }
         }
     }
     
     [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(9 *SIZE);
-        make.top.equalTo(self.contentView).offset(12 *SIZE);
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_nameTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(80 *SIZE);
-        make.top.equalTo(self.contentView).offset(9 *SIZE);
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
     [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.left.equalTo(self).offset(9 *SIZE);
         make.top.equalTo(self->_nameTF.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_typeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(80 *SIZE);
+        make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self->_nameTF.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
@@ -120,14 +123,14 @@
     
     [_numL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.left.equalTo(self).offset(9 *SIZE);
         make.top.equalTo(self->_typeBtn.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_numTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(80 *SIZE);
+        make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
@@ -135,18 +138,18 @@
     
     [_freeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.left.equalTo(self).offset(9 *SIZE);
         make.top.equalTo(self->_numTF.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_freeTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(80 *SIZE);
+        make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self->_numTF.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
-        make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
+        make.bottom.equalTo(self).offset(-10 *SIZE);
     }];
 }
 

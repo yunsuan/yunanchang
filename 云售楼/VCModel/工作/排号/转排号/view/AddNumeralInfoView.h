@@ -1,8 +1,8 @@
 //
-//  AddNumeralInfoCell.h
+//  AddNumeralInfoView.h
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/2.
+//  Created by 谷治墙 on 2019/7/9.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
@@ -13,15 +13,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^AddNumeralInfoCellDropBlock)(void);
+typedef void(^AddNumeralInfoViewDropBlock)(void);
 
-typedef void(^AddNumeralInfoCellStrBlock)(NSString *str ,NSInteger num);
+typedef void(^AddNumeralInfoViewStrBlock)(NSString *str ,NSInteger num);
 
-@interface AddNumeralInfoCell : UITableViewCell
+@interface AddNumeralInfoView : UIView
 
-@property (nonatomic, copy) AddNumeralInfoCellDropBlock addNumeralInfoCellDropBlock;
+@property (nonatomic, copy) AddNumeralInfoViewDropBlock addNumeralInfoViewDropBlock;
 
-@property (nonatomic, copy) AddNumeralInfoCellStrBlock addNumeralInfoCellStrBlock;
+@property (nonatomic, copy) AddNumeralInfoViewStrBlock addNumeralInfoViewStrBlock;
 
 @property (nonatomic, strong) UILabel *nameL;
 

@@ -20,6 +20,16 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title{
+    
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        [self initUI];
+    }
+    return self;
+}
+
 - (void)ActionMoreBtn:(UIButton *)btn{
     
     if (self.titleRightBtnHeaderMoreBlock) {
