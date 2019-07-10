@@ -11,6 +11,8 @@
 @interface AddNumeralPersonView ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UITextFieldDelegate>
 {
     
+    NSInteger _index;
+    
     NSMutableArray *_collArr;
     NSMutableArray *_selectArr;
 }
@@ -37,8 +39,14 @@
     [_coll reloadData];
 }
 
+- (void)setProportion:(NSString *)proportion{
+    
+    _proportionTF.textField.text = proportion;
+}
+
 - (void)setNum:(NSInteger)num{
     
+    _index = num;
     _selectArr = [@[] mutableCopy];
     for (int i = 0; i < _collArr.count; i++) {
         
@@ -57,7 +65,7 @@
     
     if (self.addNumeralPersonViewAddBlock) {
         
-        self.addNumeralPersonViewAddBlock(_num);
+        self.addNumeralPersonViewAddBlock(_index);
     }
 }
 
@@ -65,7 +73,15 @@
     
     if (self.addNumeralPersonViewEditBlock) {
         
-        self.addNumeralPersonViewEditBlock(_num);
+        self.addNumeralPersonViewEditBlock(_index);
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    if (self.addNumeralPersonViewStrBlock) {
+        
+        self.addNumeralPersonViewStrBlock(textField.text, _index);
     }
 }
 

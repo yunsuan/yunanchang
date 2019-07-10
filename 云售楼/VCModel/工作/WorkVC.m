@@ -260,6 +260,7 @@
         
         VisitCustomVC *nextVC = [[VisitCustomVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         nextVC.powerDic = [PowerModel defaultModel].visitPower;//_powerArr[3];
+        nextVC.projectName = [UserModel defaultModel].projectinfo[@"project_name"];
         nextVC.visitCustomVCBlock = ^{
           
             [self RequestMethod];

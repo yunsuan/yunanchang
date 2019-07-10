@@ -17,11 +17,19 @@ typedef void(^AddNumeralInfoViewDropBlock)(void);
 
 typedef void(^AddNumeralInfoViewStrBlock)(NSString *str ,NSInteger num);
 
+typedef void(^AddNumeralInfoViewInfoTimeBlock)(void);
+
+typedef void(^AddNumeralInfoViewFailTimeBlock)(void);
+
 @interface AddNumeralInfoView : UIView
 
 @property (nonatomic, copy) AddNumeralInfoViewDropBlock addNumeralInfoViewDropBlock;
 
 @property (nonatomic, copy) AddNumeralInfoViewStrBlock addNumeralInfoViewStrBlock;
+
+@property (nonatomic, copy) AddNumeralInfoViewInfoTimeBlock addNumeralInfoViewInfoTimeBlock;
+
+@property (nonatomic, copy) AddNumeralInfoViewFailTimeBlock addNumeralInfoViewFailTimeBlock;
 
 @property (nonatomic, strong) UILabel *nameL;
 
@@ -39,7 +47,17 @@ typedef void(^AddNumeralInfoViewStrBlock)(NSString *str ,NSInteger num);
 
 @property (nonatomic, strong) BorderTextField *freeTF;
 
+@property (nonatomic, strong) UILabel *infoTimeL;
+
+@property (nonatomic, strong) DropBtn *infoTimeBtn;
+
+@property (nonatomic, strong) UILabel *failTimeL;
+
+@property (nonatomic, strong) DropBtn *failTimeBtn;
+
 @property (nonatomic, strong) NSMutableArray *typeArr;
+
+@property (nonatomic, strong) NSDictionary *dataDic;
 
 @end
 

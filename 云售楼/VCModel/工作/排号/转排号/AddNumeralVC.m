@@ -34,12 +34,17 @@
     NSArray *_titleArr;
     
     NSMutableDictionary *_infoDic;
+    NSMutableDictionary *_progressDic;
     
     NSMutableArray *_certArr;
     NSMutableArray *_personArr;
     NSMutableArray *_proportionArr;
     NSMutableArray *_selectArr;
     NSMutableArray *_typeArr;
+    NSMutableArray *_progressArr;
+    NSMutableArray *_progressAllArr;
+    
+    NSDateFormatter *_formatter;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -69,12 +74,14 @@
         
         _project_id = project_id;
         _personArr = [[NSMutableArray alloc] initWithArray:personArr];
+        _proportionArr = [@[] mutableCopy];
         for (int i = 0; i < _personArr.count; i++) {
             
             [_proportionArr addObject:@""];
         }
         _info_id = info_id;
         _infoDic = [@{} mutableCopy];
+        _progressDic = [@{} mutableCopy];
         _group_id = group_id;
     }
     return self;
@@ -94,6 +101,14 @@
     _titleArr = @[@"权益人信息",@"排号信息",@"流程信息"];
     _certArr = [@[] mutableCopy];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0]];
+    _typeArr = [@[] mutableCopy];
+    _progressArr = [@[] mutableCopy];
+    _progressAllArr = [@[] mutableCopy];
+    
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    
+    [_infoDic setObject:[_formatter stringFromDate:[NSDate date]] forKey:@"row_time"];
 }
 
 - (void)PropertyRequestMethod{
@@ -121,8 +136,16 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_typeArr = [[NSMutableArray alloc] initWithArray:resposeObject[@"data"]];
-//            [self->_table reloadData];
+//            self->_typeArr = [[NSMutableArray alloc] initWithArray:resposeObject[@"data"]];
+            [self->_typeArr removeAllObjects];
+            for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                
+                NSArray *arr = resposeObject[@"data"][i][@"list"];
+                for (int j = 0; j < arr.count; j++) {
+                    
+                    [self->_typeArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",resposeObject[@"data"][i][@"batch_name"],arr[j][@"row_name"]],@"id":arr[j][@"config_id"]}];
+                }
+            }
         }else{
             
             
@@ -130,11 +153,32 @@
     } failure:^(NSError * _Nonnull error) {
         
     }];
+    
+    [BaseRequest GET:ProjectProgressGet_URL parameters:@{@"project_id":_project_id,@"config_type":@"1",@"progress_defined_id":@"1"} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            [self->_progressArr removeAllObjects];
+            [self->_progressAllArr removeAllObjects];
+            self->_progressAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+            for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+
+                [self->_progressArr addObject:@{@"param":[NSString stringWithFormat:@"%@",resposeObject[@"data"][i][@"progress_name"]],@"id":resposeObject[@"data"][i][@"progress_id"]}];
+            }
+        }else{
+            
+            
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        
+    }];
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
     BOOL isFull = YES;
+    NSInteger percent = 0;
     for (NSString *str in _proportionArr) {
         
         if (!str.length) {
@@ -142,16 +186,87 @@
             isFull = NO;
             [self showContent:@"请填写权益人比例"];
             break;
+        }else{
+            
+            percent += [str integerValue];
         }
     }
     if (!isFull) {
         
         return;
     }
+    if (percent != 100) {
+        
+        [self showContent:@"权益人比例总和不为100"];
+        return;
+    }
     
-    NSDictionary *dic = @{@"project_id":_project_id};
+    if (!_addNumeralInfoView.typeBtn.content.text.length) {
+        
+        [self showContent:@"请选择排号类别"];
+        return;
+    }
+    if (!_addNumeralInfoView.numTF.textField.text.length) {
+        
+        [self showContent:@"请输入排号号码"];
+        return;
+    }
+    if (!_addNumeralInfoView.freeTF.textField.text.length) {
+        
+        [self showContent:@"请输入诚意金"];
+        return;
+    }
+    if (!_addNumeralProcessView.typeBtn.content.text.length) {
+        [self showContent:@"请选择审批流程"];
+        return;
+    }
     
-    [BaseRequest POST:ProjectRowAddRow_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id,@"config_id":_infoDic[@"config_id"]}];
+    NSMutableArray *tempArr = [@[] mutableCopy];
+    for (int i = 0; i < _personArr.count; i++) {
+        
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:_personArr[i]];
+        if (i == 0) {
+            
+            [tempDic setObject:@"1" forKey:@"beneficiary_type"];
+        }else{
+            
+            [tempDic setObject:@"2" forKey:@"beneficiary_type"];
+        }
+        [tempDic removeObjectForKey:@"client_id"];
+        [tempDic removeObjectForKey:@"comment"];
+        [tempDic removeObjectForKey:@"mail_code"];
+        [tempDic removeObjectForKey:@"tel_show_state"];
+        [tempDic setObject:_group_id forKey:@"group_id"];
+        
+        [tempDic setObject:_proportionArr[i] forKey:@"property"];
+        [tempArr addObject:tempDic];
+    }
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tempArr options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *personjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [dic setObject:personjson forKey:@"beneficiary_list"];
+    [dic setObject:@"1" forKey:@"from_type"];
+    [dic setObject:_group_id forKey:@"from_id"];
+    [dic setObject:_infoDic[@"row_code"] forKey:@"row_code"];
+    [dic setObject:_infoDic[@"sincerity"] forKey:@"sincerity"];
+    if (_infoDic[@"row_time"]) {
+        
+        [dic setObject:_infoDic[@"row_time"] forKey:@"row_time"];
+    }
+    if (_infoDic[@"end_time"]) {
+        
+        [dic setObject:_infoDic[@"end_time"] forKey:@"end_time"];
+    }
+    
+    NSArray *arr = @[@{@"name":@"管理员",@"type":@"1",@"property":@"100.00",@"comment":@"",@"state":@"1"}];
+//    NSError *error;
+    NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];
+    [dic setObject:personjson1 forKey:@"advicer_list"];
+    [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
+    
+    [BaseRequest POST:ProjectRowAddRow_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -217,10 +332,19 @@
     _addNumeralPersonView = [[AddNumeralPersonView alloc] init];
     _addNumeralPersonView.dataArr = _personArr;
     _addNumeralPersonView.num = _num;
+    _addNumeralPersonView.proportion = _proportionArr[_num];
+    
+    _addNumeralPersonView.addNumeralPersonViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
+      
+        [strongSelf->_proportionArr replaceObjectAtIndex:num withObject:str];
+        NSLog(@"1111111111%@",strongSelf->_proportionArr);
+    };
     
     _addNumeralPersonView.addNumeralPersonViewCollBlock = ^(NSInteger num) {
         
         self->_num = num;
+        strongSelf->_addNumeralPersonView.num = num;
+        strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[num];
     };
     _addNumeralPersonView.addNumeralPersonViewAddBlock = ^(NSInteger num) {
         
@@ -228,9 +352,15 @@
         nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
         nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
           
+            [strongSelf->_proportionArr addObject:@""];
             [strongSelf->_personArr addObject:dic];
             strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
             strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count;
+            strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[strongSelf->_personArr.count];
+            if (strongSelf.addNumeralVCBlock) {
+                
+                strongSelf.addNumeralVCBlock();
+            }
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
@@ -248,6 +378,12 @@
                 }
             }];
             [strongSelf->_personArr replaceObjectAtIndex:strongSelf->_num withObject:tempDic];
+            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
+            strongSelf->_addNumeralPersonView.num = strongSelf->_num;
+            if (strongSelf.addNumeralVCBlock) {
+                
+                strongSelf.addNumeralVCBlock();
+            }
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
@@ -293,12 +429,99 @@
     [_scrollView addSubview:_infoHeader];
     
     _addNumeralInfoView = [[AddNumeralInfoView alloc] init];
+    _addNumeralInfoView.nameTF.textField.text = self.projectName;
     _addNumeralInfoView.hidden = YES;
+    _addNumeralInfoView.dataDic = _infoDic;
     _addNumeralInfoView.addNumeralInfoViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
         
+        if (num == 0) {
+            
+//            [strongSelf->_infoDic setObject:str forKey:@""];
+        }else if (num == 2){
+            
+            [strongSelf->_infoDic setObject:str forKey:@"row_code"];
+        }else{
+            
+            [strongSelf->_infoDic setObject:str forKey:@"sincerity"];
+        }
+        strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
     };
     _addNumeralInfoView.addNumeralInfoViewDropBlock = ^{
         
+        if (strongSelf->_typeArr.count) {
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height) WithData:strongSelf->_typeArr];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"config_id"];
+                [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"config_name"];
+                strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else{
+            
+            [BaseRequest GET:ProjectRowGetRowList_URL parameters:@{@"project_id":strongSelf->_project_id} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [strongSelf->_typeArr removeAllObjects];
+                    for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                        
+                        NSArray *arr = resposeObject[@"data"][i][@"list"];
+                        for (int j = 0; j < arr.count; j++) {
+                            
+                            [strongSelf->_typeArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",resposeObject[@"data"][i][@"batch_name"],arr[j][@"row_name"]],@"id":arr[j][@"config_id"]}];
+                        }
+                    }
+                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height) WithData:strongSelf->_typeArr];
+                    view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                        
+                        strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
+                    };
+                    [strongSelf.view addSubview:view];
+                }else{
+                    
+                    
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+            }];
+        }
+        
+    };
+    
+    
+    
+    _addNumeralInfoView.addNumeralInfoViewInfoTimeBlock = ^{
+        
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+        [view.pickerView setMaximumDate:[NSDate date]];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setDay:10];//设置最大时间为：当前时间推后10天
+        [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
+        view.dateblock = ^(NSDate *date) {
+            
+            [strongSelf->_infoDic setObject:[strongSelf->_formatter stringFromDate:date] forKey:@"row_time"];
+            strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
+        };
+        [strongSelf.view addSubview:view];
+    };
+    
+    _addNumeralInfoView.addNumeralInfoViewFailTimeBlock = ^{
+        
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setDay:30];//设置最大时间为：当前时间推后10天
+        [view.pickerView setMaximumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
+        [view.pickerView setMinimumDate:[NSDate date]];
+        view.dateblock = ^(NSDate *date) {
+            
+            [strongSelf->_infoDic setObject:[strongSelf->_formatter stringFromDate:date] forKey:@"end_time"];
+            strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
+        };
+        [strongSelf.view addSubview:view];
     };
     [_scrollView addSubview:_addNumeralInfoView];
     
@@ -344,6 +567,68 @@
     
     _addNumeralProcessView = [[AddNumeralProcessView alloc] init];
     _addNumeralProcessView.hidden = YES;
+    _addNumeralProcessView.dataDic = _progressDic;
+    _addNumeralProcessView.addNumeralProcessViewAuditBlock = ^{
+        
+    };
+    _addNumeralProcessView.addNumeralProcessViewTypeBlock = ^{
+        
+        if (strongSelf->_progressArr.count) {
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
+                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
+                for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
+                    
+                    if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
+                        
+                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
+                    }
+                }
+                strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else{
+            
+            [BaseRequest GET:ProjectProgressGet_URL parameters:@{@"project_id":strongSelf->_project_id,@"config_type":@"1",@"progress_defined_id":@"1"} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [strongSelf->_progressArr removeAllObjects];
+                    [strongSelf->_progressAllArr removeAllObjects];
+                    strongSelf->_progressAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+                    for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                        
+                        [strongSelf->_progressArr addObject:@{@"param":[NSString stringWithFormat:@"%@",resposeObject[@"data"][i][@"progress_name"]],@"id":resposeObject[@"data"][i][@"progress_id"]}];
+                    }
+                    
+                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
+                    view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                        
+                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
+                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
+                        for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
+                            
+                            if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
+                                
+                                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
+                            }
+                        }
+                        strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
+                    };
+                    [strongSelf.view addSubview:view];
+                }else{
+                    
+                    
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                
+            }];
+        }
+    };
     [_scrollView addSubview:_addNumeralProcessView];
     
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];

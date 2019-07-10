@@ -22,6 +22,8 @@ typedef void(^AddNumeralPersonViewEditBlock)(NSInteger num);
 
 typedef void(^AddNumeralPersonViewAddBlock)(NSInteger num);
 
+typedef void(^AddNumeralPersonViewStrBlock)(NSString *str ,NSInteger num);
+
 @interface AddNumeralPersonView : UIView
 
 @property (nonatomic, copy) AddNumeralPersonViewCollBlock addNumeralPersonViewCollBlock;
@@ -29,6 +31,8 @@ typedef void(^AddNumeralPersonViewAddBlock)(NSInteger num);
 @property (nonatomic, copy) AddNumeralPersonViewEditBlock addNumeralPersonViewEditBlock;
 
 @property (nonatomic, copy) AddNumeralPersonViewAddBlock addNumeralPersonViewAddBlock;
+
+@property (nonatomic, copy) AddNumeralPersonViewStrBlock addNumeralPersonViewStrBlock;
 
 @property (nonatomic, assign) NSInteger num;
 
@@ -85,6 +89,8 @@ typedef void(^AddNumeralPersonViewAddBlock)(NSInteger num);
 @property (nonatomic, strong) UILabel *proportionL;
 
 @property (nonatomic, strong) BorderTextField *proportionTF;
+
+@property (nonatomic, strong) NSString *proportion;
 
 @property (nonatomic, strong) NSArray *dataArr;
 

@@ -280,6 +280,12 @@ static NSString *const ProjectRowGetRowDetail_URL = @"saleApp/project/row/getRow
 //获取排号类别
 static NSString *const ProjectRowGetRowList_URL = @"saleApp/project/row/getRowList";
 
+//获取排号流程
+static NSString *const ProjectGetProgressList_URL = @"saleApp/project/getProgressList";
+
+//流程获取
+static NSString *const ProjectProgressGet_URL = @"saleApp/project/progress/get";
+
 #pragma mark -- 认购 --
 
 //认购列表

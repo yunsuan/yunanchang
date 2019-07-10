@@ -320,6 +320,7 @@
         nextVC.project_id = [NSString stringWithFormat:@"%@",_projectId];
         nextVC.info_id = [NSString stringWithFormat:@"%@",_info_id];
         nextVC.name = @"";//_dataArr[indexPath.row][@"agent_name"];
+        nextVC.projectName = self.projectName;
         if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
             
             nextVC.powerDic = self.powerDic;
@@ -340,6 +341,7 @@
             nextVC.project_id = [NSString stringWithFormat:@"%@",_projectId];
             nextVC.info_id = [NSString stringWithFormat:@"%@",_info_id];
             nextVC.name = @"";//_dataArr[indexPath.row][@"agent_name"];
+            nextVC.projectName = self.projectName;
             if ([_dataArr[indexPath.row][@"advicer_id"] integerValue] == [[UserModel defaultModel].agent_id integerValue]) {
                 
                 nextVC.powerDic = self.powerDic;

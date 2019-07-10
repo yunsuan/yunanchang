@@ -24,6 +24,8 @@ typedef void(^VisitCustomDetailModifyBlock)(void);
 
 @property (nonatomic, strong) NSString *name;
 
+@property (nonatomic, strong) NSString *projectName;
+
 - (instancetype)initWithGroupId:(NSString *)groupId;
 
 @end
