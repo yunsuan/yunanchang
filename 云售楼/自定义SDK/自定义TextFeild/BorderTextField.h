@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UITextField *textField;
 
+@property (nonatomic, copy) UILabel *unitL;
+
 @end
 
 NS_ASSUME_NONNULL_END

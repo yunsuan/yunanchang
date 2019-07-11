@@ -294,6 +294,9 @@ static NSString *const ProjectHouseGetProjectSublist_URL = @"saleApp/project/hou
 //认购详情
 static NSString *const ProjectHouseGetProjectSubDetail_URL = @"saleApp/project/house/getProjectSubDetail";
 
+//折扣列表
+static NSString *const ProjectHouseGetDiscountList_URL =  @"saleApp/project/house/getDiscountList";
+
 #pragma mark -- 签约 --
 //签约列表
 static NSString *const ProjectHouseGetProjectContractList_URL = @"saleApp/project/house/getProjectContractList";

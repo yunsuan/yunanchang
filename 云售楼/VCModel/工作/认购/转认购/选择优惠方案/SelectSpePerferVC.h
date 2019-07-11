@@ -10,7 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SelectSpePerferVCBlock)(NSDictionary *dic);
+
 @interface SelectSpePerferVC : BaseViewController
+
+@property (nonatomic, copy) SelectSpePerferVCBlock selectSpePerferVCBlock;
+
+@property (nonatomic, strong) NSDictionary *dic;
 
 @end
 

@@ -9,6 +9,7 @@
 #import "AddOrderVC.h"
 
 #import "RoomVC.h"
+#import "SelectSpePerferVC.h"
 
 #import "AddNemeralHeader.h"
 
@@ -16,6 +17,8 @@
 #import "AddOrderRoomView.h"
 #import "AddOrderView.h"
 #import "AddNumeralProcessView.h"
+
+#import "SinglePickView.h"
 
 @interface AddOrderVC ()<UIScrollViewDelegate>
 {
@@ -29,12 +32,14 @@
     NSArray *_titleArr;
     
     NSMutableDictionary *_roomDic;
+    NSMutableDictionary *_ordDic;
     
     NSMutableArray *_certArr;
     NSMutableArray *_personArr;
     NSMutableArray *_proportionArr;
     NSMutableArray *_selectArr;
     NSMutableArray *_typeArr;
+    NSMutableArray *_disCountArr;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -74,6 +79,7 @@
         }
 //        _info_id = info_id;
         _roomDic = [@{} mutableCopy];
+        _ordDic = [@{} mutableCopy];
 //        _group_id = group_id;
     }
     return self;
@@ -93,6 +99,7 @@
     _titleArr = @[@"权益人信息",@"房源信息",@"定单信息"];
     _certArr = [@[] mutableCopy];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0]];
+    _disCountArr = [@[] mutableCopy];
 }
 
 - (void)PropertyRequestMethod{
@@ -302,6 +309,8 @@
             
             strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
             strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
+            strongSelf->_ordDic = dic[@"total_price"];
+            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
@@ -378,12 +387,60 @@
     
     _addOrderView = [[AddOrderView alloc] init];
     _addOrderView.hidden = YES;
-    //    _addOrderRoomView.addNumeralInfoViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
-    //
-    //    };
-    //    _addNumeralInfoView.addNumeralInfoViewDropBlock = ^{
-    //
-    //    };
+    _addOrderView.dataArr = _disCountArr;
+    _addOrderView.dataDic = _ordDic;
+    _addOrderView.addOrderViewAddBlock = ^{
+      
+        if (strongSelf->_roomDic.count) {
+            
+            SelectSpePerferVC *nextVC = [[SelectSpePerferVC alloc] init];
+            nextVC.dic = strongSelf->_roomDic;
+            nextVC.selectSpePerferVCBlock = ^(NSDictionary * _Nonnull dic) {
+                
+                [strongSelf->_disCountArr addObject:dic];
+                strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
+            };
+            [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            [strongSelf showContent:@"请选择房源"];
+        }
+    };
+    
+    _addOrderView.addOrderViewStrBlock = ^(NSString * _Nonnull str, NSInteger index) {
+        
+        if (index == 0) {
+            
+            [strongSelf->_ordDic setObject:str forKey:@"sub_code"];
+        }else if (index == 1){
+            
+            [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
+        }else if (index == 3){
+            
+            [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
+        }else if (index == 7){
+            
+            [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
+        }
+    };
+    
+    _addOrderView.addOrderViewDropBlock = ^(NSInteger index) {
+      
+        SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            
+            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"payWay_Name"];
+            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"payWay_id"];
+            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+        };
+        [strongSelf.view addSubview:view];
+    };
+    
+    _addOrderView.addOrderViewDeleteBlock = ^(NSInteger index) {
+      
+        [strongSelf->_disCountArr removeObjectAtIndex:index];
+    };
+    
     [_scrollView addSubview:_addOrderView];
     
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];

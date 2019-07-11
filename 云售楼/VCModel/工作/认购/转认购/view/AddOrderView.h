@@ -17,9 +17,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^AddOrderViewAddBlock)(void);
 
+typedef void(^AddOrderViewDeleteBlock)(NSInteger index);
+
+typedef void(^AddOrderViewStrBlock)(NSString *str, NSInteger index);
+
+typedef void(^AddOrderViewDropBlock)(NSInteger index);
+
 @interface AddOrderView : UIView
 
 @property (nonatomic, copy) AddOrderViewAddBlock addOrderViewAddBlock;
+
+@property (nonatomic, copy) AddOrderViewDeleteBlock addOrderViewDeleteBlock;
+
+@property (nonatomic, copy) AddOrderViewStrBlock addOrderViewStrBlock;
+
+@property (nonatomic, copy) AddOrderViewDropBlock addOrderViewDropBlock;
 
 @property (nonatomic, strong) UILabel *codeL;
 
@@ -100,6 +112,10 @@ typedef void(^AddOrderViewAddBlock)(void);
 @property (nonatomic, strong) GZQFlowLayout *installmentLayout;
 
 @property (nonatomic, strong) UICollectionView *installmentColl;
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) NSDictionary *dataDic;
 
 @end
 

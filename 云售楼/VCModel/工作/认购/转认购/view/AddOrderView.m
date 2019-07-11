@@ -11,7 +11,7 @@
 #import "preferentialCollCell.h"
 #import "installmentCollCell.h"
 
-@interface AddOrderView ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+@interface AddOrderView ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UITextFieldDelegate>
 {
     
     NSMutableArray *_preferentialArr;
@@ -26,6 +26,8 @@
     self = [super init];
     if (self) {
         
+        _preferentialArr = [@[] mutableCopy];
+        _installmentArr = [@[] mutableCopy];
         [self initUI];
     }
     return self;
@@ -37,6 +39,38 @@
         
         self.addOrderViewAddBlock();
     }
+}
+
+- (void)ActionDropBtn:(UIButton *)btn{
+    
+    if (self.addOrderViewDropBlock) {
+        
+        self.addOrderViewDropBlock(0);
+    }
+}
+
+- (void)setDataDic:(NSDictionary *)dataDic{
+    
+    _priceTF.textField.text = dataDic[@"total_price"];
+    _payWayBtn.content.text = dataDic[@"payWay_Name"];
+}
+
+- (void)setDataArr:(NSMutableArray *)dataArr{
+    
+    _preferentialArr = [NSMutableArray arrayWithArray:dataArr];
+    [_coll reloadData];
+    [_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_addBtn.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+    }];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    self.addOrderViewStrBlock(textField.text, textField.tag);
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -68,8 +102,25 @@
         preferentialCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"preferentialCollCell" forIndexPath:indexPath];
         if (!cell) {
             
-            cell = [[preferentialCollCell alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 40 *SIZE)];
+            cell = [[preferentialCollCell alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 80 *SIZE)];
         }
+        cell.tag = indexPath.item;
+        
+        cell.dataDic = _preferentialArr[indexPath.item];
+        
+        cell.preferentialCollCellDeleteBlock = ^(NSInteger index) {
+            
+            [self->_preferentialArr removeObjectAtIndex:index];
+            [collectionView reloadData];
+            [self->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+                make.left.equalTo(self).offset(80 *SIZE);
+                make.top.equalTo(self->_addBtn.mas_bottom).offset(14 *SIZE);
+                make.width.mas_equalTo(258 *SIZE);
+                make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+            }];
+            self.addOrderViewDeleteBlock(index);
+        };
         
         return cell;
     }else{
@@ -99,10 +150,8 @@
         label.text = titleArr[i];
         
         BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
-//        tf.userInteractionEnabled = NO;
-//        tf.backgroundColor = CLBackColor;
         tf.textField.placeholder = placeArr[i];
-        tf.textField.placeholder = @"请选择房间";
+        tf.textField.tag = i;
         switch (i) {
             case 0:
             {
@@ -178,6 +227,7 @@
                 [self addSubview:_payWayL];
                 
                 _payWayBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_payWayBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
                 [self addSubview:_payWayBtn];
                 break;
             }
@@ -298,17 +348,19 @@
     }
     
     _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_addBtn addTarget:self action:@selector(<#selector#>) forControlEvents:UIControlEventTouchUpInside];
+    [_addBtn setImage:IMAGE_WITH_NAME(@"add_1") forState:UIControlStateNormal];
+    [_addBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_addBtn];
     
     
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithCenter betweenOfCell:5 *SIZE];
-    _layout.itemSize = CGSizeMake(258 *SIZE, 40 *SIZE);
+    _layout.itemSize = CGSizeMake(258 *SIZE, 80 *SIZE);
     
     _coll = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
     _coll.backgroundColor = CLWhiteColor;
+    _coll.delegate = self;
+    _coll.dataSource = self;
     [_coll registerClass:[preferentialCollCell class] forCellWithReuseIdentifier:@"preferentialCollCell"];
-    _coll.hidden = YES;
     [self addSubview:_coll];
     
     _installmentLayout = [[GZQFlowLayout alloc] initWithType:AlignWithCenter betweenOfCell:5 *SIZE];
@@ -338,7 +390,7 @@
         
         make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self).offset(17 *SIZE);
-        make.width.mas_equalTo(217 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
@@ -392,6 +444,7 @@
         make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self->_addBtn.mas_bottom).offset(14 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
+//        make.height.mas_equalTo(300 *SIZE);
         make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
     }];
     

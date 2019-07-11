@@ -30,7 +30,7 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _roomTF.textField.text = dataDic[@"name"];
+    _roomTF.textField.text = dataDic[@"house_name"];
     _buildTF.textField.text = dataDic[@"build_name"];
     _unitTF.textField.text = dataDic[@"unit_name"];
     if (dataDic[@"floor_num"]) {
@@ -43,20 +43,20 @@
     
     if (dataDic[@"total_price"]) {
         
-        _floorTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"total_price"]];
+        _priceTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"total_price"]];
     }else{
         
-        _floorTF.textField.text = @"";
+        _priceTF.textField.text = @"";
     }
 
     _ruleTF.textField.text = dataDic[@"price_way"];
     
     if (dataDic[@"criterion_unit_price"]) {
         
-        _floorTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"criterion_unit_price"]];
+        _unitTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"criterion_unit_price"]];
     }else{
         
-        _floorTF.textField.text = @"";
+        _unitTF.textField.text = @"";
     }
     
     if (dataDic[@"total_price"]) {
@@ -138,6 +138,7 @@
                 [self addSubview:_floorL];
                 
                 _floorTF = tf;
+                _floorTF.unitL.text = @"层";
                 [self addSubview:_floorTF];
                 break;
             }
@@ -147,6 +148,7 @@
                 [self addSubview:_priceL];
                 
                 _priceTF = tf;
+                _priceTF.unitL.text = @"元";
                 [self addSubview:_priceTF];
                 break;
             }
@@ -165,6 +167,7 @@
                 [self addSubview:_unitPriceL];
                 
                 _unitPriceTF = tf;
+                _unitPriceTF.unitL.text = @"元/㎡";
                 [self addSubview:_unitPriceTF];
                 break;
             }
@@ -174,6 +177,7 @@
                 [self addSubview:_totalL];
                 
                 _totalTF = tf;
+                _totalTF.unitL.text = @"元";
                 [self addSubview:_totalTF];
                 break;
             }
@@ -192,6 +196,7 @@
                 [self addSubview:_areaL];
                 
                 _areaTF = tf;
+                _areaTF.unitL.text = @"㎡";
                 [self addSubview:_areaTF];
                 break;
             }
@@ -201,6 +206,7 @@
                 [self addSubview:_innerL];
                 
                 _innerTF = tf;
+                _innerTF.unitL.text = @"㎡";
                 [self addSubview:_innerTF];
                 break;
             }
