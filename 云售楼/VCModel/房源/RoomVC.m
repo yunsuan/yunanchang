@@ -111,6 +111,11 @@
             RoomDetailVC *vc = [[RoomDetailVC alloc] init];
             vc.LDinfo = resposeObject[@"data"];
             vc.LDtitle = self->_ldtitle;
+            vc.status = self.status;
+            vc.roomDetailVCBlock = ^(NSDictionary * _Nonnull dic) {
+                
+                self.roomVCBlock(dic);
+            };
             [self.navigationController pushViewController:vc animated:YES];
         }
    
@@ -281,15 +286,18 @@
     
     self.titleLabel.text = @"房源";
     
+    if (!self.status.length) {
+        
+        self.leftButton.hidden = YES;
+        self.rightBtn.hidden = NO;
+        self.rightBtn.center = CGPointMake(SCREEN_Width - 45 * SIZE, STATUS_BAR_HEIGHT + 20);
+        self.rightBtn.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
+        self.rightBtn.titleLabel.font = FONT(13 *SIZE);
+        [self.rightBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
+        [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self.rightBtn setTitle: [UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
+    }
     
-    self.leftButton.hidden = YES;
-    self.rightBtn.hidden = NO;
-    self.rightBtn.center = CGPointMake(SCREEN_Width - 45 * SIZE, STATUS_BAR_HEIGHT + 20);
-    self.rightBtn.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
-    self.rightBtn.titleLabel.font = FONT(13 *SIZE);
-    [self.rightBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
-    [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.rightBtn setTitle: [UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
     
     UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(3 *SIZE, 7 *SIZE + NAVIGATION_BAR_HEIGHT, SCREEN_Width - 6 *SIZE, 167 *SIZE)];
     whiteView.backgroundColor = CLWhiteColor;

@@ -10,7 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^RoomVCBlock)(NSDictionary *dic);
+
 @interface RoomVC : BaseViewController
+
+@property (nonatomic, copy) RoomVCBlock roomVCBlock;
+
+@property (nonatomic, strong) NSString *status;
 
 @end
 

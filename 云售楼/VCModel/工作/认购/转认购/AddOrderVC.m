@@ -8,6 +8,8 @@
 
 #import "AddOrderVC.h"
 
+#import "RoomVC.h"
+
 #import "AddNemeralHeader.h"
 
 #import "AddNumeralPersonView.h"
@@ -26,7 +28,7 @@
     
     NSArray *_titleArr;
     
-    NSMutableDictionary *_infoDic;
+    NSMutableDictionary *_roomDic;
     
     NSMutableArray *_certArr;
     NSMutableArray *_personArr;
@@ -71,7 +73,7 @@
             [_proportionArr addObject:@""];
         }
 //        _info_id = info_id;
-        _infoDic = [@{} mutableCopy];
+        _roomDic = [@{} mutableCopy];
 //        _group_id = group_id;
     }
     return self;
@@ -291,12 +293,18 @@
     
     _addOrderRoomView = [[AddOrderRoomView alloc] init];
     _addOrderRoomView.hidden = YES;
-//    _addOrderRoomView.addNumeralInfoViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
-//
-//    };
-//    _addNumeralInfoView.addNumeralInfoViewDropBlock = ^{
-//
-//    };
+    _addOrderRoomView.dataDic = _roomDic;
+    _addOrderRoomView.addOrderRoomViewEditBlock = ^{
+        
+        RoomVC *nextVC = [[RoomVC alloc] init];
+        nextVC.status = @"select";
+        nextVC.roomVCBlock = ^(NSDictionary * dic) {
+            
+            strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+            strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+    };
     [_scrollView addSubview:_addOrderRoomView];
     
     _orderHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
@@ -312,7 +320,7 @@
             [strongSelf->_orderHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addOrderView.hidden = YES;
             
-            if (strongSelf->_addNumeralProcessView.hidden) {
+            if (!strongSelf->_addNumeralProcessView.hidden) {
                 
                 [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
                     
@@ -340,7 +348,7 @@
             [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@1];
             [strongSelf->_orderHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addOrderView.hidden = NO;
-            if (strongSelf->_addNumeralProcessView.hidden) {
+            if (!strongSelf->_addNumeralProcessView.hidden) {
                 
                 [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
                     

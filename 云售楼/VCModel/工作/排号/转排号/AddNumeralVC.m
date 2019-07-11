@@ -260,7 +260,7 @@
     }
     
     NSArray *arr = @[@{@"name":@"管理员",@"type":@"1",@"property":@"100.00",@"comment":@"",@"state":@"1"}];
-//    NSError *error;
+
     NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
     NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];
     [dic setObject:personjson1 forKey:@"advicer_list"];
@@ -270,7 +270,10 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            
+            if (self.addNumeralVCBlock) {
+                
+                self.addNumeralVCBlock();
+            }
         }else{
             
             [self showContent:resposeObject[@"msg"]];

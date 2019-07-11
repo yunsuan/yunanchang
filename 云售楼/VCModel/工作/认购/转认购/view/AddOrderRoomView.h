@@ -17,6 +17,10 @@ typedef void(^AddOrderRoomViewEditBlock)(void);
 
 @interface AddOrderRoomView : UIView
 
+@property (nonatomic, copy) AddOrderRoomViewEditBlock addOrderRoomViewEditBlock;
+
+@property (nonatomic, strong) NSDictionary *dataDic;
+
 @property (nonatomic, strong) UILabel *roomL;
 
 @property (nonatomic, strong) BorderTextField *roomTF;

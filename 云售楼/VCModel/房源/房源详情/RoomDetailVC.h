@@ -15,9 +15,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^RoomDetailVCBlock)(NSDictionary *dic);
+
 @interface RoomDetailVC : BaseViewController
 
 @property (weak, nonatomic) id<SMCinameSeatScrollViewDelegate> SMCinameSeatScrollViewDelegate;
+
+@property (nonatomic, copy) RoomDetailVCBlock roomDetailVCBlock;
 
 @property (nonatomic , strong)NSMutableArray *LDinfo;
 //status 0 有返回按钮

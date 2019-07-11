@@ -20,11 +20,78 @@
     return self;
 }
 
+- (void)ActionEditBtn:(UIButton *)btn{
+    
+    if (self.addOrderRoomViewEditBlock) {
+        
+        self.addOrderRoomViewEditBlock();
+    }
+}
+
+- (void)setDataDic:(NSDictionary *)dataDic{
+    
+    _roomTF.textField.text = dataDic[@"name"];
+    _buildTF.textField.text = dataDic[@"build_name"];
+    _unitTF.textField.text = dataDic[@"unit_name"];
+    if (dataDic[@"floor_num"]) {
+        
+        _floorTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"floor_num"]];
+    }else{
+        
+        _floorTF.textField.text = @"";
+    }
+    
+    if (dataDic[@"total_price"]) {
+        
+        _floorTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"total_price"]];
+    }else{
+        
+        _floorTF.textField.text = @"";
+    }
+
+    _ruleTF.textField.text = dataDic[@"price_way"];
+    
+    if (dataDic[@"criterion_unit_price"]) {
+        
+        _floorTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"criterion_unit_price"]];
+    }else{
+        
+        _floorTF.textField.text = @"";
+    }
+    
+    if (dataDic[@"total_price"]) {
+        
+        _totalTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"total_price"]];
+    }else{
+        
+        _totalTF.textField.text = @"";
+    }
+    _propertyTF.textField.text = dataDic[@"property_type"];
+    if (dataDic[@"indoor_size"] && ![dataDic[@"estimated_build_size"] isKindOfClass:[NSNull class]]) {
+        
+        _areaTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"estimated_build_size"]];
+    }else{
+        
+        _areaTF.textField.text = @"";
+    }
+    
+    if (dataDic[@"indoor_size"] && ![dataDic[@"indoor_size"] isKindOfClass:[NSNull class]]) {
+        
+        _innerTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"indoor_size"]];
+    }else{
+        
+        _innerTF.textField.text = @"";
+    }
+    
+    _typeTF.textField.text = dataDic[@"house_type"];
+    
+}
+
 - (void)initUI{
     
     self.backgroundColor = CLWhiteColor;
     
-    NSArray *titleArr = @[@"房间号",@"楼栋",@"单元",@"楼层",@"价格",@"计价规则",@"单价",@"总价",@"物业类型",@"建筑类型",@"套内面积",@"户型"];
+    NSArray *titleArr = @[@"房间号",@"楼栋",@"单元",@"楼层",@"价格",@"计价规则",@"单价",@"总价",@"物业类型",@"建筑面积",@"套内面积",@"户型"];
     for (int i = 0; i < 12; i++) {
         
         UILabel *label = [[UILabel alloc] init];
@@ -151,6 +218,11 @@
         }
     }
     
+    _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_editBtn addTarget:self action:@selector(ActionEditBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_editBtn setImage:IMAGE_WITH_NAME(@"editor_2") forState:UIControlStateNormal];
+    [self addSubview:_editBtn];
+    
     [self MasonryUI];
 }
 
@@ -168,6 +240,14 @@
         make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self).offset(17 *SIZE);
         make.width.mas_equalTo(217 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(300 *SIZE);
+        make.top.equalTo(self).offset(17 *SIZE);
+        make.width.mas_equalTo(33 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
@@ -189,7 +269,7 @@
     [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(9 *SIZE);
-        make.top.equalTo(self->_buildTF.mas_bottom).offset(31 *SIZE);
+        make.top.equalTo(self->_buildTF.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     

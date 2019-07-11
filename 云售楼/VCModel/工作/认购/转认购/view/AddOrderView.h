@@ -15,7 +15,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddOrderViewAddBlock)(void);
+
 @interface AddOrderView : UIView
+
+@property (nonatomic, copy) AddOrderViewAddBlock addOrderViewAddBlock;
 
 @property (nonatomic, strong) UILabel *codeL;
 

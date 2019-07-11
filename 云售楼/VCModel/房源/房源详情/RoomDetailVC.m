@@ -8,6 +8,8 @@
 
 #import "RoomDetailVC.h"
 
+#import "AddOrderVC.h"
+
 #import "SMScrollView.h"
 //#import "KyoCenterLineView.h"
 //#import "KyoRowIndexView.h"
@@ -565,7 +567,6 @@
     watchbtn.backgroundColor = CLBlueBtnColor;
     [watchbtn addTarget:self action:@selector(action_huxing) forControlEvents:UIControlEventTouchUpInside];
     [_tanchuanView addSubview:watchbtn];
-    
 }
 
 - (UIView *)maskView {
@@ -588,8 +589,21 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             NSLog(@"%@",resposeObject);
             self->_fjxx = resposeObject[@"data"];
-            [self.view addSubview:self.maskView];
-            [self.view addSubview:self.tanchuanView];
+            if (self.status.length) {
+                
+                self.roomDetailVCBlock(self->_fjxx);
+                for (UIViewController *vc in self.navigationController.viewControllers) {
+                    
+                    if ([vc isKindOfClass:[AddOrderVC class]]) {
+                        
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
+                }
+            }else{
+                
+                [self.view addSubview:self.maskView];
+                [self.view addSubview:self.tanchuanView];
+            }
         }
         else{
             

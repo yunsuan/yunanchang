@@ -31,6 +31,14 @@
     return self;
 }
 
+- (void)ActionAddBtn:(UIButton *)btn{
+    
+    if (self.addOrderViewAddBlock) {
+        
+        self.addOrderViewAddBlock();
+    }
+}
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
     if (collectionView == _coll) {
@@ -81,6 +89,7 @@
     self.backgroundColor = CLWhiteColor;
     
     NSArray *titleArr = @[@"定单编号：",@"定金金额：",@"优惠方案：",@"特殊优惠：",@"优惠价格：",@"公示总价：",@"成交价格：",@"付款方式：",@"首付金额：",@"商业贷款金额：",@"商业按揭银行：",@"商业按揭年限：",@"公积金贷款金额：",@"公积金按揭银行：",@"公积金按揭年限：",@"贷款金额：",@"按揭银行：",@"按揭年限："];
+    NSArray *placeArr = @[@"请输入定单编号：",@"请输入定金金额：",@"",@"请输入特殊优惠金额：",@"选择优惠方案自动计算：",@"",@"自动计算",@"请选择付款方式：",@"请输入首付金额：",@"商业贷款金额：",@"请选择商业按揭银行：",@"请输入商业按揭年限：",@"公积金贷款金额：",@"请选择公积金按揭银行：",@"请输入公积金按揭年限：",@"贷款金额：",@"请选择按揭银行：",@"请输入按揭年限："];
     for (int i = 0; i < 18; i++) {
         
         UILabel *label = [[UILabel alloc] init];
@@ -90,8 +99,9 @@
         label.text = titleArr[i];
         
         BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
-        tf.userInteractionEnabled = NO;
-        tf.backgroundColor = CLBackColor;
+//        tf.userInteractionEnabled = NO;
+//        tf.backgroundColor = CLBackColor;
+        tf.textField.placeholder = placeArr[i];
         tf.textField.placeholder = @"请选择房间";
         switch (i) {
             case 0:
@@ -135,6 +145,8 @@
                 [self addSubview:_preferPriceL];
                 
                 _preferPriceTF = tf;
+                _preferPriceTF.backgroundColor = CLBackColor;
+                _preferPriceTF.userInteractionEnabled = NO;
                 [self addSubview:_preferPriceTF];
                 break;
             }
@@ -144,6 +156,8 @@
                 [self addSubview:_totalL];
                 
                 _totalTF = tf;
+                _totalTF.backgroundColor = CLBackColor;
+                _totalTF.userInteractionEnabled = NO;
                 [self addSubview:_totalTF];
                 break;
             }
@@ -153,6 +167,8 @@
                 [self addSubview:_priceL];
                 
                 _priceTF = tf;
+                _priceTF.backgroundColor = CLBackColor;
+                _priceTF.userInteractionEnabled = NO;
                 [self addSubview:_priceTF];
                 break;
             }
@@ -193,6 +209,7 @@
                 
                 _businessLoanBankBtn = [[DropBtn alloc] initWithFrame:tf.frame];
                 _businessLoanBankBtn.hidden = YES;
+//                _businessLoanBankBtn.placeL.text = 
                 [self addSubview:_businessLoanBankBtn];
                 break;
             }
@@ -248,6 +265,8 @@
                 
                 _loanPriceTF = tf;
                 _loanPriceTF.hidden = YES;
+                _loanPriceTF.backgroundColor = CLBackColor;
+                _loanPriceTF.userInteractionEnabled = NO;
                 [self addSubview:_loanPriceTF];
                 break;
             }
@@ -341,7 +360,7 @@
     [_payWayL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(9 *SIZE);
-        make.top.equalTo(self->_depositTF.mas_bottom).offset(31 *SIZE);
+        make.top.equalTo(self->_depositTF.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     

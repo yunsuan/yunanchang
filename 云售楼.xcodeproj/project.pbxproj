@@ -69,6 +69,7 @@
 		0C496DF522D48C1C00789FFA /* AddOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DF422D48C1C00789FFA /* AddOrderView.m */; };
 		0C496DF822D49DEA00789FFA /* preferentialCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DF722D49DEA00789FFA /* preferentialCollCell.m */; };
 		0C496DFB22D49E0100789FFA /* installmentCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DFA22D49E0100789FFA /* installmentCollCell.m */; };
+		0C496DFF22D70A4900789FFA /* SelectSpePerferVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DFE22D70A4900789FFA /* SelectSpePerferVC.m */; };
 		0C4B7F5C22C995BD00BBC34F /* NumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B7F5B22C995BD00BBC34F /* NumeralVC.m */; };
 		0C4B7F6322C9A9B400BBC34F /* NumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B7F6222C9A9B400BBC34F /* NumeralCell.m */; };
 		0C4B7F6722C9B97E00BBC34F /* NumeralDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B7F6622C9B97E00BBC34F /* NumeralDetailVC.m */; };
@@ -585,6 +586,8 @@
 		0C496DF722D49DEA00789FFA /* preferentialCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = preferentialCollCell.m; sourceTree = "<group>"; };
 		0C496DF922D49E0000789FFA /* installmentCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = installmentCollCell.h; sourceTree = "<group>"; };
 		0C496DFA22D49E0100789FFA /* installmentCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = installmentCollCell.m; sourceTree = "<group>"; };
+		0C496DFD22D70A4900789FFA /* SelectSpePerferVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectSpePerferVC.h; sourceTree = "<group>"; };
+		0C496DFE22D70A4900789FFA /* SelectSpePerferVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectSpePerferVC.m; sourceTree = "<group>"; };
 		0C4B7F5A22C995BD00BBC34F /* NumeralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralVC.h; sourceTree = "<group>"; };
 		0C4B7F5B22C995BD00BBC34F /* NumeralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralVC.m; sourceTree = "<group>"; };
 		0C4B7F6122C9A9B400BBC34F /* NumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralCell.h; sourceTree = "<group>"; };
@@ -1829,6 +1832,15 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0C496DFC22D70A3400789FFA /* 选择优惠方案 */ = {
+			isa = PBXGroup;
+			children = (
+				0C496DFD22D70A4900789FFA /* SelectSpePerferVC.h */,
+				0C496DFE22D70A4900789FFA /* SelectSpePerferVC.m */,
+			);
+			path = "选择优惠方案";
+			sourceTree = "<group>";
+		};
 		0C4B7F5922C9955200BBC34F /* 排号 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1943,6 +1955,7 @@
 		0C4B8EE922CC4B0400D505BE /* 转认购 */ = {
 			isa = PBXGroup;
 			children = (
+				0C496DFC22D70A3400789FFA /* 选择优惠方案 */,
 				0C496DEF22D47BC000789FFA /* view */,
 				0C4B8EEA22CC4B1600D505BE /* AddOrderVC.h */,
 				0C4B8EEB22CC4B1600D505BE /* AddOrderVC.m */,
@@ -4207,6 +4220,7 @@
 				10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */,
 				0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
+				0C496DFF22D70A4900789FFA /* SelectSpePerferVC.m in Sources */,
 				0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */,
 				0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */,
 				0C4B8EEF22CDAED000D505BE /* AddNumeralPersonView.m in Sources */,
