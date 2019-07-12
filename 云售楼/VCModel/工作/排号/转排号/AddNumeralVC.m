@@ -30,6 +30,7 @@
     NSString *_project_id;
     NSString *_info_id;
     NSString *_group_id;
+    NSString *_role_id;
     
     NSArray *_titleArr;
     
@@ -44,6 +45,8 @@
     NSMutableArray *_progressArr;
     NSMutableArray *_progressAllArr;
     NSMutableArray *_roleArr;
+    NSMutableArray *_rolePersonArr;
+    NSMutableArray *_rolePersonSelectArr;
     
     NSDateFormatter *_formatter;
 }
@@ -105,6 +108,9 @@
     _typeArr = [@[] mutableCopy];
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];
+    _roleArr = [@[] mutableCopy];
+    _rolePersonArr = [@[] mutableCopy];
+    _rolePersonSelectArr = [@[] mutableCopy];
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
@@ -179,7 +185,11 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_roleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+//            self->_roleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+            for (NSDictionary *dic in resposeObject[@"data"]) {
+                
+                [self->_roleArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",dic[@"project_name"],dic[@"role_name"]],@"id":dic[@"role_id"]}];
+            }
         }else{
             
             
@@ -192,11 +202,24 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:ProjectRolePersonList_URL parameters:@{@"project_id":@""} success:^(id  _Nonnull resposeObject) {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id}];
+    
+    if (_role_id.length) {
+        
+        [dic setObject:_role_id forKey:@"role_id"];
+    }
+    
+    [BaseRequest GET:ProjectRolePersonList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            
+            self->_rolePersonArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+            for (int i = 0 ; i < [resposeObject[@"data"] count]; i++) {
+                
+                [self->_rolePersonSelectArr addObject:@0];
+            }
+            self->_addNumeralProcessView.personArr = self->_rolePersonArr;
+            self->_addNumeralProcessView.personSelectArr = self->_rolePersonSelectArr;
         }else{
             
             
@@ -610,7 +633,9 @@
         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[@{@"param":@"自由流程",@"id":@"1"},@{@"param":@"固定流程",@"id":@"2"}]];
         view.selectedBlock = ^(NSString *MC, NSString *ID) {
             
-            
+            [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"auditMC"];
+            [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"auditID"];
+            strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
         };
         [strongSelf.view addSubview:view];
     };
@@ -621,6 +646,28 @@
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
                 
+                if ([MC isEqualToString:@"自由"]) {
+                    
+                    [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+                    [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
+                }else if ([MC isEqualToString:@"固定"]){
+                    
+                    [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+                    [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
+                }else{
+                    
+                    [strongSelf->_progressDic removeObjectForKey:@"auditMC"];
+                    [strongSelf->_progressDic removeObjectForKey:@"auditID"];
+                }
+                if (![MC isEqualToString:strongSelf->_progressDic[@"progress_name"]]) {
+                    
+                    [strongSelf->_rolePersonArr removeAllObjects];
+                    [strongSelf->_rolePersonSelectArr removeAllObjects];
+                    strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
+                    strongSelf->_addNumeralProcessView.personSelectArr = strongSelf->_rolePersonSelectArr;
+                    [strongSelf->_progressDic removeObjectForKey:@"role_name"];
+                    [strongSelf->_progressDic removeObjectForKey:@"role_id"];
+                }
                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
                 for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
@@ -680,38 +727,38 @@
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
                 
-//                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
-//                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
-//                for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
-//
-//                    if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
-//
-//                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
-//                    }
-//                }
+                if (![MC isEqualToString:strongSelf->_progressDic[@"role_name"]]) {
+                    
+                    [strongSelf->_rolePersonArr removeAllObjects];
+                    [strongSelf->_rolePersonSelectArr removeAllObjects];
+                    strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
+                    strongSelf->_addNumeralProcessView.personSelectArr = strongSelf->_rolePersonSelectArr;
+                }
+                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
+                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];
                 strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
+                [strongSelf RequestMethod];
             };
+            [strongSelf.view addSubview:view];
         }else{
             
             [BaseRequest GET:ProjectRoleListAll_URL parameters:@{@"project_id":strongSelf->_project_id} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    strongSelf->_roleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
+                    for (NSDictionary *dic in resposeObject[@"data"]) {
+                        
+                        [strongSelf->_roleArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",dic[@"project_name"],dic[@"role_name"]],@"id":dic[@"role_id"]}];
+                    }
+                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
                     view.selectedBlock = ^(NSString *MC, NSString *ID) {
                         
-//                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
-//                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
-//                        for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
-//
-//                            if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
-//
-//                                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
-//                            }
-//                        }
-//                        strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
+                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
+                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];
+                        strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
+                        [strongSelf RequestMethod];
                     };
+                    [strongSelf.view addSubview:view];
                 }else{
                     
                     
@@ -721,6 +768,11 @@
                 NSLog(@"%@",error);
             }];
         }
+    };
+    
+    _addNumeralProcessView.addNumeralProcessViewSelectBlock = ^(NSArray * _Nonnull arr) {
+      
+        strongSelf->_rolePersonSelectArr = [NSMutableArray arrayWithArray:arr];
     };
     
     [_scrollView addSubview:_addNumeralProcessView];

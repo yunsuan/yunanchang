@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x8f6c;&#x6392;&#x53f7;/AddNumeralVC.m"
-            timestampString = "584605566.4034081"
+            timestampString = "584613539.5300519"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "504"
-            endingLineNumber = "504"
+            startingLineNumber = "527"
+            endingLineNumber = "527"
             landmarkName = "-initUI"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x8f6c;&#x6392;&#x53f7;/AddNumeralVC.m"
-            timestampString = "584605566.40353"
+            timestampString = "584613539.530153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
+            startingLineNumber = "525"
+            endingLineNumber = "525"
             landmarkName = "-initUI"
             landmarkType = "7">
             <Locations>
@@ -148,26 +148,26 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E8%BD%AC%E6%8E%92%E5%8F%B7/AddNumeralVC.m"
-                  timestampString = "584605566.78585"
+                  timestampString = "584613539.883198"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "502"
-                  endingLineNumber = "502"
+                  startingLineNumber = "525"
+                  endingLineNumber = "525"
                   offsetFromSymbolStart = "696">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__22-[AddNumeralVC initUI]_block_invoke.591"
+                  symbolName = "__22-[AddNumeralVC initUI]_block_invoke.600"
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E8%BD%AC%E6%8E%92%E5%8F%B7/AddNumeralVC.m"
-                  timestampString = "584605566.789135"
+                  timestampString = "584613539.884949"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "504"
-                  endingLineNumber = "504"
+                  startingLineNumber = "527"
+                  endingLineNumber = "527"
                   offsetFromSymbolStart = "100">
                </Location>
             </Locations>

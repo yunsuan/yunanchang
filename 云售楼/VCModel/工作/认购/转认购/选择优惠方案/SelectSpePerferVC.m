@@ -97,7 +97,7 @@
     
     self.titleLabel.text = @"折扣";
     
-    _layout = [[GZQFlowLayout alloc] initWithType:1 betweenOfCell:5 *SIZE];
+    _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:5 *SIZE];
     _layout.itemSize = CGSizeMake(340 *SIZE, 100 *SIZE);
     
     _coll = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) collectionViewLayout:_layout];

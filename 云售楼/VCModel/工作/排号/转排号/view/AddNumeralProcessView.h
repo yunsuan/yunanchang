@@ -21,6 +21,8 @@ typedef void(^AddNumeralProcessViewRoleBlock)(void);
 
 typedef void(^AddNumeralProcessViewFinalBlock)(void);
 
+typedef void(^AddNumeralProcessViewSelectBlock)(NSArray *arr);
+
 @interface AddNumeralProcessView : UIView
 
 @property (nonatomic, copy) AddNumeralProcessViewTypeBlock addNumeralProcessViewTypeBlock;
@@ -31,7 +33,13 @@ typedef void(^AddNumeralProcessViewFinalBlock)(void);
 
 @property (nonatomic, copy) AddNumeralProcessViewFinalBlock addNumeralProcessViewFinalBlock;
 
+@property (nonatomic, copy) AddNumeralProcessViewSelectBlock addNumeralProcessViewSelectBlock;
+
 @property (nonatomic, strong) NSDictionary *dataDic;
+
+@property (nonatomic, strong) NSMutableArray *personArr;;
+
+@property (nonatomic, strong) NSMutableArray *personSelectArr;;
 
 @property (nonatomic, strong) UILabel *auditL;
 

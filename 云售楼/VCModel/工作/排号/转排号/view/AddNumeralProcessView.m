@@ -32,9 +32,36 @@
     return self;
 }
 
+- (void)setPersonSelectArr:(NSMutableArray *)personSelectArr{
+    
+    _selectArr = [NSMutableArray arrayWithArray:personSelectArr];
+    [_coll reloadData];
+}
+
+- (void)setPersonArr:(NSMutableArray *)personArr{
+    
+    _dataArr = [NSMutableArray arrayWithArray:personArr];
+    [_coll reloadData];
+    [_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+        make.bottom.equalTo(self).offset(-20 *SIZE);
+    }];
+}
+
 - (void)setDataDic:(NSDictionary *)dataDic{
     
     _typeBtn.content.text = dataDic[@"progress_name"];
+    
+    _roleBtn.content.text = dataDic[@"role_name"];
+    _roleBtn->str = dataDic[@"role_id"];
+    
+    _auditBtn.content.text = dataDic[@"auditMC"];
+    _auditBtn->str = dataDic[@"auditID"];
+    
     if ([dataDic[@"check_type"] integerValue] == 3) {
         
         _auditBtn.backgroundColor = CLWhiteColor;
@@ -49,42 +76,87 @@
 //            make.bottom.equalTo(self).offset(-10 *SIZE);
         }];
         
-        _auditL.hidden = NO;
-        _auditBtn.hidden = NO;
         
-        _roleL.hidden = YES;
-        _roleBtn.hidden = YES;
-        _personL.hidden = YES;
-        _coll.hidden = YES;
-        
-        [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
+        if ([dataDic[@"auditMC"] isEqualToString:@"自由流程"]) {
             
-            make.left.equalTo(self).offset(9 *SIZE);
-            make.top.equalTo(self->_typeBtn.mas_bottom).offset(12 *SIZE);
-            make.width.mas_equalTo(70 *SIZE);
-        }];
-        
-        [_auditBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            _auditL.hidden = NO;
+            _auditBtn.hidden = NO;
+            _roleL.hidden = NO;
+            _roleBtn.hidden = NO;
+            _personL.hidden = NO;
+            _coll.hidden = NO;
             
-            make.left.equalTo(self).offset(80 *SIZE);
-            make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
-            make.height.mas_equalTo(33 *SIZE);
-            make.bottom.equalTo(self).offset(-10 *SIZE);
-        }];
-        
-        [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+            _auditBtn.backgroundColor = CLBackColor;
+            _auditBtn.userInteractionEnabled = NO;
             
-            make.left.equalTo(self).offset(80 *SIZE);
-            make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
-            make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
-//            make.bottom.equalTo(self).offset(-10 *SIZE);
-        }];
+            [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self).offset(9 *SIZE);
+                make.top.equalTo(self->_typeBtn.mas_bottom).offset(12 *SIZE);
+                make.width.mas_equalTo(70 *SIZE);
+            }];
+            
+            [_auditBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self).offset(80 *SIZE);
+                make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
+                make.width.mas_equalTo(258 *SIZE);
+                make.height.mas_equalTo(33 *SIZE);
+                //            make.bottom.equalTo(self).offset(-10 *SIZE);
+            }];
+            
+            [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self).offset(80 *SIZE);
+                make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
+                make.width.mas_equalTo(258 *SIZE);
+                make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+                make.bottom.equalTo(self).offset(-20 *SIZE);
+            }];
+        }else{
+            
+            _auditL.hidden = NO;
+            _auditBtn.hidden = NO;
+            
+            _roleL.hidden = YES;
+            _roleBtn.hidden = YES;
+            _personL.hidden = YES;
+            _coll.hidden = YES;
+            
+            [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self).offset(9 *SIZE);
+                make.top.equalTo(self->_typeBtn.mas_bottom).offset(12 *SIZE);
+                make.width.mas_equalTo(70 *SIZE);
+            }];
+            
+            [_auditBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self).offset(80 *SIZE);
+                make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
+                make.width.mas_equalTo(258 *SIZE);
+                make.height.mas_equalTo(33 *SIZE);
+                make.bottom.equalTo(self).offset(-10 *SIZE);
+            }];
+            
+            [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self).offset(80 *SIZE);
+                make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
+                make.width.mas_equalTo(258 *SIZE);
+                make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+                //            make.bottom.equalTo(self).offset(-10 *SIZE);
+            }];
+        }
+        
+        
     }else if ([dataDic[@"check_type"] integerValue] == 2){
         
         _auditBtn.backgroundColor = CLWhiteColor;
         _auditBtn.userInteractionEnabled = YES;
+        
+//        _auditBtn.content.text = dataDic[@"role_name"];
+//        _auditBtn->str = dataDic[@"role_id"];
         
         [_typeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -207,22 +279,23 @@
     
     cell.tag = 1;
     
-//    if (collectionView == _followWayColl) {
-//
-//        [cell setIsSelect:[_followSelectArr[indexPath.item] integerValue]];
-//
-//        cell.titleL.text = _followArr[indexPath.item][@"param"];
-//    }else{
-//
-//        [cell setIsSelect:[_levelSelectArr[indexPath.item] integerValue]];
-//
-//        cell.titleL.text = _levelArr[indexPath.item][@"config_name"];
-//    }
+    [cell setIsSelect:[_selectArr[indexPath.item] integerValue]];
+
+    cell.titleL.text = _dataArr[indexPath.item][@"agent_name"];
+    
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    if ([_selectArr[indexPath.item] integerValue] == 1) {
+        
+        [_selectArr replaceObjectAtIndex:indexPath.item withObject:@0];
+    }else{
+        
+        [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
+    }
+    [collectionView reloadData];
     
 }
 
@@ -274,7 +347,7 @@
             _personL.hidden = YES;
             [self addSubview:_personL];
             
-            _layout = [[GZQFlowLayout alloc] initWithType:1 betweenOfCell:5 *SIZE];
+            _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:5 *SIZE];
             _layout.itemSize = CGSizeMake(100 *SIZE, 20 *SIZE);
             
             _coll = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
