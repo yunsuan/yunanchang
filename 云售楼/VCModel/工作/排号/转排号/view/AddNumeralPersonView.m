@@ -240,12 +240,27 @@
     CallTelegramCustomDetailHeaderCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CallTelegramCustomDetailHeaderCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[CallTelegramCustomDetailHeaderCollCell alloc] initWithFrame:CGRectMake(0, 0, 67 *SIZE, 30 *SIZE)];
+        cell = [[CallTelegramCustomDetailHeaderCollCell alloc] initWithFrame:CGRectMake(0, 0, 87 *SIZE, 70 *SIZE)];
     }
+    cell.tag = indexPath.item;
     
     cell.titleL.text = _collArr[indexPath.item][@"name"];
     
     cell.isSelect = [_selectArr[indexPath.item] integerValue];
+    
+    if (indexPath.item == 0) {
+        
+        cell.deleteBtn.hidden = YES;
+    }else{
+        
+        cell.deleteBtn.hidden = NO;
+    }
+    
+    cell.callTelegramCustomDetailHeaderCollCellDeleteBlock = ^(NSInteger index) {
+        
+        [self->_collArr removeObjectAtIndex:index];
+        [collectionView reloadData];
+    };
     
     return cell;
 }
@@ -387,7 +402,7 @@
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_editBtn addTarget:self action:@selector(ActionEditBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_editBtn setImage:IMAGE_WITH_NAME(@"add_1") forState:UIControlStateNormal];
+    [_editBtn setImage:IMAGE_WITH_NAME(@"editor_2") forState:UIControlStateNormal];
     [self addSubview:_editBtn];
     
     NSArray *titleArr = @[@"组别成员：",@"客户姓名：",@"性别：",@"手机号码：",@"证件类型：",@"证件号：",@"出生年月：",@"邮政编码：",@"客户来源：",@"认知途径：",@"来源类型：",@"通讯地址：",@"备注：",@"产权比例："];
@@ -537,7 +552,7 @@
         }
     }
     _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:13 *SIZE];
-    _flowLayout.itemSize = CGSizeMake(67 *SIZE, 30 *SIZE);
+    _flowLayout.itemSize = CGSizeMake(87 *SIZE, 70 *SIZE);
     _flowLayout.minimumLineSpacing = 8 *SIZE;
     _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10 *SIZE, 0, 0);
     _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -587,7 +602,7 @@
     [_editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(313 *SIZE);
-        make.top.equalTo(self).offset(47 *SIZE);
+        make.top.equalTo(self).offset(50 *SIZE);
         make.width.mas_equalTo(25 *SIZE);
         make.height.mas_equalTo(25 *SIZE);
     }];

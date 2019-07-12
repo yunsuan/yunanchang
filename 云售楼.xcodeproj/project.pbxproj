@@ -71,6 +71,7 @@
 		0C496DFB22D49E0100789FFA /* installmentCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DFA22D49E0100789FFA /* installmentCollCell.m */; };
 		0C496DFF22D70A4900789FFA /* SelectSpePerferVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DFE22D70A4900789FFA /* SelectSpePerferVC.m */; };
 		0C496E0722D7152300789FFA /* SelectPerferCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496E0622D7152300789FFA /* SelectPerferCollCell.m */; };
+		0C496E0B22D82B2F00789FFA /* AddSignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496E0A22D82B2F00789FFA /* AddSignVC.m */; };
 		0C4B7F5C22C995BD00BBC34F /* NumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B7F5B22C995BD00BBC34F /* NumeralVC.m */; };
 		0C4B7F6322C9A9B400BBC34F /* NumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B7F6222C9A9B400BBC34F /* NumeralCell.m */; };
 		0C4B7F6722C9B97E00BBC34F /* NumeralDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B7F6622C9B97E00BBC34F /* NumeralDetailVC.m */; };
@@ -591,6 +592,8 @@
 		0C496DFE22D70A4900789FFA /* SelectSpePerferVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectSpePerferVC.m; sourceTree = "<group>"; };
 		0C496E0522D7152300789FFA /* SelectPerferCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPerferCollCell.h; sourceTree = "<group>"; };
 		0C496E0622D7152300789FFA /* SelectPerferCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectPerferCollCell.m; sourceTree = "<group>"; };
+		0C496E0922D82B2F00789FFA /* AddSignVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSignVC.h; sourceTree = "<group>"; };
+		0C496E0A22D82B2F00789FFA /* AddSignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignVC.m; sourceTree = "<group>"; };
 		0C4B7F5A22C995BD00BBC34F /* NumeralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralVC.h; sourceTree = "<group>"; };
 		0C4B7F5B22C995BD00BBC34F /* NumeralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralVC.m; sourceTree = "<group>"; };
 		0C4B7F6122C9A9B400BBC34F /* NumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralCell.h; sourceTree = "<group>"; };
@@ -1438,6 +1441,7 @@
 		0C310E3322A4F66900083504 /* 签约 */ = {
 			isa = PBXGroup;
 			children = (
+				0C496E0822D82B2100789FFA /* 转签约 */,
 				0C4B8EE522CC49AF00D505BE /* 签约详情 */,
 				0C4B8EE222CC49A200D505BE /* SignVC.h */,
 				0C4B8EE322CC49A200D505BE /* SignVC.m */,
@@ -1852,6 +1856,15 @@
 				0C496E0622D7152300789FFA /* SelectPerferCollCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		0C496E0822D82B2100789FFA /* 转签约 */ = {
+			isa = PBXGroup;
+			children = (
+				0C496E0922D82B2F00789FFA /* AddSignVC.h */,
+				0C496E0A22D82B2F00789FFA /* AddSignVC.m */,
+			);
+			path = "转签约";
 			sourceTree = "<group>";
 		};
 		0C4B7F5922C9955200BBC34F /* 排号 */ = {
@@ -4375,6 +4388,7 @@
 				0C74520922A7E454008F2F07 /* ChannelMutiLineCell.m in Sources */,
 				0CAD45682298092A00A5C1D0 /* WorkPhoneConfrimFailCell.m in Sources */,
 				0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */,
+				0C496E0B22D82B2F00789FFA /* AddSignVC.m in Sources */,
 				0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */,
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
 				0CBD712422925B1E002A6B48 /* PushSettingCell.m in Sources */,

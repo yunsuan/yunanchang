@@ -12,15 +12,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^AddNemeralHeaderMoreBlock)(void);
 
+typedef void(^AddNemeralHeaderAllBlock)(void);
+
 @interface AddNemeralHeader : UIView
 
 @property (nonatomic, copy) AddNemeralHeaderMoreBlock addNemeralHeaderMoreBlock;
+
+@property (nonatomic, copy) AddNemeralHeaderAllBlock addNemeralHeaderAllBlock;
 
 @property (nonatomic, strong) UILabel *titleL;
 
 @property (nonatomic, strong) UIButton *addBtn;
 
 @property (nonatomic, strong) UIButton *moreBtn;
+
+@property (nonatomic, strong) UIButton *allBtn;
 
 @property (nonatomic, strong) UIView *line;
 

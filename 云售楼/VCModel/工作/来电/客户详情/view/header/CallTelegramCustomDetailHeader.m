@@ -133,7 +133,7 @@
     CallTelegramCustomDetailHeaderCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CallTelegramCustomDetailHeaderCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[CallTelegramCustomDetailHeaderCollCell alloc] initWithFrame:CGRectMake(0, 0, 67 *SIZE, 30 *SIZE)];
+        cell = [[CallTelegramCustomDetailHeaderCollCell alloc] initWithFrame:CGRectMake(0, 0, 87 *SIZE, 70 *SIZE)];
     }
     
     cell.titleL.text = _collArr[indexPath.item][@"name"];
@@ -224,7 +224,7 @@
 //    [self.contentView addSubview:_deleteBtn];
     
     _flowLayout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:13 *SIZE];
-    _flowLayout.itemSize = CGSizeMake(67 *SIZE, 30 *SIZE);
+    _flowLayout.itemSize = CGSizeMake(87 *SIZE, 70 *SIZE);
     _flowLayout.minimumLineSpacing = 8 *SIZE;
     _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10 *SIZE, 0, 0);
     _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

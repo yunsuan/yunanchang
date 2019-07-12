@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CallTelegramCustomDetailHeaderCollCellDeleteBlock)(NSInteger index);
+
 @interface CallTelegramCustomDetailHeaderCollCell : UICollectionViewCell
+
+@property (nonatomic, copy) CallTelegramCustomDetailHeaderCollCellDeleteBlock callTelegramCustomDetailHeaderCollCellDeleteBlock;
+
+@property (nonatomic, strong) UIView *titleView;
+
+@property (nonatomic, strong) UIButton *deleteBtn;
 
 @property (nonatomic, assign) NSInteger isSelect;
 

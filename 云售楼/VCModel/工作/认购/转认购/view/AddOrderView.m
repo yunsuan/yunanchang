@@ -51,8 +51,205 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _priceTF.textField.text = dataDic[@"total_price"];
+    _totalTF.textField.text = dataDic[@"total_price"];
     _payWayBtn.content.text = dataDic[@"payWay_Name"];
+    if ([_payWayBtn.content.text isEqualToString:@"一次性付款"]) {
+        
+        _paymentL.hidden = YES;
+        _paymentTF.hidden = YES;
+        _businessLoanPriceL.hidden = YES;
+        _businessLoanPriceTF.hidden = YES;
+        _businessLoanBankL.hidden = YES;
+        _businessLoanBankBtn.hidden = YES;
+        _businessLoanYearL.hidden = YES;
+        _businessLoanYearTF.hidden = YES;
+        _fundLoanL.hidden = YES;
+        _fundLoanTF.hidden = YES;
+        _fundLoanBankL.hidden = YES;
+        _fundLoanBankBtn.hidden = YES;
+        _fundLoanYearL.hidden = YES;
+        _fundLoanYearTF.hidden = YES;
+        _loanPriceL.hidden = YES;
+        _loanPriceTF.hidden = YES;
+        _loanBankL.hidden = YES;
+        _loanBankBtn.hidden = YES;
+        _loanYearL.hidden = YES;
+        _loanYearTF.hidden = YES;
+        
+        [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_totalTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
+        
+        [_loanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
+        [_fundLoanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+    }else if ([_payWayBtn.content.text isEqualToString:@"公积金贷款"]){
+        
+        _paymentL.hidden = NO;
+        _paymentTF.hidden = NO;
+        _loanPriceL.hidden = NO;
+        _loanPriceTF.hidden = NO;
+        _loanBankL.hidden = NO;
+        _loanBankBtn.hidden = NO;
+        _loanYearL.hidden = NO;
+        _loanYearTF.hidden = NO;
+        _businessLoanPriceL.hidden = YES;
+        _businessLoanPriceTF.hidden = YES;
+        _businessLoanBankL.hidden = YES;
+        _businessLoanBankBtn.hidden = YES;
+        _businessLoanYearL.hidden = YES;
+        _businessLoanYearTF.hidden = YES;
+        _fundLoanL.hidden = YES;
+        _fundLoanTF.hidden = YES;
+        _fundLoanBankL.hidden = YES;
+        _fundLoanBankBtn.hidden = YES;
+        _fundLoanYearL.hidden = YES;
+        _fundLoanYearTF.hidden = YES;
+        
+        [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_totalTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            
+        }];
+        
+        [_loanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
+        
+        [_fundLoanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_fundLoanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
+        
+    }else if ([_payWayBtn.content.text isEqualToString:@"综合贷款"]){
+        
+        _paymentL.hidden = NO;
+        _paymentTF.hidden = NO;
+        _loanPriceL.hidden = YES;
+        _loanPriceTF.hidden = YES;
+        _loanBankL.hidden = YES;
+        _loanBankBtn.hidden = YES;
+        _loanYearL.hidden = YES;
+        _loanYearTF.hidden = YES;
+        _businessLoanPriceL.hidden = NO;
+        _businessLoanPriceTF.hidden = NO;
+        _businessLoanBankL.hidden = NO;
+        _businessLoanBankBtn.hidden = NO;
+        _businessLoanYearL.hidden = NO;
+        _businessLoanYearTF.hidden = NO;
+        _fundLoanL.hidden = NO;
+        _fundLoanTF.hidden = NO;
+        _fundLoanBankL.hidden = NO;
+        _fundLoanBankBtn.hidden = NO;
+        _fundLoanYearL.hidden = NO;
+        _fundLoanYearTF.hidden = NO;
+        
+        [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_totalTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            
+        }];
+        
+        [_loanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            
+        }];
+        
+        [_fundLoanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_fundLoanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
+    }else if ([_payWayBtn.content.text isEqualToString:@"银行按揭贷款"]){
+        
+        _paymentL.hidden = NO;
+        _paymentTF.hidden = NO;
+        _loanPriceL.hidden = NO;
+        _loanPriceTF.hidden = NO;
+        _loanBankL.hidden = NO;
+        _loanBankBtn.hidden = NO;
+        _loanYearL.hidden = NO;
+        _loanYearTF.hidden = NO;
+        _businessLoanPriceL.hidden = YES;
+        _businessLoanPriceTF.hidden = YES;
+        _businessLoanBankL.hidden = YES;
+        _businessLoanBankBtn.hidden = YES;
+        _businessLoanYearL.hidden = YES;
+        _businessLoanYearTF.hidden = YES;
+        _fundLoanL.hidden = YES;
+        _fundLoanTF.hidden = YES;
+        _fundLoanBankL.hidden = YES;
+        _fundLoanBankBtn.hidden = YES;
+        _fundLoanYearL.hidden = YES;
+        _fundLoanYearTF.hidden = YES;
+        
+        [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_totalTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            
+        }];
+        
+        [_loanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
+        
+        [_fundLoanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_fundLoanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+    }else if ([_payWayBtn.content.text isEqualToString:@"分期付款"]){
+        
+    }
 }
 
 - (void)setDataArr:(NSMutableArray *)dataArr{
@@ -168,6 +365,7 @@
                 [self addSubview:_depositL];
                 
                 _depositTF = tf;
+                _depositTF.unitL.text = @"元";
                 [self addSubview:_depositTF];
                 break;
             }
@@ -185,6 +383,7 @@
                 [self addSubview:_spePreferentialL];
                 
                 _spePreferentialTF = tf;
+                _spePreferentialTF.unitL.text = @"元";
                 [self addSubview:_spePreferentialTF];
                 break;
             }
@@ -196,6 +395,7 @@
                 _preferPriceTF = tf;
                 _preferPriceTF.backgroundColor = CLBackColor;
                 _preferPriceTF.userInteractionEnabled = NO;
+                _preferPriceTF.unitL.text = @"元";
                 [self addSubview:_preferPriceTF];
                 break;
             }
@@ -207,6 +407,7 @@
                 _totalTF = tf;
                 _totalTF.backgroundColor = CLBackColor;
                 _totalTF.userInteractionEnabled = NO;
+                _totalTF.unitL.text = @"元";
                 [self addSubview:_totalTF];
                 break;
             }
@@ -218,6 +419,7 @@
                 _priceTF = tf;
                 _priceTF.backgroundColor = CLBackColor;
                 _priceTF.userInteractionEnabled = NO;
+                _priceTF.unitL.text = @"元";
                 [self addSubview:_priceTF];
                 break;
             }
@@ -234,9 +436,12 @@
             case 8:
             {
                 _paymentL = label;
+                _paymentL.hidden = YES;
                 [self addSubview:_paymentL];
                 
                 _paymentTF = tf;
+                _paymentTF.hidden = YES;
+                _paymentTF.unitL.text = @"元";
                 [self addSubview:_paymentTF];
                 break;
             }
@@ -248,6 +453,7 @@
                 
                 _businessLoanPriceTF = tf;
                 _businessLoanPriceTF.hidden = YES;
+                _businessLoanPriceTF.unitL.text = @"元";
                 [self addSubview:_businessLoanPriceTF];
                 break;
             }
@@ -271,6 +477,7 @@
                 
                 _businessLoanYearTF = tf;
                 _businessLoanYearTF.hidden = YES;
+                _businessLoanYearTF.unitL.text = @"年";
                 [self addSubview:_businessLoanYearTF];
                 break;
             }
@@ -282,6 +489,7 @@
                 
                 _fundLoanTF = tf;
                 _fundLoanTF.hidden = YES;
+                _fundLoanTF.unitL.text = @"元";
                 [self addSubview:_fundLoanTF];
                 break;
             }
@@ -304,6 +512,7 @@
                 
                 _fundLoanYearTF = tf;
                 _fundLoanYearTF.hidden = YES;
+                _fundLoanYearTF.unitL.text = @"年";
                 [self addSubview:_fundLoanYearTF];
                 break;
             }
@@ -317,6 +526,7 @@
                 _loanPriceTF.hidden = YES;
                 _loanPriceTF.backgroundColor = CLBackColor;
                 _loanPriceTF.userInteractionEnabled = NO;
+                _loanPriceTF.unitL.text = @"元";
                 [self addSubview:_loanPriceTF];
                 break;
             }
@@ -339,6 +549,7 @@
                 
                 _loanYearTF = tf;
                 _loanYearTF.hidden = YES;
+                _loanYearTF.unitL.text = @"年";
                 [self addSubview:_loanYearTF];
                 break;
             }
@@ -506,6 +717,7 @@
         make.top.equalTo(self->_totalTF.mas_bottom).offset(14 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
+        make.bottom.equalTo(self).offset(-20 *SIZE);
     }];
     
     [_paymentL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -521,7 +733,7 @@
         make.top.equalTo(self->_priceTF.mas_bottom).offset(14 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
-        make.bottom.equalTo(self).offset(-20 *SIZE);
+//        make.bottom.equalTo(self).offset(-20 *SIZE);
     }];
     
     [_installmentColl mas_makeConstraints:^(MASConstraintMaker *make) {

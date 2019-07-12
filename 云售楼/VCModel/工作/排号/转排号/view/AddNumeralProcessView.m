@@ -13,7 +13,8 @@
 @interface AddNumeralProcessView ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     
-    
+    NSMutableArray *_dataArr;
+    NSMutableArray *_selectArr;
 }
 @end
 
@@ -24,6 +25,8 @@
     self = [super init];
     if (self) {
         
+        _dataArr = [@[] mutableCopy];
+        _selectArr = [@[] mutableCopy];
         [self initUI];
     }
     return self;
@@ -32,7 +35,10 @@
 - (void)setDataDic:(NSDictionary *)dataDic{
     
     _typeBtn.content.text = dataDic[@"progress_name"];
-    if ([dataDic[@"check_type"] integerValue] == 1) {
+    if ([dataDic[@"check_type"] integerValue] == 3) {
+        
+        _auditBtn.backgroundColor = CLWhiteColor;
+        _auditBtn.userInteractionEnabled = YES;
 
         [_typeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -45,6 +51,11 @@
         
         _auditL.hidden = NO;
         _auditBtn.hidden = NO;
+        
+        _roleL.hidden = YES;
+        _roleBtn.hidden = YES;
+        _personL.hidden = YES;
+        _coll.hidden = YES;
         
         [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -61,7 +72,19 @@
             make.height.mas_equalTo(33 *SIZE);
             make.bottom.equalTo(self).offset(-10 *SIZE);
         }];
+        
+        [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+//            make.bottom.equalTo(self).offset(-10 *SIZE);
+        }];
     }else if ([dataDic[@"check_type"] integerValue] == 2){
+        
+        _auditBtn.backgroundColor = CLWhiteColor;
+        _auditBtn.userInteractionEnabled = YES;
         
         [_typeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -71,12 +94,32 @@
             make.height.mas_equalTo(33 *SIZE);
             make.bottom.equalTo(self).offset(-10 *SIZE);
         }];
+        
+        [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+//            make.bottom.equalTo(self).offset(-10 *SIZE);
+        }];
         _auditL.hidden = YES;
         _auditBtn.hidden = YES;
-    }else if ([dataDic[@"check_type"] integerValue] == 3){
+        _roleL.hidden = YES;
+        _roleBtn.hidden = YES;
+        _personL.hidden = YES;
+        _coll.hidden = YES;
+    }else if ([dataDic[@"check_type"] integerValue] == 1){
         
         _auditL.hidden = NO;
         _auditBtn.hidden = NO;
+        _roleL.hidden = NO;
+        _roleBtn.hidden = NO;
+        _personL.hidden = NO;
+        _coll.hidden = NO;
+        
+        _auditBtn.backgroundColor = CLBackColor;
+        _auditBtn.userInteractionEnabled = NO;
         
         [_typeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -100,7 +143,16 @@
             make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
-            make.bottom.equalTo(self).offset(-10 *SIZE);
+//            make.bottom.equalTo(self).offset(-10 *SIZE);
+        }];
+        
+        [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+            make.bottom.equalTo(self).offset(-20 *SIZE);
         }];
     }else{
         
@@ -142,7 +194,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 2;
+    return _dataArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -319,8 +371,6 @@
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
-    
-    
 }
 
 @end

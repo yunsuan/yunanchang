@@ -1,12 +1,12 @@
 //
-//  AddOrderVC.m
+//  AddSignVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/3.
+//  Created by 谷治墙 on 2019/7/12.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddOrderVC.h"
+#import "AddSignVC.h"
 
 #import "RoomVC.h"
 #import "SelectSpePerferVC.h"
@@ -20,7 +20,7 @@
 
 #import "SinglePickView.h"
 
-@interface AddOrderVC ()<UIScrollViewDelegate>
+@interface AddSignVC ()<UIScrollViewDelegate>
 {
     
     NSInteger _num;
@@ -64,23 +64,23 @@
 
 @end
 
-@implementation AddOrderVC
+@implementation AddSignVC
 
 - (instancetype)initWithRow_id:(NSString *)row_id personArr:(NSArray *)personArr
 {
     self = [super init];
     if (self) {
         
-//        _project_id = project_id;
+        //        _project_id = project_id;
         _personArr = [[NSMutableArray alloc] initWithArray:personArr];
         for (int i = 0; i < _personArr.count; i++) {
             
             [_proportionArr addObject:@""];
         }
-//        _info_id = info_id;
+        //        _info_id = info_id;
         _roomDic = [@{} mutableCopy];
         _ordDic = [@{} mutableCopy];
-//        _group_id = group_id;
+        //        _group_id = group_id;
     }
     return self;
 }
@@ -90,7 +90,7 @@
     
     [self initDataSource];
     [self initUI];
-//    [self PropertyRequestMethod];
+    //    [self PropertyRequestMethod];
 }
 
 - (void)initDataSource{
@@ -230,32 +230,32 @@
     };
     _addNumeralPersonView.addNumeralPersonViewAddBlock = ^(NSInteger num) {
         
-//        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-//        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
-//        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
-//
-//            [strongSelf->_personArr addObject:dic];
-//            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-//            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count;
-//        };
-//        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        //        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        //        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        //        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
+        //
+        //            [strongSelf->_personArr addObject:dic];
+        //            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
+        //            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count;
+        //        };
+        //        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
-//        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[strongSelf->_num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-//        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
-//
-//            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[strongSelf->_num]];
-//            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//
-//                if (dic[key]) {
-//
-//                    [tempDic setObject:dic[key] forKey:key];
-//                }
-//            }];
-//            [strongSelf->_personArr replaceObjectAtIndex:strongSelf->_num withObject:tempDic];
-//        };
-//        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        //        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[strongSelf->_num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        //        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
+        //
+        //            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[strongSelf->_num]];
+        //            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        //
+        //                if (dic[key]) {
+        //
+        //                    [tempDic setObject:dic[key] forKey:key];
+        //                }
+        //            }];
+        //            [strongSelf->_personArr replaceObjectAtIndex:strongSelf->_num withObject:tempDic];
+        //        };
+        //        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_addNumeralPersonView];
     
@@ -267,32 +267,32 @@
     _roomHeader.addNemeralHeaderAllBlock = ^{
         
         if ([strongSelf->_selectArr[1] integerValue]){
-
+            
             [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@0];
             [strongSelf->_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addOrderRoomView.hidden = YES;
             [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-
+                
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_roomHeader.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
                 make.height.mas_equalTo(40 *SIZE);
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+                //                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
             }];
         }else{
-
+            
             [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@1];
             [strongSelf->_roomHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addOrderRoomView.hidden = NO;
             [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-
+                
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_addOrderRoomView.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
                 make.height.mas_equalTo(40 *SIZE);
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+                //                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
             }];
         }
     };
@@ -396,7 +396,7 @@
     _addOrderView.dataArr = _disCountArr;
     _addOrderView.dataDic = _ordDic;
     _addOrderView.addOrderViewAddBlock = ^{
-      
+        
         if (strongSelf->_roomDic.count) {
             
             SelectSpePerferVC *nextVC = [[SelectSpePerferVC alloc] init];
@@ -431,7 +431,7 @@
     };
     
     _addOrderView.addOrderViewDropBlock = ^(NSInteger index) {
-      
+        
         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
         view.selectedBlock = ^(NSString *MC, NSString *ID) {
             
@@ -443,7 +443,7 @@
     };
     
     _addOrderView.addOrderViewDeleteBlock = ^(NSInteger index) {
-      
+        
         [strongSelf->_disCountArr removeObjectAtIndex:index];
     };
     
@@ -597,7 +597,7 @@
     }];
     
     [_addOrderRoomView mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_roomHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
@@ -632,13 +632,14 @@
     }];
     
     [_addNumeralProcessView mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_processHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(0);
         make.right.equalTo(self->_scrollView).offset(0);
-//        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
+        //        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];
 }
+
 @end

@@ -286,6 +286,12 @@ static NSString *const ProjectGetProgressList_URL = @"saleApp/project/getProgres
 //流程获取
 static NSString *const ProjectProgressGet_URL = @"saleApp/project/progress/get";
 
+//获取项目角色人员列表
+static NSString *const ProjectRolePersonList_URL = @"saleApp/project/role/person/list";
+
+//获取项目下角色列表
+static NSString *const ProjectRoleListAll_URL = @"saleApp/project/role/listAll";
+
 #pragma mark -- 认购 --
 
 //认购列表

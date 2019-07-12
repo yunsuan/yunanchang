@@ -1,8 +1,8 @@
 //
-//  AddOrderVC.h
+//  AddSignVC.h
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/3.
+//  Created by 谷治墙 on 2019/7/12.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
@@ -10,9 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddOrderVC : BaseViewController
-
-@property (nonatomic, strong) NSString *status;
+@interface AddSignVC : BaseViewController
 
 - (instancetype)initWithRow_id:(NSString *)row_id personArr:(NSArray *)personArr;
 

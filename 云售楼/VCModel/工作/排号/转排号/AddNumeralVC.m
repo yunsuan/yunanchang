@@ -43,6 +43,7 @@
     NSMutableArray *_typeArr;
     NSMutableArray *_progressArr;
     NSMutableArray *_progressAllArr;
+    NSMutableArray *_roleArr;
     
     NSDateFormatter *_formatter;
 }
@@ -173,8 +174,38 @@
         
         
     }];
+    
+    [BaseRequest GET:ProjectRoleListAll_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_roleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+        }else{
+            
+            
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        NSLog(@"%@",error);
+    }];
 }
 
+- (void)RequestMethod{
+    
+    [BaseRequest GET:ProjectRolePersonList_URL parameters:@{@"project_id":@""} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            
+        }else{
+            
+            
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        NSLog(@"%@",error);
+    }];
+}
 - (void)ActionNextBtn:(UIButton *)btn{
     
     BOOL isFull = YES;
@@ -300,7 +331,7 @@
     _personHeader.titleL.text = @"权益人信息";
     _personHeader.addBtn.hidden = YES;
     [_personHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-    _personHeader.addNemeralHeaderMoreBlock = ^{
+    _personHeader.addNemeralHeaderAllBlock = ^{
       
         if ([strongSelf->_selectArr[0] integerValue]){
             
@@ -336,6 +367,11 @@
     _addNumeralPersonView.dataArr = _personArr;
     _addNumeralPersonView.num = _num;
     _addNumeralPersonView.proportion = _proportionArr[_num];
+    
+    _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
+      
+        [strongSelf->_personArr removeObjectAtIndex:num];
+    };
     
     _addNumeralPersonView.addNumeralPersonViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
       
@@ -397,7 +433,7 @@
     _infoHeader.addBtn.hidden = YES;
     [_infoHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _infoHeader.backgroundColor = CLWhiteColor;
-    _infoHeader.addNemeralHeaderMoreBlock = ^{
+    _infoHeader.addNemeralHeaderAllBlock = ^{
         
         if ([strongSelf->_selectArr[1] integerValue]){
             
@@ -493,8 +529,6 @@
         
     };
     
-    
-    
     _addNumeralInfoView.addNumeralInfoViewInfoTimeBlock = ^{
         
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
@@ -534,7 +568,7 @@
     _processHeader.addBtn.hidden = YES;
     [_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _processHeader.backgroundColor = CLWhiteColor;
-    _processHeader.addNemeralHeaderMoreBlock = ^{
+    _processHeader.addNemeralHeaderAllBlock = ^{
      
         if ([strongSelf->_selectArr[2] integerValue]){
             
@@ -573,6 +607,12 @@
     _addNumeralProcessView.dataDic = _progressDic;
     _addNumeralProcessView.addNumeralProcessViewAuditBlock = ^{
         
+        SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[@{@"param":@"自由流程",@"id":@"1"},@{@"param":@"固定流程",@"id":@"2"}]];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            
+            
+        };
+        [strongSelf.view addSubview:view];
     };
     _addNumeralProcessView.addNumeralProcessViewTypeBlock = ^{
         
@@ -632,6 +672,57 @@
             }];
         }
     };
+    
+    _addNumeralProcessView.addNumeralProcessViewRoleBlock = ^{
+      
+        if (strongSelf->_roleArr) {
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+//                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
+//                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
+//                for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
+//
+//                    if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
+//
+//                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
+//                    }
+//                }
+                strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
+            };
+        }else{
+            
+            [BaseRequest GET:ProjectRoleListAll_URL parameters:@{@"project_id":strongSelf->_project_id} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    strongSelf->_roleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
+                    view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                        
+//                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
+//                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
+//                        for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
+//
+//                            if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
+//
+//                                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
+//                            }
+//                        }
+//                        strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
+                    };
+                }else{
+                    
+                    
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                NSLog(@"%@",error);
+            }];
+        }
+    };
+    
     [_scrollView addSubview:_addNumeralProcessView];
     
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];

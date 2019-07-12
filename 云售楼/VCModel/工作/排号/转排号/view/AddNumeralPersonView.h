@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^AddNumeralPersonViewCollBlock)(NSInteger num);
 
+typedef void(^AddNumeralPersonViewDeleteBlock)(NSInteger num);
+
 typedef void(^AddNumeralPersonViewEditBlock)(NSInteger num);
 
 typedef void(^AddNumeralPersonViewAddBlock)(NSInteger num);
@@ -33,6 +35,8 @@ typedef void(^AddNumeralPersonViewStrBlock)(NSString *str ,NSInteger num);
 @property (nonatomic, copy) AddNumeralPersonViewAddBlock addNumeralPersonViewAddBlock;
 
 @property (nonatomic, copy) AddNumeralPersonViewStrBlock addNumeralPersonViewStrBlock;
+
+@property (nonatomic, copy) AddNumeralPersonViewDeleteBlock addNumeralPersonViewDeleteBlock;
 
 @property (nonatomic, assign) NSInteger num;
 

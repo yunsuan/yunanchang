@@ -28,6 +28,14 @@
     }
 }
 
+- (void)ActionAllBtn:(UIButton *)btn{
+    
+    if (self.addNemeralHeaderAllBlock) {
+        
+        self.addNemeralHeaderAllBlock();
+    }
+}
+
 - (void)initUI{
     
     self.backgroundColor = [UIColor whiteColor];
@@ -43,6 +51,13 @@
     [_moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     [_moreBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
     [self addSubview:_moreBtn];
+    
+    _allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _allBtn.titleLabel.font = [UIFont systemFontOfSize:11 *SIZE];
+    [_allBtn addTarget:self action:@selector(ActionAllBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [_allBtn setTitle:@"展开" forState:UIControlStateNormal];
+//    [_allBtn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
+    [self addSubview:_allBtn];
     
 //    _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    _addBtn.titleLabel.font = [UIFont systemFontOfSize:11 *SIZE];
@@ -75,19 +90,19 @@
         make.height.equalTo(@(20 *SIZE));
     }];
     
-    [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self).offset(325 *SIZE);
-        make.top.equalTo(self).offset(10 *SIZE);
+        make.left.equalTo(self).offset(0 *SIZE);
+        make.top.equalTo(self).offset(0 *SIZE);
         //        make.bottom.equalTo(self.contentView).offset(10 *SIZE);
-        make.width.equalTo(@(20 *SIZE));
-        make.height.equalTo(@(20 *SIZE));
+        make.width.equalTo(@(360 *SIZE));
+        make.height.equalTo(@(39 *SIZE));
     }];
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(0 *SIZE);
-        make.top.equalTo(self->_titleL.mas_bottom).offset(13 *SIZE);
+        make.top.equalTo(self->_allBtn.mas_bottom).offset(0 *SIZE);
         make.bottom.equalTo(self).offset(0);
         make.width.equalTo(@(SCREEN_Width));
         make.height.equalTo(@(SIZE));
