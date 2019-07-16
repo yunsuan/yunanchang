@@ -15,6 +15,8 @@
 #import "FollowRecordVC.h"
 #import "IntentSurveyVC.h"
 #import "AddNumeralVC.h"
+#import "AddOrderVC.h"
+#import "AddSignVC.h"
 
 #import "SinglePickView.h"
 
@@ -154,13 +156,6 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
-//    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }];
-//    
-//    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转订单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        
-//    }];
     
     UIAlertAction *numeral = [UIAlertAction actionWithTitle:@"转排号" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
       
@@ -170,6 +165,20 @@
             
             [self RequestMethod];
         };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
+    
+    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转订单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:@"" personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
+        nextVC.status = @"1";
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
+    
+    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:@"" personArr:self->_peopleArr];
+//        nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
@@ -196,6 +205,8 @@
     }];
     
     [alert addAction:numeral];
+    [alert addAction:order];
+    [alert addAction:sign];
     
     if ([self.powerDic[@"giveUp"] boolValue]) {
         

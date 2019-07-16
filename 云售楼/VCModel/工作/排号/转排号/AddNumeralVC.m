@@ -9,7 +9,6 @@
 #import "AddNumeralVC.h"
 
 #import "AddCallTelegramGroupMemberVC.h"
-//#import "AddNumeralModifyCustomVC.h"
 #import "CallTelegramSimpleCustomVC.h"
 
 #import "AddNemeralHeader.h"
@@ -142,8 +141,7 @@
     [BaseRequest GET:ProjectRowGetRowList_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
-            
-//            self->_typeArr = [[NSMutableArray alloc] initWithArray:resposeObject[@"data"]];
+
             [self->_typeArr removeAllObjects];
             for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
                 
@@ -185,7 +183,6 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-//            self->_roleArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
             for (NSDictionary *dic in resposeObject[@"data"]) {
                 
                 [self->_roleArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",dic[@"project_name"],dic[@"role_name"]],@"id":dic[@"role_id"]}];
@@ -229,6 +226,7 @@
         NSLog(@"%@",error);
     }];
 }
+
 - (void)ActionNextBtn:(UIButton *)btn{
     
     BOOL isFull = YES;
@@ -238,7 +236,7 @@
         if (!str.length) {
             
             isFull = NO;
-            [self showContent:@"请填写权益人比例"];
+//            [self showContent:@"请填写权益人比例"];
             break;
         }else{
             
@@ -247,6 +245,7 @@
     }
     if (!isFull) {
         
+        [self showContent:@"请填写权益人比例"];
         return;
     }
     if (percent != 100) {
@@ -319,6 +318,24 @@
     NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];
     [dic setObject:personjson1 forKey:@"advicer_list"];
     [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
+    NSString *param;
+    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+        
+        if ([_rolePersonSelectArr[i] integerValue] == 1) {
+            
+            if (param.length) {
+                
+                param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+            }else{
+                
+                param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+            }
+        }
+    }
+    if (param.length) {
+        
+        [dic setObject:param forKey:@"param"];
+    }
     
     [BaseRequest POST:ProjectRowAddRow_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
@@ -328,6 +345,11 @@
                 
                 self.addNumeralVCBlock();
             }
+            [self showContent:resposeObject[@"msg"]];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         }else{
             
             [self showContent:resposeObject[@"msg"]];
@@ -343,7 +365,7 @@
     
     self.titleLabel.text = @"转排号";
     
-    _scrollView = [[UIScrollView alloc] init];//WithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE)];
+    _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLBackColor;
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
@@ -394,6 +416,7 @@
     _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
       
         [strongSelf->_personArr removeObjectAtIndex:num];
+        [strongSelf->_proportionArr removeObjectAtIndex:num];
     };
     
     _addNumeralPersonView.addNumeralPersonViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
@@ -470,7 +493,6 @@
                 make.width.mas_equalTo(SCREEN_Width);
                 make.height.mas_equalTo(40 *SIZE);
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
             }];
         }else{
             
@@ -484,7 +506,6 @@
                 make.width.mas_equalTo(SCREEN_Width);
                 make.height.mas_equalTo(40 *SIZE);
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
             }];
         }
     };
@@ -498,7 +519,7 @@
         
         if (num == 0) {
             
-//            [strongSelf->_infoDic setObject:str forKey:@""];
+            
         }else if (num == 2){
             
             [strongSelf->_infoDic setObject:str forKey:@"row_code"];
@@ -617,7 +638,6 @@
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
-//                make.height.mas_equalTo(0);
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
                 make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
             }];
@@ -722,7 +742,7 @@
     
     _addNumeralProcessView.addNumeralProcessViewRoleBlock = ^{
       
-        if (strongSelf->_roleArr) {
+        if (strongSelf->_roleArr.count) {
             
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
@@ -804,7 +824,6 @@
         make.top.equalTo(self->_scrollView).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(40 *SIZE);
-//        make.right.equalTo(self->_scrollView).offset(0);
     }];
     
     [_addNumeralPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -839,7 +858,6 @@
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(40 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
-//        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];
     
     [_addNumeralProcessView mas_makeConstraints:^(MASConstraintMaker *make) {

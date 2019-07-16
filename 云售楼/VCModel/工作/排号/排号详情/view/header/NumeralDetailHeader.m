@@ -34,6 +34,7 @@
 }
 
 - (void)setDataDic:(NSDictionary *)dataDic{
+
     
     _collArr = [[NSMutableArray alloc] initWithArray:dataDic[@"beneficiary"]];
     [_coll reloadData];
@@ -191,6 +192,7 @@
     _headImg = [[UIImageView alloc] init];
     _headImg.layer.cornerRadius = 33.5 *SIZE;
     _headImg.clipsToBounds = YES;
+    _headImg.image = IMAGE_WITH_NAME(@"paihao");
     [_blueView addSubview:_headImg];
     
     for (int i = 0; i < 6; i++) {

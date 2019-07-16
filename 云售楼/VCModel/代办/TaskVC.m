@@ -16,6 +16,7 @@
 #import "WorkCompleteCustomVC1.h"
 #import "CompanyAuthVC.h"
 
+#import "NumeralDetailVC.h"
 
 #import "TaskCallBackCell.h"
 #import "TaskCallFollowCell.h"
@@ -23,9 +24,27 @@
 #import "TaskSignAuditCell.h"
 #import "TaskVisitConfirmCell.h"
 
+#import "TransNumeralCell.h"
+
 #import "InvalidView.h"
 #import "SignSelectWorkerView.h"
 #import "SignFailView.h"
+
+static NSInteger const SALE_MESSAGE_ROW_CHECK=10; //排号审核
+
+static NSInteger const SALE_MESSAGE_SUB_CHECK=11; //定单审核
+
+static NSInteger const SALE_MESSAGE_CONS_CHECK=12;//签约审核
+
+static NSInteger const SALE_MESSAGE_HOUSE_RESERVE=13; //房源预留
+
+static NSInteger const SALE_MESSAGE_HOUSE_PRICE_SET=14; //房源定价
+
+static NSInteger const SALE_MESSAGE_HOUSE_CTL=15; //房源销控
+
+static NSInteger const SALE_MESSAGE_HOUSE_PRICE_FIX=16; //房源调价
+
+static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折扣
 
 @interface TaskVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -435,6 +454,39 @@
             }];
         };
         return cell;
+        
+#pragma mark -- 排号审核 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 10){
+        
+        TransNumeralCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransNumeralCell"];
+        if (!cell) {
+            
+            cell = [[TransNumeralCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransNumeralCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.transNumeralCellAuditBlock = ^(NSInteger index) {
+            
+            NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[index][@"row_id"] project_id:@"" info_id:@""];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 11){
+//
+//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 12){
+//
+//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 13){
+//
+//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 14){
+//
+//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 15){
+//
+//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 16){
+//
+//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 17){
+    
     }else{
 
         TaskVisitConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskVisitConfirmCell"];
@@ -693,6 +745,31 @@
         nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];
 
         [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 10) {
+        
+        NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[indexPath.row][@"row_id"] project_id:@"" info_id:@""];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 11) {
+        
+        
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 12) {
+        
+        
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 13) {
+        
+        
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 14) {
+        
+        
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 15) {
+        
+        
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 16) {
+        
+        
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 17) {
+        
+        
     }else{
         
         WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];

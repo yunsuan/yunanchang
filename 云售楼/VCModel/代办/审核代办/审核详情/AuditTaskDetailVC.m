@@ -14,7 +14,7 @@
 @interface AuditTaskDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
-    
+    NSMutableArray *_dataArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -30,7 +30,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initDataSource];
     [self initUI];
+    [self RequestMethod];
+}
+
+- (void)initDataSource{
+    
+    _dataArr = [@[] mutableCopy];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:ProjectGetProgressList_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+        
+    }];
 }
 
 - (void)ActionAuditBtn:(UIButton *)btn{
@@ -40,18 +65,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 5;
+    return _dataArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section == 0) {
-        
-        return 1;
-    }else{
-        
-        return 4;
-    }
+    return [_dataArr[section] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -116,7 +135,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"审核详情";
+    self.titleLabel.text = @"审核";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 47 *SIZE - TAB_BAR_MORE) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;

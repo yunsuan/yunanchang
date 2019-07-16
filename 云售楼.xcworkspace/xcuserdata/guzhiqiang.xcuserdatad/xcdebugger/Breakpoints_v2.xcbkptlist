@@ -84,7 +84,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/AFNetworking/AFNetworking/AFURLRequestSerialization.m"
-            timestampString = "584531424.299831"
+            timestampString = "584952118.359542"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "522"
@@ -100,77 +100,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/AFNetworking/AFNetworking/AFURLRequestSerialization.m"
-            timestampString = "584531424.299902"
+            timestampString = "584952118.359609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1338"
             endingLineNumber = "1338"
             landmarkName = "-requestBySerializingRequest:withParameters:error:"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x8f6c;&#x6392;&#x53f7;/AddNumeralVC.m"
-            timestampString = "584613539.5300519"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
-            landmarkName = "-initUI"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x8f6c;&#x6392;&#x53f7;/AddNumeralVC.m"
-            timestampString = "584613539.530153"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525"
-            landmarkName = "-initUI"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__22-[AddNumeralVC initUI]_block_invoke_5"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E8%BD%AC%E6%8E%92%E5%8F%B7/AddNumeralVC.m"
-                  timestampString = "584613539.883198"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "525"
-                  endingLineNumber = "525"
-                  offsetFromSymbolStart = "696">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__22-[AddNumeralVC initUI]_block_invoke.600"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E8%BD%AC%E6%8E%92%E5%8F%B7/AddNumeralVC.m"
-                  timestampString = "584613539.884949"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "527"
-                  endingLineNumber = "527"
-                  offsetFromSymbolStart = "100">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

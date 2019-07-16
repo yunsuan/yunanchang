@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AuditTaskDetailVC : BaseViewController
 
+@property (nonatomic, strong) NSString *status;
+
+@property (nonatomic, strong) NSString *requestId;
+
 @end
 
 NS_ASSUME_NONNULL_END

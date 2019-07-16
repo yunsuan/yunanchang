@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32122DDB1C800092293 /* TransNumeralCell.m */; };
+		0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32422DDB60800092293 /* TransOrderCell.m */; };
+		0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32722DDB61500092293 /* TransSignCell.m */; };
 		0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */; };
 		0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */; };
 		0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A4E227EAC81006B0510 /* TaskCallFollowCell.m */; };
@@ -344,10 +347,6 @@
 		0CD043B92282715F002C8BD3 /* WaitAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043B52282715E002C8BD3 /* WaitAnimation.m */; };
 		0CD043BA2282715F002C8BD3 /* GZQGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043B62282715E002C8BD3 /* GZQGifFooter.m */; };
 		0CD043BB2282715F002C8BD3 /* GZQGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043B72282715E002C8BD3 /* GZQGifHeader.m */; };
-		0CD043C02282B9A2002C8BD3 /* NumeralAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043BF2282B9A2002C8BD3 /* NumeralAuditDetailVC.m */; };
-		0CD043C42282BBBA002C8BD3 /* NumeralAuditDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043C32282BBBA002C8BD3 /* NumeralAuditDetailCell.m */; };
-		0CD043C82282BFDC002C8BD3 /* SubScribeAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043C72282BFDC002C8BD3 /* SubScribeAuditDetailVC.m */; };
-		0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043CF2282C1DE002C8BD3 /* ContractAuditDetailVC.m */; };
 		0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043D32282C6AD002C8BD3 /* AuditTaskDetailVC.m */; };
 		0CD043D82282DD1B002C8BD3 /* MBProgressHUD+GZQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043D72282DD1B002C8BD3 /* MBProgressHUD+GZQ.m */; };
 		0CD043DE2283BC05002C8BD3 /* GetCaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD043DA2283BC04002C8BD3 /* GetCaptchaView.m */; };
@@ -369,22 +368,10 @@
 		0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89DB225C71890057F3FD /* CompanyInfoVC.m */; };
 		0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89DE225C720E0057F3FD /* AddressBookVC.m */; };
 		0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89E3225C74540057F3FD /* AddressBookCell.m */; };
-		0CEF89F1225C87FC0057F3FD /* AuditTaskVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89F0225C87FC0057F3FD /* AuditTaskVC.m */; };
-		0CEF89F2225C88070057F3FD /* AuditTaskVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89F0225C87FC0057F3FD /* AuditTaskVC.m */; };
-		0CEF89F8225C88480057F3FD /* ContractAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89F7225C88480057F3FD /* ContractAuditVC.m */; };
-		0CEF89FB225C886F0057F3FD /* NumeralAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89FA225C886F0057F3FD /* NumeralAuditVC.m */; };
-		0CEF89FE225C88910057F3FD /* SubscribeAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89FD225C88910057F3FD /* SubscribeAuditVC.m */; };
 		0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A01225C8D460057F3FD /* TypeTagCollCell.m */; };
-		0CEF8A07225C8E880057F3FD /* AuditTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A06225C8E880057F3FD /* AuditTaskCell.m */; };
-		0CEF8A0A225C91740057F3FD /* RecommendCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A09225C91740057F3FD /* RecommendCustomVC.m */; };
-		0CEF8A10225C96020057F3FD /* RecommendWaitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A0F225C96020057F3FD /* RecommendWaitVC.m */; };
-		0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A12225C96120057F3FD /* RecommendFailVC.m */; };
-		0CEF8A16225C96230057F3FD /* RecommendSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A15225C96230057F3FD /* RecommendSuccessVC.m */; };
-		0CEF8A1B225C9BA40057F3FD /* RecommendCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A1A225C9BA40057F3FD /* RecommendCustomCell.m */; };
 		0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A1E225D7BF00057F3FD /* RegisterVC.m */; };
 		0CEF8A27225D7BF00057F3FD /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A21225D7BF00057F3FD /* LoginVC.m */; };
 		0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A24225D7BF00057F3FD /* FindPassWordVC.m */; };
-		0CEF8A2C225D84330057F3FD /* RecommendWaitDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A2B225D84330057F3FD /* RecommendWaitDetailVC.m */; };
 		0CEF8A31225D863A0057F3FD /* CountDownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A30225D863A0057F3FD /* CountDownCell.m */; };
 		0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A36225DCA090057F3FD /* PersonalHeader.m */; };
 		0CEF8A3D225F0CF10057F3FD /* CompanyAuthVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF8A3C225F0CF10057F3FD /* CompanyAuthVC.m */; };
@@ -462,6 +449,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C0CE32022DDB1C800092293 /* TransNumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransNumeralCell.h; sourceTree = "<group>"; };
+		0C0CE32122DDB1C800092293 /* TransNumeralCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransNumeralCell.m; sourceTree = "<group>"; };
+		0C0CE32322DDB60800092293 /* TransOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransOrderCell.h; sourceTree = "<group>"; };
+		0C0CE32422DDB60800092293 /* TransOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransOrderCell.m; sourceTree = "<group>"; };
+		0C0CE32622DDB61500092293 /* TransSignCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransSignCell.h; sourceTree = "<group>"; };
+		0C0CE32722DDB61500092293 /* TransSignCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransSignCell.m; sourceTree = "<group>"; };
 		0C192C9122CAEBC4000CA161 /* AddNumeralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralVC.h; sourceTree = "<group>"; };
 		0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralVC.m; sourceTree = "<group>"; };
 		0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCallBackCell.m; sourceTree = "<group>"; };
@@ -957,14 +950,6 @@
 		0CD043B62282715E002C8BD3 /* GZQGifFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZQGifFooter.m; sourceTree = "<group>"; };
 		0CD043B72282715E002C8BD3 /* GZQGifHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZQGifHeader.m; sourceTree = "<group>"; };
 		0CD043B82282715E002C8BD3 /* WaitAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitAnimation.h; sourceTree = "<group>"; };
-		0CD043BE2282B9A2002C8BD3 /* NumeralAuditDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAuditDetailVC.h; sourceTree = "<group>"; };
-		0CD043BF2282B9A2002C8BD3 /* NumeralAuditDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAuditDetailVC.m; sourceTree = "<group>"; };
-		0CD043C22282BBBA002C8BD3 /* NumeralAuditDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAuditDetailCell.h; sourceTree = "<group>"; };
-		0CD043C32282BBBA002C8BD3 /* NumeralAuditDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAuditDetailCell.m; sourceTree = "<group>"; };
-		0CD043C62282BFDC002C8BD3 /* SubScribeAuditDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubScribeAuditDetailVC.h; sourceTree = "<group>"; };
-		0CD043C72282BFDC002C8BD3 /* SubScribeAuditDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubScribeAuditDetailVC.m; sourceTree = "<group>"; };
-		0CD043CE2282C1DE002C8BD3 /* ContractAuditDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractAuditDetailVC.h; sourceTree = "<group>"; };
-		0CD043CF2282C1DE002C8BD3 /* ContractAuditDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractAuditDetailVC.m; sourceTree = "<group>"; };
 		0CD043D22282C6AD002C8BD3 /* AuditTaskDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTaskDetailVC.h; sourceTree = "<group>"; };
 		0CD043D32282C6AD002C8BD3 /* AuditTaskDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskDetailVC.m; sourceTree = "<group>"; };
 		0CD043D62282DD1B002C8BD3 /* MBProgressHUD+GZQ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GZQ.h"; sourceTree = "<group>"; };
@@ -1006,36 +991,14 @@
 		0CEF89DE225C720E0057F3FD /* AddressBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookVC.m; sourceTree = "<group>"; };
 		0CEF89E2225C74540057F3FD /* AddressBookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookCell.h; sourceTree = "<group>"; };
 		0CEF89E3225C74540057F3FD /* AddressBookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookCell.m; sourceTree = "<group>"; };
-		0CEF89EF225C87FC0057F3FD /* AuditTaskVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTaskVC.h; sourceTree = "<group>"; };
-		0CEF89F0225C87FC0057F3FD /* AuditTaskVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskVC.m; sourceTree = "<group>"; };
-		0CEF89F6225C88480057F3FD /* ContractAuditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContractAuditVC.h; sourceTree = "<group>"; };
-		0CEF89F7225C88480057F3FD /* ContractAuditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContractAuditVC.m; sourceTree = "<group>"; };
-		0CEF89F9225C886F0057F3FD /* NumeralAuditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAuditVC.h; sourceTree = "<group>"; };
-		0CEF89FA225C886F0057F3FD /* NumeralAuditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAuditVC.m; sourceTree = "<group>"; };
-		0CEF89FC225C88910057F3FD /* SubscribeAuditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscribeAuditVC.h; sourceTree = "<group>"; };
-		0CEF89FD225C88910057F3FD /* SubscribeAuditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscribeAuditVC.m; sourceTree = "<group>"; };
 		0CEF8A00225C8D460057F3FD /* TypeTagCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeTagCollCell.h; sourceTree = "<group>"; };
 		0CEF8A01225C8D460057F3FD /* TypeTagCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TypeTagCollCell.m; sourceTree = "<group>"; };
-		0CEF8A05225C8E880057F3FD /* AuditTaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTaskCell.h; sourceTree = "<group>"; };
-		0CEF8A06225C8E880057F3FD /* AuditTaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskCell.m; sourceTree = "<group>"; };
-		0CEF8A08225C91740057F3FD /* RecommendCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendCustomVC.h; sourceTree = "<group>"; };
-		0CEF8A09225C91740057F3FD /* RecommendCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendCustomVC.m; sourceTree = "<group>"; };
-		0CEF8A0E225C96020057F3FD /* RecommendWaitVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendWaitVC.h; sourceTree = "<group>"; };
-		0CEF8A0F225C96020057F3FD /* RecommendWaitVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendWaitVC.m; sourceTree = "<group>"; };
-		0CEF8A11225C96120057F3FD /* RecommendFailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendFailVC.h; sourceTree = "<group>"; };
-		0CEF8A12225C96120057F3FD /* RecommendFailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendFailVC.m; sourceTree = "<group>"; };
-		0CEF8A14225C96230057F3FD /* RecommendSuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendSuccessVC.h; sourceTree = "<group>"; };
-		0CEF8A15225C96230057F3FD /* RecommendSuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendSuccessVC.m; sourceTree = "<group>"; };
-		0CEF8A19225C9BA40057F3FD /* RecommendCustomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendCustomCell.h; sourceTree = "<group>"; };
-		0CEF8A1A225C9BA40057F3FD /* RecommendCustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendCustomCell.m; sourceTree = "<group>"; };
 		0CEF8A1E225D7BF00057F3FD /* RegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
 		0CEF8A1F225D7BF00057F3FD /* RegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterVC.h; sourceTree = "<group>"; };
 		0CEF8A21225D7BF00057F3FD /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		0CEF8A22225D7BF00057F3FD /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		0CEF8A24225D7BF00057F3FD /* FindPassWordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPassWordVC.m; sourceTree = "<group>"; };
 		0CEF8A25225D7BF00057F3FD /* FindPassWordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPassWordVC.h; sourceTree = "<group>"; };
-		0CEF8A2A225D84330057F3FD /* RecommendWaitDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendWaitDetailVC.h; sourceTree = "<group>"; };
-		0CEF8A2B225D84330057F3FD /* RecommendWaitDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendWaitDetailVC.m; sourceTree = "<group>"; };
 		0CEF8A2F225D863A0057F3FD /* CountDownCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountDownCell.h; sourceTree = "<group>"; };
 		0CEF8A30225D863A0057F3FD /* CountDownCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountDownCell.m; sourceTree = "<group>"; };
 		0CEF8A35225DCA090057F3FD /* PersonalHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalHeader.h; sourceTree = "<group>"; };
@@ -1179,6 +1142,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C0CE31D22DDB10200092293 /* 订单审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE32322DDB60800092293 /* TransOrderCell.h */,
+				0C0CE32422DDB60800092293 /* TransOrderCell.m */,
+			);
+			path = "订单审核";
+			sourceTree = "<group>";
+		};
+		0C0CE31E22DDB10D00092293 /* 排号审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE32022DDB1C800092293 /* TransNumeralCell.h */,
+				0C0CE32122DDB1C800092293 /* TransNumeralCell.m */,
+			);
+			path = "排号审核";
+			sourceTree = "<group>";
+		};
+		0C0CE31F22DDB1A300092293 /* 转签约审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE32622DDB61500092293 /* TransSignCell.h */,
+				0C0CE32722DDB61500092293 /* TransSignCell.m */,
+			);
+			path = "转签约审核";
+			sourceTree = "<group>";
+		};
 		0C192C9022CAEB52000CA161 /* 转排号 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1630,11 +1620,7 @@
 		0C3A915E225B372D00F04804 /* 代办 */ = {
 			isa = PBXGroup;
 			children = (
-				0CEF89EE225C87DF0057F3FD /* 财务代办 */,
-				0CEF89EC225C87DF0057F3FD /* 来电客户 */,
-				0CEF89EA225C87DF0057F3FD /* 来访客户 */,
 				0CEF89EB225C87DF0057F3FD /* 审核代办 */,
-				0CEF89ED225C87DF0057F3FD /* 推荐客户 */,
 				0CEF89E5225C80670057F3FD /* view */,
 				0C3A916C225B37B200F04804 /* TaskVC.h */,
 				0C3A916D225B37B200F04804 /* TaskVC.m */,
@@ -2914,43 +2900,6 @@
 			path = "加载动画";
 			sourceTree = "<group>";
 		};
-		0CD043BD2282B990002C8BD3 /* 排号审核详情 */ = {
-			isa = PBXGroup;
-			children = (
-				0CD043C12282BBA7002C8BD3 /* view */,
-				0CD043BE2282B9A2002C8BD3 /* NumeralAuditDetailVC.h */,
-				0CD043BF2282B9A2002C8BD3 /* NumeralAuditDetailVC.m */,
-			);
-			path = "排号审核详情";
-			sourceTree = "<group>";
-		};
-		0CD043C12282BBA7002C8BD3 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				0CD043C22282BBBA002C8BD3 /* NumeralAuditDetailCell.h */,
-				0CD043C32282BBBA002C8BD3 /* NumeralAuditDetailCell.m */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		0CD043C52282BFC9002C8BD3 /* 认购审核详情 */ = {
-			isa = PBXGroup;
-			children = (
-				0CD043C62282BFDC002C8BD3 /* SubScribeAuditDetailVC.h */,
-				0CD043C72282BFDC002C8BD3 /* SubScribeAuditDetailVC.m */,
-			);
-			path = "认购审核详情";
-			sourceTree = "<group>";
-		};
-		0CD043CD2282C1CC002C8BD3 /* 合同审核详情 */ = {
-			isa = PBXGroup;
-			children = (
-				0CD043CE2282C1DE002C8BD3 /* ContractAuditDetailVC.h */,
-				0CD043CF2282C1DE002C8BD3 /* ContractAuditDetailVC.m */,
-			);
-			path = "合同审核详情";
-			sourceTree = "<group>";
-		};
 		0CD043D12282C69A002C8BD3 /* 审核详情 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3121,6 +3070,9 @@
 		0CEF89E6225C80670057F3FD /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				0C0CE31F22DDB1A300092293 /* 转签约审核 */,
+				0C0CE31E22DDB10D00092293 /* 排号审核 */,
+				0C0CE31D22DDB10200092293 /* 订单审核 */,
 				0C310E3622A4F7EF00083504 /* A位跟进 */,
 				0C221A57227EB0EF006B0510 /* 签约审核 */,
 				0C221A53227EB05D006B0510 /* 到访确认 */,
@@ -3131,82 +3083,12 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
-		0CEF89EA225C87DF0057F3FD /* 来访客户 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "来访客户";
-			sourceTree = "<group>";
-		};
 		0CEF89EB225C87DF0057F3FD /* 审核代办 */ = {
 			isa = PBXGroup;
 			children = (
 				0CD043D12282C69A002C8BD3 /* 审核详情 */,
-				0CEF8A03225C8E5C0057F3FD /* view */,
-				0CEF89F4225C88350057F3FD /* 合同审核 */,
-				0CEF89F5225C88350057F3FD /* 排号审核 */,
-				0CEF89F3225C88350057F3FD /* 认购审核 */,
-				0CEF89EF225C87FC0057F3FD /* AuditTaskVC.h */,
-				0CEF89F0225C87FC0057F3FD /* AuditTaskVC.m */,
 			);
 			path = "审核代办";
-			sourceTree = "<group>";
-		};
-		0CEF89EC225C87DF0057F3FD /* 来电客户 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "来电客户";
-			sourceTree = "<group>";
-		};
-		0CEF89ED225C87DF0057F3FD /* 推荐客户 */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A17225C9B8F0057F3FD /* view */,
-				0CEF8A0B225C91CE0057F3FD /* 待确认 */,
-				0CEF8A0C225C91CE0057F3FD /* 失效 */,
-				0CEF8A0D225C91CE0057F3FD /* 已确认 */,
-				0CEF8A08225C91740057F3FD /* RecommendCustomVC.h */,
-				0CEF8A09225C91740057F3FD /* RecommendCustomVC.m */,
-			);
-			path = "推荐客户";
-			sourceTree = "<group>";
-		};
-		0CEF89EE225C87DF0057F3FD /* 财务代办 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "财务代办";
-			sourceTree = "<group>";
-		};
-		0CEF89F3225C88350057F3FD /* 认购审核 */ = {
-			isa = PBXGroup;
-			children = (
-				0CD043C52282BFC9002C8BD3 /* 认购审核详情 */,
-				0CEF89FC225C88910057F3FD /* SubscribeAuditVC.h */,
-				0CEF89FD225C88910057F3FD /* SubscribeAuditVC.m */,
-			);
-			path = "认购审核";
-			sourceTree = "<group>";
-		};
-		0CEF89F4225C88350057F3FD /* 合同审核 */ = {
-			isa = PBXGroup;
-			children = (
-				0CD043CD2282C1CC002C8BD3 /* 合同审核详情 */,
-				0CEF89F6225C88480057F3FD /* ContractAuditVC.h */,
-				0CEF89F7225C88480057F3FD /* ContractAuditVC.m */,
-			);
-			path = "合同审核";
-			sourceTree = "<group>";
-		};
-		0CEF89F5225C88350057F3FD /* 排号审核 */ = {
-			isa = PBXGroup;
-			children = (
-				0CD043BD2282B990002C8BD3 /* 排号审核详情 */,
-				0CEF89F9225C886F0057F3FD /* NumeralAuditVC.h */,
-				0CEF89FA225C886F0057F3FD /* NumeralAuditVC.m */,
-			);
-			path = "排号审核";
 			sourceTree = "<group>";
 		};
 		0CEF89FF225C8D310057F3FD /* 分类标签coll */ = {
@@ -3216,68 +3098,6 @@
 				0CEF8A01225C8D460057F3FD /* TypeTagCollCell.m */,
 			);
 			path = "分类标签coll";
-			sourceTree = "<group>";
-		};
-		0CEF8A03225C8E5C0057F3FD /* view */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A04225C8E5C0057F3FD /* cell */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		0CEF8A04225C8E5C0057F3FD /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A05225C8E880057F3FD /* AuditTaskCell.h */,
-				0CEF8A06225C8E880057F3FD /* AuditTaskCell.m */,
-			);
-			path = cell;
-			sourceTree = "<group>";
-		};
-		0CEF8A0B225C91CE0057F3FD /* 待确认 */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A29225D84230057F3FD /* 待确认详情 */,
-				0CEF8A0E225C96020057F3FD /* RecommendWaitVC.h */,
-				0CEF8A0F225C96020057F3FD /* RecommendWaitVC.m */,
-			);
-			path = "待确认";
-			sourceTree = "<group>";
-		};
-		0CEF8A0C225C91CE0057F3FD /* 失效 */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A11225C96120057F3FD /* RecommendFailVC.h */,
-				0CEF8A12225C96120057F3FD /* RecommendFailVC.m */,
-			);
-			path = "失效";
-			sourceTree = "<group>";
-		};
-		0CEF8A0D225C91CE0057F3FD /* 已确认 */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A14225C96230057F3FD /* RecommendSuccessVC.h */,
-				0CEF8A15225C96230057F3FD /* RecommendSuccessVC.m */,
-			);
-			path = "已确认";
-			sourceTree = "<group>";
-		};
-		0CEF8A17225C9B8F0057F3FD /* view */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A18225C9B8F0057F3FD /* cell */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		0CEF8A18225C9B8F0057F3FD /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A19225C9BA40057F3FD /* RecommendCustomCell.h */,
-				0CEF8A1A225C9BA40057F3FD /* RecommendCustomCell.m */,
-			);
-			path = cell;
 			sourceTree = "<group>";
 		};
 		0CEF8A1C225D7BF00057F3FD /* 登录注册 */ = {
@@ -3315,15 +3135,6 @@
 				0CEF8A25225D7BF00057F3FD /* FindPassWordVC.h */,
 			);
 			path = "找回密码";
-			sourceTree = "<group>";
-		};
-		0CEF8A29225D84230057F3FD /* 待确认详情 */ = {
-			isa = PBXGroup;
-			children = (
-				0CEF8A2A225D84330057F3FD /* RecommendWaitDetailVC.h */,
-				0CEF8A2B225D84330057F3FD /* RecommendWaitDetailVC.m */,
-			);
-			path = "待确认详情";
 			sourceTree = "<group>";
 		};
 		0CEF8A2D225D85D50057F3FD /* 倒计时cell */ = {
@@ -4213,25 +4024,20 @@
 			files = (
 				0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */,
 				0C3A917A225C435900F04804 /* MineHeader.m in Sources */,
-				0CD043C02282B9A2002C8BD3 /* NumeralAuditDetailVC.m in Sources */,
 				0CD7A033225C6D5700EAE816 /* BDDynamicTree.m in Sources */,
 				0CF1A316228E8E04001C77CF /* SignFailVC.m in Sources */,
 				0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */,
 				10BC3A4E228FF80300DAB2D8 /* RotationSettingVC.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
 				0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */,
-				0CEF89FE225C88910057F3FD /* SubscribeAuditVC.m in Sources */,
 				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,
 				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
 				0CC2730E226868DE00EB881F /* RecordView.m in Sources */,
-				0CEF8A16225C96230057F3FD /* RecommendSuccessVC.m in Sources */,
 				0CF1A31A228E8E04001C77CF /* SignSelectWorkerView.m in Sources */,
 				0C3A916B225B377D00F04804 /* WorkVC.m in Sources */,
 				0CF1A319228E8E04001C77CF /* SignWorkerPickView.m in Sources */,
 				0C4B8EEC22CC4B1600D505BE /* AddOrderVC.m in Sources */,
-				0CEF8A1B225C9BA40057F3FD /* RecommendCustomCell.m in Sources */,
 				0C3A9157225B223400F04804 /* BaseModel.m in Sources */,
-				0CD043C82282BFDC002C8BD3 /* SubScribeAuditDetailVC.m in Sources */,
 				0CEF8AD622606D0E0057F3FD /* WorkCell.m in Sources */,
 				0C310E4122A5569A00083504 /* ChannelCustomListVC.m in Sources */,
 				0CD04340228006BF002C8BD3 /* WorkRecommendValidDetailVC.m in Sources */,
@@ -4252,7 +4058,6 @@
 				0C4B8EEF22CDAED000D505BE /* AddNumeralPersonView.m in Sources */,
 				0CA8264B22AE26D30005F3ED /* AutoVisitReportVC.m in Sources */,
 				0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */,
-				0CEF8A13225C96120057F3FD /* RecommendFailVC.m in Sources */,
 				0CFF71F922A655090066732B /* VisitCustomReportCell.m in Sources */,
 				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
 				0C743A9822C1BCE300F5CB6B /* CompanyCommissionReportCell.m in Sources */,
@@ -4272,7 +4077,6 @@
 				0C496DF522D48C1C00789FFA /* AddOrderView.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
 				0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */,
-				0CD043D02282C1DE002C8BD3 /* ContractAuditDetailVC.m in Sources */,
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
 				0CF1A318228E8E04001C77CF /* SignListCell.m in Sources */,
 				10EF17BB2293884900DE5566 /* AddPeopleVC.m in Sources */,
@@ -4311,7 +4115,6 @@
 				0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */,
 				0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */,
 				0C3A917E225C47DE00F04804 /* PersonalVC.m in Sources */,
-				0CEF8A07225C8E880057F3FD /* AuditTaskCell.m in Sources */,
 				0CEF8A5B225F49C60057F3FD /* RoomCollCell.m in Sources */,
 				0CD7A035225C6D5700EAE816 /* AddressChooseView3.m in Sources */,
 				10EF17BF2293970200DE5566 /* RotationModel.m in Sources */,
@@ -4357,12 +4160,10 @@
 				0C4B8ED622CC3F0300D505BE /* NumeralDetailAuditAdviseCell.m in Sources */,
 				0CEF8AFA226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m in Sources */,
 				0C4B8EE422CC49A200D505BE /* SignVC.m in Sources */,
-				0CEF8A10225C96020057F3FD /* RecommendWaitVC.m in Sources */,
 				0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */,
 				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
 				0CD7A02F225C6D5700EAE816 /* AddressChooseView2.m in Sources */,
 				0C221A81227EED87006B0510 /* WorkPhoneConfrimFailVC.m in Sources */,
-				0CD043C42282BBBA002C8BD3 /* NumeralAuditDetailCell.m in Sources */,
 				10EF17A32292790600DE5566 /* HMChooseView.m in Sources */,
 				0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */,
 				0C3A9168225B377400F04804 /* MineVC.m in Sources */,
@@ -4377,6 +4178,7 @@
 				0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */,
 				0CD04369228026F2002C8BD3 /* AuthenCollCell.m in Sources */,
 				10EF17A0229163BE00DE5566 /* CompanyHeader.m in Sources */,
+				0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */,
 				0C3A9165225B374F00F04804 /* RoomVC.m in Sources */,
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
 				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
@@ -4403,8 +4205,8 @@
 				0CD7A032225C6D5700EAE816 /* BDDynamicTreeCell.m in Sources */,
 				0CD04365228025D4002C8BD3 /* WorkCompleteCustomVC2.m in Sources */,
 				10BC3A47228FEF2800DAB2D8 /* RotationCell.m in Sources */,
-				0CEF8A0A225C91740057F3FD /* RecommendCustomVC.m in Sources */,
 				0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */,
+				0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */,
 				0C4B7F6322C9A9B400BBC34F /* NumeralCell.m in Sources */,
 				0C221A6A227EDE73006B0510 /* BaseAddCell.m in Sources */,
 				0CD0433C227FE66B002C8BD3 /* InfoDetailCell.m in Sources */,
@@ -4420,12 +4222,10 @@
 				0CD7A030225C6D5700EAE816 /* AdressChooseView.m in Sources */,
 				0CEF8A4A225F188A0057F3FD /* SelectCompanyVC.m in Sources */,
 				10EF179A2291614900DE5566 /* RotationSettingCell.m in Sources */,
-				0CEF8A2C225D84330057F3FD /* RecommendWaitDetailVC.m in Sources */,
 				0C4B7F7022CA026C00BBC34F /* NumeralDetailCell.m in Sources */,
 				0CC2730522681FF100EB881F /* DropBtn.m in Sources */,
 				0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */,
 				0C221A7B227EED67006B0510 /* WorkPhoneConfrimWaitVC.m in Sources */,
-				0CEF89FB225C886F0057F3FD /* NumeralAuditVC.m in Sources */,
 				0CD043DE2283BC05002C8BD3 /* GetCaptchaView.m in Sources */,
 				0C310E3D22A5050B00083504 /* VisitCustomCell.m in Sources */,
 				0C3A9119225B20C400F04804 /* ViewController.m in Sources */,
@@ -4440,7 +4240,7 @@
 				0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */,
 				0C3A9124225B20C600F04804 /* main.m in Sources */,
 				0C26CA0022A6811D00A7CF47 /* TitleCollHeader.m in Sources */,
-				0CEF89F8225C88480057F3FD /* ContractAuditVC.m in Sources */,
+				0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */,
 				0CD04335227FDB24002C8BD3 /* WorkRecommendWaitCell.m in Sources */,
 				0CF1A315228E8E04001C77CF /* SignListVC.m in Sources */,
 				0CD043BB2282715F002C8BD3 /* GZQGifHeader.m in Sources */,
@@ -4454,7 +4254,6 @@
 				0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */,
 				0CD04344228007A3002C8BD3 /* ProcessCell.m in Sources */,
 				0CD0435722801643002C8BD3 /* WorkPersonAuditDetailVC.m in Sources */,
-				0CEF89F1225C87FC0057F3FD /* AuditTaskVC.m in Sources */,
 				0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4472,7 +4271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C3A9139225B20C600F04804 /* ___UITests.m in Sources */,
-				0CEF89F2225C88070057F3FD /* AuditTaskVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

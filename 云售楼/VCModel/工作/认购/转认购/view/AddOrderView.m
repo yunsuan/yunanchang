@@ -53,7 +53,13 @@
     
     _totalTF.textField.text = dataDic[@"total_price"];
     _payWayBtn.content.text = dataDic[@"payWay_Name"];
+    _priceTF.textField.text = dataDic[@"price"];
+    _preferPriceTF.textField.text = dataDic[@"preferPrice"];
+    _spePreferentialTF.textField.text = dataDic[@"spePreferential"];
     if ([_payWayBtn.content.text isEqualToString:@"一次性付款"]) {
+        
+        [_installmentArr removeAllObjects];
+        [_installmentColl reloadData];
         
         _paymentL.hidden = YES;
         _paymentTF.hidden = YES;
@@ -75,6 +81,7 @@
         _loanBankBtn.hidden = YES;
         _loanYearL.hidden = YES;
         _loanYearTF.hidden = YES;
+        _installmentColl.hidden = YES;
         
         [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -102,6 +109,9 @@
         }];
     }else if ([_payWayBtn.content.text isEqualToString:@"公积金贷款"]){
         
+        [_installmentArr removeAllObjects];
+        [_installmentColl reloadData];
+        
         _paymentL.hidden = NO;
         _paymentTF.hidden = NO;
         _loanPriceL.hidden = NO;
@@ -122,6 +132,7 @@
         _fundLoanBankBtn.hidden = YES;
         _fundLoanYearL.hidden = YES;
         _fundLoanYearTF.hidden = YES;
+        _installmentColl.hidden = YES;
         
         [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -149,8 +160,18 @@
             make.height.mas_equalTo(33 *SIZE);
         }];
         
-        
+        [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
+//            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
     }else if ([_payWayBtn.content.text isEqualToString:@"综合贷款"]){
+        
+        [_installmentArr removeAllObjects];
+        [_installmentColl reloadData];
         
         _paymentL.hidden = NO;
         _paymentTF.hidden = NO;
@@ -172,6 +193,7 @@
         _fundLoanBankBtn.hidden = NO;
         _fundLoanYearL.hidden = NO;
         _fundLoanYearTF.hidden = NO;
+        _installmentColl.hidden = YES;
         
         [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -199,7 +221,19 @@
             make.height.mas_equalTo(33 *SIZE);
             make.bottom.equalTo(self).offset(-20 *SIZE);
         }];
+        
+        [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
+//            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
     }else if ([_payWayBtn.content.text isEqualToString:@"银行按揭贷款"]){
+        
+        [_installmentArr removeAllObjects];
+        [_installmentColl reloadData];
         
         _paymentL.hidden = NO;
         _paymentTF.hidden = NO;
@@ -221,6 +255,7 @@
         _fundLoanBankBtn.hidden = YES;
         _fundLoanYearL.hidden = YES;
         _fundLoanYearTF.hidden = YES;
+        _installmentColl.hidden = YES;
         
         [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -247,9 +282,76 @@
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
         }];
+        
+        [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
+//            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
     }else if ([_payWayBtn.content.text isEqualToString:@"分期付款"]){
         
+//        [_installmentArr removeAllObjects];
+        _paymentL.hidden = YES;
+        _paymentTF.hidden = YES;
+        _businessLoanPriceL.hidden = YES;
+        _businessLoanPriceTF.hidden = YES;
+        _businessLoanBankL.hidden = YES;
+        _businessLoanBankBtn.hidden = YES;
+        _businessLoanYearL.hidden = YES;
+        _businessLoanYearTF.hidden = YES;
+        _fundLoanL.hidden = YES;
+        _fundLoanTF.hidden = YES;
+        _fundLoanBankL.hidden = YES;
+        _fundLoanBankBtn.hidden = YES;
+        _fundLoanYearL.hidden = YES;
+        _fundLoanYearTF.hidden = YES;
+        _loanPriceL.hidden = YES;
+        _loanPriceTF.hidden = YES;
+        _loanBankL.hidden = YES;
+        _loanBankBtn.hidden = YES;
+        _loanYearL.hidden = YES;
+        _loanYearTF.hidden = YES;
+        _installmentColl.hidden = NO;
+        [_installmentColl reloadData];
+        
+        [_priceTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_totalTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+//            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
+        
+        [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
+            make.bottom.equalTo(self).offset(-20 *SIZE);
+        }];
+        
+        [_loanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
+        [_fundLoanYearTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self->_loanBankBtn.mas_bottom).offset(14 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
     }
+    
 }
 
 - (void)setDataArr:(NSMutableArray *)dataArr{
@@ -277,7 +379,7 @@
         return 1;
     }else{
         
-        return _installmentArr.count;
+        return _installmentArr.count ? _installmentArr.count : 1;
     }
 }
 
@@ -325,7 +427,7 @@
         installmentCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"installmentCollCell" forIndexPath:indexPath];
         if (!cell) {
             
-            cell = [[installmentCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+            cell = [[installmentCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 90 *SIZE)];
         }
         
         return cell;
@@ -336,8 +438,8 @@
     
     self.backgroundColor = CLWhiteColor;
     
-    NSArray *titleArr = @[@"定单编号：",@"定金金额：",@"优惠方案：",@"特殊优惠：",@"优惠价格：",@"公示总价：",@"成交价格：",@"付款方式：",@"首付金额：",@"商业贷款金额：",@"商业按揭银行：",@"商业按揭年限：",@"公积金贷款金额：",@"公积金按揭银行：",@"公积金按揭年限：",@"贷款金额：",@"按揭银行：",@"按揭年限："];
-    NSArray *placeArr = @[@"请输入定单编号：",@"请输入定金金额：",@"",@"请输入特殊优惠金额：",@"选择优惠方案自动计算：",@"",@"自动计算",@"请选择付款方式：",@"请输入首付金额：",@"商业贷款金额：",@"请选择商业按揭银行：",@"请输入商业按揭年限：",@"公积金贷款金额：",@"请选择公积金按揭银行：",@"请输入公积金按揭年限：",@"贷款金额：",@"请选择按揭银行：",@"请输入按揭年限："];
+    NSArray *titleArr = @[@"定单编号：",@"定金金额：",@"优惠方案：",@"总价优惠：",@"优惠价格：",@"公示总价：",@"成交价格：",@"付款方式：",@"首付金额：",@"商业贷款金额：",@"商业按揭银行：",@"商业按揭年限：",@"公积金贷款金额：",@"公积金按揭银行：",@"公积金按揭年限：",@"贷款金额：",@"按揭银行：",@"按揭年限："];
+    NSArray *placeArr = @[@"请输入定单编号",@"请输入定金金额",@"",@"请输入总价优惠金额",@"选择优惠方案自动计算",@"",@"自动计算",@"请选择付款方式",@"请输入首付金额",@"商业贷款金额",@"请选择商业按揭银行",@"请输入商业按揭年限",@"公积金贷款金额",@"请选择公积金按揭银行",@"请输入公积金按揭年限",@"贷款金额",@"请选择按揭银行",@"请输入按揭年限"];
     for (int i = 0; i < 18; i++) {
         
         UILabel *label = [[UILabel alloc] init];
@@ -349,6 +451,7 @@
         BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
         tf.textField.placeholder = placeArr[i];
         tf.textField.tag = i;
+        tf.textField.delegate = self;
         switch (i) {
             case 0:
             {
@@ -575,7 +678,7 @@
     [self addSubview:_coll];
     
     _installmentLayout = [[GZQFlowLayout alloc] initWithType:AlignWithCenter betweenOfCell:5 *SIZE];
-    _installmentLayout.itemSize = CGSizeMake(SCREEN_Width, 40 *SIZE);
+    _installmentLayout.itemSize = CGSizeMake(SCREEN_Width, 90 *SIZE);
 
     
     _installmentColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_installmentLayout];

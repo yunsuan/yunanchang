@@ -18,6 +18,7 @@
     NSInteger _page;
     
     NSString *_project_id;
+    NSString *_info_id;
     
     NSMutableArray *_dataArr;
 }
@@ -28,12 +29,13 @@
 
 @implementation NumeralVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId
+- (instancetype)initWithProjectId:(NSString *)projectId info_id:(nonnull NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _project_id = projectId;
+        _info_id = info_id;
     }
     return self;
 }
@@ -170,7 +172,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"row_id"]]];
+    NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"row_id"]] project_id:_project_id info_id:_info_id];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

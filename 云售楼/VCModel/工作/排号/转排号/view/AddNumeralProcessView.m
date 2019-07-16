@@ -73,7 +73,6 @@
             make.top.equalTo(self).offset(9 *SIZE);
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
-//            make.bottom.equalTo(self).offset(-10 *SIZE);
         }];
         
         
@@ -86,8 +85,8 @@
             _personL.hidden = NO;
             _coll.hidden = NO;
             
-            _auditBtn.backgroundColor = CLBackColor;
-            _auditBtn.userInteractionEnabled = NO;
+//            _auditBtn.backgroundColor = CLBackColor;
+//            _auditBtn.userInteractionEnabled = NO;
             
             [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
                 
@@ -102,7 +101,6 @@
                 make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
                 make.width.mas_equalTo(258 *SIZE);
                 make.height.mas_equalTo(33 *SIZE);
-                //            make.bottom.equalTo(self).offset(-10 *SIZE);
             }];
             
             [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -145,7 +143,6 @@
                 make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
                 make.width.mas_equalTo(258 *SIZE);
                 make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
-                //            make.bottom.equalTo(self).offset(-10 *SIZE);
             }];
         }
         
@@ -154,9 +151,6 @@
         
         _auditBtn.backgroundColor = CLWhiteColor;
         _auditBtn.userInteractionEnabled = YES;
-        
-//        _auditBtn.content.text = dataDic[@"role_name"];
-//        _auditBtn->str = dataDic[@"role_id"];
         
         [_typeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -173,7 +167,6 @@
             make.top.equalTo(self->_roleBtn.mas_bottom).offset(9 *SIZE);
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
-//            make.bottom.equalTo(self).offset(-10 *SIZE);
         }];
         _auditL.hidden = YES;
         _auditBtn.hidden = YES;
@@ -199,7 +192,6 @@
             make.top.equalTo(self).offset(9 *SIZE);
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
-            //            make.bottom.equalTo(self).offset(-10 *SIZE);
         }];
         
         [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -215,7 +207,6 @@
             make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
-//            make.bottom.equalTo(self).offset(-10 *SIZE);
         }];
         
         [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -296,6 +287,10 @@
         [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
     }
     [collectionView reloadData];
+    if (self.addNumeralProcessViewSelectBlock) {
+        
+        self.addNumeralProcessViewSelectBlock(_selectArr);
+    }
     
 }
 
@@ -311,7 +306,6 @@
         label.adjustsFontSizeToFitWidth = YES;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         label.text = titleArr[i];
-        //        [self addSubview:label];
         
         if (i == 1) {
             

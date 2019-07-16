@@ -25,6 +25,8 @@
     NSInteger _num;
     
     NSString *_row_id;
+    NSString *_project_id;
+    NSString *_info_id;
     
     NSMutableDictionary *_dataDic;
     
@@ -37,12 +39,14 @@
 
 @implementation NumeralDetailVC
 
-- (instancetype)initWithRowId:(NSString *)row_id
+- (instancetype)initWithRowId:(NSString *)row_id project_id:(nonnull NSString *)project_id info_id:(nonnull NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _row_id = row_id;
+        _project_id = project_id;
+        _info_id = info_id;
     }
     return self;
 }
@@ -99,7 +103,7 @@
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
-        AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"]];
+        AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     

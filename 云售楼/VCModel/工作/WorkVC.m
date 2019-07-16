@@ -15,7 +15,7 @@
 #import "VisitCustomVC.h"
 #import "WorkPersonAuditVC.h"
 #import "WorkReceiptDetailVC.h"
-#import "AuditTaskVC.h"
+//#import "AuditTaskVC.h"
 #import "RotationVC.h"
 #import "CompanyAuthVC.h"
 #import "NumeralVC.h"
@@ -268,7 +268,7 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 4){
         
-        NumeralVC *nextVC = [[NumeralVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        NumeralVC *nextVC = [[NumeralVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 5){
         
@@ -297,8 +297,8 @@
         
 //        NumeralVC *nextVC = [[NumeralVC alloc] init];
 //        [self.navigationController pushViewController:nextVC animated:YES];
-        AuditTaskVC *nextVC = [[AuditTaskVC alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
+//        AuditTaskVC *nextVC = [[AuditTaskVC alloc] init];
+//        [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 

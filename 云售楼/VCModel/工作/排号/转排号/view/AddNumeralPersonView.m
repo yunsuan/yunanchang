@@ -260,6 +260,10 @@
         
         [self->_collArr removeObjectAtIndex:index];
         [collectionView reloadData];
+        if (self.addNumeralPersonViewDeleteBlock) {
+            
+            self.addNumeralPersonViewDeleteBlock(index);
+        }
     };
     
     return cell;

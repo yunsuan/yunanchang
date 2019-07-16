@@ -8,6 +8,8 @@
 
 #import "SignVC.h"
 
+#import "SignDetailVC.h"
+
 #import "NumeralCell.h"
 
 @interface SignVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
@@ -169,8 +171,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"row_id"]]];
-//    [self.navigationController pushViewController:nextVC animated:YES];
+    SignDetailVC *nextVC = [[SignDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{

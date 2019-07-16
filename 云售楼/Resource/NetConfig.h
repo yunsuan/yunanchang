@@ -266,6 +266,11 @@ static NSString *const ButterTelValueDetail_URL = @"saleApp/work/butter/tel/valu
 //无效列表
 static NSString *const ButterTelDisabledList_URL = @"saleApp/work/butter/tel/disabled/list";
 
+#pragma mark -- 审核 --
+
+//获取流程列表
+static NSString *const ProjectGetProgressList_URL = @"saleApp/project/getProgressList";
+
 #pragma mark -- 排号 --
 
 //转排号
@@ -280,8 +285,8 @@ static NSString *const ProjectRowGetRowDetail_URL = @"saleApp/project/row/getRow
 //获取排号类别
 static NSString *const ProjectRowGetRowList_URL = @"saleApp/project/row/getRowList";
 
-//获取排号流程
-static NSString *const ProjectGetProgressList_URL = @"saleApp/project/getProgressList";
+////获取排号流程
+//static NSString *const ProjectGetProgressList_URL = @"saleApp/project/getProgressList";
 
 //流程获取
 static NSString *const ProjectProgressGet_URL = @"saleApp/project/progress/get";
@@ -293,6 +298,9 @@ static NSString *const ProjectRolePersonList_URL = @"saleApp/project/role/person
 static NSString *const ProjectRoleListAll_URL = @"saleApp/project/role/listAll";
 
 #pragma mark -- 认购 --
+
+//转认购
+static NSString *const ProjectHouseAddProjectSub_URL = @"saleApp/project/house/addProjectSub";
 
 //认购列表
 static NSString *const ProjectHouseGetProjectSublist_URL = @"saleApp/project/house/getProjectSubList";

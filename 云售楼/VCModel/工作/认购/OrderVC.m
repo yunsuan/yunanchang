@@ -8,6 +8,8 @@
 
 #import "OrderVC.h"
 
+#import "OrderDetailVC.h"
+
 #import "NumeralCell.h"
 
 @interface OrderVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
@@ -169,8 +171,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"row_id"]]];
-//    [self.navigationController pushViewController:nextVC animated:YES];
+    OrderDetailVC *nextVC = [[OrderDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{
