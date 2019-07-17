@@ -85,6 +85,17 @@
             self->_processNameL.text = [NSString stringWithFormat:@"流程名称：%@",resposeObject[@"data"][@"progress_name"]];
             self->_applicantL.text = [NSString stringWithFormat:@"申请人：%@",resposeObject[@"data"][@"agent_name"]];
             self->_applicantTimeL.text = [NSString stringWithFormat:@"申请时间：%@",resposeObject[@"data"][@"create_time"]];
+            self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"list"]];
+            [self->_coll reloadData];
+            
+            [self->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self->_scroll).offset(0);
+                make.top.equalTo(self->_header.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+            }];
+            
             if ([resposeObject[@"data"][@"list"][0][@"check_type"] integerValue] == 1) {
                 
                 self->_nextL.hidden = NO;
@@ -230,8 +241,10 @@
     AuditTaskDetailCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AuditTaskDetailCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[AuditTaskDetailCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 70 *SIZE)];
+        cell = [[AuditTaskDetailCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 150 *SIZE)];
     }
+    
+    cell.dataDic = _dataArr[indexPath.row];
     
     return cell;
 }
@@ -301,7 +314,7 @@
     [_scroll addSubview:_header];
     
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:5 *SIZE];
-    _layout.itemSize = CGSizeMake(SCREEN_Width, 70 *SIZE);
+    _layout.itemSize = CGSizeMake(SCREEN_Width, 150 *SIZE);
     
     _coll = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
     _coll.backgroundColor = CLWhiteColor;
@@ -312,6 +325,7 @@
     
     _auditView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 340 *SIZE, 70 *SIZE)];
     _auditView.delegate = self;
+    _auditView.backgroundColor = CLBackColor;
     [_scroll addSubview:_auditView];
     
     _nextBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
