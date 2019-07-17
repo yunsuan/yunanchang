@@ -177,8 +177,8 @@
     
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:@"" personArr:self->_peopleArr];
-//        nextVC.status = @"1";
+        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:@"" personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
+        nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     

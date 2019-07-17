@@ -49,7 +49,7 @@
         _priceTF.textField.text = @"";
     }
 
-    _ruleTF.textField.text = dataDic[@"price_way"];
+    _ruleTF.textField.text = dataDic[@"price_way_name"];
     
     if (dataDic[@"criterion_unit_price"]) {
         

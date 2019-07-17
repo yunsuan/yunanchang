@@ -12,7 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddSignVC : BaseViewController
 
-- (instancetype)initWithRow_id:(NSString *)row_id personArr:(NSArray *)personArr;
+@property (nonatomic, strong) NSString *status;
+
+- (instancetype)initWithRow_id:(NSString *)row_id personArr:(NSArray *)personArr project_id:(NSString *)project_id info_id:(NSString *)info_id;
 
 @end
 

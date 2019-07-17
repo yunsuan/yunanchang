@@ -643,6 +643,8 @@
                 [strongSelf->_disCountArr addObject:dic];
                 strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
                 float price = [strongSelf->_ordDic[@"total_price"] floatValue];
+                float unit = 0;
+                float percent = 0;
                 float preferPrice = 0;
 //                if ([strongSelf->_ordDic[@"down_pay"] floatValue]) {
 //                    
@@ -651,16 +653,37 @@
                 for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                     
                     NSDictionary *dic = strongSelf->_disCountArr[i];
+                    if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
+                        
+                        unit = unit + [dic[@"num"] doubleValue];
+                    }else if ([dic[@"type"] isEqualToString:@"减点"]){
+                        
+                        percent = percent + [dic[@"num"] doubleValue] / 100.00;
+                    }
+                }
+                if (unit) {
+                    
+                    price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
+                }
+                if (percent) {
+                    
+                    price = price * (1 - percent);
+                }
+                for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
+                    
+                    NSDictionary *dic = strongSelf->_disCountArr[i];
                     if ([dic[@"type"] isEqualToString:@"减点"]) {
                         
-                        preferPrice = price *[dic[@"num"] doubleValue] / 100.00 + preferPrice;
-                        price = price * (100.00 - [dic[@"num"] doubleValue]);
+                        
+                    }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
+                        
+                        
                     }else{
                         
-                        preferPrice = preferPrice + [dic[@"num"] doubleValue];
                         price = price - [dic[@"num"] doubleValue];
                     }
                 }
+                preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
                 if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                     
                     preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
@@ -686,21 +709,48 @@
         }else if (index == 1){
             
             [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
-            float price = [strongSelf->_ordDic[@"total_price"] doubleValue];// - [strongSelf->_ordDic[@"down_pay"] doubleValue];
+            float price = [strongSelf->_ordDic[@"total_price"] floatValue];
+            float unit = 0;
+            float percent = 0;
             float preferPrice = 0;
+            //                if ([strongSelf->_ordDic[@"down_pay"] floatValue]) {
+            //
+            //                    price = price - [strongSelf->_ordDic[@"down_pay"] floatValue];
+            //                }
+            for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
+                
+                NSDictionary *dic = strongSelf->_disCountArr[i];
+                if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
+                    
+                    unit = unit + [dic[@"num"] doubleValue];
+                }else if ([dic[@"type"] isEqualToString:@"减点"]){
+                    
+                    percent = percent + [dic[@"num"] doubleValue] / 100.00;
+                }
+            }
+            if (unit) {
+                
+                price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
+            }
+            if (percent) {
+                
+                price = price * (1 - percent);
+            }
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                 
                 NSDictionary *dic = strongSelf->_disCountArr[i];
                 if ([dic[@"type"] isEqualToString:@"减点"]) {
                     
-                    preferPrice = price *[dic[@"num"] doubleValue] / 100.00 + preferPrice;
-                    price = price * (100.00 - [dic[@"num"] doubleValue]);
+                    
+                }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
+                    
+                    
                 }else{
                     
-                    preferPrice = preferPrice + [dic[@"num"] doubleValue];
                     price = price - [dic[@"num"] doubleValue];
                 }
             }
+            preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
             if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                 
                 preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
@@ -713,26 +763,48 @@
             
             [strongSelf->_ordDic setObject:str forKey:@"spePreferential"];
             
-            float price = [strongSelf->_ordDic[@"total_price"] doubleValue];
+            float price = [strongSelf->_ordDic[@"total_price"] floatValue];
+            float unit = 0;
+            float percent = 0;
             float preferPrice = 0;
-//            if ([strongSelf->_ordDic[@"down_pay"] doubleValue]) {
-//
-//                price = price - [strongSelf->_ordDic[@"down_pay"] doubleValue];
-//            }
+            //                if ([strongSelf->_ordDic[@"down_pay"] floatValue]) {
+            //
+            //                    price = price - [strongSelf->_ordDic[@"down_pay"] floatValue];
+            //                }
+            for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
+                
+                NSDictionary *dic = strongSelf->_disCountArr[i];
+                if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
+                    
+                    unit = unit + [dic[@"num"] doubleValue];
+                }else if ([dic[@"type"] isEqualToString:@"减点"]){
+                    
+                    percent = percent + [dic[@"num"] doubleValue] / 100.00;
+                }
+            }
+            if (unit) {
+                
+                price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
+            }
+            if (percent) {
+                
+                price = price * (1 - percent);
+            }
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                 
                 NSDictionary *dic = strongSelf->_disCountArr[i];
                 if ([dic[@"type"] isEqualToString:@"减点"]) {
                     
-                    preferPrice = price *[dic[@"num"] doubleValue] / 100.00 + preferPrice;
-                    price = price * (100.00 - [dic[@"num"] doubleValue]);
+                    
+                }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
+                    
+                    
                 }else{
                     
-                    preferPrice = preferPrice + [dic[@"num"] doubleValue];
                     price = price - [dic[@"num"] doubleValue];
                 }
             }
-            price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+            preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
             preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
             
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
@@ -759,25 +831,48 @@
     _addOrderView.addOrderViewDeleteBlock = ^(NSInteger index) {
       
         [strongSelf->_disCountArr removeObjectAtIndex:index];
-        float price = [strongSelf->_ordDic[@"total_price"] doubleValue];
+        float price = [strongSelf->_ordDic[@"total_price"] floatValue];
+        float unit = 0;
+        float percent = 0;
         float preferPrice = 0;
-//        if ([strongSelf->_ordDic[@"down_pay"] doubleValue]) {
-//
-//            price = price - [strongSelf->_ordDic[@"down_pay"] doubleValue];
-//        }
+        //                if ([strongSelf->_ordDic[@"down_pay"] floatValue]) {
+        //
+        //                    price = price - [strongSelf->_ordDic[@"down_pay"] floatValue];
+        //                }
+        for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
+            
+            NSDictionary *dic = strongSelf->_disCountArr[i];
+            if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
+                
+                unit = unit + [dic[@"num"] doubleValue];
+            }else if ([dic[@"type"] isEqualToString:@"减点"]){
+                
+                percent = percent + [dic[@"num"] doubleValue] / 100.00;
+            }
+        }
+        if (unit) {
+            
+            price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
+        }
+        if (percent) {
+            
+            price = price * (1 - percent);
+        }
         for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
             
             NSDictionary *dic = strongSelf->_disCountArr[i];
             if ([dic[@"type"] isEqualToString:@"减点"]) {
                 
-                preferPrice = price *[dic[@"num"] doubleValue] / 100.00 + preferPrice;
-                price = price * (100.00 - [dic[@"num"] doubleValue]);
+                
+            }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
+                
+                
             }else{
                 
-                preferPrice = preferPrice + [dic[@"num"] doubleValue];
                 price = price - [dic[@"num"] doubleValue];
             }
         }
+        preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
         if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
             
             price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
