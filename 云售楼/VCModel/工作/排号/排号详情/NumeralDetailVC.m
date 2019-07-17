@@ -12,6 +12,8 @@
 #import "NumeralDetailAuditVC.h"
 #import "AddOrderVC.h"
 
+#import "AuditTaskDetailVC.h"
+
 #import "NumeralDetailInvalidView.h"
 
 #import "NumeralDetailHeader.h"
@@ -97,7 +99,11 @@
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        NumeralDetailAuditVC *nextVC = [[NumeralDetailAuditVC alloc] init];
+//        NumeralDetailAuditVC *nextVC = [[NumeralDetailAuditVC alloc] init];
+//        [self.navigationController pushViewController:nextVC animated:YES];
+        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+        nextVC.status = @"1";
+        nextVC.requestId = self->_row_id;
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
