@@ -22,11 +22,21 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _numL.text = [NSString stringWithFormat:@"序号：%@",dataDic[@""]];
-    _auditL.text = [NSString stringWithFormat:@"审核人：%@",dataDic[@""]];
-    _timeL.text = [NSString stringWithFormat:@"审核时间：%@",dataDic[@""]];
-    _contentL.text = [NSString stringWithFormat:@"审核内容：%@",dataDic[@""]];
-    _resultL.text = [NSString stringWithFormat:@"审核结果：%@",dataDic[@""]];
+    _numL.text = [NSString stringWithFormat:@"序号：%ld",(long)self.tag];
+    _auditL.text = [NSString stringWithFormat:@"审核人：%@",dataDic[@"check"]];
+    _timeL.text = [NSString stringWithFormat:@"审核时间：%@",dataDic[@"update_time"]];
+    _contentL.text = [NSString stringWithFormat:@"审核内容：%@",dataDic[@"comment"]];
+    if ([dataDic[@"state"] integerValue] == 0) {
+        
+        _resultL.text = @"审核结果：不通过";
+    }else if ([dataDic[@"state"] integerValue] == 1){
+        
+        _resultL.text = @"审核结果：审核中";
+    }else{
+        
+        _resultL.text = @"审核结果：待审核";
+    }
+    
 }
 
 - (void)initUI{

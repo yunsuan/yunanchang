@@ -62,7 +62,13 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][0][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[]]];
+            self->_dataArr = [NSMutableArray arrayWithArray:
+                              @[
+                                @[],
+                                @[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][0][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],
+                                @[[NSString stringWithFormat:@"房间号码：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"公示总价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"物业类型：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"建筑面积：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"套内面积：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"公摊面积：%@",self->_dataDic[@"beneficiary"][0][@"name"]]],
+                                @[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"优惠金额：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"首付金额：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"商贷金额：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"按揭银行：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"按揭年限：%@",self->_dataDic[@"beneficiary"][0][@"name"]]],
+                                @[[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"end_time"]]]]];
             [self->_table reloadData];
         }else{
             
@@ -155,6 +161,12 @@
         if (section == 1) {
             
             header.titleL.text = @"权益人信息";
+        }if (section == 2) {
+            
+            header.titleL.text = @"房屋概况";
+        }if (section == 3) {
+            
+            header.titleL.text = @"订单信息";
         }else{
             
             header.titleL.text = @"审核信息";

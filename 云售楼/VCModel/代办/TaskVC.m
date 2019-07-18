@@ -16,6 +16,7 @@
 #import "WorkCompleteCustomVC1.h"
 #import "CompanyAuthVC.h"
 
+#import "AuditTaskDetailVC.h"
 #import "NumeralDetailVC.h"
 
 #import "TaskCallBackCell.h"
@@ -469,8 +470,12 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         
         cell.transNumeralCellAuditBlock = ^(NSInteger index) {
             
-            NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[index][@"row_id"] project_id:@"" info_id:@""];
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"1";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
             [self.navigationController pushViewController:nextVC animated:YES];
+//            NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[index][@"row_id"] project_id:@"" info_id:@""];
+//            [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
 //    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 11){
@@ -747,7 +752,11 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 10) {
         
-        NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[indexPath.row][@"row_id"] project_id:@"" info_id:@""];
+//        NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[indexPath.row][@"row_id"] project_id:@"" info_id:@""];
+//        [self.navigationController pushViewController:nextVC animated:YES];
+        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+        nextVC.status = @"1";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 11) {
         

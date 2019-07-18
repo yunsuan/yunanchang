@@ -243,6 +243,7 @@
         
         cell = [[AuditTaskDetailCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 150 *SIZE)];
     }
+    cell.tag = indexPath.row;
     
     cell.dataDic = _dataArr[indexPath.row];
     

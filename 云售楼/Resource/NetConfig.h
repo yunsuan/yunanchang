@@ -318,6 +318,10 @@ static NSString *const ProjectHouseGetProjectSubDetail_URL = @"saleApp/project/h
 static NSString *const ProjectHouseGetDiscountList_URL =  @"saleApp/project/house/getDiscountList";
 
 #pragma mark -- 签约 --
+
+//转签约
+static NSString *const ProjectHouseAddProjectContract_URL = @"saleApp/project/house/addProjectContract";
+
 //签约列表
 static NSString *const ProjectHouseGetProjectContractList_URL = @"saleApp/project/house/getProjectContractList";
 
