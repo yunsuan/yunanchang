@@ -98,7 +98,7 @@
     _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
     _customL.text = @"罗大海";
     _titleL.text = [NSString stringWithFormat:@"排号类别：%@",dataDic[@"batch_name"]];
-    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"sincerity"]];
+    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
 }
 
 - (void)setNum:(NSInteger)num{

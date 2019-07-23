@@ -312,7 +312,7 @@
         [dic setObject:_infoDic[@"end_time"] forKey:@"end_time"];
     }
     
-    NSArray *arr = @[@{@"name":@"管理员",@"type":@"1",@"property":@"100.00",@"comment":@"",@"state":@"1"}];
+    NSArray *arr = @[@{@"advicer":self.advicer_id,@"name":self.advicer_name,@"type":@"1",@"property":@"100.00",@"comment":@"",@"state":@"1"}];
 
     NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
     NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];

@@ -8,6 +8,8 @@
 
 #import "OrderDetailVC.h"
 
+#import "AddSignVC.h"
+
 #import "NumeralDetailHeader.h"
 #import "BaseHeader.h"
 #import "CallTelegramCustomDetailInfoCell.h"
@@ -22,6 +24,9 @@
     NSMutableDictionary *_dataDic;
     
     NSMutableArray *_dataArr;
+    NSMutableArray *_personArr;
+    NSString *_advicer_id;
+    NSString *_advicer;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -51,6 +56,7 @@
 - (void)initDataSource{
     
     //    _dataArr = @[@[],@[@"姓名：李翠花",@"手机：183333333",@"证件类型：身份证",@"证件号码：123123123123",@"出生日期：2019.01.01",@"通讯地址：四川成都市",@"邮政编码：232323",@"产权比例：50",@"类型：附权益人"],@[@"f登记时间：2019-03-19",@"登记人：李强",@"归属时间：2019-03-10"]];
+    _personArr = [@[] mutableCopy];
     _dataArr = [@[] mutableCopy];
     _dataDic = [@{} mutableCopy];
 }
@@ -61,14 +67,60 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
+            self->_personArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"beneficiary"]];
+            self->_advicer = resposeObject[@"data"][@"advicer"][0][@"name"];
+            self->_advicer_id = resposeObject[@"data"][@"advicer"][0][@"advicer_id"];
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
             self->_dataArr = [NSMutableArray arrayWithArray:
                               @[
                                 @[],
                                 @[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][0][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],
-                                @[[NSString stringWithFormat:@"房间号码：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"公示总价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"物业类型：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"建筑面积：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"套内面积：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"公摊面积：%@",self->_dataDic[@"beneficiary"][0][@"name"]]],
-                                @[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"优惠金额：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"首付金额：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"商贷金额：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"按揭银行：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"按揭年限：%@",self->_dataDic[@"beneficiary"][0][@"name"]]],
+                                @[[NSString stringWithFormat:@"房间号码：%@",self->_dataDic[@"house_name"]],[NSString stringWithFormat:@"公示总价：%@",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"物业类型：%@",self->_dataDic[@"property_type"]],[NSString stringWithFormat:@"建筑面积：%@",self->_dataDic[@"estimated_build_size"]],[NSString stringWithFormat:@"套内面积：%@",self->_dataDic[@"indoor_size"]],[NSString stringWithFormat:@"公摊面积：%@",self->_dataDic[@"public_size"]]],
                                 @[[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"end_time"]]]]];
+            if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"一次性付款"]) {
+                
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"down_pay"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]]]];
+                if ([self->_dataDic[@"discount"] count]) {
+                    
+                    float discount = 0;
+                    for (int i = 0; i < [self->_dataDic[@"discount"] count]; i++) {
+                        
+                        discount += [self->_dataDic[@"discount"][i][@"num"] doubleValue];
+                    }
+                    [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f",discount] atIndex:2];
+                }else{
+                    
+                    [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%@",@"0"] atIndex:2];
+                }
+                [self->_dataArr insertObject:discountArr atIndex:3];
+            }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"分期付款"]){
+                
+            }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"公积金贷款"]){
+                
+                
+            }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"综合贷款"]){
+                
+                
+            }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"银行按揭贷款"]){
+                
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"down_pay"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"商贷金额：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"按揭银行：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"按揭年限：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]]]];
+                if ([self->_dataDic[@"discount"] count]) {
+                    
+                    float discount = 0;
+                    for (int i = 0; i < [self->_dataDic[@"discount"] count]; i++) {
+                        
+                        discount += [self->_dataDic[@"discount"][i][@"num"] doubleValue];
+                    }
+                    [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f",discount] atIndex:2];
+                }else{
+                    
+                    [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%@",@"0"] atIndex:2];
+                }
+                [self->_dataArr insertObject:discountArr atIndex:3];
+            }else{
+                
+                
+            }
             [self->_table reloadData];
         }else{
             
@@ -82,30 +134,26 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-//
-//    UIAlertAction *numeral = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//        NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
-//        [self.view addSubview:view];
-//    }];
-//
-//    UIAlertAction *quit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-//
-//        NumeralDetailAuditVC *nextVC = [[NumeralDetailAuditVC alloc] init];
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    }];
-//
-//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//    }];
-//
-//    [alert addAction:numeral];
-//    [alert addAction:quit];
-//    [alert addAction:cancel];
-//    [self.navigationController presentViewController:alert animated:YES completion:^{
-//
-//    }];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_sub_id personArr:self->_personArr project_id:self.project_id info_id:@""];
+        nextVC.from_type = @"1";
+        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicer_id];
+        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicer];;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alert addAction:sign];
+    [alert addAction:cancel];
+    [self.navigationController presentViewController:alert animated:YES completion:^{
+
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -161,10 +209,10 @@
         if (section == 1) {
             
             header.titleL.text = @"权益人信息";
-        }if (section == 2) {
+        }else if (section == 2) {
             
             header.titleL.text = @"房屋概况";
-        }if (section == 3) {
+        }else if (section == 3) {
             
             header.titleL.text = @"订单信息";
         }else{
@@ -191,7 +239,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"排号详情";
+    self.titleLabel.text = @"认购详情";
     self.navBackgroundView.backgroundColor = CLBlueBtnColor;
     self.line.hidden = YES;
     self.titleLabel.textColor = CLWhiteColor;

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderDetailVC : BaseViewController
 
+@property (nonatomic, strong) NSString *project_id;
+
 - (instancetype)initWithSubId:(NSString *)sub_id;
 
 @end

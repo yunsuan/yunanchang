@@ -11,6 +11,7 @@
 		0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32422DDB60800092293 /* TransOrderCell.m */; };
 		0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32722DDB61500092293 /* TransSignCell.m */; };
 		0C0CE33122DDCFAB00092293 /* AuditTaskDetailCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE33022DDCFAB00092293 /* AuditTaskDetailCollCell.m */; };
+		0C0CE33522E15FB000092293 /* ChangeOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE33422E15FB000092293 /* ChangeOrderVC.m */; };
 		0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */; };
 		0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */; };
 		0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A4E227EAC81006B0510 /* TaskCallFollowCell.m */; };
@@ -458,6 +459,8 @@
 		0C0CE32722DDB61500092293 /* TransSignCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransSignCell.m; sourceTree = "<group>"; };
 		0C0CE32F22DDCFAB00092293 /* AuditTaskDetailCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTaskDetailCollCell.h; sourceTree = "<group>"; };
 		0C0CE33022DDCFAB00092293 /* AuditTaskDetailCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskDetailCollCell.m; sourceTree = "<group>"; };
+		0C0CE33322E15FB000092293 /* ChangeOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeOrderVC.h; sourceTree = "<group>"; };
+		0C0CE33422E15FB000092293 /* ChangeOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeOrderVC.m; sourceTree = "<group>"; };
 		0C192C9122CAEBC4000CA161 /* AddNumeralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralVC.h; sourceTree = "<group>"; };
 		0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralVC.m; sourceTree = "<group>"; };
 		0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCallBackCell.m; sourceTree = "<group>"; };
@@ -1179,6 +1182,15 @@
 				0C0CE33022DDCFAB00092293 /* AuditTaskDetailCollCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		0C0CE33222E15F8A00092293 /* 认购变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE33322E15FB000092293 /* ChangeOrderVC.h */,
+				0C0CE33422E15FB000092293 /* ChangeOrderVC.m */,
+			);
+			path = "认购变更";
 			sourceTree = "<group>";
 		};
 		0C192C9022CAEB52000CA161 /* 转排号 */ = {
@@ -1950,6 +1962,7 @@
 		0C4B8EDA22CC45F700D505BE /* 认购 */ = {
 			isa = PBXGroup;
 			children = (
+				0C0CE33222E15F8A00092293 /* 认购变更 */,
 				0C4B8EE922CC4B0400D505BE /* 转认购 */,
 				0C4B8EDE22CC470A00D505BE /* 认购详情 */,
 				0C4B8EDB22CC461300D505BE /* OrderVC.h */,
@@ -4181,6 +4194,7 @@
 				10EF17A32292790600DE5566 /* HMChooseView.m in Sources */,
 				0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */,
 				0C3A9168225B377400F04804 /* MineVC.m in Sources */,
+				0C0CE33522E15FB000092293 /* ChangeOrderVC.m in Sources */,
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,

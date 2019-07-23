@@ -172,6 +172,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     OrderDetailVC *nextVC = [[OrderDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
+    nextVC.project_id = _project_id;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

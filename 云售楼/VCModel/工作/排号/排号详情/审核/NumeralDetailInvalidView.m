@@ -25,6 +25,11 @@
     
 }
 
+- (void)ActionCancelBtn:(UIButton *)btn{
+    
+    [self removeFromSuperview];
+}
+
 - (void)initUI{
     
     UIView *alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];

@@ -1,12 +1,12 @@
 //
-//  AddOrderVC.m
+//  ChangeOrderVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/3.
+//  Created by 谷治墙 on 2019/7/19.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddOrderVC.h"
+#import "ChangeOrderVC.h"
 
 #import "RoomVC.h"
 #import "SelectSpePerferVC.h"
@@ -20,7 +20,7 @@
 
 #import "SinglePickView.h"
 
-@interface AddOrderVC ()<UIScrollViewDelegate>
+@interface ChangeOrderVC ()<UIScrollViewDelegate>
 {
     
     NSInteger _num;
@@ -28,7 +28,6 @@
     NSString *_project_id;
     NSString *_info_id;
     NSString *_group_id;
-    NSString *_row_id;
     NSString *_role_id;
     
     NSArray *_titleArr;
@@ -74,19 +73,16 @@
 
 @end
 
-@implementation AddOrderVC
+@implementation ChangeOrderVC
 
 - (instancetype)initWithRow_id:(NSString *)row_id personArr:(NSArray *)personArr project_id:(nonnull NSString *)project_id info_id:(nonnull NSString *)info_id
 {
     self = [super init];
     if (self) {
         
-        _row_id = row_id;
-        _group_id = row_id;
         _project_id = project_id;
         _info_id = info_id;
         _personArr = [[NSMutableArray alloc] initWithArray:personArr];
-        _proportionArr = [@[] mutableCopy];
         for (int i = 0; i < _personArr.count; i++) {
             
             [_proportionArr addObject:@""];
@@ -264,7 +260,7 @@
         [_pay_info setObject:_addOrderView.loanBankBtn->str forKey:@"bank_id"];
     }else if ([_addOrderView.payWayBtn.content.text isEqualToString:@"综合贷款"]){
         
-    
+        
         if (!_addOrderView.businessLoanPriceTF.textField.text.length) {
             
             [self showContent:@"请输入商业贷款金额"];
@@ -295,7 +291,7 @@
             [self showContent:@"请输入公积金按揭年限"];
             return;
         }
-
+        
         [_pay_info setObject:_addOrderView.paymentTF.textField.text forKey:@"downpayment"];
         [_pay_info setObject:@"" forKey:@"downpayment_repay"];
         [_pay_info setObject:_addOrderView.businessLoanPriceTF.textField.text forKey:@"bank_loan_money"];
@@ -342,29 +338,24 @@
     
     NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:_personArr];
     for (int i = 0; i < tempArr.count; i++) {
-
+        
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
         if (i == 0) {
-
+            
             [dic setObject:@"1" forKey:@"beneficiary_type"];
         }else{
-
+            
             [dic setObject:@"2" forKey:@"beneficiary_type"];
         }
         
-        [dic removeObjectForKey:@"client_id"];
-        [dic removeObjectForKey:@"comment"];
-        [dic removeObjectForKey:@"mail_code"];
-        [dic removeObjectForKey:@"tel_show_state"];
-        [dic setObject:_group_id forKey:@"group_id"];
+        [dic setObject:@"" forKey:@"client_id"];
+        [dic setObject:@"100" forKey:@"property"];
         
-        [dic setObject:_proportionArr[i] forKey:@"property"];
-        
-//        [dic removeObjectForKey:@"group_id"];
+        //        [dic removeObjectForKey:@"group_id"];
         [tempArr replaceObjectAtIndex:i withObject:dic];
     }
     
-    NSArray *advicer_list = @[@{@"advicer":self.advicer_id,@"name":self.advicer_name,@"type":@"1",@"property":@"50",@"comment":@"bujj"}];
+    NSArray *advicer_list = @[@{@"advicer":@"1",@"name":@"xiaohua",@"type":@"1",@"property":@"50",@"comment":@"bujj"}];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     
@@ -373,22 +364,12 @@
     NSString *tempArrJson = [[NSString alloc]initWithData:tempArrData encoding:NSUTF8StringEncoding];
     [dic setObject:tempArrJson forKey:@"beneficiary_list"];
     
-//    NSError *error;
+    //    NSError *error;
     NSData *advicer_listData = [NSJSONSerialization dataWithJSONObject:advicer_list options:NSJSONWritingPrettyPrinted error:&error];
     NSString *advicer_listDataJson = [[NSString alloc]initWithData:advicer_listData encoding:NSUTF8StringEncoding];
     [dic setObject:advicer_listDataJson forKey:@"advicer_list"];
-    [dic setObject:self.from_type forKey:@"from_type"];
-    if ([self.from_type isEqualToString:@"1"]) {
-        
-        [dic setObject:tempArr[0][@"group_id"] forKey:@"from_id"];
-    }else if ([self.from_type isEqualToString:@"3"]){
-        
-        [dic setObject:_row_id forKey:@"from_id"];
-    }else if ([self.from_type isEqualToString:@"1"]){
-        
-        
-    }
-    
+    [dic setObject:self.status forKey:@"from_type"];
+    [dic setObject:_personArr[0][@"group_id"] forKey:@"from_id"];
     [dic setObject:_project_id forKey:@"project_id"];
     [dic setObject:_roomDic[@"house_id"] forKey:@"house_id"];
     [dic setObject:_roomDic[@"total_price"] forKey:@"sub_total_price"];
@@ -401,15 +382,9 @@
     [dic setObject:_ordDic[@"payWay_id"] forKey:@"pay_way"];
     
     NSMutableArray *discoutArr = [[NSMutableArray alloc] initWithArray:_disCountArr];
-    for (int i = 0; i < _disCountArr.count; i++) {
-        
-        NSDictionary *dic = _disCountArr[i];
-        NSDictionary *tempDic = @{@"name":dic[@"name"],@"type":dic[@"type"],@"num":dic[@"num"],@"describe":dic[@"describe"],@"is_cumulative":dic[@"is_cumulative"],@"sort":[NSString stringWithFormat:@"%d",i]};
-        [_disCountArr replaceObjectAtIndex:i withObject:tempDic];
-    }
     if (_addOrderView.spePreferentialTF.textField.text.length) {
         
-        [discoutArr addObject:@{@"name":@"总价优惠",@"type":@"总价优惠",@"num":_addOrderView.spePreferentialTF.textField.text,@"describe":@"总价优惠",@"is_cumulative":@"0",@"sort":[NSString stringWithFormat:@"%lu",(unsigned long)_disCountArr.count]}];
+        [discoutArr addObject:@{@"create_time":@"0",@"discount_id":@"0",@"enable":@"0",@"end_time":@"0",@"is_cumulative":@"0",@"name":@"总价优惠",@"num":_addOrderView.spePreferentialTF.textField.text,@"pay_way":@"0",@"start_time":@"0",@"type":@"总价优惠"}];
     }
     if (discoutArr.count) {
         
@@ -420,24 +395,6 @@
     
     
     [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
-    NSString *param;
-    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-        
-        if ([_rolePersonSelectArr[i] integerValue] == 1) {
-            
-            if (param.length) {
-                
-                param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-            }else{
-                
-                param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-            }
-        }
-    }
-    if (param.length) {
-        
-        [dic setObject:param forKey:@"param"];
-    }
     
     [BaseRequest POST:ProjectHouseAddProjectSub_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
@@ -505,54 +462,39 @@
     _addNumeralPersonView = [[AddNumeralPersonView alloc] init];
     _addNumeralPersonView.dataArr = _personArr;
     _addNumeralPersonView.num = _num;
-    _addNumeralPersonView.proportion = _proportionArr[_num];
-    
-    _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
-        
-        [strongSelf->_personArr removeObjectAtIndex:num];
-        [strongSelf->_proportionArr removeObjectAtIndex:num];
-    };
-    
-    _addNumeralPersonView.addNumeralPersonViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
-        
-        [strongSelf->_proportionArr replaceObjectAtIndex:num withObject:str];
-        NSLog(@"1111111111%@",strongSelf->_proportionArr);
-    };
     
     _addNumeralPersonView.addNumeralPersonViewCollBlock = ^(NSInteger num) {
         
         self->_num = num;
-        strongSelf->_addNumeralPersonView.num = num;
-        strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[num];
     };
     _addNumeralPersonView.addNumeralPersonViewAddBlock = ^(NSInteger num) {
         
-//        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-//        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
-//        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
-//
-//            [strongSelf->_personArr addObject:dic];
-//            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-//            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count;
-//        };
-//        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        //        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        //        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        //        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
+        //
+        //            [strongSelf->_personArr addObject:dic];
+        //            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
+        //            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count;
+        //        };
+        //        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
-//        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[strongSelf->_num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-//        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
-//
-//            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[strongSelf->_num]];
-//            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//
-//                if (dic[key]) {
-//
-//                    [tempDic setObject:dic[key] forKey:key];
-//                }
-//            }];
-//            [strongSelf->_personArr replaceObjectAtIndex:strongSelf->_num withObject:tempDic];
-//        };
-//        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        //        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[strongSelf->_num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        //        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
+        //
+        //            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[strongSelf->_num]];
+        //            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        //
+        //                if (dic[key]) {
+        //
+        //                    [tempDic setObject:dic[key] forKey:key];
+        //                }
+        //            }];
+        //            [strongSelf->_personArr replaceObjectAtIndex:strongSelf->_num withObject:tempDic];
+        //        };
+        //        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_addNumeralPersonView];
     
@@ -564,12 +506,12 @@
     _roomHeader.addNemeralHeaderAllBlock = ^{
         
         if ([strongSelf->_selectArr[1] integerValue]){
-
+            
             [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@0];
             [strongSelf->_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addOrderRoomView.hidden = YES;
             [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-
+                
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_roomHeader.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
@@ -577,12 +519,12 @@
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
             }];
         }else{
-
+            
             [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@1];
             [strongSelf->_roomHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addOrderRoomView.hidden = NO;
             [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-
+                
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_addOrderRoomView.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
@@ -635,7 +577,7 @@
                         make.width.mas_equalTo(SCREEN_Width);
                         make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
-
+                        
                     }];
                 }else{
                     
@@ -663,7 +605,7 @@
                         make.width.mas_equalTo(SCREEN_Width);
                         make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
-
+                        
                     }];
                 }else{
                     
@@ -691,7 +633,7 @@
     _addOrderView.dataArr = _disCountArr;
     _addOrderView.dataDic = _ordDic;
     _addOrderView.addOrderViewAddBlock = ^{
-      
+        
         if (strongSelf->_roomDic.count) {
             
             SelectSpePerferVC *nextVC = [[SelectSpePerferVC alloc] init];
@@ -704,6 +646,10 @@
                 float unit = 0;
                 float percent = 0;
                 float preferPrice = 0;
+                //                if ([strongSelf->_ordDic[@"down_pay"] floatValue]) {
+                //
+                //                    price = price - [strongSelf->_ordDic[@"down_pay"] floatValue];
+                //                }
                 for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                     
                     NSDictionary *dic = strongSelf->_disCountArr[i];
@@ -722,6 +668,10 @@
                     
                     price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
                 }
+                if (percent) {
+                    
+                    price = price * (1 - percent);
+                }
                 for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                     
                     NSDictionary *dic = strongSelf->_disCountArr[i];
@@ -729,14 +679,9 @@
                         
                         if ([dic[@"is_cumulative"] integerValue] == 1) {
                             
-                            if (percent) {
-                                
-                                price = price * (1 - percent);
-                                percent = 0;
-                            }
                         }else{
                             
-                            price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
+                            price = price * (1 - percent);
                         }
                     }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
                         
@@ -776,6 +721,10 @@
             float unit = 0;
             float percent = 0;
             float preferPrice = 0;
+            //                if ([strongSelf->_ordDic[@"down_pay"] floatValue]) {
+            //
+            //                    price = price - [strongSelf->_ordDic[@"down_pay"] floatValue];
+            //                }
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                 
                 NSDictionary *dic = strongSelf->_disCountArr[i];
@@ -794,6 +743,10 @@
                 
                 price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
             }
+            if (percent) {
+                
+                price = price * (1 - percent);
+            }
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                 
                 NSDictionary *dic = strongSelf->_disCountArr[i];
@@ -801,14 +754,9 @@
                     
                     if ([dic[@"is_cumulative"] integerValue] == 1) {
                         
-                        if (percent) {
-                            
-                            price = price * (1 - percent);
-                            percent = 0;
-                        }
                     }else{
                         
-                        price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
+                        price = price * (1 - percent);
                     }
                 }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
                     
@@ -835,6 +783,10 @@
             float unit = 0;
             float percent = 0;
             float preferPrice = 0;
+            //                if ([strongSelf->_ordDic[@"down_pay"] floatValue]) {
+            //
+            //                    price = price - [strongSelf->_ordDic[@"down_pay"] floatValue];
+            //                }
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                 
                 NSDictionary *dic = strongSelf->_disCountArr[i];
@@ -853,6 +805,10 @@
                 
                 price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
             }
+            if (percent) {
+                
+                price = price * (1 - percent);
+            }
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
                 
                 NSDictionary *dic = strongSelf->_disCountArr[i];
@@ -860,14 +816,9 @@
                     
                     if ([dic[@"is_cumulative"] integerValue] == 1) {
                         
-                        if (percent) {
-                            
-                            price = price * (1 - percent);
-                            percent = 0;
-                        }
                     }else{
                         
-                        price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
+                        price = price * (1 - percent);
                     }
                 }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
                     
@@ -877,21 +828,20 @@
                     price = price - [dic[@"num"] doubleValue];
                 }
             }
-            
             preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
             preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
-            price = price - preferPrice;
+            
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
         }else if (index == 7){
             
-//            [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
+            //            [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
         }
     };
     
     _addOrderView.addOrderViewDropBlock = ^(NSInteger index) {
-      
+        
         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
         view.selectedBlock = ^(NSString *MC, NSString *ID) {
             
@@ -903,12 +853,16 @@
     };
     
     _addOrderView.addOrderViewDeleteBlock = ^(NSInteger index) {
-      
+        
         [strongSelf->_disCountArr removeObjectAtIndex:index];
         float price = [strongSelf->_ordDic[@"total_price"] floatValue];
         float unit = 0;
         float percent = 0;
         float preferPrice = 0;
+        //                if ([strongSelf->_ordDic[@"down_pay"] floatValue]) {
+        //
+        //                    price = price - [strongSelf->_ordDic[@"down_pay"] floatValue];
+        //                }
         for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
             
             NSDictionary *dic = strongSelf->_disCountArr[i];
@@ -927,6 +881,10 @@
             
             price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
         }
+        if (percent) {
+            
+            price = price * (1 - percent);
+        }
         for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
             
             NSDictionary *dic = strongSelf->_disCountArr[i];
@@ -934,14 +892,9 @@
                 
                 if ([dic[@"is_cumulative"] integerValue] == 1) {
                     
-                    if (percent) {
-                        
-                        price = price * (1 - percent);
-                        percent = 0;
-                    }
                 }else{
                     
-                    price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
+                    price = price * (1 - percent);
                 }
             }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
                 
@@ -1011,7 +964,7 @@
                     make.width.mas_equalTo(SCREEN_Width);
                     make.height.mas_equalTo(0);
                     make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                    make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+                    //                    make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                 }];
                 
             }else{
@@ -1047,7 +1000,7 @@
                     make.left.equalTo(strongSelf->_scrollView).offset(0);
                     make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
                     make.width.mas_equalTo(SCREEN_Width);
-//                    make.height.mas_equalTo(0);
+                    //                    make.height.mas_equalTo(0);
                     make.right.equalTo(strongSelf->_scrollView).offset(0);
                     make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                 }];
@@ -1082,15 +1035,15 @@
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
                 
                 if ([MC isEqualToString:@"自由"]) {
-
+                    
                     [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
                     [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
                 }else if ([MC isEqualToString:@"固定"]){
-
+                    
                     [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
                     [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
                 }else{
-                
+                    
                     [strongSelf->_progressDic removeObjectForKey:@"auditMC"];
                     [strongSelf->_progressDic removeObjectForKey:@"auditID"];
                 }
@@ -1116,17 +1069,8 @@
             };
             [strongSelf.view addSubview:view];
         }else{
-            NSDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":strongSelf->_project_id,@"config_type":@"1"}];
-            if ([strongSelf.status isEqualToString:@"2"]) {
-                
-                [dic setValue:@"2" forKey:@"config_type"];
-            }
-            if ([strongSelf.from_type isEqualToString:@"1"]) {
-                
-                [dic setValue:@"2" forKey:@"progress_defined_id"];
-            }
             
-            [BaseRequest GET:ProjectProgressGet_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+            [BaseRequest GET:ProjectProgressGet_URL parameters:@{@"project_id":strongSelf->_project_id,@"config_type":@"1",@"progress_defined_id":@"1"} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
@@ -1268,7 +1212,7 @@
     }];
     
     [_addOrderRoomView mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_roomHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
@@ -1303,13 +1247,14 @@
     }];
     
     [_addNumeralProcessView mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_processHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(0);
         make.right.equalTo(self->_scrollView).offset(0);
-//        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
+        //        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];
 }
+
 @end

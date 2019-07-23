@@ -11,6 +11,7 @@
 #import "AddEncumbrancerVC.h"
 #import "NumeralDetailAuditVC.h"
 #import "AddOrderVC.h"
+#import "AddSignVC.h"
 
 #import "AuditTaskDetailVC.h"
 
@@ -96,7 +97,14 @@
     
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
+        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
+    
+    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
         AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
+        nextVC.from_type = @"3";
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
@@ -122,6 +130,7 @@
     }];
     
     [alert addAction:sign];
+    [alert addAction:order];
     [alert addAction:numeral];
     [alert addAction:quit];
     [alert addAction:cancel];

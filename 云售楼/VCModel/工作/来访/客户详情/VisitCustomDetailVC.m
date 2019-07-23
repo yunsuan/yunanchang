@@ -161,6 +161,8 @@
       
         AddNumeralVC *nextVC = [[AddNumeralVC alloc] initWithProject_id:self->_project_id personArr:self->_peopleArr info_id:self->_info_id group_id:self->_groupId];
         nextVC.projectName = self.projectName;
+        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_id"]];
+        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_name"]];;
         nextVC.addNumeralVCBlock = ^{
             
             [self RequestMethod];
@@ -170,15 +172,19 @@
     
     UIAlertAction *order = [UIAlertAction actionWithTitle:@"转订单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:@"" personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
-        nextVC.status = @"1";
+        AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_groupId personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
+        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_id"]];
+        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_name"]];;
+        nextVC.from_type = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:@"" personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
-        nextVC.status = @"1";
+        nextVC.from_type = @"1";
+        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_id"]];
+        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_name"]];;
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
@@ -204,10 +210,21 @@
         
     }];
     
-    [alert addAction:numeral];
-    [alert addAction:order];
-    [alert addAction:sign];
     
+    
+    
+    if ([self.powerDic[@"row"] boolValue]) {
+        
+        [alert addAction:numeral];
+    }
+    if ([self.powerDic[@"order"] boolValue]) {
+        
+        [alert addAction:order];
+    }
+    if ([self.powerDic[@"contract"] boolValue]) {
+        
+        [alert addAction:sign];
+    }
     if ([self.powerDic[@"giveUp"] boolValue]) {
         
         [alert addAction:quit];
@@ -811,7 +828,7 @@
     self.titleLabel.text = @"客户详情";
     self.titleLabel.textColor = CLWhiteColor;
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
-    if ([self.powerDic[@"giveUp"] boolValue]) {
+    if ([self.powerDic[@"giveUp"] boolValue] || [self.powerDic[@"row"] boolValue] || [self.powerDic[@"order"] boolValue] || [self.powerDic[@"contract"] boolValue]) {
         
         self.rightBtn.hidden = NO;
     }else{

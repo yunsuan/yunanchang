@@ -37,15 +37,15 @@
         
         _readImg.image = IMAGE_WITH_NAME(@"");
     }
-    _titleL.text = @"排号审核";
+    _titleL.text = @"定单审核";
     _nameL.text = [NSString stringWithFormat:@"客户姓名：%@",dataDic[@"client_name"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
 //    _batchL.text = [NSString stringWithFormat:@"排号批次：%@",dataDic[@"batchInfo"]];
-    _roomL.text = [NSString stringWithFormat:@"房间号码：%@",dataDic[@""]];
-    _desipotL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"sincerity"]];
-    _allPriceL.text = [NSString stringWithFormat:@"公式总价：%@",dataDic[@""]];
-    _donePriceL.text = [NSString stringWithFormat:@"成交总价：%@",dataDic[@""]];
-    _payWayL.text = [NSString stringWithFormat:@"付款方式：%@",dataDic[@""]];
+    _roomL.text = [NSString stringWithFormat:@"房间号码：%@",dataDic[@"houseInfo"]];
+    _desipotL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
+    _allPriceL.text = [NSString stringWithFormat:@"公示总价：%@",dataDic[@"sub_total_price"]];
+    _donePriceL.text = [NSString stringWithFormat:@"成交总价：%@",dataDic[@"total_price"]];
+    _payWayL.text = [NSString stringWithFormat:@"付款方式：%@",dataDic[@"pay_way"]];
     _consultantL.text = [NSString stringWithFormat:@"职业顾问：%@",dataDic[@"sign_agent_name"]];
 }
 

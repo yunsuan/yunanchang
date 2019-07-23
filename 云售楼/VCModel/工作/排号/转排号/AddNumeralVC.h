@@ -18,6 +18,10 @@ typedef void(^AddNumeralVCBlock)(void);
 
 @property (nonatomic, strong) NSString *projectName;
 
+@property (nonatomic, strong) NSString *advicer_id;
+
+@property (nonatomic, strong) NSString *advicer_name;
+
 - (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr info_id:(NSString *)info_id group_id:(NSString *)group_id;
 
 @end

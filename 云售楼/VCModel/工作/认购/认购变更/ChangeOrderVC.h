@@ -1,8 +1,8 @@
 //
-//  AddOrderVC.h
+//  ChangeOrderVC.h
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/3.
+//  Created by 谷治墙 on 2019/7/19.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
@@ -10,15 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddOrderVC : BaseViewController
+@interface ChangeOrderVC : BaseViewController
+
+@property (nonatomic, strong) NSString *change;
 
 @property (nonatomic, strong) NSString *status;
-
-@property (nonatomic, strong) NSString *from_type;
-
-@property (nonatomic, strong) NSString *advicer_id;
-
-@property (nonatomic, strong) NSString *advicer_name;
 
 - (instancetype)initWithRow_id:(NSString *)row_id personArr:(NSArray *)personArr project_id:(NSString *)project_id info_id:(NSString *)info_id;
 
