@@ -118,8 +118,6 @@
             };
             [self.navigationController pushViewController:vc animated:YES];
         }
-   
-        
     } failure:^(NSError * _Nonnull error) {
         
     }];

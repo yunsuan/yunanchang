@@ -9,6 +9,7 @@
 #import "RoomDetailVC.h"
 
 #import "AddOrderVC.h"
+#import "AddSignVC.h"
 
 #import "SMScrollView.h"
 //#import "KyoCenterLineView.h"
@@ -595,6 +596,10 @@
                 for (UIViewController *vc in self.navigationController.viewControllers) {
                     
                     if ([vc isKindOfClass:[AddOrderVC class]]) {
+                        
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
+                    if ([vc isKindOfClass:[AddSignVC class]]) {
                         
                         [self.navigationController popToViewController:vc animated:YES];
                     }

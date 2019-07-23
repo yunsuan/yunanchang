@@ -117,6 +117,8 @@
     _roleArr = [@[] mutableCopy];
     _rolePersonArr = [@[] mutableCopy];
     _rolePersonSelectArr = [@[] mutableCopy];
+    
+    _pay_info = [[NSMutableDictionary alloc] init];
 }
 
 - (void)PropertyRequestMethod{
@@ -187,6 +189,7 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    [_pay_info removeAllObjects];
     BOOL isFull = YES;
     NSInteger percent = 0;
     for (NSString *str in _proportionArr) {
@@ -258,7 +261,7 @@
         }
         
         [_pay_info setObject:_addOrderView.paymentTF.textField.text forKey:@"downpayment"];
-        [_pay_info setObject:@"" forKey:@"downpayment_repay"];
+        [_pay_info setObject:@"0" forKey:@"downpayment_repay"];
         [_pay_info setObject:_addOrderView.loanPriceTF.textField.text forKey:@"loan_money"];
         [_pay_info setObject:_addOrderView.loanYearTF.textField.text forKey:@"loan_limit"];
         [_pay_info setObject:_addOrderView.loanBankBtn->str forKey:@"bank_id"];
@@ -275,7 +278,7 @@
             [self showContent:@"请选择商业按揭银行"];
             return;
         }
-        if (!_addOrderView.loanYearTF.textField.text.length) {
+        if (!_addOrderView.businessLoanYearTF.textField.text.length) {
             
             [self showContent:@"请输入商业按揭年限"];
             return;
@@ -297,7 +300,7 @@
         }
         
         [_pay_info setObject:_addOrderView.paymentTF.textField.text forKey:@"downpayment"];
-        [_pay_info setObject:@"" forKey:@"downpayment_repay"];
+        [_pay_info setObject:@"0" forKey:@"downpayment_repay"];
         [_pay_info setObject:_addOrderView.businessLoanPriceTF.textField.text forKey:@"bank_loan_money"];
         [_pay_info setObject:_addOrderView.businessLoanYearTF.textField.text forKey:@"bank_loan_limit"];
         [_pay_info setObject:_addOrderView.businessLoanBankBtn->str forKey:@"bank_bank_id"];
@@ -323,7 +326,7 @@
         }
         
         [_pay_info setObject:_addOrderView.paymentTF.textField.text forKey:@"downpayment"];
-        [_pay_info setObject:@"" forKey:@"downpayment_repay"];
+        [_pay_info setObject:@"0" forKey:@"downpayment_repay"];
         [_pay_info setObject:_addOrderView.loanPriceTF.textField.text forKey:@"loan_money"];
         [_pay_info setObject:_addOrderView.loanYearTF.textField.text forKey:@"loan_limit"];
         [_pay_info setObject:_addOrderView.loanBankBtn->str forKey:@"bank_id"];
@@ -391,19 +394,32 @@
     }
     [dic setObject:_project_id forKey:@"project_id"];
     [dic setObject:_roomDic[@"house_id"] forKey:@"house_id"];
-    [dic setObject:_roomDic[@"total_price"] forKey:@"sub_total_price"];
-    [dic setObject:_roomDic[@"criterion_unit_price"] forKey:@"sub_unit_price"];
+    [dic setObject:_roomDic[@"total_price"] forKey:@"contract_total_price"];
+    [dic setObject:_roomDic[@"criterion_unit_price"] forKey:@"contract_unit_price"];
     [dic setObject:_roomDic[@"build_unit_price"] forKey:@"build_unit_price"];
     [dic setObject:_roomDic[@"criterion_unit_price"] forKey:@"inner_unit_price"];
-    [dic setObject:_ordDic[@"payWay_id"] forKey:@"payway"];
-    [dic setObject:_ordDic[@"sub_code"] forKey:@"sub_code"];
+//    [dic setObject:_ordDic[@"payWay_id"] forKey:@"payway"];
+    [dic setObject:_ordDic[@"sub_code"] forKey:@"contract_code"];
     [dic setObject:_ordDic[@"down_pay"] forKey:@"down_pay"];
     [dic setObject:_ordDic[@"payWay_id"] forKey:@"pay_way"];
+    if (_pay_info.count) {
+        
+        NSArray * arr = @[_pay_info];
+        NSData *pay_infoData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *pay_infoDataJson = [[NSString alloc]initWithData:pay_infoData encoding:NSUTF8StringEncoding];
+        [dic setObject:pay_infoDataJson forKey:@"pay_info"];
+    }
     
     NSMutableArray *discoutArr = [[NSMutableArray alloc] initWithArray:_disCountArr];
+    for (int i = 0; i < discoutArr.count; i++) {
+        
+        NSDictionary *dic = discoutArr[i];
+        NSDictionary *tempDic = @{@"name":dic[@"name"],@"type":dic[@"type"],@"num":dic[@"num"],@"describe":dic[@"describe"],@"is_cumulative":dic[@"is_cumulative"],@"sort":[NSString stringWithFormat:@"%d",i]};
+        [discoutArr replaceObjectAtIndex:i withObject:tempDic];
+    }
     if (_addOrderView.spePreferentialTF.textField.text.length) {
         
-        [discoutArr addObject:@{@"create_time":@"0",@"discount_id":@"0",@"enable":@"0",@"end_time":@"0",@"is_cumulative":@"0",@"name":@"总价优惠",@"num":_addOrderView.spePreferentialTF.textField.text,@"pay_way":@"0",@"start_time":@"0",@"type":@"总价优惠"}];
+        [discoutArr addObject:@{@"name":@"总价优惠",@"type":@"总价优惠",@"num":_addOrderView.spePreferentialTF.textField.text,@"describe":@"总价优惠",@"is_cumulative":@"0",@"sort":[NSString stringWithFormat:@"%lu",(unsigned long)_disCountArr.count]}];
     }
     if (discoutArr.count) {
         
@@ -451,7 +467,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"转认购";
+    self.titleLabel.text = @"转签约";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLBackColor;
@@ -598,7 +614,9 @@
             
             strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
             strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
+            [strongSelf->_ordDic removeAllObjects];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"total_price"];
+            [strongSelf->_ordDic setObject:@"0.00" forKey:@"preferPrice"];
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
@@ -881,19 +899,80 @@
         }else if (index == 7){
             
             //            [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
+        }else if (index == 9){ //综合贷款-商贷金额
+            
+            [strongSelf->_ordDic setObject:str forKey:@"bank_loan_money"];
+            if ([strongSelf->_ordDic[@"fund_loan_money"] length]) {
+                
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"bank_loan_money"] floatValue] - [strongSelf->_ordDic[@"fund_loan_money"] floatValue])] forKey:@"downpayment"];
+            }
+        }else if (index == 11){ //综合贷款-商贷年限
+            
+            [strongSelf->_ordDic setObject:str forKey:@"bank_loan_limit"];
+        }else if (index == 12){ //综合贷款-公积金金额
+            
+            [strongSelf->_ordDic setObject:str forKey:@"fund_loan_money"];
+            if ([strongSelf->_ordDic[@"bank_loan_money"] length]) {
+                
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"bank_loan_money"] floatValue] - [strongSelf->_ordDic[@"fund_loan_money"] floatValue])] forKey:@"downpayment"];
+            }
+        }else if (index == 14){ //综合贷款-公积金年限
+            
+            [strongSelf->_ordDic setObject:str forKey:@"fund_loan_limit"];
+        }else if (index == 15){ //银行、公积金贷款-贷款金额
+            
+            [strongSelf->_ordDic setObject:str forKey:@"loan_money"];
+            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"loan_money"] floatValue])] forKey:@"downpayment"];
+        }else if (index == 17){//银行、公积金贷款-贷款年限
+            
+            [strongSelf->_ordDic setObject:str forKey:@"loan_limit"];
         }
+        strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
     };
     
     _addOrderView.addOrderViewDropBlock = ^(NSInteger index) {
         
-        SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
-        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+        if (index == 0) {
+          
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"payWay_Name"];
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"payWay_id"];
+                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else if (index == 10){
             
-            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"payWay_Name"];
-            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"payWay_id"];
-            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-        };
-        [strongSelf.view addSubview:view];
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:BANK_TYPE]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_bank_name"];
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_bank_id"];
+                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else if (index == 13){
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:BANK_TYPE]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
+                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else if (index == 16){
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:BANK_TYPE]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_name"];
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_id"];
+                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+            };
+            [strongSelf.view addSubview:view];
+        }
     };
     
     _addOrderView.addOrderViewDeleteBlock = ^(NSInteger index) {

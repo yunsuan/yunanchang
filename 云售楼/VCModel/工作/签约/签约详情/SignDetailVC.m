@@ -57,7 +57,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:ProjectHouseGetProjectContractDetail_URL parameters:@{@"sub_id":_sub_id} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ProjectHouseGetProjectContractDetail_URL parameters:@{@"contract_id":_sub_id} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

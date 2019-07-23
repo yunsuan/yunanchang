@@ -98,6 +98,9 @@
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
+        nextVC.from_type = @"3";
+        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
+        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
@@ -105,6 +108,8 @@
         
         AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
         nextVC.from_type = @"3";
+        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
+        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
@@ -129,8 +134,8 @@
         
     }];
     
-    [alert addAction:sign];
     [alert addAction:order];
+    [alert addAction:sign];
     [alert addAction:numeral];
     [alert addAction:quit];
     [alert addAction:cancel];

@@ -8,9 +8,10 @@
 
 #import "AuditTaskDetailVC.h"
 
-#import "BaseHeader.h"
+#import "RoomHeader.h"
 #import "AuditTaskDetailCollCell.h"
 
+#import "SinglePickView.h"
 #import "DropBtn.h"
 
 #import "GZQFlowLayout.h"
@@ -19,8 +20,10 @@
 {
     
     NSString *_isFinal;
+    NSString *_checkType;
     
     NSMutableArray *_dataArr;
+    NSMutableArray *_roleArr;
     
     NSString *_log_id;
 }
@@ -34,7 +37,7 @@
 
 @property (nonatomic, strong) UILabel *applicantTimeL;
 
-@property (nonatomic, strong) BaseHeader *header;
+//@property (nonatomic, strong) BaseHeader *header;
 
 @property (nonatomic, strong) GZQFlowLayout *layout;
 
@@ -70,8 +73,9 @@
 
 - (void)initDataSource{
     
-    _isFinal = @"1";
+//    _isFinal = @"1";
     _dataArr = [@[] mutableCopy];
+    _roleArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
@@ -86,12 +90,13 @@
             self->_applicantL.text = [NSString stringWithFormat:@"申请人：%@",resposeObject[@"data"][@"agent_name"]];
             self->_applicantTimeL.text = [NSString stringWithFormat:@"申请时间：%@",resposeObject[@"data"][@"create_time"]];
             self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"list"]];
+            self->_checkType = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"list"][0][@"check_type"]];
             [self->_coll reloadData];
             
             [self->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
                 
                 make.left.equalTo(self->_scroll).offset(0);
-                make.top.equalTo(self->_header.mas_bottom).offset(0 *SIZE);
+                make.top.equalTo(self->_applicantTimeL.mas_bottom).offset(10 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
                 make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
             }];
@@ -153,9 +158,11 @@
     if (btn.tag == 1) {
         
         _finalBtn.selected = YES;
+        _isFinal = @"2";
     }else{
         
         _unFinalBtn.selected = YES;
+        _isFinal = @"1";
     }
 }
 
@@ -167,7 +174,7 @@
         
         [dic setObject:_auditView.text forKey:@"comment"];
     }
-    if ([self->_processTypeL.text isEqualToString:@"自由流程"]) {
+    if ([self->_checkType integerValue] == 1) {
         
         [dic setObject:_isFinal forKey:@"step_type"];
         if ([_isFinal integerValue] == 1) {
@@ -175,6 +182,10 @@
             if (_nextBtn->str.length) {
                 
                 [dic setObject:[NSString stringWithFormat:@"%@",_nextBtn->str] forKey:@"agent_list"];
+            }else{
+                
+                [self showContent:@"请选择下一步审核人"];
+                return;
             }
         }
     }
@@ -206,6 +217,7 @@
         
         [dic setObject:_auditView.text forKey:@"comment"];
     }
+    [dic setObject:@"1" forKey:@"type"];
     
     [BaseRequest POST:ProjectProgressPass_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
@@ -228,12 +240,64 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    
+    if (self->_roleArr.count) {
+        
+        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_roleArr];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            
+            self->_nextBtn.content.text = MC;
+            self->_nextBtn->str = [NSString stringWithFormat:@"%@",ID];
+        };
+        [self.view addSubview:view];
+    }else{
+        
+        [BaseRequest GET:ProjectRolePersonList_URL parameters:@{@"project_id":self.project_id} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                    
+                    [self->_roleArr addObject:@{@"param":resposeObject[@"data"][i][@"agent_name"],@"id":resposeObject[@"data"][i][@"agent_id"]}];
+                }
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_roleArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    self->_nextBtn.content.text = MC;
+                    self->_nextBtn->str = [NSString stringWithFormat:@"%@",ID];
+                };
+                [self.view addSubview:view];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            NSLog(@"%@",error);
+        }];
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     return _dataArr.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    
+    return CGSizeMake(SCREEN_Width, 40 *SIZE);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    
+    RoomHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"RoomHeader" forIndexPath:indexPath];
+    if (!header) {
+        
+        header = [[RoomHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+    }
+    
+    header.titleL.text =  @"审核";
+    
+    return header;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -309,10 +373,12 @@
                 break;
         }
     }
-    
-    _header = [[BaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _header.titleL.text = @"审核";
-    [_scroll addSubview:_header];
+//    BaseHeader *header = [[BaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+//    header.titleL.text = @"组员信息";
+//    [_scrollView addSubview:header];
+//    _header = [[BaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+//    _header.titleL.text = @"审核";
+//    [_scroll addSubview:_header];
     
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:5 *SIZE];
     _layout.itemSize = CGSizeMake(SCREEN_Width, 150 *SIZE);
@@ -322,6 +388,7 @@
     _coll.delegate = self;
     _coll.dataSource = self;
     [_coll registerClass:[AuditTaskDetailCollCell class] forCellWithReuseIdentifier:@"AuditTaskDetailCollCell"];
+    [_coll registerClass:[RoomHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"RoomHeader"];
     [_scroll addSubview:_coll];
     
     _auditView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 340 *SIZE, 70 *SIZE)];
@@ -415,19 +482,19 @@
         make.right.equalTo(self->_scroll).offset(-10 *SIZE);
     }];
     
-    [_header mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.equalTo(self->_scroll).offset(0 *SIZE);
-        make.top.equalTo(self->_applicantTimeL.mas_bottom).offset(10 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
-//        make.right.equalTo(self->_scroll).offset(-10 *SIZE);
-    }];
+//    [_header mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self->_scroll).offset(0 *SIZE);
+//        make.top.equalTo(self->_applicantTimeL.mas_bottom).offset(10 *SIZE);
+//        make.width.mas_equalTo(SCREEN_Width);
+//        make.height.mas_equalTo(40 *SIZE);
+////        make.right.equalTo(self->_scroll).offset(-10 *SIZE);
+//    }];
     
     [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_scroll).offset(0);
-        make.top.equalTo(self->_header.mas_bottom).offset(0 *SIZE);
+        make.top.equalTo(self->_applicantTimeL.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
     }];

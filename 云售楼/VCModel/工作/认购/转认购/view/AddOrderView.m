@@ -45,7 +45,7 @@
     
     if (self.addOrderViewDropBlock) {
         
-        self.addOrderViewDropBlock(0);
+        self.addOrderViewDropBlock(btn.tag);
     }
 }
 
@@ -112,6 +112,12 @@
         [_installmentArr removeAllObjects];
         [_installmentColl reloadData];
         
+        _loanPriceTF.textField.text = dataDic[@"loan_money"];
+        _paymentTF.textField.text = dataDic[@"downpayment"];
+        _loanYearTF.textField.text = dataDic[@"loan_limit"];
+        _loanBankBtn.content.text = dataDic[@"bank_name"];
+        _loanBankBtn->str = dataDic[@"bank_id"];
+        
         _paymentL.hidden = NO;
         _paymentTF.hidden = NO;
         _loanPriceL.hidden = NO;
@@ -172,6 +178,17 @@
         
         [_installmentArr removeAllObjects];
         [_installmentColl reloadData];
+        
+        _businessLoanPriceTF.textField.text = dataDic[@"bank_loan_money"];
+        _paymentTF.textField.text = dataDic[@"downpayment"];
+        _businessLoanYearTF.textField.text = dataDic[@"bank_loan_limit"];
+        _businessLoanBankBtn.content.text = dataDic[@"bank_bank_name"];
+        _businessLoanBankBtn->str = dataDic[@"bank_bank_id"];
+        
+        _fundLoanTF.textField.text = dataDic[@"fund_loan_money"];
+        _fundLoanYearTF.textField.text = dataDic[@"fund_loan_limit"];
+        _fundLoanBankBtn.content.text = dataDic[@"fund_bank_name"];
+        _fundLoanBankBtn->str = dataDic[@"fund_bank_id"];
         
         _paymentL.hidden = NO;
         _paymentTF.hidden = NO;
@@ -234,6 +251,12 @@
         
         [_installmentArr removeAllObjects];
         [_installmentColl reloadData];
+        
+        _loanPriceTF.textField.text = dataDic[@"loan_money"];
+        _paymentTF.textField.text = dataDic[@"downpayment"];
+        _loanYearTF.textField.text = dataDic[@"loan_limit"];
+        _loanBankBtn.content.text = dataDic[@"bank_name"];
+        _loanBankBtn->str = dataDic[@"bank_id"];
         
         _paymentL.hidden = NO;
         _paymentTF.hidden = NO;
@@ -545,6 +568,8 @@
                 _paymentTF = tf;
                 _paymentTF.hidden = YES;
                 _paymentTF.unitL.text = @"元";
+                _paymentTF.backgroundColor = CLBackColor;
+                _paymentTF.userInteractionEnabled = NO;
                 [self addSubview:_paymentTF];
                 break;
             }
@@ -568,6 +593,8 @@
                 
                 _businessLoanBankBtn = [[DropBtn alloc] initWithFrame:tf.frame];
                 _businessLoanBankBtn.hidden = YES;
+                _businessLoanBankBtn.tag = i;
+                [_businessLoanBankBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
 //                _businessLoanBankBtn.placeL.text = 
                 [self addSubview:_businessLoanBankBtn];
                 break;
@@ -603,6 +630,8 @@
                 [self addSubview:_fundLoanBankL];
                 
                 _fundLoanBankBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_fundLoanBankBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _fundLoanBankBtn.tag = i;
                 _fundLoanBankBtn.hidden = YES;
                 [self addSubview:_fundLoanBankBtn];
                 break;
@@ -627,8 +656,6 @@
                 
                 _loanPriceTF = tf;
                 _loanPriceTF.hidden = YES;
-                _loanPriceTF.backgroundColor = CLBackColor;
-                _loanPriceTF.userInteractionEnabled = NO;
                 _loanPriceTF.unitL.text = @"元";
                 [self addSubview:_loanPriceTF];
                 break;
@@ -640,6 +667,8 @@
                 [self addSubview:_loanBankL];
                 
                 _loanBankBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_loanBankBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _loanBankBtn.tag = i;
                 _loanBankBtn.hidden = YES;
                 [self addSubview:_loanBankBtn];
                 break;

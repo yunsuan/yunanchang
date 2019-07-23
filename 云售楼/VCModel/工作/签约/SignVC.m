@@ -63,7 +63,7 @@
     }
     
     _table.mj_footer.state = MJRefreshStateIdle;
-    [BaseRequest GET:ProjectHouseGetProjectSublist_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ProjectHouseGetProjectContractList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -98,7 +98,7 @@
         [dic setObject:_searchBar.text forKey:@"search"];
     }
     //    _table.mj_footer.state = MJRefreshStateIdle;
-    [BaseRequest GET:ProjectHouseGetProjectSublist_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ProjectHouseGetProjectContractList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_footer endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -171,7 +171,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    SignDetailVC *nextVC = [[SignDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
+    SignDetailVC *nextVC = [[SignDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"contract_id"]]];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

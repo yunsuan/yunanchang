@@ -27,6 +27,7 @@
 
 #import "TransNumeralCell.h"
 #import "TransOrderCell.h"
+#import "TransSignCell.h"
 
 #import "InvalidView.h"
 #import "SignSelectWorkerView.h"
@@ -474,6 +475,7 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
             nextVC.status = @"1";
             nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
             [self.navigationController pushViewController:nextVC animated:YES];
 //            NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[index][@"row_id"] project_id:@"" info_id:@""];
 //            [self.navigationController pushViewController:nextVC animated:YES];
@@ -493,13 +495,32 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         cell.transOrderCellAuditBlock = ^(NSInteger index) {
             
             AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
-            nextVC.status = @"1";
-            nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
+            nextVC.status = @"2";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
-//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 12){
-//
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 12){
+
+        TransSignCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransSignCell"];
+        if (!cell) {
+            
+            cell = [[TransSignCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransSignCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.transSignCellAuditBlock = ^(NSInteger index) {
+            
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"3";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
 //    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 13){
 //
 //    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 14){
@@ -775,16 +796,22 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
         nextVC.status = @"1";
         nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 11) {
         
-//        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
-//        nextVC.status = @"1";
-//        nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
-//        [self.navigationController pushViewController:nextVC animated:YES];
+        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+        nextVC.status = @"2";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 12) {
         
-        
+        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+        nextVC.status = @"3";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 13) {
         
         

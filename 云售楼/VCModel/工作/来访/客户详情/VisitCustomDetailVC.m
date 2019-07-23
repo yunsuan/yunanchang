@@ -181,7 +181,7 @@
     
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:@"" personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
+        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_groupId personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
         nextVC.from_type = @"1";
         nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_id"]];
         nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_name"]];;

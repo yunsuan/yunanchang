@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *status;
 
+@property (nonatomic, strong) NSString *project_id;;
+
 @property (nonatomic, strong) NSString *requestId;
 
 @end
