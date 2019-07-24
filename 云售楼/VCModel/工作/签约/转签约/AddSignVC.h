@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddSignVCBlock)(void);
+
 @interface AddSignVC : BaseViewController
+
+@property (nonatomic, copy) AddSignVCBlock addSignVCBlock;
 
 @property (nonatomic, strong) NSString *status;
 

@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddOrderVCBlock)(void);
+
 @interface AddOrderVC : BaseViewController
+
+@property (nonatomic, copy) AddOrderVCBlock addOrderVCBlock;
 
 @property (nonatomic, strong) NSString *status;
 

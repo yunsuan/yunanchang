@@ -10,6 +10,8 @@
 
 #import "RoomVC.h"
 #import "SelectSpePerferVC.h"
+#import "AddCallTelegramGroupMemberVC.h"
+#import "CallTelegramSimpleCustomVC.h"
 
 #import "AddNemeralHeader.h"
 
@@ -538,6 +540,11 @@
     
     _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
         
+        if (strongSelf->_num == num) {
+            
+            strongSelf->_num = num - 1;
+            strongSelf->_addNumeralPersonView.num = num - 1;
+        }
         [strongSelf->_personArr removeObjectAtIndex:num];
         [strongSelf->_proportionArr removeObjectAtIndex:num];
     };
@@ -550,38 +557,52 @@
     
     _addNumeralPersonView.addNumeralPersonViewCollBlock = ^(NSInteger num) {
         
-        self->_num = num;
+        strongSelf->_num = num;
         strongSelf->_addNumeralPersonView.num = num;
         strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[num];
     };
     _addNumeralPersonView.addNumeralPersonViewAddBlock = ^(NSInteger num) {
         
-        //        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-        //        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
-        //        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
-        //
-        //            [strongSelf->_personArr addObject:dic];
-        //            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-        //            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count;
-        //        };
-        //        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
+            
+            [strongSelf->_proportionArr addObject:@""];
+            [strongSelf->_personArr addObject:dic];
+            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
+            strongSelf->_num = strongSelf->_personArr.count - 1;
+            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count - 1;
+            strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[strongSelf->_personArr.count - 1];
+            if (strongSelf.addSignVCBlock) {
+                
+                strongSelf.addSignVCBlock();
+            }
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
-        //        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[strongSelf->_num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-        //        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
-        //
-        //            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[strongSelf->_num]];
-        //            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        //
-        //                if (dic[key]) {
-        //
-        //                    [tempDic setObject:dic[key] forKey:key];
-        //                }
-        //            }];
-        //            [strongSelf->_personArr replaceObjectAtIndex:strongSelf->_num withObject:tempDic];
-        //        };
-        //        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
+            
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];
+            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                if (dic[key]) {
+                    
+                    [tempDic setObject:dic[key] forKey:key];
+                }
+            }];
+            [strongSelf->_personArr replaceObjectAtIndex:num withObject:tempDic];
+            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
+            strongSelf->_addNumeralPersonView.num = num;
+            strongSelf->_num = num;
+            if (strongSelf.addSignVCBlock) {
+                
+                strongSelf.addSignVCBlock();
+            }
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_addNumeralPersonView];
     
