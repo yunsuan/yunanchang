@@ -168,9 +168,9 @@
         
         [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
             
-            make.left.equalTo(self).offset(80 *SIZE);
+            make.left.equalTo(self).offset(0 *SIZE);
             make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
+            make.width.mas_equalTo(SCREEN_Width);
             make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
 //            make.bottom.equalTo(self).offset(-20 *SIZE);
         }];
@@ -241,9 +241,9 @@
         
         [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
             
-            make.left.equalTo(self).offset(80 *SIZE);
+            make.left.equalTo(self).offset(0 *SIZE);
             make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
+            make.width.mas_equalTo(SCREEN_Width);
             make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
 //            make.bottom.equalTo(self).offset(-20 *SIZE);
         }];
@@ -308,9 +308,9 @@
         
         [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
             
-            make.left.equalTo(self).offset(80 *SIZE);
+            make.left.equalTo(self).offset(0 *SIZE);
             make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
+            make.width.mas_equalTo(SCREEN_Width);
             make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
 //            make.bottom.equalTo(self).offset(-20 *SIZE);
         }];
@@ -351,9 +351,9 @@
         
         [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
             
-            make.left.equalTo(self).offset(80 *SIZE);
+            make.left.equalTo(self).offset(0 *SIZE);
             make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
+            make.width.mas_equalTo(SCREEN_Width);
             make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
             make.bottom.equalTo(self).offset(-20 *SIZE);
         }];
@@ -390,6 +390,20 @@
     }];
 }
 
+- (void)setInstallArr:(NSMutableArray *)installArr{
+    
+    _installmentArr = [NSMutableArray arrayWithArray:installArr];
+    [_installmentColl reloadData];
+    [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(0 *SIZE);
+        make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
+        make.bottom.equalTo(self).offset(-20 *SIZE);
+    }];
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
     self.addOrderViewStrBlock(textField.text, textField.tag);
@@ -402,7 +416,7 @@
         return 1;
     }else{
         
-        return _installmentArr.count ? _installmentArr.count : 1;
+        return _installmentArr.count;
     }
 }
 
@@ -452,6 +466,42 @@
             
             cell = [[installmentCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 90 *SIZE)];
         }
+        
+        cell.tag = indexPath.section;
+        
+        if (indexPath.section == 0) {
+            
+            [cell.addBtn setImage:IMAGE_WITH_NAME(@"") forState:UIControlStateNormal];
+        }else{
+            
+            [cell.addBtn setImage:IMAGE_WITH_NAME(@"") forState:UIControlStateNormal];
+        }
+        
+        cell.installmentCollCellStrBlock = ^(NSInteger index, NSString * _Nonnull str) {
+            
+            if (self.addOrderViewInstallmentStrBlock) {
+                
+                self.addOrderViewInstallmentStrBlock(index, str);
+            }
+        };
+        
+        cell.installmentCollCellTimeBlock = ^(NSInteger index) {
+            
+            if (self.addOrderViewTimeBlock) {
+                
+                self.addOrderViewTimeBlock(index);
+            }
+        };
+        
+        cell.installmentCollCellAddBlock = ^(NSInteger index) {
+            
+            if (self.addOrderViewInstallmentAddBlock) {
+                
+                self.addOrderViewInstallmentAddBlock(index);
+            }
+        };
+        
+        cell.dataDic = _installmentArr[indexPath.section];
         
         return cell;
     }
@@ -870,9 +920,9 @@
     
     [_installmentColl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self).offset(80 *SIZE);
+        make.left.equalTo(self).offset(0 *SIZE);
         make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
     }];
     

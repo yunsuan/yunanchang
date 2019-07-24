@@ -24,19 +24,34 @@
     return self;
 }
 
+- (void)setDataDic:(NSDictionary *)dataDic{
+    
+    _payTF.textField.text = dataDic[@"pay_money"];
+    _timeBtn.content.text = dataDic[@"pay_time"];
+}
+
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    
+    if (self.installmentCollCellAddBlock) {
+        
+        self.installmentCollCellAddBlock(self.tag);
+    }
 }
 
 - (void)ActionTimeBtn:(UIButton *)btn{
     
-    
+    if (self.installmentCollCellTimeBlock) {
+        
+        self.installmentCollCellTimeBlock(self.tag);
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
-    
+    if (self.installmentCollCellStrBlock) {
+        
+        self.installmentCollCellStrBlock(self.tag, textField.text);
+    }
 }
 
 - (void)initUI{
@@ -51,9 +66,10 @@
     
     for (int i = 0; i < 2; i++) {
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20 *SIZE, 20 *SIZE + i * 40 *SIZE, 60 *SIZE, 10 *SIZE)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20 *SIZE, 27 *SIZE + i * 40 *SIZE, 60 *SIZE, 10 *SIZE)];
         label.textColor = CLTitleLabColor;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
+        label.adjustsFontSizeToFitWidth = YES;
         label.textAlignment = NSTextAlignmentRight;
         if (i == 0) {
             
@@ -68,7 +84,7 @@
             label.text = @"付款金额：";
             [self.contentView addSubview:label];
             
-            _payTF = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 50 *SIZE *SIZE, 258 *SIZE, 33 *SIZE)];
+            _payTF = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 55 *SIZE *SIZE, 258 *SIZE, 33 *SIZE)];
             _payTF.textField.delegate = self;
             [self.contentView addSubview:_payTF];
         }

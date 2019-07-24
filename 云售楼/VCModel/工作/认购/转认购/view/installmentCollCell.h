@@ -13,7 +13,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^InstallmentCollCellAddBlock)(NSInteger index);
+
+typedef void(^InstallmentCollCellTimeBlock)(NSInteger index);
+
+typedef void(^InstallmentCollCellStrBlock)(NSInteger index, NSString *str);
+
 @interface installmentCollCell : UICollectionViewCell
+
+@property (nonatomic, copy) InstallmentCollCellAddBlock installmentCollCellAddBlock;
+
+@property (nonatomic, copy) InstallmentCollCellTimeBlock installmentCollCellTimeBlock;
+
+@property (nonatomic, copy) InstallmentCollCellStrBlock installmentCollCellStrBlock;
 
 @property (nonatomic, strong) UIButton *addBtn;
 
@@ -24,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *payL;
 
 @property (nonatomic, strong) BorderTextField *payTF;
+
+@property (nonatomic, strong) NSDictionary *dataDic;
 
 @end
 

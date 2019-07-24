@@ -23,6 +23,12 @@ typedef void(^AddOrderViewStrBlock)(NSString *str, NSInteger index);
 
 typedef void(^AddOrderViewDropBlock)(NSInteger index);
 
+typedef void(^AddOrderViewInstallmentAddBlock)(NSInteger index);
+
+typedef void(^AddOrderViewTimeBlock)(NSInteger index);
+
+typedef void(^AddOrderViewInstallmentStrBlock)(NSInteger index, NSString *str);
+
 @interface AddOrderView : UIView
 
 @property (nonatomic, copy) AddOrderViewAddBlock addOrderViewAddBlock;
@@ -32,6 +38,12 @@ typedef void(^AddOrderViewDropBlock)(NSInteger index);
 @property (nonatomic, copy) AddOrderViewStrBlock addOrderViewStrBlock;
 
 @property (nonatomic, copy) AddOrderViewDropBlock addOrderViewDropBlock;
+
+@property (nonatomic, copy) AddOrderViewInstallmentAddBlock addOrderViewInstallmentAddBlock;
+
+@property (nonatomic, copy) AddOrderViewTimeBlock addOrderViewTimeBlock;
+
+@property (nonatomic, copy) AddOrderViewInstallmentStrBlock addOrderViewInstallmentStrBlock;
 
 @property (nonatomic, strong) UILabel *codeL;
 
@@ -114,6 +126,8 @@ typedef void(^AddOrderViewDropBlock)(NSInteger index);
 @property (nonatomic, strong) UICollectionView *installmentColl;
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) NSMutableArray *installArr;
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 

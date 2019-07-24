@@ -19,6 +19,7 @@
 #import "AddNumeralProcessView.h"
 
 #import "SinglePickView.h"
+#import "DateChooseView.h"
 
 @interface AddSignVC ()<UIScrollViewDelegate>
 {
@@ -50,6 +51,9 @@
     NSMutableArray *_roleArr;
     NSMutableArray *_rolePersonArr;
     NSMutableArray *_rolePersonSelectArr;
+    NSMutableArray *_installmentArr;
+    
+    NSDateFormatter *_formatter;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -109,6 +113,10 @@
     
     _num = 0;
     _titleArr = @[@"权益人信息",@"房源信息",@"定单信息"];
+    
+    _pay_info = [[NSMutableDictionary alloc] init];
+    
+    
     _certArr = [@[] mutableCopy];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0]];
     _disCountArr = [@[] mutableCopy];
@@ -117,8 +125,11 @@
     _roleArr = [@[] mutableCopy];
     _rolePersonArr = [@[] mutableCopy];
     _rolePersonSelectArr = [@[] mutableCopy];
+    _installmentArr = [@[] mutableCopy];
+    [_installmentArr addObject:@{@"pay_time":@"",@"tip_time":@"",@"pay_money":@""}];
     
-    _pay_info = [[NSMutableDictionary alloc] init];
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
 }
 
 - (void)PropertyRequestMethod{
@@ -332,7 +343,7 @@
         [_pay_info setObject:_addOrderView.loanBankBtn->str forKey:@"bank_id"];
     }else if ([_addOrderView.payWayBtn.content.text isEqualToString:@"分期付款"]){
         
-        
+
     }else{
         
         
@@ -408,6 +419,14 @@
         NSData *pay_infoData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
         NSString *pay_infoDataJson = [[NSString alloc]initWithData:pay_infoData encoding:NSUTF8StringEncoding];
         [dic setObject:pay_infoDataJson forKey:@"pay_info"];
+    }else{
+        
+        if ([_addOrderView.payWayBtn.content.text isEqualToString:@"分期付款"]) {
+            
+            NSData *pay_infoData = [NSJSONSerialization dataWithJSONObject:_installmentArr options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *pay_infoDataJson = [[NSString alloc]initWithData:pay_infoData encoding:NSUTF8StringEncoding];
+            [dic setObject:pay_infoDataJson forKey:@"pay_info"];
+        }
     }
     
     NSMutableArray *discoutArr = [[NSMutableArray alloc] initWithArray:_disCountArr];
@@ -419,7 +438,7 @@
     }
     if (_addOrderView.spePreferentialTF.textField.text.length) {
         
-        [discoutArr addObject:@{@"name":@"总价优惠",@"type":@"总价优惠",@"num":_addOrderView.spePreferentialTF.textField.text,@"describe":@"总价优惠",@"is_cumulative":@"0",@"sort":[NSString stringWithFormat:@"%lu",(unsigned long)_disCountArr.count]}];
+        [discoutArr addObject:@{@"name":@"总价优惠",@"type":@"抹零",@"num":_addOrderView.spePreferentialTF.textField.text,@"describe":@"iOS",@"is_cumulative":@"0",@"sort":[NSString stringWithFormat:@"%lu",(unsigned long)_disCountArr.count]}];
     }
     if (discoutArr.count) {
         
@@ -1034,6 +1053,31 @@
         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
         strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+    };
+    
+    _addOrderView.addOrderViewInstallmentAddBlock = ^(NSInteger index) {
+        
+        [strongSelf->_installmentArr addObject:@{@"pay_time":@"",@"tip_time":@"",@"pay_money":@""}];
+        strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
+    };
+    
+    _addOrderView.addOrderViewTimeBlock = ^(NSInteger index) {
+        
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.frame];
+        view.dateblock = ^(NSDate *date) {
+            
+            NSDictionary *dic = @{@"pay_time":[strongSelf->_formatter stringFromDate:date],@"tip_time":[strongSelf->_formatter stringFromDate:[NSDate dateWithTimeInterval:-24 * 60 * 60 sinceDate:date]],@"pay_money":strongSelf->_installmentArr[index][@"pay_money"]};
+            [strongSelf->_installmentArr replaceObjectAtIndex:index withObject:dic];
+        };
+        [strongSelf.view addSubview:view];
+        strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
+    };
+    
+    _addOrderView.addOrderViewInstallmentStrBlock = ^(NSInteger index, NSString * _Nonnull str) {
+        
+        NSDictionary *dic = @{@"pay_time":strongSelf->_installmentArr[index][@"pay_time"],@"tip_time":strongSelf->_installmentArr[index][@"tip_time"],@"pay_money":str};
+        [strongSelf->_installmentArr replaceObjectAtIndex:index withObject:dic];
+        strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
     };
     
     [_scrollView addSubview:_addOrderView];
