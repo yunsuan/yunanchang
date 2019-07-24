@@ -355,7 +355,7 @@
             [dic setObject:@"2" forKey:@"beneficiary_type"];
         }
         
-        [dic removeObjectForKey:@"client_id"];
+//        [dic removeObjectForKey:@"client_id"];
         [dic removeObjectForKey:@"comment"];
         [dic removeObjectForKey:@"mail_code"];
         [dic removeObjectForKey:@"tel_show_state"];

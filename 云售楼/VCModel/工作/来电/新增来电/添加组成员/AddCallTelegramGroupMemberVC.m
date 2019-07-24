@@ -440,6 +440,11 @@
                     
                     self.addCallTelegramGroupMemberDirectVCBlock();
                 }
+                if (self.addCallTelegramGroupMemberVCBlock) {
+                   
+                    [tempDic setObject:[NSString stringWithFormat:@"%@",resposeObject[@"data"]] forKey:@"client_id"];
+                   [tempDic setObject:self.group_id forKey:@"group_id"]; self.addCallTelegramGroupMemberVCBlock(self->_nameTF.textField.text,tempDic);
+                }
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 

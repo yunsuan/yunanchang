@@ -115,6 +115,7 @@
 		0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521C22A8FDB6008F2F07 /* ChannelRecommendCell.m */; };
 		0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522022A91131008F2F07 /* ChannelDealCell.m */; };
 		0C74522522A91CAB008F2F07 /* MinMaxDateChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */; };
+		0C7A0A2B22E71DD900CF44D3 /* TaskSellReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7A0A2A22E71DD900CF44D3 /* TaskSellReportCell.m */; };
 		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
 		0CA8259B22AE0C800005F3ED /* 8831558580869_.pic_hd.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0CA824DA22AE0C800005F3ED /* 8831558580869_.pic_hd.jpg */; };
 		0CA8259C22AE0C800005F3ED /* work@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CA824DC22AE0C800005F3ED /* work@2x.png */; };
@@ -664,6 +665,8 @@
 		0C74522022A91131008F2F07 /* ChannelDealCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelDealCell.m; sourceTree = "<group>"; };
 		0C74522322A91CAB008F2F07 /* MinMaxDateChooseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinMaxDateChooseView.h; sourceTree = "<group>"; };
 		0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinMaxDateChooseView.m; sourceTree = "<group>"; };
+		0C7A0A2922E71DD900CF44D3 /* TaskSellReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskSellReportCell.h; sourceTree = "<group>"; };
+		0C7A0A2A22E71DD900CF44D3 /* TaskSellReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskSellReportCell.m; sourceTree = "<group>"; };
 		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
 		0C991C592272B32700AF2817 /* ProjectRoleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectRoleVC.m; sourceTree = "<group>"; };
 		0CA824DA22AE0C800005F3ED /* 8831558580869_.pic_hd.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8831558580869_.pic_hd.jpg; sourceTree = "<group>"; };
@@ -2134,6 +2137,15 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0C7A0A2822E71DA900CF44D3 /* 销售日、周、月报 */ = {
+			isa = PBXGroup;
+			children = (
+				0C7A0A2922E71DD900CF44D3 /* TaskSellReportCell.h */,
+				0C7A0A2A22E71DD900CF44D3 /* TaskSellReportCell.m */,
+			);
+			path = "销售日、周、月报";
+			sourceTree = "<group>";
+		};
 		0C991C572272B30C00AF2817 /* 项目角色 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3096,6 +3108,7 @@
 		0CEF89E6225C80670057F3FD /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				0C7A0A2822E71DA900CF44D3 /* 销售日、周、月报 */,
 				0C0CE31F22DDB1A300092293 /* 转签约审核 */,
 				0C0CE31E22DDB10D00092293 /* 排号审核 */,
 				0C0CE31D22DDB10200092293 /* 订单审核 */,
@@ -4250,6 +4263,7 @@
 				0CD7A030225C6D5700EAE816 /* AdressChooseView.m in Sources */,
 				0CEF8A4A225F188A0057F3FD /* SelectCompanyVC.m in Sources */,
 				10EF179A2291614900DE5566 /* RotationSettingCell.m in Sources */,
+				0C7A0A2B22E71DD900CF44D3 /* TaskSellReportCell.m in Sources */,
 				0C4B7F7022CA026C00BBC34F /* NumeralDetailCell.m in Sources */,
 				0CC2730522681FF100EB881F /* DropBtn.m in Sources */,
 				0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */,

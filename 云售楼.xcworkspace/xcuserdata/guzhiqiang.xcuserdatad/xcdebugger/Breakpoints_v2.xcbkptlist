@@ -52,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x7b7e;&#x7ea6;/&#x8f6c;&#x7b7e;&#x7ea6;/AddSignVC.m"
-            timestampString = "585562036.597091"
+            timestampString = "585572279.23992"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "454"
@@ -68,7 +68,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x7b7e;&#x7ea6;/&#x8f6c;&#x7b7e;&#x7ea6;/AddSignVC.m"
-            timestampString = "585562036.5974669"
+            timestampString = "585572279.240327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "463"
@@ -84,7 +84,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x7b7e;&#x7ea6;/&#x8f6c;&#x7b7e;&#x7ea6;/AddSignVC.m"
-            timestampString = "585562036.597537"
+            timestampString = "585572279.240429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "452"
@@ -100,12 +100,12 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E7%AD%BE%E7%BA%A6/%E8%BD%AC%E7%AD%BE%E7%BA%A6/AddSignVC.m"
-                  timestampString = "585562036.980539"
+                  timestampString = "585572279.544194"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "452"
                   endingLineNumber = "452"
-                  offsetFromSymbolStart = "15520">
+                  offsetFromSymbolStart = "15484">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -115,7 +115,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E7%AD%BE%E7%BA%A6/%E8%BD%AC%E7%AD%BE%E7%BA%A6/AddSignVC.m"
-                  timestampString = "585562036.983029"
+                  timestampString = "585572279.545988"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "454"
@@ -123,102 +123,6 @@
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x8ba4;&#x8d2d;/&#x8ba4;&#x8d2d;&#x8be6;&#x60c5;/OrderDetailVC.m"
-            timestampString = "585558300.3943371"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "-RequestMethod"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x4ee3;&#x529e;/&#x5ba1;&#x6838;&#x4ee3;&#x529e;/&#x5ba1;&#x6838;&#x8be6;&#x60c5;/AuditTaskDetailVC.m"
-            timestampString = "585562036.599293"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "-ActionAuditBtn:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x4ee3;&#x529e;/&#x5ba1;&#x6838;&#x4ee3;&#x529e;/&#x5ba1;&#x6838;&#x8be6;&#x60c5;/AuditTaskDetailVC.m"
-            timestampString = "585562036.601142"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "-ActionAuditBtn:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AuditTaskDetailVC ActionAuditBtn:]"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E4%BB%A3%E5%8A%9E/%E5%AE%A1%E6%A0%B8%E4%BB%A3%E5%8A%9E/%E5%AE%A1%E6%A0%B8%E8%AF%A6%E6%83%85/AuditTaskDetailVC.m"
-                  timestampString = "585562037.003347"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "193"
-                  endingLineNumber = "193"
-                  offsetFromSymbolStart = "1008">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[AuditTaskDetailVC ActionAuditBtn:]_block_invoke"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E4%BB%A3%E5%8A%9E/%E5%AE%A1%E6%A0%B8%E4%BB%A3%E5%8A%9E/%E5%AE%A1%E6%A0%B8%E8%AF%A6%E6%83%85/AuditTaskDetailVC.m"
-                  timestampString = "585562037.0054049"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "195"
-                  endingLineNumber = "195"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFNetworking/AFNetworking/AFURLRequestSerialization.m"
-            timestampString = "585562098.716732"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
-            landmarkName = "-requestWithMethod:URLString:parameters:error:"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

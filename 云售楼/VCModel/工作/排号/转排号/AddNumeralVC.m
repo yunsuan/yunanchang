@@ -286,7 +286,7 @@
             
             [tempDic setObject:@"2" forKey:@"beneficiary_type"];
         }
-        [tempDic removeObjectForKey:@"client_id"];
+//        [tempDic removeObjectForKey:@"client_id"];
         [tempDic removeObjectForKey:@"comment"];
         [tempDic removeObjectForKey:@"mail_code"];
         [tempDic removeObjectForKey:@"tel_show_state"];
@@ -414,7 +414,12 @@
     _addNumeralPersonView.proportion = _proportionArr[_num];
     
     _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
-      
+
+        if (strongSelf->_num == num) {
+            
+            strongSelf->_num = num - 1;
+            strongSelf->_addNumeralPersonView.num = num - 1;
+        }
         [strongSelf->_personArr removeObjectAtIndex:num];
         [strongSelf->_proportionArr removeObjectAtIndex:num];
     };
@@ -427,7 +432,7 @@
     
     _addNumeralPersonView.addNumeralPersonViewCollBlock = ^(NSInteger num) {
         
-        self->_num = num;
+        strongSelf->_num = num;
         strongSelf->_addNumeralPersonView.num = num;
         strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[num];
     };
@@ -440,8 +445,9 @@
             [strongSelf->_proportionArr addObject:@""];
             [strongSelf->_personArr addObject:dic];
             strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count;
-            strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[strongSelf->_personArr.count];
+            strongSelf->_num = strongSelf->_personArr.count - 1;
+            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count - 1;
+            strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[strongSelf->_personArr.count - 1];
             if (strongSelf.addNumeralVCBlock) {
                 
                 strongSelf.addNumeralVCBlock();
@@ -451,10 +457,10 @@
     };
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
-        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[strongSelf->_num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
             
-            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[strongSelf->_num]];
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];
             [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 
                 if (dic[key]) {
@@ -462,9 +468,10 @@
                     [tempDic setObject:dic[key] forKey:key];
                 }
             }];
-            [strongSelf->_personArr replaceObjectAtIndex:strongSelf->_num withObject:tempDic];
+            [strongSelf->_personArr replaceObjectAtIndex:num withObject:tempDic];
             strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-            strongSelf->_addNumeralPersonView.num = strongSelf->_num;
+            strongSelf->_addNumeralPersonView.num = num;
+            strongSelf->_num = num;
             if (strongSelf.addNumeralVCBlock) {
                 
                 strongSelf.addNumeralVCBlock();

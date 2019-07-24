@@ -29,6 +29,8 @@
 #import "TransOrderCell.h"
 #import "TransSignCell.h"
 
+#import "TaskSellReportCell.h"
+
 #import "InvalidView.h"
 #import "SignSelectWorkerView.h"
 #import "SignFailView.h"

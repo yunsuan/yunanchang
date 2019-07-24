@@ -48,6 +48,8 @@
     
     _index = num;
     _selectArr = [@[] mutableCopy];
+    [self setPersonData:_collArr[num]];
+    [_coll scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:num inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
     for (int i = 0; i < _collArr.count; i++) {
         
         if (i == num) {
@@ -282,6 +284,7 @@
         
         self.addNumeralPersonViewCollBlock(indexPath.item);
     }
+    [collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexPath.item inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
 }
 
 - (void)initUI{
