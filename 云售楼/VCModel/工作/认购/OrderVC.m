@@ -173,6 +173,7 @@
     
     OrderDetailVC *nextVC = [[OrderDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
     nextVC.project_id = _project_id;
+    nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -214,6 +215,7 @@
     [self.view addSubview:_table];
     _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
         
+        self->_page = 1;
         [self RequestMethod];
     }];
     _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{

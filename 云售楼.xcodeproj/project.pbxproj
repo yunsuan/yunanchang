@@ -39,6 +39,9 @@
 		0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C310E3822A4F80300083504 /* ARotationFollowCell.m */; };
 		0C310E3D22A5050B00083504 /* VisitCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C310E3C22A5050B00083504 /* VisitCustomCell.m */; };
 		0C310E4122A5569A00083504 /* ChannelCustomListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C310E4022A5569A00083504 /* ChannelCustomListVC.m */; };
+		0C365CB022E8301200A586FC /* ModifyNumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C365CAF22E8301200A586FC /* ModifyNumeralVC.m */; };
+		0C365CB422E84AC000A586FC /* ModifyOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C365CB322E84AC000A586FC /* ModifyOrderVC.m */; };
+		0C365CB822E9393C00A586FC /* ModifySignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C365CB722E9393C00A586FC /* ModifySignVC.m */; };
 		0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9115225B20C400F04804 /* AppDelegate.m */; };
 		0C3A9119225B20C400F04804 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9118225B20C400F04804 /* ViewController.m */; };
 		0C3A911C225B20C400F04804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3A911A225B20C400F04804 /* Main.storyboard */; };
@@ -516,6 +519,12 @@
 		0C310E3C22A5050B00083504 /* VisitCustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomCell.m; sourceTree = "<group>"; };
 		0C310E3F22A5569A00083504 /* ChannelCustomListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelCustomListVC.h; sourceTree = "<group>"; };
 		0C310E4022A5569A00083504 /* ChannelCustomListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelCustomListVC.m; sourceTree = "<group>"; };
+		0C365CAE22E8301200A586FC /* ModifyNumeralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyNumeralVC.h; sourceTree = "<group>"; };
+		0C365CAF22E8301200A586FC /* ModifyNumeralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyNumeralVC.m; sourceTree = "<group>"; };
+		0C365CB222E84AC000A586FC /* ModifyOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyOrderVC.h; sourceTree = "<group>"; };
+		0C365CB322E84AC000A586FC /* ModifyOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyOrderVC.m; sourceTree = "<group>"; };
+		0C365CB622E9393C00A586FC /* ModifySignVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifySignVC.h; sourceTree = "<group>"; };
+		0C365CB722E9393C00A586FC /* ModifySignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifySignVC.m; sourceTree = "<group>"; };
 		0C3A9111225B20C400F04804 /* 云售楼.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "云售楼.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3A9114225B20C400F04804 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0C3A9115225B20C400F04804 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1458,6 +1467,7 @@
 		0C310E3322A4F66900083504 /* 签约 */ = {
 			isa = PBXGroup;
 			children = (
+				0C365CB522E9393000A586FC /* 修改合同 */,
 				0C496E0822D82B2100789FFA /* 转签约 */,
 				0C4B8EE522CC49AF00D505BE /* 签约详情 */,
 				0C4B8EE222CC49A200D505BE /* SignVC.h */,
@@ -1491,6 +1501,33 @@
 				0C310E4022A5569A00083504 /* ChannelCustomListVC.m */,
 			);
 			path = "渠道客户列表";
+			sourceTree = "<group>";
+		};
+		0C365CAD22E82FD500A586FC /* 修改排号 */ = {
+			isa = PBXGroup;
+			children = (
+				0C365CAE22E8301200A586FC /* ModifyNumeralVC.h */,
+				0C365CAF22E8301200A586FC /* ModifyNumeralVC.m */,
+			);
+			path = "修改排号";
+			sourceTree = "<group>";
+		};
+		0C365CB122E84AB300A586FC /* 修改定单 */ = {
+			isa = PBXGroup;
+			children = (
+				0C365CB222E84AC000A586FC /* ModifyOrderVC.h */,
+				0C365CB322E84AC000A586FC /* ModifyOrderVC.m */,
+			);
+			path = "修改定单";
+			sourceTree = "<group>";
+		};
+		0C365CB522E9393000A586FC /* 修改合同 */ = {
+			isa = PBXGroup;
+			children = (
+				0C365CB622E9393C00A586FC /* ModifySignVC.h */,
+				0C365CB722E9393C00A586FC /* ModifySignVC.m */,
+			);
+			path = "修改合同";
 			sourceTree = "<group>";
 		};
 		0C3A9108225B20C400F04804 = {
@@ -1883,6 +1920,7 @@
 		0C4B7F5922C9955200BBC34F /* 排号 */ = {
 			isa = PBXGroup;
 			children = (
+				0C365CAD22E82FD500A586FC /* 修改排号 */,
 				0C192C9022CAEB52000CA161 /* 转排号 */,
 				0C4B7F6422C9B97000BBC34F /* 排号详情 */,
 				0C4B7F5D22C9A94700BBC34F /* view */,
@@ -1965,6 +2003,7 @@
 		0C4B8EDA22CC45F700D505BE /* 认购 */ = {
 			isa = PBXGroup;
 			children = (
+				0C365CB122E84AB300A586FC /* 修改定单 */,
 				0C0CE33222E15F8A00092293 /* 认购变更 */,
 				0C4B8EE922CC4B0400D505BE /* 转认购 */,
 				0C4B8EDE22CC470A00D505BE /* 认购详情 */,
@@ -4066,6 +4105,7 @@
 				0CD7A033225C6D5700EAE816 /* BDDynamicTree.m in Sources */,
 				0CF1A316228E8E04001C77CF /* SignFailVC.m in Sources */,
 				0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */,
+				0C365CB422E84AC000A586FC /* ModifyOrderVC.m in Sources */,
 				10BC3A4E228FF80300DAB2D8 /* RotationSettingVC.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
 				0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */,
@@ -4125,6 +4165,7 @@
 				0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */,
 				10BC3A44228FEE4800DAB2D8 /* RotationHeadView.m in Sources */,
 				0C2A7011226D95C100571EC1 /* IntentSurveyVC.m in Sources */,
+				0C365CB022E8301200A586FC /* ModifyNumeralVC.m in Sources */,
 				0CD0439A228172AF002C8BD3 /* RoomDetailVC.m in Sources */,
 				0C2A7015226D9A7200571EC1 /* GZQFlowLayout.m in Sources */,
 				0CEF8A44225F15F70057F3FD /* BaseHeader.m in Sources */,
@@ -4142,6 +4183,7 @@
 				0CEF8AED2264295F0057F3FD /* CallTelegramCell.m in Sources */,
 				0C0CE33122DDCFAB00092293 /* AuditTaskDetailCollCell.m in Sources */,
 				0C3A919A225C484500F04804 /* TitleContentBaseCell.m in Sources */,
+				0C365CB822E9393C00A586FC /* ModifySignVC.m in Sources */,
 				0CD0438722811DF7002C8BD3 /* CompanyAuthingCell.m in Sources */,
 				0CD043AC22817622002C8BD3 /* KyoRowIndexView.m in Sources */,
 				0CD043532280107F002C8BD3 /* WorkPersonAuditCell.m in Sources */,

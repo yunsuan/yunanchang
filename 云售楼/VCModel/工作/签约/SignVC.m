@@ -213,6 +213,7 @@
     [self.view addSubview:_table];
     _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
         
+        self->_page = 1;
         [self RequestMethod];
     }];
     _table.mj_footer = [GZQGifFooter footerWithRefreshingBlock:^{

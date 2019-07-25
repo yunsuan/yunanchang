@@ -96,9 +96,9 @@
     }
     
     _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
-    _customL.text = @"罗大海";
-    _titleL.text = [NSString stringWithFormat:@"排号类别：%@",dataDic[@"batch_name"]];
-    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
+    _customL.text = dataDic[@"advicer"][0][@"name"];
+    _titleL.text = [NSString stringWithFormat:@"@%@/%@",dataDic[@"batch_name"],dataDic[@"row_name"]];
+//    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
 }
 
 - (void)setNum:(NSInteger)num{
@@ -212,12 +212,14 @@
             {
                 _payL = label;
                 _payL.textAlignment = NSTextAlignmentCenter;
+                _payL.backgroundColor = [UIColor blueColor];
                 [_blueView addSubview:_payL];
                 break;
             }
             case 2:
             {
                 _auditL = label;
+                _auditL.backgroundColor = [UIColor blueColor];
                 _auditL.textAlignment = NSTextAlignmentCenter;
                 [_blueView addSubview:_auditL];
                 break;
@@ -231,6 +233,7 @@
             case 4:
             {
                 _statusL = label;
+                _statusL.backgroundColor = [UIColor blueColor];
                 _statusL.textAlignment = NSTextAlignmentCenter;
                 [_blueView addSubview:_statusL];
                 break;
@@ -302,25 +305,26 @@
         
         make.left.equalTo(self->_blueView).offset(0 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(47 *SIZE);
-        make.width.mas_equalTo(125 *SIZE);
-//        make.height.mas_equalTo(40 *SIZE);
-        make.bottom.equalTo(self->_blueView).offset(-19 *SIZE);
+        make.width.mas_equalTo(119 *SIZE);
+        make.height.mas_equalTo(40 *SIZE);
+        make.bottom.equalTo(self->_blueView).offset(-0 *SIZE);
     }];
     
     [_auditL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_blueView).offset(125 *SIZE);
+        make.left.equalTo(self->_blueView).offset(120 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(47 *SIZE);
-        make.width.mas_equalTo(125 *SIZE);
-//        make.height.mas_equalTo(40 *SIZE);
+        make.width.mas_equalTo(119 *SIZE);
+        make.height.mas_equalTo(40 *SIZE);
     }];
     
     [_payL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_blueView).offset(250 *SIZE);
+        make.left.equalTo(self->_blueView).offset(240 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(47 *SIZE);
-        make.width.mas_equalTo(125 *SIZE);
-        make.bottom.equalTo(self->_blueView).offset(-19 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+        make.height.mas_equalTo(40 *SIZE);
+        make.bottom.equalTo(self->_blueView).offset(-0 *SIZE);
     }];
     
     [_coll mas_makeConstraints:^(MASConstraintMaker *make) {

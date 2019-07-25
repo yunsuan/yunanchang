@@ -8,6 +8,8 @@
 
 #import "SignDetailVC.h"
 
+#import "ModifySignVC.h"
+
 #import "NumeralDetailHeader.h"
 #import "BaseHeader.h"
 #import "CallTelegramCustomDetailInfoCell.h"
@@ -88,7 +90,7 @@
                 
             }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"公积金贷款"]){
                 
-                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"down_pay"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"商贷金额：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"按揭银行：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"按揭年限：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]]]];
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"down_pay"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@",self->_dataDic[@"back"][0][@"name"]],[NSString stringWithFormat:@"贷款金额：%@",self->_dataDic[@"back"][0][@"loan_money"]],[NSString stringWithFormat:@"按揭银行：%@",self->_dataDic[@"back"][0][@"bank_id"]],[NSString stringWithFormat:@"按揭年限：%@",self->_dataDic[@"back"][0][@"loan_limit"]]]];
                 if ([self->_dataDic[@"discount"] count]) {
                     
                     float discount = 0;
@@ -104,10 +106,23 @@
                 [self->_dataArr insertObject:discountArr atIndex:3];
             }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"综合贷款"]){
                 
-                
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"down_pay"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@",self->_dataDic[@"back"][0][@"name"]],[NSString stringWithFormat:@"商业贷款金额：%@",self->_dataDic[@"back"][0][@"bank_loan_money"]],[NSString stringWithFormat:@"商业按揭银行：%@",self->_dataDic[@"back"][0][@"bank_bank_id"]],[NSString stringWithFormat:@"商业按揭年限：%@",self->_dataDic[@"back"][0][@"bank_loan_limit"]],[NSString stringWithFormat:@"公积金贷款金额：%@",self->_dataDic[@"back"][0][@"fund_loan_money"]],[NSString stringWithFormat:@"公积金按揭银行：%@",self->_dataDic[@"back"][0][@"fund_bank_id"]],[NSString stringWithFormat:@"公积金按揭年限：%@",self->_dataDic[@"back"][0][@"fund_loan_limit"]]]];
+                if ([self->_dataDic[@"discount"] count]) {
+                    
+                    float discount = 0;
+                    for (int i = 0; i < [self->_dataDic[@"discount"] count]; i++) {
+                        
+                        discount += [self->_dataDic[@"discount"][i][@"num"] doubleValue];
+                    }
+                    [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f",discount] atIndex:2];
+                }else{
+                    
+                    [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%@",@"0"] atIndex:2];
+                }
+                [self->_dataArr insertObject:discountArr atIndex:3];
             }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"银行按揭贷款"]){
                 
-                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"down_pay"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"商贷金额：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"按揭银行：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]],[NSString stringWithFormat:@"按揭年限：%@",self->_dataDic[@"downpayment_repay"][0][@"name"]]]];
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@",self->_dataDic[@"down_pay"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@",self->_dataDic[@"back"][0][@"name"]],[NSString stringWithFormat:@"贷款金额：%@",self->_dataDic[@"back"][0][@"loan_money"]],[NSString stringWithFormat:@"按揭银行：%@",self->_dataDic[@"back"][0][@"bank_id"]],[NSString stringWithFormat:@"按揭年限：%@",self->_dataDic[@"back"][0][@"loan_limit"]]]];
                 if ([self->_dataDic[@"discount"] count]) {
                     
                     float discount = 0;
@@ -195,7 +210,13 @@
         };
         
         header.numeralDetailHeaderEditBlock = ^{
-            
+          
+            ModifySignVC *nextVC = [[ModifySignVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:@"" dataDic:self->_dataDic];
+            nextVC.modifySignVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
         };
         
         header.numeralDetailHeaderCollBlock = ^(NSInteger index) {

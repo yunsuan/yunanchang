@@ -24,11 +24,12 @@
 - (void)setDataDic:(NSDictionary *)dataDic{
     
     _headImg.image = IMAGE_WITH_NAME(@"paihao");
-    _titleL.text = dataDic[@"batch_name"];
+    _titleL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"batch_name"],dataDic[@"row_name"]];
     _customL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
-    _numL.text = [NSString stringWithFormat:@"组别人数：%@",dataDic[@"client_num"]];
+    _numL.text = @"组别人数：0";
+//    _numL.text = [NSString stringWithFormat:@"组别人数：%@",dataDic[@"client_num"]];
     _timeL.text = dataDic[@"create_time"];
-    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",@"温嘉琪"];
+//    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",dataDic[@"advicer"]];
     switch ([dataDic[@"disabled_state"] integerValue]) {
         case 0:
         {
@@ -88,9 +89,10 @@
     _headImg.image = IMAGE_WITH_NAME(@"subscribe");
     _titleL.text = orderDic[@"batch_name"];
     _customL.text = [NSString stringWithFormat:@"%@",orderDic[@"name"]];
-    _numL.text = [NSString stringWithFormat:@"组别人数：%@",orderDic[@"client_num"]];
+    _numL.text = @"组别人数：0";
+//    _numL.text = [NSString stringWithFormat:@"组别人数：%@",orderDic[@"client_num"]];
     _timeL.text = orderDic[@"create_time"];
-    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",@"温嘉琪"];
+    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",orderDic[@"advicer"]];
     switch ([orderDic[@"disabled_state"] integerValue]) {
         case 0:
         {
@@ -160,9 +162,10 @@
     _headImg.image = IMAGE_WITH_NAME(@"signing_2");
     _titleL.text = signDic[@"batch_name"];
     _customL.text = [NSString stringWithFormat:@"%@",signDic[@"name"]];
-    _numL.text = [NSString stringWithFormat:@"组别人数：%@",signDic[@"client_num"]];
+    _numL.text = @"组别人数：0";
+//    _numL.text = [NSString stringWithFormat:@"组别人数：%@",signDic[@"client_num"]];
     _timeL.text = signDic[@"create_time"];
-    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",@"温嘉琪"];
+    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",signDic[@"advicer"]];
     switch ([signDic[@"disabled_state"] integerValue]) {
         case 0:
         {
@@ -292,7 +295,7 @@
                 _auditL = label;
                 _auditL.textColor = CLWhiteColor;
                 _auditL.textAlignment = NSTextAlignmentCenter;
-                _auditL.backgroundColor = CLLineColor;
+                _auditL.backgroundColor = [UIColor darkGrayColor];
                 _auditL.font = FONT(11 *SIZE);
                 [self.contentView addSubview:_auditL];
                 break;
@@ -340,7 +343,7 @@
         
         make.left.equalTo(self.contentView).offset(100 *SIZE);
         make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
-        make.right.equalTo(self.contentView).offset(-200 *SIZE);
+        make.right.equalTo(self.contentView).offset(-100 *SIZE);
     }];
     
     [_numL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -354,7 +357,7 @@
         
         make.right.equalTo(self.contentView).offset(-12 *SIZE);
         make.top.equalTo(self.contentView).offset(18 *SIZE);
-        make.width.mas_equalTo(100 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
     }];
     
     [_consultantL mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -288,6 +288,9 @@ static NSString *const ProjectRowGetProjectRowList_URL = @"saleApp/project/row/g
 //排号详情
 static NSString *const ProjectRowGetRowDetail_URL = @"saleApp/project/row/getRowDetail";
 
+//排号修改
+static NSString *const ProjectRowUpdateRow_URL = @"saleApp/project/row/updateRow";
+
 //获取排号类别
 static NSString *const ProjectRowGetRowList_URL = @"saleApp/project/row/getRowList";
 
@@ -305,6 +308,9 @@ static NSString *const ProjectRoleListAll_URL = @"saleApp/project/role/listAll";
 
 #pragma mark -- 认购 --
 
+//修改定单
+static NSString *const ProjectHouseUpdateProjectSub_URL = @"saleApp/project/house/updateProjectSub";
+
 //转认购
 static NSString *const ProjectHouseAddProjectSub_URL = @"saleApp/project/house/addProjectSub";
 
@@ -318,6 +324,9 @@ static NSString *const ProjectHouseGetProjectSubDetail_URL = @"saleApp/project/h
 static NSString *const ProjectHouseGetDiscountList_URL =  @"saleApp/project/house/getDiscountList";
 
 #pragma mark -- 签约 --
+
+//修改签约
+static NSString *const ProjectHouseUpdateProjectContract_URL = @"saleApp/project/house/updateProjectContract";
 
 //转签约
 static NSString *const ProjectHouseAddProjectContract_URL = @"saleApp/project/house/addProjectContract";

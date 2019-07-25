@@ -51,6 +51,15 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
+//    if (dataDic[@"sub_code"]) {
+    
+    _codeTF.textField.text = dataDic[@"sub_code"];
+//    }else if (<#expression#>){
+//
+//
+//    }
+    _depositTF.textField.text = dataDic[@"down_pay"];
+    
     _totalTF.textField.text = dataDic[@"total_price"];
     _payWayBtn.content.text = dataDic[@"payWay_Name"];
     _priceTF.textField.text = dataDic[@"price"];

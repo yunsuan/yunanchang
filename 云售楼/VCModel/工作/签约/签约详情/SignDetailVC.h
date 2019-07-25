@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SignDetailVC : BaseViewController
 
+@property (nonatomic, strong) NSString *project_id;
+
 - (instancetype)initWithSubId:(NSString *)sub_id;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "NumeralDetailVC.h"
 
+#import "ModifyNumeralVC.h"
+
 #import "AddEncumbrancerVC.h"
 #import "NumeralDetailAuditVC.h"
 #import "AddOrderVC.h"
@@ -64,8 +66,7 @@
 }
 
 - (void)initDataSource{
-    
-//    _dataArr = @[@[],@[@"姓名：李翠花",@"手机：183333333",@"证件类型：身份证",@"证件号码：123123123123",@"出生日期：2019.01.01",@"通讯地址：四川成都市",@"邮政编码：232323",@"产权比例：50",@"类型：附权益人"],@[@"f登记时间：2019-03-19",@"登记人：李强",@"归属时间：2019-03-10"]];
+
     _dataArr = [@[] mutableCopy];
     _dataDic = [@{} mutableCopy];
     _advicerArr = [@[] mutableCopy];
@@ -166,7 +167,10 @@
         
 //
         header.dataDic = self->_dataDic;
+        header.moneyL.text = [NSString stringWithFormat:@"诚意金：%@元",self->_dataDic[@"sincerity"]];
         header.num = _num;
+        
+        header.addBtn.hidden = YES;
         
         header.numeralDetailHeaderAddBlock = ^{
             
@@ -176,6 +180,15 @@
         
         header.numeralDetailHeaderEditBlock = ^{
             
+            ModifyNumeralVC *nextVC = [[ModifyNumeralVC alloc] initWithRowId:self->_row_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
+            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
+            nextVC.projectName = self->_dataDic[@"progressList"][@"progress_name"];
+            nextVC.modifyNumeralVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
         };
         
         header.numeralDetailHeaderCollBlock = ^(NSInteger index) {

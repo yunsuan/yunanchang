@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NumeralDetailVC : BaseViewController
 
+@property (nonatomic, strong) NSString *need_check;
+
 - (instancetype)initWithRowId:(NSString *)row_id project_id:(NSString *)project_id info_id:(NSString *)info_id;
 
 @end

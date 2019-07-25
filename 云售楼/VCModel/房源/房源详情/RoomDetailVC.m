@@ -10,6 +10,7 @@
 
 #import "AddOrderVC.h"
 #import "AddSignVC.h"
+#import "ModifyOrderVC.h"
 
 #import "SMScrollView.h"
 //#import "KyoCenterLineView.h"
@@ -600,6 +601,10 @@
                         [self.navigationController popToViewController:vc animated:YES];
                     }
                     if ([vc isKindOfClass:[AddSignVC class]]) {
+                        
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
+                    if ([vc isKindOfClass:[ModifyOrderVC class]]) {
                         
                         [self.navigationController popToViewController:vc animated:YES];
                     }
