@@ -43,6 +43,7 @@
     _contentL.textColor = CL95Color;
     _contentL.font = [UIFont systemFontOfSize:14 *SIZE];
     _contentL.numberOfLines = 0;
+    _contentL.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:_contentL];
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -61,7 +62,7 @@
        
         make.left.equalTo(self.contentView).offset(28 *SIZE);
         make.top.equalTo(self.contentView).offset(10 *SIZE);
-        make.width.mas_lessThanOrEqualTo(200 *SIZE);
+        make.width.mas_lessThanOrEqualTo(270 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-10 *SIZE);
     }];
     

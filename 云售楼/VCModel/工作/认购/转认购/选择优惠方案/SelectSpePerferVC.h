@@ -14,6 +14,8 @@ typedef void(^SelectSpePerferVCBlock)(NSDictionary *dic);
 
 @interface SelectSpePerferVC : BaseViewController
 
+@property (nonatomic, strong) NSString *status;
+
 @property (nonatomic, copy) SelectSpePerferVCBlock selectSpePerferVCBlock;
 
 @property (nonatomic, strong) NSDictionary *dic;

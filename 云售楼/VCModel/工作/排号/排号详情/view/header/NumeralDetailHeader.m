@@ -47,7 +47,7 @@
     switch ([dataDic[@"disabled_state"] integerValue]) {
         case 0:
         {
-            _statusL.text = @"排号";
+            _statusL.text = @"有效";
             break;
         }
         case 1:
@@ -95,10 +95,159 @@
             break;
     }
     
+    if ([dataDic[@"disabled_state"] integerValue] == 0 && [dataDic[@"check_state"] integerValue] == 2) {
+        
+        _editBtn.hidden = NO;
+    }else{
+        
+        _editBtn.hidden = YES;
+    }
+    
     _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
-    _customL.text = dataDic[@"advicer"][0][@"name"];
-    _titleL.text = [NSString stringWithFormat:@"@%@/%@",dataDic[@"batch_name"],dataDic[@"row_name"]];
+    _numL.text = [NSString stringWithFormat:@"排号号码：%@",dataDic[@"row_code"]];
+    _customL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"advicer"][0][@"name"]];
+    _titleL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"batch_name"],dataDic[@"row_name"]];
 //    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
+}
+
+- (void)setOrderDic:(NSDictionary *)orderDic{
+    
+    _collArr = [[NSMutableArray alloc] initWithArray:orderDic[@"beneficiary"]];
+    [_coll reloadData];
+    
+    switch ([orderDic[@"disabled_state"] integerValue]) {
+        case 0:
+        {
+            _statusL.text = @"有效";
+            break;
+        }
+        case 1:
+        {
+            _statusL.text = @"变更";
+            break;
+        }
+        case 2:
+        {
+            _statusL.text = @"作废";
+            break;
+        }
+        case 3:
+        {
+            _statusL.text = @"转签约";
+            break;
+        }
+        default:
+            _statusL.text = @"定单";
+            break;
+    }
+    switch ([orderDic[@"check_state"] integerValue]) {
+        case 0:
+        {
+            _auditL.text = @"不通过";
+            break;
+        }
+        case 1:
+        {
+            _auditL.text = @"已审核";
+            break;
+        }
+        case 2:
+        {
+            _auditL.text = @"未审核";
+            break;
+        }
+        case 3:
+        {
+            _auditL.text = @"审核中";
+            break;
+        }
+        default:
+            _auditL.text = @"未审核";
+            break;
+    }
+    
+    if ([orderDic[@"disabled_state"] integerValue] == 0 && [orderDic[@"check_state"] integerValue] == 2) {
+        
+        _editBtn.hidden = NO;
+    }else{
+        
+        _editBtn.hidden = YES;
+    }
+    
+    _payL.text = [orderDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+    _numL.text = [NSString stringWithFormat:@"付款方式：%@",orderDic[@"pay_way_name"]];
+    _customL.text = [NSString stringWithFormat:@"成交总价：%@元",orderDic[@"sub_total_price"]];
+    _titleL.text = [NSString stringWithFormat:@"%@/%@/%@",orderDic[@"batch_name"],orderDic[@"build_name"],orderDic[@"property_type"]];
+}
+
+- (void)setSignDic:(NSDictionary *)signDic{
+    
+    _collArr = [[NSMutableArray alloc] initWithArray:signDic[@"beneficiary"]];
+    [_coll reloadData];
+    
+    switch ([signDic[@"disabled_state"] integerValue]) {
+        case 0:
+        {
+            _statusL.text = @"有效";
+            break;
+        }
+        case 1:
+        {
+            _statusL.text = @"变更";
+            break;
+        }
+        case 2:
+        {
+            _statusL.text = @"作废";
+            break;
+        }
+        case 3:
+        {
+            _statusL.text = @"转签约";
+            break;
+        }
+        default:
+            _statusL.text = @"定单";
+            break;
+    }
+    switch ([signDic[@"check_state"] integerValue]) {
+        case 0:
+        {
+            _auditL.text = @"不通过";
+            break;
+        }
+        case 1:
+        {
+            _auditL.text = @"已审核";
+            break;
+        }
+        case 2:
+        {
+            _auditL.text = @"未审核";
+            break;
+        }
+        case 3:
+        {
+            _auditL.text = @"审核中";
+            break;
+        }
+        default:
+            _auditL.text = @"未审核";
+            break;
+    }
+    
+    if ([signDic[@"disabled_state"] integerValue] == 0 && [signDic[@"check_state"] integerValue] == 2) {
+        
+        _editBtn.hidden = NO;
+    }else{
+        
+        _editBtn.hidden = YES;
+    }
+    
+    _payL.text = [signDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+    _numL.text = [NSString stringWithFormat:@"付款方式：%@",signDic[@"pay_way_name"]];
+    _customL.text = [NSString stringWithFormat:@"成交总价：%@元",signDic[@"contract_total_price"]];
+    _titleL.text = [NSString stringWithFormat:@"%@/%@",signDic[@"build_name"],signDic[@"house_name"]];
 }
 
 - (void)setNum:(NSInteger)num{
@@ -190,12 +339,12 @@
     [self.contentView addSubview:_coll];
     
     _headImg = [[UIImageView alloc] init];
-    _headImg.layer.cornerRadius = 33.5 *SIZE;
-    _headImg.clipsToBounds = YES;
+//    _headImg.layer.cornerRadius = 33.5 *SIZE;
+//    _headImg.clipsToBounds = YES;
     _headImg.image = IMAGE_WITH_NAME(@"paihao");
     [_blueView addSubview:_headImg];
     
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLWhiteColor;
@@ -212,14 +361,14 @@
             {
                 _payL = label;
                 _payL.textAlignment = NSTextAlignmentCenter;
-                _payL.backgroundColor = [UIColor blueColor];
+                _payL.backgroundColor = CLBlueTagColor;
                 [_blueView addSubview:_payL];
                 break;
             }
             case 2:
             {
                 _auditL = label;
-                _auditL.backgroundColor = [UIColor blueColor];
+                _auditL.backgroundColor = CLBlueTagColor;
                 _auditL.textAlignment = NSTextAlignmentCenter;
                 [_blueView addSubview:_auditL];
                 break;
@@ -233,7 +382,7 @@
             case 4:
             {
                 _statusL = label;
-                _statusL.backgroundColor = [UIColor blueColor];
+                _statusL.backgroundColor = CLBlueTagColor;
                 _statusL.textAlignment = NSTextAlignmentCenter;
                 [_blueView addSubview:_statusL];
                 break;
@@ -242,6 +391,12 @@
             {
                 _customL = label;
                 [_blueView addSubview:_customL];
+                break;
+            }
+            case 6:
+            {
+                _numL = label;
+                [_blueView addSubview:_numL];
                 break;
             }
             default:
@@ -294,10 +449,17 @@
         make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
     }];
     
-    [_moneyL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_numL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_blueView).offset(94 *SIZE);
         make.top.equalTo(self->_customL.mas_bottom).offset(8 *SIZE);
+        make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
+    }];
+    
+    [_moneyL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_blueView).offset(94 *SIZE);
+        make.top.equalTo(self->_numL.mas_bottom).offset(8 *SIZE);
         make.right.equalTo(self->_blueView.mas_right).offset(-70 *SIZE);
     }];
     

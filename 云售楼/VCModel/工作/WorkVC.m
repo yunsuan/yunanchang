@@ -74,7 +74,7 @@
     if ([UserModel defaultModel].agent_company_info_id) {
         
         _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational"];
-        _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"认购",@"签约",@"收款",@"人事",@"轮岗"];
+        _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"定单",@"签约",@"收款",@"人事",@"轮岗"];
     }
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].WorkListPower;
@@ -272,11 +272,11 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 5){
         
-        OrderVC *nextVC = [[OrderVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        OrderVC *nextVC = [[OrderVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 6){
         
-        SignVC *nextVC = [[SignVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        SignVC *nextVC = [[SignVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 7){
         

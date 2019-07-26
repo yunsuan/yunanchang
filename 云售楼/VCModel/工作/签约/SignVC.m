@@ -18,6 +18,7 @@
     NSInteger _page;
     
     NSString *_project_id;
+    NSString *_info_id;
     
     NSMutableArray *_dataArr;
 }
@@ -29,12 +30,13 @@
 
 @implementation SignVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId
+- (instancetype)initWithProjectId:(NSString *)projectId info_id:(nonnull NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _project_id = projectId;
+        _info_id = info_id;
     }
     return self;
 }
@@ -172,6 +174,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     SignDetailVC *nextVC = [[SignDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"contract_id"]]];
+    nextVC.project_id = _project_id;
+    nextVC.info_id = _info_id;
+    nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

@@ -53,10 +53,10 @@
     
     if (dataDic[@"criterion_unit_price"]) {
         
-        _unitTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"criterion_unit_price"]];
+        _unitPriceTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"criterion_unit_price"]];
     }else{
         
-        _unitTF.textField.text = @"";
+        _unitPriceTF.textField.text = @"";
     }
     
     if (dataDic[@"total_price"]) {

@@ -28,6 +28,7 @@
 #import "TransNumeralCell.h"
 #import "TransOrderCell.h"
 #import "TransSignCell.h"
+#import "RoomPriceCell.h"
 
 #import "TaskSellReportCell.h"
 
@@ -206,6 +207,7 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+#pragma mark -- 2 电话来访--
     if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2) {
 
         TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
@@ -228,6 +230,7 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         };
         return cell;
 
+        #pragma mark -- 1 自然来访--
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1){
 
         TaskCallBackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskCallBackCell"];
@@ -249,6 +252,7 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         };
         return cell;
 
+#pragma mark -- 3 带看确认 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 3){
 
         TaskTakeLookConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTakeLookConfirmCell"];
@@ -327,6 +331,8 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             pasteboard.string = self->_dataArr[indexPath.row][@"tel"];
         };
         return cell;
+        
+        #pragma mark -- 4 签字确认--
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 4){
 
         TaskSignAuditCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskSignAuditCell"];
@@ -459,82 +465,9 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             }];
         };
         return cell;
+        #pragma mark -- 5 到访确认 --
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 5){
         
-#pragma mark -- 排号审核 --
-    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 10){
-        
-        TransNumeralCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransNumeralCell"];
-        if (!cell) {
-            
-            cell = [[TransNumeralCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransNumeralCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.dataDic = _dataArr[indexPath.row];
-        
-        cell.transNumeralCellAuditBlock = ^(NSInteger index) {
-            
-            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
-            nextVC.status = @"1";
-            nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
-            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
-            [self.navigationController pushViewController:nextVC animated:YES];
-//            NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[index][@"row_id"] project_id:@"" info_id:@""];
-//            [self.navigationController pushViewController:nextVC animated:YES];
-        };
-        return cell;
-    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 11){
-
-        TransOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransOrderCell"];
-        if (!cell) {
-            
-            cell = [[TransOrderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransOrderCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.dataDic = _dataArr[indexPath.row];
-        
-        cell.transOrderCellAuditBlock = ^(NSInteger index) {
-            
-            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
-            nextVC.status = @"2";
-            nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
-            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        };
-        return cell;
-    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 12){
-
-        TransSignCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransSignCell"];
-        if (!cell) {
-            
-            cell = [[TransSignCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransSignCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.dataDic = _dataArr[indexPath.row];
-        
-        cell.transSignCellAuditBlock = ^(NSInteger index) {
-            
-            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
-            nextVC.status = @"3";
-            nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
-            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        };
-        return cell;
-//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 13){
-//
-//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 14){
-//
-//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 15){
-//
-//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 16){
-//
-//    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 17){
-    
-    }else{
-
         TaskVisitConfirmCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskVisitConfirmCell"];
         if (!cell) {
             
@@ -716,12 +649,133 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             }
         };
         return cell;
+#pragma mark -- 10 排号审核 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 10){
+        
+        TransNumeralCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransNumeralCell"];
+        if (!cell) {
+            
+            cell = [[TransNumeralCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransNumeralCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.transNumeralCellAuditBlock = ^(NSInteger index) {
+            
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"1";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+        
+        #pragma mark -- 11 定单审核 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 11){
+
+        TransOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransOrderCell"];
+        if (!cell) {
+            
+            cell = [[TransOrderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransOrderCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.transOrderCellAuditBlock = ^(NSInteger index) {
+            
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"2";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+        
+        #pragma mark -- 12 签约审核 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 12){
+
+        TransSignCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransSignCell"];
+        if (!cell) {
+            
+            cell = [[TransSignCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransSignCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.transSignCellAuditBlock = ^(NSInteger index) {
+            
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"3";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+        
+        #pragma mark -- 13 房源预留 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 13){
+
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.hidden = YES;
+        return cell;
+        
+        #pragma mark -- 14 房源定价 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 14){
+
+        RoomPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomPriceCell"];
+        if (!cell) {
+            
+            cell = [[RoomPriceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RoomPriceCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.roomPriceCellAuditBlock = ^(NSInteger index) {
+            
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"3";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+        
+        #pragma mark -- 15 房源销控 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 15){
+
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.hidden = YES;
+        return cell;
+        
+        #pragma mark -- 16 房源调价 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 16){
+
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.hidden = YES;
+        return cell;
+        
+        #pragma mark -- 17 房源标准折扣 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 17){
+    
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.hidden = YES;
+        return cell;
+    }else{
+
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.hidden = YES;
+        return cell;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:_dataArr[indexPath.row]];
+    
     if ([tempDic[@"is_read"] integerValue] == 0) {
         
         [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
@@ -751,6 +805,8 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         [UIApplication sharedApplication].applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
     }
     [tableView reloadData];
+    
+        #pragma mark -- 1 自然来访--
     if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 1) {
         
         CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
@@ -759,10 +815,8 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.name = @"";
         nextVC.powerDic = @{@"detail":[NSNumber numberWithBool:true],@"add":[NSNumber numberWithBool:true],@"update":[NSNumber numberWithBool:true],@"giveUp":[NSNumber numberWithBool:true],@"delete":[NSNumber numberWithBool:true],@"follow":[NSNumber numberWithBool:true]};
         [self.navigationController pushViewController:nextVC animated:YES];
-//        VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
-//        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
-//        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
-//        [self.navigationController pushViewController:nextVC animated:YES];
+
+        #pragma mark -- 2 电话来访--
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 2) {
         
         VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
@@ -771,10 +825,8 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.powerDic = @{@"detail":[NSNumber numberWithBool:true],@"add":[NSNumber numberWithBool:true],@"update":[NSNumber numberWithBool:true],@"giveUp":[NSNumber numberWithBool:true],@"delete":[NSNumber numberWithBool:true],@"follow":[NSNumber numberWithBool:true]};
         nextVC.name = @"";
         [self.navigationController pushViewController:nextVC animated:YES];
-//        CallTelegramCustomDetailVC *nextVC = [[CallTelegramCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"group_id"]]];
-//        nextVC.project_id = _dataArr[indexPath.row][@"project_id"];
-//        nextVC.info_id = _dataArr[indexPath.row][@"info_id"];
-//        [self.navigationController pushViewController:nextVC animated:YES];
+
+        #pragma mark -- 3 带看确认 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 3) {
         
         WorkPhoneConfrimWaitDetailVC *nextVC = [[WorkPhoneConfrimWaitDetailVC alloc] initWithClientId:_dataArr[indexPath.row][@"client_id"]];
@@ -784,6 +836,8 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             [tableView reloadData];
         };
         [self.navigationController pushViewController:nextVC animated:YES];
+        
+                #pragma mark -- 4 签字确认--
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 4) {
         
         WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
@@ -791,6 +845,15 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.needConfirm = _dataArr[indexPath.row][@"need_confirm"];
 
         [self.navigationController pushViewController:nextVC animated:YES];
+        
+        #pragma mark -- 5 到访确认 --
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 5){
+        
+        WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
+        nextVC.needConfirm = @"1";
+        [self.navigationController pushViewController:nextVC animated:YES];
+        
+        #pragma mark -- 10 排号审核 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 10) {
         
 //        NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:self->_dataArr[indexPath.row][@"row_id"] project_id:@"" info_id:@""];
@@ -800,6 +863,8 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
         nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
+        
+               #pragma mark -- 11 定单审核 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 11) {
         
         AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
@@ -807,6 +872,8 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
         nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
+        
+                #pragma mark -- 12 签约审核 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 12) {
         
         AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
@@ -814,26 +881,29 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
         nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
+        
+             #pragma mark -- 13 房源预留 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 13) {
         
         
+                #pragma mark -- 14 房源定价 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 14) {
         
-        
+          #pragma mark -- 15 房源销控 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 15) {
         
         
+           #pragma mark -- 16 房源调价 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 16) {
         
         
+        #pragma mark -- 17 房源标准折扣 --
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 17) {
         
         
     }else{
         
-        WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:_dataArr[indexPath.row][@"client_id"]];
-        nextVC.needConfirm = @"1";
-        [self.navigationController pushViewController:nextVC animated:YES];
+        
     }
 }
 

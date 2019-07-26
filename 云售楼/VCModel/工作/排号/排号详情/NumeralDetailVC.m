@@ -11,11 +11,12 @@
 #import "ModifyNumeralVC.h"
 
 #import "AddEncumbrancerVC.h"
-#import "NumeralDetailAuditVC.h"
 #import "AddOrderVC.h"
 #import "AddSignVC.h"
 
 #import "AuditTaskDetailVC.h"
+#import "AuditDetailVC.h"
+#import "BelongDetailVC.h"
 
 #import "NumeralDetailInvalidView.h"
 
@@ -23,6 +24,7 @@
 #import "BaseHeader.h"
 
 #import "CallTelegramCustomDetailInfoCell.h"
+#import "InfoDetailCell.h"
 
 @interface NumeralDetailVC ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -80,7 +82,18 @@
             
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
             self->_advicerArr = resposeObject[@"data"][@"advicer"];
-            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][0][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"end_time"]]]]];
+            NSString *str = @"";
+            for (int i = 0; i < self->_advicerArr.count; i++) {
+                
+                if (str.length) {
+                    
+                    str = [NSString stringWithFormat:@"%@,%@",str,self->_advicerArr[i][@"name"]];
+                }else{
+                    
+                    str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
+                }
+            }
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"申请流程：：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"流程类型：%@",[self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]]],@[[NSString stringWithFormat:@"排号号码：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"排号时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"有效期至：%@",self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"归属人：%@",str],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_time"]]]]];
             [self->_table reloadData];
         }else{
             
@@ -95,6 +108,15 @@
 - (void)ActionRightBtn:(UIButton *)btn{
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *audit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+        nextVC.status = @"1";
+        nextVC.requestId = self->_row_id;
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
     
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -122,11 +144,10 @@
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-//        NumeralDetailAuditVC *nextVC = [[NumeralDetailAuditVC alloc] init];
-//        [self.navigationController pushViewController:nextVC animated:YES];
         AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
         nextVC.status = @"1";
         nextVC.requestId = self->_row_id;
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
@@ -135,6 +156,10 @@
         
     }];
     
+    if ([self.need_check integerValue] == 1) {
+        
+        [alert addAction:audit];
+    }
     [alert addAction:order];
     [alert addAction:sign];
     [alert addAction:numeral];
@@ -165,13 +190,14 @@
             header = [[NumeralDetailHeader alloc] initWithReuseIdentifier:@"NumeralDetailHeader"];
         }
         
-//
         header.dataDic = self->_dataDic;
         header.moneyL.text = [NSString stringWithFormat:@"诚意金：%@元",self->_dataDic[@"sincerity"]];
         header.num = _num;
         
         header.addBtn.hidden = YES;
         
+        
+
         header.numeralDetailHeaderAddBlock = ^{
             
             AddEncumbrancerVC *nextVC = [[AddEncumbrancerVC alloc] init];
@@ -210,9 +236,12 @@
         if (section == 1) {
             
             header.titleL.text = @"权益人信息";
-        }else{
+        }else if (section == 2) {
             
             header.titleL.text = @"审核信息";
+        }else{
+            
+            header.titleL.text = @"排号信息";
         }
         return header;
     }
@@ -220,16 +249,74 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    CallTelegramCustomDetailInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCustomDetailInfoCell"];
-    if (!cell) {
+    if (indexPath.section == 2 && indexPath.row == 3) {
         
-        cell = [[CallTelegramCustomDetailInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CallTelegramCustomDetailInfoCell"];
+        InfoDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoDetailCell"];
+        if (!cell) {
+            
+            cell = [[InfoDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InfoDetailCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.contentlab.text = _dataArr[indexPath.section][indexPath.row];
+        cell.contentlab.font = FONT(14 *SIZE);
+        cell.contentlab.textColor = CL95Color;
+        [cell.contentlab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.contentView).offset(28 *SIZE);
+            make.top.equalTo(cell.contentView).offset(10 *SIZE);
+            make.width.mas_lessThanOrEqualTo(200 *SIZE);
+            make.bottom.equalTo(cell.contentView).offset(-10 *SIZE);
+        }];
+        [cell.moreBtn setTitle:@"查看审核详情" forState:UIControlStateNormal];
+        cell.infoDetailCellBlock = ^{
+            
+            AuditDetailVC *nextVC = [[AuditDetailVC alloc] init];
+            nextVC.status = @"1";
+            nextVC.requestId = self->_row_id;
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+    }else if (indexPath.section == 3 && indexPath.row == 3) {
+        
+        InfoDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoDetailCell"];
+        if (!cell) {
+            
+            cell = [[InfoDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InfoDetailCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.contentlab.text = _dataArr[indexPath.section][indexPath.row];
+        cell.contentlab.font = FONT(14 *SIZE);
+        cell.contentlab.textColor = CL95Color;
+        [cell.contentlab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.contentView).offset(28 *SIZE);
+            make.top.equalTo(cell.contentView).offset(10 *SIZE);
+            make.width.mas_lessThanOrEqualTo(200 *SIZE);
+            make.bottom.equalTo(cell.contentView).offset(-10 *SIZE);
+        }];
+        [cell.moreBtn setTitle:@"查看归属人详情" forState:UIControlStateNormal];
+        cell.infoDetailCellBlock = ^{
+            
+            BelongDetailVC *nextVC = [[BelongDetailVC alloc] initWithDataArr:self->_dataDic[@"advicer"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+    }else{
+        
+        CallTelegramCustomDetailInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCustomDetailInfoCell"];
+        if (!cell) {
+            
+            cell = [[CallTelegramCustomDetailInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CallTelegramCustomDetailInfoCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+        
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
-    
-    return cell;
 }
 
 - (void)initUI{

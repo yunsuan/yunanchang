@@ -87,12 +87,12 @@
 - (void)setOrderDic:(NSDictionary *)orderDic{
     
     _headImg.image = IMAGE_WITH_NAME(@"subscribe");
-    _titleL.text = orderDic[@"batch_name"];
+    _titleL.text = [NSString stringWithFormat:@"%@/%@",orderDic[@"batch_name"],orderDic[@"house_name"]];
     _customL.text = [NSString stringWithFormat:@"%@",orderDic[@"name"]];
     _numL.text = @"组别人数：0";
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",orderDic[@"client_num"]];
     _timeL.text = orderDic[@"create_time"];
-    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",orderDic[@"advicer"]];
+//    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",orderDic[@"advicer"]];
     switch ([orderDic[@"disabled_state"] integerValue]) {
         case 0:
         {
@@ -160,12 +160,12 @@
 - (void)setSignDic:(NSDictionary *)signDic{
     
     _headImg.image = IMAGE_WITH_NAME(@"signing_2");
-    _titleL.text = signDic[@"batch_name"];
+    _titleL.text = [NSString stringWithFormat:@"%@/%@",signDic[@"batch_name"],signDic[@"house_name"]];
     _customL.text = [NSString stringWithFormat:@"%@",signDic[@"name"]];
     _numL.text = @"组别人数：0";
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",signDic[@"client_num"]];
     _timeL.text = signDic[@"create_time"];
-    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",signDic[@"advicer"]];
+//    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",signDic[@"advicer"]];
     switch ([signDic[@"disabled_state"] integerValue]) {
         case 0:
         {

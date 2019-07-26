@@ -44,6 +44,8 @@ typedef void(^NumeralDetailHeaderCollBlock)(NSInteger index);
 
 @property (nonatomic, strong) UILabel *customL;
 
+@property (nonatomic, strong) UILabel *numL;
+
 @property (nonatomic, strong) UILabel *moneyL;
 
 @property (nonatomic, strong) UILabel *statusL;
@@ -55,6 +57,10 @@ typedef void(^NumeralDetailHeaderCollBlock)(NSInteger index);
 @property (nonatomic, strong) UIView *line;
 
 @property (nonatomic, strong) NSDictionary *dataDic;
+
+@property (nonatomic, strong) NSDictionary *orderDic;
+
+@property (nonatomic, strong) NSDictionary *signDic;
 
 @end
 

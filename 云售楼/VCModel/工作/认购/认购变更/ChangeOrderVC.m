@@ -414,7 +414,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"转认购";
+    self.titleLabel.text = @"转定单";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLBackColor;

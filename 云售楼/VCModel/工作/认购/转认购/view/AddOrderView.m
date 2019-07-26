@@ -178,7 +178,7 @@
         [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self).offset(0 *SIZE);
-            make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+            make.top.equalTo(self->_priceTF.mas_bottom).offset(5 *SIZE);
             make.width.mas_equalTo(SCREEN_Width);
             make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
 //            make.bottom.equalTo(self).offset(-20 *SIZE);
@@ -251,7 +251,7 @@
         [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self).offset(0 *SIZE);
-            make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+            make.top.equalTo(self->_priceTF.mas_bottom).offset(5 *SIZE);
             make.width.mas_equalTo(SCREEN_Width);
             make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
 //            make.bottom.equalTo(self).offset(-20 *SIZE);
@@ -318,7 +318,7 @@
         [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self).offset(0 *SIZE);
-            make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+            make.top.equalTo(self->_priceTF.mas_bottom).offset(5 *SIZE);
             make.width.mas_equalTo(SCREEN_Width);
             make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
 //            make.bottom.equalTo(self).offset(-20 *SIZE);
@@ -361,7 +361,7 @@
         [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self).offset(0 *SIZE);
-            make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+            make.top.equalTo(self->_priceTF.mas_bottom).offset(5 *SIZE);
             make.width.mas_equalTo(SCREEN_Width);
             make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
             make.bottom.equalTo(self).offset(-20 *SIZE);
@@ -406,7 +406,7 @@
     [_installmentColl mas_remakeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(0 *SIZE);
-        make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+        make.top.equalTo(self->_priceTF.mas_bottom).offset(5 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
         make.bottom.equalTo(self).offset(-20 *SIZE);
@@ -473,17 +473,17 @@
         installmentCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"installmentCollCell" forIndexPath:indexPath];
         if (!cell) {
             
-            cell = [[installmentCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 90 *SIZE)];
+            cell = [[installmentCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 110 *SIZE)];
         }
         
         cell.tag = indexPath.section;
         
         if (indexPath.section == 0) {
             
-            [cell.addBtn setImage:IMAGE_WITH_NAME(@"") forState:UIControlStateNormal];
+            [cell.addBtn setImage:IMAGE_WITH_NAME(@"add_5") forState:UIControlStateNormal];
         }else{
             
-            [cell.addBtn setImage:IMAGE_WITH_NAME(@"") forState:UIControlStateNormal];
+            [cell.addBtn setImage:IMAGE_WITH_NAME(@"delete_2") forState:UIControlStateNormal];
         }
         
         cell.installmentCollCellStrBlock = ^(NSInteger index, NSString * _Nonnull str) {
@@ -765,13 +765,17 @@
     [_coll registerClass:[preferentialCollCell class] forCellWithReuseIdentifier:@"preferentialCollCell"];
     [self addSubview:_coll];
     
-    _installmentLayout = [[GZQFlowLayout alloc] initWithType:AlignWithCenter betweenOfCell:5 *SIZE];
-    _installmentLayout.itemSize = CGSizeMake(SCREEN_Width, 90 *SIZE);
+    _installmentLayout = [[GZQFlowLayout alloc] initWithType:AlignWithCenter betweenOfCell:8 *SIZE];
+    _installmentLayout.minimumLineSpacing = 8 *SIZE;
+    _installmentLayout.minimumInteritemSpacing = 8 *SIZE;
+    _installmentLayout.itemSize = CGSizeMake(SCREEN_Width, 110 *SIZE);
 
     
     _installmentColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_installmentLayout];
     _installmentColl.backgroundColor = CLWhiteColor;
     _installmentColl.hidden = YES;
+    _installmentColl.delegate = self;
+    _installmentColl.dataSource = self;
     [_installmentColl registerClass:[installmentCollCell class] forCellWithReuseIdentifier:@"installmentCollCell"];
     [self addSubview:_installmentColl];
     
@@ -930,7 +934,7 @@
     [_installmentColl mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(0 *SIZE);
-        make.top.equalTo(self->_paymentTF.mas_bottom).offset(14 *SIZE);
+        make.top.equalTo(self->_priceTF.mas_bottom).offset(5 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(self->_installmentColl.collectionViewLayout.collectionViewContentSize.height);
     }];

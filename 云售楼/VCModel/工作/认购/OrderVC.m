@@ -18,6 +18,7 @@
     NSInteger _page;
     
     NSString *_project_id;
+    NSString *_info_id;
     
     NSMutableArray *_dataArr;
 }
@@ -29,12 +30,13 @@
 
 @implementation OrderVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId
+- (instancetype)initWithProjectId:(NSString *)projectId info_id:(nonnull NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _project_id = projectId;
+        _info_id = info_id;
     }
     return self;
 }
@@ -173,13 +175,14 @@
     
     OrderDetailVC *nextVC = [[OrderDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
     nextVC.project_id = _project_id;
+    nextVC.info_id = _info_id;
     nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{
     
-    self.titleLabel.text = @"认购";
+    self.titleLabel.text = @"定单";
     
     UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, 40 *SIZE)];
     whiteView.backgroundColor = [UIColor whiteColor];

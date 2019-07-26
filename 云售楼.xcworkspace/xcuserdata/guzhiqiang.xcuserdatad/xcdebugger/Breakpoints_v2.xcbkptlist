@@ -51,13 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x6392;&#x53f7;&#x8be6;&#x60c5;/view/header/NumeralDetailHeader.m"
-            timestampString = "585716762.034757"
+            filePath = "&#x4e91;&#x552e;&#x697c;/&#x81ea;&#x5b9a;&#x4e49;SDK/&#x6743;&#x9650;&#x7ba1;&#x7406;/PowerMannerger.m"
+            timestampString = "585821850.329855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-setDataDic:"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "+GetWorkListPowerWithdata:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

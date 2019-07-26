@@ -1,17 +1,17 @@
 //
-//  SelectSpePerferVC.m
+//  SpePerferDetailVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/11.
+//  Created by 谷治墙 on 2019/7/25.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "SelectSpePerferVC.h"
+#import "SpePerferDetailVC.h"
 
 #import "GZQFlowLayout.h"
 #import "SelectPerferCollCell.h"
 
-@interface SelectSpePerferVC ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+@interface SpePerferDetailVC ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
     NSMutableArray *_dataArr;;
@@ -23,43 +23,26 @@
 
 @end
 
-@implementation SelectSpePerferVC
+@implementation SpePerferDetailVC
+
+- (instancetype)initWithDataArr:(NSArray *)dataArr
+{
+    self = [super init];
+    if (self) {
+        
+        _dataArr = [[NSMutableArray alloc] initWithArray:dataArr];;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initDataSource];
+
     [self initUI];
-    [self RequestMethod];
+//    [self RequestMethod];
 }
 
-- (void)initDataSource{
-    
-    _dataArr = [@[] mutableCopy];
-}
-
-- (void)RequestMethod{
-    
-    NSDictionary *dic = @{@"batch_id":[NSString stringWithFormat:@"%@",self.dic[@"batch_id"]],
-                          @"build_id":[NSString stringWithFormat:@"%@",self.dic[@"build_id"]],
-                          @"unit_id":[NSString stringWithFormat:@"%@",self.dic[@"unit_id"]],
-                          };
- 
-    [BaseRequest GET:ProjectHouseGetDiscountList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 200) {
-            
-            self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-            [self->_coll reloadData];
-        }else{
-            
-            [self showContent:resposeObject[@"msg"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
-        
-        [self showContent:@"网络错误"];
-    }];
-}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
@@ -79,23 +62,27 @@
     cell.layer.borderColor = CLLineColor.CGColor;
     cell.clipsToBounds = YES;
     
-    cell.dataDic = _dataArr[indexPath.item];
+//    cell.dataDic = _dataArr[indexPath.item];
+    
+    cell.nameL.text = [NSString stringWithFormat:@"折扣名称：%@",_dataArr[indexPath.item][@"name"]];
+    cell.wayL.text = [NSString stringWithFormat:@"折扣方式：%@",_dataArr[indexPath.item][@"type"]];
+    cell.describeL.text = [NSString stringWithFormat:@"优惠：%@",_dataArr[indexPath.item][@"num"]];
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.selectSpePerferVCBlock) {
-        
-        self.selectSpePerferVCBlock(_dataArr[indexPath.item]);
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+//    if (self.selectSpePerferVCBlock) {
+//
+//        self.selectSpePerferVCBlock(_dataArr[indexPath.item]);
+//    }
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)initUI{
     
-    self.titleLabel.text = @"折扣";
+    self.titleLabel.text = @"优惠详情";
     
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithCenter betweenOfCell:5 *SIZE];
     _layout.itemSize = CGSizeMake(340 *SIZE, 100 *SIZE);
@@ -107,5 +94,4 @@
     [_coll registerClass:[SelectPerferCollCell class] forCellWithReuseIdentifier:@"SelectPerferCollCell"];
     [self.view addSubview:_coll];
 }
-
 @end

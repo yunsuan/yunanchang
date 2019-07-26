@@ -42,6 +42,7 @@
     
     NSMutableDictionary *_pay_info;
     
+    NSMutableArray *_bankArr;
     NSMutableArray *_certArr;
     NSMutableArray *_personArr;
     NSMutableArray *_proportionArr;
@@ -93,9 +94,16 @@
         _info_id = info_id;
         _personArr = [[NSMutableArray alloc] initWithArray:personArr];
         _proportionArr = [@[] mutableCopy];
+        _bankArr = [@[] mutableCopy];
         for (int i = 0; i < _personArr.count; i++) {
             
-            [_proportionArr addObject:@""];
+            if (_personArr[i][@"property"]) {
+                
+                [_proportionArr addObject:_personArr[i][@"property"]];
+            }else{
+                
+                [_proportionArr addObject:@""];
+            }
         }
         _roomDic = [@{} mutableCopy];
         _ordDic = [@{} mutableCopy];
@@ -984,34 +992,128 @@
             [strongSelf.view addSubview:view];
         }else if (index == 10){
             
-            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:BANK_TYPE]];
-            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            
+            if (strongSelf->_bankArr.count) {
                 
-                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_bank_name"];
-                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_bank_id"];
-                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-            };
-            [strongSelf.view addSubview:view];
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_bank_name"];
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_bank_id"];
+                    strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+                };
+                [strongSelf.view addSubview:view];
+            }else{
+                
+                [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":strongSelf->_project_id,@"info_id":strongSelf->_info_id} success:^(id  _Nonnull resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        for (int i = 0; i < [resposeObject[@"data"][5] count]; i++) {
+                            
+                            NSDictionary *dic = resposeObject[@"data"][5][i];
+                            [strongSelf->_bankArr addObject:@{@"id":dic[@"config_id"],@"param":dic[@"config_name"]}];
+                        }
+                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
+                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                            
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
+                            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+                        };
+                        [strongSelf.view addSubview:view];
+                    }else{
+                        
+                        [strongSelf showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [strongSelf showContent:@"获取银行信息失败"];
+                }];
+            }
         }else if (index == 13){
             
-            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:BANK_TYPE]];
-            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            if (strongSelf->_bankArr.count) {
                 
-                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
-                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
-                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-            };
-            [strongSelf.view addSubview:view];
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
+                    strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+                };
+                [strongSelf.view addSubview:view];
+            }else{
+                
+                [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":strongSelf->_project_id,@"info_id":strongSelf->_info_id} success:^(id  _Nonnull resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        for (int i = 0; i < [resposeObject[@"data"][5] count]; i++) {
+                            
+                            NSDictionary *dic = resposeObject[@"data"][5][i];
+                            [strongSelf->_bankArr addObject:@{@"id":dic[@"config_id"],@"param":dic[@"config_name"]}];
+                        }
+                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
+                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                            
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
+                            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+                        };
+                        [strongSelf.view addSubview:view];
+                    }else{
+                        
+                        [strongSelf showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [strongSelf showContent:@"获取银行信息失败"];
+                }];
+            }
         }else if (index == 16){
             
-            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:BANK_TYPE]];
-            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            if (strongSelf->_bankArr.count) {
                 
-                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_name"];
-                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_id"];
-                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-            };
-            [strongSelf.view addSubview:view];
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                    
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_name"];
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_id"];
+                    strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+                };
+                [strongSelf.view addSubview:view];
+            }else{
+                
+                [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":strongSelf->_project_id,@"info_id":strongSelf->_info_id} success:^(id  _Nonnull resposeObject) {
+                    
+                    NSLog(@"%@",resposeObject);
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        for (int i = 0; i < [resposeObject[@"data"][5] count]; i++) {
+                            
+                            NSDictionary *dic = resposeObject[@"data"][5][i];
+                            [strongSelf->_bankArr addObject:@{@"id":dic[@"config_id"],@"param":dic[@"config_name"]}];
+                        }
+                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
+                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                            
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
+                            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+                        };
+                        [strongSelf.view addSubview:view];
+                    }else{
+                        
+                        [strongSelf showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [strongSelf showContent:@"获取银行信息失败"];
+                }];
+            }
         }
     };
     
@@ -1089,9 +1191,10 @@
             
             NSDictionary *dic = @{@"pay_time":[strongSelf->_formatter stringFromDate:date],@"tip_time":[strongSelf->_formatter stringFromDate:[NSDate dateWithTimeInterval:-24 * 60 * 60 sinceDate:date]],@"pay_money":strongSelf->_installmentArr[index][@"pay_money"]};
             [strongSelf->_installmentArr replaceObjectAtIndex:index withObject:dic];
+            strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
         };
         [strongSelf.view addSubview:view];
-        strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
+        
     };
     
     _addOrderView.addOrderViewInstallmentStrBlock = ^(NSInteger index, NSString * _Nonnull str) {

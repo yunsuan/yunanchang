@@ -372,7 +372,7 @@
     NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:self->_dataDic[@"advicer"] options:NSJSONWritingPrettyPrinted error:&error];
     NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];
     [dic setObject:personjson1 forKey:@"advicer_list"];
-    [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
+//    [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
     NSString *param;
     for (int i = 0; i < _rolePersonSelectArr.count; i++) {
         
@@ -554,7 +554,7 @@
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_infoHeader.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(40 *SIZE);
+                make.height.mas_equalTo(0 *SIZE);
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
             }];
         }else{
@@ -567,7 +567,7 @@
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_addNumeralInfoView.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(40 *SIZE);
+                make.height.mas_equalTo(0 *SIZE);
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
             }];
         }
@@ -673,6 +673,7 @@
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _processHeader.titleL.text = @"流程信息";
     _processHeader.addBtn.hidden = YES;
+    _processHeader.hidden = YES;
     [_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _processHeader.backgroundColor = CLWhiteColor;
     _processHeader.addNemeralHeaderAllBlock = ^{
@@ -919,7 +920,7 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_infoHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
+        make.height.mas_equalTo(0 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
     

@@ -48,9 +48,9 @@
         if ([datadic[@"duty_operate"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:9 withObject:@1];
         }
-        if ([datadic[@"person_check"] boolValue]) {
-            [WorkListPower replaceObjectAtIndex:8 withObject:@1];
-        }
+//        if ([datadic[@"person_check"] boolValue]) {
+//            [WorkListPower replaceObjectAtIndex:8 withObject:@1];
+//        }
         NSArray *arr = datadic[@"app_operate"];
         for (int i = 0 ; i < arr.count; i++) {
             if ([arr[i][@"detail"] integerValue] == 1) {

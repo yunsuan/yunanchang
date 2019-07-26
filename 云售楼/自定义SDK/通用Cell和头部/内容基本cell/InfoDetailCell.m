@@ -31,7 +31,7 @@
 -(void)initUI
 {
     _contentlab = [[UILabel alloc]init];
-    _contentlab.font = [UIFont systemFontOfSize:13.3*SIZE];
+    _contentlab.font = [UIFont systemFontOfSize:13.3 *SIZE];
     _contentlab.numberOfLines = 0;
     _contentlab.lineBreakMode = NSLineBreakByCharWrapping;
     //    [_contentlab setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
