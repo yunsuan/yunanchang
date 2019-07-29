@@ -174,6 +174,7 @@
     
     NumeralDetailVC *nextVC = [[NumeralDetailVC alloc] initWithRowId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"row_id"]] project_id:_project_id info_id:_info_id];
     nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
+    nextVC.projectName = self.projectName;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

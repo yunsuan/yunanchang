@@ -177,6 +177,7 @@
     nextVC.project_id = _project_id;
     nextVC.info_id = _info_id;
     nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
+    nextVC.projectName = self.projectName;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

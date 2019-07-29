@@ -20,6 +20,8 @@ typedef void(^SelectSpePerferVCBlock)(NSDictionary *dic);
 
 @property (nonatomic, strong) NSDictionary *dic;
 
+- (instancetype)initWithDataArr:(NSArray *)dataArr;
+
 @end
 
 NS_ASSUME_NONNULL_END

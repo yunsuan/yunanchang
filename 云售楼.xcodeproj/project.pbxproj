@@ -415,6 +415,8 @@
 		0CFC16D622EAD80700AD3D65 /* InstallMentDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC16D522EAD80700AD3D65 /* InstallMentDetailVC.m */; };
 		0CFC16DA22EAD91400AD3D65 /* InstallMentDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC16D922EAD91400AD3D65 /* InstallMentDetailCell.m */; };
 		0CFC16DE22EAE88200AD3D65 /* RoomPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC16DD22EAE88200AD3D65 /* RoomPriceCell.m */; };
+		0CFDB2FE22EE831C00F21976 /* SincerityChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB2FD22EE831C00F21976 /* SincerityChangeVC.m */; };
+		0CFDB30122EE8F2F00F21976 /* SincerityChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB30022EE8F2F00F21976 /* SincerityChangeView.m */; };
 		0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */; };
 		0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71DF22A644D60066732B /* VisitCustomHeader.m */; };
 		0CFF71F322A64D6F0066732B /* PieCircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71F222A64D6F0066732B /* PieCircleModel.m */; };
@@ -1096,6 +1098,10 @@
 		0CFC16D922EAD91400AD3D65 /* InstallMentDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstallMentDetailCell.m; sourceTree = "<group>"; };
 		0CFC16DC22EAE88200AD3D65 /* RoomPriceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomPriceCell.h; sourceTree = "<group>"; };
 		0CFC16DD22EAE88200AD3D65 /* RoomPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomPriceCell.m; sourceTree = "<group>"; };
+		0CFDB2FC22EE831C00F21976 /* SincerityChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SincerityChangeVC.h; sourceTree = "<group>"; };
+		0CFDB2FD22EE831C00F21976 /* SincerityChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SincerityChangeVC.m; sourceTree = "<group>"; };
+		0CFDB2FF22EE8F2F00F21976 /* SincerityChangeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SincerityChangeView.h; sourceTree = "<group>"; };
+		0CFDB30022EE8F2F00F21976 /* SincerityChangeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SincerityChangeView.m; sourceTree = "<group>"; };
 		0CFF71DA22A6423E0066732B /* VisitCustomReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomReportVC.h; sourceTree = "<group>"; };
 		0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomReportVC.m; sourceTree = "<group>"; };
 		0CFF71DE22A644D60066732B /* VisitCustomHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomHeader.h; sourceTree = "<group>"; };
@@ -1981,6 +1987,7 @@
 		0C4B7F5922C9955200BBC34F /* 排号 */ = {
 			isa = PBXGroup;
 			children = (
+				0CFDB2F922EE82ED00F21976 /* 排号变更 */,
 				0C365CAD22E82FD500A586FC /* 修改排号 */,
 				0C192C9022CAEB52000CA161 /* 转排号 */,
 				0C4B7F6422C9B97000BBC34F /* 排号详情 */,
@@ -3630,6 +3637,25 @@
 			path = "房源定价";
 			sourceTree = "<group>";
 		};
+		0CFDB2F922EE82ED00F21976 /* 排号变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0CFDB2FB22EE82FD00F21976 /* 诚意金变更 */,
+			);
+			path = "排号变更";
+			sourceTree = "<group>";
+		};
+		0CFDB2FB22EE82FD00F21976 /* 诚意金变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0CFDB2FC22EE831C00F21976 /* SincerityChangeVC.h */,
+				0CFDB2FD22EE831C00F21976 /* SincerityChangeVC.m */,
+				0CFDB2FF22EE8F2F00F21976 /* SincerityChangeView.h */,
+				0CFDB30022EE8F2F00F21976 /* SincerityChangeView.m */,
+			);
+			path = "诚意金变更";
+			sourceTree = "<group>";
+		};
 		0CFF71D922A6422B0066732B /* 来访客户报表 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4200,6 +4226,7 @@
 				0C4B8EEC22CC4B1600D505BE /* AddOrderVC.m in Sources */,
 				0C3A9157225B223400F04804 /* BaseModel.m in Sources */,
 				0CEF8AD622606D0E0057F3FD /* WorkCell.m in Sources */,
+				0CFDB2FE22EE831C00F21976 /* SincerityChangeVC.m in Sources */,
 				0C310E4122A5569A00083504 /* ChannelCustomListVC.m in Sources */,
 				0CD04340228006BF002C8BD3 /* WorkRecommendValidDetailVC.m in Sources */,
 				0CD7A031225C6D5700EAE816 /* BDDynamicTreeNode.m in Sources */,
@@ -4353,6 +4380,7 @@
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
 				0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
+				0CFDB30122EE8F2F00F21976 /* SincerityChangeView.m in Sources */,
 				0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */,
 				0C3A9171225B37CF00F04804 /* ReportVC.m in Sources */,
 				0C74520922A7E454008F2F07 /* ChannelMutiLineCell.m in Sources */,

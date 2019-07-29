@@ -22,7 +22,11 @@
 }
 
 - (void)ActionConfirmBtn:(UIButton *)btn{
-    
+ 
+    if (self.numeralDetailInvalidViewBlock) {
+        
+        self.numeralDetailInvalidViewBlock();
+    }
 }
 
 - (void)ActionCancelBtn:(UIButton *)btn{

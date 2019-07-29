@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^NumeralDetailInvalidViewBlock)(void);
+
 @interface NumeralDetailInvalidView : UIView
+
+@property (nonatomic, copy) NumeralDetailInvalidViewBlock numeralDetailInvalidViewBlock;
 
 @property (nonatomic, strong) UITextView *reasonTV;
 

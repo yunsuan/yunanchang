@@ -76,6 +76,20 @@
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == _numTF.textField) {
+        
+        return [self validateNumber:string];
+    }else if (textField == _freeTF.textField){
+        
+        return [self validateNumber:string];
+    }else{
+        
+        return YES;
+    }
+}
+
 - (void)initUI{
     
     self.backgroundColor = CLWhiteColor;
@@ -117,6 +131,7 @@
                 [self addSubview:_numL];
                 
                 _numTF = tf;
+                _numTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_numTF];
             }else if (i == 3){
                 
@@ -124,6 +139,7 @@
                 [self addSubview:_freeL];
                 
                 _freeTF = tf;
+                _freeTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_freeTF];
             }else if (i == 4){
                 
@@ -235,6 +251,22 @@
         make.height.mas_equalTo(33 *SIZE);
         make.bottom.equalTo(self).offset(-10 *SIZE);
     }];
+}
+
+- (BOOL)validateNumber:(NSString*)number {
+    BOOL res = YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    int i = 0;
+    while (i < number.length) {
+        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length == 0) {
+            res = NO;
+            break;
+        }
+        i++;
+    }
+    return res;
 }
 
 @end

@@ -415,7 +415,89 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
-    self.addOrderViewStrBlock(textField.text, textField.tag);
+    if (textField == _depositTF.textField) {
+        
+        if ([textField.text doubleValue] > [_totalTF.textField.text doubleValue]) {
+            
+            textField.text = _totalTF.textField.text;
+        }
+    }
+    if (textField == _spePreferentialTF.textField) {
+        
+        if ([textField.text doubleValue] > [_totalTF.textField.text doubleValue]) {
+            
+            textField.text = _totalTF.textField.text;
+        }
+    }
+    if (textField == _loanPriceTF.textField) {
+        
+        if ([textField.text doubleValue] > [_totalTF.textField.text doubleValue]) {
+            
+            textField.text = _totalTF.textField.text;
+        }
+    }
+    if (textField == _businessLoanPriceTF.textField) {
+        
+        if ([textField.text doubleValue] > [_totalTF.textField.text doubleValue]) {
+            
+            textField.text = _totalTF.textField.text;
+        }
+    }
+    if (textField == _fundLoanTF.textField) {
+        
+        if ([textField.text doubleValue] > [_totalTF.textField.text doubleValue]) {
+            
+            textField.text = _totalTF.textField.text;
+        }
+    }
+    if (self.addOrderViewStrBlock) {
+        
+        self.addOrderViewStrBlock(textField.text, textField.tag);
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == _depositTF.textField) {
+        
+        return [self validateNumber:string];
+    }else if (textField == _spePreferentialTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _preferPriceTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _totalTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _priceTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _paymentTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _businessLoanPriceTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _businessLoanYearTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _fundLoanTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _fundLoanYearTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _loanPriceTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _loanYearTF.textField){
+        
+        return [self validateNumber:string];
+    }else{
+        
+        return YES;
+    }
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -551,6 +633,7 @@
                 
                 _depositTF = tf;
                 _depositTF.unitL.text = @"元";
+                _depositTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_depositTF];
                 break;
             }
@@ -569,6 +652,7 @@
                 
                 _spePreferentialTF = tf;
                 _spePreferentialTF.unitL.text = @"元";
+                _spePreferentialTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_spePreferentialTF];
                 break;
             }
@@ -581,6 +665,7 @@
                 _preferPriceTF.backgroundColor = CLBackColor;
                 _preferPriceTF.userInteractionEnabled = NO;
                 _preferPriceTF.unitL.text = @"元";
+                _preferPriceTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_preferPriceTF];
                 break;
             }
@@ -593,6 +678,7 @@
                 _totalTF.backgroundColor = CLBackColor;
                 _totalTF.userInteractionEnabled = NO;
                 _totalTF.unitL.text = @"元";
+                _totalTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_totalTF];
                 break;
             }
@@ -605,6 +691,7 @@
                 _priceTF.backgroundColor = CLBackColor;
                 _priceTF.userInteractionEnabled = NO;
                 _priceTF.unitL.text = @"元";
+                _priceTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_priceTF];
                 break;
             }
@@ -629,6 +716,7 @@
                 _paymentTF.unitL.text = @"元";
                 _paymentTF.backgroundColor = CLBackColor;
                 _paymentTF.userInteractionEnabled = NO;
+                _paymentTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_paymentTF];
                 break;
             }
@@ -641,6 +729,7 @@
                 _businessLoanPriceTF = tf;
                 _businessLoanPriceTF.hidden = YES;
                 _businessLoanPriceTF.unitL.text = @"元";
+                _businessLoanPriceTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_businessLoanPriceTF];
                 break;
             }
@@ -667,6 +756,7 @@
                 _businessLoanYearTF = tf;
                 _businessLoanYearTF.hidden = YES;
                 _businessLoanYearTF.unitL.text = @"年";
+                _businessLoanYearTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_businessLoanYearTF];
                 break;
             }
@@ -679,6 +769,7 @@
                 _fundLoanTF = tf;
                 _fundLoanTF.hidden = YES;
                 _fundLoanTF.unitL.text = @"元";
+                _fundLoanTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_fundLoanTF];
                 break;
             }
@@ -704,6 +795,7 @@
                 _fundLoanYearTF = tf;
                 _fundLoanYearTF.hidden = YES;
                 _fundLoanYearTF.unitL.text = @"年";
+                _fundLoanYearTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_fundLoanYearTF];
                 break;
             }
@@ -716,6 +808,7 @@
                 _loanPriceTF = tf;
                 _loanPriceTF.hidden = YES;
                 _loanPriceTF.unitL.text = @"元";
+                _loanPriceTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_loanPriceTF];
                 break;
             }
@@ -741,6 +834,7 @@
                 _loanYearTF = tf;
                 _loanYearTF.hidden = YES;
                 _loanYearTF.unitL.text = @"年";
+                _loanYearTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self addSubview:_loanYearTF];
                 break;
             }
@@ -1074,5 +1168,22 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
 }
+
+- (BOOL)validateNumber:(NSString*)number {
+    BOOL res = YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    int i = 0;
+    while (i < number.length) {
+        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length == 0) {
+            res = NO;
+            break;
+        }
+        i++;
+    }
+    return res;
+}
+
 
 @end

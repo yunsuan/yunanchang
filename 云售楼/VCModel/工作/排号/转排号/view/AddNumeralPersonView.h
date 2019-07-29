@@ -16,6 +16,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddNumeralPersonViewArrBlock)(NSInteger num);
+
 typedef void(^AddNumeralPersonViewCollBlock)(NSInteger num);
 
 typedef void(^AddNumeralPersonViewDeleteBlock)(NSInteger num);
@@ -27,6 +29,8 @@ typedef void(^AddNumeralPersonViewAddBlock)(NSInteger num);
 typedef void(^AddNumeralPersonViewStrBlock)(NSString *str ,NSInteger num);
 
 @interface AddNumeralPersonView : UIView
+
+@property (nonatomic, copy) AddNumeralPersonViewArrBlock addNumeralPersonViewArrBlock;
 
 @property (nonatomic, copy) AddNumeralPersonViewCollBlock addNumeralPersonViewCollBlock;
 
@@ -49,6 +53,8 @@ typedef void(^AddNumeralPersonViewStrBlock)(NSString *str ,NSInteger num);
 @property (nonatomic, strong) UILabel *nameL;
 
 @property (nonatomic, strong) BorderTextField *nameTF;
+
+@property (nonatomic, strong) UIButton *topBtn;
 
 @property (nonatomic, strong) UIButton *editBtn;
 

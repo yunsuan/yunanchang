@@ -731,14 +731,14 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             cell = [[RoomPriceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RoomPriceCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.hidden = YES;
         cell.dataDic = _dataArr[indexPath.row];
         
         cell.roomPriceCellAuditBlock = ^(NSInteger index) {
             
             AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
             nextVC.status = @"3";
-            nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
+            nextVC.requestId = self->_dataArr[indexPath.row][@"log_id"];
             nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
             [self.navigationController pushViewController:nextVC animated:YES];
         };

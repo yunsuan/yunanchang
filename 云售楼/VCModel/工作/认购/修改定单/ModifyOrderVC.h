@@ -20,6 +20,8 @@ typedef void(^ModifyOrderVCBlock)(void);
 
 @property (nonatomic, strong) NSString *from_type;
 
+@property (nonatomic, strong) NSString *projectName;
+
 - (instancetype)initWithSubId:(NSString *)sub_id projectId:(NSString *)project_id info_Id:(NSString *)info_id dataDic:(NSDictionary *)dataDic;
 
 @end

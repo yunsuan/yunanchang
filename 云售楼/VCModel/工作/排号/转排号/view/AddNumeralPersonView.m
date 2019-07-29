@@ -49,6 +49,27 @@
     _index = num;
     _selectArr = [@[] mutableCopy];
     [self setPersonData:_collArr[num]];
+    if (num == 0) {
+        
+        [_nameTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self).offset(47 *SIZE);
+            make.width.mas_equalTo(217 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        _topBtn.hidden = YES;
+    }else{
+        
+        [_nameTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self).offset(80 *SIZE);
+            make.top.equalTo(self).offset(47 *SIZE);
+            make.width.mas_equalTo(182 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        _topBtn.hidden = NO;
+    }
     [_coll scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:num inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
     for (int i = 0; i < _collArr.count; i++) {
         
@@ -79,11 +100,49 @@
     }
 }
 
+- (void)ActionTopBtn:(UIButton *)btn{
+    
+    if (self.addNumeralPersonViewArrBlock) {
+        
+        self.addNumeralPersonViewArrBlock(_index);
+    }
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
+    if (textField == _proportionTF.textField) {
+        
+        if ([textField.text integerValue] > 100) {
+            
+            textField.text = @"100";
+        }
+    }
     if (self.addNumeralPersonViewStrBlock) {
         
         self.addNumeralPersonViewStrBlock(textField.text, _index);
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == _phoneTF.textField) {
+        
+        return [self validateNumber:string];
+    }else if (textField == _phoneTF2.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _phoneTF3.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _mailCodeTF.textField){
+        
+        return [self validateNumber:string];
+    }else if (textField == _proportionTF.textField){
+        
+        return [self validateNumber:string];
+    }else{
+        
+        return YES;
     }
 }
 
@@ -393,6 +452,7 @@
                 _proportionTF.textField.delegate = self;
                 _proportionTF.userInteractionEnabled = YES;
                 _proportionTF.backgroundColor = CLWhiteColor;
+                
                 [self addSubview:_proportionTF];
                 break;
             }
@@ -406,6 +466,12 @@
     [_personBtn addTarget:self action:@selector(ActionPersonAddBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_personBtn setImage:IMAGE_WITH_NAME(@"add_1") forState:UIControlStateNormal];
     [self addSubview:_personBtn];
+    
+    _topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_topBtn addTarget:self action:@selector(ActionTopBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _topBtn.hidden = YES;
+    [_topBtn setImage:IMAGE_WITH_NAME(@"editor_2") forState:UIControlStateNormal];
+    [self addSubview:_topBtn];
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_editBtn addTarget:self action:@selector(ActionEditBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -606,6 +672,14 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
+    [_topBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(278 *SIZE);
+        make.top.equalTo(self).offset(50 *SIZE);
+        make.width.mas_equalTo(25 *SIZE);
+        make.height.mas_equalTo(25 *SIZE);
+    }];
+    
     [_editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(313 *SIZE);
@@ -758,6 +832,22 @@
         make.height.mas_equalTo(33 *SIZE);
         make.bottom.equalTo(self).offset(-20 *SIZE);
     }];
+}
+
+- (BOOL)validateNumber:(NSString*)number {
+    BOOL res = YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    int i = 0;
+    while (i < number.length) {
+        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length == 0) {
+            res = NO;
+            break;
+        }
+        i++;
+    }
+    return res;
 }
 
 @end

@@ -279,6 +279,9 @@ static NSString *const ProjectProgressRefuse_URL = @"saleApp/project/progress/re
 
 #pragma mark -- 排号 --
 
+//作废
+static NSString *const ProjectRowDisabled_URL = @"saleApp/project/disabled";
+
 //转排号
 static NSString *const ProjectRowAddRow_URL = @"saleApp/project/row/addRow";
 

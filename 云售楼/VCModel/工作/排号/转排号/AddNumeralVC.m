@@ -413,6 +413,16 @@
     _addNumeralPersonView.num = _num;
     _addNumeralPersonView.proportion = _proportionArr[_num];
     
+    _addNumeralPersonView.addNumeralPersonViewArrBlock = ^(NSInteger num) {
+        
+        NSDictionary *dic = strongSelf->_personArr[num];
+        [strongSelf->_personArr removeObjectAtIndex:num];
+        [strongSelf->_personArr insertObject:dic atIndex:0];
+        strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
+        strongSelf->_num = 0;
+        strongSelf->_addNumeralPersonView.num = strongSelf->_num;
+    };
+    
     _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
 
         if (strongSelf->_num == num) {

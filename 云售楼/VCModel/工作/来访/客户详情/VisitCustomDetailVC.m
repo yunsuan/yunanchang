@@ -176,6 +176,10 @@
         nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_id"]];
         nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_name"]];;
         nextVC.from_type = @"1";
+        nextVC.addOrderVCBlock = ^{
+            
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     

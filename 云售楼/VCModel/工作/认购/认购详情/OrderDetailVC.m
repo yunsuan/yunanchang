@@ -14,6 +14,8 @@
 #import "SpePerferDetailVC.h"
 #import "InstallMentDetailVC.h"
 
+#import "NumeralDetailInvalidView.h"
+
 #import "NumeralDetailHeader.h"
 #import "BaseHeader.h"
 #import "CallTelegramCustomDetailInfoCell.h"
@@ -96,6 +98,13 @@
             self->_advicer = resposeObject[@"data"][@"advicer"][0][@"name"];
             self->_advicer_id = resposeObject[@"data"][@"advicer"][0][@"advicer_id"];
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
+                
+                self.rightBtn.hidden = YES;
+            }else{
+                
+                self.rightBtn.hidden = NO;
+            }
             self->_dataArr = [NSMutableArray arrayWithArray:
                               @[
                                 @[],
@@ -186,23 +195,67 @@
 
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_sub_id personArr:self->_personArr project_id:self.project_id info_id:@""];
-        nextVC.from_type = @"1";
-        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicer_id];
-        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicer];;
-        [self.navigationController pushViewController:nextVC animated:YES];
+        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
+         
+            AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_sub_id personArr:self->_personArr project_id:self.project_id info_id:@""];
+            nextVC.from_type = @"1";
+            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicer_id];
+            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicer];;
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            [self showContent:@"未收款不能转签约"];
+        }
+        
+    }];
+    
+    UIAlertAction *quit = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+        view.numeralDetailInvalidViewBlock = ^{
+            
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"2",@"id":self->_sub_id}];
+            if ([self isEmpty:view.reasonTV.text]) {
+                
+                [tempDic setObject:view.reasonTV.text forKey:@"disabled_reason"];
+            }
+            [BaseRequest POST:ProjectRowDisabled_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [view removeFromSuperview];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        };
+        [self.view addSubview:view];
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     
-    if ([self.need_check integerValue] == 1) {
+    if ([self.need_check integerValue] == 1 && [self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2) {
         
         [alert addAction:audit];
     }
-    [alert addAction:sign];
+//    if ([self.powerDic[@"contract"] boolValue]) {
+    
+        [alert addAction:sign];
+//    }
     [alert addAction:cancel];
+    
+//    if (self->_dataDic[@""]) {
+//        <#statements#>
+//    }
+    [alert addAction:quit];
+    
     [self.navigationController presentViewController:alert animated:YES completion:^{
 
     }];
@@ -231,6 +284,16 @@
 
         header.orderDic = self->_dataDic;
         header.num = _num;
+        if ([self->_dataDic[@"beneficiary"] count]) {
+            
+            if ([self->_dataDic[@"beneficiary"][_num][@"sex"] integerValue] == 1) {
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nan");
+            }else{
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nv");
+            }
+        }
         
         header.addBtn.hidden = YES;
         
@@ -244,6 +307,7 @@
             
             ModifyOrderVC *nextVC = [[ModifyOrderVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
             nextVC.from_type = @"1";
+            nextVC.projectName = self->_projectName;
             nextVC.modifyOrderVCBlock = ^{
                 
                 [self RequestMethod];
@@ -368,7 +432,7 @@
     self.titleLabel.textColor = CLWhiteColor;
     
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
-    self.rightBtn.hidden = NO;
+    self.rightBtn.hidden = YES;
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_2") forState:UIControlStateNormal];
     

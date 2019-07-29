@@ -13,6 +13,8 @@
 #import "SpePerferDetailVC.h"
 #import "InstallMentDetailVC.h"
 
+#import "NumeralDetailInvalidView.h"
+
 #import "NumeralDetailHeader.h"
 #import "BaseHeader.h"
 #import "CallTelegramCustomDetailInfoCell.h"
@@ -88,6 +90,13 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
+                
+                self.rightBtn.hidden = YES;
+            }else{
+                
+                self.rightBtn.hidden = NO;
+            }
             self->_dataArr = [NSMutableArray arrayWithArray:
                               @[
                                 @[],
@@ -169,8 +178,30 @@
     
         UIAlertAction *numeral = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     
-//            NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
-//            [self.view addSubview:view];
+            NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+            view.numeralDetailInvalidViewBlock = ^{
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"id":self->_sub_id}];
+                if ([self isEmpty:view.reasonTV.text]) {
+                    
+                    [tempDic setObject:view.reasonTV.text forKey:@"disabled_reason"];
+                }
+                [BaseRequest POST:ProjectRowDisabled_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+                    
+                    if ([resposeObject[@"code"] integerValue] == 200) {
+                        
+                        [view removeFromSuperview];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }else{
+                        
+                        [self showContent:resposeObject[@"msg"]];
+                    }
+                } failure:^(NSError * _Nonnull error) {
+                    
+                    [self showContent:@"网络错误"];
+                }];
+            };
+            [self.view addSubview:view];
         }];
     
     UIAlertAction *audit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -189,7 +220,7 @@
     
     
     [alert addAction:numeral];
-    if ([self.need_check integerValue] == 1) {
+    if ([self.need_check integerValue] == 1 && [self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2) {
         
         [alert addAction:audit];
     }
@@ -223,6 +254,17 @@
         header.signDic = self->_dataDic;
         header.num = _num;
         
+        if ([self->_dataDic[@"beneficiary"] count]) {
+            
+            if ([self->_dataDic[@"beneficiary"][_num][@"sex"] integerValue] == 1) {
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nan");
+            }else{
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nv");
+            }
+        }
+        
         header.addBtn.hidden = YES;
         
         header.numeralDetailHeaderAddBlock = ^{
@@ -234,6 +276,7 @@
         header.numeralDetailHeaderEditBlock = ^{
           
             ModifySignVC *nextVC = [[ModifySignVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+            nextVC.projectName = self->_projectName;
             nextVC.modifySignVCBlock = ^{
                 
                 [self RequestMethod];
@@ -358,7 +401,7 @@
     self.titleLabel.textColor = CLWhiteColor;
     
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
-    self.rightBtn.hidden = NO;
+    self.rightBtn.hidden = YES;
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_2") forState:UIControlStateNormal];
     

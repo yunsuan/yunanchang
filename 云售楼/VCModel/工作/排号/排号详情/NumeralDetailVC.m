@@ -17,8 +17,10 @@
 #import "AuditTaskDetailVC.h"
 #import "AuditDetailVC.h"
 #import "BelongDetailVC.h"
+#import "SincerityChangeVC.h"
 
 #import "NumeralDetailInvalidView.h"
+#import "SinglePickView.h"
 
 #import "NumeralDetailHeader.h"
 #import "BaseHeader.h"
@@ -81,6 +83,13 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
+                
+                self.rightBtn.hidden = YES;
+            }else{
+                
+                self.rightBtn.hidden = NO;
+            }
             self->_advicerArr = resposeObject[@"data"][@"advicer"];
             NSString *str = @"";
             for (int i = 0; i < self->_advicerArr.count; i++) {
@@ -120,35 +129,85 @@
     
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
-        nextVC.from_type = @"3";
-        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
-        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
-        [self.navigationController pushViewController:nextVC animated:YES];
+        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
+            
+            AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
+            nextVC.from_type = @"3";
+            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
+            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            [self showContent:@"未收款不能转签约"];
+        }
     }];
     
     UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
-        nextVC.from_type = @"3";
-        nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
-        nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
-        [self.navigationController pushViewController:nextVC animated:YES];
+        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
+            
+            AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
+            nextVC.from_type = @"3";
+            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
+            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
+            nextVC.addOrderVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            [self showContent:@"未收款不能转定单"];
+        }
     }];
     
-    UIAlertAction *numeral = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"id":@"1",@"param":@"排号增加诚意金"},@{@"id":@"2",@"param":@"排号退号"},@{@"id":@"3",@"param":@"排号更名"},@{@"id":@"4",@"param":@"排号增减权益人"}]];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            
+            if ([ID integerValue] == 1) {
+                
+                SincerityChangeVC *nextVC = [[SincerityChangeVC alloc] initWithProject_id:self->_project_id sincerity:self->_dataDic[@"sincerity"]];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if ([ID integerValue] == 2){
+                
+            }else if ([ID integerValue] == 3){
+                
+            }else{
+                
+                
+            }
+        };
         [self.view addSubview:view];
     }];
     
-    UIAlertAction *quit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *quit = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
-        nextVC.status = @"1";
-        nextVC.requestId = self->_row_id;
-        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
-        [self.navigationController pushViewController:nextVC animated:YES];
+        NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+        view.numeralDetailInvalidViewBlock = ^{
+          
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"id":self->_row_id}];
+            if ([self isEmpty:view.reasonTV.text]) {
+                
+                [tempDic setObject:view.reasonTV.text forKey:@"disabled_reason"];
+            }
+            [BaseRequest POST:ProjectRowDisabled_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [view removeFromSuperview];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        };
+        [self.view addSubview:view];
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -156,14 +215,27 @@
         
     }];
     
-    if ([self.need_check integerValue] == 1) {
+    if ([self.need_check integerValue] == 1 && [self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2) {
         
         [alert addAction:audit];
     }
-    [alert addAction:order];
-    [alert addAction:sign];
-    [alert addAction:numeral];
-    [alert addAction:quit];
+
+//    if ([self.powerDic[@"order"] boolValue]) {
+    
+        [alert addAction:order];
+//    }
+//    if ([self.powerDic[@"contract"] boolValue]) {
+    
+        [alert addAction:sign];
+//    }
+//    if ([self.powerDic[@"giveUp"] boolValue]) {
+    
+        [alert addAction:quit];
+//    }
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1) {
+        
+        [alert addAction:change];
+    }
     [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
         
@@ -194,6 +266,17 @@
         header.moneyL.text = [NSString stringWithFormat:@"诚意金：%@元",self->_dataDic[@"sincerity"]];
         header.num = _num;
         
+        if ([self->_dataDic[@"beneficiary"] count]) {
+            
+            if ([self->_dataDic[@"beneficiary"][_num][@"sex"] integerValue] == 1) {
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nan");
+            }else{
+                
+                header.headImg.image = IMAGE_WITH_NAME(@"nv");
+            }
+        }
+        
         header.addBtn.hidden = YES;
         
         
@@ -209,7 +292,7 @@
             ModifyNumeralVC *nextVC = [[ModifyNumeralVC alloc] initWithRowId:self->_row_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
             nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
             nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
-            nextVC.projectName = self->_dataDic[@"progressList"][@"progress_name"];
+            nextVC.projectName = self->_projectName;
             nextVC.modifyNumeralVCBlock = ^{
                 
                 [self RequestMethod];
@@ -327,7 +410,7 @@
     self.titleLabel.textColor = CLWhiteColor;
     
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
-    self.rightBtn.hidden = NO;
+    self.rightBtn.hidden = YES;
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_2") forState:UIControlStateNormal];
     

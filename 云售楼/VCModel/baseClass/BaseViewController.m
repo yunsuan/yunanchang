@@ -109,6 +109,7 @@
                 
                 [UserModel defaultModel].Configdic = resposeObject[@"data"];
                 [UserModelArchiver archive];
+//                return [self ConfigState:configState];
 //                [self ConfigState:configState];
             }
         } failure:^(NSError *error) {

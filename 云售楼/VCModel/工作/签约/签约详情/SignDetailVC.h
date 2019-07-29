@@ -16,7 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *info_id;
 
+@property (nonatomic, strong) NSDictionary *powerDic;
+
 @property (nonatomic, strong) NSString *need_check;
+
+@property (nonatomic, strong) NSString *projectName;
 
 - (instancetype)initWithSubId:(NSString *)sub_id;
 

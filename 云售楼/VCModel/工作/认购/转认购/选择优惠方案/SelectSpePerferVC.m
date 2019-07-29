@@ -14,7 +14,9 @@
 @interface SelectSpePerferVC ()<UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
-    NSMutableArray *_dataArr;;
+    NSArray *_selectArr;
+    
+    NSMutableArray *_dataArr;
 }
 
 @property (nonatomic, strong) GZQFlowLayout *layout;
@@ -24,6 +26,16 @@
 @end
 
 @implementation SelectSpePerferVC
+
+- (instancetype)initWithDataArr:(NSArray *)dataArr
+{
+    self = [super init];
+    if (self) {
+        
+        _selectArr = dataArr;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,6 +62,17 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+            for (int i = 0; i < self->_dataArr.count; i++) {
+                
+                for (int k = 0 ; k < self->_selectArr.count; k++) {
+                    
+                    if ([self->_dataArr[i][@"discount_id"] integerValue] == [self->_selectArr[k][@"discount_id"] integerValue]) {
+                        
+                        [self->_dataArr removeObjectAtIndex:i];
+                    }
+                }
+                
+            }
             [self->_coll reloadData];
         }else{
             

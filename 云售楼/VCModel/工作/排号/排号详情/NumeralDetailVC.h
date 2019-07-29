@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *need_check;
 
+@property (nonatomic, strong) NSDictionary *powerDic;
+
+@property (nonatomic, strong) NSString *projectName;
+
 - (instancetype)initWithRowId:(NSString *)row_id project_id:(NSString *)project_id info_id:(NSString *)info_id;
 
 @end

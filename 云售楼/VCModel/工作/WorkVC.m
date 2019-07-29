@@ -150,9 +150,12 @@
     [_powerArr replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"今日推荐%@,可带看%@",data[@"telCheck"][@"total"],data[@"telCheck"][@"value"]]];
     [_powerArr replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"今日推荐%@,到访%@,累计%@",data[@"recommend"][@"today"],data[@"recommend"][@"value"],data[@"recommend"][@"total"]]];
     [_powerArr replaceObjectAtIndex:3 withObject:[NSString stringWithFormat:@"今日新增%@,回访%@,累计%@",data[@"visit"][@"today"],data[@"visit"][@"review"],data[@"visit"][@"total"]]];
-    [_powerArr replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"row"][@"today"],data[@"row"][@"total"],data[@"row"][@""]]];
-    [_powerArr replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"sub"][@"today"],data[@"sub"][@"totol"],data[@"row"][@"wait"]]];
-    [_powerArr replaceObjectAtIndex:6 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"contract"][@"today"],data[@"contract"][@"totol"],data[@"sub"][@"wait"]]];
+    [_powerArr replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@",data[@"row"][@"today"],data[@"row"][@"total"]]];
+//    [_powerArr replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"row"][@"today"],data[@"row"][@"total"],data[@"row"][@""]]];
+    [_powerArr replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"sub"][@"today"],data[@"sub"][@"total"],data[@"sub"][@"wait"]]];
+//    [_powerArr replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"sub"][@"today"],data[@"sub"][@"totol"],data[@"row"][@"wait"]]];
+    [_powerArr replaceObjectAtIndex:6 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"contract"][@"today"],data[@"contract"][@"total"],data[@"contract"][@"wait"]]];
+//    [_powerArr replaceObjectAtIndex:6 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"contract"][@"today"],data[@"contract"][@"totol"],data[@"sub"][@"wait"]]];
     [_powerArr replaceObjectAtIndex:7 withObject:[NSString stringWithFormat:@"今日新增%@,换票%@",data[@"receive"][@"today"],data[@"receive"][@"wait"]]];
     [_powerArr replaceObjectAtIndex:8 withObject:[NSString stringWithFormat:@"待审核%@",data[@"matter"][@"wait"]]];
     if (data[@"duty"][@"current"]) {
@@ -269,14 +272,17 @@
     }else if (indexPath.row == 4){
         
         NumeralVC *nextVC = [[NumeralVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
+        nextVC.projectName = [UserModel defaultModel].projectinfo[@"project_name"];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 5){
         
         OrderVC *nextVC = [[OrderVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
+        nextVC.projectName = [UserModel defaultModel].projectinfo[@"project_name"];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 6){
         
         SignVC *nextVC = [[SignVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
+        nextVC.projectName = [UserModel defaultModel].projectinfo[@"project_name"];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 7){
         
