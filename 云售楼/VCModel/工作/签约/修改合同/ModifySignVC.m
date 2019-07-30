@@ -464,6 +464,13 @@
         
         [self showContent:@"请选择付款方式"];
         return;
+    }else{
+        
+        if ([_addOrderView.payWayBtn.content.text isEqualToString:@"未定"]) {
+            
+            [self showContent:@"请选择付款方式"];
+            return;
+        }
     }
     
     if ([_addOrderView.payWayBtn.content.text isEqualToString:@"一次性付款"]) {
@@ -997,6 +1004,7 @@
     _addOrderView.dataDic = _ordDic;
     _addOrderView.depositL.hidden = YES;
     _addOrderView.depositTF.hidden = YES;
+    _addOrderView.codeL.text = @"合同编号：";
     [_addOrderView.payWayL mas_remakeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(strongSelf->_addOrderView).offset(9 *SIZE);
