@@ -62,7 +62,17 @@
         }
         case 3:
         {
+            _statusL.text = @"转定单";
+            break;
+        }
+        case 4:
+        {
             _statusL.text = @"转签约";
+            break;
+        }
+        case 5:
+        {
+            _statusL.text = @"退号";
             break;
         }
         default:
@@ -133,7 +143,17 @@
         }
         case 3:
         {
+            _statusL.text = @"转定单";
+            break;
+        }
+        case 4:
+        {
             _statusL.text = @"转签约";
+            break;
+        }
+        case 5:
+        {
+            _statusL.text = @"退号";
             break;
         }
         default:
@@ -203,11 +223,21 @@
         }
         case 3:
         {
+            _statusL.text = @"转定单";
+            break;
+        }
+        case 4:
+        {
             _statusL.text = @"转签约";
             break;
         }
+        case 5:
+        {
+            _statusL.text = @"退号";
+            break;
+        }
         default:
-            _statusL.text = @"定单";
+            _statusL.text = @"签约";
             break;
     }
     switch ([signDic[@"check_state"] integerValue]) {
