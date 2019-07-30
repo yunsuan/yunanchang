@@ -422,6 +422,7 @@
 		0CFDB35B22EEDDDA00F21976 /* NumeralBackNumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB35A22EEDDDA00F21976 /* NumeralBackNumView.m */; };
 		0CFDB35F22EEEA2300F21976 /* NumeralChangeNameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB35E22EEEA2300F21976 /* NumeralChangeNameVC.m */; };
 		0CFDB36522EF067300F21976 /* AddNumeralCodeColl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB36422EF067300F21976 /* AddNumeralCodeColl.m */; };
+		0CFDB36922EFEFC900F21976 /* AddNumeralCodeCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB36822EFEFC900F21976 /* AddNumeralCodeCollCell.m */; };
 		0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */; };
 		0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71DF22A644D60066732B /* VisitCustomHeader.m */; };
 		0CFF71F322A64D6F0066732B /* PieCircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71F222A64D6F0066732B /* PieCircleModel.m */; };
@@ -1117,6 +1118,8 @@
 		0CFDB35E22EEEA2300F21976 /* NumeralChangeNameVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralChangeNameVC.m; sourceTree = "<group>"; };
 		0CFDB36322EF067300F21976 /* AddNumeralCodeColl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralCodeColl.h; sourceTree = "<group>"; };
 		0CFDB36422EF067300F21976 /* AddNumeralCodeColl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralCodeColl.m; sourceTree = "<group>"; };
+		0CFDB36722EFEFC900F21976 /* AddNumeralCodeCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralCodeCollCell.h; sourceTree = "<group>"; };
+		0CFDB36822EFEFC900F21976 /* AddNumeralCodeCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralCodeCollCell.m; sourceTree = "<group>"; };
 		0CFF71DA22A6423E0066732B /* VisitCustomReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomReportVC.h; sourceTree = "<group>"; };
 		0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomReportVC.m; sourceTree = "<group>"; };
 		0CFF71DE22A644D60066732B /* VisitCustomHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomHeader.h; sourceTree = "<group>"; };
@@ -1301,6 +1304,7 @@
 		0C192C9422CAED6E000CA161 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				0CFDB36622EFEFB600F21976 /* cell */,
 				0C4B8EED22CDAED000D505BE /* AddNumeralPersonView.h */,
 				0C4B8EEE22CDAED000D505BE /* AddNumeralPersonView.m */,
 				0C496DE622D444F400789FFA /* AddNemeralHeader.h */,
@@ -3697,6 +3701,15 @@
 			path = "排号更名";
 			sourceTree = "<group>";
 		};
+		0CFDB36622EFEFB600F21976 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0CFDB36722EFEFC900F21976 /* AddNumeralCodeCollCell.h */,
+				0CFDB36822EFEFC900F21976 /* AddNumeralCodeCollCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		0CFF71D922A6422B0066732B /* 来访客户报表 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4257,6 +4270,7 @@
 				0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */,
 				0C365CB422E84AC000A586FC /* ModifyOrderVC.m in Sources */,
 				10BC3A4E228FF80300DAB2D8 /* RotationSettingVC.m in Sources */,
+				0CFDB36922EFEFC900F21976 /* AddNumeralCodeCollCell.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
 				0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */,
 				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,

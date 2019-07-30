@@ -17,11 +17,15 @@
 #import "AddNumeralInfoView.h"
 #import "AddNumeralProcessView.h"
 
+#import "AddNumeralCodeColl.h"
+#import "GZQFlowLayout.h"
+#import "AddNumeralCodeCollCell.h"
+
 #import "SinglePickView.h"
 #import "DateChooseView.h"
 #import "AdressChooseView.h"
 
-@interface ModifyNumeralVC ()<UIScrollViewDelegate>
+@interface ModifyNumeralVC ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     
     NSInteger _num;
@@ -39,6 +43,7 @@
     NSMutableDictionary *_infoDic;
     NSMutableDictionary *_progressDic;
     
+    NSMutableArray *_collArr;
     NSMutableArray *_certArr;
     NSMutableArray *_personArr;
     NSMutableArray *_proportionArr;
@@ -67,6 +72,10 @@
 @property (nonatomic, strong) AddNemeralHeader *processHeader;
 
 @property (nonatomic, strong) AddNumeralProcessView *addNumeralProcessView;
+
+@property (nonatomic, strong) AddNumeralCodeColl *coll;
+
+@property (nonatomic, strong) GZQFlowLayout *layout;
 
 @property (nonatomic, strong) UIButton *nextBtn;
 
@@ -129,6 +138,7 @@
     _roleArr = [@[] mutableCopy];
     _rolePersonArr = [@[] mutableCopy];
     _rolePersonSelectArr = [@[] mutableCopy];
+    _collArr = [@[] mutableCopy];
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
@@ -163,6 +173,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             [self->_typeArr removeAllObjects];
+            [self->_typeAllArr removeAllObjects];
             for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
                 
                 NSArray *arr = resposeObject[@"data"][i][@"list"];
@@ -170,6 +181,7 @@
                     
                     [self->_typeArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",resposeObject[@"data"][i][@"batch_name"],arr[j][@"row_name"]],@"id":arr[j][@"config_id"]}];
                 }
+                self->_typeAllArr = [NSMutableArray arrayWithArray:arr];
             }
             for (int i = 0; i < self->_typeArr.count; i++) {
                 
@@ -285,6 +297,7 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    _coll.hidden = YES;
     BOOL isFull = YES;
     NSInteger percent = 0;
     for (NSString *str in _proportionArr) {
@@ -292,7 +305,6 @@
         if (!str.length) {
             
             isFull = NO;
-            //            [self showContent:@"请填写权益人比例"];
             break;
         }else{
             
@@ -325,10 +337,41 @@
         [self showContent:@"请输入诚意金"];
         return;
     }
+    if (!_addNumeralInfoView.failTimeBtn.content.text.length) {
+        [self showContent:@"请选择失效时间"];
+        return;
+    }
     if (!_addNumeralProcessView.typeBtn.content.text.length) {
         [self showContent:@"请选择审批流程"];
         return;
     }
+    if (!_addNumeralProcessView.auditBtn.content.text.length) {
+        [self showContent:@"请选择流程类型"];
+        return;
+    }
+    NSString *param;
+    if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
+        
+        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+            
+            if ([_rolePersonSelectArr[i] integerValue] == 1) {
+                
+                if (param.length) {
+                    
+                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+                }else{
+                    
+                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+                }
+            }
+        }
+        if (!param.length) {
+            
+            [self showContent:@"请选择审核人员"];
+            return;
+        }
+    }
+    
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id,@"config_id":_infoDic[@"config_id"]}];
     NSMutableArray *tempArr = [@[] mutableCopy];
@@ -375,7 +418,7 @@
     NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];
     [dic setObject:personjson1 forKey:@"advicer_list"];
 //    [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
-    NSString *param;
+//    NSString *param;
     for (int i = 0; i < _rolePersonSelectArr.count; i++) {
         
         if ([_rolePersonSelectArr[i] integerValue] == 1) {
@@ -419,6 +462,36 @@
 }
 
 
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return _collArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    AddNumeralCodeCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AddNumeralCodeCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[AddNumeralCodeCollCell alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+    }
+    
+    cell.titleL.text = [NSString stringWithFormat:@"%@",_collArr[indexPath.item][@"row_code"]];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [_infoDic setObject:[NSString stringWithFormat:@"%@",_collArr[indexPath.item][@"row_code"]] forKey:@"row_code"];
+    _addNumeralInfoView.dataDic = _infoDic;
+    collectionView.hidden = YES;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    _coll.hidden = YES;
+}
+
 - (void)initUI{
     
     self.titleLabel.text = @"修改排号";
@@ -436,6 +509,7 @@
     [_personHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
     _personHeader.addNemeralHeaderAllBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         if ([strongSelf->_selectArr[0] integerValue]){
             
             [strongSelf->_selectArr replaceObjectAtIndex:0 withObject:@0];
@@ -473,6 +547,7 @@
     
     _addNumeralPersonView.addNumeralPersonViewArrBlock = ^(NSInteger num) {
         
+        strongSelf->_coll.hidden = YES;
         NSDictionary *dic = strongSelf->_personArr[num];
         [strongSelf->_personArr removeObjectAtIndex:num];
         [strongSelf->_personArr insertObject:dic atIndex:0];
@@ -483,6 +558,7 @@
     
     _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
         
+        strongSelf->_coll.hidden = YES;
         if (strongSelf->_num == num) {
             
             strongSelf->_num = num - 1;
@@ -494,18 +570,21 @@
     
     _addNumeralPersonView.addNumeralPersonViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
         
+        strongSelf->_coll.hidden = YES;
         [strongSelf->_proportionArr replaceObjectAtIndex:num withObject:str];
         NSLog(@"1111111111%@",strongSelf->_proportionArr);
     };
     
     _addNumeralPersonView.addNumeralPersonViewCollBlock = ^(NSInteger num) {
         
+        strongSelf->_coll.hidden = YES;
         strongSelf->_num = num;
         strongSelf->_addNumeralPersonView.num = num;
         strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[num];
     };
     _addNumeralPersonView.addNumeralPersonViewAddBlock = ^(NSInteger num) {
         
+        strongSelf->_coll.hidden = YES;
         AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
         nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
@@ -525,6 +604,7 @@
     };
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
+        strongSelf->_coll.hidden = YES;
         CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
             
@@ -556,6 +636,7 @@
     _infoHeader.backgroundColor = CLWhiteColor;
     _infoHeader.addNemeralHeaderAllBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         if ([strongSelf->_selectArr[1] integerValue]){
             
             [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@0];
@@ -590,8 +671,60 @@
     _addNumeralInfoView.nameTF.textField.text = self.projectName;
     _addNumeralInfoView.hidden = YES;
     _addNumeralInfoView.dataDic = _infoDic;
+    
+    _addNumeralInfoView.addNumeralInfoViewNumBlock = ^{
+        
+        strongSelf->_coll.hidden = YES;
+        [strongSelf->_collArr removeAllObjects];
+        NSMutableArray *tempArr = [@[] mutableCopy];
+        for (int i = 0; i < [self->_typeAllArr count]; i++) {
+            
+            if ([strongSelf->_infoDic[@"config_id"] integerValue] == [strongSelf->_typeAllArr[i][@"config_id"] integerValue]) {
+                
+                tempArr = strongSelf->_typeAllArr[i][@"num_list"];
+            }
+        }
+        
+        for (int i = 0; i < tempArr.count; i++) {
+            
+            if ([[NSString stringWithFormat:@"%@",tempArr[i][@"row_code"]] containsString:strongSelf->_addNumeralInfoView.numTF.textField.text]) {
+                
+                [strongSelf->_collArr addObject:tempArr[i]];
+            }
+        }
+        
+        [strongSelf->_coll reloadData];
+        if (strongSelf->_collArr.count) {
+            
+            strongSelf->_coll.hidden = NO;
+            if (strongSelf->_collArr.count > 3) {
+                
+                [strongSelf->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(strongSelf->_scrollView).offset(80 *SIZE);
+                    make.bottom.equalTo(strongSelf->_addNumeralInfoView.numTF.mas_top).offset(-5 *SIZE);
+                    make.width.mas_equalTo(258 *SIZE);
+                    make.height.mas_equalTo(132 *SIZE);
+                }];
+            }else{
+                
+                [strongSelf->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(strongSelf->_scrollView).offset(80 *SIZE);
+                    make.bottom.equalTo(strongSelf->_addNumeralInfoView.numTF.mas_top).offset(-5 *SIZE);
+                    make.width.mas_equalTo(258 *SIZE);
+                    make.height.mas_equalTo(strongSelf->_collArr.count * 33 *SIZE);
+                }];
+            }
+        }else{
+            
+            strongSelf->_coll.hidden = YES;
+        }
+    };
+    
     _addNumeralInfoView.addNumeralInfoViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
         
+        strongSelf->_coll.hidden = YES;
         if (num == 0) {
             
             
@@ -606,6 +739,7 @@
     };
     _addNumeralInfoView.addNumeralInfoViewDropBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         if (strongSelf->_typeArr.count) {
             
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height) WithData:strongSelf->_typeArr];
@@ -674,6 +808,7 @@
     
     _addNumeralInfoView.addNumeralInfoViewInfoTimeBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
         [view.pickerView setMaximumDate:[NSDate date]];
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -690,6 +825,7 @@
     
     _addNumeralInfoView.addNumeralInfoViewFailTimeBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSDateComponents *comps = [[NSDateComponents alloc] init];
@@ -714,6 +850,7 @@
     _processHeader.backgroundColor = CLWhiteColor;
     _processHeader.addNemeralHeaderAllBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         if ([strongSelf->_selectArr[2] integerValue]){
             
             [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@0];
@@ -750,6 +887,7 @@
     _addNumeralProcessView.dataDic = _progressDic;
     _addNumeralProcessView.addNumeralProcessViewAuditBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[@{@"param":@"自由流程",@"id":@"1"},@{@"param":@"固定流程",@"id":@"2"}]];
         view.selectedBlock = ^(NSString *MC, NSString *ID) {
             
@@ -761,6 +899,7 @@
     };
     _addNumeralProcessView.addNumeralProcessViewTypeBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         if (strongSelf->_progressArr.count) {
             
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
@@ -842,6 +981,7 @@
     
     _addNumeralProcessView.addNumeralProcessViewRoleBlock = ^{
         
+        strongSelf->_coll.hidden = YES;
         if (strongSelf->_roleArr.count) {
             
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
@@ -892,6 +1032,7 @@
     
     _addNumeralProcessView.addNumeralProcessViewSelectBlock = ^(NSArray * _Nonnull arr) {
         
+        strongSelf->_coll.hidden = YES;
         strongSelf->_rolePersonSelectArr = [NSMutableArray arrayWithArray:arr];
     };
     
@@ -904,6 +1045,22 @@
     [_nextBtn setTitle:@"确认提交" forState:UIControlStateNormal];
     [_nextBtn setBackgroundColor:CLBlueTagColor];
     [self.view addSubview:_nextBtn];
+    
+    
+    _layout = [[GZQFlowLayout alloc] initWithType:1 betweenOfCell:0 *SIZE];
+    _layout.itemSize = CGSizeMake(258 *SIZE, 33 *SIZE);
+    
+    _coll = [[AddNumeralCodeColl alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
+    _coll.backgroundColor = CLWhiteColor;
+    _coll.delegate = self;
+    _coll.dataSource = self;
+    [_coll registerClass:[AddNumeralCodeCollCell class] forCellWithReuseIdentifier:@"AddNumeralCodeCollCell"];
+    _coll.hidden = YES;
+    _coll.layer.cornerRadius = 5 *SIZE;
+    _coll.clipsToBounds = YES;
+    _coll.layer.borderColor = CLLineColor.CGColor;
+    _coll.layer.borderWidth = SIZE;
+    [_scrollView addSubview:_coll];
     
     [self MasonryUI];
 }
@@ -968,6 +1125,14 @@
         make.height.mas_equalTo(0);
         make.right.equalTo(self->_scrollView).offset(0);
         make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
+    }];
+    
+    [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.bottom.equalTo(self->_addNumeralInfoView.numTF.mas_top).offset(-5 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(132 *SIZE);
     }];
 }
 

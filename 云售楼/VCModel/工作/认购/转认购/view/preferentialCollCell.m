@@ -23,7 +23,7 @@
 - (void)setDataDic:(NSDictionary *)dataDic{
     
     _nameL.text = [NSString stringWithFormat:@"折扣名称：%@",dataDic[@"name"]];
-    _wayL.text = [NSString stringWithFormat:@"折扣方式：%@",dataDic[@"pay_way_name"]];
+    _wayL.text = [NSString stringWithFormat:@"折扣方式：%@",dataDic[@"type"]];
     _perferL.text = [NSString stringWithFormat:@"优惠：%@",dataDic[@"num"]];
 }
 

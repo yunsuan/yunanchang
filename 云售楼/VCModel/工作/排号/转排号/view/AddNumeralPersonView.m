@@ -123,6 +123,14 @@
     }
 }
 
+- (void)TextFieldDidChange{
+    
+    if ([_proportionTF.textField.text integerValue] > 100) {
+        
+        _proportionTF.textField.text = @"100";
+    }
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
     if (textField == _phoneTF.textField) {
@@ -452,7 +460,7 @@
                 _proportionTF.textField.delegate = self;
                 _proportionTF.userInteractionEnabled = YES;
                 _proportionTF.backgroundColor = CLWhiteColor;
-                
+                [_proportionTF.textField addTarget:self action:@selector(TextFieldDidChange) forControlEvents:UIControlEventEditingChanged];
                 [self addSubview:_proportionTF];
                 break;
             }

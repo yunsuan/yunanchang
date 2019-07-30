@@ -390,6 +390,32 @@
         [self showContent:@"请选择审批流程"];
         return;
     }
+    if (!_addNumeralProcessView.auditBtn.content.text.length) {
+        [self showContent:@"请选择流程类型"];
+        return;
+    }
+    NSString *param;
+    if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
+        
+        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+            
+            if ([_rolePersonSelectArr[i] integerValue] == 1) {
+                
+                if (param.length) {
+                    
+                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+                }else{
+                    
+                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+                }
+            }
+        }
+        if (!param.length) {
+            
+            [self showContent:@"请选择审核人员"];
+            return;
+        }
+    }
     
     NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:_personArr];
     for (int i = 0; i < tempArr.count; i++) {
@@ -442,7 +468,7 @@
     }
     [dic setObject:_project_id forKey:@"project_id"];
     [dic setObject:_roomDic[@"house_id"] forKey:@"house_id"];
-    [dic setObject:_roomDic[@"total_price"] forKey:@"contract_total_price"];
+    [dic setObject:_ordDic[@"price"] forKey:@"contract_total_price"];
     [dic setObject:_roomDic[@"criterion_unit_price"] forKey:@"contract_unit_price"];
     [dic setObject:_roomDic[@"build_unit_price"] forKey:@"build_unit_price"];
     [dic setObject:_roomDic[@"criterion_unit_price"] forKey:@"inner_unit_price"];
@@ -470,7 +496,7 @@
     for (int i = 0; i < discoutArr.count; i++) {
         
         NSDictionary *dic = discoutArr[i];
-        NSDictionary *tempDic = @{@"name":dic[@"name"],@"type":dic[@"type"],@"num":dic[@"num"],@"describe":dic[@"describe"],@"is_cumulative":dic[@"is_cumulative"],@"sort":[NSString stringWithFormat:@"%d",i]};
+        NSDictionary *tempDic = @{@"name":dic[@"name"],@"type":dic[@"type"],@"num":dic[@"num"],@"describe":@"iOS",@"is_cumulative":dic[@"is_cumulative"],@"sort":[NSString stringWithFormat:@"%d",i]};
         [discoutArr replaceObjectAtIndex:i withObject:tempDic];
     }
     if (_addOrderView.spePreferentialTF.textField.text.length) {
@@ -486,7 +512,7 @@
     
     
     [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
-    NSString *param;
+//    NSString *param;
     for (int i = 0; i < _rolePersonSelectArr.count; i++) {
         
         if ([_rolePersonSelectArr[i] integerValue] == 1) {
@@ -1225,8 +1251,8 @@
                         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
                         view.selectedBlock = ^(NSString *MC, NSString *ID) {
                             
-                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
-                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_bank_name"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_bank_id"];
                             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                         };
                         [strongSelf.view addSubview:view];
