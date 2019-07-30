@@ -1,29 +1,30 @@
 //
-//  SincerityChangeView.m
+//  NumeralBackNumView.m
 //  云售楼
 //
 //  Created by 谷治墙 on 2019/7/29.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "SincerityChangeView.h"
+#import "NumeralBackNumView.h"
 
-@interface SincerityChangeView ()<UITextFieldDelegate>
+@interface NumeralBackNumView ()<UITextFieldDelegate>
 {
     
     NSMutableArray *_dataArr;
 }
+
 @end
 
-@implementation SincerityChangeView
+@implementation NumeralBackNumView
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         
-//        _dataArr = [@[] mutableCopy];
-//        _selectArr = [@[] mutableCopy];
+        //        _dataArr = [@[] mutableCopy];
+        //        _selectArr = [@[] mutableCopy];
         [self initUI];
     }
     return self;
@@ -32,45 +33,43 @@
 - (void)setPersonArr:(NSMutableArray *)personArr{
     
     _dataArr = [NSMutableArray arrayWithArray:personArr];
-
+    
 }
 
 - (void)ActionTypeBtn:(UIButton *)btn{
     
-    if (self.sincerityChangeViewTypeBlock) {
+    if (self.numeralBackNumViewTypeBlock) {
         
-        self.sincerityChangeViewTypeBlock();
+        self.numeralBackNumViewTypeBlock();
     }
 }
 
 - (void)ActionAuditBtn:(UIButton *)btn{
     
-    if (self.sincerityChangeViewAuditBlock) {
+    if (self.numeralBackNumViewAuditBlock) {
         
-        self.sincerityChangeViewAuditBlock();
+        self.numeralBackNumViewAuditBlock();
     }
 }
 
 - (void)ActionRoleBtn:(UIButton *)btn{
     
-    if (self.sincerityChangeViewRoleBlock) {
+    if (self.numeralBackNumViewRoleBlock) {
         
-        self.sincerityChangeViewRoleBlock();
+        self.numeralBackNumViewRoleBlock();
     }
 }
 
 - (void)ActionPersonBtn:(UIButton *)btn{
     
-    if (self.sincerityChangeViewPersonBlock) {
+    if (self.numeralBackNumViewPersonBlock) {
         
-        self.sincerityChangeViewPersonBlock();
+        self.numeralBackNumViewPersonBlock();
     }
 }
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _sinceTF.textField.text = dataDic[@"sincerity"];
-    _originTF.textField.text = dataDic[@"origin"];
     
     _typeBtn.content.text = dataDic[@"progress_name"];
     
@@ -91,7 +90,7 @@
         [_typeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self).offset(80 *SIZE);
-            make.top.equalTo(self->_sinceTF.mas_bottom).offset(9 *SIZE);
+            make.top.equalTo(self).offset(9 *SIZE);
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
         }];
@@ -176,7 +175,7 @@
         [_typeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self).offset(80 *SIZE);
-            make.top.equalTo(self->_sinceTF.mas_bottom).offset(9 *SIZE);
+            make.top.equalTo(self).offset(9 *SIZE);
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
             make.bottom.equalTo(self).offset(-10 *SIZE);
@@ -210,7 +209,7 @@
         [_typeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             
             make.left.equalTo(self).offset(80 *SIZE);
-            make.top.equalTo(self->_sinceTF.mas_bottom).offset(9 *SIZE);
+            make.top.equalTo(self).offset(9 *SIZE);
             make.width.mas_equalTo(258 *SIZE);
             make.height.mas_equalTo(33 *SIZE);
         }];
@@ -244,20 +243,13 @@
     }
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    
-    if (self.sincerityChangeViewStrBlock) {
-        
-        self.sincerityChangeViewStrBlock(textField.text);
-    }
-}
 
 - (void)initUI{
     
     
     self.backgroundColor = CLWhiteColor;
     
-    NSArray *titleArr = @[@"原诚意金：",@"变跟诚意金：",@"审批流程：",@"流程类型：",@"项目角色：",@"审核人员："];
+    NSArray *titleArr = @[@"审批流程：",@"流程类型：",@"项目角色：",@"审核人员："];
     for (int i = 0; i < titleArr.count; i++) {
         
         UILabel *label = [[UILabel alloc] init];
@@ -268,23 +260,23 @@
         
         if (i == 0) {
             
-            _originL = label;
-            [self addSubview:_originL];
-            
-            _originTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
-            _originTF.userInteractionEnabled = NO;
-            _originTF.backgroundColor = CLBackColor;
-            [self addSubview:_originTF];
-        }else if(i == 1){
-            
-            _sinceL = label;
-            [self addSubview:_sinceL];
-            
-            _sinceTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
-            _sinceTF.textField.keyboardType = UIKeyboardTypeNumberPad;
-            _sinceTF.textField.delegate = self;
-            [self addSubview:_sinceTF];
-        }else if(i == 2){
+//            _originL = label;
+//            [self addSubview:_originL];
+//
+//            _originTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+//            _originTF.userInteractionEnabled = NO;
+//            _originTF.backgroundColor = CLBackColor;
+//            [self addSubview:_originTF];
+//        }else if(i == 1){
+//
+//            _sinceL = label;
+//            [self addSubview:_sinceL];
+//
+//            _sinceTF = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+//            _sinceTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+//            _sinceTF.textField.delegate = self;
+//            [self addSubview:_sinceTF];
+//        }else if(i == 2){
             
             _typeL = label;
             [self addSubview:_typeL];
@@ -292,7 +284,7 @@
             _typeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
             [_typeBtn addTarget:self action:@selector(ActionTypeBtn:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:_typeBtn];
-        }else if(i == 3){
+        }else if(i == 1){
             
             _auditL = label;
             _auditL.hidden = YES;
@@ -302,7 +294,7 @@
             [_auditBtn addTarget:self action:@selector(ActionAuditBtn:) forControlEvents:UIControlEventTouchUpInside];
             _auditBtn.hidden = YES;
             [self addSubview:_auditBtn];
-        }else if(i == 4){
+        }else if(i == 2){
             
             _roleL = label;
             _roleL.hidden = YES;
@@ -312,7 +304,7 @@
             [_roleBtn addTarget:self action:@selector(ActionRoleBtn:) forControlEvents:UIControlEventTouchUpInside];
             _roleBtn.hidden = YES;
             [self addSubview:_roleBtn];
-        }else if(i == 5){
+        }else if(i == 3){
             
             _personL = label;
             _personL.hidden = YES;
@@ -324,48 +316,19 @@
             [self addSubview:_personBtn];
         }
     }
+
     
-    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(9 *SIZE);
         make.top.equalTo(self).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_originTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self).offset(80 *SIZE);
-        make.top.equalTo(self).offset(9 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
-        make.height.mas_equalTo(33 *SIZE);
-    }];
-    
-    [_sinceL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self).offset(9 *SIZE);
-        make.top.equalTo(self->_originTF.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
-    [_sinceTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self).offset(80 *SIZE);
-        make.top.equalTo(self->_originTF.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
-        make.height.mas_equalTo(33 *SIZE);
-    }];
-    
-    [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self).offset(9 *SIZE);
-        make.top.equalTo(self->_sinceTF.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
     [_typeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(80 *SIZE);
-        make.top.equalTo(self->_sinceTF.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
         make.bottom.equalTo(self).offset(-10 *SIZE);
@@ -416,5 +379,4 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
 }
-
 @end

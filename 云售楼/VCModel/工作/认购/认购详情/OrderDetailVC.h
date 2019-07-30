@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^OrderDetailVCBlock)(void);
+
 @interface OrderDetailVC : BaseViewController
+
+@property (nonatomic, copy) OrderDetailVCBlock orderDetailVCBlock;
 
 @property (nonatomic, strong) NSString *project_id;
 

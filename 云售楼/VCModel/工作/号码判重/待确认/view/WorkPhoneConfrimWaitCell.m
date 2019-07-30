@@ -41,9 +41,16 @@
     _nameL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
     _codeL.text = [NSString stringWithFormat:@"推荐编号：%@",dataDic[@"client_id"]];
     _projectL.text = [NSString stringWithFormat:@"推荐项目：%@",dataDic[@"project_name"]];
-    _timeL.text = [NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]];
+    
 //    _addressL.text = [NSString stringWithFormat:@"项目地址：%@",dataDic[@"absolute_address"]];
     _phoneL.text = [NSString stringWithFormat:@"%@",dataDic[@"tel"]];
+    if ([dataDic[@"recommend_check"] integerValue] == 0) {
+        
+        _timeL.text = [NSString stringWithFormat:@"失效时间：%@",@"已到访为准"];
+    }else{
+        
+        _timeL.text = [NSString stringWithFormat:@"失效时间：%@",dataDic[@"timsLimit"]];
+    }
 }
 
 - (void)setUseDic:(NSMutableDictionary *)useDic{

@@ -17,6 +17,9 @@
 #import "AddNumeralInfoView.h"
 #import "AddNumeralProcessView.h"
 
+#import "AddNumeralCodeColl.h"
+#import "GZQFlowLayout.h"
+
 #import "SinglePickView.h"
 #import "DateChooseView.h"
 #import "AdressChooseView.h"
@@ -36,11 +39,13 @@
     NSMutableDictionary *_infoDic;
     NSMutableDictionary *_progressDic;
     
+    NSMutableArray *_collArr;
     NSMutableArray *_certArr;
     NSMutableArray *_personArr;
     NSMutableArray *_proportionArr;
     NSMutableArray *_selectArr;
     NSMutableArray *_typeArr;
+    NSMutableArray *_typeAllArr;
     NSMutableArray *_progressArr;
     NSMutableArray *_progressAllArr;
     NSMutableArray *_roleArr;
@@ -63,6 +68,10 @@
 @property (nonatomic, strong) AddNemeralHeader *processHeader;
 
 @property (nonatomic, strong) AddNumeralProcessView *addNumeralProcessView;
+
+@property (nonatomic, strong) AddNumeralCodeColl *coll;
+
+@property (nonatomic, strong) GZQFlowLayout *layout;
 
 @property (nonatomic, strong) UIButton *nextBtn;
 
@@ -105,6 +114,7 @@
     _certArr = [@[] mutableCopy];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0]];
     _typeArr = [@[] mutableCopy];
+    _typeAllArr = [@[] mutableCopy];
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];
     _roleArr = [@[] mutableCopy];
@@ -143,6 +153,8 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
 
             [self->_typeArr removeAllObjects];
+            [self->_typeAllArr removeAllObjects];
+            self->_typeAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
             for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
                 
                 NSArray *arr = resposeObject[@"data"][i][@"list"];
@@ -532,6 +544,21 @@
     _addNumeralInfoView.nameTF.textField.text = self.projectName;
     _addNumeralInfoView.hidden = YES;
     _addNumeralInfoView.dataDic = _infoDic;
+    
+    _addNumeralInfoView.addNumeralInfoViewNumBlock = ^{
+      
+        for (int i = 0; i < [self->_typeAllArr count]; i++) {
+            
+            for (int j = 0; j < [self->_typeAllArr[i][@"list"] count]; j++) {
+                
+                if ([strongSelf->_infoDic[@"config_id"] integerValue] == [strongSelf->_typeAllArr[i][@"list"][j][@"config_id"] integerValue]) {
+                    
+                    
+                }
+            }
+        }
+    };
+    
     _addNumeralInfoView.addNumeralInfoViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
         
         if (num == 0) {
@@ -555,6 +582,16 @@
                 
                 [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"config_id"];
                 [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"config_name"];
+                for (int i = 0; i < [self->_typeAllArr count]; i++) {
+                    
+                    for (int j = 0; j < [self->_typeAllArr[i][@"list"] count]; j++) {
+                        
+                        if ([ID integerValue] == [strongSelf->_typeAllArr[i][@"list"][j][@"config_id"] integerValue]) {
+                            
+                            [strongSelf->_infoDic setObject:strongSelf->_typeAllArr[i][@"list"][j][@"money"] forKey:@"sincerity"];
+                        }
+                    }
+                }
                 strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
             };
             [strongSelf.view addSubview:view];
@@ -565,6 +602,8 @@
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
                     [strongSelf->_typeArr removeAllObjects];
+                    [strongSelf->_typeAllArr removeAllObjects];
+                    self->_typeAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
                     for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
                         
                         NSArray *arr = resposeObject[@"data"][i][@"list"];
@@ -576,6 +615,18 @@
                     SinglePickView *view = [[SinglePickView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height) WithData:strongSelf->_typeArr];
                     view.selectedBlock = ^(NSString *MC, NSString *ID) {
                         
+                        [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"config_id"];
+                        [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"config_name"];
+                        for (int i = 0; i < [self->_typeAllArr count]; i++) {
+                            
+                            for (int j = 0; j < [self->_typeAllArr[i][@"list"] count]; j++) {
+                                
+                                if ([ID integerValue] == [strongSelf->_typeAllArr[i][@"list"][j][@"config_id"] integerValue]) {
+                                    
+                                    [strongSelf->_infoDic setObject:strongSelf->_typeAllArr[i][@"list"][j][@"money"] forKey:@"sincerity"];
+                                }
+                            }
+                        }
                         strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
                     };
                     [strongSelf.view addSubview:view];

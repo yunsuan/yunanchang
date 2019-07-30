@@ -21,6 +21,8 @@ typedef void(^AddNumeralInfoViewInfoTimeBlock)(void);
 
 typedef void(^AddNumeralInfoViewFailTimeBlock)(void);
 
+typedef void(^AddNumeralInfoViewNumBlock)(void);
+
 @interface AddNumeralInfoView : UIView
 
 @property (nonatomic, copy) AddNumeralInfoViewDropBlock addNumeralInfoViewDropBlock;
@@ -30,6 +32,8 @@ typedef void(^AddNumeralInfoViewFailTimeBlock)(void);
 @property (nonatomic, copy) AddNumeralInfoViewInfoTimeBlock addNumeralInfoViewInfoTimeBlock;
 
 @property (nonatomic, copy) AddNumeralInfoViewFailTimeBlock addNumeralInfoViewFailTimeBlock;
+
+@property (nonatomic, copy) AddNumeralInfoViewNumBlock addNumeralInfoViewNumBlock;
 
 @property (nonatomic, strong) UILabel *nameL;
 

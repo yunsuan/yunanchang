@@ -210,6 +210,14 @@
         nextVC.status = @"3";
         nextVC.requestId = self->_sub_id;
         nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
+        nextVC.auditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+            if (self.signDetailVCBlock) {
+                
+                self.signDetailVCBlock();
+            }
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     

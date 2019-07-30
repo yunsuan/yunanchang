@@ -66,7 +66,7 @@
             break;
         }
         default:
-            _statusL.text = @"排号";
+            _statusL.text = @"有效";
             break;
     }
     switch ([dataDic[@"check_state"] integerValue]) {

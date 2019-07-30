@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AuditTaskDetailVCBlock)(void);
+
 @interface AuditTaskDetailVC : BaseViewController
+
+@property (nonatomic, copy) AuditTaskDetailVCBlock auditTaskDetailVCBlock;
 
 @property (nonatomic, strong) NSString *status;
 

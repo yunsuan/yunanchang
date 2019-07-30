@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *needConfirm;
 
+@property (nonatomic, strong) NSString *recommend_check;
+
 - (instancetype)initWithString:(NSString *)clientId;
 @end
 

@@ -19,6 +19,10 @@ typedef void(^SincerityChangeViewAuditBlock)(void);
 
 typedef void(^SincerityChangeViewRoleBlock)(void);
 
+typedef void(^SincerityChangeViewPersonBlock)(void);
+
+typedef void(^SincerityChangeViewStrBlock)(NSString *str);
+
 @interface SincerityChangeView : UIView
 
 @property (nonatomic, copy) SincerityChangeViewTypeBlock sincerityChangeViewTypeBlock;
@@ -26,6 +30,10 @@ typedef void(^SincerityChangeViewRoleBlock)(void);
 @property (nonatomic, copy) SincerityChangeViewAuditBlock sincerityChangeViewAuditBlock;
 
 @property (nonatomic, copy) SincerityChangeViewRoleBlock sincerityChangeViewRoleBlock;
+
+@property (nonatomic, copy) SincerityChangeViewPersonBlock sincerityChangeViewPersonBlock;
+
+@property (nonatomic, copy) SincerityChangeViewStrBlock sincerityChangeViewStrBlock;
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 

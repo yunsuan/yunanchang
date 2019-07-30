@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SignDetailVCBlock)(void);
+
 @interface SignDetailVC : BaseViewController
+
+@property (nonatomic, copy) SignDetailVCBlock signDetailVCBlock;
 
 @property (nonatomic, strong) NSString *project_id;
 

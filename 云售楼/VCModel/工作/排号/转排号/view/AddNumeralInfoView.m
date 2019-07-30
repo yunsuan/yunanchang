@@ -76,6 +76,17 @@
     }
 }
 
+- (void)textFieldDidChange{
+    
+    if (_numTF.textField.text.length > 1) {
+        
+        if (self.addNumeralInfoViewNumBlock) {
+            
+            self.addNumeralInfoViewNumBlock();
+        }
+    }
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
     if (textField == _numTF.textField) {
@@ -132,6 +143,7 @@
                 
                 _numTF = tf;
                 _numTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+                [_numTF.textField addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventValueChanged];
                 [self addSubview:_numTF];
             }else if (i == 3){
                 

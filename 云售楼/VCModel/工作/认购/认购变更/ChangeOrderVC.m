@@ -357,7 +357,7 @@
         [tempArr replaceObjectAtIndex:i withObject:dic];
     }
     
-    NSArray *advicer_list = @[@{@"advicer":@"1",@"name":@"xiaohua",@"type":@"1",@"property":@"50",@"comment":@"bujj"}];
+    NSArray *advicer_list = @[@{@"advicer":@"1",@"name":@"xiaohua",@"type":@"1",@"property":@"100",@"comment":@"bujj"}];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     

@@ -667,6 +667,10 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             nextVC.status = @"1";
             nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
             nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.auditTaskDetailVCBlock = ^{
+              
+                [self RequestMethod];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
@@ -689,6 +693,10 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             nextVC.status = @"2";
             nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
             nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.auditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
@@ -711,6 +719,10 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             nextVC.status = @"3";
             nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
             nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.auditTaskDetailVCBlock = ^{
+              
+                [self RequestMethod];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
@@ -740,6 +752,10 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
             nextVC.status = @"3";
             nextVC.requestId = self->_dataArr[indexPath.row][@"log_id"];
             nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.auditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
@@ -862,6 +878,10 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.status = @"1";
         nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
         nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.auditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
         
                #pragma mark -- 11 定单审核 --
@@ -871,6 +891,10 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.status = @"2";
         nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
         nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.auditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
         
                 #pragma mark -- 12 签约审核 --
@@ -880,6 +904,10 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         nextVC.status = @"3";
         nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
         nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.auditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
         
              #pragma mark -- 13 房源预留 --

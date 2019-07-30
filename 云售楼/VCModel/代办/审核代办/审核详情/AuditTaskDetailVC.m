@@ -102,27 +102,29 @@
             }];
             
             if ([resposeObject[@"data"][@"list"][0][@"check_type"] integerValue] == 1) {
-                
+
                 self->_nextL.hidden = NO;
                 self->_nextBtn.hidden = NO;
-                
+                self->_unFinalBtn.hidden = NO;
+                self->_finalBtn.hidden = NO;
+
                 [self->_auditView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    
+
                     make.left.equalTo(self->_scroll).offset(10 *SIZE);
                     make.top.equalTo(self->_unFinalBtn.mas_bottom).offset(10 *SIZE);
                     make.width.mas_equalTo(340 *SIZE);
                     make.height.mas_equalTo(70 *SIZE);
                 }];
-                
+
                 [self->_nextL mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    
+
                     make.left.equalTo(self->_scroll).offset(10 *SIZE);
                     make.top.equalTo(self->_auditView.mas_bottom).offset(17 *SIZE);
                     make.width.mas_equalTo(60 *SIZE);
                 }];
-                
+
                 [self->_nextBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    
+
                     make.left.equalTo(self->_scroll).offset(80 *SIZE);
                     make.top.equalTo(self->_auditView.mas_bottom).offset(13 *SIZE);
                     make.width.mas_equalTo(258 *SIZE);
@@ -226,6 +228,10 @@
             [self showContent:@"审核成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
+                if (self.auditTaskDetailVCBlock) {
+                    
+                    self.auditTaskDetailVCBlock();
+                }
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }else{
@@ -407,6 +413,7 @@
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
         btn.tag = i;
+        btn.hidden = YES;
         [btn addTarget:self action:@selector(ActionTagBtn:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitle:btnArr[i] forState:UIControlStateNormal];
         [btn setTitleColor:CLContentLabColor forState:UIControlStateNormal];
@@ -525,7 +532,7 @@
     [_auditView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_scroll).offset(10 *SIZE);
-        make.top.equalTo(self->_unFinalBtn.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_coll.mas_bottom).offset(22 *SIZE);
         make.width.mas_equalTo(340 *SIZE);
         make.height.mas_equalTo(70 *SIZE);
         make.bottom.equalTo(self->_scroll.mas_bottom).offset(-10 *SIZE);

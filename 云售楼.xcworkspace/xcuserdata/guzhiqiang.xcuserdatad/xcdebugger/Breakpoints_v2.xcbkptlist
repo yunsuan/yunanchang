@@ -45,5 +45,69 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x6392;&#x53f7;&#x9000;&#x53f7;/NumeralBackNumVC.m"
+            timestampString = "586080841.5875061"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "-ActionNextBtn:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x6392;&#x53f7;&#x9000;&#x53f7;/NumeralBackNumVC.m"
+            timestampString = "586080898.178867"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "-ActionNextBtn:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[NumeralBackNumVC ActionNextBtn:]"
+                  moduleName = "&#x4e91;&#x552e;&#x697c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E6%8E%92%E5%8F%B7%E9%80%80%E5%8F%B7/NumeralBackNumVC.m"
+                  timestampString = "586145203.783625"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "199"
+                  endingLineNumber = "199"
+                  offsetFromSymbolStart = "3196">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[NumeralBackNumVC ActionNextBtn:]_block_invoke"
+                  moduleName = "&#x4e91;&#x552e;&#x697c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E6%8E%92%E5%8F%B7%E9%80%80%E5%8F%B7/NumeralBackNumVC.m"
+                  timestampString = "586145203.785501"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

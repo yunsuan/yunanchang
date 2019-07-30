@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^NumeralDetailVCBlock)(void);
+
 @interface NumeralDetailVC : BaseViewController
+
+@property (nonatomic, copy) NumeralDetailVCBlock numeralDetailVCBlock;
 
 @property (nonatomic, strong) NSString *need_check;
 

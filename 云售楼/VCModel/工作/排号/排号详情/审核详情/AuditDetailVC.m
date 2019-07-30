@@ -69,7 +69,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_log_id = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"list"][0][@"log_id"]];
-            self->_processTypeL.text = [NSString stringWithFormat:@"流程类型：%@",[resposeObject[@"data"][@"list"][0][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"];
+            self->_processTypeL.text = [NSString stringWithFormat:@"流程类型：%@",[resposeObject[@"data"][@"list"][0][@"check_type"] integerValue] == 1 ? @"自由流程": [resposeObject[@"data"][@"list"][0][@"check_type"] integerValue] == 2 ? @"固定流程":@"混合流程"];
             self->_processNameL.text = [NSString stringWithFormat:@"流程名称：%@",resposeObject[@"data"][@"progress_name"]];
             self->_applicantL.text = [NSString stringWithFormat:@"申请人：%@",resposeObject[@"data"][@"agent_name"]];
             self->_applicantTimeL.text = [NSString stringWithFormat:@"申请时间：%@",resposeObject[@"data"][@"create_time"]];

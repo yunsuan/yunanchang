@@ -67,20 +67,23 @@
     _table.mj_footer.state = MJRefreshStateIdle;
     [BaseRequest GET:ProjectHouseGetProjectContractList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
-        [self->_table.mj_header endRefreshing];
+//        [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             [self->_dataArr removeAllObjects];
             [self->_table reloadData];
             if ([resposeObject[@"data"][@"data"] count]) {
                 
+                [self->_table.mj_footer endRefreshing];
                 [self SetData:resposeObject[@"data"][@"data"]];
             }else{
+                
                 
                 self->_table.mj_footer.state = MJRefreshStateNoMoreData;
             }
         }else{
             
+            [self->_table.mj_footer endRefreshing];
             [self showContent:resposeObject[@"msg"]];
         }
     } failure:^(NSError * _Nonnull error) {
@@ -102,7 +105,7 @@
     //    _table.mj_footer.state = MJRefreshStateIdle;
     [BaseRequest GET:ProjectHouseGetProjectContractList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
-        [self->_table.mj_footer endRefreshing];
+//        [self->_table.mj_footer endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             if ([resposeObject[@"data"][@"data"] count]) {
@@ -114,6 +117,7 @@
             }
         }else{
             
+            [self->_table.mj_footer endRefreshing];
             self->_page -= 1;
             [self showContent:resposeObject[@"msg"]];
         }
@@ -178,6 +182,10 @@
     nextVC.info_id = _info_id;
     nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
     nextVC.projectName = self.projectName;
+    nextVC.signDetailVCBlock = ^{
+        
+        [self RequestMethod];
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

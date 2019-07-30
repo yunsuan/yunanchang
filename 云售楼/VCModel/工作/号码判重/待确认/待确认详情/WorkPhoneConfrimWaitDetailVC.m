@@ -11,6 +11,7 @@
 #import "TitleRightBtnHeader.h"
 #import "CountDownCell.h"
 #import "ContentBaseCell.h"
+#import "RecommendCheckCell.h"
 
 @interface WorkPhoneConfrimWaitDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -81,6 +82,8 @@
 - (void)SetData:(NSDictionary *)data{
     
     _dataDic = data;
+    self.recommend_check = self->_dataDic[@"recommend_check"];
+    
     _titleArr = @[[NSString stringWithFormat:@"失效倒计时：%@",data[@"timeLimit"]],[NSString stringWithFormat:@"推荐编号：%@",data[@"client_id"]],[NSString stringWithFormat:@"推荐时间：%@",data[@"create_time"]],[NSString stringWithFormat:@"推荐类别：%@",data[@"recommend_type"]],[NSString stringWithFormat:@"推荐人：%@",data[@"broker_name"]],[NSString stringWithFormat:@"联系方式：%@",data[@"broker_tel"]],[NSString stringWithFormat:@"项目名称：%@",data[@"project_name"]],[NSString stringWithFormat:@"项目地址：%@",data[@"absolute_address"]],[NSString stringWithFormat:@"客户姓名：%@",data[@"name"]],[NSString stringWithFormat:@"客户性别：%@",[data[@"sex"] integerValue] == 1 ? @"男":@"女"],[NSString stringWithFormat:@"联系方式：%@",data[@"tel"]],[NSString stringWithFormat:@"备注：%@",data[@"client_comment"]]];
     if (![data[@"is_deal"] integerValue]) {
         
@@ -219,25 +222,38 @@
     
     if (indexPath.row == 0) {
         
-        static NSString *CellIdentifier = @"CountDownCell";
-        CountDownCell *cell  = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[CountDownCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        cell.titleL.text = @"房源真实性判断失效倒计时：";
-        cell.frame = CGRectMake(0, 0, 360*SIZE, 75*SIZE);
-        cell.countDownCellBlock = ^{
-        
-            //            [self refresh];
-        };
-        cell.titleL.textColor = CLTitleLabColor;
-        if (_titleArr.count) {
+        if ([self.recommend_check integerValue] == 0) {
             
-
-            [cell setcountdownbyendtime:[_titleArr[0] substringWithRange:NSMakeRange(6, [_titleArr[0] length] - 6)]];
+            RecommendCheckCell *cell  = [tableView dequeueReusableCellWithIdentifier:@"RecommendCheckCell"];
+            if (!cell) {
+                cell = [[RecommendCheckCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RecommendCheckCell"];
+            }
+            
+            cell.frame = CGRectMake(0, 0, 360*SIZE, 75*SIZE);
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }else{
+            
+            static NSString *CellIdentifier = @"CountDownCell";
+            CountDownCell *cell  = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (!cell) {
+                cell = [[CountDownCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
+            cell.titleL.text = @"房源真实性判断失效倒计时：";
+            cell.frame = CGRectMake(0, 0, 360*SIZE, 75*SIZE);
+            cell.countDownCellBlock = ^{
+                
+                //            [self refresh];
+            };
+            cell.titleL.textColor = CLTitleLabColor;
+            if (_titleArr.count) {
+                
+                
+                [cell setcountdownbyendtime:[_titleArr[0] substringWithRange:NSMakeRange(6, [_titleArr[0] length] - 6)]];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
     }else{
         
         ContentBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContentBaseCell"];

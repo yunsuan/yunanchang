@@ -10,9 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SincerityChangeVCBlock)(void);
+
 @interface SincerityChangeVC : BaseViewController
 
-- (instancetype)initWithProject_id:(NSString *)project_id sincerity:(NSString *)sincerity;
+@property (nonatomic, copy) SincerityChangeVCBlock sincerityChangeVCBlock;
+
+- (instancetype)initWithProject_id:(NSString *)project_id sincerity:(NSString *)sincerity dataDic:(NSDictionary *)dataDic;
 
 @end
 

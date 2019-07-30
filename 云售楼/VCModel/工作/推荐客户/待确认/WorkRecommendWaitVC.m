@@ -354,6 +354,7 @@
 
         nextVC.needConfirm = @"1";
     }
+    nextVC.recommend_check = _dataArr[indexPath.row][@"recommend_check"];
 
     [self.navigationController pushViewController:nextVC animated:YES];
 }

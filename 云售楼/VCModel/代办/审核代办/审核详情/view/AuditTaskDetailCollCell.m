@@ -31,12 +31,11 @@
         _resultL.text = @"审核结果：不通过";
     }else if ([dataDic[@"state"] integerValue] == 1){
         
-        _resultL.text = @"审核结果：审核中";
+        _resultL.text = @"审核结果：审核通过";
     }else{
         
         _resultL.text = @"审核结果：待审核";
     }
-    
 }
 
 - (void)initUI{

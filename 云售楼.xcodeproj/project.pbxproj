@@ -417,6 +417,11 @@
 		0CFC16DE22EAE88200AD3D65 /* RoomPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFC16DD22EAE88200AD3D65 /* RoomPriceCell.m */; };
 		0CFDB2FE22EE831C00F21976 /* SincerityChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB2FD22EE831C00F21976 /* SincerityChangeVC.m */; };
 		0CFDB30122EE8F2F00F21976 /* SincerityChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB30022EE8F2F00F21976 /* SincerityChangeView.m */; };
+		0CFDB30A22EEA57300F21976 /* RecommendCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB30922EEA57300F21976 /* RecommendCheckCell.m */; };
+		0CFDB35822EEDDBB00F21976 /* NumeralBackNumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB35722EEDDBB00F21976 /* NumeralBackNumVC.m */; };
+		0CFDB35B22EEDDDA00F21976 /* NumeralBackNumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB35A22EEDDDA00F21976 /* NumeralBackNumView.m */; };
+		0CFDB35F22EEEA2300F21976 /* NumeralChangeNameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB35E22EEEA2300F21976 /* NumeralChangeNameVC.m */; };
+		0CFDB36522EF067300F21976 /* AddNumeralCodeColl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFDB36422EF067300F21976 /* AddNumeralCodeColl.m */; };
 		0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */; };
 		0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71DF22A644D60066732B /* VisitCustomHeader.m */; };
 		0CFF71F322A64D6F0066732B /* PieCircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF71F222A64D6F0066732B /* PieCircleModel.m */; };
@@ -1102,6 +1107,16 @@
 		0CFDB2FD22EE831C00F21976 /* SincerityChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SincerityChangeVC.m; sourceTree = "<group>"; };
 		0CFDB2FF22EE8F2F00F21976 /* SincerityChangeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SincerityChangeView.h; sourceTree = "<group>"; };
 		0CFDB30022EE8F2F00F21976 /* SincerityChangeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SincerityChangeView.m; sourceTree = "<group>"; };
+		0CFDB30822EEA57300F21976 /* RecommendCheckCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendCheckCell.h; sourceTree = "<group>"; };
+		0CFDB30922EEA57300F21976 /* RecommendCheckCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendCheckCell.m; sourceTree = "<group>"; };
+		0CFDB35622EEDDBB00F21976 /* NumeralBackNumVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralBackNumVC.h; sourceTree = "<group>"; };
+		0CFDB35722EEDDBB00F21976 /* NumeralBackNumVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralBackNumVC.m; sourceTree = "<group>"; };
+		0CFDB35922EEDDDA00F21976 /* NumeralBackNumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralBackNumView.h; sourceTree = "<group>"; };
+		0CFDB35A22EEDDDA00F21976 /* NumeralBackNumView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralBackNumView.m; sourceTree = "<group>"; };
+		0CFDB35D22EEEA2300F21976 /* NumeralChangeNameVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralChangeNameVC.h; sourceTree = "<group>"; };
+		0CFDB35E22EEEA2300F21976 /* NumeralChangeNameVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralChangeNameVC.m; sourceTree = "<group>"; };
+		0CFDB36322EF067300F21976 /* AddNumeralCodeColl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralCodeColl.h; sourceTree = "<group>"; };
+		0CFDB36422EF067300F21976 /* AddNumeralCodeColl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralCodeColl.m; sourceTree = "<group>"; };
 		0CFF71DA22A6423E0066732B /* VisitCustomReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomReportVC.h; sourceTree = "<group>"; };
 		0CFF71DB22A6423E0066732B /* VisitCustomReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomReportVC.m; sourceTree = "<group>"; };
 		0CFF71DE22A644D60066732B /* VisitCustomHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomHeader.h; sourceTree = "<group>"; };
@@ -1294,6 +1309,8 @@
 				0C496DEA22D4466500789FFA /* AddNumeralInfoView.m */,
 				0C496DEC22D469E500789FFA /* AddNumeralProcessView.h */,
 				0C496DED22D469E500789FFA /* AddNumeralProcessView.m */,
+				0CFDB36322EF067300F21976 /* AddNumeralCodeColl.h */,
+				0CFDB36422EF067300F21976 /* AddNumeralCodeColl.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1987,6 +2004,8 @@
 		0C4B7F5922C9955200BBC34F /* 排号 */ = {
 			isa = PBXGroup;
 			children = (
+				0CFDB35C22EEEA0900F21976 /* 排号更名 */,
+				0CFDB35522EEDCBF00F21976 /* 排号退号 */,
 				0CFDB2F922EE82ED00F21976 /* 排号变更 */,
 				0C365CAD22E82FD500A586FC /* 修改排号 */,
 				0C192C9022CAEB52000CA161 /* 转排号 */,
@@ -3280,6 +3299,8 @@
 			children = (
 				0CEF8A2F225D863A0057F3FD /* CountDownCell.h */,
 				0CEF8A30225D863A0057F3FD /* CountDownCell.m */,
+				0CFDB30822EEA57300F21976 /* RecommendCheckCell.h */,
+				0CFDB30922EEA57300F21976 /* RecommendCheckCell.m */,
 			);
 			path = "倒计时cell";
 			sourceTree = "<group>";
@@ -3654,6 +3675,26 @@
 				0CFDB30022EE8F2F00F21976 /* SincerityChangeView.m */,
 			);
 			path = "诚意金变更";
+			sourceTree = "<group>";
+		};
+		0CFDB35522EEDCBF00F21976 /* 排号退号 */ = {
+			isa = PBXGroup;
+			children = (
+				0CFDB35622EEDDBB00F21976 /* NumeralBackNumVC.h */,
+				0CFDB35722EEDDBB00F21976 /* NumeralBackNumVC.m */,
+				0CFDB35922EEDDDA00F21976 /* NumeralBackNumView.h */,
+				0CFDB35A22EEDDDA00F21976 /* NumeralBackNumView.m */,
+			);
+			path = "排号退号";
+			sourceTree = "<group>";
+		};
+		0CFDB35C22EEEA0900F21976 /* 排号更名 */ = {
+			isa = PBXGroup;
+			children = (
+				0CFDB35D22EEEA2300F21976 /* NumeralChangeNameVC.h */,
+				0CFDB35E22EEEA2300F21976 /* NumeralChangeNameVC.m */,
+			);
+			path = "排号更名";
 			sourceTree = "<group>";
 		};
 		0CFF71D922A6422B0066732B /* 来访客户报表 */ = {
@@ -4208,8 +4249,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */,
+				0CFDB35B22EEDDDA00F21976 /* NumeralBackNumView.m in Sources */,
 				0C3A917A225C435900F04804 /* MineHeader.m in Sources */,
 				0CD7A033225C6D5700EAE816 /* BDDynamicTree.m in Sources */,
+				0CFDB35822EEDDBB00F21976 /* NumeralBackNumVC.m in Sources */,
 				0CF1A316228E8E04001C77CF /* SignFailVC.m in Sources */,
 				0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */,
 				0C365CB422E84AC000A586FC /* ModifyOrderVC.m in Sources */,
@@ -4266,6 +4309,7 @@
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
 				0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */,
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
+				0CFDB36522EF067300F21976 /* AddNumeralCodeColl.m in Sources */,
 				0CF1A318228E8E04001C77CF /* SignListCell.m in Sources */,
 				10EF17BB2293884900DE5566 /* AddPeopleVC.m in Sources */,
 				1084D10B2296AC53001DB0FD /* PowerModel.m in Sources */,
@@ -4288,6 +4332,7 @@
 				0C496DF222D47BF400789FFA /* AddOrderRoomView.m in Sources */,
 				0C221A72227EED08006B0510 /* WorkPhoneConfirmVC.m in Sources */,
 				0CEF8A40225F0F940057F3FD /* CompanyAuthingVC.m in Sources */,
+				0CFDB30A22EEA57300F21976 /* RecommendCheckCell.m in Sources */,
 				0CEF8A31225D863A0057F3FD /* CountDownCell.m in Sources */,
 				0CEF8AED2264295F0057F3FD /* CallTelegramCell.m in Sources */,
 				0C0CE33122DDCFAB00092293 /* AuditTaskDetailCollCell.m in Sources */,
@@ -4424,6 +4469,7 @@
 				0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */,
 				0C221A7B227EED67006B0510 /* WorkPhoneConfrimWaitVC.m in Sources */,
 				0CD043DE2283BC05002C8BD3 /* GetCaptchaView.m in Sources */,
+				0CFDB35F22EEEA2300F21976 /* NumeralChangeNameVC.m in Sources */,
 				0C310E3D22A5050B00083504 /* VisitCustomCell.m in Sources */,
 				0C3A9119225B20C400F04804 /* ViewController.m in Sources */,
 				0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */,

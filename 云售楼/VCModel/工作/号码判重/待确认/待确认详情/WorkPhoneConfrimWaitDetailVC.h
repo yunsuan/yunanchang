@@ -14,6 +14,8 @@ typedef void(^WorkPhoneConfrimWaitDetailVCBlock)(void);
 
 @interface WorkPhoneConfrimWaitDetailVC : BaseViewController
 
+@property (nonatomic, strong) NSString *recommend_check;
+
 @property (nonatomic, copy) WorkPhoneConfrimWaitDetailVCBlock workPhoneConfrimWaitDetailVCBlock;
 
 - (instancetype)initWithClientId:(NSString *)clientId;
