@@ -292,9 +292,12 @@
         [self showContent:@"请选择审批流程"];
         return;
     }
-    if (!_addNumeralProcessView.auditBtn.content.text.length) {
-        [self showContent:@"请选择流程类型"];
-        return;
+    if ([_progressDic[@"check_type"] integerValue] == 1) {
+        
+        if (!_addNumeralProcessView.auditBtn.content.text.length) {
+            [self showContent:@"请选择流程类型"];
+            return;
+        }
     }
     NSString *param;
     if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
@@ -849,11 +852,11 @@
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
                 
-                if ([MC isEqualToString:@"自由"]) {
+                if ([MC containsString:@"自由"]) {
                     
                     [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
                     [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
-                }else if ([MC isEqualToString:@"固定"]){
+                }else if ([MC containsString:@"固定"]){
                     
                     [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
                     [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
@@ -880,6 +883,15 @@
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
                     }
                 }
+                if ([strongSelf->_progressDic[@"check_type"] integerValue] == 1) {
+                    
+                    [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+                    [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
+                }else if ([strongSelf->_progressDic[@"check_type"] integerValue] == 2) {
+                    
+                    [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+                    [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
+                }
                 strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
             };
             [strongSelf.view addSubview:view];
@@ -900,6 +912,28 @@
                     SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
                     view.selectedBlock = ^(NSString *MC, NSString *ID) {
                         
+                        if ([MC containsString:@"自由"]) {
+                            
+                            [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+                            [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
+                        }else if ([MC containsString:@"固定"]){
+                            
+                            [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+                            [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
+                        }else{
+                            
+                            [strongSelf->_progressDic removeObjectForKey:@"auditMC"];
+                            [strongSelf->_progressDic removeObjectForKey:@"auditID"];
+                        }
+                        if (![MC isEqualToString:strongSelf->_progressDic[@"progress_name"]]) {
+                            
+                            [strongSelf->_rolePersonArr removeAllObjects];
+                            [strongSelf->_rolePersonSelectArr removeAllObjects];
+                            strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
+                            strongSelf->_addNumeralProcessView.personSelectArr = strongSelf->_rolePersonSelectArr;
+                            [strongSelf->_progressDic removeObjectForKey:@"role_name"];
+                            [strongSelf->_progressDic removeObjectForKey:@"role_id"];
+                        }
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
                         for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
@@ -908,6 +942,15 @@
                                 
                                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
                             }
+                        }
+                        if ([strongSelf->_progressDic[@"check_type"] integerValue] == 1) {
+                            
+                            [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+                            [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
+                        }else if ([strongSelf->_progressDic[@"check_type"] integerValue] == 2) {
+                            
+                            [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+                            [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
                         }
                         strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
                     };

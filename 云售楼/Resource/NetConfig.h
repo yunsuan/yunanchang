@@ -78,6 +78,9 @@ static NSString *const WorkCount_URL = @"saleApp/work/count";
 
 #pragma mark -- 来电 --
 
+////来电客户转来访
+//static NSString *const WorkClientAutoGroupUpdate_URL = @"saleApp/work/client/auto/group/update";
+
 //来电来访列表
 static NSString *const WorkClientAutoList_URL = @"saleApp/work/client/auto/list";
 

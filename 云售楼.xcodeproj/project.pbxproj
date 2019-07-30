@@ -373,6 +373,7 @@
 		0CD7A035225C6D5700EAE816 /* AddressChooseView3.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A02D225C6D5700EAE816 /* AddressChooseView3.m */; };
 		0CD7A03E225C6F1100EAE816 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A039225C6F1100EAE816 /* FeedbackVC.m */; };
 		0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD7A03B225C6F1100EAE816 /* ChangePassWordVC.m */; };
+		0CE8F20F22F04F2F0032F8E6 /* OrderTranSignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE8F20E22F04F2F0032F8E6 /* OrderTranSignVC.m */; };
 		0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89DB225C71890057F3FD /* CompanyInfoVC.m */; };
 		0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89DE225C720E0057F3FD /* AddressBookVC.m */; };
 		0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEF89E3225C74540057F3FD /* AddressBookCell.m */; };
@@ -1020,6 +1021,8 @@
 		0CD7A039225C6F1100EAE816 /* FeedbackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackVC.m; sourceTree = "<group>"; };
 		0CD7A03B225C6F1100EAE816 /* ChangePassWordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePassWordVC.m; sourceTree = "<group>"; };
 		0CD7A03C225C6F1100EAE816 /* ChangePassWordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePassWordVC.h; sourceTree = "<group>"; };
+		0CE8F20D22F04F2F0032F8E6 /* OrderTranSignVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderTranSignVC.h; sourceTree = "<group>"; };
+		0CE8F20E22F04F2F0032F8E6 /* OrderTranSignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderTranSignVC.m; sourceTree = "<group>"; };
 		0CEF89DA225C71890057F3FD /* CompanyInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyInfoVC.h; sourceTree = "<group>"; };
 		0CEF89DB225C71890057F3FD /* CompanyInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyInfoVC.m; sourceTree = "<group>"; };
 		0CEF89DD225C720E0057F3FD /* AddressBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookVC.h; sourceTree = "<group>"; };
@@ -2098,6 +2101,7 @@
 		0C4B8EDE22CC470A00D505BE /* 认购详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0CE8F20C22F04F060032F8E6 /* 转合同 */,
 				0C4B8EDF22CC478400D505BE /* OrderDetailVC.h */,
 				0C4B8EE022CC478400D505BE /* OrderDetailVC.m */,
 			);
@@ -3197,6 +3201,15 @@
 				0CEF89DE225C720E0057F3FD /* AddressBookVC.m */,
 			);
 			path = "通讯录";
+			sourceTree = "<group>";
+		};
+		0CE8F20C22F04F060032F8E6 /* 转合同 */ = {
+			isa = PBXGroup;
+			children = (
+				0CE8F20D22F04F2F0032F8E6 /* OrderTranSignVC.h */,
+				0CE8F20E22F04F2F0032F8E6 /* OrderTranSignVC.m */,
+			);
+			path = "转合同";
 			sourceTree = "<group>";
 		};
 		0CEF89E0225C74450057F3FD /* view */ = {
@@ -4303,6 +4316,7 @@
 				0C4B8EEF22CDAED000D505BE /* AddNumeralPersonView.m in Sources */,
 				0CA8264B22AE26D30005F3ED /* AutoVisitReportVC.m in Sources */,
 				0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */,
+				0CE8F20F22F04F2F0032F8E6 /* OrderTranSignVC.m in Sources */,
 				0CFF71F922A655090066732B /* VisitCustomReportCell.m in Sources */,
 				0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */,
 				0C743A9822C1BCE300F5CB6B /* CompanyCommissionReportCell.m in Sources */,

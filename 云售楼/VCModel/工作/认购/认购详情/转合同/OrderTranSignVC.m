@@ -1,12 +1,12 @@
 //
-//  ModifySignVC.m
+//  OrderTranSignVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/25.
+//  Created by 谷治墙 on 2019/7/30.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "ModifySignVC.h"
+#import "OrderTranSignVC.h"
 
 #import "RoomVC.h"
 #import "SelectSpePerferVC.h"
@@ -24,7 +24,7 @@
 #import "SinglePickView.h"
 #import "DateChooseView.h"
 
-@interface ModifySignVC ()<UIScrollViewDelegate>
+@interface OrderTranSignVC ()<UIScrollViewDelegate>
 {
     
     NSInteger _num;
@@ -87,7 +87,7 @@
 
 @end
 
-@implementation ModifySignVC
+@implementation OrderTranSignVC
 
 - (instancetype)initWithSubId:(NSString *)sub_id projectId:(NSString *)project_id info_Id:(NSString *)info_id dataDic:(NSDictionary *)dataDic
 {
@@ -103,7 +103,7 @@
         _info_id = info_id;
         
         _bankArr = [@[] mutableCopy];
-
+        
         _roomDic = [@{} mutableCopy];
         
         
@@ -187,7 +187,7 @@
     [_roomDic setObject:[NSString stringWithFormat:@"%@",_dataDic[@"build_unit_price"]] forKey:@"build_unit_price"];
     [_roomDic setObject:[NSString stringWithFormat:@"%@",_dataDic[@"house_id"]] forKey:@"house_id"];
     
-    [_ordDic setObject:[NSString stringWithFormat:@"%@",_dataDic[@"contract_code"]] forKey:@"sub_code"];
+    [_ordDic setObject:[NSString stringWithFormat:@"%@",_dataDic[@"sub_code"]] forKey:@"sub_code"];
     [_ordDic setObject:[NSString stringWithFormat:@"%@",_dataDic[@"down_pay"]] forKey:@"down_pay"];
     [_ordDic setObject:[NSString stringWithFormat:@"%@",_dataDic[@"pay_way_name"]] forKey:@"payWay_Name"];
     [_ordDic setObject:[NSString stringWithFormat:@"%@",_dataDic[@"pay_way"]] forKey:@"payWay_id"];
@@ -455,7 +455,7 @@
     }
     
 //    if (!_addOrderView.depositTF.textField.text.length) {
-//
+//        
 //        [self showContent:@"请定金金额"];
 //        return;
 //    }
@@ -565,10 +565,40 @@
         
     }
     
-//    if (!_addNumeralProcessView.typeBtn.content.text.length) {
-//        [self showContent:@"请选择审批流程"];
-//        return;
-//    }
+    if (!_addNumeralProcessView.typeBtn.content.text.length) {
+        [self showContent:@"请选择审批流程"];
+        return;
+    }
+    if ([_progressDic[@"check_type"] integerValue] == 1) {
+        
+        if (!_addNumeralProcessView.auditBtn.content.text.length) {
+            [self showContent:@"请选择流程类型"];
+            return;
+        }
+    }
+    
+    NSString *param;
+    if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
+        
+        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+            
+            if ([_rolePersonSelectArr[i] integerValue] == 1) {
+                
+                if (param.length) {
+                    
+                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+                }else{
+                    
+                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+                }
+            }
+        }
+        if (!param.length) {
+            
+            [self showContent:@"请选择审核人员"];
+            return;
+        }
+    }
     
     NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:_personArr];
     for (int i = 0; i < tempArr.count; i++) {
@@ -614,12 +644,12 @@
     }else if ([self.from_type isEqualToString:@"3"]){
         
         [dic setObject:_sub_id forKey:@"from_id"];
-    }else if ([self.from_type isEqualToString:@"1"]){
+    }else if ([self.from_type isEqualToString:@"4"]){
         
-        
+        [dic setObject:_sub_id forKey:@"from_id"];
     }
     
-    [dic setObject:_sub_id forKey:@"contract_id"];
+//    [dic setObject:_sub_id forKey:@"contract_id"];
     
     [dic setObject:_project_id forKey:@"project_id"];
     [dic setObject:_roomDic[@"house_id"] forKey:@"house_id"];
@@ -671,33 +701,33 @@
     }
     
     
-//    [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
+    [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
 //    NSString *param;
-//    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-//
-//        if ([_rolePersonSelectArr[i] integerValue] == 1) {
-//
-//            if (param.length) {
-//
-//                param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-//            }else{
-//
-//                param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-//            }
-//        }
-//    }
-//    if (param.length) {
-//
-//        [dic setObject:param forKey:@"param"];
-//    }
+    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
     
-    [BaseRequest POST:ProjectHouseUpdateProjectContract_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        if ([_rolePersonSelectArr[i] integerValue] == 1) {
+    
+            if (param.length) {
+    
+                param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+            }else{
+    
+                param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+            }
+        }
+    }
+    if (param.length) {
+    
+        [dic setObject:param forKey:@"param"];
+    }
+    
+    [BaseRequest POST:ProjectHouseAddProjectContract_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            if (self.modifySignVCBlock) {
+            if (self.orderTranSignVCBlock) {
                 
-                self.modifySignVCBlock();
+                self.orderTranSignVCBlock();
             }
             [self.navigationController popViewControllerAnimated:YES];
         }else{
@@ -713,7 +743,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"修改合同";
+    self.titleLabel.text = @"转签约";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLBackColor;
@@ -727,14 +757,14 @@
     _personHeader.addBtn.hidden = YES;
     [_personHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
     _personHeader.addNemeralHeaderAllBlock = ^{
-        
+
         if ([strongSelf->_selectArr[0] integerValue]){
-            
+
             [strongSelf->_selectArr replaceObjectAtIndex:0 withObject:@0];
             [strongSelf->_personHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addNumeralPersonView.hidden = YES;
             [strongSelf->_roomHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
+
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_personHeader.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
@@ -742,12 +772,12 @@
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
             }];
         }else{
-            
+
             [strongSelf->_selectArr replaceObjectAtIndex:0 withObject:@1];
             [strongSelf->_personHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addNumeralPersonView.hidden = NO;
             [strongSelf->_roomHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
+
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_addNumeralPersonView.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
@@ -764,7 +794,7 @@
     _addNumeralPersonView.proportion = _proportionArr[_num];
     
     _addNumeralPersonView.addNumeralPersonViewArrBlock = ^(NSInteger num) {
-        
+
         NSDictionary *dic = strongSelf->_personArr[num];
         [strongSelf->_personArr removeObjectAtIndex:num];
         [strongSelf->_personArr insertObject:dic atIndex:0];
@@ -772,59 +802,59 @@
         strongSelf->_num = 0;
         strongSelf->_addNumeralPersonView.num = strongSelf->_num;
     };
-    
+
     _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
-        
+
         if (strongSelf->_num == num) {
-            
+
             strongSelf->_num = num - 1;
             strongSelf->_addNumeralPersonView.num = num - 1;
         }
         [strongSelf->_personArr removeObjectAtIndex:num];
         [strongSelf->_proportionArr removeObjectAtIndex:num];
     };
-    
+
     _addNumeralPersonView.addNumeralPersonViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
-        
+
         [strongSelf->_proportionArr replaceObjectAtIndex:num withObject:str];
         NSLog(@"1111111111%@",strongSelf->_proportionArr);
     };
-    
+
     _addNumeralPersonView.addNumeralPersonViewCollBlock = ^(NSInteger num) {
-        
+
         strongSelf->_num = num;
         strongSelf->_addNumeralPersonView.num = num;
         strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[num];
     };
     _addNumeralPersonView.addNumeralPersonViewAddBlock = ^(NSInteger num) {
-        
+
         AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
         nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
-            
+
             [strongSelf->_proportionArr addObject:@""];
             [strongSelf->_personArr addObject:dic];
             strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
             strongSelf->_num = strongSelf->_personArr.count - 1;
             strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count - 1;
             strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[strongSelf->_personArr.count - 1];
-            if (strongSelf.modifySignVCBlock) {
-                
-                strongSelf.modifySignVCBlock();
+            if (strongSelf.orderTranSignVCBlock) {
+
+                strongSelf.orderTranSignVCBlock();
             }
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
-        
+
         CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
-            
+
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];
             [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                
+
                 if (dic[key]) {
-                    
+
                     [tempDic setObject:dic[key] forKey:key];
                 }
             }];
@@ -832,9 +862,9 @@
             strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
             strongSelf->_addNumeralPersonView.num = num;
             strongSelf->_num = num;
-            if (strongSelf.modifySignVCBlock) {
-                
-                strongSelf.modifySignVCBlock();
+            if (strongSelf.orderTranSignVCBlock) {
+
+                strongSelf.orderTranSignVCBlock();
             }
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
@@ -847,14 +877,14 @@
     [_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _roomHeader.backgroundColor = CLWhiteColor;
     _roomHeader.addNemeralHeaderAllBlock = ^{
-        
+
         if ([strongSelf->_selectArr[1] integerValue]){
-            
+
             [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@0];
             [strongSelf->_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addOrderRoomView.hidden = YES;
             [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
+
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_roomHeader.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
@@ -862,12 +892,12 @@
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
             }];
         }else{
-            
+
             [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@1];
             [strongSelf->_roomHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addOrderRoomView.hidden = NO;
             [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
+
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
                 make.top.equalTo(strongSelf->_addOrderRoomView.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
@@ -877,16 +907,16 @@
         }
     };
     [_scrollView addSubview:_roomHeader];
-    
+//
     _addOrderRoomView = [[AddOrderRoomView alloc] init];
     _addOrderRoomView.hidden = YES;
     _addOrderRoomView.dataDic = _roomDic;
     _addOrderRoomView.addOrderRoomViewEditBlock = ^{
-        
+
         RoomVC *nextVC = [[RoomVC alloc] init];
         nextVC.status = @"select";
         nextVC.roomVCBlock = ^(NSDictionary * dic) {
-            
+
             strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
             
             for (int i = 0; i < [strongSelf->_roomDic[@"propertyDetail"] count]; i++) {
@@ -901,6 +931,7 @@
                 
                 strongSelf->_minPirce = @"0";
             }
+            
             [strongSelf->_roomDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 
                 if ([obj isKindOfClass:[NSNull class]]) {
@@ -922,69 +953,69 @@
     [_orderHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _orderHeader.backgroundColor = CLWhiteColor;
     _orderHeader.addNemeralHeaderAllBlock = ^{
-        
+
         if (strongSelf->_roomDic.count) {
-            
+
             if ([strongSelf->_selectArr[2] integerValue]){
-                
+
                 [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@0];
                 [strongSelf->_orderHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
                 strongSelf->_addOrderView.hidden = YES;
-                
+
                 if (!strongSelf->_addNumeralProcessView.hidden) {
-                    
+
                     [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
+
                         make.left.equalTo(strongSelf->_scrollView).offset(0);
                         make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
                         make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
+                        make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
-                        
+
                     }];
                 }else{
-                    
+
                     [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
+
                         make.left.equalTo(strongSelf->_scrollView).offset(0);
                         make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
                         make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
+                        make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
                         make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                     }];
                 }
             }else{
-                
+
                 [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@1];
                 [strongSelf->_orderHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
                 strongSelf->_addOrderView.hidden = NO;
                 if (!strongSelf->_addNumeralProcessView.hidden) {
-                    
+
                     [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
+
                         make.left.equalTo(strongSelf->_scrollView).offset(0);
                         make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
                         make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
+                        make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
-                        
+
                     }];
                 }else{
-                    
+
                     [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
+
                         make.left.equalTo(strongSelf->_scrollView).offset(0);
                         make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
                         make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
+                        make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
                         make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                     }];
                 }
             }
         }else{
-            
+
             [strongSelf showContent:@"请先选择房源"];
         }
     };
@@ -1011,17 +1042,16 @@
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
-    
     _addOrderView.addOrderViewAddBlock = ^{
-        
+
         if (strongSelf->_roomDic.count) {
-            
+
             if (strongSelf->_roomDic[@"batch_id"]) {
-            
+
                 SelectSpePerferVC *nextVC = [[SelectSpePerferVC alloc] initWithDataArr:strongSelf->_disCountArr];
                 nextVC.dic = strongSelf->_roomDic;
                 nextVC.selectSpePerferVCBlock = ^(NSDictionary * _Nonnull dic) {
-                    
+
                     [strongSelf->_disCountArr addObject:dic];
                     strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
                     float price = [strongSelf->_ordDic[@"total_price"] floatValue];
@@ -1029,50 +1059,50 @@
                     float percent = 0;
                     float preferPrice = 0;
                     for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                        
+
                         NSDictionary *dic = strongSelf->_disCountArr[i];
                         if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
-                            
+
                             unit = unit + [dic[@"num"] doubleValue];
                         }else if ([dic[@"type"] isEqualToString:@"减点"]){
-                            
+
                             if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                
+
                                 percent = percent + [dic[@"num"] doubleValue] / 100.00;
                             }
                         }
                     }
                     if (unit) {
-                        
+
                         price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"build_unit_price"] doubleValue] - unit);
                     }
                     for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                        
+
                         NSDictionary *dic = strongSelf->_disCountArr[i];
                         if ([dic[@"type"] isEqualToString:@"减点"]) {
-                            
+
                             if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                
+
                                 if (percent) {
-                                    
+
                                     price = price * (1 - percent);
                                     percent = 0;
                                 }
                             }else{
-                                
+
                                 price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
                             }
                         }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
-                            
-                            
+
+
                         }else{
-                            
+
                             price = price - [dic[@"num"] doubleValue];
                         }
                     }
                     preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
                     if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
-                        
+
                         preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                         price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                     }
@@ -1080,26 +1110,25 @@
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
-                    
+
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
                     strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                 };
                 [strongSelf.navigationController pushViewController:nextVC animated:YES];
             }else{
-                
+
                 [BaseRequest GET:ProjectHouseGetDetailInfo_URL parameters:@{@"house_id":strongSelf->_roomDic[@"house_id"]} success:^(id  _Nonnull resposeObject) {
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         NSLog(@"%@",resposeObject);
-                        
-                        
+
                         [strongSelf->_roomDic setObject:resposeObject[@"data"][@"batch_id"] forKey:@"batch_id"];
                         [strongSelf->_roomDic setObject:resposeObject[@"data"][@"build_id"] forKey:@"build_id"];
                         [strongSelf->_roomDic setObject:resposeObject[@"data"][@"unit_id"] forKey:@"unit_id"];
                         SelectSpePerferVC *nextVC = [[SelectSpePerferVC alloc] initWithDataArr:strongSelf->_disCountArr];
                         nextVC.dic = strongSelf->_roomDic;
                         nextVC.selectSpePerferVCBlock = ^(NSDictionary * _Nonnull dic) {
-                            
+
                             [strongSelf->_disCountArr addObject:dic];
                             strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
                             float price = [strongSelf->_ordDic[@"total_price"] floatValue];
@@ -1107,50 +1136,50 @@
                             float percent = 0;
                             float preferPrice = 0;
                             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                                
+
                                 NSDictionary *dic = strongSelf->_disCountArr[i];
                                 if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
-                                    
+
                                     unit = unit + [dic[@"num"] doubleValue];
                                 }else if ([dic[@"type"] isEqualToString:@"减点"]){
-                                    
+
                                     if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                        
+
                                         percent = percent + [dic[@"num"] doubleValue] / 100.00;
                                     }
                                 }
                             }
                             if (unit) {
-                                
+
                                 price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"build_unit_price"] doubleValue] - unit);
                             }
                             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                                
+
                                 NSDictionary *dic = strongSelf->_disCountArr[i];
                                 if ([dic[@"type"] isEqualToString:@"减点"]) {
-                                    
+
                                     if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                        
+
                                         if (percent) {
-                                            
+
                                             price = price * (1 - percent);
                                             percent = 0;
                                         }
                                     }else{
-                                        
+
                                         price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
                                     }
                                 }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
-                                    
-                                    
+
+
                                 }else{
-                                    
+
                                     price = price - [dic[@"num"] doubleValue];
                                 }
                             }
                             preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
                             if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
-                                
+
                                 preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                                 price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                             }
@@ -1158,7 +1187,7 @@
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
-                            
+
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
                             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -1166,73 +1195,73 @@
                         [strongSelf.navigationController pushViewController:nextVC animated:YES];
                     }
                 }failure:^(NSError * _Nonnull error) {
-                   
-                    
+
+
                 }];
             }
         }else{
-            
+
             [strongSelf showContent:@"请选择房源"];
         }
     };
-    
+
     _addOrderView.addOrderViewStrBlock = ^(NSString * _Nonnull str, NSInteger index) {
-        
+
         if (index == 0) {
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"sub_code"];
         }else if (index == 1){
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
             float price = [strongSelf->_ordDic[@"total_price"] floatValue];
             float unit = 0;
             float percent = 0;
             float preferPrice = 0;
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                
+
                 NSDictionary *dic = strongSelf->_disCountArr[i];
                 if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
-                    
+
                     unit = unit + [dic[@"num"] doubleValue];
                 }else if ([dic[@"type"] isEqualToString:@"减点"]){
-                    
+
                     if ([dic[@"is_cumulative"] integerValue] == 1) {
-                        
+
                         percent = percent + [dic[@"num"] doubleValue] / 100.00;
                     }
                 }
             }
             if (unit) {
-                
+
                 price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"build_unit_price"] doubleValue] - unit);
             }
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                
+
                 NSDictionary *dic = strongSelf->_disCountArr[i];
                 if ([dic[@"type"] isEqualToString:@"减点"]) {
-                    
+
                     if ([dic[@"is_cumulative"] integerValue] == 1) {
-                        
+
                         if (percent) {
-                            
+
                             price = price * (1 - percent);
                             percent = 0;
                         }
                     }else{
-                        
+
                         price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
                     }
                 }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
-                    
-                    
+
+
                 }else{
-                    
+
                     price = price - [dic[@"num"] doubleValue];
                 }
             }
             preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
             if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
-                
+
                 preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
                 price = [strongSelf->_ordDic[@"total_price"] floatValue] - preferPrice;
             }
@@ -1240,56 +1269,56 @@
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
         }else if (index == 3){
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"spePreferential"];
-            
+
             float price = [strongSelf->_ordDic[@"total_price"] floatValue];
             float unit = 0;
             float percent = 0;
             float preferPrice = 0;
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                
+
                 NSDictionary *dic = strongSelf->_disCountArr[i];
                 if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
-                    
+
                     unit = unit + [dic[@"num"] doubleValue];
                 }else if ([dic[@"type"] isEqualToString:@"减点"]){
-                    
+
                     if ([dic[@"is_cumulative"] integerValue] == 1) {
-                        
+
                         percent = percent + [dic[@"num"] doubleValue] / 100.00;
                     }
                 }
             }
             if (unit) {
-                
+
                 price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"build_unit_price"] doubleValue] - unit);
             }
             for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                
+
                 NSDictionary *dic = strongSelf->_disCountArr[i];
                 if ([dic[@"type"] isEqualToString:@"减点"]) {
-                    
+
                     if ([dic[@"is_cumulative"] integerValue] == 1) {
-                        
+
                         if (percent) {
-                            
+
                             price = price * (1 - percent);
                             percent = 0;
                         }
                     }else{
-                        
+
                         price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
                     }
                 }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
-                    
-                    
+
+
                 }else{
-                    
+
                     price = price - [dic[@"num"] doubleValue];
                 }
             }
-            
+
             preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
             preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
             price = [strongSelf->_ordDic[@"total_price"] floatValue] - preferPrice;
@@ -1297,65 +1326,65 @@
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
         }else if (index == 7){
-            
+
             //            [strongSelf->_ordDic setObject:str forKey:@"down_pay"];
         }else if (index == 9){ //综合贷款-商贷金额
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"bank_loan_money"];
             if ([strongSelf->_ordDic[@"fund_loan_money"] length]) {
-                
+
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"bank_loan_money"] floatValue] - [strongSelf->_ordDic[@"fund_loan_money"] floatValue])] forKey:@"downpayment"];
             }
         }else if (index == 11){ //综合贷款-商贷年限
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"bank_loan_limit"];
         }else if (index == 12){ //综合贷款-公积金金额
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"fund_loan_money"];
             if ([strongSelf->_ordDic[@"bank_loan_money"] length]) {
-                
+
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"bank_loan_money"] floatValue] - [strongSelf->_ordDic[@"fund_loan_money"] floatValue])] forKey:@"downpayment"];
             }
         }else if (index == 14){ //综合贷款-公积金年限
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"fund_loan_limit"];
         }else if (index == 15){ //银行、公积金贷款-贷款金额
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"loan_money"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"loan_money"] floatValue])] forKey:@"downpayment"];
         }else if (index == 17){//银行、公积金贷款-贷款年限
-            
+
             [strongSelf->_ordDic setObject:str forKey:@"loan_limit"];
         }
         strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
     };
-    
+
     _addOrderView.addOrderViewDropBlock = ^(NSInteger index) {
-        
+
         if (index == 0) {
-            
+
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                
+
                 [strongSelf->_ordDic setObject:strongSelf->_ordDic[@"total_price"] forKey:@"price"];
                 [strongSelf->_ordDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                    
+
                     if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"down_pay"] || [key isEqualToString:@"total_price"] || [key isEqualToString:@"price"]) {
-                        
+
                     }else{
-                        
+
                         [strongSelf->_ordDic removeObjectForKey:key];
                     }
                 }];
                 [strongSelf->_installmentArr removeAllObjects];
                 [strongSelf->_disCountArr removeAllObjects];
-                
+
                 if (strongSelf->_disOriginArr.count) {
-                    
+
                     for (int i = 0; i < strongSelf->_disOriginArr.count; i++) {
-                        
+
                         if ([strongSelf->_disOriginArr[i][@"pay_way_name"] isEqualToString:MC]) {
-                            
+
                             [strongSelf->_disCountArr addObject:strongSelf->_disOriginArr[i]];
                         }
                     }
@@ -1364,50 +1393,50 @@
                     float percent = 0;
                     float preferPrice = 0;
                     for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                        
+
                         NSDictionary *dic = strongSelf->_disCountArr[i];
                         if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
-                            
+
                             unit = unit + [dic[@"num"] doubleValue];
                         }else if ([dic[@"type"] isEqualToString:@"减点"]){
-                            
+
                             if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                
+
                                 percent = percent + [dic[@"num"] doubleValue] / 100.00;
                             }
                         }
                     }
                     if (unit) {
-                        
+
                         price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
                     }
                     for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                        
+
                         NSDictionary *dic = strongSelf->_disCountArr[i];
                         if ([dic[@"type"] isEqualToString:@"减点"]) {
-                            
+
                             if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                
+
                                 if (percent) {
-                                    
+
                                     price = price * (1 - percent);
                                     percent = 0;
                                 }
                             }else{
-                                
+
                                 price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
                             }
                         }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
-                            
-                            
+
+
                         }else{
-                            
+
                             price = price - [dic[@"num"] doubleValue];
                         }
                     }
                     preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
                     if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
-                        
+
                         preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
                         price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                     }
@@ -1420,210 +1449,101 @@
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
                     strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                 }else{
-                    
-                    if (strongSelf->_roomDic[@"batch_id"]) {
 
-                        NSDictionary *dic = @{@"batch_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"batch_id"]],
-                                              @"build_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"build_id"]],
-                                              @"unit_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"unit_id"]],
-                                              };
-                        
-                        [BaseRequest GET:ProjectHouseGetDiscountList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-                            
-                            if ([resposeObject[@"code"] integerValue] == 200) {
-                                
-                                strongSelf->_disOriginArr = resposeObject[@"data"];
-                                for (int i = 0; i < strongSelf->_disOriginArr.count; i++) {
-                                    
-                                    if ([strongSelf->_disOriginArr[i][@"pay_way_name"] isEqualToString:MC]) {
-                                        
-                                        [strongSelf->_disCountArr addObject:strongSelf->_disOriginArr[i]];
+                    NSDictionary *dic = @{@"batch_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"batch_id"]],
+                                          @"build_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"build_id"]],
+                                          @"unit_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"unit_id"]],
+                                          };
+
+                    [BaseRequest GET:ProjectHouseGetDiscountList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+
+                        if ([resposeObject[@"code"] integerValue] == 200) {
+
+                            strongSelf->_disOriginArr = resposeObject[@"data"];
+                            for (int i = 0; i < strongSelf->_disOriginArr.count; i++) {
+
+                                if ([strongSelf->_disOriginArr[i][@"pay_way_name"] isEqualToString:MC]) {
+
+                                    [strongSelf->_disCountArr addObject:strongSelf->_disOriginArr[i]];
+                                }
+                            }
+                            float price = [strongSelf->_ordDic[@"total_price"] floatValue];
+                            float unit = 0;
+                            float percent = 0;
+                            float preferPrice = 0;
+                            for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
+
+                                NSDictionary *dic = strongSelf->_disCountArr[i];
+                                if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
+
+                                    unit = unit + [dic[@"num"] doubleValue];
+                                }else if ([dic[@"type"] isEqualToString:@"减点"]){
+
+                                    if ([dic[@"is_cumulative"] integerValue] == 1) {
+
+                                        percent = percent + [dic[@"num"] doubleValue] / 100.00;
                                     }
                                 }
-                                float price = [strongSelf->_ordDic[@"total_price"] floatValue];
-                                float unit = 0;
-                                float percent = 0;
-                                float preferPrice = 0;
-                                for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                                    
-                                    NSDictionary *dic = strongSelf->_disCountArr[i];
-                                    if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
-                                        
-                                        unit = unit + [dic[@"num"] doubleValue];
-                                    }else if ([dic[@"type"] isEqualToString:@"减点"]){
-                                        
-                                        if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                            
-                                            percent = percent + [dic[@"num"] doubleValue] / 100.00;
+                            }
+                            if (unit) {
+
+                                price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
+                            }
+                            for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
+
+                                NSDictionary *dic = strongSelf->_disCountArr[i];
+                                if ([dic[@"type"] isEqualToString:@"减点"]) {
+
+                                    if ([dic[@"is_cumulative"] integerValue] == 1) {
+
+                                        if (percent) {
+
+                                            price = price * (1 - percent);
+                                            percent = 0;
                                         }
-                                    }
-                                }
-                                if (unit) {
-                                    
-                                    price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
-                                }
-                                for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                                    
-                                    NSDictionary *dic = strongSelf->_disCountArr[i];
-                                    if ([dic[@"type"] isEqualToString:@"减点"]) {
-                                        
-                                        if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                            
-                                            if (percent) {
-                                                
-                                                price = price * (1 - percent);
-                                                percent = 0;
-                                            }
-                                        }else{
-                                            
-                                            price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
-                                        }
-                                    }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
-                                        
-                                        
                                     }else{
-                                        
-                                        price = price - [dic[@"num"] doubleValue];
+
+                                        price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
                                     }
+                                }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
+
+
+                                }else{
+
+                                    price = price - [dic[@"num"] doubleValue];
                                 }
-                                preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
-                                if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
-                                    
-                                    preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
-                                    price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
-                                }
-                                
-                                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
-                                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
-                                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
-                                
-                                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
-                                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
+                            }
+                            preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
+                            if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
+
+                                preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
+                                price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+                            }
+                            
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
+                            
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
+                            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+                                strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
+                                strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
                                 strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                    
-                                    strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
-                                    strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
-                                    strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-                                });
-                            }else{
-                                
-                                [strongSelf showContent:resposeObject[@"msg"]];
-                            }
-                        } failure:^(NSError * _Nonnull error) {
-                            
-                            //                        [strongSelf showContent:@"网络错误"];
-                        }];
-                    }else{
-                        
-                        [BaseRequest GET:ProjectHouseGetDetailInfo_URL parameters:@{@"house_id":strongSelf->_roomDic[@"house_id"]} success:^(id  _Nonnull resposeObject) {
-                            if ([resposeObject[@"code"] integerValue] == 200) {
-                                
-                                [strongSelf->_roomDic setObject:resposeObject[@"data"][@"batch_id"] forKey:@"batch_id"];
-                                [strongSelf->_roomDic setObject:resposeObject[@"data"][@"build_id"] forKey:@"build_id"];
-                                [strongSelf->_roomDic setObject:resposeObject[@"data"][@"unit_id"] forKey:@"unit_id"];
-                                
-                                NSDictionary *dic = @{@"batch_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"batch_id"]],
-                                                      @"build_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"build_id"]],
-                                                      @"unit_id":[NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"unit_id"]],
-                                                      };
-                                
-                                [BaseRequest GET:ProjectHouseGetDiscountList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-                                    
-                                    if ([resposeObject[@"code"] integerValue] == 200) {
-                                        
-                                        strongSelf->_disOriginArr = resposeObject[@"data"];
-                                        for (int i = 0; i < strongSelf->_disOriginArr.count; i++) {
-                                            
-                                            if ([strongSelf->_disOriginArr[i][@"pay_way_name"] isEqualToString:MC]) {
-                                                
-                                                [strongSelf->_disCountArr addObject:strongSelf->_disOriginArr[i]];
-                                            }
-                                        }
-                                        float price = [strongSelf->_ordDic[@"total_price"] floatValue];
-                                        float unit = 0;
-                                        float percent = 0;
-                                        float preferPrice = 0;
-                                        for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                                            
-                                            NSDictionary *dic = strongSelf->_disCountArr[i];
-                                            if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
-                                                
-                                                unit = unit + [dic[@"num"] doubleValue];
-                                            }else if ([dic[@"type"] isEqualToString:@"减点"]){
-                                                
-                                                if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                                    
-                                                    percent = percent + [dic[@"num"] doubleValue] / 100.00;
-                                                }
-                                            }
-                                        }
-                                        if (unit) {
-                                            
-                                            price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"criterion_unit_price"] doubleValue] - unit);
-                                        }
-                                        for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-                                            
-                                            NSDictionary *dic = strongSelf->_disCountArr[i];
-                                            if ([dic[@"type"] isEqualToString:@"减点"]) {
-                                                
-                                                if ([dic[@"is_cumulative"] integerValue] == 1) {
-                                                    
-                                                    if (percent) {
-                                                        
-                                                        price = price * (1 - percent);
-                                                        percent = 0;
-                                                    }
-                                                }else{
-                                                    
-                                                    price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
-                                                }
-                                            }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
-                                                
-                                                
-                                            }else{
-                                                
-                                                price = price - [dic[@"num"] doubleValue];
-                                            }
-                                        }
-                                        preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
-                                        if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
-                                            
-                                            preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
-                                            price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
-                                        }
-                                        
-                                        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
-                                        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
-                                        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
-                                        
-                                        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
-                                        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
-                                        strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                            
-                                            strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
-                                            strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
-                                            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-                                        });
-                                    }else{
-                                        
-                                        [strongSelf showContent:resposeObject[@"msg"]];
-                                    }
-                                } failure:^(NSError * _Nonnull error) {
-                                    
-                                    //                        [strongSelf showContent:@"网络错误"];
-                                }];
-                            }else{
-                                
-                            }
-                        } failure:^(NSError * _Nonnull error) {
-                            [strongSelf showContent:@"网络错误"];
-                        }];
-                    }
+                            });
+                        }else{
+
+                            [strongSelf showContent:resposeObject[@"msg"]];
+                        }
+                    } failure:^(NSError * _Nonnull error) {
+
+                        //                        [strongSelf showContent:@"网络错误"];
+                    }];
                 }
                 [strongSelf->_installmentArr addObject:@{@"pay_time":@"",@"tip_time":@"",@"pay_money":@""}];
-                
+
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"payWay_Name"];
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"payWay_id"];
                 strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
@@ -1634,182 +1554,182 @@
         }else if (index == 10){
 
             if (strongSelf->_bankArr.count) {
-                
+
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                    
+
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_bank_name"];
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_bank_id"];
                     strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                 };
                 [strongSelf.view addSubview:view];
             }else{
-                
+
                 [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":strongSelf->_project_id,@"info_id":strongSelf->_info_id} success:^(id  _Nonnull resposeObject) {
-                    
+
                     NSLog(@"%@",resposeObject);
                     if ([resposeObject[@"code"] integerValue] == 200) {
-                        
+
                         for (int i = 0; i < [resposeObject[@"data"][5] count]; i++) {
-                            
+
                             NSDictionary *dic = resposeObject[@"data"][5][i];
                             [strongSelf->_bankArr addObject:@{@"id":dic[@"config_id"],@"param":dic[@"config_name"]}];
                         }
                         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
                         view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                            
+
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
                             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                         };
                         [strongSelf.view addSubview:view];
                     }else{
-                        
+
                         [strongSelf showContent:resposeObject[@"msg"]];
                     }
                 } failure:^(NSError * _Nonnull error) {
-                    
+
                     [strongSelf showContent:@"获取银行信息失败"];
                 }];
             }
         }else if (index == 13){
-            
+
             if (strongSelf->_bankArr.count) {
-                
+
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                    
+
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
                     strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                 };
                 [strongSelf.view addSubview:view];
             }else{
-                
+
                 [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":strongSelf->_project_id,@"info_id":strongSelf->_info_id} success:^(id  _Nonnull resposeObject) {
-                    
+
                     NSLog(@"%@",resposeObject);
                     if ([resposeObject[@"code"] integerValue] == 200) {
-                        
+
                         for (int i = 0; i < [resposeObject[@"data"][5] count]; i++) {
-                            
+
                             NSDictionary *dic = resposeObject[@"data"][5][i];
                             [strongSelf->_bankArr addObject:@{@"id":dic[@"config_id"],@"param":dic[@"config_name"]}];
                         }
                         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
                         view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                            
+
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
                             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                         };
                         [strongSelf.view addSubview:view];
                     }else{
-                        
+
                         [strongSelf showContent:resposeObject[@"msg"]];
                     }
                 } failure:^(NSError * _Nonnull error) {
-                    
+
                     [strongSelf showContent:@"获取银行信息失败"];
                 }];
             }
         }else if (index == 16){
-            
-            
+
+
             if (strongSelf->_bankArr.count) {
-                
+
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                    
+
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"bank_name"];
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"bank_id"];
                     strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                 };
                 [strongSelf.view addSubview:view];
             }else{
-                
+
                 [BaseRequest GET:WorkClientAutoBasicConfig_URL parameters:@{@"project_id":strongSelf->_project_id,@"info_id":strongSelf->_info_id} success:^(id  _Nonnull resposeObject) {
-                    
+
                     NSLog(@"%@",resposeObject);
                     if ([resposeObject[@"code"] integerValue] == 200) {
-                        
+
                         for (int i = 0; i < [resposeObject[@"data"][5] count]; i++) {
-                            
+
                             NSDictionary *dic = resposeObject[@"data"][5][i];
                             [strongSelf->_bankArr addObject:@{@"id":dic[@"config_id"],@"param":dic[@"config_name"]}];
                         }
                         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_bankArr];
                         view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                            
+
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"fund_bank_name"];
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"fund_bank_id"];
                             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
                         };
                         [strongSelf.view addSubview:view];
                     }else{
-                        
+
                         [strongSelf showContent:resposeObject[@"msg"]];
                     }
                 } failure:^(NSError * _Nonnull error) {
-                    
+
                     [strongSelf showContent:@"获取银行信息失败"];
                 }];
             }
         }
     };
-    
+
     _addOrderView.addOrderViewDeleteBlock = ^(NSInteger index) {
-        
+
         [strongSelf->_disCountArr removeObjectAtIndex:index];
         float price = [strongSelf->_ordDic[@"total_price"] floatValue];
         float unit = 0;
         float percent = 0;
         float preferPrice = 0;
         for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-            
+
             NSDictionary *dic = strongSelf->_disCountArr[i];
             if ([dic[@"type"] isEqualToString:@"单价优惠"]) {
-                
+
                 unit = unit + [dic[@"num"] doubleValue];
             }else if ([dic[@"type"] isEqualToString:@"减点"]){
-                
+
                 if ([dic[@"is_cumulative"] integerValue] == 1) {
-                    
+
                     percent = percent + [dic[@"num"] doubleValue] / 100.00;
                 }
             }
         }
         if (unit) {
-            
+
             price = [strongSelf->_roomDic[@"estimated_build_size"] doubleValue] * ([strongSelf->_roomDic[@"build_unit_price"] doubleValue] - unit);
         }
         for (int i = 0; i < strongSelf->_disCountArr.count; i++) {
-            
+
             NSDictionary *dic = strongSelf->_disCountArr[i];
             if ([dic[@"type"] isEqualToString:@"减点"]) {
-                
+
                 if ([dic[@"is_cumulative"] integerValue] == 1) {
-                    
+
                     if (percent) {
-                        
+
                         price = price * (1 - percent);
                         percent = 0;
                     }
                 }else{
-                    
+
                     price = price * (1 - [dic[@"num"] doubleValue] / 100.00);
                 }
             }else if([dic[@"type"] isEqualToString:@"单价优惠"]){
-                
-                
+
+
             }else{
-                
+
                 price = price - [dic[@"num"] doubleValue];
             }
         }
         preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
         if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
-            
+
             price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
             preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
         }
@@ -1822,77 +1742,76 @@
         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
         strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
     };
-    
+
     _addOrderView.addOrderViewInstallmentAddBlock = ^(NSInteger index) {
-        
+
         [strongSelf->_installmentArr addObject:@{@"pay_time":@"",@"tip_time":@"",@"pay_money":@""}];
         strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
     };
-    
+
     _addOrderView.addOrderViewTimeBlock = ^(NSInteger index) {
-        
+
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.frame];
         view.dateblock = ^(NSDate *date) {
-            
+
             NSDictionary *dic = @{@"pay_time":[strongSelf->_formatter stringFromDate:date],@"tip_time":[strongSelf->_formatter stringFromDate:[NSDate dateWithTimeInterval:-24 * 60 * 60 sinceDate:date]],@"pay_money":strongSelf->_installmentArr[index][@"pay_money"]};
             [strongSelf->_installmentArr replaceObjectAtIndex:index withObject:dic];
             strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
         };
         [strongSelf.view addSubview:view];
-        
+
     };
-    
+
     _addOrderView.addOrderViewInstallmentStrBlock = ^(NSInteger index, NSString * _Nonnull str) {
-        
+
         NSDictionary *dic = @{@"pay_time":strongSelf->_installmentArr[index][@"pay_time"],@"tip_time":strongSelf->_installmentArr[index][@"tip_time"],@"pay_money":str};
         [strongSelf->_installmentArr replaceObjectAtIndex:index withObject:dic];
         strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
     };
-    
+
     [_scrollView addSubview:_addOrderView];
     
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _processHeader.hidden = YES;
     _processHeader.titleL.text = @"流程信息";
     _processHeader.addBtn.hidden = YES;
     [_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _processHeader.backgroundColor = CLWhiteColor;
     _processHeader.addNemeralHeaderAllBlock = ^{
-        
+
         if (strongSelf->_roomDic.count) {
-            
+
             if ([strongSelf->_selectArr[3] integerValue]){
-                
+
                 [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
                 [strongSelf->_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
                 strongSelf->_addNumeralProcessView.hidden = YES;
                 if (strongSelf->_addOrderView.hidden) {
-                    
+
                     [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
+
                         make.left.equalTo(strongSelf->_scrollView).offset(0);
                         make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
                         make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
+                        make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
                         make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                     }];
                 }else{
-                    
+
                     [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
+
                         make.left.equalTo(strongSelf->_scrollView).offset(0);
                         make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
                         make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
+                        make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
                         make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                     }];
                 }
-                
-                
+
+
                 [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    
+
                     make.left.equalTo(strongSelf->_scrollView).offset(0);
                     make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
                     make.width.mas_equalTo(SCREEN_Width);
@@ -1900,37 +1819,37 @@
                     make.right.equalTo(strongSelf->_scrollView).offset(0);
                     //                    make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                 }];
-                
+
             }else{
-                
+
                 [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
                 [strongSelf->_processHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
                 strongSelf->_addNumeralProcessView.hidden = NO;
-                
+
                 if (strongSelf->_addOrderView.hidden) {
-                    
+
                     [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
+
                         make.left.equalTo(strongSelf->_scrollView).offset(0);
                         make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
                         make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
+                        make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
                     }];
                 }else{
-                    
+
                     [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
+
                         make.left.equalTo(strongSelf->_scrollView).offset(0);
                         make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
                         make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
+                        make.height.mas_equalTo(40 *SIZE);
                         make.right.equalTo(strongSelf->_scrollView).offset(0);
                     }];
                 }
-                
+
                 [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    
+
                     make.left.equalTo(strongSelf->_scrollView).offset(0);
                     make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
                     make.width.mas_equalTo(SCREEN_Width);
@@ -1938,10 +1857,10 @@
                     make.right.equalTo(strongSelf->_scrollView).offset(0);
                     make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                 }];
-                
+
             }
         }else{
-            
+
             [strongSelf showContent:@"请先选择房源"];
         }
     };
@@ -1951,10 +1870,10 @@
     _addNumeralProcessView.hidden = YES;
     _addNumeralProcessView.dataDic = _progressDic;
     _addNumeralProcessView.addNumeralProcessViewAuditBlock = ^{
-        
+
         SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[@{@"param":@"自由流程",@"id":@"1"},@{@"param":@"固定流程",@"id":@"2"}]];
         view.selectedBlock = ^(NSString *MC, NSString *ID) {
-            
+
             [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"auditMC"];
             [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"auditID"];
             strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
@@ -1962,27 +1881,27 @@
         [strongSelf.view addSubview:view];
     };
     _addNumeralProcessView.addNumeralProcessViewTypeBlock = ^{
-        
+
         if (strongSelf->_progressArr.count) {
-            
+
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                
+
                 if ([MC isEqualToString:@"自由"]) {
-                    
+
                     [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
                     [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
                 }else if ([MC isEqualToString:@"固定"]){
-                    
+
                     [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
                     [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
                 }else{
-                    
+
                     [strongSelf->_progressDic removeObjectForKey:@"auditMC"];
                     [strongSelf->_progressDic removeObjectForKey:@"auditID"];
                 }
                 if (![MC isEqualToString:strongSelf->_progressDic[@"progress_name"]]) {
-                    
+
                     [strongSelf->_rolePersonArr removeAllObjects];
                     [strongSelf->_rolePersonSelectArr removeAllObjects];
                     strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
@@ -1993,9 +1912,9 @@
                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
                 for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
-                    
+
                     if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
-                        
+
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
                     }
                 }
@@ -2005,41 +1924,41 @@
         }else{
             NSDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":strongSelf->_project_id,@"config_type":@"1"}];
             if ([strongSelf.status isEqualToString:@"2"]) {
-                
+
                 [dic setValue:@"2" forKey:@"config_type"];
             }
             if ([strongSelf.from_type isEqualToString:@"1"]) {
-                
+
                 [dic setValue:@"2" forKey:@"progress_defined_id"];
             }else if ([strongSelf.from_type isEqualToString:@"3"]){
-                
+
                 [dic setValue:@"4" forKey:@"progress_defined_id"];
             }else if ([strongSelf.from_type isEqualToString:@"4"]){
-                
-                [dic setValue:@"5" forKey:@"progress_defined_id"];
+
+                [dic setValue:@"7" forKey:@"progress_defined_id"];
             }
-            
+
             [BaseRequest GET:ProjectProgressGet_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-                
+
                 if ([resposeObject[@"code"] integerValue] == 200) {
-                    
+
                     [strongSelf->_progressArr removeAllObjects];
                     [strongSelf->_progressAllArr removeAllObjects];
                     strongSelf->_progressAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
                     for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
-                        
+
                         [strongSelf->_progressArr addObject:@{@"param":[NSString stringWithFormat:@"%@",resposeObject[@"data"][i][@"progress_name"]],@"id":resposeObject[@"data"][i][@"progress_id"]}];
                     }
-                    
+
                     SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
                     view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                        
+
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
                         for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
-                            
+
                             if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
-                                
+
                                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
                             }
                         }
@@ -2047,25 +1966,25 @@
                     };
                     [strongSelf.view addSubview:view];
                 }else{
-                    
-                    
+
+
                 }
             } failure:^(NSError * _Nonnull error) {
-                
-                
+
+
             }];
         }
     };
-    
+
     _addNumeralProcessView.addNumeralProcessViewRoleBlock = ^{
-        
+
         if (strongSelf->_roleArr.count) {
-            
+
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                
+
                 if (![MC isEqualToString:strongSelf->_progressDic[@"role_name"]]) {
-                    
+
                     [strongSelf->_rolePersonArr removeAllObjects];
                     [strongSelf->_rolePersonSelectArr removeAllObjects];
                     strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
@@ -2078,18 +1997,18 @@
             };
             [strongSelf.view addSubview:view];
         }else{
-            
+
             [BaseRequest GET:ProjectRoleListAll_URL parameters:@{@"project_id":strongSelf->_project_id} success:^(id  _Nonnull resposeObject) {
-                
+
                 if ([resposeObject[@"code"] integerValue] == 200) {
-                    
+
                     for (NSDictionary *dic in resposeObject[@"data"]) {
-                        
+
                         [strongSelf->_roleArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",dic[@"project_name"],dic[@"role_name"]],@"id":dic[@"role_id"]}];
                     }
                     SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
                     view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                        
+
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];
                         strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
@@ -2097,18 +2016,18 @@
                     };
                     [strongSelf.view addSubview:view];
                 }else{
-                    
-                    
+
+
                 }
             } failure:^(NSError * _Nonnull error) {
-                
+
                 NSLog(@"%@",error);
             }];
         }
     };
-    
+
     _addNumeralProcessView.addNumeralProcessViewSelectBlock = ^(NSArray * _Nonnull arr) {
-        
+
         strongSelf->_rolePersonSelectArr = [NSMutableArray arrayWithArray:arr];
     };
     [_scrollView addSubview:_addNumeralProcessView];
@@ -2190,7 +2109,7 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_orderHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0 *SIZE);
+        make.height.mas_equalTo(40 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
         make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];
@@ -2202,7 +2121,7 @@
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(0);
         make.right.equalTo(self->_scrollView).offset(0);
-        //        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
+//                make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];
 }
 

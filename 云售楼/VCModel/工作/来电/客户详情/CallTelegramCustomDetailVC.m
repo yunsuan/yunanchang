@@ -153,7 +153,24 @@
     
     UIAlertAction *visit = [UIAlertAction actionWithTitle:@"转来访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        
+        [self alertControllerWithNsstring:@"操作提醒" And:@"是否要转来访" WithCancelBlack:^{
+            
+        } WithDefaultBlack:^{
+           
+            [BaseRequest POST:WorkClientAutoGroupUpdate_URL parameters:@{@"group_id":self->_groupId,@"type":@"2"} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self showContent:@"转来访成功"];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        }];
     }];
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"放弃跟进" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -178,7 +195,7 @@
         
     }];
     
-    if ([self.powerDic[@"vist"] boolValue]) {
+    if ([self.powerDic[@"visit"] boolValue]) {
         
         [alert addAction:visit];
     }
@@ -798,7 +815,7 @@
     self.titleLabel.textColor = CLWhiteColor;
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
     
-    if ([self.powerDic[@"giveUp"] boolValue] || [self.powerDic[@"转来访"] boolValue]) {
+    if ([self.powerDic[@"giveUp"] boolValue] || [self.powerDic[@"visit"] boolValue]) {
         
         self.rightBtn.hidden = NO;
     }else{

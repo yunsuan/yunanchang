@@ -29,6 +29,7 @@
     
     NSInteger _num;
     
+    NSString *_minPirce;
     NSString *_project_id;
     NSString *_info_id;
     NSString *_group_id;
@@ -286,11 +287,11 @@
         return;
     }
     
-    if (!_addOrderView.payWayBtn.content.text.length) {
-        
-        [self showContent:@"请选择付款方式"];
-        return;
-    }
+//    if (!_addOrderView.payWayBtn.content.text.length) {
+//
+//        [self showContent:@"请选择付款方式"];
+//        return;
+//    }
     
     if ([_addOrderView.payWayBtn.content.text isEqualToString:@"一次性付款"]) {
         
@@ -395,13 +396,12 @@
         [self showContent:@"请选择审批流程"];
         return;
     }
-    if (!_addNumeralProcessView.typeBtn.content.text.length) {
-        [self showContent:@"请选择审批流程"];
-        return;
-    }
-    if (!_addNumeralProcessView.auditBtn.content.text.length) {
-        [self showContent:@"请选择流程类型"];
-        return;
+    if ([_progressDic[@"check_type"] integerValue] == 1) {
+        
+        if (!_addNumeralProcessView.auditBtn.content.text.length) {
+            [self showContent:@"请选择流程类型"];
+            return;
+        }
     }
     NSString *param;
     if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
@@ -478,13 +478,25 @@
     [dic setObject:_project_id forKey:@"project_id"];
     [dic setObject:_roomDic[@"house_id"] forKey:@"house_id"];
     [dic setObject:_ordDic[@"price"] forKey:@"sub_total_price"];
-    [dic setObject:_roomDic[@"criterion_unit_price"] forKey:@"sub_unit_price"];
-    [dic setObject:_roomDic[@"build_unit_price"] forKey:@"build_unit_price"];
-    [dic setObject:_roomDic[@"criterion_unit_price"] forKey:@"inner_unit_price"];
+    if ([dic[@"sub_total_price"] floatValue] < [_minPirce floatValue]) {
+        
+        [self showContent:[NSString stringWithFormat:@"成交价格不能低于最低总价%@",_minPirce]];
+        return;
+    }
+    [dic setObject:_ordDic[@"sub_unit_price"] forKey:@"sub_unit_price"];
+    [dic setObject:_ordDic[@"build_unit_price"] forKey:@"build_unit_price"];
+    [dic setObject:_ordDic[@"inner_unit_price"] forKey:@"inner_unit_price"];
 //    [dic setObject:_ordDic[@"payWay_id"] forKey:@"payway"];
     [dic setObject:_ordDic[@"sub_code"] forKey:@"sub_code"];
     [dic setObject:_ordDic[@"down_pay"] forKey:@"down_pay"];
-    [dic setObject:_ordDic[@"payWay_id"] forKey:@"pay_way"];
+//    [dic setObject:_ordDic[@"payWay_id"] forKey:@"pay_way"];
+    if (_ordDic[@"payWay_id"]) {
+        
+        [dic setObject:_ordDic[@"payWay_id"] forKey:@"payway"];
+    }else{
+        
+        [dic setObject:@"0" forKey:@"payway"];
+    }
     if (_pay_info.count) {
         
         NSArray * arr = @[_pay_info];
@@ -733,6 +745,25 @@
         nextVC.roomVCBlock = ^(NSDictionary * dic) {
             
             strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+            for (int i = 0; i < [strongSelf->_roomDic[@"propertyDetail"] count]; i++) {
+                
+                if ([strongSelf->_roomDic[@"propertyDetail"][i] containsString:@"最低总价"]) {
+                    
+                    NSString *str = [NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"propertyDetail"][i]];
+                    strongSelf->_minPirce = [NSString stringWithFormat:@"%@",[str componentsSeparatedByString:@" "][1]];
+                }
+            }
+            if (!strongSelf->_minPirce.length) {
+                
+                strongSelf->_minPirce = @"0";
+            }
+            [strongSelf->_roomDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                if ([obj isKindOfClass:[NSNull class]]) {
+                    
+                    [strongSelf->_roomDic setObject:@"" forKey:key];
+                }
+            }];
             strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"total_price"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"price"];
@@ -884,6 +915,10 @@
                     price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                 }
                 
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
+                
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
                 strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -955,7 +990,7 @@
             if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                 
                 preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
-                price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+                price = [strongSelf->_ordDic[@"total_price"] floatValue] - preferPrice;
             }
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
@@ -1013,7 +1048,7 @@
             
             preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
             preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
-            price = price - preferPrice;
+            price = [strongSelf->_ordDic[@"total_price"] floatValue] - preferPrice;
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -1055,7 +1090,12 @@
       
         if (index == 0) {
             
-            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
+            NSMutableArray * payArr = [[NSMutableArray alloc] initWithArray:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
+            [payArr insertObject:@{@"param":@"未定",
+                                   @"id":@""
+                                   } atIndex:0];
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:payArr];
+//            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
                 
                 [strongSelf->_ordDic setObject:strongSelf->_ordDic[@"total_price"] forKey:@"price"];
@@ -1132,6 +1172,10 @@
                         preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
                         price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                     }
+                    
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
+                    [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
                     strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -1206,6 +1250,10 @@
                                 preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
                                 price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                             }
+                            
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
+                            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
                             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -1417,6 +1465,10 @@
             preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
         }
         
+        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
+        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
+        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
+        
         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
         strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -1565,11 +1617,11 @@
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
                 
-                if ([MC isEqualToString:@"自由"]) {
+                if ([MC containsString:@"自由"]) {
 
                     [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
                     [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
-                }else if ([MC isEqualToString:@"固定"]){
+                }else if ([MC containsString:@"固定"]){
 
                     [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
                     [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
@@ -1589,12 +1641,22 @@
                 }
                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
+                
                 for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
                     
                     if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
                         
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
                     }
+                }
+                if ([strongSelf->_progressDic[@"check_type"] integerValue] == 1) {
+                    
+                    [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+                    [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
+                }else if ([strongSelf->_progressDic[@"check_type"] integerValue] == 2) {
+                    
+                    [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+                    [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
                 }
                 strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
             };
@@ -1631,6 +1693,28 @@
                     SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
                     view.selectedBlock = ^(NSString *MC, NSString *ID) {
                         
+                        if ([MC containsString:@"自由"]) {
+                            
+                            [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+                            [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
+                        }else if ([MC containsString:@"固定"]){
+                            
+                            [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+                            [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
+                        }else{
+                            
+                            [strongSelf->_progressDic removeObjectForKey:@"auditMC"];
+                            [strongSelf->_progressDic removeObjectForKey:@"auditID"];
+                        }
+                        if (![MC isEqualToString:strongSelf->_progressDic[@"progress_name"]]) {
+                            
+                            [strongSelf->_rolePersonArr removeAllObjects];
+                            [strongSelf->_rolePersonSelectArr removeAllObjects];
+                            strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
+                            strongSelf->_addNumeralProcessView.personSelectArr = strongSelf->_rolePersonSelectArr;
+                            [strongSelf->_progressDic removeObjectForKey:@"role_name"];
+                            [strongSelf->_progressDic removeObjectForKey:@"role_id"];
+                        }
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
                         [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
                         for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
@@ -1639,6 +1723,15 @@
                                 
                                 [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
                             }
+                        }
+                        if ([strongSelf->_progressDic[@"check_type"] integerValue] == 1) {
+                            
+                            [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+                            [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
+                        }else if ([strongSelf->_progressDic[@"check_type"] integerValue] == 2) {
+                            
+                            [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+                            [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
                         }
                         strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
                     };

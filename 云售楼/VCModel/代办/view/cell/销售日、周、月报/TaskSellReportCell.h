@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView *whiteView;
 
-@property (nonatomic, strong) UIImageView *headImg;
+@property (nonatomic, strong) UILabel *headL;
 
 @property (nonatomic, strong) UILabel *titleL;
 
@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *contentL;
 
+@property (nonatomic, strong) NSDictionary *dataDic;
 @end
 
 NS_ASSUME_NONNULL_END

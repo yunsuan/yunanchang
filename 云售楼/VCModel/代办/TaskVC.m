@@ -780,6 +780,18 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         UITableViewCell *cell = [[UITableViewCell alloc] init];
         cell.hidden = YES;
         return cell;
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 50 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 51 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 52){
+        
+        TaskSellReportCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskSellReportCell"];
+        if (!cell) {
+            
+            cell = [[TaskSellReportCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskSellReportCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        return cell;
     }else{
 
         UITableViewCell *cell = [[UITableViewCell alloc] init];

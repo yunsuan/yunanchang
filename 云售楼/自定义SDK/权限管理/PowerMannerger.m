@@ -36,10 +36,10 @@
     NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];
     if (datadic) {
         
-        [WorkListPower replaceObjectAtIndex:4 withObject:@1];
-        [WorkListPower replaceObjectAtIndex:5 withObject:@1];
-        [WorkListPower replaceObjectAtIndex:6 withObject:@1];
-        [WorkListPower replaceObjectAtIndex:7 withObject:@1];
+//        [WorkListPower replaceObjectAtIndex:4 withObject:@1];
+//        [WorkListPower replaceObjectAtIndex:5 withObject:@1];
+//        [WorkListPower replaceObjectAtIndex:6 withObject:@1];
+//        [WorkListPower replaceObjectAtIndex:7 withObject:@1];
         
         if ([datadic[@"is_butter"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:1 withObject:@1];
@@ -59,6 +59,15 @@
                 }
                 else if(i==1){
                     [WorkListPower replaceObjectAtIndex:3 withObject:@1];
+                }else if (i == 5){
+                    
+                    [WorkListPower replaceObjectAtIndex:4 withObject:@1];
+                }else if (i == 6){
+                    
+                    [WorkListPower replaceObjectAtIndex:5 withObject:@1];
+                }else if (i == 7){
+                    
+                    [WorkListPower replaceObjectAtIndex:6 withObject:@1];
                 }
             }
         }

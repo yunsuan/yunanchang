@@ -345,9 +345,12 @@
         [self showContent:@"请选择审批流程"];
         return;
     }
-    if (!_addNumeralProcessView.auditBtn.content.text.length) {
-        [self showContent:@"请选择流程类型"];
-        return;
+    if ([_progressDic[@"check_type"] integerValue] == 1) {
+        
+        if (!_addNumeralProcessView.auditBtn.content.text.length) {
+            [self showContent:@"请选择流程类型"];
+            return;
+        }
     }
     NSString *param;
     if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
