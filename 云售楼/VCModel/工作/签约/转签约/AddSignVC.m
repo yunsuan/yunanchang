@@ -490,7 +490,7 @@
     [dic setObject:_ordDic[@"inner_unit_price"] forKey:@"inner_unit_price"];
 //    [dic setObject:_ordDic[@"payWay_id"] forKey:@"payway"];
     [dic setObject:_ordDic[@"sub_code"] forKey:@"contract_code"];
-    [dic setObject:_ordDic[@"down_pay"] forKey:@"down_pay"];
+//    [dic setObject:_ordDic[@"down_pay"] forKey:@"down_pay"];
     [dic setObject:_ordDic[@"payWay_id"] forKey:@"pay_way"];
     if (_pay_info.count) {
         

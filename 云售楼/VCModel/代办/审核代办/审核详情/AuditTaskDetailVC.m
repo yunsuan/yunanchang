@@ -424,6 +424,8 @@
             case 1:
             {
                 _finalBtn = btn;
+                _finalBtn.selected = YES;
+                _isFinal = @"2";
                 [_scroll addSubview:_finalBtn];
                 
                 break;
