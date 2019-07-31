@@ -84,12 +84,12 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E6%8E%92%E5%8F%B7%E9%80%80%E5%8F%B7/NumeralBackNumVC.m"
-                  timestampString = "586198281.4697829"
+                  timestampString = "586258458.004474"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "199"
                   endingLineNumber = "199"
-                  offsetFromSymbolStart = "3196">
+                  offsetFromSymbolStart = "3134">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -99,12 +99,12 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E6%8E%92%E5%8F%B7%E9%80%80%E5%8F%B7/NumeralBackNumVC.m"
-                  timestampString = "586198281.472052"
+                  timestampString = "586258458.008636"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "201"
                   endingLineNumber = "201"
-                  offsetFromSymbolStart = "64">
+                  offsetFromSymbolStart = "54">
                </Location>
             </Locations>
          </BreakpointContent>

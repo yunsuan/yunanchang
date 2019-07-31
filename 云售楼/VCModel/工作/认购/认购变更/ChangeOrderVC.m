@@ -195,7 +195,7 @@
             break;
         }else{
             
-            percent += [str integerValue];
+            percent += [str floatValue];
         }
     }
     if (!isFull) {

@@ -254,7 +254,7 @@
             break;
         }else{
             
-            percent += [str integerValue];
+            percent += [str floatValue];
         }
     }
     if (!isFull) {
@@ -534,19 +534,19 @@
     
     [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
 //    NSString *param;
-    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-        
-        if ([_rolePersonSelectArr[i] integerValue] == 1) {
-            
-            if (param.length) {
-                
-                param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-            }else{
-                
-                param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-            }
-        }
-    }
+//    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+//
+//        if ([_rolePersonSelectArr[i] integerValue] == 1) {
+//
+//            if (param.length) {
+//
+//                param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+//            }else{
+//
+//                param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+//            }
+//        }
+//    }
     if (param.length) {
         
         [dic setObject:param forKey:@"param"];
