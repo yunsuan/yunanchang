@@ -255,7 +255,10 @@
         
         [alert addAction:audit];
     }
-
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+        
+        [alert addAction:change];
+    }
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
     
         [alert addAction:order];
@@ -264,14 +267,12 @@
     
         [alert addAction:sign];
     }
+    
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
     
         [alert addAction:quit];
     }
-    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
     
-        [alert addAction:change];
-    }
     [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
         

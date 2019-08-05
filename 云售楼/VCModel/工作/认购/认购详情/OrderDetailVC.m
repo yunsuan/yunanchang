@@ -16,6 +16,7 @@
 #import "InstallMentDetailVC.h"
 
 #import "NumeralDetailInvalidView.h"
+#import "SinglePickView.h"
 
 #import "NumeralDetailHeader.h"
 #import "BaseHeader.h"
@@ -203,6 +204,38 @@
         };
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
+    
+    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"id":@"1",@"param":@"定单挞定"},@{@"id":@"2",@"param":@"定单增加定金"},@{@"id":@"3",@"param":@"定单主从变更"},@{@"id":@"4",@"param":@"定单付款方式变更"},@{@"id":@"5",@"param":@"定单按揭年限变更"},@{@"id":@"6",@"param":@"定单特殊优惠变更"},@{@"id":@"7",@"param":@"定单延期签约变更"},@{@"id":@"8",@"param":@"定单增减权益人"},@{@"id":@"9",@"param":@"定单退房"},@{@"id":@"10",@"param":@"定单换房"},@{@"id":@"11",@"param":@"定单更名"}]];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            
+            if ([ID integerValue] == 1) {
+                
+            }else if ([ID integerValue] == 2) {
+                
+            }else if ([ID integerValue] == 3) {
+                
+            }else if ([ID integerValue] == 4) {
+                
+            }else if ([ID integerValue] == 5) {
+                
+            }else if ([ID integerValue] == 6) {
+                
+            }else if ([ID integerValue] == 7) {
+                
+            }else if ([ID integerValue] == 8) {
+                
+            }else if ([ID integerValue] == 9) {
+                
+            }else if ([ID integerValue] == 10) {
+                
+            }else if ([ID integerValue] == 11) {
+                
+            }
+        };
+        [self.view addSubview:view];
+    }];
 
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签约" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -269,23 +302,20 @@
         
         [alert addAction:audit];
     }
-    
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+        
+        [alert addAction:change];
+    }
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
         
         [alert addAction:sign];
     }
     
-    [alert addAction:cancel];
-    
-//    if (self->_dataDic[@""]) {
-//        <#statements#>
-//    }
-    
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
         
         [alert addAction:quit];
     }
-    
+    [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
 
     }];
