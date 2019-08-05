@@ -59,17 +59,18 @@
 
 @implementation NumeralChangeNameVC
 
-- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr dataDic:(NSDictionary *)dataDic
+- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr dataDic:(NSDictionary *)dataDic info_id:(nonnull NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _project_id = project_id;
+        _info_id = info_id;
         _personArr = [[NSMutableArray alloc] initWithArray:personArr];
         _proportionArr = [@[] mutableCopy];
         for (int i = 0; i < _personArr.count; i++) {
             
-            [_proportionArr addObject:@""];
+            [_proportionArr addObject:[NSString stringWithFormat:@"%@",_personArr[i][@"property"]]];
         }
         _progressDic = [@{} mutableCopy];
     }
@@ -89,7 +90,7 @@
     _num = 0;
     _titleArr = @[@"权益人信息",@"流程信息"];
     _certArr = [@[] mutableCopy];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0]];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0]];
     _typeArr = [@[] mutableCopy];
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];

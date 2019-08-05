@@ -1247,6 +1247,13 @@
 			path = "优惠详情";
 			sourceTree = "<group>";
 		};
+		0C0415CD22F7C5E500065C0C /* 排号增加权益人 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "排号增加权益人";
+			sourceTree = "<group>";
+		};
 		0C0CE31D22DDB10200092293 /* 订单审核 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3678,6 +3685,7 @@
 		0CFDB2F922EE82ED00F21976 /* 排号变更 */ = {
 			isa = PBXGroup;
 			children = (
+				0C0415CD22F7C5E500065C0C /* 排号增加权益人 */,
 				0CFDB2FB22EE82FD00F21976 /* 诚意金变更 */,
 			);
 			path = "排号变更";

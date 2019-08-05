@@ -16,7 +16,7 @@ typedef void(^NumeralChangeNameVCBlock)(void);
 
 @property (nonatomic, copy) NumeralChangeNameVCBlock numeralChangeNameVCBlock;
 
-- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr dataDic:(NSDictionary *)dataDic;
+- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr dataDic:(NSDictionary *)dataDic info_id:(NSString *)info_id;
 
 @end
 

@@ -198,7 +198,7 @@
                 [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 3){
                 
-                NumeralChangeNameVC *nextVC = [[NumeralChangeNameVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic];
+                NumeralChangeNameVC *nextVC = [[NumeralChangeNameVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
                 nextVC.numeralChangeNameVCBlock = ^{
                     
                     [self RequestMethod];
@@ -262,10 +262,10 @@
     
         [alert addAction:quit];
     }
-//    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1) {
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
     
-//        [alert addAction:change];
-//    }
+        [alert addAction:change];
+    }
     [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
         
