@@ -20,6 +20,7 @@
 #import "SincerityChangeVC.h"
 #import "NumeralBackNumVC.h"
 #import "NumeralChangeNameVC.h"
+#import "NumeralAddMinusPersonVC.h"
 
 #import "NumeralDetailInvalidView.h"
 #import "SinglePickView.h"
@@ -206,7 +207,12 @@
                 [self.navigationController pushViewController:nextVC animated:YES];
             }else{
                 
-                
+                NumeralAddMinusPersonVC *nextVC = [[NumeralAddMinusPersonVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
+                nextVC.numeralAddMinusPersonVCBlock = ^{
+                    
+                    [self RequestMethod];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }
         };
         [self.view addSubview:view];

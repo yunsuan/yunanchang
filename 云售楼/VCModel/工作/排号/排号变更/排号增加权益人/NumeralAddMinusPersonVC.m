@@ -1,14 +1,15 @@
 //
-//  NumeralChangeNameVC.m
+//  NumeralAddMinusPersonVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/7/29.
+//  Created by 谷治墙 on 2019/8/5.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "NumeralChangeNameVC.h"
+#import "NumeralAddMinusPersonVC.h"
 
 #import "CallTelegramSimpleCustomVC.h"
+#import "AddCallTelegramGroupMemberVC.h"
 
 #import "AddNemeralHeader.h"
 
@@ -17,7 +18,7 @@
 
 #import "SinglePickView.h"
 
-@interface NumeralChangeNameVC ()<UIScrollViewDelegate>
+@interface NumeralAddMinusPersonVC ()<UIScrollViewDelegate>
 {
     
     NSInteger _num;
@@ -59,7 +60,7 @@
 
 @end
 
-@implementation NumeralChangeNameVC
+@implementation NumeralAddMinusPersonVC
 
 - (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr dataDic:(NSDictionary *)dataDic info_id:(nonnull NSString *)info_id
 {
@@ -247,33 +248,33 @@
         return;
     }
     
-//    [BaseRequest POST:ProjectRowAddRow_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-//        
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//            
-//            if (self.addNumeralVCBlock) {
-//                
-//                self.addNumeralVCBlock();
-//            }
-//            [self showContent:resposeObject[@"msg"]];
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                
-//                [self.navigationController popViewControllerAnimated:YES];
-//            });
-//        }else{
-//            
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        
-//        [self showContent:@"网络错误"];
-//    }];
+    //    [BaseRequest POST:ProjectRowAddRow_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    //
+    //        if ([resposeObject[@"code"] integerValue] == 200) {
+    //
+    //            if (self.addNumeralVCBlock) {
+    //
+    //                self.addNumeralVCBlock();
+    //            }
+    //            [self showContent:resposeObject[@"msg"]];
+    //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //
+    //                [self.navigationController popViewControllerAnimated:YES];
+    //            });
+    //        }else{
+    //
+    //            [self showContent:resposeObject[@"msg"]];
+    //        }
+    //    } failure:^(NSError * _Nonnull error) {
+    //
+    //        [self showContent:@"网络错误"];
+    //    }];
 }
 
 
 - (void)initUI{
     
-    self.titleLabel.text = @"转排号";
+    self.titleLabel.text = @"增减权益人";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLBackColor;
@@ -322,9 +323,9 @@
     _addNumeralPersonView.dataArr = _personArr;
     _addNumeralPersonView.num = _num;
     _addNumeralPersonView.proportion = _proportionArr[_num];
-    _addNumeralPersonView.proportionTF.userInteractionEnabled = NO;
-    _addNumeralPersonView.proportionTF.backgroundColor = CLBackColor;
-    _addNumeralPersonView.personBtn.hidden = YES;
+//    _addNumeralPersonView.proportionTF.userInteractionEnabled = NO;
+//    _addNumeralPersonView.proportionTF.backgroundColor = CLBackColor;
+//    _addNumeralPersonView.personBtn.hidden = YES;
     
     _addNumeralPersonView.addNumeralPersonViewArrBlock = ^(NSInteger num) {
         
@@ -361,22 +362,22 @@
     };
     _addNumeralPersonView.addNumeralPersonViewAddBlock = ^(NSInteger num) {
         
-//        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-//        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
-//        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
-//
-//            [strongSelf->_proportionArr addObject:@""];
-//            [strongSelf->_personArr addObject:dic];
-//            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-//            strongSelf->_num = strongSelf->_personArr.count - 1;
-//            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count - 1;
-//            strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[strongSelf->_personArr.count - 1];
-//            if (strongSelf.addNumeralVCBlock) {
-//
-//                strongSelf.addNumeralVCBlock();
-//            }
-//        };
-//        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
+        
+            [strongSelf->_proportionArr addObject:@""];
+            [strongSelf->_personArr addObject:dic];
+            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
+            strongSelf->_num = strongSelf->_personArr.count - 1;
+            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count - 1;
+            strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[strongSelf->_personArr.count - 1];
+            if (strongSelf.numeralAddMinusPersonVCBlock) {
+        
+                strongSelf.numeralAddMinusPersonVCBlock();
+            }
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
@@ -395,15 +396,15 @@
             strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
             strongSelf->_addNumeralPersonView.num = num;
             strongSelf->_num = num;
-            if (strongSelf.numeralChangeNameVCBlock) {
+            if (strongSelf.numeralAddMinusPersonVCBlock) {
 
-                strongSelf.numeralChangeNameVCBlock();
+                strongSelf.numeralAddMinusPersonVCBlock();
             }
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_addNumeralPersonView];
-
+    
     
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _processHeader.titleL.text = @"流程信息";

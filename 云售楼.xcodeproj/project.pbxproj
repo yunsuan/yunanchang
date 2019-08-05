@@ -12,6 +12,7 @@
 		0C038BC722E9896500D83DC2 /* ContentRightBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C038BC622E9896500D83DC2 /* ContentRightBtnCell.m */; };
 		0C038BCB22E98C1C00D83DC2 /* BelongDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C038BCA22E98C1C00D83DC2 /* BelongDetailVC.m */; };
 		0C038BCF22E99B9900D83DC2 /* SpePerferDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C038BCE22E99B9900D83DC2 /* SpePerferDetailVC.m */; };
+		0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */; };
 		0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32122DDB1C800092293 /* TransNumeralCell.m */; };
 		0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32422DDB60800092293 /* TransOrderCell.m */; };
 		0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32722DDB61500092293 /* TransSignCell.m */; };
@@ -479,6 +480,8 @@
 		0C038BCA22E98C1C00D83DC2 /* BelongDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BelongDetailVC.m; sourceTree = "<group>"; };
 		0C038BCD22E99B9900D83DC2 /* SpePerferDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpePerferDetailVC.h; sourceTree = "<group>"; };
 		0C038BCE22E99B9900D83DC2 /* SpePerferDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpePerferDetailVC.m; sourceTree = "<group>"; };
+		0C08E79022F7CD990079A3A0 /* NumeralAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAddMinusPersonVC.h; sourceTree = "<group>"; };
+		0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAddMinusPersonVC.m; sourceTree = "<group>"; };
 		0C0CE32022DDB1C800092293 /* TransNumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransNumeralCell.h; sourceTree = "<group>"; };
 		0C0CE32122DDB1C800092293 /* TransNumeralCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransNumeralCell.m; sourceTree = "<group>"; };
 		0C0CE32322DDB60800092293 /* TransOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransOrderCell.h; sourceTree = "<group>"; };
@@ -1250,6 +1253,8 @@
 		0C0415CD22F7C5E500065C0C /* 排号增加权益人 */ = {
 			isa = PBXGroup;
 			children = (
+				0C08E79022F7CD990079A3A0 /* NumeralAddMinusPersonVC.h */,
+				0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */,
 			);
 			path = "排号增加权益人";
 			sourceTree = "<group>";
@@ -4445,6 +4450,7 @@
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
+				0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */,
 				0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */,
 				0CA8265122AE60A00005F3ED /* MultiVisitReportVC.m in Sources */,
 				0C743A9422C1BC9200F5CB6B /* CompanyCommissionReportVC.m in Sources */,
