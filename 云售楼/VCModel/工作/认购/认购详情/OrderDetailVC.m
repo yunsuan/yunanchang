@@ -15,6 +15,9 @@
 #import "SpePerferDetailVC.h"
 #import "InstallMentDetailVC.h"
 
+#import "OrderAddDepositVC.h"
+#import "OrderMasterSlaveChangeVC.h"
+
 #import "NumeralDetailInvalidView.h"
 #import "SinglePickView.h"
 
@@ -212,11 +215,25 @@
             
             if ([ID integerValue] == 1) {
                 
+                
             }else if ([ID integerValue] == 2) {
                 
+                OrderAddDepositVC *nextVC = [[OrderAddDepositVC alloc] initWithProject_id:self->_project_id sincerity:self->_dataDic[@"deposit"] dataDic:self->_dataDic];
+                nextVC.orderAddDepositVCBlock = ^{
+                    
+                    [self RequestMethod];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 3) {
                 
+                OrderMasterSlaveChangeVC *nextVC = [[OrderMasterSlaveChangeVC alloc] initWithProject_id:self->_project_id personArr:self->_personArr dataDic:self->_dataDic info_id:self->_info_id];
+                nextVC.orderMasterSlaveChangeVCBlock = ^{
+                    
+                    [self RequestMethod];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 4) {
+                
                 
             }else if ([ID integerValue] == 5) {
                 

@@ -12,6 +12,10 @@
 		0C038BC722E9896500D83DC2 /* ContentRightBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C038BC622E9896500D83DC2 /* ContentRightBtnCell.m */; };
 		0C038BCB22E98C1C00D83DC2 /* BelongDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C038BCA22E98C1C00D83DC2 /* BelongDetailVC.m */; };
 		0C038BCF22E99B9900D83DC2 /* SpePerferDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C038BCE22E99B9900D83DC2 /* SpePerferDetailVC.m */; };
+		0C05330622F7DB5F00DA9143 /* OrderAddDepositVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05330522F7DB5F00DA9143 /* OrderAddDepositVC.m */; };
+		0C05330A22F7DD6700DA9143 /* OrderMasterSlaveChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05330922F7DD6700DA9143 /* OrderMasterSlaveChangeVC.m */; };
+		0C05330E22F7FBB900DA9143 /* OrderPayWayChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05330D22F7FBB900DA9143 /* OrderPayWayChangeVC.m */; };
+		0C05331222F8070500DA9143 /* OrderYearChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05331122F8070500DA9143 /* OrderYearChangeVC.m */; };
 		0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */; };
 		0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32122DDB1C800092293 /* TransNumeralCell.m */; };
 		0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32422DDB60800092293 /* TransOrderCell.m */; };
@@ -480,6 +484,14 @@
 		0C038BCA22E98C1C00D83DC2 /* BelongDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BelongDetailVC.m; sourceTree = "<group>"; };
 		0C038BCD22E99B9900D83DC2 /* SpePerferDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpePerferDetailVC.h; sourceTree = "<group>"; };
 		0C038BCE22E99B9900D83DC2 /* SpePerferDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpePerferDetailVC.m; sourceTree = "<group>"; };
+		0C05330422F7DB5F00DA9143 /* OrderAddDepositVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderAddDepositVC.h; sourceTree = "<group>"; };
+		0C05330522F7DB5F00DA9143 /* OrderAddDepositVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderAddDepositVC.m; sourceTree = "<group>"; };
+		0C05330822F7DD6700DA9143 /* OrderMasterSlaveChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderMasterSlaveChangeVC.h; sourceTree = "<group>"; };
+		0C05330922F7DD6700DA9143 /* OrderMasterSlaveChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderMasterSlaveChangeVC.m; sourceTree = "<group>"; };
+		0C05330C22F7FBB900DA9143 /* OrderPayWayChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderPayWayChangeVC.h; sourceTree = "<group>"; };
+		0C05330D22F7FBB900DA9143 /* OrderPayWayChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPayWayChangeVC.m; sourceTree = "<group>"; };
+		0C05331022F8070500DA9143 /* OrderYearChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderYearChangeVC.h; sourceTree = "<group>"; };
+		0C05331122F8070500DA9143 /* OrderYearChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderYearChangeVC.m; sourceTree = "<group>"; };
 		0C08E79022F7CD990079A3A0 /* NumeralAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAddMinusPersonVC.h; sourceTree = "<group>"; };
 		0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAddMinusPersonVC.m; sourceTree = "<group>"; };
 		0C0CE32022DDB1C800092293 /* TransNumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransNumeralCell.h; sourceTree = "<group>"; };
@@ -1257,6 +1269,61 @@
 				0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */,
 			);
 			path = "排号增加权益人";
+			sourceTree = "<group>";
+		};
+		0C05330122F7DB1300DA9143 /* 定单变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05330F22F806F500DA9143 /* 定单按揭年限变更 */,
+				0C05330B22F7DF4500DA9143 /* 定单付款方式变更 */,
+				0C05330722F7DD4800DA9143 /* 主从变更 */,
+				0C05330322F7DB2F00DA9143 /* 定单增加定金 */,
+				0C05330222F7DB2500DA9143 /* 定单挞定 */,
+			);
+			path = "定单变更";
+			sourceTree = "<group>";
+		};
+		0C05330222F7DB2500DA9143 /* 定单挞定 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "定单挞定";
+			sourceTree = "<group>";
+		};
+		0C05330322F7DB2F00DA9143 /* 定单增加定金 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05330422F7DB5F00DA9143 /* OrderAddDepositVC.h */,
+				0C05330522F7DB5F00DA9143 /* OrderAddDepositVC.m */,
+			);
+			path = "定单增加定金";
+			sourceTree = "<group>";
+		};
+		0C05330722F7DD4800DA9143 /* 主从变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05330822F7DD6700DA9143 /* OrderMasterSlaveChangeVC.h */,
+				0C05330922F7DD6700DA9143 /* OrderMasterSlaveChangeVC.m */,
+			);
+			path = "主从变更";
+			sourceTree = "<group>";
+		};
+		0C05330B22F7DF4500DA9143 /* 定单付款方式变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05330C22F7FBB900DA9143 /* OrderPayWayChangeVC.h */,
+				0C05330D22F7FBB900DA9143 /* OrderPayWayChangeVC.m */,
+			);
+			path = "定单付款方式变更";
+			sourceTree = "<group>";
+		};
+		0C05330F22F806F500DA9143 /* 定单按揭年限变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05331022F8070500DA9143 /* OrderYearChangeVC.h */,
+				0C05331122F8070500DA9143 /* OrderYearChangeVC.m */,
+			);
+			path = "定单按揭年限变更";
 			sourceTree = "<group>";
 		};
 		0C0CE31D22DDB10200092293 /* 订单审核 */ = {
@@ -2098,6 +2165,7 @@
 		0C4B8EDA22CC45F700D505BE /* 认购 */ = {
 			isa = PBXGroup;
 			children = (
+				0C05330122F7DB1300DA9143 /* 定单变更 */,
 				0CFC16D322EAD7F500AD3D65 /* 分期详情 */,
 				0C038BCC22E99B2C00D83DC2 /* 优惠详情 */,
 				0C365CB122E84AB300A586FC /* 修改定单 */,
@@ -4287,6 +4355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C05331222F8070500DA9143 /* OrderYearChangeVC.m in Sources */,
 				0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */,
 				0CFDB35B22EEDDDA00F21976 /* NumeralBackNumView.m in Sources */,
 				0C3A917A225C435900F04804 /* MineHeader.m in Sources */,
@@ -4298,6 +4367,7 @@
 				10BC3A4E228FF80300DAB2D8 /* RotationSettingVC.m in Sources */,
 				0CFDB36922EFEFC900F21976 /* AddNumeralCodeCollCell.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
+				0C05330622F7DB5F00DA9143 /* OrderAddDepositVC.m in Sources */,
 				0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */,
 				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,
 				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
@@ -4453,6 +4523,7 @@
 				0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */,
 				0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */,
 				0CA8265122AE60A00005F3ED /* MultiVisitReportVC.m in Sources */,
+				0C05330E22F7FBB900DA9143 /* OrderPayWayChangeVC.m in Sources */,
 				0C743A9422C1BC9200F5CB6B /* CompanyCommissionReportVC.m in Sources */,
 				10BC3A522291297E00DAB2D8 /* AbdicateVC.m in Sources */,
 				0C038BCB22E98C1C00D83DC2 /* BelongDetailVC.m in Sources */,
@@ -4533,6 +4604,7 @@
 				0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */,
 				0C221A5E227EC763006B0510 /* IntentSurveyHeader.m in Sources */,
 				0C74521322A8B574008F2F07 /* ChannelRecommendVC.m in Sources */,
+				0C05330A22F7DD6700DA9143 /* OrderMasterSlaveChangeVC.m in Sources */,
 				0C496DF822D49DEA00789FFA /* preferentialCollCell.m in Sources */,
 				0CBD71152292437A002A6B48 /* InvalidView.m in Sources */,
 				0CD7A02E225C6D5700EAE816 /* AddressTableCell.m in Sources */,

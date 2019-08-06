@@ -14,6 +14,7 @@
 #import "InstallMentDetailVC.h"
 
 #import "NumeralDetailInvalidView.h"
+#import "SinglePickView.h"
 
 #import "NumeralDetailHeader.h"
 #import "BaseHeader.h"
@@ -223,20 +224,34 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
+    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"id":@"1",@"param":@"合同付款方式变更"},@{@"id":@"2",@"param":@"合同主从变更"},@{@"id":@"3",@"param":@"合同特殊优惠变更"},@{@"id":@"4",@"param":@"合同延期签约变更"},@{@"id":@"5",@"param":@"合同增减权益人"},@{@"id":@"6",@"param":@"合同退房"},@{@"id":@"7",@"param":@"合同换房"},@{@"id":@"8",@"param":@"合同更名"},@{@"id":@"9",@"param":@"合同延期"},@{@"id":@"10",@"param":@"合同按揭年限变更"},@{@"id":@"11",@"param":@"合同按揭银行变更"},@{@"id":@"12",@"param":@"合同添加首付款"},@{@"id":@"13",@"param":@"合同付款延期"}]];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            
+        };
+        [self.view addSubview:view];
+    }];
+    
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     
     }];
     
-    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
-        
-        [alert addAction:numeral];
-    }
     
     if ([self.need_check integerValue] == 1 && [self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2) {
         
         [alert addAction:audit];
     }
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+        
+        [alert addAction:change];
+    }
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
+        
+        [alert addAction:numeral];
+    }
+    
     [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
     
