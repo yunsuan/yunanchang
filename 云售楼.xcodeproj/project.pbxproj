@@ -16,6 +16,10 @@
 		0C05330A22F7DD6700DA9143 /* OrderMasterSlaveChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05330922F7DD6700DA9143 /* OrderMasterSlaveChangeVC.m */; };
 		0C05330E22F7FBB900DA9143 /* OrderPayWayChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05330D22F7FBB900DA9143 /* OrderPayWayChangeVC.m */; };
 		0C05331222F8070500DA9143 /* OrderYearChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05331122F8070500DA9143 /* OrderYearChangeVC.m */; };
+		0C05333922F95B7700DA9143 /* OrderSpePerferChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05333822F95B7700DA9143 /* OrderSpePerferChangeVC.m */; };
+		0C05333D22F9608800DA9143 /* OrderAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05333C22F9608800DA9143 /* OrderAddMinusPersonVC.m */; };
+		0C05334122F9630500DA9143 /* OrderExitRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334022F9630500DA9143 /* OrderExitRoomVC.m */; };
+		0C05334522F9631E00DA9143 /* OrderChangeRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334422F9631E00DA9143 /* OrderChangeRoomVC.m */; };
 		0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */; };
 		0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32122DDB1C800092293 /* TransNumeralCell.m */; };
 		0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32422DDB60800092293 /* TransOrderCell.m */; };
@@ -492,6 +496,14 @@
 		0C05330D22F7FBB900DA9143 /* OrderPayWayChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPayWayChangeVC.m; sourceTree = "<group>"; };
 		0C05331022F8070500DA9143 /* OrderYearChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderYearChangeVC.h; sourceTree = "<group>"; };
 		0C05331122F8070500DA9143 /* OrderYearChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderYearChangeVC.m; sourceTree = "<group>"; };
+		0C05333722F95B7700DA9143 /* OrderSpePerferChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderSpePerferChangeVC.h; sourceTree = "<group>"; };
+		0C05333822F95B7700DA9143 /* OrderSpePerferChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderSpePerferChangeVC.m; sourceTree = "<group>"; };
+		0C05333B22F9608800DA9143 /* OrderAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderAddMinusPersonVC.h; sourceTree = "<group>"; };
+		0C05333C22F9608800DA9143 /* OrderAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderAddMinusPersonVC.m; sourceTree = "<group>"; };
+		0C05333F22F9630500DA9143 /* OrderExitRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderExitRoomVC.h; sourceTree = "<group>"; };
+		0C05334022F9630500DA9143 /* OrderExitRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderExitRoomVC.m; sourceTree = "<group>"; };
+		0C05334322F9631E00DA9143 /* OrderChangeRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderChangeRoomVC.h; sourceTree = "<group>"; };
+		0C05334422F9631E00DA9143 /* OrderChangeRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderChangeRoomVC.m; sourceTree = "<group>"; };
 		0C08E79022F7CD990079A3A0 /* NumeralAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAddMinusPersonVC.h; sourceTree = "<group>"; };
 		0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAddMinusPersonVC.m; sourceTree = "<group>"; };
 		0C0CE32022DDB1C800092293 /* TransNumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransNumeralCell.h; sourceTree = "<group>"; };
@@ -1274,6 +1286,10 @@
 		0C05330122F7DB1300DA9143 /* 定单变更 */ = {
 			isa = PBXGroup;
 			children = (
+				0C05334222F9631200DA9143 /* 定单换房 */,
+				0C05333E22F962F000DA9143 /* 定单退房 */,
+				0C05333A22F9607300DA9143 /* 定单增减权益人 */,
+				0C05333622F95B5F00DA9143 /* 定单特殊优惠变更 */,
 				0C05330F22F806F500DA9143 /* 定单按揭年限变更 */,
 				0C05330B22F7DF4500DA9143 /* 定单付款方式变更 */,
 				0C05330722F7DD4800DA9143 /* 主从变更 */,
@@ -1324,6 +1340,42 @@
 				0C05331122F8070500DA9143 /* OrderYearChangeVC.m */,
 			);
 			path = "定单按揭年限变更";
+			sourceTree = "<group>";
+		};
+		0C05333622F95B5F00DA9143 /* 定单特殊优惠变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05333722F95B7700DA9143 /* OrderSpePerferChangeVC.h */,
+				0C05333822F95B7700DA9143 /* OrderSpePerferChangeVC.m */,
+			);
+			path = "定单特殊优惠变更";
+			sourceTree = "<group>";
+		};
+		0C05333A22F9607300DA9143 /* 定单增减权益人 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05333B22F9608800DA9143 /* OrderAddMinusPersonVC.h */,
+				0C05333C22F9608800DA9143 /* OrderAddMinusPersonVC.m */,
+			);
+			path = "定单增减权益人";
+			sourceTree = "<group>";
+		};
+		0C05333E22F962F000DA9143 /* 定单退房 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05333F22F9630500DA9143 /* OrderExitRoomVC.h */,
+				0C05334022F9630500DA9143 /* OrderExitRoomVC.m */,
+			);
+			path = "定单退房";
+			sourceTree = "<group>";
+		};
+		0C05334222F9631200DA9143 /* 定单换房 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05334322F9631E00DA9143 /* OrderChangeRoomVC.h */,
+				0C05334422F9631E00DA9143 /* OrderChangeRoomVC.m */,
+			);
+			path = "定单换房";
 			sourceTree = "<group>";
 		};
 		0C0CE31D22DDB10200092293 /* 订单审核 */ = {
@@ -4405,6 +4457,7 @@
 				0C743A9822C1BCE300F5CB6B /* CompanyCommissionReportCell.m in Sources */,
 				10EF17AE2292AE3400DE5566 /* AddCompanyVC.m in Sources */,
 				0C496DE122D42E0800789FFA /* AddNumeralModifyCustomVC.m in Sources */,
+				0C05333922F95B7700DA9143 /* OrderSpePerferChangeVC.m in Sources */,
 				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
 				0CD0439E228175AE002C8BD3 /* SMScrollView.m in Sources */,
 				0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */,
@@ -4417,6 +4470,7 @@
 				0CBD712022925893002A6B48 /* PushSettingVC.m in Sources */,
 				0C7451FF22A7B996008F2F07 /* MutiLineChartView.m in Sources */,
 				0C496DF522D48C1C00789FFA /* AddOrderView.m in Sources */,
+				0C05333D22F9608800DA9143 /* OrderAddMinusPersonVC.m in Sources */,
 				0C221A6E227EE621006B0510 /* CallTelegramCustomDetailHeaderCollCell.m in Sources */,
 				0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */,
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
@@ -4444,6 +4498,7 @@
 				0C221A72227EED08006B0510 /* WorkPhoneConfirmVC.m in Sources */,
 				0CEF8A40225F0F940057F3FD /* CompanyAuthingVC.m in Sources */,
 				0CFDB30A22EEA57300F21976 /* RecommendCheckCell.m in Sources */,
+				0C05334122F9630500DA9143 /* OrderExitRoomVC.m in Sources */,
 				0CEF8A31225D863A0057F3FD /* CountDownCell.m in Sources */,
 				0CEF8AED2264295F0057F3FD /* CallTelegramCell.m in Sources */,
 				0C0CE33122DDCFAB00092293 /* AuditTaskDetailCollCell.m in Sources */,
@@ -4470,6 +4525,7 @@
 				0CD043AA22817622002C8BD3 /* KyoCinameSeatScrollView.m in Sources */,
 				0C496E0722D7152300789FFA /* SelectPerferCollCell.m in Sources */,
 				0C3A919D225C484500F04804 /* TagCollCell.m in Sources */,
+				0C05334522F9631E00DA9143 /* OrderChangeRoomVC.m in Sources */,
 				0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */,
 				10BC3A5922912F9200DAB2D8 /* AbdicateHeaderView.m in Sources */,
 				0C4B7F6D22C9DB2300BBC34F /* NumeralDetailHeader.m in Sources */,

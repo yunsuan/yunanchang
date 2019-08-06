@@ -1,12 +1,12 @@
 //
-//  OrderPayWayChangeVC.m
+//  OrderChangeRoomVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/8/5.
+//  Created by 谷治墙 on 2019/8/6.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "OrderPayWayChangeVC.h"
+#import "OrderChangeRoomVC.h"
 
 #import "RoomVC.h"
 #import "SelectSpePerferVC.h"
@@ -24,7 +24,7 @@
 #import "SinglePickView.h"
 #import "DateChooseView.h"
 
-@interface OrderPayWayChangeVC ()<UIScrollViewDelegate>
+@interface OrderChangeRoomVC ()<UIScrollViewDelegate>
 {
     
     NSInteger _num;
@@ -86,7 +86,7 @@
 
 @end
 
-@implementation OrderPayWayChangeVC
+@implementation OrderChangeRoomVC
 
 - (instancetype)initWithSubId:(NSString *)sub_id projectId:(NSString *)project_id info_Id:(NSString *)info_id dataDic:(NSDictionary *)dataDic
 {
@@ -135,7 +135,7 @@
     
     
     _certArr = [@[] mutableCopy];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@0,@0,@1,@0]];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@0,@1,@0,@0]];
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];
     _roleArr = [@[] mutableCopy];
@@ -598,17 +598,17 @@
     NSData *advicer_listData = [NSJSONSerialization dataWithJSONObject:advicer_list options:NSJSONWritingPrettyPrinted error:&error];
     NSString *advicer_listDataJson = [[NSString alloc]initWithData:advicer_listData encoding:NSUTF8StringEncoding];
     [dic setObject:advicer_listDataJson forKey:@"advicer_list"];
-//    [dic setObject:self.from_type forKey:@"from_type"];
-//    if ([self.from_type isEqualToString:@"1"]) {
-//
-//        [dic setObject:tempArr[0][@"group_id"] forKey:@"from_id"];
-//    }else if ([self.from_type isEqualToString:@"3"]){
-//
-//        [dic setObject:_sub_id forKey:@"from_id"];
-//    }else if ([self.from_type isEqualToString:@"1"]){
-//
-//
-//    }
+    //    [dic setObject:self.from_type forKey:@"from_type"];
+    //    if ([self.from_type isEqualToString:@"1"]) {
+    //
+    //        [dic setObject:tempArr[0][@"group_id"] forKey:@"from_id"];
+    //    }else if ([self.from_type isEqualToString:@"3"]){
+    //
+    //        [dic setObject:_sub_id forKey:@"from_id"];
+    //    }else if ([self.from_type isEqualToString:@"1"]){
+    //
+    //
+    //    }
     
     [dic setObject:_sub_id forKey:@"sub_id"];
     
@@ -736,11 +736,74 @@
     _roomHeader.hidden = YES;
     [_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _roomHeader.backgroundColor = CLWhiteColor;
+    _roomHeader.addNemeralHeaderAllBlock = ^{
+        
+        if ([strongSelf->_selectArr[1] integerValue]){
+            
+            [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@0];
+            [strongSelf->_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+            strongSelf->_addOrderRoomView.hidden = YES;
+            [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_roomHeader.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(40 *SIZE);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+            }];
+        }else{
+            
+            [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@1];
+            [strongSelf->_roomHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
+            strongSelf->_addOrderRoomView.hidden = NO;
+            [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_addOrderRoomView.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(40 *SIZE);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+            }];
+        }
+    };
     [_scrollView addSubview:_roomHeader];
     
     _addOrderRoomView = [[AddOrderRoomView alloc] init];
     _addOrderRoomView.hidden = YES;
     _addOrderRoomView.dataDic = _roomDic;
+    _addOrderRoomView.addOrderRoomViewEditBlock = ^{
+        
+        RoomVC *nextVC = [[RoomVC alloc] init];
+        nextVC.status = @"select";
+        nextVC.roomVCBlock = ^(NSDictionary * dic) {
+            
+            strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+            for (int i = 0; i < [strongSelf->_roomDic[@"propertyDetail"] count]; i++) {
+                
+                if ([strongSelf->_roomDic[@"propertyDetail"][i] containsString:@"最低总价"]) {
+                    
+                    NSString *str = [NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"propertyDetail"][i]];
+                    strongSelf->_minPirce = [NSString stringWithFormat:@"%@",[str componentsSeparatedByString:@" "][1]];
+                }
+            }
+            if (!strongSelf->_minPirce.length) {
+                
+                strongSelf->_minPirce = @"0";
+            }
+            
+            [strongSelf->_roomDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                if ([obj isKindOfClass:[NSNull class]]) {
+                    
+                    [strongSelf->_roomDic setObject:@"" forKey:key];
+                }
+            }];
+            strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
+            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"total_price"];
+            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+    };
     [_scrollView addSubview:_addOrderRoomView];
     
     _orderHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
@@ -1568,7 +1631,7 @@
     [_scrollView addSubview:_addOrderView];
     
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-//    _processHeader.hidden = YES;
+    //    _processHeader.hidden = YES;
     _processHeader.titleL.text = @"流程信息";
     _processHeader.addBtn.hidden = YES;
     [_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
@@ -1723,20 +1786,20 @@
             [strongSelf.view addSubview:view];
         }else{
             NSDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":strongSelf->_project_id,@"config_type":@"1"}];
-//            if ([strongSelf.status isEqualToString:@"2"]) {
-//
-//                [dic setValue:@"2" forKey:@"config_type"];
-//            }
-//            if ([strongSelf.from_type isEqualToString:@"1"]) {
-//
-//                [dic setValue:@"2" forKey:@"progress_defined_id"];
-//            }else if ([strongSelf.from_type isEqualToString:@"3"]){
-//
-//                [dic setValue:@"4" forKey:@"progress_defined_id"];
-//            }else if ([strongSelf.from_type isEqualToString:@"4"]){
-//
-//                [dic setValue:@"5" forKey:@"progress_defined_id"];
-//            }
+            //            if ([strongSelf.status isEqualToString:@"2"]) {
+            //
+            //                [dic setValue:@"2" forKey:@"config_type"];
+            //            }
+            //            if ([strongSelf.from_type isEqualToString:@"1"]) {
+            //
+            //                [dic setValue:@"2" forKey:@"progress_defined_id"];
+            //            }else if ([strongSelf.from_type isEqualToString:@"3"]){
+            //
+            //                [dic setValue:@"4" forKey:@"progress_defined_id"];
+            //            }else if ([strongSelf.from_type isEqualToString:@"4"]){
+            //
+            //                [dic setValue:@"5" forKey:@"progress_defined_id"];
+            //            }
             
             [BaseRequest GET:ProjectProgressGet_URL parameters:dic success:^(id  _Nonnull resposeObject) {
                 
@@ -1907,7 +1970,7 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_addNumeralPersonView.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0 *SIZE);
+        make.height.mas_equalTo(40 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
     
@@ -1916,7 +1979,7 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_roomHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0 *SIZE);
+//        make.height.mas_equalTo(0 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
     
@@ -1934,6 +1997,7 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_orderHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(0 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
     

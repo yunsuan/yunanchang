@@ -17,6 +17,11 @@
 
 #import "OrderAddDepositVC.h"
 #import "OrderMasterSlaveChangeVC.h"
+#import "OrderPayWayChangeVC.h"
+#import "OrderYearChangeVC.h"
+#import "OrderSpePerferChangeVC.h"
+#import "OrderAddMinusPersonVC.h"
+#import "OrderChangeRoomVC.h"
 
 #import "NumeralDetailInvalidView.h"
 #import "SinglePickView.h"
@@ -234,19 +239,43 @@
                 [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 4) {
                 
-                
+                OrderPayWayChangeVC *nextVC = [[OrderPayWayChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+                nextVC.orderPayWayChangeVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 5) {
                 
+                OrderYearChangeVC *nextVC = [[OrderYearChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+                nextVC.orderYearChangeVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 6) {
                 
+                OrderSpePerferChangeVC *nextVC = [[OrderSpePerferChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+                nextVC.orderSpePerferChangeVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 7) {
                 
             }else if ([ID integerValue] == 8) {
                 
+                OrderAddMinusPersonVC *nextVC = [[OrderAddMinusPersonVC alloc] initWithProject_id:self->_project_id personArr:self->_personArr dataDic:self->_dataDic info_id:self->_info_id];
+                nextVC.orderAddMinusPersonVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 9) {
                 
             }else if ([ID integerValue] == 10) {
                 
+                OrderChangeRoomVC *nextVC = [[OrderChangeRoomVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+                nextVC.orderChangeRoomVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 11) {
                 
             }

@@ -1,12 +1,12 @@
 //
-//  OrderPayWayChangeVC.m
+//  OrderSpePerferChangeVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/8/5.
+//  Created by 谷治墙 on 2019/8/6.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "OrderPayWayChangeVC.h"
+#import "OrderSpePerferChangeVC.h"
 
 #import "RoomVC.h"
 #import "SelectSpePerferVC.h"
@@ -24,7 +24,7 @@
 #import "SinglePickView.h"
 #import "DateChooseView.h"
 
-@interface OrderPayWayChangeVC ()<UIScrollViewDelegate>
+@interface OrderSpePerferChangeVC ()<UIScrollViewDelegate>
 {
     
     NSInteger _num;
@@ -86,7 +86,7 @@
 
 @end
 
-@implementation OrderPayWayChangeVC
+@implementation OrderSpePerferChangeVC
 
 - (instancetype)initWithSubId:(NSString *)sub_id projectId:(NSString *)project_id info_Id:(NSString *)info_id dataDic:(NSDictionary *)dataDic
 {
@@ -598,17 +598,17 @@
     NSData *advicer_listData = [NSJSONSerialization dataWithJSONObject:advicer_list options:NSJSONWritingPrettyPrinted error:&error];
     NSString *advicer_listDataJson = [[NSString alloc]initWithData:advicer_listData encoding:NSUTF8StringEncoding];
     [dic setObject:advicer_listDataJson forKey:@"advicer_list"];
-//    [dic setObject:self.from_type forKey:@"from_type"];
-//    if ([self.from_type isEqualToString:@"1"]) {
-//
-//        [dic setObject:tempArr[0][@"group_id"] forKey:@"from_id"];
-//    }else if ([self.from_type isEqualToString:@"3"]){
-//
-//        [dic setObject:_sub_id forKey:@"from_id"];
-//    }else if ([self.from_type isEqualToString:@"1"]){
-//
-//
-//    }
+    //    [dic setObject:self.from_type forKey:@"from_type"];
+    //    if ([self.from_type isEqualToString:@"1"]) {
+    //
+    //        [dic setObject:tempArr[0][@"group_id"] forKey:@"from_id"];
+    //    }else if ([self.from_type isEqualToString:@"3"]){
+    //
+    //        [dic setObject:_sub_id forKey:@"from_id"];
+    //    }else if ([self.from_type isEqualToString:@"1"]){
+    //
+    //
+    //    }
     
     [dic setObject:_sub_id forKey:@"sub_id"];
     
@@ -1568,7 +1568,7 @@
     [_scrollView addSubview:_addOrderView];
     
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-//    _processHeader.hidden = YES;
+    //    _processHeader.hidden = YES;
     _processHeader.titleL.text = @"流程信息";
     _processHeader.addBtn.hidden = YES;
     [_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
@@ -1723,20 +1723,20 @@
             [strongSelf.view addSubview:view];
         }else{
             NSDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":strongSelf->_project_id,@"config_type":@"1"}];
-//            if ([strongSelf.status isEqualToString:@"2"]) {
-//
-//                [dic setValue:@"2" forKey:@"config_type"];
-//            }
-//            if ([strongSelf.from_type isEqualToString:@"1"]) {
-//
-//                [dic setValue:@"2" forKey:@"progress_defined_id"];
-//            }else if ([strongSelf.from_type isEqualToString:@"3"]){
-//
-//                [dic setValue:@"4" forKey:@"progress_defined_id"];
-//            }else if ([strongSelf.from_type isEqualToString:@"4"]){
-//
-//                [dic setValue:@"5" forKey:@"progress_defined_id"];
-//            }
+            //            if ([strongSelf.status isEqualToString:@"2"]) {
+            //
+            //                [dic setValue:@"2" forKey:@"config_type"];
+            //            }
+            //            if ([strongSelf.from_type isEqualToString:@"1"]) {
+            //
+            //                [dic setValue:@"2" forKey:@"progress_defined_id"];
+            //            }else if ([strongSelf.from_type isEqualToString:@"3"]){
+            //
+            //                [dic setValue:@"4" forKey:@"progress_defined_id"];
+            //            }else if ([strongSelf.from_type isEqualToString:@"4"]){
+            //
+            //                [dic setValue:@"5" forKey:@"progress_defined_id"];
+            //            }
             
             [BaseRequest GET:ProjectProgressGet_URL parameters:dic success:^(id  _Nonnull resposeObject) {
                 
@@ -1957,5 +1957,6 @@
         //        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];
 }
+
 
 @end

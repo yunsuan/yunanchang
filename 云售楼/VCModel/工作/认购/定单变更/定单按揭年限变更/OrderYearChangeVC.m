@@ -129,13 +129,13 @@
 - (void)initDataSource{
     
     _num = 0;
-    _titleArr = @[@"权益人信息",@"房源信息",@"定单信息"];
+    _titleArr = @[@"权益人信息",@"房源信息",@"定单信息",@"流程信息"];
     
     _pay_info = [[NSMutableDictionary alloc] init];
     
     
     _certArr = [@[] mutableCopy];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0]];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@0,@0,@1,@0]];
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];
     _roleArr = [@[] mutableCopy];
@@ -719,195 +719,28 @@
     _personHeader.backgroundColor = CLWhiteColor;
     _personHeader.titleL.text = @"权益人信息";
     _personHeader.addBtn.hidden = YES;
+    _personHeader.hidden = YES;
     [_personHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-    _personHeader.addNemeralHeaderAllBlock = ^{
-        
-        if ([strongSelf->_selectArr[0] integerValue]){
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:0 withObject:@0];
-            [strongSelf->_personHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addNumeralPersonView.hidden = YES;
-            [strongSelf->_roomHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_personHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(40 *SIZE);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }else{
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:0 withObject:@1];
-            [strongSelf->_personHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-            strongSelf->_addNumeralPersonView.hidden = NO;
-            [strongSelf->_roomHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_addNumeralPersonView.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(40 *SIZE);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }
-    };
     [_scrollView addSubview:_personHeader];
     
     _addNumeralPersonView = [[AddNumeralPersonView alloc] init];
     _addNumeralPersonView.dataArr = _personArr;
     _addNumeralPersonView.num = _num;
+    _addNumeralPersonView.hidden = YES;
     _addNumeralPersonView.proportion = _proportionArr[_num];
-    
-    _addNumeralPersonView.addNumeralPersonViewArrBlock = ^(NSInteger num) {
-        
-        NSDictionary *dic = strongSelf->_personArr[num];
-        [strongSelf->_personArr removeObjectAtIndex:num];
-        [strongSelf->_personArr insertObject:dic atIndex:0];
-        strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-        strongSelf->_num = 0;
-        strongSelf->_addNumeralPersonView.num = strongSelf->_num;
-    };
-    
-    _addNumeralPersonView.addNumeralPersonViewDeleteBlock = ^(NSInteger num) {
-        
-        if (strongSelf->_num == num) {
-            
-            strongSelf->_num = num - 1;
-            strongSelf->_addNumeralPersonView.num = num - 1;
-        }
-        [strongSelf->_personArr removeObjectAtIndex:num];
-        [strongSelf->_proportionArr removeObjectAtIndex:num];
-    };
-    
-    _addNumeralPersonView.addNumeralPersonViewStrBlock = ^(NSString * _Nonnull str, NSInteger num) {
-        
-        [strongSelf->_proportionArr replaceObjectAtIndex:num withObject:str];
-        NSLog(@"1111111111%@",strongSelf->_proportionArr);
-    };
-    
-    _addNumeralPersonView.addNumeralPersonViewCollBlock = ^(NSInteger num) {
-        
-        strongSelf->_num = num;
-        strongSelf->_addNumeralPersonView.num = num;
-        strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[num];
-    };
-    _addNumeralPersonView.addNumeralPersonViewAddBlock = ^(NSInteger num) {
-        
-        AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
-        nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
-            
-            [strongSelf->_proportionArr addObject:@""];
-            [strongSelf->_personArr addObject:dic];
-            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-            strongSelf->_num = strongSelf->_personArr.count - 1;
-            strongSelf->_addNumeralPersonView.num = strongSelf->_personArr.count - 1;
-            strongSelf->_addNumeralPersonView.proportion = strongSelf->_proportionArr[strongSelf->_personArr.count - 1];
-            if (strongSelf.orderYearChangeVCBlock) {
-                
-                strongSelf.orderYearChangeVCBlock();
-            }
-        };
-        [strongSelf.navigationController pushViewController:nextVC animated:YES];
-    };
-    _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
-        
-        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
-            
-            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];
-            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                
-                if (dic[key]) {
-                    
-                    [tempDic setObject:dic[key] forKey:key];
-                }
-            }];
-            [strongSelf->_personArr replaceObjectAtIndex:num withObject:tempDic];
-            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-            strongSelf->_addNumeralPersonView.num = num;
-            strongSelf->_num = num;
-            if (strongSelf.orderYearChangeVCBlock) {
-                
-                strongSelf.orderYearChangeVCBlock();
-            }
-        };
-        [strongSelf.navigationController pushViewController:nextVC animated:YES];
-    };
     [_scrollView addSubview:_addNumeralPersonView];
     
     _roomHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _roomHeader.titleL.text = @"房源信息";
     _roomHeader.addBtn.hidden = YES;
+    _roomHeader.hidden = YES;
     [_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _roomHeader.backgroundColor = CLWhiteColor;
-    _roomHeader.addNemeralHeaderAllBlock = ^{
-        
-        if ([strongSelf->_selectArr[1] integerValue]){
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@0];
-            [strongSelf->_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addOrderRoomView.hidden = YES;
-            [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_roomHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(40 *SIZE);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }else{
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@1];
-            [strongSelf->_roomHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-            strongSelf->_addOrderRoomView.hidden = NO;
-            [strongSelf->_orderHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_addOrderRoomView.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(40 *SIZE);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }
-    };
     [_scrollView addSubview:_roomHeader];
     
     _addOrderRoomView = [[AddOrderRoomView alloc] init];
     _addOrderRoomView.hidden = YES;
     _addOrderRoomView.dataDic = _roomDic;
-    _addOrderRoomView.addOrderRoomViewEditBlock = ^{
-        
-        RoomVC *nextVC = [[RoomVC alloc] init];
-        nextVC.status = @"select";
-        nextVC.roomVCBlock = ^(NSDictionary * dic) {
-            
-            strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
-            for (int i = 0; i < [strongSelf->_roomDic[@"propertyDetail"] count]; i++) {
-                
-                if ([strongSelf->_roomDic[@"propertyDetail"][i] containsString:@"最低总价"]) {
-                    
-                    NSString *str = [NSString stringWithFormat:@"%@",strongSelf->_roomDic[@"propertyDetail"][i]];
-                    strongSelf->_minPirce = [NSString stringWithFormat:@"%@",[str componentsSeparatedByString:@" "][1]];
-                }
-            }
-            if (!strongSelf->_minPirce.length) {
-                
-                strongSelf->_minPirce = @"0";
-            }
-            
-            [strongSelf->_roomDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                
-                if ([obj isKindOfClass:[NSNull class]]) {
-                    
-                    [strongSelf->_roomDic setObject:@"" forKey:key];
-                }
-            }];
-            strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
-            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"total_price"];
-            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
-        };
-        [strongSelf.navigationController pushViewController:nextVC animated:YES];
-    };
     [_scrollView addSubview:_addOrderRoomView];
     
     _orderHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
@@ -917,76 +750,70 @@
     _orderHeader.backgroundColor = CLWhiteColor;
     _orderHeader.addNemeralHeaderAllBlock = ^{
         
-        if (strongSelf->_roomDic.count) {
+        if ([strongSelf->_selectArr[2] integerValue]){
             
-            if ([strongSelf->_selectArr[2] integerValue]){
+            [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@0];
+            [strongSelf->_orderHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+            strongSelf->_addOrderView.hidden = YES;
+            
+            if (!strongSelf->_addNumeralProcessView.hidden) {
                 
-                [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@0];
-                [strongSelf->_orderHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-                strongSelf->_addOrderView.hidden = YES;
-                
-                if (!strongSelf->_addNumeralProcessView.hidden) {
+                [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
                     
-                    [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(strongSelf->_scrollView).offset(0);
-                        make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
-                        make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
-                        make.right.equalTo(strongSelf->_scrollView).offset(0);
-                        
-                    }];
-                }else{
+                    make.left.equalTo(strongSelf->_scrollView).offset(0);
+                    make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                    make.height.mas_equalTo(40 *SIZE);
+                    make.right.equalTo(strongSelf->_scrollView).offset(0);
                     
-                    [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(strongSelf->_scrollView).offset(0);
-                        make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
-                        make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
-                        make.right.equalTo(strongSelf->_scrollView).offset(0);
-                        make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-                    }];
-                }
+                }];
             }else{
                 
-                [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@1];
-                [strongSelf->_orderHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-                strongSelf->_addOrderView.hidden = NO;
-                if (!strongSelf->_addNumeralProcessView.hidden) {
+                [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
                     
-                    [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(strongSelf->_scrollView).offset(0);
-                        make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
-                        make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
-                        make.right.equalTo(strongSelf->_scrollView).offset(0);
-                        
-                    }];
-                }else{
-                    
-                    [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(strongSelf->_scrollView).offset(0);
-                        make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
-                        make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
-                        make.right.equalTo(strongSelf->_scrollView).offset(0);
-                        make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-                    }];
-                }
+                    make.left.equalTo(strongSelf->_scrollView).offset(0);
+                    make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                    make.height.mas_equalTo(40 *SIZE);
+                    make.right.equalTo(strongSelf->_scrollView).offset(0);
+                    make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+                }];
             }
         }else{
             
-            [strongSelf showContent:@"请先选择房源"];
+            [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@1];
+            [strongSelf->_orderHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
+            strongSelf->_addOrderView.hidden = NO;
+            if (!strongSelf->_addNumeralProcessView.hidden) {
+                
+                [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(strongSelf->_scrollView).offset(0);
+                    make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                    make.height.mas_equalTo(40 *SIZE);
+                    make.right.equalTo(strongSelf->_scrollView).offset(0);
+                    
+                }];
+            }else{
+                
+                [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(strongSelf->_scrollView).offset(0);
+                    make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                    make.height.mas_equalTo(40 *SIZE);
+                    make.right.equalTo(strongSelf->_scrollView).offset(0);
+                    make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+                }];
+            }
         }
     };
     [_scrollView addSubview:_orderHeader];
     
     
     _addOrderView = [[AddOrderView alloc] init];
-    _addOrderView.hidden = YES;
+    _addOrderView.hidden = NO;
     _addOrderView.dataArr = _disCountArr;
     _addOrderView.dataDic = _ordDic;
     _addOrderView.addOrderViewAddBlock = ^{
@@ -1741,97 +1568,91 @@
     [_scrollView addSubview:_addOrderView];
     
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _processHeader.hidden = YES;
+    //    _processHeader.hidden = YES;
     _processHeader.titleL.text = @"流程信息";
     _processHeader.addBtn.hidden = YES;
     [_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
     _processHeader.backgroundColor = CLWhiteColor;
     _processHeader.addNemeralHeaderAllBlock = ^{
         
-        if (strongSelf->_roomDic.count) {
+        if ([strongSelf->_selectArr[3] integerValue]){
             
-            if ([strongSelf->_selectArr[3] integerValue]){
+            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
+            [strongSelf->_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+            strongSelf->_addNumeralProcessView.hidden = YES;
+            if (strongSelf->_addOrderView.hidden) {
                 
-                [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
-                [strongSelf->_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-                strongSelf->_addNumeralProcessView.hidden = YES;
-                if (strongSelf->_addOrderView.hidden) {
-                    
-                    [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(strongSelf->_scrollView).offset(0);
-                        make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
-                        make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
-                        make.right.equalTo(strongSelf->_scrollView).offset(0);
-                        make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-                    }];
-                }else{
-                    
-                    [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(strongSelf->_scrollView).offset(0);
-                        make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
-                        make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
-                        make.right.equalTo(strongSelf->_scrollView).offset(0);
-                        make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-                    }];
-                }
-                
-                
-                [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
                     
                     make.left.equalTo(strongSelf->_scrollView).offset(0);
-                    make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
+                    make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
                     make.width.mas_equalTo(SCREEN_Width);
-                    make.height.mas_equalTo(0);
-                    make.right.equalTo(strongSelf->_scrollView).offset(0);
-                    //                    make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-                }];
-                
-            }else{
-                
-                [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
-                [strongSelf->_processHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-                strongSelf->_addNumeralProcessView.hidden = NO;
-                
-                if (strongSelf->_addOrderView.hidden) {
-                    
-                    [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(strongSelf->_scrollView).offset(0);
-                        make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
-                        make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
-                        make.right.equalTo(strongSelf->_scrollView).offset(0);
-                    }];
-                }else{
-                    
-                    [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        
-                        make.left.equalTo(strongSelf->_scrollView).offset(0);
-                        make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
-                        make.width.mas_equalTo(SCREEN_Width);
-                        make.height.mas_equalTo(0 *SIZE);
-                        make.right.equalTo(strongSelf->_scrollView).offset(0);
-                    }];
-                }
-                
-                [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    
-                    make.left.equalTo(strongSelf->_scrollView).offset(0);
-                    make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
-                    make.width.mas_equalTo(SCREEN_Width);
-                    //                    make.height.mas_equalTo(0);
+                    make.height.mas_equalTo(40 *SIZE);
                     make.right.equalTo(strongSelf->_scrollView).offset(0);
                     make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
                 }];
+            }else{
                 
+                [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(strongSelf->_scrollView).offset(0);
+                    make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                    make.height.mas_equalTo(40 *SIZE);
+                    make.right.equalTo(strongSelf->_scrollView).offset(0);
+                    make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+                }];
             }
+            
+            
+            [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(0);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+                //                    make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+            }];
+            
         }else{
             
-            [strongSelf showContent:@"请先选择房源"];
+            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
+            [strongSelf->_processHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
+            strongSelf->_addNumeralProcessView.hidden = NO;
+            
+            if (strongSelf->_addOrderView.hidden) {
+                
+                [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(strongSelf->_scrollView).offset(0);
+                    make.top.equalTo(strongSelf->_orderHeader.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                    make.height.mas_equalTo(40 *SIZE);
+                    make.right.equalTo(strongSelf->_scrollView).offset(0);
+                }];
+            }else{
+                
+                [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(strongSelf->_scrollView).offset(0);
+                    make.top.equalTo(strongSelf->_addOrderView.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                    make.height.mas_equalTo(40 *SIZE);
+                    make.right.equalTo(strongSelf->_scrollView).offset(0);
+                }];
+            }
+            
+            [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                //                    make.height.mas_equalTo(0);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+            }];
+            
         }
     };
     [_scrollView addSubview:_processHeader];
@@ -2068,15 +1889,16 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_scrollView).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
+        make.height.mas_equalTo(0 *SIZE);
         //        make.right.equalTo(self->_scrollView).offset(0);
     }];
     
     [_addNumeralPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_scrollView).offset(40 *SIZE);
+        make.top.equalTo(self->_scrollView).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(0 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
     
@@ -2085,7 +1907,7 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_addNumeralPersonView.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
+        make.height.mas_equalTo(0 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
     
@@ -2094,6 +1916,7 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_roomHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(0 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
     
@@ -2117,9 +1940,9 @@
     [_processHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_orderHeader.mas_bottom).offset(0 *SIZE);
+        make.top.equalTo(self->_addOrderView.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0 *SIZE);
+        make.height.mas_equalTo(40 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
         make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];
