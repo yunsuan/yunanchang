@@ -162,6 +162,14 @@
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
                     [self showContent:@"转来访成功"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        if (self.callTelegramCustomDetailModifyBlock) {
+                            
+                            self.callTelegramCustomDetailModifyBlock();
+                        }
+                        [self.navigationController popViewControllerAnimated:YES];
+                    });
                 }else{
                     
                     [self showContent:resposeObject[@"msg"]];
@@ -565,7 +573,31 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.contentL.text = _infoDataArr[_num][indexPath.row];
+        if (indexPath.row == 1) {
+            
+            // 下划线
+            NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:_infoDataArr[_num][indexPath.row] attributes:attribtDic];
+            cell.contentL.attributedText = attribtStr;
+            cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                
+                NSString *phone = [_infoDataArr[_num][indexPath.row] substringFromIndex:5];
+                if (phone.length) {
+                    
+                    //获取目标号码字符串,转换成URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                    //调用系统方法拨号
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                }
+            };
+//            cell.contentL.text = ;
+        }else{
+            
+            cell.contentL.text = _infoDataArr[_num][indexPath.row];
+        }
         
         cell.callTelegramCustomDetailInfoCellEditBlock = ^{
             

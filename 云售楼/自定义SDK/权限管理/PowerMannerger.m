@@ -33,10 +33,10 @@
 
 //初始化工作列表权限
 +(void)GetWorkListPowerWithdata:(NSDictionary *)datadic{
-    NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];
+    NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];
     if (datadic) {
         
-//        [WorkListPower replaceObjectAtIndex:4 withObject:@1];
+        [WorkListPower replaceObjectAtIndex:10 withObject:@1];
 //        [WorkListPower replaceObjectAtIndex:5 withObject:@1];
 //        [WorkListPower replaceObjectAtIndex:6 withObject:@1];
 //        [WorkListPower replaceObjectAtIndex:7 withObject:@1];

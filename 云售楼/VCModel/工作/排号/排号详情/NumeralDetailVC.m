@@ -86,6 +86,23 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"beneficiary"]];
+            for (int i = 0; i < tempArr.count; i++) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
+                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                   
+                    if ([obj isKindOfClass:[NSNull class]]) {
+                        
+                        [tempDic setObject:@"" forKey:key];
+                    }else{
+                        
+                        [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                    }
+                }];
+                [tempArr replaceObjectAtIndex:i withObject:tempDic];
+            }
+            [self->_dataDic setObject:tempArr forKey:@"beneficiary"];
             if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
                 
                 self.rightBtn.hidden = YES;
@@ -255,10 +272,10 @@
         
         [alert addAction:audit];
     }
-    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
-        
-        [alert addAction:change];
-    }
+//    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+//        
+//        [alert addAction:change];
+//    }
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
     
         [alert addAction:order];
@@ -433,8 +450,31 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
-        
+        if (indexPath.section == 1 && indexPath.row == 1) {
+            
+            // 下划线
+            NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:_dataArr[indexPath.section][indexPath.row] attributes:attribtDic];
+            cell.contentL.attributedText = attribtStr;
+            
+            cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                
+                NSString *phone = [self->_dataArr[indexPath.section][indexPath.row] substringFromIndex:3];
+                if (phone.length) {
+                    
+                    //获取目标号码字符串,转换成URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                    //调用系统方法拨号
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                }
+            };
+        }else{
+            
+            cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+        }
         return cell;
     }
 }

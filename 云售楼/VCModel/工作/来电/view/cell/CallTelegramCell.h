@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CallTelegramCellBlock)(void);
+
 @interface CallTelegramCell : UITableViewCell
+
+@property (nonatomic, copy) CallTelegramCellBlock callTelegramCellBlock;
 
 @property (nonatomic, strong) UIImageView *headImg;
 

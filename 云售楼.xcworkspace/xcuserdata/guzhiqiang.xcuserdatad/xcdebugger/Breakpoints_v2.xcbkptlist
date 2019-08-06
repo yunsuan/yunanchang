@@ -45,21 +45,5 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6765;&#x7535;/&#x5ba2;&#x6237;&#x8be6;&#x60c5;/CallTelegramCustomDetailVC.m"
-            timestampString = "586195021.655544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "818"
-            endingLineNumber = "818"
-            landmarkName = "-initUI"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

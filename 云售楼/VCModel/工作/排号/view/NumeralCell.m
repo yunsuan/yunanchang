@@ -102,6 +102,11 @@
     _numL.text = @"组别人数：0";
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",orderDic[@"client_num"]];
     _timeL.text = orderDic[@"create_time"];
+//    if ([orderDic[@"create_time"] length] > 11) {
+//
+//        _timeL.text = _time
+//    }
+    
 //    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",orderDic[@"advicer"]];
     switch ([orderDic[@"disabled_state"] integerValue]) {
         case 0:
@@ -255,6 +260,7 @@
             {
                 
                 _titleL = label;
+//                _titleL.numberOfLines = 0;
                 [self.contentView addSubview:_titleL];
                 break;
             }
@@ -277,6 +283,7 @@
                 
                 _timeL = label;
                 _timeL.textAlignment = NSTextAlignmentRight;
+                _timeL.adjustsFontSizeToFitWidth = YES;
                 [self.contentView addSubview:_timeL];
                 break;
             }
@@ -367,7 +374,7 @@
         
         make.right.equalTo(self.contentView).offset(-12 *SIZE);
         make.top.equalTo(self.contentView).offset(18 *SIZE);
-        make.width.mas_equalTo(120 *SIZE);
+        make.width.mas_equalTo(115 *SIZE);
     }];
     
     [_consultantL mas_makeConstraints:^(MASConstraintMaker *make) {

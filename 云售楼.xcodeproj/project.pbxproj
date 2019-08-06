@@ -20,6 +20,8 @@
 		0C05333D22F9608800DA9143 /* OrderAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05333C22F9608800DA9143 /* OrderAddMinusPersonVC.m */; };
 		0C05334122F9630500DA9143 /* OrderExitRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334022F9630500DA9143 /* OrderExitRoomVC.m */; };
 		0C05334522F9631E00DA9143 /* OrderChangeRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334422F9631E00DA9143 /* OrderChangeRoomVC.m */; };
+		0C05334822F97D6100DA9143 /* icon_phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C05334722F97D6000DA9143 /* icon_phone.png */; };
+		0C05334C22F97DCA00DA9143 /* QueryPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */; };
 		0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */; };
 		0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32122DDB1C800092293 /* TransNumeralCell.m */; };
 		0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32422DDB60800092293 /* TransOrderCell.m */; };
@@ -504,6 +506,9 @@
 		0C05334022F9630500DA9143 /* OrderExitRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderExitRoomVC.m; sourceTree = "<group>"; };
 		0C05334322F9631E00DA9143 /* OrderChangeRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderChangeRoomVC.h; sourceTree = "<group>"; };
 		0C05334422F9631E00DA9143 /* OrderChangeRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderChangeRoomVC.m; sourceTree = "<group>"; };
+		0C05334722F97D6000DA9143 /* icon_phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_phone.png; sourceTree = "<group>"; };
+		0C05334A22F97DCA00DA9143 /* QueryPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryPhoneVC.h; sourceTree = "<group>"; };
+		0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryPhoneVC.m; sourceTree = "<group>"; };
 		0C08E79022F7CD990079A3A0 /* NumeralAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAddMinusPersonVC.h; sourceTree = "<group>"; };
 		0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAddMinusPersonVC.m; sourceTree = "<group>"; };
 		0C0CE32022DDB1C800092293 /* TransNumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransNumeralCell.h; sourceTree = "<group>"; };
@@ -1378,6 +1383,23 @@
 			path = "定单换房";
 			sourceTree = "<group>";
 		};
+		0C05334622F97D5A00DA9143 /* 工作 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05334722F97D6000DA9143 /* icon_phone.png */,
+			);
+			path = "工作";
+			sourceTree = "<group>";
+		};
+		0C05334922F97DB300DA9143 /* 号码查询 */ = {
+			isa = PBXGroup;
+			children = (
+				0C05334A22F97DCA00DA9143 /* QueryPhoneVC.h */,
+				0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */,
+			);
+			path = "号码查询";
+			sourceTree = "<group>";
+		};
 		0C0CE31D22DDB10200092293 /* 订单审核 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1944,6 +1966,7 @@
 		0C3A9161225B372D00F04804 /* 工作 */ = {
 			isa = PBXGroup;
 			children = (
+				0C05334922F97DB300DA9143 /* 号码查询 */,
 				0C4B8EDA22CC45F700D505BE /* 认购 */,
 				0C4B7F5922C9955200BBC34F /* 排号 */,
 				0C310E3322A4F66900083504 /* 签约 */,
@@ -2415,6 +2438,7 @@
 		0CA824D922AE0C800005F3ED /* 图片 */ = {
 			isa = PBXGroup;
 			children = (
+				0C05334622F97D5A00DA9143 /* 工作 */,
 				0CA8264C22AE2BCA0005F3ED /* logo_anchang.png */,
 				0CA824DA22AE0C800005F3ED /* 8831558580869_.pic_hd.jpg */,
 				0CA824DB22AE0C800005F3ED /* 我的 */,
@@ -4163,6 +4187,7 @@
 				0CA8262322AE0C810005F3ED /* logo_3@3x.png in Resources */,
 				0CA825E922AE0C800005F3ED /* add_2@2x.png in Resources */,
 				0CA8260122AE0C800005F3ED /* rightarrow_white@3x.png in Resources */,
+				0C05334822F97D6100DA9143 /* icon_phone.png in Resources */,
 				0CA8262C22AE0C810005F3ED /* 6@3x.png in Resources */,
 				0CA825E122AE0C800005F3ED /* phone@2x.png in Resources */,
 				0CA8263022AE0C810005F3ED /* editor@3x.png in Resources */,
@@ -4602,6 +4627,7 @@
 				0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */,
 				0C496E0B22D82B2F00789FFA /* AddSignVC.m in Sources */,
 				0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */,
+				0C05334C22F97DCA00DA9143 /* QueryPhoneVC.m in Sources */,
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
 				0CBD712422925B1E002A6B48 /* PushSettingCell.m in Sources */,
 				0C74520622A7DCB5008F2F07 /* MutiBarChartView.m in Sources */,

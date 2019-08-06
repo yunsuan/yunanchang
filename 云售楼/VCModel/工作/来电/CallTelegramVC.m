@@ -212,6 +212,20 @@
         
         cell.headImg.image = IMAGE_WITH_NAME(@"nvtouxiang");
     }
+    cell.callTelegramCellBlock = ^{
+        
+        NSString *phone = self->_dataArr[indexPath.section][@"tel"];
+        if (phone.length) {
+            
+            //获取目标号码字符串,转换成URL
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+            //调用系统方法拨号
+            [[UIApplication sharedApplication] openURL:url];
+        }else{
+            
+            [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+        }
+    };
     return cell;
 }
 

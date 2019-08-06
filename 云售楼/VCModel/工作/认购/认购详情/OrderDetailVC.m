@@ -104,10 +104,29 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_personArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"beneficiary"]];
+//            self->_personArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"beneficiary"]];
             self->_advicer = resposeObject[@"data"][@"advicer"][0][@"name"];
             self->_advicer_id = resposeObject[@"data"][@"advicer"][0][@"advicer_id"];
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"beneficiary"]];
+            for (int i = 0; i < tempArr.count; i++) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
+                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    
+                    if ([obj isKindOfClass:[NSNull class]]) {
+                        
+                        [tempDic setObject:@"" forKey:key];
+                    }else{
+                        
+                        [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                    }
+                }];
+                [tempArr replaceObjectAtIndex:i withObject:tempDic];
+            }
+            [self->_dataDic setObject:tempArr forKey:@"beneficiary"];
+            
+            self->_personArr = [NSMutableArray arrayWithArray:self->_dataDic[@"beneficiary"]];
             if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
                 
                 self.rightBtn.hidden = YES;
@@ -119,16 +138,16 @@
                               @[
                                 @[],
                                 @[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],
-                                @[[NSString stringWithFormat:@"房间号码：%@",self->_dataDic[@"house_name"]],[NSString stringWithFormat:@"公示总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"物业类型：%@",self->_dataDic[@"property_type"]],[NSString stringWithFormat:@"建筑面积：%@㎡",self->_dataDic[@"estimated_build_size"]],[NSString stringWithFormat:@"套内面积：%@㎡",self->_dataDic[@"indoor_size"]],[NSString stringWithFormat:@"公摊面积：%@㎡",self->_dataDic[@"public_size"]]],
+                                @[[NSString stringWithFormat:@"房间号码：%@",self->_dataDic[@"house_name"]],[NSString stringWithFormat:@"公示总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"物业类型：%@",self->_dataDic[@"property_type"]],[NSString stringWithFormat:@"建筑面积：%@㎡",self->_dataDic[@"estimated_build_size"]],[NSString stringWithFormat:@"套内面积：%@㎡",self->_dataDic[@"indoor_size"]],[NSString stringWithFormat:@"公摊面积：%@㎡",self->_dataDic[@"public_size"]],[NSString stringWithFormat:@"套内单价：%@元/㎡",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@元/㎡",self->_dataDic[@"build_unit_price"]]],
                               @[[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"sign_time"]],[NSString stringWithFormat:@"归属人：%@",self->_dataDic[@"advicer"][0][@"name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"sign_limit_time"]]]]];
             if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"一次性付款"]) {
                 
-                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@元/㎡",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@元/㎡",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]]]];
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]]]];
                 [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f元",([self->_dataDic[@"total_price"] floatValue] - [self->_dataDic[@"sub_total_price"] floatValue])] atIndex:2];
                 [self->_dataArr insertObject:discountArr atIndex:3];
             }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"分期付款"]){
                 
-                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@元/㎡",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@元/㎡",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"分期期数：%ld",[self->_dataDic[@"back"] count]]]];
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"分期期数：%ld",[self->_dataDic[@"back"] count]]]];
                 [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f元",([self->_dataDic[@"total_price"] floatValue] - [self->_dataDic[@"sub_total_price"] floatValue])] atIndex:2];
                 [self->_dataArr insertObject:discountArr atIndex:3];
             }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"公积金贷款"]){
@@ -141,7 +160,7 @@
                         bank = self->_bankArr[i][@"config_name"];
                     }
                 }
-                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@元/㎡",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@元/㎡",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@元",self->_dataDic[@"back"][0][@"downpayment"]],[NSString stringWithFormat:@"贷款金额：%@元",self->_dataDic[@"back"][0][@"loan_money"]],[NSString stringWithFormat:@"按揭银行：%@",bank],[NSString stringWithFormat:@"按揭年限：%@年",self->_dataDic[@"back"][0][@"loan_limit"]]]];
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@元",self->_dataDic[@"back"][0][@"downpayment"]],[NSString stringWithFormat:@"贷款金额：%@元",self->_dataDic[@"back"][0][@"loan_money"]],[NSString stringWithFormat:@"按揭银行：%@",bank],[NSString stringWithFormat:@"按揭年限：%@年",self->_dataDic[@"back"][0][@"loan_limit"]]]];
                 [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f元",([self->_dataDic[@"total_price"] floatValue] - [self->_dataDic[@"sub_total_price"] floatValue])] atIndex:2];
                 [self->_dataArr insertObject:discountArr atIndex:3];
             }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"综合贷款"]){
@@ -159,7 +178,7 @@
                         fundbank = self->_bankArr[i][@"config_name"];
                     }
                 }
-                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@元/㎡",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@元/㎡",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@元",self->_dataDic[@"back"][0][@"downpayment"]],[NSString stringWithFormat:@"商业贷款金额：%@元",self->_dataDic[@"back"][0][@"bank_loan_money"]],[NSString stringWithFormat:@"商业按揭银行：%@",bankbank],[NSString stringWithFormat:@"商业按揭年限：%@年",self->_dataDic[@"back"][0][@"bank_loan_limit"]],[NSString stringWithFormat:@"公积金贷款金额：%@元",self->_dataDic[@"back"][0][@"fund_loan_money"]],[NSString stringWithFormat:@"公积金按揭银行：%@",fundbank],[NSString stringWithFormat:@"公积金按揭年限：%@年",self->_dataDic[@"back"][0][@"fund_loan_limit"]]]];
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@元",self->_dataDic[@"back"][0][@"downpayment"]],[NSString stringWithFormat:@"商业贷款金额：%@元",self->_dataDic[@"back"][0][@"bank_loan_money"]],[NSString stringWithFormat:@"商业按揭银行：%@",bankbank],[NSString stringWithFormat:@"商业按揭年限：%@年",self->_dataDic[@"back"][0][@"bank_loan_limit"]],[NSString stringWithFormat:@"公积金贷款金额：%@元",self->_dataDic[@"back"][0][@"fund_loan_money"]],[NSString stringWithFormat:@"公积金按揭银行：%@",fundbank],[NSString stringWithFormat:@"公积金按揭年限：%@年",self->_dataDic[@"back"][0][@"fund_loan_limit"]]]];
                 [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f元",([self->_dataDic[@"total_price"] floatValue] - [self->_dataDic[@"sub_total_price"] floatValue])] atIndex:2];
                 [self->_dataArr insertObject:discountArr atIndex:3];
             }else if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"银行按揭贷款"]){
@@ -172,12 +191,12 @@
                         bank = self->_bankArr[i][@"config_name"];
                     }
                 }
-                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@元/㎡",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@元/㎡",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@元",self->_dataDic[@"back"][0][@"downpayment"]],[NSString stringWithFormat:@"贷款金额：%@元",self->_dataDic[@"back"][0][@"loan_money"]],[NSString stringWithFormat:@"按揭银行：%@",bank],[NSString stringWithFormat:@"按揭年限：%@年",self->_dataDic[@"back"][0][@"loan_limit"]]]];
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]],[NSString stringWithFormat:@"首付金额：%@元",self->_dataDic[@"back"][0][@"downpayment"]],[NSString stringWithFormat:@"贷款金额：%@元",self->_dataDic[@"back"][0][@"loan_money"]],[NSString stringWithFormat:@"按揭银行：%@",bank],[NSString stringWithFormat:@"按揭年限：%@年",self->_dataDic[@"back"][0][@"loan_limit"]]]];
                 [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f元",([self->_dataDic[@"total_price"] floatValue] - [self->_dataDic[@"sub_total_price"] floatValue])] atIndex:2];
                 [self->_dataArr insertObject:discountArr atIndex:3];
             }else{
                 
-                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"套内单价：%@元/㎡",self->_dataDic[@"inner_unit_price"]],[NSString stringWithFormat:@"建筑单价：%@元/㎡",self->_dataDic[@"build_unit_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]]]];
+                NSMutableArray *discountArr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"合同编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"房屋总价：%@元",self->_dataDic[@"total_price"]],[NSString stringWithFormat:@"签约总价：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款金额：%@元",self->_dataDic[@"sub_total_price"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"pay_way_name"]]]];
                 [discountArr insertObject:[NSString stringWithFormat:@"优惠金额：%.2f元",([self->_dataDic[@"total_price"] floatValue] - [self->_dataDic[@"sub_total_price"] floatValue])] atIndex:2];
                 [self->_dataArr insertObject:discountArr atIndex:3];
             }
@@ -348,10 +367,10 @@
         
         [alert addAction:audit];
     }
-    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
-        
-        [alert addAction:change];
-    }
+//    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+//        
+//        [alert addAction:change];
+//    }
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
         
         [alert addAction:sign];
@@ -523,7 +542,32 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+//            cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+            if (indexPath.section == 1 && indexPath.row == 1) {
+                
+                // 下划线
+                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:_dataArr[indexPath.section][indexPath.row] attributes:attribtDic];
+                cell.contentL.attributedText = attribtStr;
+                
+                cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                    
+                    NSString *phone = [self->_dataArr[indexPath.section][indexPath.row] substringFromIndex:3];
+                    if (phone.length) {
+                        
+                        //获取目标号码字符串,转换成URL
+                        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                        //调用系统方法拨号
+                        [[UIApplication sharedApplication] openURL:url];
+                    }else{
+                        
+                        [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                    }
+                };
+            }else{
+                
+                cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+            }
             
             return cell;
         }

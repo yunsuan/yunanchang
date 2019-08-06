@@ -14,11 +14,15 @@ typedef void(^CallTelegramCustomDetailInfoCellDeleteBlock)(void);
 
 typedef void(^CallTelegramCustomDetailInfoCellEditBlock)(void);
 
+typedef void(^CallTelegramCustomDetailInfoCellPhoneBlock)(void);
+
 @interface CallTelegramCustomDetailInfoCell : UITableViewCell
 
 @property (nonatomic, copy) CallTelegramCustomDetailInfoCellEditBlock callTelegramCustomDetailInfoCellEditBlock;
 
 @property (nonatomic, copy) CallTelegramCustomDetailInfoCellDeleteBlock callTelegramCustomDetailInfoCellDeleteBlock;
+
+@property (nonatomic, copy) CallTelegramCustomDetailInfoCellPhoneBlock callTelegramCustomDetailInfoCellPhoneBlock;
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 

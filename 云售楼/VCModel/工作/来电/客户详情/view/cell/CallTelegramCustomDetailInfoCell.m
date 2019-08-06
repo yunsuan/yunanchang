@@ -36,6 +36,14 @@
     }
 }
 
+- (void)ActionPhone{
+    
+    if (self.callTelegramCustomDetailInfoCellPhoneBlock) {
+        
+        self.callTelegramCustomDetailInfoCellPhoneBlock();
+    }
+}
+
 
 - (void)initUI{
     
@@ -44,6 +52,9 @@
     _contentL.font = [UIFont systemFontOfSize:14 *SIZE];
     _contentL.numberOfLines = 0;
     _contentL.adjustsFontSizeToFitWidth = YES;
+    _contentL.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionPhone)];
+    [_contentL addGestureRecognizer:tap];
     [self.contentView addSubview:_contentL];
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
