@@ -13,6 +13,14 @@
 #import "SpePerferDetailVC.h"
 #import "InstallMentDetailVC.h"
 
+#import "SignYearChangeVC.h"
+#import "SignChangeRoomVC.h"
+#import "SignExitRoomVC.h"
+#import "SignAddMinusPersonVC.h"
+#import "SignSpePerferChangeVC.h"
+#import "SignMasterSlaveChangeVC.h"
+#import "SignPayWayChangeVC.h"
+
 #import "NumeralDetailInvalidView.h"
 #import "SinglePickView.h"
 
@@ -246,7 +254,73 @@
         
         SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"id":@"1",@"param":@"合同付款方式变更"},@{@"id":@"2",@"param":@"合同主从变更"},@{@"id":@"3",@"param":@"合同特殊优惠变更"},@{@"id":@"4",@"param":@"合同延期签约变更"},@{@"id":@"5",@"param":@"合同增减权益人"},@{@"id":@"6",@"param":@"合同退房"},@{@"id":@"7",@"param":@"合同换房"},@{@"id":@"8",@"param":@"合同更名"},@{@"id":@"9",@"param":@"合同延期"},@{@"id":@"10",@"param":@"合同按揭年限变更"},@{@"id":@"11",@"param":@"合同按揭银行变更"},@{@"id":@"12",@"param":@"合同添加首付款"},@{@"id":@"13",@"param":@"合同付款延期"}]];
         view.selectedBlock = ^(NSString *MC, NSString *ID) {
-            
+            if ([ID integerValue] == 1) {
+                
+                SignPayWayChangeVC *nextVC = [[SignPayWayChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+                nextVC.signPayWayChangeVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if ([ID integerValue] == 2){
+                
+                SignMasterSlaveChangeVC *nextVC = [[SignMasterSlaveChangeVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
+                nextVC.signMasterSlaveChangeVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if ([ID integerValue] == 3){
+                
+                SignSpePerferChangeVC *nextVC = [[SignSpePerferChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+                nextVC.signSpePerferChangeVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if ([ID integerValue] == 4){
+                
+                
+            }else if ([ID integerValue] == 5){
+                
+                SignAddMinusPersonVC *nextVC = [[SignAddMinusPersonVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
+                nextVC.signAddMinusPersonVCBlock = ^{
+                    
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if ([ID integerValue] == 6){
+                
+                SignExitRoomVC *nextVC = [[SignExitRoomVC alloc] init];
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if ([ID integerValue] == 7){
+                
+                SignChangeRoomVC *nextVC = [[SignChangeRoomVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+                nextVC.signChangeRoomVCBlock = ^{
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if ([ID integerValue] == 8){
+                
+                
+            }else if ([ID integerValue] == 9){
+                
+                
+            }else if ([ID integerValue] == 10){
+                
+                SignYearChangeVC *nextVC = [[SignYearChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+                nextVC.signYearChangeVCBlock = ^{
+                    
+                    
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }else if ([ID integerValue] == 11){
+                
+                
+            }else if ([ID integerValue] == 12){
+                
+                
+            }else if ([ID integerValue] == 13){
+                
+                
+            }
         };
         [self.view addSubview:view];
     }];
@@ -261,10 +335,12 @@
         
         [alert addAction:audit];
     }
-//    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
-//
-//        [alert addAction:change];
-//    }
+    
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+
+        [alert addAction:change];
+    }
+    
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
         
         [alert addAction:numeral];

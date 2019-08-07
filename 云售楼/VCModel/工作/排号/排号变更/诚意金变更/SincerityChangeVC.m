@@ -162,15 +162,24 @@
         return;
     }
     
-    if (!_sincerityChangeView.roleBtn.content.text.length) {
-        [self showContent:@"请选择项目角色流程"];
-        return;
+    if ([_progressDic[@"check_type"] integerValue] == 1) {
+        
+        if (!_sincerityChangeView.auditBtn.content.text.length) {
+            [self showContent:@"请选择流程类型"];
+            return;
+        }
+    }
+    NSString *param;
+    if ([_sincerityChangeView.auditBtn.content.text isEqualToString:@"自由流程"]) {
+        
+        
+        if (!param.length) {
+            
+            [self showContent:@"请选择审核人员"];
+            return;
+        }
     }
     
-    if (!_sincerityChangeView.personBtn.content.text.length) {
-        [self showContent:@"请选择审核人员"];
-        return;
-    }
     
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"primary_id":self->_dataDic[@"row_id"],@"progress_defined_id":@"1"}];

@@ -331,6 +331,11 @@
 		0CC2730E226868DE00EB881F /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC2730D226868DE00EB881F /* RecordView.m */; };
 		0CC7E8DC22FA6BB200AB0E1F /* SignPayWayChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7E8DB22FA6BB200AB0E1F /* SignPayWayChangeVC.m */; };
 		0CC7E8E022FA6D5800AB0E1F /* SignMasterSlaveChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7E8DF22FA6D5800AB0E1F /* SignMasterSlaveChangeVC.m */; };
+		0CC7E8E422FA6E1600AB0E1F /* SignSpePerferChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7E8E322FA6E1600AB0E1F /* SignSpePerferChangeVC.m */; };
+		0CC7E8E822FA6E9C00AB0E1F /* SignAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7E8E722FA6E9C00AB0E1F /* SignAddMinusPersonVC.m */; };
+		0CC7E8EC22FA710900AB0E1F /* SignExitRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7E8EB22FA710900AB0E1F /* SignExitRoomVC.m */; };
+		0CC7E8F022FA715F00AB0E1F /* SignChangeRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7E8EF22FA715F00AB0E1F /* SignChangeRoomVC.m */; };
+		0CC7E8F522FA726600AB0E1F /* SignYearChangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7E8F422FA726600AB0E1F /* SignYearChangeVC.m */; };
 		0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04318227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m */; };
 		0CD0431D227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0431C227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m */; };
 		0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD04320227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m */; };
@@ -949,6 +954,16 @@
 		0CC7E8DB22FA6BB200AB0E1F /* SignPayWayChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignPayWayChangeVC.m; sourceTree = "<group>"; };
 		0CC7E8DE22FA6D5800AB0E1F /* SignMasterSlaveChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignMasterSlaveChangeVC.h; sourceTree = "<group>"; };
 		0CC7E8DF22FA6D5800AB0E1F /* SignMasterSlaveChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignMasterSlaveChangeVC.m; sourceTree = "<group>"; };
+		0CC7E8E222FA6E1600AB0E1F /* SignSpePerferChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignSpePerferChangeVC.h; sourceTree = "<group>"; };
+		0CC7E8E322FA6E1600AB0E1F /* SignSpePerferChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignSpePerferChangeVC.m; sourceTree = "<group>"; };
+		0CC7E8E622FA6E9C00AB0E1F /* SignAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignAddMinusPersonVC.h; sourceTree = "<group>"; };
+		0CC7E8E722FA6E9C00AB0E1F /* SignAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignAddMinusPersonVC.m; sourceTree = "<group>"; };
+		0CC7E8EA22FA710900AB0E1F /* SignExitRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignExitRoomVC.h; sourceTree = "<group>"; };
+		0CC7E8EB22FA710900AB0E1F /* SignExitRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignExitRoomVC.m; sourceTree = "<group>"; };
+		0CC7E8EE22FA715F00AB0E1F /* SignChangeRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignChangeRoomVC.h; sourceTree = "<group>"; };
+		0CC7E8EF22FA715F00AB0E1F /* SignChangeRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignChangeRoomVC.m; sourceTree = "<group>"; };
+		0CC7E8F322FA726600AB0E1F /* SignYearChangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignYearChangeVC.h; sourceTree = "<group>"; };
+		0CC7E8F422FA726600AB0E1F /* SignYearChangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignYearChangeVC.m; sourceTree = "<group>"; };
 		0CD04317227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimWaitDetailVC.h; sourceTree = "<group>"; };
 		0CD04318227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimWaitDetailVC.m; sourceTree = "<group>"; };
 		0CD0431B227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkPhoneConfrimUseDetailVC.h; sourceTree = "<group>"; };
@@ -2934,6 +2949,11 @@
 		0CC7E8D822FA6B8400AB0E1F /* 合同变更 */ = {
 			isa = PBXGroup;
 			children = (
+				0CC7E8F222FA725300AB0E1F /* 合同按揭年限变更 */,
+				0CC7E8ED22FA711F00AB0E1F /* 合同换房 */,
+				0CC7E8E922FA70F200AB0E1F /* 合同退房 */,
+				0CC7E8E522FA6E8B00AB0E1F /* 合同增减权益人 */,
+				0CC7E8E122FA6E0300AB0E1F /* 合同特殊优惠变更 */,
 				0CC7E8DD22FA6D4400AB0E1F /* 合同主从变更 */,
 				0CC7E8D922FA6B9900AB0E1F /* 合同付款方式变更 */,
 			);
@@ -2956,6 +2976,51 @@
 				0CC7E8DF22FA6D5800AB0E1F /* SignMasterSlaveChangeVC.m */,
 			);
 			path = "合同主从变更";
+			sourceTree = "<group>";
+		};
+		0CC7E8E122FA6E0300AB0E1F /* 合同特殊优惠变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0CC7E8E222FA6E1600AB0E1F /* SignSpePerferChangeVC.h */,
+				0CC7E8E322FA6E1600AB0E1F /* SignSpePerferChangeVC.m */,
+			);
+			path = "合同特殊优惠变更";
+			sourceTree = "<group>";
+		};
+		0CC7E8E522FA6E8B00AB0E1F /* 合同增减权益人 */ = {
+			isa = PBXGroup;
+			children = (
+				0CC7E8E622FA6E9C00AB0E1F /* SignAddMinusPersonVC.h */,
+				0CC7E8E722FA6E9C00AB0E1F /* SignAddMinusPersonVC.m */,
+			);
+			path = "合同增减权益人";
+			sourceTree = "<group>";
+		};
+		0CC7E8E922FA70F200AB0E1F /* 合同退房 */ = {
+			isa = PBXGroup;
+			children = (
+				0CC7E8EA22FA710900AB0E1F /* SignExitRoomVC.h */,
+				0CC7E8EB22FA710900AB0E1F /* SignExitRoomVC.m */,
+			);
+			path = "合同退房";
+			sourceTree = "<group>";
+		};
+		0CC7E8ED22FA711F00AB0E1F /* 合同换房 */ = {
+			isa = PBXGroup;
+			children = (
+				0CC7E8EE22FA715F00AB0E1F /* SignChangeRoomVC.h */,
+				0CC7E8EF22FA715F00AB0E1F /* SignChangeRoomVC.m */,
+			);
+			path = "合同换房";
+			sourceTree = "<group>";
+		};
+		0CC7E8F222FA725300AB0E1F /* 合同按揭年限变更 */ = {
+			isa = PBXGroup;
+			children = (
+				0CC7E8F322FA726600AB0E1F /* SignYearChangeVC.h */,
+				0CC7E8F422FA726600AB0E1F /* SignYearChangeVC.m */,
+			);
+			path = "合同按揭年限变更";
 			sourceTree = "<group>";
 		};
 		0CD04316227FCA5A002C8BD3 /* 待确认详情 */ = {
@@ -4504,6 +4569,7 @@
 				0CF1A31B228E8E04001C77CF /* SignFailView.m in Sources */,
 				10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */,
 				0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */,
+				0CC7E8E422FA6E1600AB0E1F /* SignSpePerferChangeVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0C496DFF22D70A4900789FFA /* SelectSpePerferVC.m in Sources */,
 				0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */,
@@ -4619,11 +4685,13 @@
 				0C496DEE22D469E500789FFA /* AddNumeralProcessView.m in Sources */,
 				0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */,
 				0CEF8AE4226427260057F3FD /* CallTelegramVC.m in Sources */,
+				0CC7E8F522FA726600AB0E1F /* SignYearChangeVC.m in Sources */,
 				0CFF71F622A650540066732B /* SSWPieChartView.m in Sources */,
 				0C2A701A226D9E2600571EC1 /* IntentSurveyCollCell.m in Sources */,
 				0CEF8AFA226477E00057F3FD /* CallTelegramCustomDetailInfoCell.m in Sources */,
 				0C4B8EE422CC49A200D505BE /* SignVC.m in Sources */,
 				0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */,
+				0CC7E8E822FA6E9C00AB0E1F /* SignAddMinusPersonVC.m in Sources */,
 				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
 				0CD7A02F225C6D5700EAE816 /* AddressChooseView2.m in Sources */,
 				0C038BC722E9896500D83DC2 /* ContentRightBtnCell.m in Sources */,
@@ -4631,6 +4699,7 @@
 				10EF17A32292790600DE5566 /* HMChooseView.m in Sources */,
 				0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */,
 				0C3A9168225B377400F04804 /* MineVC.m in Sources */,
+				0CC7E8F022FA715F00AB0E1F /* SignChangeRoomVC.m in Sources */,
 				0C038BCF22E99B9900D83DC2 /* SpePerferDetailVC.m in Sources */,
 				0C0CE33522E15FB000092293 /* ChangeOrderVC.m in Sources */,
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
@@ -4692,6 +4761,7 @@
 				0C3A915D225B366400F04804 /* CYLTabBarControllerConfig.m in Sources */,
 				0CD043D82282DD1B002C8BD3 /* MBProgressHUD+GZQ.m in Sources */,
 				0CD7A030225C6D5700EAE816 /* AdressChooseView.m in Sources */,
+				0CC7E8EC22FA710900AB0E1F /* SignExitRoomVC.m in Sources */,
 				0CEF8A4A225F188A0057F3FD /* SelectCompanyVC.m in Sources */,
 				10EF179A2291614900DE5566 /* RotationSettingCell.m in Sources */,
 				0C7A0A2B22E71DD900CF44D3 /* TaskSellReportCell.m in Sources */,
