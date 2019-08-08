@@ -172,7 +172,7 @@
     NSString *param;
     if ([_sincerityChangeView.auditBtn.content.text isEqualToString:@"自由流程"]) {
         
-        
+        param = _progressDic[@"person_id"];
         if (!param.length) {
             
             [self showContent:@"请选择审核人员"];
@@ -208,7 +208,11 @@
         
         [dic setObject:_dataDic[@"end_time"] forKey:@"end_time"];
     }
-    [dic setObject:_progressDic[@"person_id"] forKey:@"param"];
+    if (param.length) {
+        
+        [dic setObject:_progressDic[@"person_id"] forKey:@"param"];
+    }
+    
     
     NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:self->_dataDic[@"advicer"] options:NSJSONWritingPrettyPrinted error:&error];
     NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];

@@ -10,7 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SignExitRoomVCBlock)(void);
+
 @interface SignExitRoomVC : BaseViewController
+
+@property (nonatomic, copy) SignExitRoomVCBlock signExitRoomVCBlock;
+
+- (instancetype)initWithProject_id:(NSString *)project_id dataDic:(NSDictionary *)dataDic;
 
 @end
 

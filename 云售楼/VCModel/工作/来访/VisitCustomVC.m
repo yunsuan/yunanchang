@@ -364,6 +364,47 @@
         
         if (indexPath.section < _visitArr.count) {
             
+            UIAlertController *source = [UIAlertController alertControllerWithTitle:@"客户来源" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *channel = [UIAlertAction actionWithTitle:@"渠道客户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                ChannelCustomListVC *nextVC = [[ChannelCustomListVC alloc] initWithProjectId:self->_projectId info_id:self->_info_id];
+                nextVC.visit_id = [NSString stringWithFormat:@"%@",self->_visitArr[indexPath.section][@"visit_id"]];
+                nextVC.channelCustomListVCBlock = ^(NSDictionary * _Nonnull dic) {
+                    
+                    [self->_visitArr removeObjectAtIndex:indexPath.section];
+                    [self->_table reloadData];
+                    [self RequestMethod];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }];
+            
+            UIAlertAction *visit = [UIAlertAction actionWithTitle:@"自然来访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                AddVisitCustomVC *nextVC = [[AddVisitCustomVC alloc] initWithProjectId:self->_projectId info_id:self->_info_id];
+                nextVC.visit_id = [NSString stringWithFormat:@"%@",self->_visitArr[indexPath.section][@"visit_id"]];
+                nextVC.addVisitCustomVCBlock = ^{
+                    
+                    [self->_visitArr removeObjectAtIndex:indexPath.section];
+                    [self->_table reloadData];
+                    [self RequestMethod];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            }];
+            
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            [source addAction:channel];
+            [source addAction:visit];
+            [source addAction:cancel];
+            
+            [self.navigationController presentViewController:source animated:YES completion:^{
+                
+            }];
+        }else{
+            
             VisitCustomDetailVC *nextVC = [[VisitCustomDetailVC alloc] initWithGroupId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.section - 1][@"group_id"]]];
             nextVC.project_id = [NSString stringWithFormat:@"%@",_projectId];
             nextVC.info_id = [NSString stringWithFormat:@"%@",_info_id];
