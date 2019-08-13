@@ -242,7 +242,7 @@
                 
             }else if ([ID integerValue] == 2) {
                 
-                OrderAddDepositVC *nextVC = [[OrderAddDepositVC alloc] initWithProject_id:self->_project_id sincerity:self->_dataDic[@"deposit"] dataDic:self->_dataDic];
+                OrderAddDepositVC *nextVC = [[OrderAddDepositVC alloc] initWithProject_id:self->_project_id sincerity:self->_dataDic[@"down_pay"] dataDic:self->_dataDic];
                 nextVC.orderAddDepositVCBlock = ^{
                     
                     [self RequestMethod];
