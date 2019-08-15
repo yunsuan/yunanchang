@@ -287,11 +287,11 @@
         return;
     }
     
-//    if (!_addOrderView.payWayBtn.content.text.length) {
-//
-//        [self showContent:@"请选择付款方式"];
-//        return;
-//    }
+    if (!_addOrderView.payWayBtn.content.text.length) {
+
+        [self showContent:@"请选择付款方式"];
+        return;
+    }
     
     if ([_addOrderView.payWayBtn.content.text isEqualToString:@"一次性付款"]) {
         
@@ -443,6 +443,7 @@
         [dic removeObjectForKey:@"mail_code"];
         [dic removeObjectForKey:@"tel_show_state"];
         [dic setObject:_group_id forKey:@"group_id"];
+        [dic removeObjectForKey:@"beneficiary_id"];
         
         [dic setObject:_proportionArr[i] forKey:@"property"];
         
@@ -766,9 +767,28 @@
                 }
             }];
             strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
+//            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"total_price"];
+//            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"price"];
+//            [strongSelf->_ordDic setObject:@"0.00" forKey:@"preferPrice"];
+//            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+            [strongSelf->_ordDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                
+                if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"pay_way_name"] || [key isEqualToString:@"payWay_id"]) {
+                    
+                }else{
+                    
+                    [strongSelf->_ordDic removeObjectForKey:key];
+                }
+            }];
+            [strongSelf->_disCountArr removeAllObjects];
+            [strongSelf->_installmentArr removeAllObjects];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"total_price"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"price"];
+            [strongSelf->_ordDic setObject:@"0.00" forKey:@"preferPrice"];
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+            strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
+            strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };

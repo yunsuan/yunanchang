@@ -106,7 +106,7 @@
             
 //            self->_personArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"beneficiary"]];
             self->_advicer = resposeObject[@"data"][@"advicer"][0][@"name"];
-            self->_advicer_id = resposeObject[@"data"][@"advicer"][0][@"advicer_id"];
+            self->_advicer_id = resposeObject[@"data"][@"advicer"][0][@"advicer"];
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
             NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"beneficiary"]];
             for (int i = 0; i < tempArr.count; i++) {
