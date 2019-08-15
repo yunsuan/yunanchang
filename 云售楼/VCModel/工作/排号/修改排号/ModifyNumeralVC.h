@@ -16,6 +16,8 @@ typedef void(^ModifyNumeralVCBlock)(void);
 
 @property (nonatomic, copy) ModifyNumeralVCBlock modifyNumeralVCBlock;
 
+@property (nonatomic, strong) NSString *trans;
+
 @property (nonatomic, strong) NSString *projectName;
 
 @property (nonatomic, strong) NSString *advicer_id;

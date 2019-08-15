@@ -589,7 +589,7 @@
             [dic setObject:@"2" forKey:@"beneficiary_type"];
         }
         
-        //        [dic removeObjectForKey:@"client_id"];
+        [dic removeObjectForKey:@"client_id"];
         [dic removeObjectForKey:@"comment"];
         [dic removeObjectForKey:@"mail_code"];
         [dic removeObjectForKey:@"tel_show_state"];
@@ -807,6 +807,7 @@
         
         AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        nextVC.trans = @"trans";
         nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
             
             [strongSelf->_proportionArr addObject:@""];

@@ -163,6 +163,7 @@
             nextVC.from_type = @"3";
             nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
             nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
+            nextVC.trans = @"trans";
             [self.navigationController pushViewController:nextVC animated:YES];
         }else{
             
@@ -178,6 +179,7 @@
             nextVC.from_type = @"3";
             nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
             nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
+            nextVC.trans = @"trans";
             nextVC.addOrderVCBlock = ^{
                 
                 [self RequestMethod];

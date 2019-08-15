@@ -313,6 +313,7 @@
 //            [self.navigationController pushViewController:nextVC animated:YES];
             OrderTranSignVC *nextVC = [[OrderTranSignVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
             nextVC.from_type = @"4";
+            nextVC.trans = @"trans";
 //            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicer_id];
 //            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicer];;
             nextVC.orderTranSignVCBlock = ^{

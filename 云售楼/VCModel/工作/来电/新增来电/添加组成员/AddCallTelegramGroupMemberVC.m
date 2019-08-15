@@ -431,29 +431,43 @@
     
     if (self.group_id.length) {
         
-        [tempDic setObject:self.group_id forKey:@"group_id"];
-        [BaseRequest POST:WorkClientAutoClientAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+        if (![self.trans isEqualToString:@"trans"]) {
             
-            if ([resposeObject[@"code"] integerValue] == 200) {
+            [tempDic setObject:self.group_id forKey:@"group_id"];
+            [BaseRequest POST:WorkClientAutoClientAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
                 
-                if (self.addCallTelegramGroupMemberDirectVCBlock) {
+                if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    self.addCallTelegramGroupMemberDirectVCBlock();
+                    if (self.addCallTelegramGroupMemberDirectVCBlock) {
+                        
+                        self.addCallTelegramGroupMemberDirectVCBlock();
+                    }
+                    if (self.addCallTelegramGroupMemberVCBlock) {
+                        
+                        [tempDic setObject:[NSString stringWithFormat:@"%@",resposeObject[@"data"]] forKey:@"client_id"];
+                        [tempDic setObject:self.group_id forKey:@"group_id"]; self.addCallTelegramGroupMemberVCBlock(self->_nameTF.textField.text,tempDic);
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
                 }
-                if (self.addCallTelegramGroupMemberVCBlock) {
-                   
-                    [tempDic setObject:[NSString stringWithFormat:@"%@",resposeObject[@"data"]] forKey:@"client_id"];
-                   [tempDic setObject:self.group_id forKey:@"group_id"]; self.addCallTelegramGroupMemberVCBlock(self->_nameTF.textField.text,tempDic);
-                }
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
+            } failure:^(NSError * _Nonnull error) {
                 
-                [self showContent:resposeObject[@"msg"]];
+                [self showContent:@"网络错误"];
+            }];
+        }else{
+        
+            if (self.addCallTelegramGroupMemberDirectVCBlock) {
+                
+                self.addCallTelegramGroupMemberDirectVCBlock();
             }
-        } failure:^(NSError * _Nonnull error) {
-            
-            [self showContent:@"网络错误"];
-        }];
+            if (self.addCallTelegramGroupMemberVCBlock) {
+                
+                [tempDic setObject:self.group_id forKey:@"group_id"]; self.addCallTelegramGroupMemberVCBlock(self->_nameTF.textField.text,tempDic);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }else{
         
         if (self.addCallTelegramGroupMemberVCBlock) {

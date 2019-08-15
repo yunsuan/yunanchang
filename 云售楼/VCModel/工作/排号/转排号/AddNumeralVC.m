@@ -335,7 +335,7 @@
             
             [tempDic setObject:@"2" forKey:@"beneficiary_type"];
         }
-//        [tempDic removeObjectForKey:@"client_id"];
+        [tempDic removeObjectForKey:@"client_id"];
         [tempDic removeObjectForKey:@"comment"];
         [tempDic removeObjectForKey:@"mail_code"];
         [tempDic removeObjectForKey:@"tel_show_state"];
@@ -535,6 +535,7 @@
         strongSelf->_coll.hidden = YES;
         AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+//        nextVC.status = @"trans";
         nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
           
             [strongSelf->_proportionArr addObject:@""];

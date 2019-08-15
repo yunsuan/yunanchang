@@ -16,6 +16,8 @@ typedef void(^OrderTranSignVCBlock)(void);
 
 @property (nonatomic, copy) OrderTranSignVCBlock orderTranSignVCBlock;
 
+@property (nonatomic, strong) NSString *trans;
+
 @property (nonatomic, strong) NSString *status;
 
 @property (nonatomic, strong) NSString *from_type;

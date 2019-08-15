@@ -18,6 +18,8 @@ typedef void(^AddOrderVCBlock)(void);
 
 @property (nonatomic, strong) NSString *status;
 
+@property (nonatomic, strong) NSString *trans;
+
 @property (nonatomic, strong) NSString *from_type;
 
 @property (nonatomic, strong) NSString *advicer_id;
