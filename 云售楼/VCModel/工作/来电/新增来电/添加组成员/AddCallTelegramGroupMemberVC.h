@@ -20,6 +20,8 @@ typedef void(^AddCallTelegramGroupMemberDirectVCBlock)(void);
 
 @property (nonatomic, copy) AddCallTelegramGroupMemberDirectVCBlock addCallTelegramGroupMemberDirectVCBlock;
 
+@property (nonatomic, strong) NSString *phone;
+
 @property (nonatomic, strong) NSString *trans;
 
 @property (nonatomic, strong) NSString *group_id;

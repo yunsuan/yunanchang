@@ -300,14 +300,22 @@
             return;
         }
     }
-    if ([_configDic[@"tel"] integerValue] == 1) {
+    
+    if ([self.trans isEqualToString:@"trans"]) {
         
-        if ([self isEmpty:_phoneTF.textField.text]) {
+        
+    }else{
+        
+        if ([_configDic[@"tel"] integerValue] == 1) {
             
-            [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
-            return;
+            if ([self isEmpty:_phoneTF.textField.text]) {
+                
+                [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
+                return;
+            }
         }
     }
+    
     
     if ([_configDic[@"birth"] integerValue] == 1) {
         
@@ -342,17 +350,35 @@
         [tempDic setObject:_gender forKey:@"sex"];
     }
 
-    NSString *tel = _phoneTF.textField.text;
-    if (![self isEmpty:_phoneTF2.textField.text]) {
+    if ([self.trans isEqualToString:@"trans"]) {
         
-        tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
-    }
-    if (![self isEmpty:_phoneTF3.textField.text]) {
+        if ([self checkTel:_phoneTF.textField.text]) {
+            
+            NSString *tel = _phoneTF.textField.text;
+            if ([self checkTel:_phoneTF2.textField.text]) {
+                
+                tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+            }
+            if ([self checkTel:_phoneTF3.textField.text]) {
+                
+                tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+            }
+            [tempDic setObject:tel forKey:@"tel"];
+        }else{
+            
+            [tempDic setObject:self.phone forKey:@"tel"];
+        }
+    }else{
         
-        tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
-    }
-    if (![tel isEqualToString:_dataDic[@"tel"]]) {
-        
+        NSString *tel = _phoneTF.textField.text;
+        if (![self isEmpty:_phoneTF2.textField.text]) {
+            
+            tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+        }
+        if (![self isEmpty:_phoneTF3.textField.text]) {
+            
+            tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+        }
         [tempDic setObject:tel forKey:@"tel"];
     }
     
@@ -387,20 +413,28 @@
     
     [tempDic setObject:_dataDic[@"client_id"] forKey:@"client_id"];
     
-    [BaseRequest POST:WorkClientAutoClientUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+    if (![self.trans isEqualToString:@"trans"]) {
         
-        if ([resposeObject[@"code"] integerValue] == 200) {
+        [BaseRequest POST:WorkClientAutoClientUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
             
-            self.callTelegramSimpleCustomVCEditBlock(tempDic);
-            [self.navigationController popViewControllerAnimated:YES];
-        }else{
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                self.callTelegramSimpleCustomVCEditBlock(tempDic);
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
             
-            [self showContent:resposeObject[@"msg"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
+            [self showContent:@"网络错误"];
+        }];
+    }else{
         
-        [self showContent:@"网络错误"];
-    }];
+        self.callTelegramSimpleCustomVCEditBlock(tempDic);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -483,6 +517,18 @@
         }
     }
     if (textField == _phoneTF.textField || textField == _phoneTF2.textField || textField == _phoneTF3.textField) {
+        
+        if (![self.trans isEqualToString:@"trans"]) {
+            
+            if (![self checkTel:textField.text]) {
+                
+                [self alertControllerWithNsstring:@"号码错误" And:@"请检查号码" WithDefaultBlack:^{
+                    
+                    textField.text = @"";
+                }];
+                return;
+            }
+        }
         
         [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
             

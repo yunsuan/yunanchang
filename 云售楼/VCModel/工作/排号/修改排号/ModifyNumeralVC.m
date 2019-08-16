@@ -341,40 +341,40 @@
         [self showContent:@"请选择失效时间"];
         return;
     }
-    if (!_addNumeralProcessView.typeBtn.content.text.length) {
-        [self showContent:@"请选择审批流程"];
-        return;
-    }
-    if ([_progressDic[@"check_type"] integerValue] == 1) {
-        
-        if (!_addNumeralProcessView.auditBtn.content.text.length) {
-            [self showContent:@"请选择流程类型"];
-            return;
-        }
-    }
-    NSString *param;
-    if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
-        
-        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-            
-            if ([_rolePersonSelectArr[i] integerValue] == 1) {
-                
-                if (param.length) {
-                    
-                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-                }else{
-                    
-                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-                }
-            }
-        }
-        if (!param.length) {
-            
-            [self showContent:@"请选择审核人员"];
-            return;
-        }
-    }
-    
+//    if (!_addNumeralProcessView.typeBtn.content.text.length) {
+//        [self showContent:@"请选择审批流程"];
+//        return;
+//    }
+//    if ([_progressDic[@"check_type"] integerValue] == 1) {
+//
+//        if (!_addNumeralProcessView.auditBtn.content.text.length) {
+//            [self showContent:@"请选择流程类型"];
+//            return;
+//        }
+//    }
+//    NSString *param;
+//    if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
+//
+//        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+//
+//            if ([_rolePersonSelectArr[i] integerValue] == 1) {
+//
+//                if (param.length) {
+//
+//                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+//                }else{
+//
+//                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+//                }
+//            }
+//        }
+//        if (!param.length) {
+//
+//            [self showContent:@"请选择审核人员"];
+//            return;
+//        }
+//    }
+//
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id,@"config_id":_infoDic[@"config_id"]}];
     NSMutableArray *tempArr = [@[] mutableCopy];
@@ -436,10 +436,10 @@
 //            }
 //        }
 //    }
-    if (param.length) {
-        
-        [dic setObject:param forKey:@"param"];
-    }
+//    if (param.length) {
+//        
+//        [dic setObject:param forKey:@"param"];
+//    }
     [dic setObject:_row_id forKey:@"row_id"];
     
     [BaseRequest POST:ProjectRowUpdateRow_URL parameters:dic success:^(id  _Nonnull resposeObject) {
@@ -592,6 +592,7 @@
         AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
         nextVC.trans = @"trans";
+        nextVC.phone = [strongSelf->_personArr[0][@"tel"] componentsSeparatedByString:@","][0];
         nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
             
             [strongSelf->_proportionArr addObject:@""];
@@ -611,6 +612,8 @@
         
         strongSelf->_coll.hidden = YES;
         CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.trans = @"trans";
+        nextVC.phone = [strongSelf->_personArr[0][@"tel"] componentsSeparatedByString:@","][0];
         nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
             
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];

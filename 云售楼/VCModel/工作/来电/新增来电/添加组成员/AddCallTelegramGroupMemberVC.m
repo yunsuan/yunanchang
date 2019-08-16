@@ -315,11 +315,18 @@
         return;
     }
    
-    if ([self isEmpty:_phoneTF.textField.text]) {
+    if ([self.trans isEqualToString:@"trans"]) {
         
-        [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
-        return;
+        
+    }else{
+        
+        if ([self isEmpty:_phoneTF.textField.text]) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
+            return;
+        }
     }
+    
     
     if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
         
@@ -377,16 +384,37 @@
         [tempDic setObject:_gender forKey:@"sex"];
     }
     
-    NSString *tel = _phoneTF.textField.text;
-    if (![self isEmpty:_phoneTF2.textField.text]) {
+    if ([self.trans isEqualToString:@"trans"]) {
         
-        tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
-    }
-    if (![self isEmpty:_phoneTF3.textField.text]) {
+        if ([self checkTel:_phoneTF.textField.text]) {
+            
+            NSString *tel = _phoneTF.textField.text;
+            if ([self checkTel:_phoneTF2.textField.text]) {
+                
+                tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+            }
+            if ([self checkTel:_phoneTF3.textField.text]) {
+                
+                tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+            }
+            [tempDic setObject:tel forKey:@"tel"];
+        }else{
+            
+            [tempDic setObject:self.phone forKey:@"tel"];
+        }
+    }else{
         
-        tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+        NSString *tel = _phoneTF.textField.text;
+        if (![self isEmpty:_phoneTF2.textField.text]) {
+            
+            tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+        }
+        if (![self isEmpty:_phoneTF3.textField.text]) {
+            
+            tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+        }
+        [tempDic setObject:tel forKey:@"tel"];
     }
-    [tempDic setObject:tel forKey:@"tel"];
     
     if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
         
@@ -561,6 +589,18 @@
         }
         
         if (textField == _phoneTF.textField || textField == _phoneTF2.textField || textField == _phoneTF3.textField) {
+            
+            if (![self.trans isEqualToString:@"trans"]) {
+                
+                if (![self checkTel:textField.text]) {
+                    
+                    [self alertControllerWithNsstring:@"号码错误" And:@"请检查号码" WithDefaultBlack:^{
+                        
+                        textField.text = @"";
+                    }];
+                    return;
+                }
+            }
             
             [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
                 
