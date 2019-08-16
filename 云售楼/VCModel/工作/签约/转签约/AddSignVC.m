@@ -1694,6 +1694,9 @@
             if ([strongSelf.from_type isEqualToString:@"1"]) {
                 
                 [dic setValue:@"3" forKey:@"progress_defined_id"];
+            }else if ([strongSelf.from_type isEqualToString:@"3"]){
+                
+                [dic setValue:@"6" forKey:@"progress_defined_id"];
             }
             
             [BaseRequest GET:ProjectProgressGet_URL parameters:dic success:^(id  _Nonnull resposeObject) {

@@ -122,7 +122,22 @@
                     str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
                 }
             }
-            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"申请流程：：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"流程类型：%@",[self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]]],@[[NSString stringWithFormat:@"排号号码：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"排号时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"有效期至：%@",self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"归属人：%@",str],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_time"]]]]];
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"排号号码：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"排号时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"有效期至：%@",self->_dataDic[@"end_time"]]/*,[NSString stringWithFormat:@"归属人：%@",str],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_time"]]*/],@[[NSString stringWithFormat:@"申请流程：：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"流程类型：%@",[self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]]]]];
+            if ([self->_dataDic[@"check_state"] integerValue] != 2) {
+                
+                NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"申请流程：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"progressList"][@"list"][0][@"update_time"]]]];
+                if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1) {
+                    
+                    [arr insertObject:@"流程类型：自由流程" atIndex:1];
+                }else if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 2){
+                    
+                    [arr insertObject:@"流程类型：固定流程" atIndex:1];
+                }else{
+                    
+                    [arr insertObject:@"流程类型：混合流程" atIndex:1];
+                }
+                [self->_dataArr addObject:arr];
+            }
             [self->_table reloadData];
         }else{
             
@@ -276,7 +291,7 @@
     }
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
         
-        [alert addAction:change];
+//        [alert addAction:change];
     }
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
     
@@ -377,10 +392,13 @@
             header.titleL.text = @"权益人信息";
         }else if (section == 2) {
             
-            header.titleL.text = @"审核信息";
+            header.titleL.text = @"排号信息";
+        }else if (section == 3) {
+            
+            header.titleL.text = @"交易信息";
         }else{
             
-            header.titleL.text = @"排号信息";
+            header.titleL.text = @"审核信息";
         }
         return header;
     }
@@ -388,7 +406,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 2 && indexPath.row == 3) {
+    if (indexPath.section == 4 && indexPath.row == 2) {
 
         InfoDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoDetailCell"];
         if (!cell) {
@@ -417,7 +435,7 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
-    }else if (indexPath.section == 3 && indexPath.row == 3) {
+    }else if (indexPath.section == 3 && indexPath.row == 2) {
 
         InfoDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoDetailCell"];
         if (!cell) {

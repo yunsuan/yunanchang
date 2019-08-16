@@ -26,7 +26,7 @@
     _headImg.image = IMAGE_WITH_NAME(@"paihao");
     _titleL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"batch_name"],dataDic[@"row_name"]];
     _customL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
-    _numL.text = @"组别人数：0";
+    _numL.text = [NSString stringWithFormat:@"组别人数：%@",dataDic[@"client_num"]];
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",dataDic[@"client_num"]];
     _timeL.text = dataDic[@"create_time"];
 //    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",dataDic[@"advicer"]];
@@ -99,7 +99,7 @@
     _headImg.image = IMAGE_WITH_NAME(@"subscribe");
     _titleL.text = [NSString stringWithFormat:@"%@/%@",orderDic[@"batch_name"],orderDic[@"house_name"]];
     _customL.text = [NSString stringWithFormat:@"%@",orderDic[@"name"]];
-    _numL.text = @"组别人数：0";
+    _numL.text = [NSString stringWithFormat:@"组别人数：%@",orderDic[@"client_num"]];
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",orderDic[@"client_num"]];
     _timeL.text = orderDic[@"create_time"];
 //    if ([orderDic[@"create_time"] length] > 11) {
@@ -177,7 +177,7 @@
     _headImg.image = IMAGE_WITH_NAME(@"signing_2");
     _titleL.text = [NSString stringWithFormat:@"%@/%@",signDic[@"batch_name"],signDic[@"house_name"]];
     _customL.text = [NSString stringWithFormat:@"%@",signDic[@"name"]];
-    _numL.text = @"组别人数：0";
+    _numL.text = [NSString stringWithFormat:@"组别人数：%@",signDic[@"client_num"]];
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",signDic[@"client_num"]];
     _timeL.text = signDic[@"create_time"];
 //    _consultantL.text = [NSString stringWithFormat:@"置业顾问：%@",signDic[@"advicer"]];

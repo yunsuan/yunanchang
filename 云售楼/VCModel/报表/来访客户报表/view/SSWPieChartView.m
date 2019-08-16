@@ -72,7 +72,7 @@
     for (int i = 0 ; i<self.percentageArr.count; i++) {
         CAShapeLayer   *layer = [CAShapeLayer layer];
         layer.strokeColor = [UIColor clearColor].CGColor;
-        layer.fillColor = [self.colorsArr[i] CGColor];
+        layer.fillColor = [self.colorsArr[i % 10] CGColor];
         layer.lineWidth=1;
         layer.lineJoin  = kCALineCapRound;
         layer.lineCap = kCALineJoinRound;
