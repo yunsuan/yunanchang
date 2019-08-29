@@ -10,9 +10,9 @@
 #define NetConfig_h
 
 //新服务器
-//static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
-static NSString *const TestBase_Net = @"http://47.107.246.94/";
+//static NSString *const TestBase_Net = @"http://47.107.246.94/";
 
 #pragma mark --- 登录注册 ---
 
@@ -117,6 +117,16 @@ static NSString *const WorkClientAutoFollowDelete_URL = @"saleApp/work/client/au
 
 //号码判重
 static NSString *const TelRepeatCheck_URL = @"saleApp/tel/repeatCheck";
+
+
+//判断是否需要补齐号码
+static NSString *const ProjectClientGetTelCompleteState_URL = @"saleApp/project/client/getTelCompleteState";
+
+// 获取两组来访时间
+static NSString *const ClientGetGroupTime_URL = @"saleApp/client/getGroupTime";
+
+//来访合并组成员
+static NSString *const ClientMergeGroup_URL = @"saleApp/client/mergeGroup";
 #pragma mark -- 签字流程 --
 
 //签字有效

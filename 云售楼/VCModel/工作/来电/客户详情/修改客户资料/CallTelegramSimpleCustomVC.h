@@ -22,6 +22,12 @@ typedef void(^CallTelegramSimpleCustomVCEditBlock)(NSDictionary *dic);
 
 @property (nonatomic, strong) NSString *trans;
 
+@property (nonatomic, strong) NSString *hiddenAdd;
+
+@property (nonatomic, strong) NSString *merge;
+
+@property (nonatomic, strong) NSString *group_id;
+
 //@property (nonatomic, strong) NSString *client_id;
 
 - (instancetype)initWithDataDic:(NSDictionary *)dataDic projectId:(NSString *)projectId info_id:(NSString *)info_id;

@@ -439,6 +439,7 @@
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
         CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
         nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
             
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];

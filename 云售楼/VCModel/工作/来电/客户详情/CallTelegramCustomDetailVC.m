@@ -602,6 +602,7 @@
         cell.callTelegramCustomDetailInfoCellEditBlock = ^{
             
             CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:self->_peopleArr[self->_num] projectId:self->_project_id info_id:self.info_id];
+            nextVC.group_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"group_id"]];
             nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
                 
 //                [self RequestMethod];

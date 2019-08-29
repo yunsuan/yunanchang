@@ -20,6 +20,8 @@ typedef void(^AddSignVCBlock)(void);
 
 @property (nonatomic, strong) NSString *status;
 
+@property (nonatomic, strong) NSString *merge;
+
 @property (nonatomic, strong) NSString *from_type;
 
 @property (nonatomic, strong) NSString *advicer_id;

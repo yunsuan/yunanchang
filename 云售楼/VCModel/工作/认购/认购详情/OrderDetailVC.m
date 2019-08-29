@@ -144,18 +144,21 @@
                               @[[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"sign_time"]],[NSString stringWithFormat:@"归属人：%@",self->_dataDic[@"advicer"][0][@"name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"sign_limit_time"]]]]];
             if ([self->_dataDic[@"check_state"] integerValue] != 2) {
             
-                NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"申请流程：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"progressList"][@"list"][0][@"update_time"]]]];
-                if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1) {
+                if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
                     
-                    [arr insertObject:@"流程类型：自由流程" atIndex:1];
-                }else if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 2){
-                    
-                    [arr insertObject:@"流程类型：固定流程" atIndex:1];
-                }else{
-                    
-                    [arr insertObject:@"流程类型：混合流程" atIndex:1];
+                    NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"申请流程：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"progressList"][@"list"][0][@"update_time"]]]];
+                    if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1) {
+                        
+                        [arr insertObject:@"流程类型：自由流程" atIndex:1];
+                    }else if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 2){
+                        
+                        [arr insertObject:@"流程类型：固定流程" atIndex:1];
+                    }else{
+                        
+                        [arr insertObject:@"流程类型：混合流程" atIndex:1];
+                    }
+                    [self->_dataArr addObject:arr];
                 }
-                [self->_dataArr addObject:arr];
             }
             if ([self->_dataDic[@"pay_way_name"] isEqualToString:@"一次性付款"]) {
                 

@@ -243,6 +243,49 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    [BaseRequest GET:ProjectClientGetTelCompleteState_URL parameters:@{@"group_id":_group_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"] integerValue] == 5) {
+                
+                BOOL isNext = YES;
+                for (int i = 0; i < self->_personArr.count; i++) {
+                    
+                    NSDictionary *dic = self->_personArr[i];
+                    if ([[dic[@"tel"] substringWithRange:NSMakeRange(3, 4)] isEqualToString:@"0000"] || [[dic[@"tel"] substringWithRange:NSMakeRange(3, 4)] isEqualToString:@"****"] ) {
+                        
+                        isNext = NO;
+                        break;
+                    }else{
+                        
+                        
+                    }
+                }
+                if (isNext) {
+                    
+                    [self NextRequest];
+                }else{
+                    
+                    [self showContent:@"请完整电话号码"];
+                }
+            }else{
+                
+                [self NextRequest];
+            }
+        }else{
+            
+            [self NextRequest];
+        }
+    } failure:^(NSError * _Nonnull error) {
+       
+        [self NextRequest];
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)NextRequest{
+    
     [_pay_info removeAllObjects];
     BOOL isFull = YES;
     NSInteger percent = 0;
@@ -288,7 +331,7 @@
     }
     
     if (!_addOrderView.payWayBtn.content.text.length) {
-
+        
         [self showContent:@"请选择付款方式"];
         return;
     }
@@ -321,9 +364,9 @@
         [_pay_info setObject:_addOrderView.loanBankBtn->str forKey:@"bank_id"];
     }else if ([_addOrderView.payWayBtn.content.text isEqualToString:@"综合贷款"]){
         
-    
+        
         if (!_addOrderView.businessLoanPriceTF.textField.text.length) {
-    
+            
             [self showContent:@"请输入商业贷款金额"];
             return;
         }
@@ -352,7 +395,7 @@
             [self showContent:@"请输入公积金按揭年限"];
             return;
         }
-
+        
         [_pay_info setObject:_addOrderView.paymentTF.textField.text forKey:@"downpayment"];
         [_pay_info setObject:@"0" forKey:@"downpayment_repay"];
         [_pay_info setObject:_addOrderView.businessLoanPriceTF.textField.text forKey:@"bank_loan_money"];
@@ -428,13 +471,13 @@
     
     NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:_personArr];
     for (int i = 0; i < tempArr.count; i++) {
-
+        
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
         if (i == 0) {
-
+            
             [dic setObject:@"1" forKey:@"beneficiary_type"];
         }else{
-
+            
             [dic setObject:@"2" forKey:@"beneficiary_type"];
         }
         
@@ -447,7 +490,7 @@
         
         [dic setObject:_proportionArr[i] forKey:@"property"];
         
-//        [dic removeObjectForKey:@"group_id"];
+        //        [dic removeObjectForKey:@"group_id"];
         [tempArr replaceObjectAtIndex:i withObject:dic];
     }
     
@@ -460,7 +503,7 @@
     NSString *tempArrJson = [[NSString alloc]initWithData:tempArrData encoding:NSUTF8StringEncoding];
     [dic setObject:tempArrJson forKey:@"beneficiary_list"];
     
-//    NSError *error;
+    //    NSError *error;
     NSData *advicer_listData = [NSJSONSerialization dataWithJSONObject:advicer_list options:NSJSONWritingPrettyPrinted error:&error];
     NSString *advicer_listDataJson = [[NSString alloc]initWithData:advicer_listData encoding:NSUTF8StringEncoding];
     [dic setObject:advicer_listDataJson forKey:@"advicer_list"];
@@ -487,10 +530,10 @@
     [dic setObject:_ordDic[@"sub_unit_price"] forKey:@"sub_unit_price"];
     [dic setObject:_ordDic[@"build_unit_price"] forKey:@"build_unit_price"];
     [dic setObject:_ordDic[@"inner_unit_price"] forKey:@"inner_unit_price"];
-//    [dic setObject:_ordDic[@"payWay_id"] forKey:@"payway"];
+    //    [dic setObject:_ordDic[@"payWay_id"] forKey:@"payway"];
     [dic setObject:_ordDic[@"sub_code"] forKey:@"sub_code"];
     [dic setObject:_ordDic[@"down_pay"] forKey:@"down_pay"];
-//    [dic setObject:_ordDic[@"payWay_id"] forKey:@"pay_way"];
+    //    [dic setObject:_ordDic[@"payWay_id"] forKey:@"pay_way"];
     if (_ordDic[@"payWay_id"]) {
         
         [dic setObject:_ordDic[@"payWay_id"] forKey:@"payway"];
@@ -534,20 +577,20 @@
     
     
     [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
-//    NSString *param;
-//    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-//
-//        if ([_rolePersonSelectArr[i] integerValue] == 1) {
-//
-//            if (param.length) {
-//
-//                param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-//            }else{
-//
-//                param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-//            }
-//        }
-//    }
+    //    NSString *param;
+    //    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+    //
+    //        if ([_rolePersonSelectArr[i] integerValue] == 1) {
+    //
+    //            if (param.length) {
+    //
+    //                param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+    //            }else{
+    //
+    //                param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+    //            }
+    //        }
+    //    }
     if (param.length) {
         
         [dic setObject:param forKey:@"param"];
@@ -660,6 +703,7 @@
         nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
         nextVC.trans = strongSelf.trans;
         nextVC.phone = [strongSelf->_personArr[0][@"tel"] componentsSeparatedByString:@","][0];
+        nextVC.merge = strongSelf.merge;
         nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
             
             [strongSelf->_proportionArr addObject:@""];
@@ -678,6 +722,15 @@
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
         CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.merge = strongSelf.merge;
+        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        if (num == 0) {
+            
+            nextVC.hiddenAdd = @"";
+        }else{
+            
+            nextVC.hiddenAdd = @"hidden";
+        }
         nextVC.trans = strongSelf.trans;
         nextVC.phone = [strongSelf->_personArr[0][@"tel"] componentsSeparatedByString:@","][0];
         nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {

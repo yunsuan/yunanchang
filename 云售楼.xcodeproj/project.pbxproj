@@ -23,6 +23,7 @@
 		0C05334822F97D6100DA9143 /* icon_phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C05334722F97D6000DA9143 /* icon_phone.png */; };
 		0C05334C22F97DCA00DA9143 /* QueryPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */; };
 		0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */; };
+		0C09524123167B1F00E38F74 /* toTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C09524023167B1E00E38F74 /* toTop.png */; };
 		0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32122DDB1C800092293 /* TransNumeralCell.m */; };
 		0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32422DDB60800092293 /* TransOrderCell.m */; };
 		0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32722DDB61500092293 /* TransSignCell.m */; };
@@ -108,6 +109,7 @@
 		0C4B8EE822CC49BB00D505BE /* SignDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EE722CC49BB00D505BE /* SignDetailVC.m */; };
 		0C4B8EEC22CC4B1600D505BE /* AddOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EEB22CC4B1600D505BE /* AddOrderVC.m */; };
 		0C4B8EEF22CDAED000D505BE /* AddNumeralPersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4B8EEE22CDAED000D505BE /* AddNumeralPersonView.m */; };
+		0C6BFED7231663800079B304 /* VisitCustomMergeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BFED6231663800079B304 /* VisitCustomMergeVC.m */; };
 		0C743A5722C1B22200F5CB6B /* CommissionReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A5622C1B22200F5CB6B /* CommissionReportVC.m */; };
 		0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A5A22C1B52200F5CB6B /* CommissReportCell.m */; };
 		0C743A9422C1BC9200F5CB6B /* CompanyCommissionReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C743A9322C1BC9200F5CB6B /* CompanyCommissionReportVC.m */; };
@@ -518,6 +520,7 @@
 		0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryPhoneVC.m; sourceTree = "<group>"; };
 		0C08E79022F7CD990079A3A0 /* NumeralAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAddMinusPersonVC.h; sourceTree = "<group>"; };
 		0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAddMinusPersonVC.m; sourceTree = "<group>"; };
+		0C09524023167B1E00E38F74 /* toTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toTop.png; sourceTree = "<group>"; };
 		0C0CE32022DDB1C800092293 /* TransNumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransNumeralCell.h; sourceTree = "<group>"; };
 		0C0CE32122DDB1C800092293 /* TransNumeralCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransNumeralCell.m; sourceTree = "<group>"; };
 		0C0CE32322DDB60800092293 /* TransOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransOrderCell.h; sourceTree = "<group>"; };
@@ -690,6 +693,8 @@
 		0C4B8EEB22CC4B1600D505BE /* AddOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderVC.m; sourceTree = "<group>"; };
 		0C4B8EED22CDAED000D505BE /* AddNumeralPersonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralPersonView.h; sourceTree = "<group>"; };
 		0C4B8EEE22CDAED000D505BE /* AddNumeralPersonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralPersonView.m; sourceTree = "<group>"; };
+		0C6BFED5231663800079B304 /* VisitCustomMergeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitCustomMergeVC.h; sourceTree = "<group>"; };
+		0C6BFED6231663800079B304 /* VisitCustomMergeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitCustomMergeVC.m; sourceTree = "<group>"; };
 		0C743A5522C1B22200F5CB6B /* CommissionReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommissionReportVC.h; sourceTree = "<group>"; };
 		0C743A5622C1B22200F5CB6B /* CommissionReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommissionReportVC.m; sourceTree = "<group>"; };
 		0C743A5922C1B52200F5CB6B /* CommissReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommissReportCell.h; sourceTree = "<group>"; };
@@ -2305,6 +2310,15 @@
 			path = "转认购";
 			sourceTree = "<group>";
 		};
+		0C6BFED42316634A0079B304 /* 合并组员 */ = {
+			isa = PBXGroup;
+			children = (
+				0C6BFED5231663800079B304 /* VisitCustomMergeVC.h */,
+				0C6BFED6231663800079B304 /* VisitCustomMergeVC.m */,
+			);
+			path = "合并组员";
+			sourceTree = "<group>";
+		};
 		0C743A5422C1B20500F5CB6B /* 佣金分析报表 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2657,6 +2671,7 @@
 		0CA8254222AE0C800005F3ED /* 箭头 */ = {
 			isa = PBXGroup;
 			children = (
+				0C09524023167B1E00E38F74 /* toTop.png */,
 				0CA8254322AE0C800005F3ED /* downarrow@2x.png */,
 				0CA8254422AE0C800005F3ED /* downarrow@3x.png */,
 				0CA8254522AE0C800005F3ED /* uparrow@2x.png */,
@@ -3817,6 +3832,7 @@
 		0CF1A2EC228D15D2001C77CF /* 来访 */ = {
 			isa = PBXGroup;
 			children = (
+				0C6BFED42316634A0079B304 /* 合并组员 */,
 				0C310E3E22A5568100083504 /* 渠道客户列表 */,
 				0C310E3A22A504F600083504 /* view */,
 				0CF1A2FA228D8225001C77CF /* 客户详情 */,
@@ -4326,6 +4342,7 @@
 				0CA8264322AE0C810005F3ED /* laifang@3x.png in Resources */,
 				0CA825B322AE0C800005F3ED /* classify@3x.png in Resources */,
 				0CA825BF22AE0C800005F3ED /* me_1@2x.png in Resources */,
+				0C09524123167B1F00E38F74 /* toTop.png in Resources */,
 				0CA825BC22AE0C800005F3ED /* report_2@3x.png in Resources */,
 				0CA825A422AE0C800005F3ED /* company_2@3x.png in Resources */,
 				0CA825DA22AE0C800005F3ED /* nv@2x.png in Resources */,
@@ -4800,6 +4817,7 @@
 				0CC2730A2268444A00EB881F /* FollowRecordVC.m in Sources */,
 				0CD04344228007A3002C8BD3 /* ProcessCell.m in Sources */,
 				0CD0435722801643002C8BD3 /* WorkPersonAuditDetailVC.m in Sources */,
+				0C6BFED7231663800079B304 /* VisitCustomMergeVC.m in Sources */,
 				0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

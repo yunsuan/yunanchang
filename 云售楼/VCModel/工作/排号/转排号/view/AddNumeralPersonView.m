@@ -289,7 +289,7 @@
         _certNumTF.textField.text = @"";
     }
     
-    if ([data[@"birth"] length]) {
+    if (![data[@"birth"] isKindOfClass:[NSNull class]] && [data[@"birth"] length]) {
         
         _birthBtn.content.text = data[@"birth"];
         _birthBtn.placeL.text = @"";
@@ -478,7 +478,7 @@
     _topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_topBtn addTarget:self action:@selector(ActionTopBtn:) forControlEvents:UIControlEventTouchUpInside];
     _topBtn.hidden = YES;
-    [_topBtn setImage:IMAGE_WITH_NAME(@"editor_2") forState:UIControlStateNormal];
+    [_topBtn setImage:IMAGE_WITH_NAME(@"toTop") forState:UIControlStateNormal];
     [self addSubview:_topBtn];
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];

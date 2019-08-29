@@ -238,6 +238,49 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    [BaseRequest GET:ProjectClientGetTelCompleteState_URL parameters:@{@"group_id":_group_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"] integerValue] == 5) {
+                
+                BOOL isNext = YES;
+                for (int i = 0; i < self->_personArr.count; i++) {
+                    
+                    NSDictionary *dic = self->_personArr[i];
+                    if ([[dic[@"tel"] substringWithRange:NSMakeRange(3, 4)] isEqualToString:@"0000"] || [[dic[@"tel"] substringWithRange:NSMakeRange(3, 4)] isEqualToString:@"****"] ) {
+                        
+                        isNext = NO;
+                        break;
+                    }else{
+                        
+                        
+                    }
+                }
+                if (isNext) {
+                    
+                    [self NextRequest];
+                }else{
+                    
+                    [self showContent:@"请完善电话号码"];
+                }
+            }else{
+                
+                [self NextRequest];
+            }
+        }else{
+            
+            [self NextRequest];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self NextRequest];
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)NextRequest{
+    
     [_pay_info removeAllObjects];
     BOOL isFull = YES;
     NSInteger percent = 0;
@@ -654,6 +697,7 @@
         AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
         nextVC.trans = strongSelf.trans;
+        nextVC.merge = strongSelf.merge;
         nextVC.phone = [strongSelf->_personArr[0][@"tel"] componentsSeparatedByString:@","][0];
         nextVC.addCallTelegramGroupMemberVCBlock = ^(NSString * _Nonnull group, NSDictionary * _Nonnull dic) {
             
@@ -673,6 +717,15 @@
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
         CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.merge = strongSelf.merge;
+        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        if (num == 0) {
+            
+            nextVC.hiddenAdd = @"";
+        }else{
+            
+            nextVC.hiddenAdd = @"hidden";
+        }
         nextVC.trans = strongSelf.trans;
         nextVC.phone = [strongSelf->_personArr[0][@"tel"] componentsSeparatedByString:@","][0];
         nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
