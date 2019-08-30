@@ -320,7 +320,13 @@
     
     if (!_addOrderView.codeTF.textField.text.length) {
         
-        [self showContent:@"请填写订单编号"];
+        [self showContent:@"请填写定单编号"];
+        return;
+    }
+    
+    if (!_addOrderView.timeBtn.content.text) {
+        
+        [self showContent:@"请选择定单时间"];
         return;
     }
     
@@ -522,6 +528,7 @@
     [dic setObject:_project_id forKey:@"project_id"];
     [dic setObject:_roomDic[@"house_id"] forKey:@"house_id"];
     [dic setObject:_ordDic[@"price"] forKey:@"sub_total_price"];
+    [dic setObject:_ordDic[@"sub_time"] forKey:@"sub_time"];
     if ([dic[@"sub_total_price"] floatValue] < [_minPirce floatValue]) {
         
         [self showContent:[NSString stringWithFormat:@"成交价格不能低于最低总价%@",_minPirce]];
@@ -830,7 +837,7 @@
             [strongSelf->_ordDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 
                 
-                if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"pay_way_name"] || [key isEqualToString:@"payWay_id"]) {
+                if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"pay_way_name"] || [key isEqualToString:@"payWay_id"] || [key isEqualToString:@"sub_time"]) {
                     
                 }else{
                     
@@ -1178,7 +1185,7 @@
                 [strongSelf->_ordDic setObject:strongSelf->_ordDic[@"total_price"] forKey:@"price"];
                 [strongSelf->_ordDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                    
-                    if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"down_pay"] || [key isEqualToString:@"total_price"] || [key isEqualToString:@"price"]) {
+                    if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"down_pay"] || [key isEqualToString:@"total_price"] || [key isEqualToString:@"price"] || [key isEqualToString:@"sub_time"]) {
                         
                     }else{
                         
@@ -1483,6 +1490,17 @@
                     [strongSelf showContent:@"获取银行信息失败"];
                 }];
             }
+        }else if( index == 18){
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+                
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                [strongSelf->_ordDic setObject:[formatter stringFromDate:date] forKey:@"sub_time"];
+                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+            };
+            [strongSelf.view addSubview:view];
         }
     };
     

@@ -319,6 +319,12 @@
         return;
     }
     
+    if (!_addOrderView.timeBtn.content.text) {
+        
+        [self showContent:@"请选择合同时间"];
+        return;
+    }
+    
 //    if (!_addOrderView.depositTF.textField.text.length) {
 //
 //        [self showContent:@"请定金金额"];
@@ -524,6 +530,7 @@
     [dic setObject:_project_id forKey:@"project_id"];
     [dic setObject:_roomDic[@"house_id"] forKey:@"house_id"];
     [dic setObject:_ordDic[@"price"] forKey:@"contract_total_price"];
+    [dic setObject:_ordDic[@"sub_time"] forKey:@"contract_time"];
     if ([dic[@"contract_total_price"] floatValue] < [_minPirce floatValue]) {
         
         [self showContent:[NSString stringWithFormat:@"成交价格不能低于最低总价%@",_minPirce]];
@@ -542,6 +549,7 @@
         NSData *pay_infoData = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
         NSString *pay_infoDataJson = [[NSString alloc]initWithData:pay_infoData encoding:NSUTF8StringEncoding];
         [dic setObject:pay_infoDataJson forKey:@"pay_info"];
+        [dic setObject:_pay_info[@"downpayment"] forKey:@"down_pay"];
     }else{
         
         if ([_addOrderView.payWayBtn.content.text isEqualToString:@"分期付款"]) {
@@ -549,6 +557,10 @@
             NSData *pay_infoData = [NSJSONSerialization dataWithJSONObject:_installmentArr options:NSJSONWritingPrettyPrinted error:&error];
             NSString *pay_infoDataJson = [[NSString alloc]initWithData:pay_infoData encoding:NSUTF8StringEncoding];
             [dic setObject:pay_infoDataJson forKey:@"pay_info"];
+            [dic setObject:_installmentArr[0][@"pay_money"] forKey:@"down_pay"];
+        }else{
+            
+            [dic setObject:_ordDic[@"price"] forKey:@"down_pay"];
         }
     }
     
@@ -821,7 +833,7 @@
             [strongSelf->_ordDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 
                 
-                if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"pay_way_name"] || [key isEqualToString:@"payWay_id"]) {
+                if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"pay_way_name"] || [key isEqualToString:@"payWay_id"] || [key isEqualToString:@"sub_time"]) {
                     
                 }else{
                     
@@ -923,17 +935,18 @@
     _addOrderView.depositL.hidden = YES;
     _addOrderView.depositTF.hidden = YES;
     _addOrderView.codeL.text = @"合同编号：";
+    _addOrderView.timeL.text = @"合同时间：";
     [_addOrderView.payWayL mas_remakeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(strongSelf->_addOrderView).offset(9 *SIZE);
-        make.top.equalTo(strongSelf->_addOrderView.codeTF.mas_bottom).offset(21 *SIZE);
+        make.top.equalTo(strongSelf->_addOrderView.timeBtn.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_addOrderView.payWayBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(strongSelf->_addOrderView).offset(80 *SIZE);
-        make.top.equalTo(strongSelf->_addOrderView.codeTF.mas_bottom).offset(14 *SIZE);
+        make.top.equalTo(strongSelf->_addOrderView.timeBtn.mas_bottom).offset(14 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -1179,7 +1192,7 @@
                 [strongSelf->_ordDic setObject:strongSelf->_ordDic[@"total_price"] forKey:@"price"];
                 [strongSelf->_ordDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                     
-                    if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"down_pay"] || [key isEqualToString:@"total_price"] || [key isEqualToString:@"price"]) {
+                    if ([key isEqualToString:@"sub_code"] || [key isEqualToString:@"down_pay"] || [key isEqualToString:@"total_price"] || [key isEqualToString:@"price"] || [key isEqualToString:@"sub_time"]) {
                         
                     }else{
                         
@@ -1485,6 +1498,17 @@
                     [strongSelf showContent:@"获取银行信息失败"];
                 }];
             }
+        }else if( index == 18){
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+                
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                [strongSelf->_ordDic setObject:[formatter stringFromDate:date] forKey:@"sub_time"];
+                strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
+            };
+            [strongSelf.view addSubview:view];
         }
     };
     

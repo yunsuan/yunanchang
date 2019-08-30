@@ -16,6 +16,8 @@ typedef void(^TransNumeralCellAuditBlock)(NSInteger index);
 
 @property (nonatomic, copy) TransNumeralCellAuditBlock transNumeralCellAuditBlock;
 
+@property (nonatomic, strong) NSString *title;
+
 @property (nonatomic, strong) UIView *whiteView;
 
 @property (nonatomic, strong) UIImageView *headImg;

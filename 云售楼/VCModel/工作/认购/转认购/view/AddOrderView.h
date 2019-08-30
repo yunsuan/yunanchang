@@ -49,6 +49,10 @@ typedef void(^AddOrderViewInstallmentStrBlock)(NSInteger index, NSString *str);
 
 @property (nonatomic, strong) BorderTextField *codeTF;
 
+@property (nonatomic, strong) UILabel *timeL;
+
+@property (nonatomic, strong) DropBtn *timeBtn;
+
 @property (nonatomic, strong) UILabel *depositL;
 
 @property (nonatomic, strong) BorderTextField *depositTF;

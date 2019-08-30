@@ -49,6 +49,11 @@
     _consultantL.text = [NSString stringWithFormat:@"职业顾问：%@",dataDic[@"sign_agent_name"]];
 }
 
+- (void)setTitle:(NSString *)title{
+    
+    _titleL.text = title;
+}
+
 - (void)initUI{
     
     self.contentView.backgroundColor = CLLineColor;
