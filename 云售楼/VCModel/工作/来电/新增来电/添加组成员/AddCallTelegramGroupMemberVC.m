@@ -8,6 +8,8 @@
 
 #import "AddCallTelegramGroupMemberVC.h"
 
+#import "VisitCustomMergeVC.h"
+
 #import "BoxSelectCollCell.h"
 #import "BaseHeader.h"
 
@@ -314,12 +316,19 @@
         [self alertControllerWithNsstring:@"必填信息" And:@"请选择性别"];
         return;
     }
-   
-    if ([self isEmpty:_phoneTF.textField.text]) {
+    
+    if ([self.trans isEqualToString:@"trans"]) {
         
-        [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
-        return;
+        
+    }else{
+        
+        if ([self isEmpty:_phoneTF.textField.text]) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
+            return;
+        }
     }
+    
     
     if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
         
@@ -377,16 +386,247 @@
         [tempDic setObject:_gender forKey:@"sex"];
     }
     
-    NSString *tel = _phoneTF.textField.text;
-    if (![self isEmpty:_phoneTF2.textField.text]) {
+    if ([self.trans isEqualToString:@"trans"]) {
         
-        tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
-    }
-    if (![self isEmpty:_phoneTF3.textField.text]) {
+        if ([self checkTel:_phoneTF.textField.text]) {
+            
+            NSString *tel = _phoneTF.textField.text;
+            if ([self checkTel:_phoneTF2.textField.text]) {
+                
+                tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+            }
+            if ([self checkTel:_phoneTF3.textField.text]) {
+                
+                tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+            }
+            [tempDic setObject:tel forKey:@"tel"];
+        }else{
+            
+            [tempDic setObject:self.phone forKey:@"tel"];
+        }
+    }else{
         
-        tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+        NSString *tel = _phoneTF.textField.text;
+        if (![self isEmpty:_phoneTF2.textField.text]) {
+            
+            tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+        }
+        if (![self isEmpty:_phoneTF3.textField.text]) {
+            
+            tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+        }
+        [tempDic setObject:tel forKey:@"tel"];
     }
-    [tempDic setObject:tel forKey:@"tel"];
+    
+    if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
+        
+        [tempDic setObject:_certTypeBtn.content.text forKey:@"card_type"];
+        [tempDic setObject:_certNumTF.textField.text forKey:@"card_num"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"card_type"];
+        [tempDic setObject:@"" forKey:@"card_num"];
+    }
+    
+    if (_birthBtn.content.text.length) {
+        
+        [tempDic setObject:_birthBtn.content.text forKey:@"birth"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"birth"];
+    }
+    if (![self isEmpty:_mailCodeTF.textField.text]) {
+        
+        [tempDic setObject:_mailCodeTF.textField.text forKey:@"mail_code"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"mail_code"];
+    }
+    
+    if (![self isEmpty:_addressBtn.textField.text]) {
+        
+        [tempDic setObject:_addressBtn.textField.text forKey:@"address"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"address"];
+    }
+    
+    if (![self isEmpty:_markTV.text]) {
+        
+        [tempDic setObject:_markTV.text forKey:@"comment"];
+    }else{
+        
+        [tempDic setObject:@"" forKey:@"comment"];
+    }
+    
+    if (self.merge.length) {
+        
+        [BaseRequest GET:ClientGetGroupTime_URL parameters:@{@"project_id":_project_id,@"group_id":_group_id,@"tel":tempDic[@"tel"]} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if ([resposeObject[@"data"][@"is_main"] integerValue] == 1) {
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"该号码在其他来访组中存在，系统监测到可能存在为一家人有多个经纪人报备，是否需要合并组！" WithCancelBlack:^{
+                        
+                        [self NextRequest];
+                    } WithDefaultBlack:^{
+                        
+                        VisitCustomMergeVC *nextVC = [[VisitCustomMergeVC alloc] initWithDic:resposeObject[@"data"]];
+                        nextVC.visitCustomMergeVCBlock = ^{
+                            
+                            //                        if (self.addCallTelegramGroupMemberVCBlock) {
+                            //
+                            //                            self.block
+                            //                        }
+                            if (self.addCallTelegramGroupMemberDirectVCBlock) {
+                                
+                                self.addCallTelegramGroupMemberDirectVCBlock();
+                            }
+                        };
+                        [self.navigationController pushViewController:nextVC animated:YES];
+                    }];
+                }else{
+                    
+                    [self NextRequest];
+                }
+            }else{
+                
+                [self NextRequest];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self NextRequest];
+        }];
+    }else{
+        
+        [self NextRequest];
+    }
+}
+
+- (void)NextRequest{
+    
+    for (BorderTextField *tf in _scrollView.subviews) {
+        
+        if ([tf isKindOfClass:[BorderTextField class]]) {
+            
+            [tf.textField endEditing:YES];
+        }
+    }
+    NSMutableDictionary *tempDic = [@{} mutableCopy];
+    
+    if ([self isEmpty:_nameTF.textField.text]) {
+        
+        [self alertControllerWithNsstring:@"必填信息" And:@"请填写姓名"];
+        return;
+    }
+    
+    if (!_gender.length) {
+        
+        [self alertControllerWithNsstring:@"必填信息" And:@"请选择性别"];
+        return;
+    }
+    
+    if ([self.trans isEqualToString:@"trans"]) {
+        
+        
+    }else{
+        
+        if ([self isEmpty:_phoneTF.textField.text]) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请填写电话号码"];
+            return;
+        }
+    }
+    
+    
+    if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
+        
+        if ([_certTypeBtn.content.text containsString:@"身份证"]) {
+            
+            if (_certNumTF.textField.text.length) {
+                
+                if ([self validateIDCardNumber:_certNumTF.textField.text]) {
+                    
+                    _birthBtn.placeL.text = @"";
+                    _birthBtn.content.text = [self subsIDStrToDate:_certNumTF.textField.text];
+                }else{
+                    
+                    [self showContent:@"请输入正确的身份证号"];
+                    return;
+                }
+            }else{
+                
+                [self showContent:@"请输入正确的身份证号"];
+                return;
+            }
+        }
+    }
+    
+    if ([_configDic[@"birth"] integerValue] == 1) {
+        
+        if (!_birthBtn.content.text.length) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请选择出生年月"];
+            return;
+        }
+    }
+    
+    if ([_configDic[@"mail"] integerValue] == 1) {
+        
+        if ([self isEmpty:_mailCodeTF.textField.text]) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请输入邮政编码"];
+            return;
+        }
+    }
+    
+    if ([_configDic[@"address"] integerValue] == 1) {
+        
+        if ([self isEmpty:_addressBtn.textField.text]) {
+            
+            [self alertControllerWithNsstring:@"必填信息" And:@"请选择通讯地址"];
+            return;
+        }
+    }
+    
+    [tempDic setObject:_nameTF.textField.text forKey:@"name"];
+    if (_gender.length) {
+        
+        [tempDic setObject:_gender forKey:@"sex"];
+    }
+    
+    if ([self.trans isEqualToString:@"trans"]) {
+        
+        if ([self checkTel:_phoneTF.textField.text]) {
+            
+            NSString *tel = _phoneTF.textField.text;
+            if ([self checkTel:_phoneTF2.textField.text]) {
+                
+                tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+            }
+            if ([self checkTel:_phoneTF3.textField.text]) {
+                
+                tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+            }
+            [tempDic setObject:tel forKey:@"tel"];
+        }else{
+            
+            [tempDic setObject:self.phone forKey:@"tel"];
+        }
+    }else{
+        
+        NSString *tel = _phoneTF.textField.text;
+        if (![self isEmpty:_phoneTF2.textField.text]) {
+            
+            tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF2.textField.text];
+        }
+        if (![self isEmpty:_phoneTF3.textField.text]) {
+            
+            tel = [NSString stringWithFormat:@"%@,%@",tel,_phoneTF3.textField.text];
+        }
+        [tempDic setObject:tel forKey:@"tel"];
+    }
     
     if (_certTypeBtn.content.text.length && ![self isEmpty:_certNumTF.textField.text]) {
         
@@ -431,29 +671,43 @@
     
     if (self.group_id.length) {
         
-        [tempDic setObject:self.group_id forKey:@"group_id"];
-        [BaseRequest POST:WorkClientAutoClientAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+        if (![self.trans isEqualToString:@"trans"]) {
             
-            if ([resposeObject[@"code"] integerValue] == 200) {
+            [tempDic setObject:self.group_id forKey:@"group_id"];
+            [BaseRequest POST:WorkClientAutoClientAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
                 
-                if (self.addCallTelegramGroupMemberDirectVCBlock) {
+                if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    self.addCallTelegramGroupMemberDirectVCBlock();
+                    if (self.addCallTelegramGroupMemberDirectVCBlock) {
+                        
+                        self.addCallTelegramGroupMemberDirectVCBlock();
+                    }
+                    if (self.addCallTelegramGroupMemberVCBlock) {
+                        
+                        [tempDic setObject:[NSString stringWithFormat:@"%@",resposeObject[@"data"]] forKey:@"client_id"];
+                        [tempDic setObject:self.group_id forKey:@"group_id"]; self.addCallTelegramGroupMemberVCBlock(self->_nameTF.textField.text,tempDic);
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
                 }
-                if (self.addCallTelegramGroupMemberVCBlock) {
-                   
-                    [tempDic setObject:[NSString stringWithFormat:@"%@",resposeObject[@"data"]] forKey:@"client_id"];
-                   [tempDic setObject:self.group_id forKey:@"group_id"]; self.addCallTelegramGroupMemberVCBlock(self->_nameTF.textField.text,tempDic);
-                }
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
+            } failure:^(NSError * _Nonnull error) {
                 
-                [self showContent:resposeObject[@"msg"]];
-            }
-        } failure:^(NSError * _Nonnull error) {
+                [self showContent:@"网络错误"];
+            }];
+        }else{
             
-            [self showContent:@"网络错误"];
-        }];
+            if (self.addCallTelegramGroupMemberDirectVCBlock) {
+                
+                self.addCallTelegramGroupMemberDirectVCBlock();
+            }
+            if (self.addCallTelegramGroupMemberVCBlock) {
+                
+                [tempDic setObject:self.group_id forKey:@"group_id"]; self.addCallTelegramGroupMemberVCBlock(self->_nameTF.textField.text,tempDic);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }else{
         
         if (self.addCallTelegramGroupMemberVCBlock) {
@@ -548,13 +802,25 @@
         
         if (textField == _phoneTF.textField || textField == _phoneTF2.textField || textField == _phoneTF3.textField) {
             
+            if (![self.trans isEqualToString:@"trans"]) {
+                
+                if (![self checkTel:textField.text]) {
+                    
+                    [self alertControllerWithNsstring:@"号码错误" And:@"请检查号码" WithDefaultBlack:^{
+                        
+                        textField.text = @"";
+                    }];
+                    return;
+                }
+            }
+            
             [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 400) {
                     
                     [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
                         
-                        textField.text = @"";
+//                        textField.text = @"";
                     }];
                 }else{
                     
@@ -692,6 +958,7 @@
     _addBtn.tag = 3;
     [_addBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_addBtn setImage:IMAGE_WITH_NAME(@"add_1") forState:UIControlStateNormal];
+    _addBtn.hidden = YES;
     [_scrollView addSubview:_addBtn];
     
     NSArray *titleArr = @[@"姓名：",@"性别：",@"联系号码：",@"证件类型：",@"证件号：",@"出生年月：",@"邮政编码：",@"通讯地址：",@"备注："];

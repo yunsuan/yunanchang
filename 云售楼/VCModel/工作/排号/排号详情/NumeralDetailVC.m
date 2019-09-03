@@ -20,6 +20,7 @@
 #import "SincerityChangeVC.h"
 #import "NumeralBackNumVC.h"
 #import "NumeralChangeNameVC.h"
+#import "NumeralAddMinusPersonVC.h"
 
 #import "NumeralDetailInvalidView.h"
 #import "SinglePickView.h"
@@ -85,6 +86,23 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"beneficiary"]];
+            for (int i = 0; i < tempArr.count; i++) {
+                
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
+                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                   
+                    if ([obj isKindOfClass:[NSNull class]]) {
+                        
+                        [tempDic setObject:@"" forKey:key];
+                    }else{
+                        
+                        [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                    }
+                }];
+                [tempArr replaceObjectAtIndex:i withObject:tempDic];
+            }
+            [self->_dataDic setObject:tempArr forKey:@"beneficiary"];
             if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
                 
                 self.rightBtn.hidden = YES;
@@ -104,7 +122,25 @@
                     str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
                 }
             }
-            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"申请流程：：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"流程类型：%@",[self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]]],@[[NSString stringWithFormat:@"排号号码：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"排号时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"有效期至：%@",self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"归属人：%@",str],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_time"]]]]];
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"排号号码：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"排号时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"有效期至：%@",self->_dataDic[@"end_time"]]/*,[NSString stringWithFormat:@"归属人：%@",str],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_time"]]*/],@[[NSString stringWithFormat:@"申请流程：：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"流程类型：%@",[self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]]]]];
+            if ([self->_dataDic[@"check_state"] integerValue] != 2) {
+                
+                if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
+                    
+                    NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"申请流程：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"progressList"][@"list"][0][@"update_time"]]]];
+                    if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1) {
+                        
+                        [arr insertObject:@"流程类型：自由流程" atIndex:1];
+                    }else if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 2){
+                        
+                        [arr insertObject:@"流程类型：固定流程" atIndex:1];
+                    }else{
+                        
+                        [arr insertObject:@"流程类型：混合流程" atIndex:1];
+                    }
+                    [self->_dataArr addObject:arr];
+                }
+            }
             [self->_table reloadData];
         }else{
             
@@ -143,8 +179,9 @@
             
             AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
             nextVC.from_type = @"3";
-            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
-            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
+            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer"]];
+            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"name"]];
+            nextVC.trans = @"trans";
             [self.navigationController pushViewController:nextVC animated:YES];
         }else{
             
@@ -158,8 +195,9 @@
             
             AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
             nextVC.from_type = @"3";
-            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
-            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
+            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer"]];
+            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"name"]];
+            nextVC.trans = @"trans";
             nextVC.addOrderVCBlock = ^{
                 
                 [self RequestMethod];
@@ -198,7 +236,7 @@
                 [self.navigationController pushViewController:nextVC animated:YES];
             }else if ([ID integerValue] == 3){
                 
-                NumeralChangeNameVC *nextVC = [[NumeralChangeNameVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic];
+                NumeralChangeNameVC *nextVC = [[NumeralChangeNameVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
                 nextVC.numeralChangeNameVCBlock = ^{
                     
                     [self RequestMethod];
@@ -206,7 +244,12 @@
                 [self.navigationController pushViewController:nextVC animated:YES];
             }else{
                 
-                
+                NumeralAddMinusPersonVC *nextVC = [[NumeralAddMinusPersonVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
+                nextVC.numeralAddMinusPersonVCBlock = ^{
+                    
+                    [self RequestMethod];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
             }
         };
         [self.view addSubview:view];
@@ -249,23 +292,24 @@
         
         [alert addAction:audit];
     }
-
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+        
+//        [alert addAction:change];
+    }
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
     
         [alert addAction:order];
     }
-    if ([self->_dataDic[@"disabled_state"] integerValue] != 2 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
     
         [alert addAction:sign];
     }
+    
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
     
         [alert addAction:quit];
     }
-//    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1) {
     
-//        [alert addAction:change];
-//    }
     [alert addAction:cancel];
     [self.navigationController presentViewController:alert animated:YES completion:^{
         
@@ -320,8 +364,8 @@
         header.numeralDetailHeaderEditBlock = ^{
             
             ModifyNumeralVC *nextVC = [[ModifyNumeralVC alloc] initWithRowId:self->_row_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
-            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_id"]];
-            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer_name"]];
+            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer"]];
+            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"name"]];
             nextVC.projectName = self->_projectName;
             nextVC.modifyNumeralVCBlock = ^{
                 
@@ -333,7 +377,7 @@
         header.numeralDetailHeaderCollBlock = ^(NSInteger index) {
             
             self->_num = index;
-            NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][index][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][index][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][index][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][index][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][index][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][index][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][index][@"name"]],[NSString stringWithFormat:@"产权比例：%@",self->_dataDic[@"beneficiary"][index][@"property"]],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][index][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]];
+            NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][index][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][index][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][index][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][index][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][index][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][index][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][index][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][index][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][index][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]];
             [self->_dataArr replaceObjectAtIndex:1 withObject:arr];
             [tableView reloadData];
         };
@@ -351,10 +395,13 @@
             header.titleL.text = @"权益人信息";
         }else if (section == 2) {
             
-            header.titleL.text = @"审核信息";
+            header.titleL.text = @"排号信息";
+        }else if (section == 3) {
+            
+            header.titleL.text = @"交易信息";
         }else{
             
-            header.titleL.text = @"排号信息";
+            header.titleL.text = @"审核信息";
         }
         return header;
     }
@@ -362,20 +409,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 2 && indexPath.row == 3) {
-        
+    if (indexPath.section == 4 && indexPath.row == 2) {
+
         InfoDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoDetailCell"];
         if (!cell) {
-            
+
             cell = [[InfoDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InfoDetailCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+
         cell.contentlab.text = _dataArr[indexPath.section][indexPath.row];
         cell.contentlab.font = FONT(14 *SIZE);
         cell.contentlab.textColor = CL95Color;
         [cell.contentlab mas_remakeConstraints:^(MASConstraintMaker *make) {
-            
+
             make.left.equalTo(cell.contentView).offset(28 *SIZE);
             make.top.equalTo(cell.contentView).offset(10 *SIZE);
             make.width.mas_lessThanOrEqualTo(200 *SIZE);
@@ -383,7 +430,7 @@
         }];
         [cell.moreBtn setTitle:@"查看审核详情" forState:UIControlStateNormal];
         cell.infoDetailCellBlock = ^{
-            
+
             AuditDetailVC *nextVC = [[AuditDetailVC alloc] init];
             nextVC.status = @"1";
             nextVC.requestId = self->_row_id;
@@ -391,20 +438,20 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
-    }else if (indexPath.section == 3 && indexPath.row == 3) {
-        
+    }else if (indexPath.section == 3 && indexPath.row == 2) {
+
         InfoDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoDetailCell"];
         if (!cell) {
-            
+
             cell = [[InfoDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InfoDetailCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+
         cell.contentlab.text = _dataArr[indexPath.section][indexPath.row];
         cell.contentlab.font = FONT(14 *SIZE);
         cell.contentlab.textColor = CL95Color;
         [cell.contentlab mas_remakeConstraints:^(MASConstraintMaker *make) {
-            
+
             make.left.equalTo(cell.contentView).offset(28 *SIZE);
             make.top.equalTo(cell.contentView).offset(10 *SIZE);
             make.width.mas_lessThanOrEqualTo(200 *SIZE);
@@ -412,13 +459,13 @@
         }];
         [cell.moreBtn setTitle:@"查看归属人详情" forState:UIControlStateNormal];
         cell.infoDetailCellBlock = ^{
-            
+
             BelongDetailVC *nextVC = [[BelongDetailVC alloc] initWithDataArr:self->_dataDic[@"advicer"]];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
     }else{
-        
+    
         CallTelegramCustomDetailInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCustomDetailInfoCell"];
         if (!cell) {
             
@@ -426,8 +473,31 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
-        
+        if (indexPath.section == 1 && indexPath.row == 1) {
+            
+            // 下划线
+            NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:_dataArr[indexPath.section][indexPath.row] attributes:attribtDic];
+            cell.contentL.attributedText = attribtStr;
+            
+            cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                
+                NSString *phone = [self->_dataArr[indexPath.section][indexPath.row] substringFromIndex:3];
+                if (phone.length) {
+                    
+                    //获取目标号码字符串,转换成URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                    //调用系统方法拨号
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                }
+            };
+        }else{
+            
+            cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+        }
         return cell;
     }
 }

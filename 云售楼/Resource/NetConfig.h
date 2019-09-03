@@ -78,6 +78,9 @@ static NSString *const WorkCount_URL = @"saleApp/work/count";
 
 #pragma mark -- 来电 --
 
+////来电客户转来访
+//static NSString *const WorkClientAutoGroupUpdate_URL = @"saleApp/work/client/auto/group/update";
+
 //来电来访列表
 static NSString *const WorkClientAutoList_URL = @"saleApp/work/client/auto/list";
 
@@ -114,6 +117,16 @@ static NSString *const WorkClientAutoFollowDelete_URL = @"saleApp/work/client/au
 
 //号码判重
 static NSString *const TelRepeatCheck_URL = @"saleApp/tel/repeatCheck";
+
+
+//判断是否需要补齐号码
+static NSString *const ProjectClientGetTelCompleteState_URL = @"saleApp/project/client/getTelCompleteState";
+
+// 获取两组来访时间
+static NSString *const ClientGetGroupTime_URL = @"saleApp/client/getGroupTime";
+
+//来访合并组成员
+static NSString *const ClientMergeGroup_URL = @"saleApp/client/mergeGroup";
 #pragma mark -- 签字流程 --
 
 //签字有效

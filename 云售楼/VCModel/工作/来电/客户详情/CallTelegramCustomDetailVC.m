@@ -153,7 +153,32 @@
     
     UIAlertAction *visit = [UIAlertAction actionWithTitle:@"转来访" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        
+        [self alertControllerWithNsstring:@"操作提醒" And:@"是否要转来访" WithCancelBlack:^{
+            
+        } WithDefaultBlack:^{
+           
+            [BaseRequest POST:WorkClientAutoGroupUpdate_URL parameters:@{@"group_id":self->_groupId,@"type":@"2"} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self showContent:@"转来访成功"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        if (self.callTelegramCustomDetailModifyBlock) {
+                            
+                            self.callTelegramCustomDetailModifyBlock();
+                        }
+                        [self.navigationController popViewControllerAnimated:YES];
+                    });
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        }];
     }];
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"放弃跟进" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -178,7 +203,7 @@
         
     }];
     
-    if ([self.powerDic[@"vist"] boolValue]) {
+    if ([self.powerDic[@"visit"] boolValue]) {
         
         [alert addAction:visit];
     }
@@ -548,11 +573,36 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.contentL.text = _infoDataArr[_num][indexPath.row];
+        if (indexPath.row == 1) {
+            
+            // 下划线
+            NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:_infoDataArr[_num][indexPath.row] attributes:attribtDic];
+            cell.contentL.attributedText = attribtStr;
+            cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                
+                NSString *phone = [_infoDataArr[_num][indexPath.row] substringFromIndex:5];
+                if (phone.length) {
+                    
+                    //获取目标号码字符串,转换成URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                    //调用系统方法拨号
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                }
+            };
+//            cell.contentL.text = ;
+        }else{
+            
+            cell.contentL.text = _infoDataArr[_num][indexPath.row];
+        }
         
         cell.callTelegramCustomDetailInfoCellEditBlock = ^{
             
             CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:self->_peopleArr[self->_num] projectId:self->_project_id info_id:self.info_id];
+            nextVC.group_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"group_id"]];
             nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
                 
 //                [self RequestMethod];
@@ -798,7 +848,7 @@
     self.titleLabel.textColor = CLWhiteColor;
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
     
-    if ([self.powerDic[@"giveUp"] boolValue] || [self.powerDic[@"转来访"] boolValue]) {
+    if ([self.powerDic[@"giveUp"] boolValue] || [self.powerDic[@"visit"] boolValue]) {
         
         self.rightBtn.hidden = NO;
     }else{

@@ -490,7 +490,7 @@
                 
                 [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
                     
-                    textField.text = @"";
+//                    textField.text = @"";
                 }];
             }else{
                 
@@ -834,7 +834,7 @@
         }
     }
     
-    if ([_dataDic[@"birth"] length]) {
+    if (![_dataDic[@"birth"] isKindOfClass:[NSNull class]] && [_dataDic[@"birth"] length]) {
         
         _birthBtn.content.text = _dataDic[@"birth"];
         _birthBtn.placeL.text = @"";

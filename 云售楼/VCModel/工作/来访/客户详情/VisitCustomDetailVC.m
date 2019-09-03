@@ -170,12 +170,13 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
-    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转订单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_groupId personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
         nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_id"]];
         nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_name"]];;
         nextVC.from_type = @"1";
+        nextVC.merge = @"merge";
         nextVC.addOrderVCBlock = ^{
             
             [self RequestMethod];
@@ -187,8 +188,13 @@
         
         AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_groupId personArr:self->_peopleArr project_id:self.project_id info_id:self.info_id];
         nextVC.from_type = @"1";
+        nextVC.merge = @"merge";
         nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_id"]];
         nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"advicer_name"]];;
+        nextVC.addSignVCBlock = ^{
+            
+            [self RequestMethod];
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
@@ -447,6 +453,7 @@
         header.callTelegramCustomDetailHeaderAddBlock = ^(NSInteger index) {
             
             AddCallTelegramGroupMemberVC *nextVC = [[AddCallTelegramGroupMemberVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+            nextVC.merge = @"merge";
             nextVC.group_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"group_id"]];
             nextVC.addCallTelegramGroupMemberDirectVCBlock = ^{
                 
@@ -591,11 +598,45 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.contentL.text = _infoDataArr[_num][indexPath.row];
+//        cell.contentL.text = _infoDataArr[_num][indexPath.row];
+        if (indexPath.row == 1) {
+            
+            // 下划线
+            NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:_infoDataArr[_num][indexPath.row] attributes:attribtDic];
+            cell.contentL.attributedText = attribtStr;
+            cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                
+                NSString *phone = [_infoDataArr[_num][indexPath.row] substringFromIndex:5];
+                if (phone.length) {
+                    
+                    //获取目标号码字符串,转换成URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+                    //调用系统方法拨号
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+                }
+            };
+            //            cell.contentL.text = ;
+        }else{
+            
+            cell.contentL.text = _infoDataArr[_num][indexPath.row];
+        }
         
         cell.callTelegramCustomDetailInfoCellEditBlock = ^{
             
             CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:self->_peopleArr[self->_num] projectId:self->_project_id info_id:self.info_id];
+            nextVC.group_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"group_id"]];
+            nextVC.merge = @"merge";
+            if (self->_num == 0) {
+                
+                nextVC.hiddenAdd = @"";
+            }else{
+                
+                nextVC.hiddenAdd = @"hidden";
+            }
             nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
                 
                 NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_peopleArr[self->_num]];

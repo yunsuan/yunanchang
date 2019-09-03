@@ -195,7 +195,7 @@
             break;
         }else{
             
-            percent += [str integerValue];
+            percent += [str floatValue];
         }
     }
     if (!isFull) {
@@ -520,6 +520,14 @@
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
         CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        if (num == 0) {
+            
+            nextVC.hiddenAdd = @"";
+        }else{
+            
+            nextVC.hiddenAdd = @"hidden";
+        }
         nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
             
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];
@@ -590,6 +598,13 @@
         nextVC.roomVCBlock = ^(NSDictionary * dic) {
             
             strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+            [strongSelf->_roomDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                if ([obj isKindOfClass:[NSNull class]]) {
+                    
+                    [strongSelf->_roomDic setObject:@"" forKey:key];
+                }
+            }];
             strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"total_price"];
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -743,6 +758,10 @@
                     price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
                 }
                 
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
+                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
+                
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
                 strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -815,7 +834,7 @@
             if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                 
                 preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
-                price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+                price = [strongSelf->_ordDic[@"total_price"] floatValue] - preferPrice;
             }
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
@@ -875,7 +894,7 @@
             }
             preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
             preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
-            
+            price = [strongSelf->_ordDic[@"total_price"] floatValue] - preferPrice;
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
@@ -955,6 +974,10 @@
             price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
             preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
         }
+        
+        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
+        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"build_unit_price"];
+        [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"indoor_size"] floatValue])] forKey:@"inner_unit_price"];
         
         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",preferPrice] forKey:@"preferPrice"];

@@ -197,6 +197,10 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             [self showContent:@"审核成功"];
+            if (self.auditTaskDetailVCBlock) {
+                
+                self.auditTaskDetailVCBlock();
+            }
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 [self.navigationController popViewControllerAnimated:YES];
@@ -221,7 +225,7 @@
     }
     [dic setObject:@"1" forKey:@"type"];
     
-    [BaseRequest POST:ProjectProgressPass_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest POST:ProjectProgressRefuse_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -424,6 +428,8 @@
             case 1:
             {
                 _finalBtn = btn;
+                _finalBtn.selected = YES;
+                _isFinal = @"2";
                 [_scroll addSubview:_finalBtn];
                 
                 break;

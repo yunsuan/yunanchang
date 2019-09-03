@@ -40,6 +40,14 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
+    [_headImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,dataDic[@"head_img"]]] placeholderImage:[UIImage imageNamed:@"def_head"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        
+        if (error) {
+            
+            self->_headImg.image= [UIImage imageNamed:@"def_head"];
+        }
+    }];
+    
     if (dataDic[@"agent_name"]) {
         
         _nameL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_name"]];

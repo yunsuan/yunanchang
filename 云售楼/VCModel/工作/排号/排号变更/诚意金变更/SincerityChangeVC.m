@@ -162,15 +162,24 @@
         return;
     }
     
-    if (!_sincerityChangeView.roleBtn.content.text.length) {
-        [self showContent:@"请选择项目角色流程"];
-        return;
+    if ([_progressDic[@"check_type"] integerValue] == 1) {
+        
+        if (!_sincerityChangeView.auditBtn.content.text.length) {
+            [self showContent:@"请选择流程类型"];
+            return;
+        }
+    }
+    NSString *param;
+    if ([_sincerityChangeView.auditBtn.content.text isEqualToString:@"自由流程"]) {
+        
+        param = _progressDic[@"person_id"];
+        if (!param.length) {
+            
+            [self showContent:@"请选择审核人员"];
+            return;
+        }
     }
     
-    if (!_sincerityChangeView.personBtn.content.text.length) {
-        [self showContent:@"请选择审核人员"];
-        return;
-    }
     
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"primary_id":self->_dataDic[@"row_id"],@"progress_defined_id":@"1"}];
@@ -199,7 +208,11 @@
         
         [dic setObject:_dataDic[@"end_time"] forKey:@"end_time"];
     }
-    [dic setObject:_progressDic[@"person_id"] forKey:@"param"];
+    if (param.length) {
+        
+        [dic setObject:_progressDic[@"person_id"] forKey:@"param"];
+    }
+    
     
     NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:self->_dataDic[@"advicer"] options:NSJSONWritingPrettyPrinted error:&error];
     NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];

@@ -60,6 +60,7 @@
 //    }
     _depositTF.textField.text = dataDic[@"down_pay"];
     
+    _timeBtn.content.text = dataDic[@"sub_time"];
     _totalTF.textField.text = dataDic[@"total_price"];
     _payWayBtn.content.text = dataDic[@"payWay_Name"];
     _priceTF.textField.text = dataDic[@"price"];
@@ -602,9 +603,9 @@
     
     self.backgroundColor = CLWhiteColor;
     
-    NSArray *titleArr = @[@"定单编号：",@"定金金额：",@"优惠方案：",@"总价优惠：",@"优惠价格：",@"公示总价：",@"成交价格：",@"付款方式：",@"首付金额：",@"商业贷款金额：",@"商业按揭银行：",@"商业按揭年限：",@"公积金贷款金额：",@"公积金按揭银行：",@"公积金按揭年限：",@"贷款金额：",@"按揭银行：",@"按揭年限："];
-    NSArray *placeArr = @[@"请输入定单编号",@"请输入定金金额",@"",@"请输入总价优惠金额",@"选择优惠方案自动计算",@"",@"自动计算",@"请选择付款方式",@"请输入首付金额",@"商业贷款金额",@"请选择商业按揭银行",@"请输入商业按揭年限",@"公积金贷款金额",@"请选择公积金按揭银行",@"请输入公积金按揭年限",@"贷款金额",@"请选择按揭银行",@"请输入按揭年限"];
-    for (int i = 0; i < 18; i++) {
+    NSArray *titleArr = @[@"定单编号：",@"定金金额：",@"优惠方案：",@"总价优惠：",@"优惠价格：",@"公示总价：",@"成交价格：",@"付款方式：",@"首付金额：",@"商业贷款金额：",@"商业按揭银行：",@"商业按揭年限：",@"公积金贷款金额：",@"公积金按揭银行：",@"公积金按揭年限：",@"贷款金额：",@"按揭银行：",@"按揭年限：",@"定单时间："];
+    NSArray *placeArr = @[@"请输入定单编号",@"请输入定金金额",@"",@"请输入总价优惠金额",@"选择优惠方案自动计算",@"",@"自动计算",@"请选择付款方式",@"请输入首付金额",@"商业贷款金额",@"请选择商业按揭银行",@"请输入商业按揭年限",@"公积金贷款金额",@"请选择公积金按揭银行",@"请输入公积金按揭年限",@"贷款金额",@"请选择按揭银行",@"请输入按揭年限",@"请选择定单时间"];
+    for (int i = 0; i < 19; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
@@ -838,6 +839,17 @@
                 [self addSubview:_loanYearTF];
                 break;
             }
+            case 18:
+            {
+                _timeL = label;
+                [self addSubview:_timeL];
+                
+                _timeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_timeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _timeBtn.tag = i;
+                [self addSubview:_timeBtn];
+                break;
+            }
             default:
                 break;
         }
@@ -894,17 +906,32 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_depositL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(9 *SIZE);
         make.top.equalTo(self->_codeTF.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_depositTF mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self->_codeTF.mas_bottom).offset(14 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_depositL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(9 *SIZE);
+        make.top.equalTo(self->_timeBtn.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_depositTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self->_timeBtn.mas_bottom).offset(14 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];

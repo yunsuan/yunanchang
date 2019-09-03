@@ -43,10 +43,15 @@
     //    _batchL.text = [NSString stringWithFormat:@"排号批次：%@",dataDic[@"batchInfo"]];
     _roomL.text = [NSString stringWithFormat:@"房间号码：%@",dataDic[@"houseInfo"]];
 //    _desipotL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"sincerity"]];
-    _allPriceL.text = [NSString stringWithFormat:@"公式总价：%@",dataDic[@"total_price"]];
-    _donePriceL.text = [NSString stringWithFormat:@"成交总价：%@",dataDic[@"contract_total_price"]];
+    _donePriceL.text = [NSString stringWithFormat:@"公式总价：%@",dataDic[@"total_price"]];
+    _allPriceL.text = [NSString stringWithFormat:@"成交总价：%@",dataDic[@"contract_total_price"]];
     _payWayL.text = [NSString stringWithFormat:@"付款方式：%@",dataDic[@"pay_way"]];
     _consultantL.text = [NSString stringWithFormat:@"职业顾问：%@",dataDic[@"contract_agent_name"]];
+}
+
+- (void)setTitle:(NSString *)title{
+    
+    _titleL.text = title;
 }
 
 - (void)initUI{

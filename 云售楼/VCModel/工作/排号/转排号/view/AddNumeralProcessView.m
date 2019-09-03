@@ -279,13 +279,23 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if ([_selectArr[indexPath.item] integerValue] == 1) {
+    for (int i = 0; i < _selectArr.count; i++) {
         
-        [_selectArr replaceObjectAtIndex:indexPath.item withObject:@0];
-    }else{
-        
-        [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
+        if (i == indexPath.item) {
+            
+            [_selectArr replaceObjectAtIndex:i withObject:@1];
+        }else{
+            
+            [_selectArr replaceObjectAtIndex:i withObject:@0];
+        }
     }
+//    if ([_selectArr[indexPath.item] integerValue] == 1) {
+//
+//        [_selectArr replaceObjectAtIndex:indexPath.item withObject:@0];
+//    }else{
+//
+//        [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
+//    }
     [collectionView reloadData];
     if (self.addNumeralProcessViewSelectBlock) {
         

@@ -52,6 +52,68 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_FIX=16; //房源调价
 
 static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折扣
 
+static NSInteger const SALE_MESSAGE_ROW_SINCERITY_ADD=21; //排号增加诚意金
+
+static NSInteger const SALE_MESSAGE_ROW_CANCEL=22; //排号退号
+
+static NSInteger const SALE_MESSAGE_ROW_RENAME=23; //排号更名
+
+static NSInteger const SALE_MESSAGE_ROW_ADD_BENEFIT=24; //排号增减权益人
+
+static NSInteger const SALE_MESSAGE_SUB_BREACH=25; //定单挞定
+
+static NSInteger const SALE_MESSAGE_SUB_ADD_DOWNPAY=26; //定单增加定金
+
+static NSInteger const SALE_MESSAGE_SUB_EXCHANGE_BENEFIT=27; //定单主从变更
+
+static NSInteger const SALE_MESSAGE_SUB_CHANGE_PAY_WYA=28; //定单付款方式变更
+
+static NSInteger const SALE_MESSAGE_SUB_CHANGE_TIME_LIMIT=29; //定单按揭年限变更
+
+static NSInteger const SALE_MESSAGE_SUB_CHANGE_DISCOUNT=30; //定单特殊优惠变更
+
+static NSInteger const SALE_MESSAGE_SUB_DELAY_CONS=31; //定单延期签约变更
+
+static NSInteger const SALE_MESSAGE_SUB_CHANGE_BENEFIT=32; //定单增减权益人
+
+static NSInteger const SALE_MESSAGE_SUB_CANCEL=33; //定单退房
+
+static NSInteger const SALE_MESSAGE_SUB_EXCHANGE_HOUSE=34; //定单换房
+
+static NSInteger const SALE_MESSAGE_SUB_RENAME=35; //定单更名
+
+static NSInteger const SALE_MESSAGE_CONS_CHANGE_PAY_WAY=36; //合同付款方式变更
+
+static NSInteger const SALE_MESSAGE_CONS_EXCHANGE_BENEFIT=37; //合同主从变更
+
+static NSInteger const SALE_MESSAGE_CONS_CHANGE_DISCOUNT=38; //合同特殊优惠变更
+
+static NSInteger const SALE_MESSAGE_CONS_DELAY_CONS=39; //合同延期签约变更
+
+static NSInteger const SALE_MESSAGE_CONS_CHANGE_BENEFIT=40; //合同增减权益人
+
+static NSInteger const SALE_MESSAGE_CONS_CANCEL=41; //合同退房
+
+static NSInteger const SALE_MESSAGE_CONS_EXCHANGE_HOUSE=42; //合同换房
+
+static NSInteger const SALE_MESSAGE_CONS_RENAME=43; //合同更名
+
+static NSInteger const SALE_MESSAGE_CONS_DELAY=44; //合同延期
+
+static NSInteger const SALE_MESSAGE_CHANGE_BANK_LIMIT=45; //合同按揭年限变更
+
+static NSInteger const SALE_MESSAGE_CONS_CHANGE_BANK=46; //合同按揭银行变更
+
+static NSInteger const SALE_MESSAGE_CONS_ADD_DOWMPAYMENT=47; //合同增加首付款
+
+static NSInteger const SALE_MESSAGE_CONS_PAY_DELAY=48; //合同付款延期
+
+static NSInteger const TEMPLATE_PUSH_DAY=50; //日报
+
+static NSInteger const TEMPLATE_PUSH_WEEK=51; //周报
+
+static NSInteger const TEMPLATE_PUSH_MONTH=52; //月报
+
 @interface TaskVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -780,6 +842,223 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
         UITableViewCell *cell = [[UITableViewCell alloc] init];
         cell.hidden = YES;
         return cell;
+        
+#pragma mark -- 21 排号增加诚意金 --
+#pragma mark -- 22 排号退号 --
+#pragma mark -- 23 排号更名 --
+#pragma mark -- 24 排号增减权益人 --
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 21 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 22 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 23 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 24) {
+        
+        TransNumeralCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransNumeralCell"];
+        if (!cell) {
+            
+            cell = [[TransNumeralCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransNumeralCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 21) {
+            
+            cell.title = @"排号增加诚意金";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 22) {
+            
+            cell.title = @"排号退号";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 23) {
+            
+            cell.title = @"排号更名";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 24) {
+            
+            cell.title = @"排号增减权益人";
+        }else{
+            
+            cell.title = @"排号审核";
+        }
+        
+        cell.transNumeralCellAuditBlock = ^(NSInteger index) {
+            
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"1";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.auditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 25 定单挞定 --
+#pragma mark -- 26 定单增加定金 --
+#pragma mark -- 27 定单主从变更 --
+#pragma mark -- 28 定单付款方式变更 --
+#pragma mark -- 29 定单按揭年限变更 --
+#pragma mark -- 30 定单特殊优惠变更 --
+#pragma mark -- 31 定单延期签约变更 --
+#pragma mark -- 32 定单增减权益人 --
+#pragma mark -- 33 定单退房 --
+#pragma mark -- 34 定单换房 --
+#pragma mark -- 35 定单更名 --
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 25 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 26 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 27 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 28 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 29 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 30 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 31 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 32 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 33 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 34 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 35) {
+        
+        TransOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransOrderCell"];
+        if (!cell) {
+            
+            cell = [[TransOrderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransOrderCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 25) {
+            
+            cell.title = @"定单挞定";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 26) {
+            
+            cell.title = @"定单增加定金";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 27) {
+            
+            cell.title = @"定单主从变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 28) {
+            
+            cell.title = @"定单付款方式变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 29) {
+            
+            cell.title = @"定单按揭年限变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 30) {
+            
+            cell.title = @"定单特殊优惠变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 31) {
+            
+            cell.title = @"定单延期签约变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 32) {
+            
+            cell.title = @"定单增减权益人";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 33) {
+            
+            cell.title = @"定单退房";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 34) {
+            
+            cell.title = @"定单换房";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 35) {
+            
+            cell.title = @"定单更名";
+        }else{
+            
+            cell.title = @"定单审核";
+        }
+        
+        cell.transOrderCellAuditBlock = ^(NSInteger index) {
+            
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"2";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.auditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+
+#pragma mark -- 36 合同付款方式变更 --
+#pragma mark -- 37 合同主从变更 --
+#pragma mark -- 38 合同特殊优惠变更 --
+#pragma mark -- 39 合同延期签约变更 --
+#pragma mark -- 40 合同增减权益人 --
+#pragma mark -- 41 合同退房 --
+#pragma mark -- 42 合同换房 --
+#pragma mark -- 43 合同更名 --
+#pragma mark -- 44 合同延期 --
+#pragma mark -- 45 合同按揭年限变更 --
+#pragma mark -- 46 合同按揭银行变更 --
+#pragma mark -- 47 合同增加首付款 --
+#pragma mark -- 48 合同付款延期 --
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 36 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 37 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 38 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 39 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 40 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 41 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 42 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 43 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 44 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 45 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 46 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 47 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 48) {
+        
+        TransSignCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TransSignCell"];
+        if (!cell) {
+            
+            cell = [[TransSignCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TransSignCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 36) {
+            
+            cell.title = @"合同付款方式变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 37) {
+            
+            cell.title = @"合同主从变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 38) {
+            
+            cell.title = @"合同特殊优惠变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 39) {
+            
+            cell.title = @"合同延期签约变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 40) {
+            
+            cell.title = @"合同增减权益人";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 41) {
+            
+            cell.title = @"合同退房";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 42) {
+            
+            cell.title = @"合同换房";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 43) {
+            
+            cell.title = @"合同更名";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 44) {
+            
+            cell.title = @"合同延期";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 45) {
+            
+            cell.title = @"合同按揭年限变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 46) {
+            
+            cell.title = @"合同按揭银行变更";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 47) {
+            
+            cell.title = @"合同增加首付款";
+        }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 48) {
+            
+            cell.title = @"合同付款延期";
+        }else{
+            
+            cell.title = @"签约审核";
+        }
+        
+        cell.transSignCellAuditBlock = ^(NSInteger index) {
+            
+            AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+            nextVC.status = @"3";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.auditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+        
+#pragma mark -- 50 日报 --
+#pragma mark -- 51 周报 --
+#pragma mark -- 52 月报 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 50 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 51 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 52){
+        
+        TaskSellReportCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskSellReportCell"];
+        if (!cell) {
+            
+            cell = [[TaskSellReportCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskSellReportCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        return cell;
     }else{
 
         UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -929,6 +1208,72 @@ static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折�
     }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 17) {
         
         
+#pragma mark -- 21 排号增加诚意金 --
+#pragma mark -- 22 排号退号 --
+#pragma mark -- 23 排号更名 --
+#pragma mark -- 24 排号增减权益人 --
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 21 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 22 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 23 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 24) {
+
+        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+        nextVC.status = @"1";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.auditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 25 定单挞定 --
+#pragma mark -- 26 定单增加定金 --
+#pragma mark -- 27 定单主从变更 --
+#pragma mark -- 28 定单付款方式变更 --
+#pragma mark -- 29 定单按揭年限变更 --
+#pragma mark -- 30 定单特殊优惠变更 --
+#pragma mark -- 31 定单延期签约变更 --
+#pragma mark -- 32 定单增减权益人 --
+#pragma mark -- 33 定单退房 --
+#pragma mark -- 34 定单换房 --
+#pragma mark -- 35 定单更名 --
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 25 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 26 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 27 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 28 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 29 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 30 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 31 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 32 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 33 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 34 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 35) {
+        
+        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+        nextVC.status = @"2";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.auditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+        
+#pragma mark -- 36 合同付款方式变更 --
+#pragma mark -- 37 合同主从变更 --
+#pragma mark -- 38 合同特殊优惠变更 --
+#pragma mark -- 39 合同延期签约变更 --
+#pragma mark -- 40 合同增减权益人 --
+#pragma mark -- 41 合同退房 --
+#pragma mark -- 42 合同换房 --
+#pragma mark -- 43 合同更名 --
+#pragma mark -- 44 合同延期 --
+#pragma mark -- 45 合同按揭年限变更 --
+#pragma mark -- 46 合同按揭银行变更 --
+#pragma mark -- 47 合同增加首付款 --
+#pragma mark -- 48 合同付款延期 --
+    }else if ([_dataArr[indexPath.row][@"message_type"] integerValue] == 36 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 37 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 38 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 39 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 40 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 41 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 42 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 43 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 44 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 45 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 46 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 47 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 48) {
+        
+
+        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
+        nextVC.status = @"3";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"contract_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.auditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 50 日报 --
+#pragma mark -- 51 周报 --
+#pragma mark -- 52 月报 --
     }else{
         
         

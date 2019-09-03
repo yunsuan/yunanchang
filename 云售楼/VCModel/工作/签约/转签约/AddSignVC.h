@@ -16,7 +16,11 @@ typedef void(^AddSignVCBlock)(void);
 
 @property (nonatomic, copy) AddSignVCBlock addSignVCBlock;
 
+@property (nonatomic, strong) NSString *trans;
+
 @property (nonatomic, strong) NSString *status;
+
+@property (nonatomic, strong) NSString *merge;
 
 @property (nonatomic, strong) NSString *from_type;
 

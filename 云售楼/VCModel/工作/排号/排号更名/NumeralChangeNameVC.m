@@ -8,6 +8,8 @@
 
 #import "NumeralChangeNameVC.h"
 
+#import "CallTelegramSimpleCustomVC.h"
+
 #import "AddNemeralHeader.h"
 
 #import "AddNumeralPersonView.h"
@@ -24,6 +26,8 @@
     NSString *_info_id;
     NSString *_group_id;
     NSString *_role_id;
+    
+    NSDictionary *_dataDic;
     
     NSArray *_titleArr;
     
@@ -59,17 +63,22 @@
 
 @implementation NumeralChangeNameVC
 
-- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr dataDic:(NSDictionary *)dataDic
+- (instancetype)initWithProject_id:(NSString *)project_id personArr:(NSArray *)personArr dataDic:(NSDictionary *)dataDic info_id:(nonnull NSString *)info_id
 {
     self = [super init];
     if (self) {
         
         _project_id = project_id;
+        _info_id = info_id;
+        
+        
+        _dataDic = dataDic;
+        
         _personArr = [[NSMutableArray alloc] initWithArray:personArr];
         _proportionArr = [@[] mutableCopy];
         for (int i = 0; i < _personArr.count; i++) {
             
-            [_proportionArr addObject:@""];
+            [_proportionArr addObject:[NSString stringWithFormat:@"%@",_personArr[i][@"property"]]];
         }
         _progressDic = [@{} mutableCopy];
     }
@@ -89,7 +98,7 @@
     _num = 0;
     _titleArr = @[@"权益人信息",@"流程信息"];
     _certArr = [@[] mutableCopy];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0]];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0]];
     _typeArr = [@[] mutableCopy];
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];
@@ -225,7 +234,7 @@
             break;
         }else{
             
-            percent += [str integerValue];
+            percent += [str floatValue];
         }
     }
     if (!isFull) {
@@ -244,27 +253,80 @@
         return;
     }
     
-//    [BaseRequest POST:ProjectRowAddRow_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-//        
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//            
-//            if (self.addNumeralVCBlock) {
-//                
-//                self.addNumeralVCBlock();
-//            }
-//            [self showContent:resposeObject[@"msg"]];
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                
-//                [self.navigationController popViewControllerAnimated:YES];
-//            });
-//        }else{
-//            
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        
-//        [self showContent:@"网络错误"];
-//    }];
+    if ([_progressDic[@"check_type"] integerValue] == 1) {
+        
+        if (!_addNumeralProcessView.auditBtn.content.text.length) {
+            [self showContent:@"请选择流程类型"];
+            return;
+        }
+    }
+    NSString *param;
+    if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
+        
+        param = _progressDic[@"person_id"];
+        if (!param.length) {
+            
+            [self showContent:@"请选择审核人员"];
+            return;
+        }
+    }
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"primary_id":self->_dataDic[@"row_id"],@"progress_defined_id":@"1"}];
+    [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
+    NSMutableArray *tempArr = [@[] mutableCopy];
+    for (int i = 0; i < [_dataDic[@"beneficiary"] count]; i++) {
+        
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:_dataDic[@"beneficiary"][i]];
+        //        [tempDic removeObjectForKey:@"client_id"];
+        [tempArr addObject:tempDic];
+    }
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tempArr options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *personjson = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [dic setObject:personjson forKey:@"beneficiary_list"];
+    
+    [dic setObject:_dataDic[@"project_id"] forKey:@"project_id"];
+    [dic setObject:_dataDic[@"config_id"] forKey:@"config_id"];
+    [dic setObject:_dataDic[@"row_code"] forKey:@"row_code"];
+    [dic setObject:_progressDic[@"sincerity"] forKey:@"sincerity"];
+    if (_dataDic[@"row_time"]) {
+        
+        [dic setObject:_dataDic[@"row_time"] forKey:@"row_time"];
+    }
+    if (_dataDic[@"end_time"]) {
+        
+        [dic setObject:_dataDic[@"end_time"] forKey:@"end_time"];
+    }
+    if (param.length) {
+        
+        [dic setObject:_progressDic[@"person_id"] forKey:@"param"];
+    }
+    
+    
+    NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:self->_dataDic[@"advicer"] options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];
+    [dic setObject:personjson1 forKey:@"advicer_list"];
+    [BaseRequest POST:ProjectChange_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if (self.numeralChangeNameVCBlock) {
+                
+                self.numeralChangeNameVCBlock();
+            }
+            [self showContent:resposeObject[@"msg"]];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
 }
 
 
@@ -289,7 +351,7 @@
             
             [strongSelf->_selectArr replaceObjectAtIndex:0 withObject:@0];
             [strongSelf->_personHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addNumeralProcessView.hidden = YES;
+            strongSelf->_addNumeralPersonView.hidden = YES;
             [strongSelf->_processHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
                 
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
@@ -319,6 +381,9 @@
     _addNumeralPersonView.dataArr = _personArr;
     _addNumeralPersonView.num = _num;
     _addNumeralPersonView.proportion = _proportionArr[_num];
+    _addNumeralPersonView.proportionTF.userInteractionEnabled = NO;
+    _addNumeralPersonView.proportionTF.backgroundColor = CLBackColor;
+    _addNumeralPersonView.personBtn.hidden = YES;
     
     _addNumeralPersonView.addNumeralPersonViewArrBlock = ^(NSInteger num) {
         
@@ -374,27 +439,35 @@
     };
     _addNumeralPersonView.addNumeralPersonViewEditBlock = ^(NSInteger num) {
         
-//        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-//        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
-//
-//            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];
-//            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//
-//                if (dic[key]) {
-//
-//                    [tempDic setObject:dic[key] forKey:key];
-//                }
-//            }];
-//            [strongSelf->_personArr replaceObjectAtIndex:num withObject:tempDic];
-//            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
-//            strongSelf->_addNumeralPersonView.num = num;
-//            strongSelf->_num = num;
-//            if (strongSelf.addNumeralVCBlock) {
-//
-//                strongSelf.addNumeralVCBlock();
-//            }
-//        };
-//        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:strongSelf->_personArr[num] projectId:strongSelf->_project_id info_id:strongSelf->_info_id];
+        nextVC.group_id = [NSString stringWithFormat:@"%@",strongSelf->_group_id];
+        if (num == 0) {
+            
+            nextVC.hiddenAdd = @"";
+        }else{
+            
+            nextVC.hiddenAdd = @"hidden";
+        }
+        nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
+
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:strongSelf->_personArr[num]];
+            [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+
+                if (dic[key]) {
+
+                    [tempDic setObject:dic[key] forKey:key];
+                }
+            }];
+            [strongSelf->_personArr replaceObjectAtIndex:num withObject:tempDic];
+            strongSelf->_addNumeralPersonView.dataArr = strongSelf->_personArr;
+            strongSelf->_addNumeralPersonView.num = num;
+            strongSelf->_num = num;
+            if (strongSelf.numeralChangeNameVCBlock) {
+
+                strongSelf.numeralChangeNameVCBlock();
+            }
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_addNumeralPersonView];
 
@@ -406,9 +479,9 @@
     _processHeader.backgroundColor = CLWhiteColor;
     _processHeader.addNemeralHeaderAllBlock = ^{
         
-        if ([strongSelf->_selectArr[2] integerValue]){
+        if ([strongSelf->_selectArr[1] integerValue]){
             
-            [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@0];
+            [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@0];
             [strongSelf->_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addNumeralProcessView.hidden = YES;
             [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -422,7 +495,7 @@
             }];
         }else{
             
-            [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@1];
+            [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@1];
             [strongSelf->_processHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addNumeralProcessView.hidden = NO;
             [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {

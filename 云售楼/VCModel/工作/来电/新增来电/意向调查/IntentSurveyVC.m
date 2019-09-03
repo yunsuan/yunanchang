@@ -1135,7 +1135,7 @@
     BoxSelectCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BoxSelectCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[BoxSelectCollCell alloc] initWithFrame:CGRectMake(0, 0, 130 *SIZE, 20 *SIZE)];
+        cell = [[BoxSelectCollCell alloc] initWithFrame:CGRectMake(0, 0, 80 *SIZE, 20 *SIZE)];
     }
 //    cell.selectImg.image = [UIImage imageNamed:@"default"];
     

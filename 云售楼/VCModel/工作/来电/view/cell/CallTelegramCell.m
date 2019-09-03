@@ -8,6 +8,13 @@
 
 #import "CallTelegramCell.h"
 
+@interface CallTelegramCell ()
+{
+    
+    NSDateFormatter *_formatter;
+}
+@end
+
 @implementation CallTelegramCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -15,6 +22,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        _formatter = [[NSDateFormatter alloc] init];
+//        _formatter set
         [self initUI];
     }
     return self;
@@ -39,10 +48,50 @@
     }
     //@"张三/A";
     _effectTagL.text = dataDic[@"current_state"];//@"有效";
-    _groupL.text = [NSString stringWithFormat:@"组别：%@人",dataDic[@"client_num"]];//@"组别：云算购房组";
-    _dayL.text = [NSString stringWithFormat:@"%@",dataDic[@"time_limit"]];//@"3天";
-    _phoneL.text = dataDic[@"tel"];//@"13438339177";
-    _timeL.text = [NSString stringWithFormat:@"%@",dataDic[@"create_time"]];//@"2018.12.30";
+    _groupL.text = [NSString stringWithFormat:@"组别人数：%@人",dataDic[@"client_num"]];//@"组别：云算购房组";
+    _dayL.text = [NSString stringWithFormat:@"%@",dataDic[@"create_time"]];//@"3天";
+    if (_dayL.text.length > 10) {
+        
+        _dayL.text = [_dayL.text substringToIndex:10];
+    }else{
+        
+        _dayL.text = [_dayL.text substringToIndex:_dayL.text.length];
+    }
+    
+    // 下划线
+    NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:dataDic[@"tel"] attributes:attribtDic];
+    
+    //赋值
+    _phoneL.attributedText = attribtStr;//@"13438339177";
+    
+    _timeL.text = @"";
+    NSDate *date = [NSDate date];
+    [_formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    if (dataDic[@"time_limit"]) {
+        
+        NSDate *timeLimit = [_formatter dateFromString:dataDic[@"time_limit"]];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+
+        NSCalendarUnit unit = NSCalendarUnitDay;//只比较天数差异
+        NSDateComponents *delta = [calendar components:unit fromDate:date toDate:timeLimit options:0];
+//        NSInteger a = ([timeLimit timeIntervalSince1970] - [date timeIntervalSince1970]) / (1000 * 3600 * 24);
+        if (delta.day > 0) {
+            
+            _timeL.textColor = CLBlueBtnColor;
+            _timeL.text = [NSString stringWithFormat:@"距下次跟进：%ld天",delta.day];
+        }else if (delta.day == 0){
+            
+            _timeL.text = @"今天该跟进此客户了";
+            _timeL.textColor = CLOrangeColor;
+        }else if (delta.day < 0){
+            
+            _timeL.text = [NSString stringWithFormat:@"跟进已超期：%ld天",0 - delta.day];
+            _timeL.textColor = CLOrangeColor;
+        }
+    }
+    
+//    _timeL.text = [NSString stringWithFormat:@"%@",dataDic[@"create_time"]];//@"2018.12.30";
     _contactL.text = dataDic[@"agent_name"]; //@"温嘉琪";
     
     [_nameL mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -52,6 +101,14 @@
         make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
         make.width.mas_greaterThanOrEqualTo(50 *SIZE);
     }];
+}
+
+- (void)ActionPhone{
+    
+    if (self.callTelegramCellBlock) {
+        
+        self.callTelegramCellBlock();
+    }
 }
 
 - (void)initUI{
@@ -71,6 +128,9 @@
     _phoneL = [[UILabel alloc] init];
     _phoneL.textColor = CL86Color;
     _phoneL.font = [UIFont systemFontOfSize:11 *SIZE];
+    _phoneL.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionPhone)];
+    [_phoneL addGestureRecognizer:tap];
     [self.contentView addSubview:_phoneL];
     
     _groupL = [[UILabel alloc] init];

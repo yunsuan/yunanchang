@@ -67,14 +67,14 @@
     _table.mj_footer.state = MJRefreshStateIdle;
     [BaseRequest GET:ProjectHouseGetProjectContractList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
-//        [self->_table.mj_header endRefreshing];
+        [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             [self->_dataArr removeAllObjects];
             [self->_table reloadData];
             if ([resposeObject[@"data"][@"data"] count]) {
                 
-                [self->_table.mj_footer endRefreshing];
+//                [self->_table.mj_footer endRefreshing];
                 [self SetData:resposeObject[@"data"][@"data"]];
             }else{
                 

@@ -652,10 +652,10 @@
         
         [allDic setObject:_approachBtn2->str forKey:@"listen_way_detail"];
     }
-//    if (self.visit_id.length) {
-//
-//        [allDic setObject:self.visit_id forKey:@"visit_id"];
-//    }
+    if (self.visit_id.length) {
+
+        [allDic setObject:self.visit_id forKey:@"visit_id"];
+    }
     IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:_propertyDArr];
     nextVC.allDic = [[NSMutableDictionary alloc] initWithDictionary:allDic];
     nextVC.info_id = _info_id;
@@ -781,7 +781,7 @@
                     
                     [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
                         
-                        textField.text = @"";
+//                        textField.text = @"";
                     }];
                 }else{
                     

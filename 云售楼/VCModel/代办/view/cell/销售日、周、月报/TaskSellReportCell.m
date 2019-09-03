@@ -20,7 +20,7 @@
     return self;
 }
 
-- (void)setDataDic:(NSMutableDictionary *)dataDic{
+- (void)setDataDic:(NSDictionary *)dataDic{
     
     if ([dataDic[@"is_read"] integerValue] == 1) {
         
@@ -29,8 +29,28 @@
         
         _readImg.image = IMAGE_WITH_NAME(@"");
     }
-    _titleL.text = [NSString stringWithFormat:@"客户姓名：%@",dataDic[@"name"]];
-    _contentL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
+    switch ([dataDic[@"message_type"] integerValue]) {
+        case 50:
+        {
+            _headL.text = [NSString stringWithFormat:@"%@",@"日报"];
+            break;
+        }
+        case 51:
+        {
+            _headL.text = [NSString stringWithFormat:@"%@",@"周报"];
+            break;
+        }
+        case 52:
+        {
+            _headL.text = [NSString stringWithFormat:@"%@",@"月报"];
+            break;
+        }
+        default:
+            break;
+    }
+//    _headL.text = [NSString stringWithFormat:@"%@",dataDic[@""]];
+    _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"title"]];
+    _contentL.text =  [NSString stringWithFormat:@"%@",dataDic[@"extra_comment"]];
 }
 
 - (void)initUI{
@@ -43,9 +63,17 @@
     _whiteView.clipsToBounds = YES;
     [self.contentView addSubview:_whiteView];
     
-    _headImg = [[UIImageView alloc] init];
-    _headImg.image = IMAGE_WITH_NAME(@"laifang");
-    [_whiteView addSubview:_headImg];
+//    _headImg = [[UIImageView alloc] init];
+////    _headImg.image = IMAGE_WITH_NAME(@"laifang");
+//    [_whiteView addSubview:_headImg];
+    _headL = [[UILabel alloc] init];
+    _headL.backgroundColor = CLOrangeColor;
+    _headL.font = FONT(20 *SIZE);
+    _headL.textAlignment = NSTextAlignmentCenter;
+    _headL.layer.cornerRadius = 2 *SIZE;
+    _headL.clipsToBounds = YES;
+    _headL.textColor = CLWhiteColor;
+    [_whiteView addSubview:_headL];
     
     _readImg = [[UIImageView alloc] init];
     _readImg.image = IMAGE_WITH_NAME(@"SMS");
@@ -53,15 +81,15 @@
     
     _titleL = [[UILabel alloc] init];
     _titleL.textColor = CLTitleLabColor;
-    _titleL.text = @"来访跟进";
-    _titleL.font = [UIFont boldSystemFontOfSize:15 *SIZE];
+//    _titleL.text = @"来访跟进";
+    _titleL.font = [UIFont systemFontOfSize:15 *SIZE];
     [_whiteView addSubview:_titleL];
     
     
     _contentL = [[UILabel alloc] init];
     _contentL.textColor = CLTitleLabColor;
-    _contentL.text = @"来访跟进";
-    _contentL.font = [UIFont boldSystemFontOfSize:11 *SIZE];
+//    _contentL.text = @"来访跟进";
+    _contentL.font = [UIFont systemFontOfSize:11 *SIZE];
     _contentL.numberOfLines = 0;
     [_whiteView addSubview:_contentL];
     
@@ -78,7 +106,7 @@
         make.bottom.equalTo(self.contentView).offset(0);
     }];
     
-    [_headImg mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_headL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(5 *SIZE);
         make.top.equalTo(self->_whiteView).offset(11 *SIZE);
@@ -102,7 +130,7 @@
     [_contentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
-        make.top.equalTo(self->_headImg.mas_bottom).offset(7 *SIZE);
+        make.top.equalTo(self->_headL.mas_bottom).offset(7 *SIZE);
         make.right.equalTo(self->_whiteView).offset(-8 *SIZE);
         make.bottom.equalTo(self->_whiteView.mas_bottom).offset(-18 *SIZE);
     }];

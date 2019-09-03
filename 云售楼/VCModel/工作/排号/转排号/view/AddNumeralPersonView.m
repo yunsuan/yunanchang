@@ -123,6 +123,14 @@
     }
 }
 
+- (void)TextFieldDidChange{
+    
+    if ([_proportionTF.textField.text integerValue] > 100) {
+        
+        _proportionTF.textField.text = @"100";
+    }
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
     if (textField == _phoneTF.textField) {
@@ -281,7 +289,7 @@
         _certNumTF.textField.text = @"";
     }
     
-    if ([data[@"birth"] length]) {
+    if (![data[@"birth"] isKindOfClass:[NSNull class]] && [data[@"birth"] length]) {
         
         _birthBtn.content.text = data[@"birth"];
         _birthBtn.placeL.text = @"";
@@ -452,7 +460,7 @@
                 _proportionTF.textField.delegate = self;
                 _proportionTF.userInteractionEnabled = YES;
                 _proportionTF.backgroundColor = CLWhiteColor;
-                
+                [_proportionTF.textField addTarget:self action:@selector(TextFieldDidChange) forControlEvents:UIControlEventEditingChanged];
                 [self addSubview:_proportionTF];
                 break;
             }
@@ -470,7 +478,7 @@
     _topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_topBtn addTarget:self action:@selector(ActionTopBtn:) forControlEvents:UIControlEventTouchUpInside];
     _topBtn.hidden = YES;
-    [_topBtn setImage:IMAGE_WITH_NAME(@"editor_2") forState:UIControlStateNormal];
+    [_topBtn setImage:IMAGE_WITH_NAME(@"toTop") forState:UIControlStateNormal];
     [self addSubview:_topBtn];
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];

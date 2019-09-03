@@ -51,28 +51,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x6392;&#x53f7;&#x9000;&#x53f7;/NumeralBackNumVC.m"
-            timestampString = "586080841.5875061"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x8ba4;&#x8d2d;/&#x8ba4;&#x8d2d;&#x8be6;&#x60c5;/&#x8f6c;&#x5408;&#x540c;/OrderTranSignVC.m"
+            timestampString = "588848872.712501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "-ActionNextBtn:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x6392;&#x53f7;&#x9000;&#x53f7;/NumeralBackNumVC.m"
-            timestampString = "586080898.178867"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "744"
+            endingLineNumber = "744"
             landmarkName = "-ActionNextBtn:"
             landmarkType = "7">
             <Locations>
@@ -80,30 +64,30 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[NumeralBackNumVC ActionNextBtn:]"
+                  symbolName = "-[OrderTranSignVC ActionNextBtn:]"
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E6%8E%92%E5%8F%B7%E9%80%80%E5%8F%B7/NumeralBackNumVC.m"
-                  timestampString = "586145203.783625"
+                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E8%AE%A4%E8%B4%AD/%E8%AE%A4%E8%B4%AD%E8%AF%A6%E6%83%85/%E8%BD%AC%E5%90%88%E5%90%8C/OrderTranSignVC.m"
+                  timestampString = "588848873.110042"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "199"
-                  endingLineNumber = "199"
-                  offsetFromSymbolStart = "3196">
+                  startingLineNumber = "744"
+                  endingLineNumber = "744"
+                  offsetFromSymbolStart = "17292">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__34-[NumeralBackNumVC ActionNextBtn:]_block_invoke"
+                  symbolName = "__33-[OrderTranSignVC ActionNextBtn:]_block_invoke"
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E6%8E%92%E5%8F%B7%E9%80%80%E5%8F%B7/NumeralBackNumVC.m"
-                  timestampString = "586145203.785501"
+                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E8%AE%A4%E8%B4%AD/%E8%AE%A4%E8%B4%AD%E8%AF%A6%E6%83%85/%E8%BD%AC%E5%90%88%E5%90%8C/OrderTranSignVC.m"
+                  timestampString = "588848873.112693"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "201"
-                  endingLineNumber = "201"
+                  startingLineNumber = "746"
+                  endingLineNumber = "746"
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
