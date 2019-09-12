@@ -71,6 +71,17 @@
                          }
                      }];
                      
+                     if (self->_dataDic[@"is_deal"]) {
+                         
+                         if ([self->_dataDic[@"is_deal"] integerValue] == 1) {
+                             
+                             self.needConfirm = @"0";
+                         }else{
+                             
+                             self.needConfirm = @"1";
+                         }
+                     }
+                     
                      self.recommend_check = self->_dataDic[@"recommend_check"];
 
                      NSString *sex = @"客户性别：";

@@ -17,6 +17,9 @@
 #import "ChangePassWordVC.h"
 #import "PushSettingVC.h"
 
+#import "CodeScanVC.h"
+#import "WorkRecommendWaitDetailVC.h"
+
 #import "MineHeader.h"
 #import "MineCell.h"
 
@@ -93,8 +96,8 @@
 
 - (void)initDataSource{
     
-    _imgArr = @[@[@"addressbook",@"company_2",@"work"],@[@"Modifythe",@"version",@"Setupthe",@"about"]];
-    _titleArr = @[@[@"通讯录",@"我的公司",@"意见反馈"],@[@"修改密码",@"版本信息",@"推送设置",@"安全退出"]];
+    _imgArr = @[@[@"addressbook",@"scan",@"company_2",@"work"],@[@"Modifythe",@"version",@"Setupthe",@"about"]];
+    _titleArr = @[@[@"通讯录",@"扫一扫",@"我的公司",@"意见反馈"],@[@"修改密码",@"版本信息",@"推送设置",@"安全退出"]];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -172,7 +175,7 @@
             
             AddressBookVC *nextVC = [[AddressBookVC alloc] init];
             [self.navigationController pushViewController:nextVC animated:YES];
-        }else if (indexPath.row == 1){
+        }else if (indexPath.row == 2){
             
             [BaseRequest GET:CompanyAuthInfo_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
                 
@@ -209,9 +212,22 @@
                 [self showContent:@"网络错误"];
             }];
             
-        }else {
+        }else if(indexPath.row == 3){
             
             FeedbackVC *nextVC = [[FeedbackVC alloc] init];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }else{
+            
+            CodeScanVC *nextVC = [[CodeScanVC alloc] init];
+            nextVC.codeScanVCBlock = ^(NSString * _Nonnull str) {
+              
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:str];
+//                    nextVC.needConfirm = @"1";
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                });
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         }
     }else{

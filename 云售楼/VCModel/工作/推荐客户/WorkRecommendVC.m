@@ -11,6 +11,9 @@
 #import "WorkRecommendWaitVC.h"
 #import "WorkRecommendValidVC.h"
 #import "WorkRecommendFailVC.h"
+#import "WorkRecommendWaitDetailVC.h"
+
+#import "CodeScanVC.h"
 
 #import "TypeTagCollCell.h"
 
@@ -67,6 +70,17 @@
     
 //    QuickAddCustomVC *nextVC = [[QuickAddCustomVC alloc] initWithProjectId:[NSString stringWithFormat:@"%@",@""] clientId:@""];
 //    [self.navigationController pushViewController:nextVC animated:YES];
+    CodeScanVC *nextVC = [[CodeScanVC alloc] init];
+    nextVC.codeScanVCBlock = ^(NSString * _Nonnull str) {
+      
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            WorkRecommendWaitDetailVC *nextVC = [[WorkRecommendWaitDetailVC alloc] initWithString:str];
+            //                    nextVC.needConfirm = @"1";
+            [self.navigationController pushViewController:nextVC animated:YES];
+        });
+    };
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)ActionRecommendReload{
@@ -142,8 +156,10 @@
     self.titleLabel.text = @"推荐客户";
     self.line.hidden = YES;
     
-    self.rightBtn.hidden = YES;
-    [self.rightBtn setImage:[UIImage imageNamed:@"add_3"] forState:UIControlStateNormal];
+    self.rightBtn.hidden = NO;
+    self.rightBtn.center = CGPointMake(SCREEN_Width - 17 * SIZE, STATUS_BAR_HEIGHT+20);
+    self.rightBtn.bounds = CGRectMake(0, 0, 33 * SIZE, 33 * SIZE);
+    [self.rightBtn setImage:[UIImage imageNamed:@"scan"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(action_add) forControlEvents:UIControlEventTouchUpInside];
     
     self.automaticallyAdjustsScrollViewInsets = NO;

@@ -68,7 +68,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E8%AE%A4%E8%B4%AD/%E8%AE%A4%E8%B4%AD%E8%AF%A6%E6%83%85/%E8%BD%AC%E5%90%88%E5%90%8C/OrderTranSignVC.m"
-                  timestampString = "588848873.110042"
+                  timestampString = "589966194.000996"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "744"
@@ -83,7 +83,7 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E8%AE%A4%E8%B4%AD/%E8%AE%A4%E8%B4%AD%E8%AF%A6%E6%83%85/%E8%BD%AC%E5%90%88%E5%90%8C/OrderTranSignVC.m"
-                  timestampString = "588848873.112693"
+                  timestampString = "589966194.003521"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "746"
@@ -91,6 +91,38 @@
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x63a8;&#x8350;&#x5ba2;&#x6237;/&#x5f85;&#x786e;&#x8ba4;/&#x5f85;&#x786e;&#x8ba4;&#x8be6;&#x60c5;/WorkRecommendWaitDetailVC.m"
+            timestampString = "589966193.667734"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-post"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x6211;&#x7684;/MineVC.m"
+            timestampString = "589966193.667815"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
