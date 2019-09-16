@@ -232,12 +232,26 @@
 - (void)scanCodeResult:(NSString *)scanCode{
 //    [CustomTools showAlert:[NSString stringWithFormat:@"扫描(输入)结果为：%@",scanCode] Target:self];
     NSString *str = [self base64DecodeString:scanCode];
-    if (self.codeScanVCBlock) {
-        
-        self.codeScanVCBlock(str);
-    }
-    [self.navigationController popViewControllerAnimated:NO];
     NSLog(@"%@",str);
+    [BaseRequest GET:ClientNeedInfo_URL parameters:@{@"client_id":str} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if (self.codeScanVCBlock) {
+                
+                self.codeScanVCBlock(str);
+            }
+            [self.navigationController popViewControllerAnimated:NO];
+        }else{
+            
+            [self showContent:@"你不能处理该信息"];
+            [self.session startRunning];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"你不能处理该信息"];
+        [self.session startRunning];
+    }];
 }
 
 #pragma mark - 开灯或关灯
