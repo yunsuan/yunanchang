@@ -384,7 +384,7 @@
         
     }];
     
-    if ([self.need_check integerValue] == 1 && [self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2) {
+    if ([self.need_check integerValue] == 1 && [self->_dataDic[@"disabled_state"] integerValue] == 0 && ([self->_dataDic[@"check_state"] integerValue] != 0 || [self->_dataDic[@"check_state"] integerValue] != 1)) {
         
         [alert addAction:audit];
     }

@@ -16,11 +16,34 @@
 
 @implementation BaseViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (@available(iOS 13.0, *)) {
+        
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+    } else {
+        // Fallback on earlier versions
+    }
     self.view.backgroundColor = CLBackColor;//[UIColor whiteColor];
     [self initialBaseViewInterface];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    
+    if (@available(iOS 13.0, *)) {
+        
+        return UIStatusBarStyleDarkContent;
+    } else {
+        // Fallback on earlier versions
+        return UIStatusBarStyleDefault;
+    }
 }
 
 #pragma mark - init
