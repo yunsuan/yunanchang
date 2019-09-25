@@ -8,21 +8,21 @@
 
 #import "CYLTabBarControllerConfig.h"
 
-@interface CYLBaseNavigationController : UINavigationController
+//@interface CYLBaseNavigationController : UINavigationController
+//
+//@end
+//@implementation CYLBaseNavigationController
+//
+//- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+//
+//    if (self.viewControllers.count > 0) {
+//        viewController.hidesBottomBarWhenPushed = YES;
+//    }
+//    [super pushViewController:viewController animated:animated];
+//}
 
-@end
-@implementation CYLBaseNavigationController
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
-    if (self.viewControllers.count > 0) {
-        viewController.hidesBottomBarWhenPushed = YES;
-    }
-    [super pushViewController:viewController animated:animated];
-}
-
-
-@end
+//@end
 
 #import "ReportVC.h"
 #import "TaskVC.h"

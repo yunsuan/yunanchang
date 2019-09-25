@@ -81,6 +81,14 @@
     [self setScanView];
 }
 
+- (void)ActionMaskBtn:(UIButton *)btn{
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)ActionRightBtn:(UIButton *)btn{
     
     [self photoClick];

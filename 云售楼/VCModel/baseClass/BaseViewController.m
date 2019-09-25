@@ -9,8 +9,9 @@
 #import "BaseViewController.h"
 
 #import <CommonCrypto/CommonDigest.h>
+#import "CodeScanVC.h"
 
-@interface BaseViewController ()
+@interface BaseViewController ()<UIViewControllerPreviewingDelegate>
 
 @end
 
@@ -33,6 +34,8 @@
     }
     self.view.backgroundColor = CLBackColor;//[UIColor whiteColor];
     [self initialBaseViewInterface];
+    [self registerForPreviewingWithDelegate:self sourceView:self.view];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionPushScan) name:@"scan" object:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
@@ -44,6 +47,42 @@
         // Fallback on earlier versions
         return UIStatusBarStyleDefault;
     }
+}
+
+//2.第二步
+#pragma mark - UIViewControllerPreviewingDelegate（实现代理的方法）
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    
+    CodeScanVC *vc = [[CodeScanVC alloc] init];
+    
+//    //获取按压的cell所在行，[previewingContext sourceView]就是按压的那个视图
+//    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell* )[previewingContext sourceView]];
+//
+//    //设定预览的界面
+//
+//    vc.preferredContentSize = CGSizeMake(0.0f,500.0f);
+//    vc.name = [NSString stringWithFormat:@"Cell_%ld,用力按进来，或者往上推",(long)indexPath.row];
+    
+    //调整不被虚化的范围，按压的那个cell不被虚化（轻轻按压时周边会被虚化，再少用力展示预览，再加力跳页至设定界面）
+//    CGRect rect = CGRectMake(0, 0, self.view.frame.size.width,40);
+//    previewingContext.sourceRect = rect;
+    
+    return vc;
+    
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    
+//    CodeScanVC *vc = [[CodeScanVC alloc] init];
+////    self showViewController:viewControllerToCommit sender:<#(nullable id)#>
+//    [self showViewController:vc sender:self];
+//    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
+- (void)ActionPushScan{
+    
+//    CodeScanVC *vc = [[CodeScanVC alloc] init];
+//    [self showViewController:vc sender:self];
 }
 
 #pragma mark - init

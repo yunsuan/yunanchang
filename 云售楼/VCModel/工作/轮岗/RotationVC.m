@@ -50,26 +50,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
-//    [BaseRequest GET:DutyStartURL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
-//        
-//        NSLog(@"%@",resposeObject);
-////        if (self.rotationSettingVCBlock) {
-////
-////            self.rotationSettingVCBlock();
-////            [self.navigationController popViewControllerAnimated:YES];
-////        }
-//    } failure:^(NSError * _Nonnull error) {
-//        
-////        if (self.rotationSettingVCBlock) {
-////            
-////            self.rotationSettingVCBlock();
-////            [self.navigationController popViewControllerAnimated:YES];
-////        }
-//        NSLog(@"%@",error);
-//    }];
 }
 
 - (void)initDataSource{
@@ -262,22 +246,30 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
-    if (section ==0) {
+    if (section == 0) {
+        
         return CGSizeMake(SCREEN_Width, 167*SIZE);
-    }
-    else
+    }else
     {
-    return CGSizeMake(SCREEN_Width, 37 *SIZE);
+        return CGSizeMake(SCREEN_Width, 37 *SIZE);
     }
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    
-    return CGSizeMake(SCREEN_Width, 3 *SIZE);
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
+//
+//    return CGSizeMake(SCREEN_Width, 3 *SIZE);
+//}
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0) {
+    
+//    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+//
+//
+//    }else{
+//
+//
+//    }
+    if (indexPath.section ==0) {
         RotationHeadView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"RotationHeadView" forIndexPath:indexPath];
         if (!header) {
             
@@ -304,8 +296,6 @@
      
         return header;
     }
-    
-
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

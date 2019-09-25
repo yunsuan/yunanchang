@@ -152,6 +152,13 @@
 #pragma mark -- loadSubViews
 - (void)initSuViews
 {
+    
+    if (@available(iOS 13.0, *)) {
+        
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+    } else {
+        // Fallback on earlier versions
+    }
     [self addSubview:self.bgView];
     [self.bgView addSubview:self.toolBar];
     [self.bgView addSubview:self.pickerView];
