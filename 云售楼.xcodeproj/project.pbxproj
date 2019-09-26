@@ -46,6 +46,7 @@
 		0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32722DDB61500092293 /* TransSignCell.m */; };
 		0C0CE33122DDCFAB00092293 /* AuditTaskDetailCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE33022DDCFAB00092293 /* AuditTaskDetailCollCell.m */; };
 		0C0CE33522E15FB000092293 /* ChangeOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE33422E15FB000092293 /* ChangeOrderVC.m */; };
+		0C11BAB5233CB326000F77BD /* TaskReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11BAB4233CB326000F77BD /* TaskReportVC.m */; };
 		0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */; };
 		0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */; };
 		0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A4E227EAC81006B0510 /* TaskCallFollowCell.m */; };
@@ -571,6 +572,8 @@
 		0C0CE33022DDCFAB00092293 /* AuditTaskDetailCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskDetailCollCell.m; sourceTree = "<group>"; };
 		0C0CE33322E15FB000092293 /* ChangeOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeOrderVC.h; sourceTree = "<group>"; };
 		0C0CE33422E15FB000092293 /* ChangeOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeOrderVC.m; sourceTree = "<group>"; };
+		0C11BAB3233CB326000F77BD /* TaskReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskReportVC.h; sourceTree = "<group>"; };
+		0C11BAB4233CB326000F77BD /* TaskReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskReportVC.m; sourceTree = "<group>"; };
 		0C192C9122CAEBC4000CA161 /* AddNumeralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralVC.h; sourceTree = "<group>"; };
 		0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralVC.m; sourceTree = "<group>"; };
 		0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCallBackCell.m; sourceTree = "<group>"; };
@@ -1572,6 +1575,15 @@
 			path = "认购变更";
 			sourceTree = "<group>";
 		};
+		0C11BAB2233CB30C000F77BD /* 日、周、月报 */ = {
+			isa = PBXGroup;
+			children = (
+				0C11BAB3233CB326000F77BD /* TaskReportVC.h */,
+				0C11BAB4233CB326000F77BD /* TaskReportVC.m */,
+			);
+			path = "日、周、月报";
+			sourceTree = "<group>";
+		};
 		0C192C9022CAEB52000CA161 /* 转排号 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2055,6 +2067,7 @@
 		0C3A915E225B372D00F04804 /* 代办 */ = {
 			isa = PBXGroup;
 			children = (
+				0C11BAB2233CB30C000F77BD /* 日、周、月报 */,
 				0CEF89EB225C87DF0057F3FD /* 审核代办 */,
 				0CEF89E5225C80670057F3FD /* view */,
 				0C3A916C225B37B200F04804 /* TaskVC.h */,
@@ -4911,6 +4924,7 @@
 				0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */,
 				0C3A9124225B20C600F04804 /* main.m in Sources */,
 				0C26CA0022A6811D00A7CF47 /* TitleCollHeader.m in Sources */,
+				0C11BAB5233CB326000F77BD /* TaskReportVC.m in Sources */,
 				0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */,
 				0C04D7262329E955003188BE /* CodeScanVC.m in Sources */,
 				0CD04335227FDB24002C8BD3 /* WorkRecommendWaitCell.m in Sources */,
@@ -5105,7 +5119,7 @@
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
@@ -5131,7 +5145,7 @@
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
