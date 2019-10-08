@@ -24,10 +24,10 @@
     
     if ([dataDic[@"is_read"] integerValue] == 1) {
         
-        _readImg.image = IMAGE_WITH_NAME(@"SMS");
+        _readImg.image = IMAGE_WITH_NAME(@"");
     }else{
         
-        _readImg.image = IMAGE_WITH_NAME(@"");
+        _readImg.image = IMAGE_WITH_NAME(@"SMS");
     }
     switch ([dataDic[@"message_type"] integerValue]) {
         case 50:
@@ -91,6 +91,7 @@
 //    _contentL.text = @"来访跟进";
     _contentL.font = [UIFont systemFontOfSize:11 *SIZE];
     _contentL.numberOfLines = 0;
+    _contentL.adjustsFontSizeToFitWidth = YES;
     [_whiteView addSubview:_contentL];
     
     [self masonryUI];

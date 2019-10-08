@@ -5119,7 +5119,7 @@
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
@@ -5128,7 +5128,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.5;
+				MARKETING_VERSION = 2.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5145,7 +5145,7 @@
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
@@ -5154,7 +5154,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.5;
+				MARKETING_VERSION = 2.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -1278,15 +1278,16 @@ static NSInteger const TEMPLATE_PUSH_MONTH=52; //月报
     }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 50 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 51 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 52){
         
         TaskReportVC *nextVC = [[TaskReportVC alloc] initWithData:_dataArr[indexPath.row]];
+        
         if([_dataArr[indexPath.row][@"message_type"] integerValue] == 50){
-            
-            nextVC.tit = @"日报";
+
+            nextVC.tit = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"title"]];
         }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 51){
-            
-            nextVC.tit = @"周报";
+
+            nextVC.tit = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"title"]];
         }else{
-            
-            nextVC.tit = @"月报";
+
+            nextVC.tit = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"title"]];
         }
         [self.navigationController pushViewController:nextVC animated:YES];
     }else{
