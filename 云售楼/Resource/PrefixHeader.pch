@@ -34,7 +34,7 @@
 #import "UIImageView+WebCache.h"
 
 
-#define YACversion @"2.1.6"
+#define YACversion @"2.1.7"
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
 
@@ -75,7 +75,7 @@
 //设置颜色
 #define COLOR(_R,_G,_B,_A) [UIColor colorWithRed:_R / 255.0f green: _G / 255.0f blue:_B / 255.0f alpha:_A]
 
-//#define CLArr @[COLOR(73, 92, 105, 1),COLOR(86, 152, 195, 1),COLOR(142, 178, 201, 1),COLOR(116, 120, 122, 1),COLOR(196, 203, 207, 1),COLOR(134, 157, 157, 1),COLOR(87, 195, 194, 1),COLOR(115, 87, 92, 1),COLOR(249, 236, 195, 1),COLOR(175, 46, 43, 1)]
+#define CLArr @[COLOR(73, 92, 105, 1),COLOR(86, 152, 195, 1),COLOR(142, 178, 201, 1),COLOR(116, 120, 122, 1),COLOR(196, 203, 207, 1),COLOR(134, 157, 157, 1),COLOR(87, 195, 194, 1),COLOR(115, 87, 92, 1),COLOR(249, 236, 195, 1),COLOR(175, 46, 43, 1)]
 
 #define CLBlackColor  [UIColor blackColor]
 #define CLBackColor  COLOR(242, 246, 247, 1)

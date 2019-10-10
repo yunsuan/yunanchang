@@ -48,16 +48,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-//    [self.rightBtn setTitle:[UserModel defaultModel].projectinfo[@"project_name"] forState:UIControlStateNormal];
-//    if ([[UserModel defaultModel].projectinfo count]) {
-//
-//        _table.hidden = NO;
-//        self.rightBtn.hidden = NO;
-//    }else{
-//
-//        _table.hidden = YES;
-//        self.rightBtn.hidden = YES;;
-//    }
 }
 
 - (void)viewDidLoad {

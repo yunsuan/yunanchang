@@ -909,12 +909,20 @@
                 case 0:
                 {
                     _numBtn = btn;
+                    _numBtn.content.text = @"1人";
+                    _numBtn->str = @"1";
                     [_infoView addSubview:_numBtn];
                     break;
                 }
                 case 1:
                 {
                     _purposeBtn = btn;
+                    NSArray *arr = [self getDetailConfigArrByConfigState:BUY_TYPE];
+                    if (arr.count) {
+                        
+                        _purposeBtn.content.text = [NSString stringWithFormat:@"%@",arr[0][@"param"]];
+                        _purposeBtn->str = [NSString stringWithFormat:@"%@",arr[0][@"id"]];
+                    }
                     [_infoView addSubview:_purposeBtn];
                     break;
                 }

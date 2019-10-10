@@ -102,23 +102,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5AE12830-B6EC-4E4D-9721-731EA94DA607"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x63a8;&#x8350;&#x5ba2;&#x6237;/&#x5f85;&#x786e;&#x8ba4;/&#x5f85;&#x786e;&#x8ba4;&#x8be6;&#x60c5;/WorkRecommendWaitDetailVC.m"
-            timestampString = "589966193.667734"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "-post"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D46A7089-A76F-442F-B6D1-94707FCEB1CE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
