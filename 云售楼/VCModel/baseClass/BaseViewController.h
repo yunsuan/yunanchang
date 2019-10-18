@@ -141,6 +141,11 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
 
 //拍照后对图片进行处理
 - (UIImage *)fixOrientation:(UIImage *)aImage;
+
+- (NSString *)base64EncodeString:(NSString *)string;
+
+- (NSString *)base64DecodeString:(NSString *)string;
+
 @end
 
 NS_ASSUME_NONNULL_END

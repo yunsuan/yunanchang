@@ -84,13 +84,14 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_log_id = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"list"][0][@"log_id"]];
-            self->_processTypeL.text = [NSString stringWithFormat:@"流程类型：%@",[resposeObject[@"data"][@"list"][0][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"];
+            NSArray *arr = resposeObject[@"data"][@"list"];
+            self->_log_id = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"list"][arr.count - 1][@"log_id"]];
+            self->_processTypeL.text = [NSString stringWithFormat:@"流程类型：%@",[resposeObject[@"data"][@"list"][arr.count - 1][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"];
             self->_processNameL.text = [NSString stringWithFormat:@"流程名称：%@",resposeObject[@"data"][@"progress_name"]];
             self->_applicantL.text = [NSString stringWithFormat:@"申请人：%@",resposeObject[@"data"][@"agent_name"]];
             self->_applicantTimeL.text = [NSString stringWithFormat:@"申请时间：%@",resposeObject[@"data"][@"create_time"]];
             self->_dataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"list"]];
-            self->_checkType = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"list"][0][@"check_type"]];
+            self->_checkType = [NSString stringWithFormat:@"%@",resposeObject[@"data"][@"list"][arr.count - 1][@"check_type"]];
             [self->_coll reloadData];
             
             [self->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -101,7 +102,7 @@
                 make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
             }];
             
-            if ([resposeObject[@"data"][@"list"][0][@"check_type"] integerValue] == 1) {
+            if ([resposeObject[@"data"][@"list"][arr.count - 1][@"check_type"] integerValue] == 1) {
 
                 self->_nextL.hidden = NO;
                 self->_nextBtn.hidden = NO;

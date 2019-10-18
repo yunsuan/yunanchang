@@ -148,11 +148,11 @@
         }
     }else{
         
-        for (int j = 0; j < _countArr.count; j++) {
+        for (int a = 0; a < _countArr.count; a++) {
             
             UIView *view = [[UIView alloc] init];
             view.backgroundColor = [UIColor whiteColor];
-            view.tag = [_countArr[j][@"id"] integerValue];
+            view.tag = [_countArr[a][@"id"] integerValue];
             [_viewArr addObject:view];
             
             IntentSurveyHeader *header = [[IntentSurveyHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
@@ -162,7 +162,7 @@
             
             for (int i = 0; i < data.count; i++) {
                 
-                if ([_countArr[j][@"id"] integerValue] == [data[i][@"property_id"] integerValue]) {
+                if ([_countArr[a][@"id"] integerValue] == [data[i][@"property_id"] integerValue]) {
                     
                     NSArray *arr = data[i][@"list"];
                     
@@ -189,11 +189,11 @@
                                 
                                 BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
                                 tf.tag = i * 100 + j;
-                                for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
+                                for (int k = 0; k < [_countArr[0][@"list"] count]; k++) {
                                     
-                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
+                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][k][@"config_name"]]) {
                                         
-                                        tf.textField.text = _countArr[0][@"list"][j][@"value"];
+                                        tf.textField.text = _countArr[0][@"list"][k][@"value"];
                                     }
                                 }
                                 [tempMrr addObject:tf];
@@ -205,12 +205,12 @@
                                 DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
                                 btn.tag = i * 100 + j;
                                 [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
-                                for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
+                                for (int k = 0; k < [_countArr[0][@"list"] count]; k++) {
                                     
-                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
+                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][k][@"config_name"]]) {
                                         
-                                        btn.content.text = _countArr[0][@"list"][j][@"value"];
-                                        btn->str = _countArr[0][@"list"][j][@"value_id"];
+                                        btn.content.text = _countArr[0][@"list"][k][@"value"];
+                                        btn->str = _countArr[0][@"list"][k][@"value_id"];
                                     }
                                 }
                                 [tempMrr addObject:btn];
@@ -242,14 +242,17 @@
                                 }
                                 for (int m = 0; m < [dic[@"option"] count]; m++) {
                                     
-                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
+                                    for (int k = 0; k < [_countArr[0][@"list"] count]; k++) {
                                         
-                                        NSArray *arrC = [_countArr[0][@"list"][j][@"value_id"] componentsSeparatedByString:@","];
-                                        for (int n = 0; n < arrC.count; n++) {
+                                        if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][k][@"config_name"]]) {
                                             
-                                            if ([dic[@"option"][m][@"option_id"] integerValue] == [arrC[n] integerValue]) {
+                                            NSArray *arrC = [_countArr[0][@"list"][k][@"value_id"] componentsSeparatedByString:@","];
+                                            for (int n = 0; n < arrC.count; n++) {
                                                 
-                                                [collSelect replaceObjectAtIndex:m withObject:@1];
+                                                if ([dic[@"option"][m][@"option_id"] integerValue] == [arrC[n] integerValue]) {
+                                                    
+                                                    [collSelect replaceObjectAtIndex:m withObject:@1];
+                                                }
                                             }
                                         }
                                     }
@@ -263,12 +266,12 @@
                                 DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
                                 btn.tag = i * 100 + j;
                                 [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
-                                for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
+                                for (int k = 0; k < [_countArr[0][@"list"] count];k++) {
                                     
-                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
+                                    if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][k][@"config_name"]]) {
                                         
-                                        btn.content.text = _countArr[0][@"list"][j][@"value"];
-                                        btn->str = _countArr[0][@"list"][j][@"value_id"];
+                                        btn.content.text = _countArr[0][@"list"][k][@"value"];
+                                        btn->str = _countArr[0][@"list"][k][@"value_id"];
                                     }
                                 }
                                 [tempMrr addObject:btn];
@@ -307,166 +310,16 @@
             [_labelArr addObject:tempArr];
             [_moduleArr addObject:tempMrr];
             [_selectArr addObject:tempSelect];
-            if (_countArr[j][@"param"]) {
+            if (_countArr[a][@"param"]) {
                 
-                header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"param"]];
+                header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[a][@"param"]];
             }else{
                 
-                header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"property_name"]];
+                header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[a][@"property_name"]];
             }
             [_headArr addObject:header];
         }
     }
-    
-    
-    
-//    for (int i = 0; i < data.count; i++) {
-//
-//        UIView *view = [[UIView alloc] init];
-//        view.backgroundColor = [UIColor whiteColor];
-//        view.tag = [data[i][@"property_id"] integerValue];
-//        [_viewArr addObject:view];
-//
-//        IntentSurveyHeader *header = [[IntentSurveyHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-//        for (int j = 0; j < _countArr.count; j++) {
-//
-//            if ([_countArr[j][@"id"] integerValue] == [data[i][@"property_id"] integerValue]) {
-//
-//                if (_countArr[j][@"param"]) {
-//
-//                    header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"param"]];
-//                }else{
-//
-//                    header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"property_name"]];
-//                }
-//
-//            }
-//        }
-//        [_headArr addObject:header];
-//
-//        NSArray *arr = data[i][@"list"];
-//        NSMutableArray *tempArr = [@[] mutableCopy];
-//        NSMutableArray *tempMrr = [@[] mutableCopy];
-//        NSMutableArray *tempSelect = [@[] mutableCopy];
-//
-//        for (int j = 0; j < arr.count; j++) {
-//
-//            NSDictionary *dic = arr[j];
-//
-//            UILabel *label = [[UILabel alloc] init];
-//            label.textColor = CLTitleLabColor;
-//            label.font = [UIFont systemFontOfSize:13 *SIZE];
-//            label.text = dic[@"config_name"];
-//            label.adjustsFontSizeToFitWidth = YES;
-//            if ([dic[@"is_must"] integerValue] == 1) {
-//
-//                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",label.text]];
-//                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
-//                label.attributedText = attr;
-//            }
-//            [tempArr addObject:label];
-//
-//            switch ([dic[@"type"] integerValue]) {
-//                case 1:
-//                {
-//
-//                    BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
-//                    tf.tag = i * 100 + j;
-//                    for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
-//
-//                        if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
-//
-//                            tf.textField.text = _countArr[0][@"list"][j][@"value"];
-//                        }
-//                    }
-//                    [tempMrr addObject:tf];
-//                    [tempSelect addObject:@[]];
-//                    break;
-//                }
-//                case 2:
-//                {
-//                    DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
-//                    btn.tag = i * 100 + j;
-//                    [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
-//                    for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
-//
-//                        if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
-//
-//                            btn.content.text = _countArr[0][@"list"][j][@"value"];
-//                            btn->str = _countArr[0][@"list"][j][@"value_id"];
-//                        }
-//                    }
-//                    [tempMrr addObject:btn];
-//                    [tempSelect addObject:@[]];
-//                    break;
-//                }
-//                case 3:
-//                {
-//
-//                    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-//                    flowLayout.itemSize = CGSizeMake(80 *SIZE, 20 *SIZE);
-//                    flowLayout.minimumLineSpacing = 5 *SIZE;
-//                    flowLayout.minimumInteritemSpacing = 0;
-//
-//                    UICollectionView *coll = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 240 *SIZE, 20 *SIZE) collectionViewLayout:flowLayout];
-//                    coll.backgroundColor = [UIColor whiteColor];
-//                    coll.tag = i * 100 + j;
-//                    coll.bounces = NO;
-//                    coll.delegate = self;
-//                    coll.dataSource = self;
-//                    [coll registerClass:[BoxSelectCollCell class] forCellWithReuseIdentifier:@"BoxSelectCollCell"];
-//                    [tempMrr addObject:coll];
-//
-//                    NSMutableArray *collSelect = [@[] mutableCopy];
-//                    for (int m = 0; m < [dic[@"option"] count]; m++) {
-//
-//
-//                        [collSelect addObject:@0];
-//                    }
-//                    for (int m = 0; m < [dic[@"option"] count]; m++) {
-//
-//                        if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
-//
-//                            NSArray *arrC = [_countArr[0][@"list"][j][@"value_id"] componentsSeparatedByString:@","];
-//                            for (int n = 0; n < arrC.count; n++) {
-//
-//                                if ([dic[@"option"][m][@"option_id"] integerValue] == [arrC[n] integerValue]) {
-//
-//                                    [collSelect replaceObjectAtIndex:m withObject:@1];
-//                                }
-//                            }
-//                        }
-//                    }
-//
-//                    [tempSelect addObject:collSelect];
-//                    break;
-//                }
-//                case 4:
-//                {
-//                    DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
-//                    btn.tag = i * 100 + j;
-//                    [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
-//                    for (int j = 0; j < [_countArr[0][@"list"] count]; j++) {
-//
-//                        if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][j][@"config_name"]]) {
-//
-//                            btn.content.text = _countArr[0][@"list"][j][@"value"];
-//                            btn->str = _countArr[0][@"list"][j][@"value_id"];
-//                        }
-//                    }
-//                    [tempMrr addObject:btn];
-//                    [tempSelect addObject:@[]];
-//                    break;
-//                }
-//                default:
-//                    break;
-//            }
-//        }
-//
-//        [_labelArr addObject:tempArr];
-//        [_moduleArr addObject:tempMrr];
-//        [_selectArr addObject:tempSelect];
-//    }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{

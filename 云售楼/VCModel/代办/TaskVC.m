@@ -18,6 +18,7 @@
 
 #import "AuditTaskDetailVC.h"
 #import "NumeralDetailVC.h"
+#import "TaskReportVC.h"
 
 #import "TaskCallBackCell.h"
 #import "TaskCallFollowCell.h"
@@ -1056,8 +1057,8 @@ static NSInteger const TEMPLATE_PUSH_MONTH=52; //月报
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        cell.contentL.numberOfLines = 2;
         cell.dataDic = _dataArr[indexPath.row];
-        
         return cell;
     }else{
 
@@ -1274,6 +1275,21 @@ static NSInteger const TEMPLATE_PUSH_MONTH=52; //月报
 #pragma mark -- 50 日报 --
 #pragma mark -- 51 周报 --
 #pragma mark -- 52 月报 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 50 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 51 || [_dataArr[indexPath.row][@"message_type"] integerValue] == 52){
+        
+        TaskReportVC *nextVC = [[TaskReportVC alloc] initWithData:_dataArr[indexPath.row]];
+        
+        if([_dataArr[indexPath.row][@"message_type"] integerValue] == 50){
+
+            nextVC.tit = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"title"]];
+        }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 51){
+
+            nextVC.tit = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"title"]];
+        }else{
+
+            nextVC.tit = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"title"]];
+        }
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
         

@@ -115,13 +115,13 @@
     CGFloat   offSetX = 10 *SIZE;
     CGFloat   labWidth = 60 *SIZE;
     CGFloat   labHeight= 15 *SIZE;
-    for (int i =0; i<self.percentageArr.count; i++) {
+    for (int i =0; i < self.percentageArr.count; i++) {
         NSNumber   *number = self.halfAngleArr[i];
         float    angle = [number floatValue];
         NSLog(@"----%f",angle);
         CAShapeLayer  *layer = [CAShapeLayer layer];
-        layer.lineWidth =1;
-        layer.strokeColor =[(UIColor *) self.colorsArr[i] CGColor];
+        layer.lineWidth = 1;
+        layer.strokeColor = [(UIColor *) self.colorsArr[i % 10] CGColor];
         layer.lineJoin = kCALineJoinRound;
         layer.lineCap = kCALineCapRound;
         layer.fillColor = [UIColor clearColor].CGColor;
@@ -132,7 +132,7 @@
         titleLab.font = [UIFont fontWithName:@"Helvetica-Bold" size:10 *SIZE];
         titleLab.text = [NSString stringWithFormat:@"%@%.2f%%",self.titlesArr[i],[self.percentageArr[i] floatValue]*100];
         titleLab.adjustsFontSizeToFitWidth = YES;
-        titleLab.textColor = self.colorsArr[i];
+        titleLab.textColor = self.colorsArr[i % 10];
         [self addSubview:titleLab];
         
         [self.polyLineLayerArr addObject:layer];//将折线layer添加到折线数组中

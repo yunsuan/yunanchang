@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
+   uuid = "93CAD506-60A9-4C92-A1FE-FCC342D0EC14"
    type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
+            uuid = "16A13EE5-944E-4435-A688-5D330852C16C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -13,6 +15,7 @@
             moduleName = "">
             <Locations>
                <Location
+                  uuid = "16A13EE5-944E-4435-A688-5D330852C16C - d02b6889e58311d3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -27,6 +30,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
+            uuid = "F6F5ABFE-C33A-470B-851C-CE69E038653B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -34,6 +38,7 @@
             moduleName = "">
             <Locations>
                <Location
+                  uuid = "F6F5ABFE-C33A-470B-851C-CE69E038653B - ca05e3e8d0103ce6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -48,6 +53,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "4642D28A-C740-4404-851E-669377311ECF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -61,6 +67,7 @@
             landmarkType = "7">
             <Locations>
                <Location
+                  uuid = "4642D28A-C740-4404-851E-669377311ECF - e4b3c5371480de2d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -68,14 +75,14 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E8%AE%A4%E8%B4%AD/%E8%AE%A4%E8%B4%AD%E8%AF%A6%E6%83%85/%E8%BD%AC%E5%90%88%E5%90%8C/OrderTranSignVC.m"
-                  timestampString = "588848873.110042"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "744"
                   endingLineNumber = "744"
-                  offsetFromSymbolStart = "17292">
+                  offsetFromSymbolStart = "17184">
                </Location>
                <Location
+                  uuid = "4642D28A-C740-4404-851E-669377311ECF - c019efd67be0c65f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -83,7 +90,6 @@
                   moduleName = "&#x4e91;&#x552e;&#x697c;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E8%AE%A4%E8%B4%AD/%E8%AE%A4%E8%B4%AD%E8%AF%A6%E6%83%85/%E8%BD%AC%E5%90%88%E5%90%8C/OrderTranSignVC.m"
-                  timestampString = "588848873.112693"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "746"
@@ -91,6 +97,23 @@
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D46A7089-A76F-442F-B6D1-94707FCEB1CE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x6211;&#x7684;/MineVC.m"
+            timestampString = "589966193.667815"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
