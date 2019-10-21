@@ -75,7 +75,7 @@
     [PowerModel defaultModel].WorkListPower = [WorkListPower copy];
     
     //报表
-    NSMutableArray * ReportListPower =[@[@0,@0,@0,@0] mutableCopy];//,@0,@0] mutableCopy];
+    NSMutableArray * ReportListPower =[@[@0,@0,@0,@1,@1,@1,@1,@1,@1,@1] mutableCopy];//,@0,@0] mutableCopy];
     if (datadic) {
         NSArray *arr = datadic[@"app_operate"];
         if (arr.count > 2) {
