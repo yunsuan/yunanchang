@@ -10,6 +10,13 @@
 #import "VisitCustomReportVC.h"
 #import "ChannelAnalysisVC.h"
 #import "CommissionReportVC.h"
+#import "DealCustomerReportVC.h"
+#import "ReceiptCountVC.h"
+#import "SaleDetailVC.h"
+#import "SaleRankVC.h"
+#import "MonthCountVC.h"
+#import "WeekCountVC.h"
+#import "ResourcesAuditVC.h"
 
 #import "PowerMannerger.h"
 #import "SinglePickView.h"
@@ -55,8 +62,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
-    _titleArr = @[@"来访客户分析表",@"渠道分析表",@"佣金统计表"];
-    _imgArr = @[@"report_visit",@"report_channel",@"report_commission"];
+    _titleArr = @[@"来访客户分析表",@"渠道分析表",@"佣金统计表",@"成交客户分析表",@"销售明细表",@"资源盘点表",@"销售排名表",@"收款统计表",@"销售周汇总表",@"销售月汇总表"];
+    _imgArr = @[@"report_visit",@"report_channel",@"report_commission",@"chengjiapfenxi",@"xiangmuhuizong",@"ziyuanpandian",@"xiaoshoupaiming",@"shoukuantongji",@"zhouhuixong",@"yuehuizong"];
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].ReportListPower;
 }
@@ -184,10 +191,45 @@
         ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else{
+    }else if(indexPath.row == 2){
         
         CommissionReportVC *nextVC = [[CommissionReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 3){
+        
+        DealCustomerReportVC *nextVC = [[DealCustomerReportVC alloc] init];
+//        nextVC.status = @"1";
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 4){
+        
+        SaleDetailVC *nextVC = [[SaleDetailVC alloc] init];
+        //        nextVC.status = @"1";
+                [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 5){
+        
+       ResourcesAuditVC *nextVC = [[ResourcesAuditVC alloc] init];
+        //        nextVC.status = @"1";
+                [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 6){
+        
+       SaleRankVC *nextVC = [[SaleRankVC alloc] init];
+        //        nextVC.status = @"1";
+                [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 7){
+        
+       ReceiptCountVC *nextVC = [[ReceiptCountVC alloc] init];
+        //        nextVC.status = @"1";
+                [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 8){
+        
+        WeekCountVC *nextVC = [[WeekCountVC alloc] init];
+        //        nextVC.status = @"1";
+                [self.navigationController pushViewController:nextVC animated:YES];
+    }else{
+        
+        MonthCountVC *nextVC = [[MonthCountVC alloc] init];
+        //        nextVC.status = @"1";
+                [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 
