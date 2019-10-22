@@ -7,6 +7,10 @@
 //
 
 #import "DealCustomerReportVC.h"
+
+#import "DealCustomerReportPropertyCell.h"
+#import "DealCustomerReportChannelCell.h"
+#import "BaseHeader.h"
 #import "TypeTagCollCell.h"
 
 @interface DealCustomerReportVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
@@ -36,8 +40,19 @@
 
 @implementation DealCustomerReportVC
 
+- (instancetype)initWithProjectId:(NSString *)project_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = project_id;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
@@ -47,80 +62,209 @@
 
 - (void)initDataSource{
     
+   _status = @"1";
    
+   _titleArr = @[@"今日统计",@"累计统计"];
+   
+   _dataDic = [@{} mutableCopy];
+   _dataArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
     
+    [BaseRequest GET:ReportClientContractType_URL parameters:@{@"project_id":_project_id,@"type":_status} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([self->_status isEqualToString:@"1"]) {
+                
+                self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            }else{
+                
+                self->_yearDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            }
+
+            [self->_table reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+#pragma mark -- collectionview
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
+    return _titleArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TypeTagCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TypeTagCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[TypeTagCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 2, 40 *SIZE)];
+        cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 2, 11 *SIZE);
+        cell.line.frame = CGRectMake(75 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
+    }
+    
+    cell.titleL.frame = CGRectMake(0, 14 *SIZE, SCREEN_Width / 2, 11 *SIZE);
+    cell.line.frame = CGRectMake(75 *SIZE, 38 *SIZE, 30 *SIZE, 2 *SIZE);
+    cell.titleL.text = _titleArr[indexPath.item];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    [_scrollView setContentOffset:CGPointMake(SCREEN_Width * indexPath.item, 0) animated:NO];
+    _status = [NSString stringWithFormat:@"%ld",indexPath.item + 1];
+    if (!_yearDic.count) {
+
+        [self  RequestMethod];
+    }
+    if (!_dataDic.count) {
+
+        [self  RequestMethod];
+    }
+    [_table reloadData];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _dataArr.count + 1;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 0) {
-        
-        return 40 *SIZE;
-    }
+    return 240 *SIZE;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    return UITableViewAutomaticDimension;
+    BaseHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BaseHeader"];
+    if (!header) {
+                
+        header = [[BaseHeader alloc] initWithReuseIdentifier:@"BaseHeader"];
+    }
+            
+    if (section == 0) {
+                
+        header.titleL.text = @"认知途径";
+    }else{
+                     
+        header.titleL.text = @"物业意向";
+    }
+    return header;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-    if (!cell) {
+    if (indexPath.section == 0) {
+                
+        DealCustomerReportChannelCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DealCustomerReportChannelCell"];
+        if (!cell) {
+                    
+            cell = [[DealCustomerReportChannelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DealCustomerReportChannelCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+    //            cell.singleBarChartView.delegate = self;
+        cell.dealCustomerReportChannelCellBlock = ^(NSInteger index) {
+                    
+//            ChannelCustomVC *nextVC = [[ChannelCustomVC alloc] init];
+//            nextVC.index = index;
+//            nextVC.project_id = self->_project_id;
+//            if ([self->_status isEqualToString:@"1"]) {
+//
+//                nextVC.date = [self->_formatter stringFromDate:[NSDate date]];
+//            }else if ([self->_status isEqualToString:@"2"]){
+//
+//                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                [formatter setDateFormat:@"YYYY-MM-01"];
+//                nextVC.date = [formatter stringFromDate:[NSDate date]];
+//            }
+//            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+                
+        if ([_status isEqualToString:@"1"]) {
+
+            if (_dataDic.count) {
+
+                cell.dataDic =  _dataDic;
+            }else{
+
+                cell.dataDic = @{};
+            }
+        }else{
+
+            if (_yearDic.count) {
+
+                cell.dataDic = _yearDic;
+            }else{
+
+                cell.dataDic = @{};
+            }
+        }
+                
+        return cell;
+    }else{
         
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+        DealCustomerReportPropertyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DealCustomerReportPropertyCell"];
+            if (!cell) {
+                        
+                cell = [[DealCustomerReportPropertyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DealCustomerReportPropertyCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+        //            cell.singleBarChartView.delegate = self;
+            cell.dealCustomerReportPropertyCellBlock = ^(NSInteger index) {
+                        
+//                ChannelCustomVC *nextVC = [[ChannelCustomVC alloc] init];
+//                nextVC.index = index;
+//                nextVC.project_id = self->_project_id;
+//                if ([self->_status isEqualToString:@"1"]) {
+//
+//                    nextVC.date = [self->_formatter stringFromDate:[NSDate date]];
+//                }else if ([self->_status isEqualToString:@"2"]){
+//
+//                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                    [formatter setDateFormat:@"YYYY-MM-01"];
+//                    nextVC.date = [formatter stringFromDate:[NSDate date]];
+//                }
+//                [self.navigationController pushViewController:nextVC animated:YES];
+            };
+                    
+            if ([_status isEqualToString:@"1"]) {
+
+                if (_dataDic.count) {
+
+                    cell.dataDic =  _dataDic;
+                }else{
+
+                    cell.dataDic = @{};
+                }
+            }else{
+
+                if (_yearDic.count) {
+
+                    cell.dataDic = _yearDic;
+                }else{
+
+                    cell.dataDic = @{};
+                }
+            }
+                    
+            return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-//    if (indexPath.row == 0) {
-//
-//        cell.contentView.backgroundColor = CLBlueBtnColor;
-//        cell.companyL.textColor = CLWhiteColor;
-//        cell.contactL.textColor = CLWhiteColor;
-//        cell.phoneL.textColor = CLWhiteColor;
-//        cell.moneyL.textColor = CLWhiteColor;
-//        cell.numL.textColor = CLWhiteColor;
-//
-//        cell.line1.hidden = YES;
-//        cell.line2.hidden = YES;
-//        cell.line3.hidden = YES;
-//        cell.line4.hidden = YES;
-//
-//
-//        cell.companyL.text = @"乙方公司";
-//        cell.contactL.text = @"乙方负责人";
-//        cell.phoneL.text = @"乙方联系电话";
-//        cell.moneyL.text = @"累计金额（￥）";
-//        cell.numL.text = @"累计笔数";
-//    }else{
-//
-//        cell.contentView.backgroundColor = CLWhiteColor;
-//        cell.companyL.textColor = CL86Color;
-//        cell.contactL.textColor = CL86Color;
-//        cell.phoneL.textColor = CL86Color;
-//        cell.moneyL.textColor = CLBlueBtnColor;
-//        cell.numL.textColor = CL86Color;
-//
-//        cell.line1.hidden = NO;
-//        cell.line2.hidden = NO;
-//        cell.line3.hidden = NO;
-//        cell.line4.hidden = NO;
-//
-//        cell.companyL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_company_name"]];
-//        cell.contactL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_docker"]];
-//        cell.phoneL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_docker_tel"]];
-//        cell.moneyL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"broker_num"]];
-//        cell.numL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"count"]];
-//    }
-//
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

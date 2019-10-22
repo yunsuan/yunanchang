@@ -197,37 +197,36 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 3){
         
-        DealCustomerReportVC *nextVC = [[DealCustomerReportVC alloc] init];
+        DealCustomerReportVC *nextVC = [[DealCustomerReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
 //        nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 4){
         
-        SaleDetailVC *nextVC = [[SaleDetailVC alloc] init];
+        SaleDetailVC *nextVC = [[SaleDetailVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
-                [self.navigationController pushViewController:nextVC animated:YES];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 5){
         
-       ResourcesAuditVC *nextVC = [[ResourcesAuditVC alloc] init];
+        ResourcesAuditVC *nextVC = [[ResourcesAuditVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
-                [self.navigationController pushViewController:nextVC animated:YES];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 6){
         
-       SaleRankVC *nextVC = [[SaleRankVC alloc] init];
-        //        nextVC.status = @"1";
-                [self.navigationController pushViewController:nextVC animated:YES];
+        SaleRankVC *nextVC = [[SaleRankVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 7){
         
-       ReceiptCountVC *nextVC = [[ReceiptCountVC alloc] init];
+       ReceiptCountVC *nextVC = [[ReceiptCountVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
                 [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 8){
         
-        WeekCountVC *nextVC = [[WeekCountVC alloc] init];
+        WeekCountVC *nextVC = [[WeekCountVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
                 [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
-        MonthCountVC *nextVC = [[MonthCountVC alloc] init];
+        MonthCountVC *nextVC = [[MonthCountVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
                 [self.navigationController pushViewController:nextVC animated:YES];
     }

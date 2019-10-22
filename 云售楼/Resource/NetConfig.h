@@ -492,4 +492,22 @@ static NSString *const BrokerRuleCompanyList_URL = @"saleApp/broker/rule/company
 //佣金详情列表
 static NSString *const BrokerCompanyList_URL = @"saleApp/broker/company/list";
 
+//成交客户分析表
+static NSString *const ReportClientContractType_URL = @"saleApp/report/client/contract/type";
+
+//资源盘点表
+static NSString *const ReportFormZYPDB_URL = @"sale/app/reportForm/zypdb";
+
+//收款统计表
+static NSString *const ReportFormSKTJB_URL = @"sale/app/reportForm/sktjb";
+
+//销售明细表
+static NSString *const ReportSaleCount_URL = @"saleApp/report/sale/count";
+
+//销售排名表
+static NSString *const ReportSaleSort_URL = @"saleApp/report/sale/sort";
+
+//销售周汇总表
+static NSString *const ReportSaleDateCount_URL = @"saleApp/report/sale/date/count";
+
 #endif /* NetConfig_h */

@@ -11,6 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ResourcesAuditVC : BaseViewController
+
+- (instancetype)initWithProjectId:(NSString *)project_id;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

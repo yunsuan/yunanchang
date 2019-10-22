@@ -46,6 +46,21 @@
 		0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32722DDB61500092293 /* TransSignCell.m */; };
 		0C0CE33122DDCFAB00092293 /* AuditTaskDetailCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE33022DDCFAB00092293 /* AuditTaskDetailCollCell.m */; };
 		0C0CE33522E15FB000092293 /* ChangeOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE33422E15FB000092293 /* ChangeOrderVC.m */; };
+		0C10695E235EA13700CB58A2 /* myDataGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C10695C235EA13700CB58A2 /* myDataGridView.m */; };
+		0C10697C235EA19100CB58A2 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106960235EA19000CB58A2 /* UIView+Frame.m */; };
+		0C10697D235EA19100CB58A2 /* ZQDataGridBaseCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106964235EA19000CB58A2 /* ZQDataGridBaseCellModel.m */; };
+		0C10697E235EA19100CB58A2 /* ZQDataGridComponentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106967235EA19000CB58A2 /* ZQDataGridComponentModel.m */; };
+		0C10697F235EA19100CB58A2 /* ZQDataGridLeftTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106968235EA19000CB58A2 /* ZQDataGridLeftTableViewCellModel.m */; };
+		0C106980235EA19100CB58A2 /* ZQDataGridHeadItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106969235EA19000CB58A2 /* ZQDataGridHeadItemModel.m */; };
+		0C106981235EA19100CB58A2 /* ZQDataGridRightTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C10696C235EA19000CB58A2 /* ZQDataGridRightTableViewCellModel.m */; };
+		0C106982235EA19100CB58A2 /* ZQDataGridRightTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106970235EA19100CB58A2 /* ZQDataGridRightTableViewCell.m */; };
+		0C106983235EA19100CB58A2 /* ZQDataGridBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106971235EA19100CB58A2 /* ZQDataGridBaseCell.m */; };
+		0C106984235EA19100CB58A2 /* ZQDataGridRowViewCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106972235EA19100CB58A2 /* ZQDataGridRowViewCollectionView.m */; };
+		0C106985235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106973235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.m */; };
+		0C106986235EA19100CB58A2 /* ZQDataGridHeadItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106974235EA19100CB58A2 /* ZQDataGridHeadItemCell.m */; };
+		0C106987235EA19100CB58A2 /* ZQDataGridComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106976235EA19100CB58A2 /* ZQDataGridComponent.m */; };
+		0C10698A235EA52800CB58A2 /* NomalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106989235EA52800CB58A2 /* NomalCollectionViewCell.m */; };
+		0C10698E235EAAEC00CB58A2 /* myDataGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C10698D235EAAEC00CB58A2 /* myDataGridViewCell.m */; };
 		0C11BAB5233CB326000F77BD /* TaskReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11BAB4233CB326000F77BD /* TaskReportVC.m */; };
 		0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */; };
 		0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */; };
@@ -151,6 +166,14 @@
 		0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521C22A8FDB6008F2F07 /* ChannelRecommendCell.m */; };
 		0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522022A91131008F2F07 /* ChannelDealCell.m */; };
 		0C74522522A91CAB008F2F07 /* MinMaxDateChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */; };
+		0C758146235D48200029B530 /* DealCustomerReportChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758145235D48200029B530 /* DealCustomerReportChannelCell.m */; };
+		0C758149235D49660029B530 /* DealCustomerReportPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758148235D49660029B530 /* DealCustomerReportPropertyCell.m */; };
+		0C75814D235D51320029B530 /* SaleDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C75814C235D51320029B530 /* SaleDetailCell.m */; };
+		0C758152235D5AED0029B530 /* SaleRankOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758151235D5AED0029B530 /* SaleRankOrderCell.m */; };
+		0C758155235D5B090029B530 /* SaleRankContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758154235D5B090029B530 /* SaleRankContractCell.m */; };
+		0C758159235D5FAC0029B530 /* WeekCountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758158235D5FAC0029B530 /* WeekCountCell.m */; };
+		0C75815D235DA6960029B530 /* ReceiptCountChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C75815C235DA6960029B530 /* ReceiptCountChartCell.m */; };
+		0C758160235DA7D40029B530 /* ReceiptCountChartHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C75815F235DA7D40029B530 /* ReceiptCountChartHeader.m */; };
 		0C7A0A2B22E71DD900CF44D3 /* TaskSellReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7A0A2A22E71DD900CF44D3 /* TaskSellReportCell.m */; };
 		0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C991C592272B32700AF2817 /* ProjectRoleVC.m */; };
 		0CA8259B22AE0C800005F3ED /* 8831558580869_.pic_hd.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0CA824DA22AE0C800005F3ED /* 8831558580869_.pic_hd.jpg */; };
@@ -591,6 +614,38 @@
 		0C0CE33022DDCFAB00092293 /* AuditTaskDetailCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditTaskDetailCollCell.m; sourceTree = "<group>"; };
 		0C0CE33322E15FB000092293 /* ChangeOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeOrderVC.h; sourceTree = "<group>"; };
 		0C0CE33422E15FB000092293 /* ChangeOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeOrderVC.m; sourceTree = "<group>"; };
+		0C10695C235EA13700CB58A2 /* myDataGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myDataGridView.m; sourceTree = "<group>"; };
+		0C10695D235EA13700CB58A2 /* myDataGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myDataGridView.h; sourceTree = "<group>"; };
+		0C106960235EA19000CB58A2 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		0C106961235EA19000CB58A2 /* ZQHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQHeader.h; sourceTree = "<group>"; };
+		0C106962235EA19000CB58A2 /* DefineFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefineFile.h; sourceTree = "<group>"; };
+		0C106964235EA19000CB58A2 /* ZQDataGridBaseCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridBaseCellModel.m; sourceTree = "<group>"; };
+		0C106965235EA19000CB58A2 /* ZQDataGridHeadItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridHeadItemModel.h; sourceTree = "<group>"; };
+		0C106966235EA19000CB58A2 /* ZQDataGridRightTableViewCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridRightTableViewCellModel.h; sourceTree = "<group>"; };
+		0C106967235EA19000CB58A2 /* ZQDataGridComponentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridComponentModel.m; sourceTree = "<group>"; };
+		0C106968235EA19000CB58A2 /* ZQDataGridLeftTableViewCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridLeftTableViewCellModel.m; sourceTree = "<group>"; };
+		0C106969235EA19000CB58A2 /* ZQDataGridHeadItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridHeadItemModel.m; sourceTree = "<group>"; };
+		0C10696A235EA19000CB58A2 /* ZQDataGridBaseCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridBaseCellModel.h; sourceTree = "<group>"; };
+		0C10696B235EA19000CB58A2 /* ZQDataGridComponentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridComponentModel.h; sourceTree = "<group>"; };
+		0C10696C235EA19000CB58A2 /* ZQDataGridRightTableViewCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridRightTableViewCellModel.m; sourceTree = "<group>"; };
+		0C10696D235EA19000CB58A2 /* ZQDataGridLeftTableViewCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridLeftTableViewCellModel.h; sourceTree = "<group>"; };
+		0C10696F235EA19100CB58A2 /* ZQDataGridComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridComponent.h; sourceTree = "<group>"; };
+		0C106970235EA19100CB58A2 /* ZQDataGridRightTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridRightTableViewCell.m; sourceTree = "<group>"; };
+		0C106971235EA19100CB58A2 /* ZQDataGridBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridBaseCell.m; sourceTree = "<group>"; };
+		0C106972235EA19100CB58A2 /* ZQDataGridRowViewCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridRowViewCollectionView.m; sourceTree = "<group>"; };
+		0C106973235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridLeftTabelViewCell.m; sourceTree = "<group>"; };
+		0C106974235EA19100CB58A2 /* ZQDataGridHeadItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridHeadItemCell.m; sourceTree = "<group>"; };
+		0C106975235EA19100CB58A2 /* ZQDataGridRightTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridRightTableViewCell.h; sourceTree = "<group>"; };
+		0C106976235EA19100CB58A2 /* ZQDataGridComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQDataGridComponent.m; sourceTree = "<group>"; };
+		0C106977235EA19100CB58A2 /* ZQDataGridBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridBaseCell.h; sourceTree = "<group>"; };
+		0C106978235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridLeftTabelViewCell.h; sourceTree = "<group>"; };
+		0C106979235EA19100CB58A2 /* ZQDataGridRowViewCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridRowViewCollectionView.h; sourceTree = "<group>"; };
+		0C10697A235EA19100CB58A2 /* ZQDataGridHeadItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQDataGridHeadItemCell.h; sourceTree = "<group>"; };
+		0C10697B235EA19100CB58A2 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		0C106988235EA52700CB58A2 /* NomalCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NomalCollectionViewCell.h; sourceTree = "<group>"; };
+		0C106989235EA52800CB58A2 /* NomalCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NomalCollectionViewCell.m; sourceTree = "<group>"; };
+		0C10698C235EAAEC00CB58A2 /* myDataGridViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = myDataGridViewCell.h; sourceTree = "<group>"; };
+		0C10698D235EAAEC00CB58A2 /* myDataGridViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = myDataGridViewCell.m; sourceTree = "<group>"; };
 		0C11BAB3233CB326000F77BD /* TaskReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskReportVC.h; sourceTree = "<group>"; };
 		0C11BAB4233CB326000F77BD /* TaskReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskReportVC.m; sourceTree = "<group>"; };
 		0C192C9122CAEBC4000CA161 /* AddNumeralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralVC.h; sourceTree = "<group>"; };
@@ -798,6 +853,22 @@
 		0C74522022A91131008F2F07 /* ChannelDealCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelDealCell.m; sourceTree = "<group>"; };
 		0C74522322A91CAB008F2F07 /* MinMaxDateChooseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinMaxDateChooseView.h; sourceTree = "<group>"; };
 		0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinMaxDateChooseView.m; sourceTree = "<group>"; };
+		0C758144235D48200029B530 /* DealCustomerReportChannelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportChannelCell.h; sourceTree = "<group>"; };
+		0C758145235D48200029B530 /* DealCustomerReportChannelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportChannelCell.m; sourceTree = "<group>"; };
+		0C758147235D49660029B530 /* DealCustomerReportPropertyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportPropertyCell.h; sourceTree = "<group>"; };
+		0C758148235D49660029B530 /* DealCustomerReportPropertyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportPropertyCell.m; sourceTree = "<group>"; };
+		0C75814B235D51320029B530 /* SaleDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaleDetailCell.h; sourceTree = "<group>"; };
+		0C75814C235D51320029B530 /* SaleDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaleDetailCell.m; sourceTree = "<group>"; };
+		0C758150235D5AED0029B530 /* SaleRankOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaleRankOrderCell.h; sourceTree = "<group>"; };
+		0C758151235D5AED0029B530 /* SaleRankOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaleRankOrderCell.m; sourceTree = "<group>"; };
+		0C758153235D5B090029B530 /* SaleRankContractCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaleRankContractCell.h; sourceTree = "<group>"; };
+		0C758154235D5B090029B530 /* SaleRankContractCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaleRankContractCell.m; sourceTree = "<group>"; };
+		0C758157235D5FAC0029B530 /* WeekCountCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeekCountCell.h; sourceTree = "<group>"; };
+		0C758158235D5FAC0029B530 /* WeekCountCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeekCountCell.m; sourceTree = "<group>"; };
+		0C75815B235DA6960029B530 /* ReceiptCountChartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiptCountChartCell.h; sourceTree = "<group>"; };
+		0C75815C235DA6960029B530 /* ReceiptCountChartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiptCountChartCell.m; sourceTree = "<group>"; };
+		0C75815E235DA7D40029B530 /* ReceiptCountChartHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiptCountChartHeader.h; sourceTree = "<group>"; };
+		0C75815F235DA7D40029B530 /* ReceiptCountChartHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiptCountChartHeader.m; sourceTree = "<group>"; };
 		0C7A0A2922E71DD900CF44D3 /* TaskSellReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskSellReportCell.h; sourceTree = "<group>"; };
 		0C7A0A2A22E71DD900CF44D3 /* TaskSellReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskSellReportCell.m; sourceTree = "<group>"; };
 		0C991C582272B32700AF2817 /* ProjectRoleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectRoleVC.h; sourceTree = "<group>"; };
@@ -1620,6 +1691,85 @@
 			path = "认购变更";
 			sourceTree = "<group>";
 		};
+		0C10695A235EA13700CB58A2 /* 第三方SDK */ = {
+			isa = PBXGroup;
+			children = (
+				0C10695B235EA13700CB58A2 /* 双表头table */,
+			);
+			path = "第三方SDK";
+			sourceTree = "<group>";
+		};
+		0C10695B235EA13700CB58A2 /* 双表头table */ = {
+			isa = PBXGroup;
+			children = (
+				0C10698B235EAADA00CB58A2 /* view */,
+				0C106988235EA52700CB58A2 /* NomalCollectionViewCell.h */,
+				0C106989235EA52800CB58A2 /* NomalCollectionViewCell.m */,
+				0C10695F235EA19000CB58A2 /* ZQDataGridComponent */,
+				0C10695C235EA13700CB58A2 /* myDataGridView.m */,
+				0C10695D235EA13700CB58A2 /* myDataGridView.h */,
+			);
+			path = "双表头table";
+			sourceTree = "<group>";
+		};
+		0C10695F235EA19000CB58A2 /* ZQDataGridComponent */ = {
+			isa = PBXGroup;
+			children = (
+				0C106960235EA19000CB58A2 /* UIView+Frame.m */,
+				0C106961235EA19000CB58A2 /* ZQHeader.h */,
+				0C106962235EA19000CB58A2 /* DefineFile.h */,
+				0C106963235EA19000CB58A2 /* Model */,
+				0C10696E235EA19100CB58A2 /* View */,
+				0C10697B235EA19100CB58A2 /* UIView+Frame.h */,
+			);
+			path = ZQDataGridComponent;
+			sourceTree = "<group>";
+		};
+		0C106963235EA19000CB58A2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0C106964235EA19000CB58A2 /* ZQDataGridBaseCellModel.m */,
+				0C106965235EA19000CB58A2 /* ZQDataGridHeadItemModel.h */,
+				0C106966235EA19000CB58A2 /* ZQDataGridRightTableViewCellModel.h */,
+				0C106967235EA19000CB58A2 /* ZQDataGridComponentModel.m */,
+				0C106968235EA19000CB58A2 /* ZQDataGridLeftTableViewCellModel.m */,
+				0C106969235EA19000CB58A2 /* ZQDataGridHeadItemModel.m */,
+				0C10696A235EA19000CB58A2 /* ZQDataGridBaseCellModel.h */,
+				0C10696B235EA19000CB58A2 /* ZQDataGridComponentModel.h */,
+				0C10696C235EA19000CB58A2 /* ZQDataGridRightTableViewCellModel.m */,
+				0C10696D235EA19000CB58A2 /* ZQDataGridLeftTableViewCellModel.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0C10696E235EA19100CB58A2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0C10696F235EA19100CB58A2 /* ZQDataGridComponent.h */,
+				0C106970235EA19100CB58A2 /* ZQDataGridRightTableViewCell.m */,
+				0C106971235EA19100CB58A2 /* ZQDataGridBaseCell.m */,
+				0C106972235EA19100CB58A2 /* ZQDataGridRowViewCollectionView.m */,
+				0C106973235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.m */,
+				0C106974235EA19100CB58A2 /* ZQDataGridHeadItemCell.m */,
+				0C106975235EA19100CB58A2 /* ZQDataGridRightTableViewCell.h */,
+				0C106976235EA19100CB58A2 /* ZQDataGridComponent.m */,
+				0C106977235EA19100CB58A2 /* ZQDataGridBaseCell.h */,
+				0C106978235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.h */,
+				0C106979235EA19100CB58A2 /* ZQDataGridRowViewCollectionView.h */,
+				0C10697A235EA19100CB58A2 /* ZQDataGridHeadItemCell.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0C10698B235EAADA00CB58A2 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C10698C235EAAEC00CB58A2 /* myDataGridViewCell.h */,
+				0C10698D235EAAEC00CB58A2 /* myDataGridViewCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0C11BAB2233CB30C000F77BD /* 日、周、月报 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1983,7 +2133,7 @@
 		0C3A9113225B20C400F04804 /* 云售楼 */ = {
 			isa = PBXGroup;
 			children = (
-				0C3A9146225B211400F04804 /* 第三方SDK */,
+				0C10695A235EA13700CB58A2 /* 第三方SDK */,
 				0C3A9147225B211400F04804 /* 自定义SDK */,
 				0C3A9148225B211400F04804 /* Resource */,
 				0C3A914A225B211400F04804 /* UserModel */,
@@ -2017,13 +2167,6 @@
 				0C3A913A225B20C600F04804 /* Info.plist */,
 			);
 			path = "云售楼UITests";
-			sourceTree = "<group>";
-		};
-		0C3A9146225B211400F04804 /* 第三方SDK */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "第三方SDK";
 			sourceTree = "<group>";
 		};
 		0C3A9147225B211400F04804 /* 自定义SDK */ = {
@@ -2620,6 +2763,62 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0C758143235D47B20029B530 /* 意向物业 */ = {
+			isa = PBXGroup;
+			children = (
+				0C758147235D49660029B530 /* DealCustomerReportPropertyCell.h */,
+				0C758148235D49660029B530 /* DealCustomerReportPropertyCell.m */,
+			);
+			path = "意向物业";
+			sourceTree = "<group>";
+		};
+		0C75814A235D51250029B530 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C75814B235D51320029B530 /* SaleDetailCell.h */,
+				0C75814C235D51320029B530 /* SaleDetailCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C75814E235D5ABE0029B530 /* 按认购统计 */ = {
+			isa = PBXGroup;
+			children = (
+				0C758150235D5AED0029B530 /* SaleRankOrderCell.h */,
+				0C758151235D5AED0029B530 /* SaleRankOrderCell.m */,
+			);
+			path = "按认购统计";
+			sourceTree = "<group>";
+		};
+		0C75814F235D5AC70029B530 /* 按合同统计 */ = {
+			isa = PBXGroup;
+			children = (
+				0C758153235D5B090029B530 /* SaleRankContractCell.h */,
+				0C758154235D5B090029B530 /* SaleRankContractCell.m */,
+			);
+			path = "按合同统计";
+			sourceTree = "<group>";
+		};
+		0C758156235D5F830029B530 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C758157235D5FAC0029B530 /* WeekCountCell.h */,
+				0C758158235D5FAC0029B530 /* WeekCountCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C75815A235DA6840029B530 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C75815B235DA6960029B530 /* ReceiptCountChartCell.h */,
+				0C75815C235DA6960029B530 /* ReceiptCountChartCell.m */,
+				0C75815E235DA7D40029B530 /* ReceiptCountChartHeader.h */,
+				0C75815F235DA7D40029B530 /* ReceiptCountChartHeader.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0C7A0A2822E71DA900CF44D3 /* 销售日、周、月报 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3098,6 +3297,15 @@
 				0CBD712322925B1E002A6B48 /* PushSettingCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		0CC1FB3F235D4788005E346C /* 认知途径 */ = {
+			isa = PBXGroup;
+			children = (
+				0C758144235D48200029B530 /* DealCustomerReportChannelCell.h */,
+				0C758145235D48200029B530 /* DealCustomerReportChannelCell.m */,
+			);
+			path = "认知途径";
 			sourceTree = "<group>";
 		};
 		0CC2730222681FA700EB881F /* 自定义Btn */ = {
@@ -4215,6 +4423,7 @@
 		105162452359A4D500E7CA6F /* 销售明细表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C75814A235D51250029B530 /* view */,
 				105162522359A5CD00E7CA6F /* SaleDetailVC.h */,
 				105162532359A5CD00E7CA6F /* SaleDetailVC.m */,
 			);
@@ -4224,6 +4433,8 @@
 		105162462359A4D500E7CA6F /* 成交分析表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C758143235D47B20029B530 /* 意向物业 */,
+				0CC1FB3F235D4788005E346C /* 认知途径 */,
 				1051624C2359A55A00E7CA6F /* DealCustomerReportVC.h */,
 				1051624D2359A55A00E7CA6F /* DealCustomerReportVC.m */,
 			);
@@ -4233,6 +4444,8 @@
 		105162472359A4D600E7CA6F /* 销售排名表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C75814F235D5AC70029B530 /* 按合同统计 */,
+				0C75814E235D5ABE0029B530 /* 按认购统计 */,
 				105162552359A5E400E7CA6F /* SaleRankVC.h */,
 				105162562359A5E400E7CA6F /* SaleRankVC.m */,
 			);
@@ -4260,6 +4473,7 @@
 		1051624A2359A4D600E7CA6F /* 收款统计表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C75815A235DA6840029B530 /* view */,
 				1051624F2359A5B200E7CA6F /* ReceiptCountVC.h */,
 				105162502359A5B200E7CA6F /* ReceiptCountVC.m */,
 			);
@@ -4269,6 +4483,7 @@
 		1051624B2359A4D600E7CA6F /* 销售周汇总表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C758156235D5F830029B530 /* view */,
 				1051625B2359A60F00E7CA6F /* WeekCountVC.h */,
 				1051625C2359A60F00E7CA6F /* WeekCountVC.m */,
 			);
@@ -4830,15 +5045,18 @@
 				0C4B8EEC22CC4B1600D505BE /* AddOrderVC.m in Sources */,
 				0C3A9157225B223400F04804 /* BaseModel.m in Sources */,
 				0CEF8AD622606D0E0057F3FD /* WorkCell.m in Sources */,
+				0C10697C235EA19100CB58A2 /* UIView+Frame.m in Sources */,
 				0CFDB2FE22EE831C00F21976 /* SincerityChangeVC.m in Sources */,
 				0C310E4122A5569A00083504 /* ChannelCustomListVC.m in Sources */,
 				0CC7E8DC22FA6BB200AB0E1F /* SignPayWayChangeVC.m in Sources */,
+				0C10697E235EA19100CB58A2 /* ZQDataGridComponentModel.m in Sources */,
 				0CD04340228006BF002C8BD3 /* WorkRecommendValidDetailVC.m in Sources */,
 				0CD7A031225C6D5700EAE816 /* BDDynamicTreeNode.m in Sources */,
 				1051625A2359A5FA00E7CA6F /* MonthCountVC.m in Sources */,
 				0C221A5A227EB117006B0510 /* TaskSignAuditCell.m in Sources */,
 				0C7451F522A7B14A008F2F07 /* SingleBarChartView.m in Sources */,
 				0CD7A03E225C6F1100EAE816 /* FeedbackVC.m in Sources */,
+				0C758159235D5FAC0029B530 /* WeekCountCell.m in Sources */,
 				0C74520D22A8AC86008F2F07 /* ChannelCustomVC.m in Sources */,
 				0CF1A2EF228D15E6001C77CF /* VisitCustomVC.m in Sources */,
 				0C221A7E227EED76006B0510 /* WorkPhoneConfrimUseVC.m in Sources */,
@@ -4882,6 +5100,7 @@
 				10EF17BB2293884900DE5566 /* AddPeopleVC.m in Sources */,
 				1084D10B2296AC53001DB0FD /* PowerModel.m in Sources */,
 				0C3A9177225C338500F04804 /* MineCell.m in Sources */,
+				0C106986235EA19100CB58A2 /* ZQDataGridHeadItemCell.m in Sources */,
 				0CD0432E227FD33B002C8BD3 /* WorkRecommendValidVC.m in Sources */,
 				0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */,
 				10BC3A44228FEE4800DAB2D8 /* RotationHeadView.m in Sources */,
@@ -4890,7 +5109,9 @@
 				0CD0439A228172AF002C8BD3 /* RoomDetailVC.m in Sources */,
 				0C2A7015226D9A7200571EC1 /* GZQFlowLayout.m in Sources */,
 				0CEF8A44225F15F70057F3FD /* BaseHeader.m in Sources */,
+				0C75814D235D51320029B530 /* SaleDetailCell.m in Sources */,
 				0CD0431D227FD0EB002C8BD3 /* WorkPhoneConfrimUseDetailVC.m in Sources */,
+				0C10697D235EA19100CB58A2 /* ZQDataGridBaseCellModel.m in Sources */,
 				0CD0434F22800F5D002C8BD3 /* WorkPersonAuditVC.m in Sources */,
 				0CF1A304228D8354001C77CF /* VisitCustomDetailVC.m in Sources */,
 				0CD04339227FDF9A002C8BD3 /* WorkRecommendWaitDetailVC.m in Sources */,
@@ -4911,6 +5132,7 @@
 				0CD043AC22817622002C8BD3 /* KyoRowIndexView.m in Sources */,
 				0CD043532280107F002C8BD3 /* WorkPersonAuditCell.m in Sources */,
 				0C221A56227EB078006B0510 /* TaskVisitConfirmCell.m in Sources */,
+				0C10697F235EA19100CB58A2 /* ZQDataGridLeftTableViewCellModel.m in Sources */,
 				0C743A5722C1B22200F5CB6B /* CommissionReportVC.m in Sources */,
 				0C038BBD22E9847A00D83DC2 /* NumeralDetailInvalidView.m in Sources */,
 				0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */,
@@ -4928,11 +5150,14 @@
 				105162512359A5B200E7CA6F /* ReceiptCountVC.m in Sources */,
 				0CEF8AF722646DBD0057F3FD /* CallTelegramCustomDetailHeader.m in Sources */,
 				0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */,
+				0C106987235EA19100CB58A2 /* ZQDataGridComponent.m in Sources */,
+				0C758152235D5AED0029B530 /* SaleRankOrderCell.m in Sources */,
 				0CD043AA22817622002C8BD3 /* KyoCinameSeatScrollView.m in Sources */,
 				0C496E0722D7152300789FFA /* SelectPerferCollCell.m in Sources */,
 				0C3A919D225C484500F04804 /* TagCollCell.m in Sources */,
 				0C05334522F9631E00DA9143 /* OrderChangeRoomVC.m in Sources */,
 				0CAC926C228408F5006B2B79 /* CompanyApplyVC.m in Sources */,
+				0C10698A235EA52800CB58A2 /* NomalCollectionViewCell.m in Sources */,
 				10BC3A5922912F9200DAB2D8 /* AbdicateHeaderView.m in Sources */,
 				0C4B7F6D22C9DB2300BBC34F /* NumeralDetailHeader.m in Sources */,
 				0C221A66227ED23E006B0510 /* AddCallTelegramGroupMemberVC.m in Sources */,
@@ -4954,6 +5179,7 @@
 				0CEF8AFD2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m in Sources */,
 				0CEF8B082265B6D70057F3FD /* BorderTextField.m in Sources */,
 				0CD04396228170ED002C8BD3 /* RoomFooter.m in Sources */,
+				0C106985235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.m in Sources */,
 				0C496DFB22D49E0100789FFA /* installmentCollCell.m in Sources */,
 				0C496DEB22D4466500789FFA /* AddNumeralInfoView.m in Sources */,
 				0C3A914F225B216400F04804 /* BaseRequest.m in Sources */,
@@ -4964,6 +5190,7 @@
 				0C496DEE22D469E500789FFA /* AddNumeralProcessView.m in Sources */,
 				0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */,
 				0CEF8AE4226427260057F3FD /* CallTelegramVC.m in Sources */,
+				0C10695E235EA13700CB58A2 /* myDataGridView.m in Sources */,
 				0CC7E8F522FA726600AB0E1F /* SignYearChangeVC.m in Sources */,
 				0CFF71F622A650540066732B /* SSWPieChartView.m in Sources */,
 				0C2A701A226D9E2600571EC1 /* IntentSurveyCollCell.m in Sources */,
@@ -4985,9 +5212,13 @@
 				0C0CE33522E15FB000092293 /* ChangeOrderVC.m in Sources */,
 				0C221A52227EAF54006B0510 /* TaskTakeLookConfirmCell.m in Sources */,
 				0CF1A2FE228D8242001C77CF /* AddVisitCustomVC.m in Sources */,
+				0C106981235EA19100CB58A2 /* ZQDataGridRightTableViewCellModel.m in Sources */,
 				0C04D7232329E86E003188BE /* CodeGenerateTools.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
+				0C758160235DA7D40029B530 /* ReceiptCountChartHeader.m in Sources */,
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
+				0C75815D235DA6960029B530 /* ReceiptCountChartCell.m in Sources */,
+				0C106982235EA19100CB58A2 /* ZQDataGridRightTableViewCell.m in Sources */,
 				0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */,
 				0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */,
 				0CA8265122AE60A00005F3ED /* MultiVisitReportVC.m in Sources */,
@@ -5004,6 +5235,7 @@
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
 				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
+				0C758146235D48200029B530 /* DealCustomerReportChannelCell.m in Sources */,
 				0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0CFDB30122EE8F2F00F21976 /* SincerityChangeView.m in Sources */,
@@ -5034,10 +5266,12 @@
 				0C4B7F6322C9A9B400BBC34F /* NumeralCell.m in Sources */,
 				0C221A6A227EDE73006B0510 /* BaseAddCell.m in Sources */,
 				0CD0433C227FE66B002C8BD3 /* InfoDetailCell.m in Sources */,
+				0C10698E235EAAEC00CB58A2 /* myDataGridViewCell.m in Sources */,
 				0CEF8B042265ADA20057F3FD /* AddCallTelegramVC.m in Sources */,
 				0CEF8A54225F1D440057F3FD /* SelectCompanyTableCell.m in Sources */,
 				0C4B8EE822CC49BB00D505BE /* SignDetailVC.m in Sources */,
 				0CD0436F2280344E002C8BD3 /* WorkReceiptDetailVC.m in Sources */,
+				0C106984235EA19100CB58A2 /* ZQDataGridRowViewCollectionView.m in Sources */,
 				0C3A9153225B219300F04804 /* BaseViewController.m in Sources */,
 				0CEF8A3D225F0CF10057F3FD /* CompanyAuthVC.m in Sources */,
 				0C3A915D225B366400F04804 /* CYLTabBarControllerConfig.m in Sources */,
@@ -5046,6 +5280,7 @@
 				0CC7E8EC22FA710900AB0E1F /* SignExitRoomVC.m in Sources */,
 				0CEF8A4A225F188A0057F3FD /* SelectCompanyVC.m in Sources */,
 				10EF179A2291614900DE5566 /* RotationSettingCell.m in Sources */,
+				0C106983235EA19100CB58A2 /* ZQDataGridBaseCell.m in Sources */,
 				0C7A0A2B22E71DD900CF44D3 /* TaskSellReportCell.m in Sources */,
 				0C4B7F7022CA026C00BBC34F /* NumeralDetailCell.m in Sources */,
 				0CC2730522681FF100EB881F /* DropBtn.m in Sources */,
@@ -5063,6 +5298,7 @@
 				10EF17A622928A6700DE5566 /* AddCompanyView.m in Sources */,
 				0C4B7F7422CA050600BBC34F /* AddEncumbrancerVC.m in Sources */,
 				0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */,
+				0C758149235D49660029B530 /* DealCustomerReportPropertyCell.m in Sources */,
 				0CD0439222816ED9002C8BD3 /* RoomHeader.m in Sources */,
 				0CFC16DA22EAD91400AD3D65 /* InstallMentDetailCell.m in Sources */,
 				0CAD457422980B9E00A5C1D0 /* WorkRecommendValidCell.m in Sources */,
@@ -5081,6 +5317,7 @@
 				0C221A5E227EC763006B0510 /* IntentSurveyHeader.m in Sources */,
 				0C74521322A8B574008F2F07 /* ChannelRecommendVC.m in Sources */,
 				0C05330A22F7DD6700DA9143 /* OrderMasterSlaveChangeVC.m in Sources */,
+				0C106980235EA19100CB58A2 /* ZQDataGridHeadItemModel.m in Sources */,
 				0C496DF822D49DEA00789FFA /* preferentialCollCell.m in Sources */,
 				0CBD71152292437A002A6B48 /* InvalidView.m in Sources */,
 				0CD7A02E225C6D5700EAE816 /* AddressTableCell.m in Sources */,
@@ -5090,6 +5327,7 @@
 				0CD0435722801643002C8BD3 /* WorkPersonAuditDetailVC.m in Sources */,
 				0C6BFED7231663800079B304 /* VisitCustomMergeVC.m in Sources */,
 				0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */,
+				0C758155235D5B090029B530 /* SaleRankContractCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

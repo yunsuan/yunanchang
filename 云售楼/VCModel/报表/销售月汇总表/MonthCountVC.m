@@ -11,6 +11,7 @@
 @interface MonthCountVC ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
     
+    NSString *_project_id;
     
     NSMutableArray *_dataArr;
 }
@@ -22,24 +23,47 @@
 
 @implementation MonthCountVC
 
+- (instancetype)initWithProjectId:(NSString *)project_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = project_id;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
-    
 }
 
-
 - (void)initDataSource{
-    
-   
+
 }
 
 - (void)RequestMethod{
     
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id}];
     
+    [BaseRequest GET:ReportSaleDateCount_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                
+        }else{
+                
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+                    
+        [self showContent:@"网络错误"];
+    }];
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     

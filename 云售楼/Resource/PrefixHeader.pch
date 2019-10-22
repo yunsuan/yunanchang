@@ -83,6 +83,7 @@
 #define CLLoginBtnColor   COLOR(0x1b, 0x80, 0xfe, 1)
 #define CLBlueBtnColor   COLOR(27, 152, 255, 1)
 #define CLBlueTagColor   COLOR(81, 163, 237, 1)
+#define CLBlueTitleColor   COLOR(18, 184, 246, 1)
 #define CLBlueBackColor   COLOR(213, 242, 255, 1)
 #define CLOrangeColor  COLOR(249, 156, 59, 1)
 #define CLYellowColor  COLOR(255, 235, 17, 1)

@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MonthCountVC : BaseViewController
+
+- (instancetype)initWithProjectId:(NSString *)project_id;
+
 @end
 
 NS_ASSUME_NONNULL_END
