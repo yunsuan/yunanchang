@@ -510,4 +510,9 @@ static NSString *const ReportSaleSort_URL = @"saleApp/report/sale/sort";
 //销售周汇总表
 static NSString *const ReportSaleDateCount_URL = @"saleApp/report/sale/date/count";
 
+//销售月汇总表
+static NSString *const ReportSaleMonthCount_URL = @"saleApp/report/sale/month/count";
+
+//单独获取月度成交统计
+static NSString *const ReportSaleMonthCountContract_URL = @"saleApp/report/sale/month/count/contract";
 #endif /* NetConfig_h */

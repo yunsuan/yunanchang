@@ -38,6 +38,8 @@
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
 
+#define MonthDic @{@"1":@"January",@"2":@"February",@"3":@"March",@"4":@"April",@"5":@"May",@"6":@"June",@"7":@"July",@"8":@"August",@"9":@"Septemper",@"10":@"October",@"11":@"November",@"12":@"December"}
+
 
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 #define SS(strongSelf)  __strong __typeof(&*self)strongSelf = self;

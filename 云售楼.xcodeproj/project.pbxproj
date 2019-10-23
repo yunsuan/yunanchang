@@ -41,6 +41,16 @@
 		0C05334C22F97DCA00DA9143 /* QueryPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */; };
 		0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */; };
 		0C09524123167B1F00E38F74 /* toTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C09524023167B1E00E38F74 /* toTop.png */; };
+		0C0C103C235EFF4300A81888 /* YJYLinesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C102F235EFF4300A81888 /* YJYLinesCell.m */; };
+		0C0C103D235EFF4300A81888 /* LHYLinesPaoPaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C1033235EFF4300A81888 /* LHYLinesPaoPaoView.m */; };
+		0C0C103E235EFF4300A81888 /* LHYChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C1034235EFF4300A81888 /* LHYChartView.m */; };
+		0C0C103F235EFF4300A81888 /* LinesSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C1035235EFF4300A81888 /* LinesSelectCell.m */; };
+		0C0C1040235EFF4300A81888 /* YJYTouchCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C1036235EFF4300A81888 /* YJYTouchCollectionView.m */; };
+		0C0C1041235EFF4300A81888 /* YJYTouchScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C1038235EFF4300A81888 /* YJYTouchScroll.m */; };
+		0C0C1042235EFF4300A81888 /* YJYLinesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0C103A235EFF4300A81888 /* YJYLinesCell.xib */; };
+		0C0C104A235EFF8900A81888 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C1046235EFF8900A81888 /* UIColor+expanded.m */; };
+		0C0C104B235EFF8900A81888 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C1049235EFF8900A81888 /* NSString+Extension.m */; };
+		0C0C104F235F000600A81888 /* MonthCountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C104E235F000600A81888 /* MonthCountCell.m */; };
 		0C0CE32222DDB1C800092293 /* TransNumeralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32122DDB1C800092293 /* TransNumeralCell.m */; };
 		0C0CE32522DDB60800092293 /* TransOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32422DDB60800092293 /* TransOrderCell.m */; };
 		0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE32722DDB61500092293 /* TransSignCell.m */; };
@@ -118,6 +128,7 @@
 		0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A918A225C484500F04804 /* TitleBaseHeader.m */; };
 		0C3A919D225C484500F04804 /* TagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9190225C484500F04804 /* TagCollCell.m */; };
 		0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */; };
+		0C3D4D52235FDBB6001CB6A9 /* MonthCountHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4D51235FDBB6001CB6A9 /* MonthCountHeader.m */; };
 		0C496DE122D42E0800789FFA /* AddNumeralModifyCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */; };
 		0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE422D4310600789FFA /* AddNumeralAddCustomVC.m */; };
 		0C496DE822D444F400789FFA /* AddNemeralHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE722D444F400789FFA /* AddNemeralHeader.m */; };
@@ -604,6 +615,25 @@
 		0C08E79022F7CD990079A3A0 /* NumeralAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAddMinusPersonVC.h; sourceTree = "<group>"; };
 		0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAddMinusPersonVC.m; sourceTree = "<group>"; };
 		0C09524023167B1E00E38F74 /* toTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toTop.png; sourceTree = "<group>"; };
+		0C0C102F235EFF4300A81888 /* YJYLinesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJYLinesCell.m; sourceTree = "<group>"; };
+		0C0C1030235EFF4300A81888 /* YJYTouchCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJYTouchCollectionView.h; sourceTree = "<group>"; };
+		0C0C1031235EFF4300A81888 /* LinesSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinesSelectCell.h; sourceTree = "<group>"; };
+		0C0C1032235EFF4300A81888 /* YJYTouchScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJYTouchScroll.h; sourceTree = "<group>"; };
+		0C0C1033235EFF4300A81888 /* LHYLinesPaoPaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHYLinesPaoPaoView.m; sourceTree = "<group>"; };
+		0C0C1034235EFF4300A81888 /* LHYChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHYChartView.m; sourceTree = "<group>"; };
+		0C0C1035235EFF4300A81888 /* LinesSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinesSelectCell.m; sourceTree = "<group>"; };
+		0C0C1036235EFF4300A81888 /* YJYTouchCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJYTouchCollectionView.m; sourceTree = "<group>"; };
+		0C0C1037235EFF4300A81888 /* YJYLinesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJYLinesCell.h; sourceTree = "<group>"; };
+		0C0C1038235EFF4300A81888 /* YJYTouchScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJYTouchScroll.m; sourceTree = "<group>"; };
+		0C0C1039235EFF4300A81888 /* LHYLinesPaoPaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHYLinesPaoPaoView.h; sourceTree = "<group>"; };
+		0C0C103A235EFF4300A81888 /* YJYLinesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YJYLinesCell.xib; sourceTree = "<group>"; };
+		0C0C103B235EFF4300A81888 /* LHYChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHYChartView.h; sourceTree = "<group>"; };
+		0C0C1045235EFF8900A81888 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
+		0C0C1046235EFF8900A81888 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
+		0C0C1048235EFF8900A81888 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		0C0C1049235EFF8900A81888 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
+		0C0C104D235F000600A81888 /* MonthCountCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonthCountCell.h; sourceTree = "<group>"; };
+		0C0C104E235F000600A81888 /* MonthCountCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonthCountCell.m; sourceTree = "<group>"; };
 		0C0CE32022DDB1C800092293 /* TransNumeralCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransNumeralCell.h; sourceTree = "<group>"; };
 		0C0CE32122DDB1C800092293 /* TransNumeralCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransNumeralCell.m; sourceTree = "<group>"; };
 		0C0CE32322DDB60800092293 /* TransOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransOrderCell.h; sourceTree = "<group>"; };
@@ -762,6 +792,8 @@
 		0C3A9191225C484500F04804 /* TagCollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCollCell.h; sourceTree = "<group>"; };
 		0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleRightBtnHeader.m; sourceTree = "<group>"; };
 		0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
+		0C3D4D50235FDBB6001CB6A9 /* MonthCountHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonthCountHeader.h; sourceTree = "<group>"; };
+		0C3D4D51235FDBB6001CB6A9 /* MonthCountHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonthCountHeader.m; sourceTree = "<group>"; };
 		0C496DDF22D42E0800789FFA /* AddNumeralModifyCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralModifyCustomVC.h; sourceTree = "<group>"; };
 		0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralModifyCustomVC.m; sourceTree = "<group>"; };
 		0C496DE322D4310600789FFA /* AddNumeralAddCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralAddCustomVC.h; sourceTree = "<group>"; };
@@ -1644,6 +1676,64 @@
 				0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */,
 			);
 			path = "号码查询";
+			sourceTree = "<group>";
+		};
+		0C0C102E235EFF4300A81888 /* charView */ = {
+			isa = PBXGroup;
+			children = (
+				0C0C102F235EFF4300A81888 /* YJYLinesCell.m */,
+				0C0C1030235EFF4300A81888 /* YJYTouchCollectionView.h */,
+				0C0C1031235EFF4300A81888 /* LinesSelectCell.h */,
+				0C0C1032235EFF4300A81888 /* YJYTouchScroll.h */,
+				0C0C1033235EFF4300A81888 /* LHYLinesPaoPaoView.m */,
+				0C0C1034235EFF4300A81888 /* LHYChartView.m */,
+				0C0C1035235EFF4300A81888 /* LinesSelectCell.m */,
+				0C0C1036235EFF4300A81888 /* YJYTouchCollectionView.m */,
+				0C0C1037235EFF4300A81888 /* YJYLinesCell.h */,
+				0C0C1038235EFF4300A81888 /* YJYTouchScroll.m */,
+				0C0C1039235EFF4300A81888 /* LHYLinesPaoPaoView.h */,
+				0C0C103A235EFF4300A81888 /* YJYLinesCell.xib */,
+				0C0C103B235EFF4300A81888 /* LHYChartView.h */,
+			);
+			path = charView;
+			sourceTree = "<group>";
+		};
+		0C0C1043235EFF8900A81888 /* category */ = {
+			isa = PBXGroup;
+			children = (
+				0C0C1044235EFF8900A81888 /* UIColor */,
+				0C0C1047235EFF8900A81888 /* NSString */,
+			);
+			path = category;
+			sourceTree = "<group>";
+		};
+		0C0C1044235EFF8900A81888 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				0C0C1045235EFF8900A81888 /* UIColor+expanded.h */,
+				0C0C1046235EFF8900A81888 /* UIColor+expanded.m */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		0C0C1047235EFF8900A81888 /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				0C0C1048235EFF8900A81888 /* NSString+Extension.h */,
+				0C0C1049235EFF8900A81888 /* NSString+Extension.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
+		0C0C104C235EFFF600A81888 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C0C104D235F000600A81888 /* MonthCountCell.h */,
+				0C0C104E235F000600A81888 /* MonthCountCell.m */,
+				0C3D4D50235FDBB6001CB6A9 /* MonthCountHeader.h */,
+				0C3D4D51235FDBB6001CB6A9 /* MonthCountHeader.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		0C0CE31D22DDB10200092293 /* 订单审核 */ = {
@@ -4464,6 +4554,9 @@
 		105162492359A4D600E7CA6F /* 销售月汇总表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C0C104C235EFFF600A81888 /* view */,
+				0C0C1043235EFF8900A81888 /* category */,
+				0C0C102E235EFF4300A81888 /* charView */,
 				105162582359A5FA00E7CA6F /* MonthCountVC.h */,
 				105162592359A5FA00E7CA6F /* MonthCountVC.m */,
 			);
@@ -4783,6 +4876,7 @@
 				0C3A911C225B20C400F04804 /* Main.storyboard in Resources */,
 				0CA825D822AE0C800005F3ED /* nvtouxiang@2x.png in Resources */,
 				0C04D756232A289D003188BE /* scan.png in Resources */,
+				0C0C1042235EFF4300A81888 /* YJYLinesCell.xib in Resources */,
 				0CA825F422AE0C800005F3ED /* default@3x.png in Resources */,
 				0CA8262022AE0C810005F3ED /* uploadphotos@2x.png in Resources */,
 				0CA825A322AE0C800005F3ED /* Modifythe@2x.png in Resources */,
@@ -5022,6 +5116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C05331222F8070500DA9143 /* OrderYearChangeVC.m in Sources */,
+				0C0C1040235EFF4300A81888 /* YJYTouchCollectionView.m in Sources */,
 				0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */,
 				0CFDB35B22EEDDDA00F21976 /* NumeralBackNumView.m in Sources */,
 				0C3A917A225C435900F04804 /* MineHeader.m in Sources */,
@@ -5037,6 +5132,8 @@
 				0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */,
 				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,
 				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
+				0C0C103F235EFF4300A81888 /* LinesSelectCell.m in Sources */,
+				0C0C103C235EFF4300A81888 /* YJYLinesCell.m in Sources */,
 				0CC2730E226868DE00EB881F /* RecordView.m in Sources */,
 				0CF1A31A228E8E04001C77CF /* SignSelectWorkerView.m in Sources */,
 				0C3A916B225B377D00F04804 /* WorkVC.m in Sources */,
@@ -5146,6 +5243,7 @@
 				0CEF8A5B225F49C60057F3FD /* RoomCollCell.m in Sources */,
 				0CD7A035225C6D5700EAE816 /* AddressChooseView3.m in Sources */,
 				10EF17BF2293970200DE5566 /* RotationModel.m in Sources */,
+				0C0C104A235EFF8900A81888 /* UIColor+expanded.m in Sources */,
 				0C04D7132329E86E003188BE /* CustomTools.m in Sources */,
 				105162512359A5B200E7CA6F /* ReceiptCountVC.m in Sources */,
 				0CEF8AF722646DBD0057F3FD /* CallTelegramCustomDetailHeader.m in Sources */,
@@ -5177,6 +5275,7 @@
 				0CD0438C2281219D002C8BD3 /* CompanyInfoCell.m in Sources */,
 				0CD04331227FD348002C8BD3 /* WorkRecommendFailVC.m in Sources */,
 				0CEF8AFD2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m in Sources */,
+				0C0C104B235EFF8900A81888 /* NSString+Extension.m in Sources */,
 				0CEF8B082265B6D70057F3FD /* BorderTextField.m in Sources */,
 				0CD04396228170ED002C8BD3 /* RoomFooter.m in Sources */,
 				0C106985235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.m in Sources */,
@@ -5206,6 +5305,7 @@
 				10EF17A32292790600DE5566 /* HMChooseView.m in Sources */,
 				0C3A9199225C484500F04804 /* TitleContentRightBaseCell.m in Sources */,
 				0C3A9168225B377400F04804 /* MineVC.m in Sources */,
+				0C0C1041235EFF4300A81888 /* YJYTouchScroll.m in Sources */,
 				0CC7E8F022FA715F00AB0E1F /* SignChangeRoomVC.m in Sources */,
 				0C038BCF22E99B9900D83DC2 /* SpePerferDetailVC.m in Sources */,
 				0C04D7142329E86E003188BE /* UIView+Extension.m in Sources */,
@@ -5234,6 +5334,7 @@
 				0CFC16D622EAD80700AD3D65 /* InstallMentDetailVC.m in Sources */,
 				0CD04321227FD1F0002C8BD3 /* WorkPhoneConfrimFailDetailVC.m in Sources */,
 				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
+				0C0C103D235EFF4300A81888 /* LHYLinesPaoPaoView.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
 				0C758146235D48200029B530 /* DealCustomerReportChannelCell.m in Sources */,
 				0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */,
@@ -5283,9 +5384,11 @@
 				0C106983235EA19100CB58A2 /* ZQDataGridBaseCell.m in Sources */,
 				0C7A0A2B22E71DD900CF44D3 /* TaskSellReportCell.m in Sources */,
 				0C4B7F7022CA026C00BBC34F /* NumeralDetailCell.m in Sources */,
+				0C3D4D52235FDBB6001CB6A9 /* MonthCountHeader.m in Sources */,
 				0CC2730522681FF100EB881F /* DropBtn.m in Sources */,
 				0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */,
 				0C221A7B227EED67006B0510 /* WorkPhoneConfrimWaitVC.m in Sources */,
+				0C0C103E235EFF4300A81888 /* LHYChartView.m in Sources */,
 				105162542359A5CD00E7CA6F /* SaleDetailVC.m in Sources */,
 				0CD043DE2283BC05002C8BD3 /* GetCaptchaView.m in Sources */,
 				0CFDB35F22EEEA2300F21976 /* NumeralChangeNameVC.m in Sources */,
@@ -5295,6 +5398,7 @@
 				0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */,
 				0C74520322A7DC82008F2F07 /* ChannelMutiChartCell.m in Sources */,
 				0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */,
+				0C0C104F235F000600A81888 /* MonthCountCell.m in Sources */,
 				10EF17A622928A6700DE5566 /* AddCompanyView.m in Sources */,
 				0C4B7F7422CA050600BBC34F /* AddEncumbrancerVC.m in Sources */,
 				0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */,
