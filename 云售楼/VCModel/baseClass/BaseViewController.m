@@ -661,4 +661,48 @@
     return [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
 }
 
+- (double)DecimalNumber:(double)num1 num2:(double)num2{
+    
+  NSDecimalNumber *n1 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num1]];
+    
+  NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
+    
+  NSDecimalNumber *n3 = [n1 decimalNumberBySubtracting:n2];
+    
+  NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+  NSDecimalNumber *num = [n1 decimalNumberBySubtracting:n2 withBehavior:handler];
+  NSLog(@"num===%@",num);
+  return num.doubleValue;
+}
+
+- (double)AddNumber:(double)num1 num2:(double)num2{
+    
+    NSDecimalNumber *n1 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num1]];
+      
+    NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
+      
+    NSDecimalNumber *n3 = [n1 decimalNumberByAdding:n2];
+    
+    NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+    NSDecimalNumber *num = [n1 decimalNumberByAdding:n2 withBehavior:handler];
+    NSLog(@"num===%@",num);
+    return num.doubleValue;
+}
+
+- (double)MultiplyingNumber:(double)num1 num2:(double)num2{
+    
+    NSDecimalNumber *n1 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num1]];
+      
+    NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
+      
+    NSDecimalNumber *n3 = [n1 decimalNumberByMultiplyingBy:n2];
+      
+    NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+    NSDecimalNumber *num = [n1 decimalNumberByMultiplyingBy:n2 withBehavior:handler];
+    NSLog(@"num===%@",num);
+    return num.doubleValue;
+}
+
+
+
 @end

@@ -8,6 +8,8 @@
 
 #import "DealCustomerReportVC.h"
 
+#import "DealCustomerReportPropertyVC.h"
+
 #import "DealCustomerReportPropertyCell.h"
 #import "DealCustomerReportChannelCell.h"
 #import "BaseHeader.h"
@@ -180,6 +182,7 @@
     //            cell.singleBarChartView.delegate = self;
         cell.dealCustomerReportChannelCellBlock = ^(NSInteger index) {
                     
+            
 //            ChannelCustomVC *nextVC = [[ChannelCustomVC alloc] init];
 //            nextVC.index = index;
 //            nextVC.project_id = self->_project_id;
@@ -227,20 +230,28 @@
                     
         //            cell.singleBarChartView.delegate = self;
             cell.dealCustomerReportPropertyCellBlock = ^(NSInteger index) {
+                  
+                if ([self->_status isEqualToString:@"1"]) {
+                    
+                    for (int i = 0; i < [self->_dataDic[@"other"] count]; i++) {
                         
-//                ChannelCustomVC *nextVC = [[ChannelCustomVC alloc] init];
-//                nextVC.index = index;
-//                nextVC.project_id = self->_project_id;
-//                if ([self->_status isEqualToString:@"1"]) {
-//
-//                    nextVC.date = [self->_formatter stringFromDate:[NSDate date]];
-//                }else if ([self->_status isEqualToString:@"2"]){
-//
-//                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//                    [formatter setDateFormat:@"YYYY-MM-01"];
-//                    nextVC.date = [formatter stringFromDate:[NSDate date]];
-//                }
-//                [self.navigationController pushViewController:nextVC animated:YES];
+                        if ([self->_dataDic[@"property"][index][@"config_name"] isEqualToString:self->_dataDic[@"other"][i][@"property_name"]]) {
+                            
+                            DealCustomerReportPropertyVC *nextVC = [[DealCustomerReportPropertyVC alloc] initWithDataDic:self->_dataDic[@"other"][i]];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        }
+                    }
+                }else{
+                    
+                    for (int i = 0; i < [self->_yearDic[@"other"] count]; i++) {
+                        
+                        if ([self->_yearDic[@"property"][index][@"config_name"] isEqualToString:self->_yearDic[@"other"][i][@"property_name"]]) {
+                            
+                            DealCustomerReportPropertyVC *nextVC = [[DealCustomerReportPropertyVC alloc] initWithDataDic:self->_yearDic[@"other"][i]];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        }
+                    }
+                }
             };
                     
             if ([_status isEqualToString:@"1"]) {

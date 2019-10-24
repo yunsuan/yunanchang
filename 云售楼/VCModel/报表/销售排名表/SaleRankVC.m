@@ -281,7 +281,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"成交客户分析表";
+    self.titleLabel.text = @"销售排名表";
     
 //    _segment = [[UISegmentedControl alloc] initWithItems:[NSMutableArray arrayWithObjects:@"今日统计",@"累计统计", nil]];
 //    _segment.frame = CGRectMake(80 *SIZE, NAVIGATION_BAR_HEIGHT, 200 *SIZE, 30 *SIZE);

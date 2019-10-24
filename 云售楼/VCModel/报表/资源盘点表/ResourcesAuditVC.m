@@ -63,11 +63,16 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-            NSDictionary *dic = self->_dataDic[@"no"];
-            [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-               
-                [self->_dataArr addObject:[NSString stringWithFormat:@"%@",key]];
-            }];
+            NSArray *arr = self->_dataDic[@"no"];
+//            [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+//
+//                [self->_dataArr addObject:[NSString stringWithFormat:@"%@",key]];
+//            }];
+            [self->_dataArr removeAllObjects];
+            for (int i = 0; i < arr.count; i++) {
+                
+                [self->_dataArr addObject:[NSString stringWithFormat:@"%@",arr[i][@"type"]]];
+            }
             [self->_dataArr addObject:@"合计"];
             [self->_table reloadData];
         }else{
@@ -193,70 +198,88 @@
         if (_dataDic) {
             
             if (indexPath.section == 0) {
-                
+
                 if ([cell.statisticsL.text isEqualToString:@"合计"]) {
-                    
+
                     _num1 = 0;
                     _num2 = 0;
                     _num3 = 0;
                     for (int i = 0; i < _dataArr.count - 1; i++) {
-                        
-                        _num1 = _num1 + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"num"] integerValue];
-                        _num2 = _num2 + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"size"] doubleValue];
-                        _num3 = _num3 + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"print"] doubleValue];
+
+                        _num1 = _num1 + [_dataDic[@"yes"][i][@"num"] integerValue];
+                        _num2 = _num2 + [_dataDic[@"yes"][i][@"size"] integerValue];
+                        _num3 = _num3 + [_dataDic[@"yes"][i][@"print"] integerValue];
+//                        _num1 = _num1 + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"num"] integerValue];
+//                        _num2 = _num2 + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"size"] doubleValue];
+//                        _num3 = _num3 + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"print"] doubleValue];
                     }
                     cell.numL1.text = [NSString stringWithFormat:@"%ld",_num1];
                     cell.numL2.text = [NSString stringWithFormat:@"%.2f",_num2];
                     cell.numL3.text = [NSString stringWithFormat:@"%.2f",_num3];
                 }else{
-                 
-                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"num"] integerValue]];
-                    cell.numL2.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"size"] doubleValue]];
-                    cell.numL3.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"print"] doubleValue]];
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"yes"][indexPath.row - 1][@"num"] integerValue]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"yes"][indexPath.row - 1][@"size"] integerValue]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"yes"][indexPath.row - 1][@"print"] integerValue]];
+//                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"num"] integerValue]];
+//                    cell.numL2.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"size"] doubleValue]];
+//                    cell.numL3.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"print"] doubleValue]];
                 }
             }else if (indexPath.section == 1){
-                
+
                 if ([cell.statisticsL.text isEqualToString:@"合计"]) {
-                    
+
                     _num1 = 0;
                     _num2 = 0;
                     _num3 = 0;
                     for (int i = 0; i < _dataArr.count - 1; i++) {
-                        
-                        _num1 = _num1 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"num"] integerValue];
-                        _num2 = _num2 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"size"] doubleValue];
-                        _num3 = _num3 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"print"] doubleValue];
+
+                        _num1 = _num1 + [_dataDic[@"no"][i][@"num"] integerValue];
+                        _num2 = _num2 + [_dataDic[@"no"][i][@"size"] integerValue];
+                        _num3 = _num3 + [_dataDic[@"no"][i][@"print"] integerValue];
+//                        _num1 = _num1 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"num"] integerValue];
+//                        _num2 = _num2 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"size"] doubleValue];
+//                        _num3 = _num3 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"print"] doubleValue];
                     }
                     cell.numL1.text = [NSString stringWithFormat:@"%ld",_num1];
                     cell.numL2.text = [NSString stringWithFormat:@"%.2f",_num2];
                     cell.numL3.text = [NSString stringWithFormat:@"%.2f",_num3];
                 }else{
-                    
-                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"num"] integerValue]];
-                    cell.numL2.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"size"] doubleValue]];
-                    cell.numL3.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"print"] doubleValue]];
+
+                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"no"][indexPath.row - 1][@"num"] integerValue]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"no"][indexPath.row - 1][@"size"] integerValue]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"no"][indexPath.row - 1][@"print"] integerValue]];
+//                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"num"] integerValue]];
+//                    cell.numL2.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"size"] doubleValue]];
+//                    cell.numL3.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"print"] doubleValue]];
                 }
             }else{
-                
+//
                 if ([cell.statisticsL.text isEqualToString:@"合计"]) {
-                    
+
                     _num1 = 0;
                     _num2 = 0;
                     _num3 = 0;
                     for (int i = 0; i < _dataArr.count - 1; i++) {
-                        
-                        _num1 = _num1 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"num"] integerValue] + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"num"] integerValue];
-                        _num2 = _num2 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"size"] doubleValue] + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"size"] doubleValue];
-                        _num3 = _num3 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"print"] doubleValue] + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"print"] doubleValue];
+
+                        _num1 = _num1 + [_dataDic[@"no"][i][@"num"] integerValue] + [_dataDic[@"yes"][i][@"num"] integerValue];
+                        _num2 = _num2 + [_dataDic[@"no"][i][@"size"] integerValue] + [_dataDic[@"yes"][i][@"size"] integerValue];
+                        _num3 = _num3 + [_dataDic[@"no"][i][@"print"] integerValue] + [_dataDic[@"yes"][i][@"print"] integerValue];
+//                        _num1 = _num1 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"num"] integerValue] + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"num"] integerValue];
+//                        _num2 = _num2 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"size"] doubleValue] + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"size"] doubleValue];
+//                        _num3 = _num3 + [[_dataDic[@"no"] objectForKey:_dataArr[i]][@"print"] doubleValue] + [[_dataDic[@"yes"] objectForKey:_dataArr[i]][@"print"] doubleValue];
                     }
                     cell.numL1.text = [NSString stringWithFormat:@"%ld",_num1];
                     cell.numL2.text = [NSString stringWithFormat:@"%.2f",_num2];
                     cell.numL3.text = [NSString stringWithFormat:@"%.2f",_num3];
                 }else{
-                    
-                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"num"] integerValue] + [[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"num"] integerValue]];
-                    cell.numL2.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"size"] doubleValue] + [[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"size"] doubleValue]];
-                    cell.numL3.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"print"] doubleValue] + [[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"print"] doubleValue]];
+
+                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"no"][indexPath.row - 1][@"num"] integerValue] + [_dataDic[@"yes"][indexPath.row - 1][@"num"] integerValue]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"no"][indexPath.row - 1][@"size"] integerValue] + [_dataDic[@"yes"][indexPath.row - 1][@"size"] integerValue]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%ld",[_dataDic[@"no"][indexPath.row - 1][@"print"] integerValue] + [_dataDic[@"yes"][indexPath.row - 1][@"print"] integerValue]];
+//                    cell.numL1.text = [NSString stringWithFormat:@"%ld",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"num"] integerValue] + [[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"num"] integerValue]];
+//                    cell.numL2.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"size"] doubleValue] + [[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"size"] doubleValue]];
+//                    cell.numL3.text = [NSString stringWithFormat:@"%.2f",[[_dataDic[@"yes"] objectForKey:cell.statisticsL.text][@"print"] doubleValue] + [[_dataDic[@"no"] objectForKey:cell.statisticsL.text][@"print"] doubleValue]];
                 }
             }
         }else{

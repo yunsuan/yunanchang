@@ -72,22 +72,22 @@
             if ([posB floatValue]) {
                 
                 [nameArr addObject:@"POS"];
-                [tempArr addObject:cashB];
+                [tempArr addObject:posB];
             }
             if ([carryOverB floatValue]) {
                 
                 [nameArr addObject:@"银行"];
-                [tempArr addObject:cashB];
+                [tempArr addObject:carryOverB];
             }
             if ([otherB floatValue]) {
                 
                 [nameArr addObject:@"其他"];
-                [tempArr addObject:cashB];
+                [tempArr addObject:otherB];
             }
             if ([changeB floatValue]) {
                 
                 [nameArr addObject:@"换票"];
-                [tempArr addObject:cashB];
+                [tempArr addObject:changeB];
             }
             
             _pieChartView.titlesArr = nameArr;

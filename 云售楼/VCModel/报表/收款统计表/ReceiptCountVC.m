@@ -30,6 +30,8 @@
     NSMutableDictionary *_yearDic;
     
     NSMutableArray *_dataArr;
+    
+    NSDateFormatter *_formatter;
 }
 
 //@property (nonatomic, strong) UISegmentedControl *segment;
@@ -69,14 +71,23 @@
     
     _dataDic = [@{} mutableCopy];
     _dataArr = [@[] mutableCopy];
+    
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
 }
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:ReportFormSKTJB_URL parameters:@{@"project_id":_project_id,@"type":_status} success:^(id  _Nonnull resposeObject) {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"project_id":_project_id}];
+    if ([_status isEqualToString:@"1"]) {
+        
+        [dic setValue:[_formatter stringFromDate:[NSDate date]] forKey:@"time"];
+    }
+    [BaseRequest GET:ReportFormSKTJB_URL parameters:dic success:^(id  _Nonnull resposeObject) {
 
         if ([resposeObject[@"code"] integerValue] == 200) {
 
+            [self->_dataArr removeAllObjects];
             self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
             double cashA = [self->_dataDic[@"earnestMoney"][@"cash"] doubleValue] + [self->_dataDic[@"frontMoney"][@"cash"] doubleValue] + [self->_dataDic[@"roomMoney"][@"cash"] doubleValue] + [self->_dataDic[@"roomMoneyMortgage"][@"cash"] doubleValue] + [self->_dataDic[@"generationCharge"][@"cash"] doubleValue];
             double posA = [self->_dataDic[@"earnestMoney"][@"pos"] doubleValue] + [self->_dataDic[@"frontMoney"][@"pos"] doubleValue] + [self->_dataDic[@"roomMoney"][@"pos"] doubleValue] + [self->_dataDic[@"roomMoneyMortgage"][@"pos"] doubleValue] + [self->_dataDic[@"generationCharge"][@"pos"] doubleValue];
@@ -84,7 +95,7 @@
             double otherA = [self->_dataDic[@"earnestMoney"][@"other"] doubleValue] + [self->_dataDic[@"frontMoney"][@"other"] doubleValue] + [self->_dataDic[@"roomMoney"][@"other"] doubleValue] + [self->_dataDic[@"roomMoneyMortgage"][@"other"] doubleValue] + [self->_dataDic[@"generationCharge"][@"other"] doubleValue];
             double changeA = [self->_dataDic[@"earnestMoney"][@"change"] doubleValue] + [self->_dataDic[@"frontMoney"][@"change"] doubleValue] + [self->_dataDic[@"roomMoney"][@"change"] doubleValue] + [self->_dataDic[@"roomMoneyMortgage"][@"change"] doubleValue] + [self->_dataDic[@"generationCharge"][@"change"] doubleValue];
             [self->_dataArr addObject:[NSString stringWithFormat:@"%.2f",cashA]];
-            [self->_dataArr addObject:[NSString stringWithFormat:@"%.2f",changeA]];
+            [self->_dataArr addObject:[NSString stringWithFormat:@"%.2f",posA]];
             [self->_dataArr addObject:[NSString stringWithFormat:@"%.2f",carryA]];
             [self->_dataArr addObject:[NSString stringWithFormat:@"%.2f",otherA]];
             [self->_dataArr addObject:[NSString stringWithFormat:@"%.2f",changeA]];

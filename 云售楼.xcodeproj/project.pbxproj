@@ -129,6 +129,10 @@
 		0C3A919D225C484500F04804 /* TagCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9190225C484500F04804 /* TagCollCell.m */; };
 		0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9193225C484500F04804 /* TitleRightBtnHeader.m */; };
 		0C3D4D52235FDBB6001CB6A9 /* MonthCountHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4D51235FDBB6001CB6A9 /* MonthCountHeader.m */; };
+		0C3D4F6123616DA6001CB6A9 /* DealCustomerReportChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F5C23616DA6001CB6A9 /* DealCustomerReportChannelCell.m */; };
+		0C3D4F6223616DA6001CB6A9 /* DealCustomerReportPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F5F23616DA6001CB6A9 /* DealCustomerReportPropertyCell.m */; };
+		0C3D4F6623616DC9001CB6A9 /* DealCustomerReportPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F6523616DC9001CB6A9 /* DealCustomerReportPropertyVC.m */; };
+		0C3D4F6A23617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F6923617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m */; };
 		0C496DE122D42E0800789FFA /* AddNumeralModifyCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */; };
 		0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE422D4310600789FFA /* AddNumeralAddCustomVC.m */; };
 		0C496DE822D444F400789FFA /* AddNemeralHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE722D444F400789FFA /* AddNemeralHeader.m */; };
@@ -177,8 +181,6 @@
 		0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74521C22A8FDB6008F2F07 /* ChannelRecommendCell.m */; };
 		0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522022A91131008F2F07 /* ChannelDealCell.m */; };
 		0C74522522A91CAB008F2F07 /* MinMaxDateChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */; };
-		0C758146235D48200029B530 /* DealCustomerReportChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758145235D48200029B530 /* DealCustomerReportChannelCell.m */; };
-		0C758149235D49660029B530 /* DealCustomerReportPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758148235D49660029B530 /* DealCustomerReportPropertyCell.m */; };
 		0C75814D235D51320029B530 /* SaleDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C75814C235D51320029B530 /* SaleDetailCell.m */; };
 		0C758152235D5AED0029B530 /* SaleRankOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758151235D5AED0029B530 /* SaleRankOrderCell.m */; };
 		0C758155235D5B090029B530 /* SaleRankContractCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C758154235D5B090029B530 /* SaleRankContractCell.m */; };
@@ -794,6 +796,14 @@
 		0C3A9194225C484500F04804 /* TitleRightBtnHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleRightBtnHeader.h; sourceTree = "<group>"; };
 		0C3D4D50235FDBB6001CB6A9 /* MonthCountHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonthCountHeader.h; sourceTree = "<group>"; };
 		0C3D4D51235FDBB6001CB6A9 /* MonthCountHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonthCountHeader.m; sourceTree = "<group>"; };
+		0C3D4F5C23616DA6001CB6A9 /* DealCustomerReportChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportChannelCell.m; sourceTree = "<group>"; };
+		0C3D4F5D23616DA6001CB6A9 /* DealCustomerReportChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportChannelCell.h; sourceTree = "<group>"; };
+		0C3D4F5F23616DA6001CB6A9 /* DealCustomerReportPropertyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportPropertyCell.m; sourceTree = "<group>"; };
+		0C3D4F6023616DA6001CB6A9 /* DealCustomerReportPropertyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportPropertyCell.h; sourceTree = "<group>"; };
+		0C3D4F6423616DC9001CB6A9 /* DealCustomerReportPropertyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportPropertyVC.h; sourceTree = "<group>"; };
+		0C3D4F6523616DC9001CB6A9 /* DealCustomerReportPropertyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportPropertyVC.m; sourceTree = "<group>"; };
+		0C3D4F6823617052001CB6A9 /* DealCustomerReportPropertyDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportPropertyDetailCell.h; sourceTree = "<group>"; };
+		0C3D4F6923617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportPropertyDetailCell.m; sourceTree = "<group>"; };
 		0C496DDF22D42E0800789FFA /* AddNumeralModifyCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralModifyCustomVC.h; sourceTree = "<group>"; };
 		0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralModifyCustomVC.m; sourceTree = "<group>"; };
 		0C496DE322D4310600789FFA /* AddNumeralAddCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralAddCustomVC.h; sourceTree = "<group>"; };
@@ -885,10 +895,6 @@
 		0C74522022A91131008F2F07 /* ChannelDealCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelDealCell.m; sourceTree = "<group>"; };
 		0C74522322A91CAB008F2F07 /* MinMaxDateChooseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinMaxDateChooseView.h; sourceTree = "<group>"; };
 		0C74522422A91CAB008F2F07 /* MinMaxDateChooseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinMaxDateChooseView.m; sourceTree = "<group>"; };
-		0C758144235D48200029B530 /* DealCustomerReportChannelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportChannelCell.h; sourceTree = "<group>"; };
-		0C758145235D48200029B530 /* DealCustomerReportChannelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportChannelCell.m; sourceTree = "<group>"; };
-		0C758147235D49660029B530 /* DealCustomerReportPropertyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportPropertyCell.h; sourceTree = "<group>"; };
-		0C758148235D49660029B530 /* DealCustomerReportPropertyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportPropertyCell.m; sourceTree = "<group>"; };
 		0C75814B235D51320029B530 /* SaleDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaleDetailCell.h; sourceTree = "<group>"; };
 		0C75814C235D51320029B530 /* SaleDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaleDetailCell.m; sourceTree = "<group>"; };
 		0C758150235D5AED0029B530 /* SaleRankOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaleRankOrderCell.h; sourceTree = "<group>"; };
@@ -2528,6 +2534,52 @@
 			path = "标题右按钮header";
 			sourceTree = "<group>";
 		};
+		0C3D4F5A23616DA6001CB6A9 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F5B23616DA6001CB6A9 /* 认知途径 */,
+				0C3D4F5E23616DA6001CB6A9 /* 意向物业 */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C3D4F5B23616DA6001CB6A9 /* 认知途径 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F5C23616DA6001CB6A9 /* DealCustomerReportChannelCell.m */,
+				0C3D4F5D23616DA6001CB6A9 /* DealCustomerReportChannelCell.h */,
+			);
+			path = "认知途径";
+			sourceTree = "<group>";
+		};
+		0C3D4F5E23616DA6001CB6A9 /* 意向物业 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F5F23616DA6001CB6A9 /* DealCustomerReportPropertyCell.m */,
+				0C3D4F6023616DA6001CB6A9 /* DealCustomerReportPropertyCell.h */,
+			);
+			path = "意向物业";
+			sourceTree = "<group>";
+		};
+		0C3D4F6323616DAE001CB6A9 /* 意向物业 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F6723617043001CB6A9 /* view */,
+				0C3D4F6423616DC9001CB6A9 /* DealCustomerReportPropertyVC.h */,
+				0C3D4F6523616DC9001CB6A9 /* DealCustomerReportPropertyVC.m */,
+			);
+			path = "意向物业";
+			sourceTree = "<group>";
+		};
+		0C3D4F6723617043001CB6A9 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F6823617052001CB6A9 /* DealCustomerReportPropertyDetailCell.h */,
+				0C3D4F6923617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0C496DDE22D42DE800789FFA /* 修改客户 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2851,15 +2903,6 @@
 			children = (
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		0C758143235D47B20029B530 /* 意向物业 */ = {
-			isa = PBXGroup;
-			children = (
-				0C758147235D49660029B530 /* DealCustomerReportPropertyCell.h */,
-				0C758148235D49660029B530 /* DealCustomerReportPropertyCell.m */,
-			);
-			path = "意向物业";
 			sourceTree = "<group>";
 		};
 		0C75814A235D51250029B530 /* view */ = {
@@ -3387,15 +3430,6 @@
 				0CBD712322925B1E002A6B48 /* PushSettingCell.m */,
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		0CC1FB3F235D4788005E346C /* 认知途径 */ = {
-			isa = PBXGroup;
-			children = (
-				0C758144235D48200029B530 /* DealCustomerReportChannelCell.h */,
-				0C758145235D48200029B530 /* DealCustomerReportChannelCell.m */,
-			);
-			path = "认知途径";
 			sourceTree = "<group>";
 		};
 		0CC2730222681FA700EB881F /* 自定义Btn */ = {
@@ -4523,8 +4557,8 @@
 		105162462359A4D500E7CA6F /* 成交分析表 */ = {
 			isa = PBXGroup;
 			children = (
-				0C758143235D47B20029B530 /* 意向物业 */,
-				0CC1FB3F235D4788005E346C /* 认知途径 */,
+				0C3D4F6323616DAE001CB6A9 /* 意向物业 */,
+				0C3D4F5A23616DA6001CB6A9 /* view */,
 				1051624C2359A55A00E7CA6F /* DealCustomerReportVC.h */,
 				1051624D2359A55A00E7CA6F /* DealCustomerReportVC.m */,
 			);
@@ -5180,6 +5214,7 @@
 				0C2A700E226D8E5C00571EC1 /* BoxSelectCollCell.m in Sources */,
 				0CD0435B2280219C002C8BD3 /* WorkCompleteCustomVC1.m in Sources */,
 				0CD7A015225C67C900EAE816 /* ChangeNameVC.m in Sources */,
+				0C3D4F6623616DC9001CB6A9 /* DealCustomerReportPropertyVC.m in Sources */,
 				0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
 				0CA8265B22B0FCD20005F3ED /* EmptyPieView.m in Sources */,
@@ -5240,6 +5275,7 @@
 				0CC7E8E022FA6D5800AB0E1F /* SignMasterSlaveChangeVC.m in Sources */,
 				0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */,
 				0C3A917E225C47DE00F04804 /* PersonalVC.m in Sources */,
+				0C3D4F6A23617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m in Sources */,
 				0CEF8A5B225F49C60057F3FD /* RoomCollCell.m in Sources */,
 				0CD7A035225C6D5700EAE816 /* AddressChooseView3.m in Sources */,
 				10EF17BF2293970200DE5566 /* RotationModel.m in Sources */,
@@ -5298,6 +5334,7 @@
 				0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */,
 				0CC7E8E822FA6E9C00AB0E1F /* SignAddMinusPersonVC.m in Sources */,
 				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
+				0C3D4F6123616DA6001CB6A9 /* DealCustomerReportChannelCell.m in Sources */,
 				1051625D2359A60F00E7CA6F /* WeekCountVC.m in Sources */,
 				0CD7A02F225C6D5700EAE816 /* AddressChooseView2.m in Sources */,
 				0C038BC722E9896500D83DC2 /* ContentRightBtnCell.m in Sources */,
@@ -5336,7 +5373,6 @@
 				1084D10822969C6E001DB0FD /* PowerMannerger.m in Sources */,
 				0C0C103D235EFF4300A81888 /* LHYLinesPaoPaoView.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
-				0C758146235D48200029B530 /* DealCustomerReportChannelCell.m in Sources */,
 				0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0CFDB30122EE8F2F00F21976 /* SincerityChangeView.m in Sources */,
@@ -5397,12 +5433,12 @@
 				0C3A9119225B20C400F04804 /* ViewController.m in Sources */,
 				0CD7A01C225C6C9100EAE816 /* DateChooseView.m in Sources */,
 				0C74520322A7DC82008F2F07 /* ChannelMutiChartCell.m in Sources */,
+				0C3D4F6223616DA6001CB6A9 /* DealCustomerReportPropertyCell.m in Sources */,
 				0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */,
 				0C0C104F235F000600A81888 /* MonthCountCell.m in Sources */,
 				10EF17A622928A6700DE5566 /* AddCompanyView.m in Sources */,
 				0C4B7F7422CA050600BBC34F /* AddEncumbrancerVC.m in Sources */,
 				0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */,
-				0C758149235D49660029B530 /* DealCustomerReportPropertyCell.m in Sources */,
 				0CD0439222816ED9002C8BD3 /* RoomHeader.m in Sources */,
 				0CFC16DA22EAD91400AD3D65 /* InstallMentDetailCell.m in Sources */,
 				0CAD457422980B9E00A5C1D0 /* WorkRecommendValidCell.m in Sources */,

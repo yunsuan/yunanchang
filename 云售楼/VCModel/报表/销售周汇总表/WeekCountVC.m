@@ -467,7 +467,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"销售明细表";
+    self.titleLabel.text = @"销售周汇总表";
     
     self.view.backgroundColor = CLWhiteColor;
     

@@ -68,7 +68,7 @@
     }
     [dic setValue:@(_index + 1) forKey:@"type"];
     
-    [BaseRequest GET:ReportSaleMonthCountContract_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ReportSaleMonthCount_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
                 

@@ -1,21 +1,21 @@
 //
-//  DealCustomerReportChannelCell.m
+//  DealCustomerReportPropertyCell.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/10/21.
+//  Created by 谷治墙 on 2019/10/24.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "DealCustomerReportChannelCell.h"
+#import "DealCustomerReportPropertyDetailCell.h"
 
-@interface DealCustomerReportChannelCell ()<SingleBarChartViewDelegate>
+@interface DealCustomerReportPropertyDetailCell ()<SingleBarChartViewDelegate>
 
 @property (nonatomic, assign) NSInteger unit;
 @property (nonatomic, assign) NSInteger level;
 
 @end
 
-@implementation DealCustomerReportChannelCell
+@implementation DealCustomerReportPropertyDetailCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -41,46 +41,48 @@
     _singleBarChartView.xValuesArr = [@[] mutableCopy];
     _singleBarChartView.yValuesArr = [@[] mutableCopy];
     _singleBarChartView.yScaleValue = 1;
-    for (int i = 0; i < [dataDic[@"listen_way"] count]; i++) {
+    for (int i = 0; i < [dataDic[@"list"] count]; i++) {
         
-        [_singleBarChartView.xValuesArr addObject:dataDic[@"listen_way"][i][@"listen_way"]];
-        [_singleBarChartView.yValuesArr addObject:[NSString stringWithFormat:@"%@",dataDic[@"listen_way"][i][@"count"]]];
+        [_singleBarChartView.xValuesArr addObject:dataDic[@"list"][i][@"option_name"]];
+        [_singleBarChartView.yValuesArr addObject:[NSString stringWithFormat:@"%@",dataDic[@"list"][i][@"count"]]];
         if (i == 0) {
             
-            _unit = [dataDic[@"listen_way"][i][@"count"] integerValue];
+            _unit = [dataDic[@"list"][i][@"count"] integerValue];
         }else{
             
-            if (_unit > [dataDic[@"listen_way"][i][@"count"] integerValue]) {
+            if (_unit < [dataDic[@"list"][i][@"count"] integerValue]) {
                 
-                _unit = [dataDic[@"listen_way"][i][@"count"] integerValue];
+                _unit = [dataDic[@"list"][i][@"count"] integerValue];
             }
         }
-        _level = 1;
-        do {
-            
-            if (_unit / 5 > 10 && _unit / 10 < 10) {
-                
-                _unit = _unit / 10;
-                _level = _level * 10;
-            }else{
-                
-                _unit = _unit / 5;
-                _level = _level * 5;
-            }
-        } while (_unit > 10);
-        
-        _singleBarChartView.yScaleValue = _level;
     }
+    if (_unit < 1) {
+        
+        _unit = 1;
+    }
+    _level = 1;
+    do {
+        
+        if (_unit / 5 > 10 && _unit / 10 < 10) {
+            
+            _unit = _unit / 10;
+            _level = _level * 10;
+        }else{
+            
+            _unit = _unit / 5;
+            _level = _level * 5;
+        }
+    } while (_unit > 10);
+    
+    _singleBarChartView.yScaleValue = _level;
     _singleBarChartView.unit = @"人";
 }
 
+
+
 - (void)SingleBarChart:(SingleBarChartView *)chartView didSelectIndex:(NSInteger)index{
     
-    NSLog(@"111111111111%ld",index);
-    if (self.dealCustomerReportChannelCellBlock) {
-        
-        self.dealCustomerReportChannelCellBlock(index);
-    }
+ 
 }
 
 - (void)initUI{
@@ -91,5 +93,4 @@
 
     [self.contentView addSubview:_singleBarChartView];
 }
-
 @end
