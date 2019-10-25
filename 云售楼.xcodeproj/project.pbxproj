@@ -136,6 +136,11 @@
 		0C3D4F6E2361A851001CB6A9 /* CallCustomReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F6D2361A851001CB6A9 /* CallCustomReportVC.m */; };
 		0C3D4F732361AE8E001CB6A9 /* SaleRankVisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F722361AE8E001CB6A9 /* SaleRankVisitCell.m */; };
 		0C3D4F762361AE9C001CB6A9 /* SaleRankTelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F752361AE9C001CB6A9 /* SaleRankTelCell.m */; };
+		0C3D4F792362C369001CB6A9 /* AddNumeralFileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F782362C369001CB6A9 /* AddNumeralFileView.m */; };
+		0C3D4F7C2362C523001CB6A9 /* AddNumeralFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F7B2362C523001CB6A9 /* AddNumeralFileCell.m */; };
+		0C3D4F842362D8A3001CB6A9 /* ZZQAuthorizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F7E2362D8A3001CB6A9 /* ZZQAuthorizationManager.m */; };
+		0C3D4F852362D8A3001CB6A9 /* ZZQAvatarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F7F2362D8A3001CB6A9 /* ZZQAvatarPicker.m */; };
+		0C3D4F862362D8A3001CB6A9 /* ZZQResourceSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F802362D8A3001CB6A9 /* ZZQResourceSheetView.m */; };
 		0C496DE122D42E0800789FFA /* AddNumeralModifyCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */; };
 		0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE422D4310600789FFA /* AddNumeralAddCustomVC.m */; };
 		0C496DE822D444F400789FFA /* AddNemeralHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE722D444F400789FFA /* AddNemeralHeader.m */; };
@@ -813,6 +818,16 @@
 		0C3D4F722361AE8E001CB6A9 /* SaleRankVisitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaleRankVisitCell.m; sourceTree = "<group>"; };
 		0C3D4F742361AE9C001CB6A9 /* SaleRankTelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaleRankTelCell.h; sourceTree = "<group>"; };
 		0C3D4F752361AE9C001CB6A9 /* SaleRankTelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaleRankTelCell.m; sourceTree = "<group>"; };
+		0C3D4F772362C369001CB6A9 /* AddNumeralFileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralFileView.h; sourceTree = "<group>"; };
+		0C3D4F782362C369001CB6A9 /* AddNumeralFileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralFileView.m; sourceTree = "<group>"; };
+		0C3D4F7A2362C523001CB6A9 /* AddNumeralFileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralFileCell.h; sourceTree = "<group>"; };
+		0C3D4F7B2362C523001CB6A9 /* AddNumeralFileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralFileCell.m; sourceTree = "<group>"; };
+		0C3D4F7E2362D8A3001CB6A9 /* ZZQAuthorizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZQAuthorizationManager.m; sourceTree = "<group>"; };
+		0C3D4F7F2362D8A3001CB6A9 /* ZZQAvatarPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZQAvatarPicker.m; sourceTree = "<group>"; };
+		0C3D4F802362D8A3001CB6A9 /* ZZQResourceSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZQResourceSheetView.m; sourceTree = "<group>"; };
+		0C3D4F812362D8A3001CB6A9 /* ZZQAuthorizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZQAuthorizationManager.h; sourceTree = "<group>"; };
+		0C3D4F822362D8A3001CB6A9 /* ZZQResourceSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZQResourceSheetView.h; sourceTree = "<group>"; };
+		0C3D4F832362D8A3001CB6A9 /* ZZQAvatarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZQAvatarPicker.h; sourceTree = "<group>"; };
 		0C496DDF22D42E0800789FFA /* AddNumeralModifyCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralModifyCustomVC.h; sourceTree = "<group>"; };
 		0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralModifyCustomVC.m; sourceTree = "<group>"; };
 		0C496DE322D4310600789FFA /* AddNumeralAddCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralAddCustomVC.h; sourceTree = "<group>"; };
@@ -1799,6 +1814,7 @@
 		0C10695A235EA13700CB58A2 /* 第三方SDK */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D4F7D2362D8A3001CB6A9 /* ZZQAvatarPicker */,
 				0C10695B235EA13700CB58A2 /* 双表头table */,
 			);
 			path = "第三方SDK";
@@ -1910,6 +1926,8 @@
 				0C496DED22D469E500789FFA /* AddNumeralProcessView.m */,
 				0CFDB36322EF067300F21976 /* AddNumeralCodeColl.h */,
 				0CFDB36422EF067300F21976 /* AddNumeralCodeColl.m */,
+				0C3D4F772362C369001CB6A9 /* AddNumeralFileView.h */,
+				0C3D4F782362C369001CB6A9 /* AddNumeralFileView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2615,6 +2633,19 @@
 				0C3D4F722361AE8E001CB6A9 /* SaleRankVisitCell.m */,
 			);
 			path = "按来访统计";
+			sourceTree = "<group>";
+		};
+		0C3D4F7D2362D8A3001CB6A9 /* ZZQAvatarPicker */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F7E2362D8A3001CB6A9 /* ZZQAuthorizationManager.m */,
+				0C3D4F7F2362D8A3001CB6A9 /* ZZQAvatarPicker.m */,
+				0C3D4F802362D8A3001CB6A9 /* ZZQResourceSheetView.m */,
+				0C3D4F812362D8A3001CB6A9 /* ZZQAuthorizationManager.h */,
+				0C3D4F822362D8A3001CB6A9 /* ZZQResourceSheetView.h */,
+				0C3D4F832362D8A3001CB6A9 /* ZZQAvatarPicker.h */,
+			);
+			path = ZZQAvatarPicker;
 			sourceTree = "<group>";
 		};
 		0C496DDE22D42DE800789FFA /* 修改客户 */ = {
@@ -4540,6 +4571,8 @@
 			children = (
 				0CFDB36722EFEFC900F21976 /* AddNumeralCodeCollCell.h */,
 				0CFDB36822EFEFC900F21976 /* AddNumeralCodeCollCell.m */,
+				0C3D4F7A2362C523001CB6A9 /* AddNumeralFileCell.h */,
+				0C3D4F7B2362C523001CB6A9 /* AddNumeralFileCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -5308,9 +5341,11 @@
 				0C038BBD22E9847A00D83DC2 /* NumeralDetailInvalidView.m in Sources */,
 				0CAC92652283FE09006B2B79 /* GuideVC.m in Sources */,
 				0CEF89E4225C74540057F3FD /* AddressBookCell.m in Sources */,
+				0C3D4F7C2362C523001CB6A9 /* AddNumeralFileCell.m in Sources */,
 				0C4B8EDD22CC461300D505BE /* OrderVC.m in Sources */,
 				0CD043DF2283BC05002C8BD3 /* CaptchaView.m in Sources */,
 				0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */,
+				0C3D4F852362D8A3001CB6A9 /* ZZQAvatarPicker.m in Sources */,
 				0CC7E8E022FA6D5800AB0E1F /* SignMasterSlaveChangeVC.m in Sources */,
 				0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */,
 				0C3A917E225C47DE00F04804 /* PersonalVC.m in Sources */,
@@ -5339,6 +5374,7 @@
 				0C4B7F5C22C995BD00BBC34F /* NumeralVC.m in Sources */,
 				0CEF8A55225F1D440057F3FD /* CompanyModel.m in Sources */,
 				0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */,
+				0C3D4F862362D8A3001CB6A9 /* ZZQResourceSheetView.m in Sources */,
 				0CBD711C2292567E002A6B48 /* WorkerPickView.m in Sources */,
 				0C221A85227EEEF6006B0510 /* WorkPhoneConfrimWaitCell.m in Sources */,
 				0C3A919B225C484500F04804 /* TitleBaseHeader.m in Sources */,
@@ -5352,6 +5388,8 @@
 				0CEF8AFD2264836B0057F3FD /* CallTelegramCustomDetailIntentHeader.m in Sources */,
 				0C0C104B235EFF8900A81888 /* NSString+Extension.m in Sources */,
 				0CEF8B082265B6D70057F3FD /* BorderTextField.m in Sources */,
+				0C3D4F792362C369001CB6A9 /* AddNumeralFileView.m in Sources */,
+				0C3D4F842362D8A3001CB6A9 /* ZZQAuthorizationManager.m in Sources */,
 				0CD04396228170ED002C8BD3 /* RoomFooter.m in Sources */,
 				0C106985235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.m in Sources */,
 				0C496DFB22D49E0100789FFA /* installmentCollCell.m in Sources */,
@@ -5685,7 +5723,7 @@
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
@@ -5694,7 +5732,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.7;
+				MARKETING_VERSION = 2.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5711,7 +5749,7 @@
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
@@ -5720,7 +5758,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.7;
+				MARKETING_VERSION = 2.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

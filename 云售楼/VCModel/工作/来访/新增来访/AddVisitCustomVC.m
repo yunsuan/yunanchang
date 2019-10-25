@@ -50,6 +50,7 @@
     NSMutableArray *_groupArr;
     
     NSDateFormatter *_formatter;
+    NSDateFormatter *_secondFormatter;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -154,6 +155,8 @@
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
+    _secondFormatter = [[NSDateFormatter alloc] init];
+    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     
     _propertyDArr = [@[] mutableCopy];
     
@@ -258,6 +261,20 @@
         _femaleBtn.selected = YES;
         _gender = @"2";
     }
+}
+
+- (void)ActionTimeBtn:(UIButton *)btn{
+    
+    DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.frame];
+    view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
+    view.dateblock = ^(NSDate *date) {
+        
+        self->_timeBtn.content.text = [self->_secondFormatter stringFromDate:date];
+        self->_timeBtn.placeL.text = @"";
+//        self->_birthBtn.content.text = [self->_formatter stringFromDate:date];
+//        self->_birthBtn.placeL.text = @"";
+    };
+    [self.view addSubview:view];
 }
 
 - (void)ActionDropBtn:(UIButton *)btn{
@@ -643,6 +660,7 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_clientArr options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     [allDic setObject:jsonString forKey:@"client_list"];
+    [allDic setObject:_timeBtn.content.text forKey:@"client_visit_time"];
     [allDic setObject:@"1" forKey:@"source"];
     [allDic setObject:@"2" forKey:@"type"];
     [allDic setObject:_approachBtn->str forKey:@"listen_way"];
@@ -860,6 +878,7 @@
     
     _timeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
     [_timeBtn addTarget:self action:@selector(ActionTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _timeBtn.content.text = [_secondFormatter stringFromDate:[NSDate date]];
     [_scrollView addSubview:_timeBtn];
     
     BaseHeader *header = [[BaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
@@ -1225,7 +1244,7 @@
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_scrollView).offset(50 *SIZE);
+        make.top.equalTo(self->_scrollView).offset(54 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     

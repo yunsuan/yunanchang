@@ -32,9 +32,10 @@
 #import "GZQGifHeader.h"
 #import "GZQGifFooter.h"
 #import "UIImageView+WebCache.h"
+#import "ZZQAvatarPicker.h"
 
 
-#define YACversion @"2.1.7"
+#define YACversion @"2.1.9"
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
 

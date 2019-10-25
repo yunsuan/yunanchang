@@ -73,6 +73,7 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
                 
             [self->_dataArr removeAllObjects];
+            [self->_clientArr removeAllObjects];
             for (int i = 0; i < [resposeObject[@"data"][@"contract"] count]; i++) {
                 
                 [self->_dataArr addObject:[NSString stringWithFormat:@"%@",resposeObject[@"data"][@"contract"][i][@"count"]]];
@@ -122,12 +123,14 @@
         header.titleL.text = @"客户统计";
         header.addBtn.hidden = YES;
         [header.moreBtn setTitle:_clientStatus forState:UIControlStateNormal];
+        __strong __typeof(&*header)StrongHeader = header;
         header.titleRightBtnHeaderMoreBlock = ^{
-          
+            
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"param":@"全部",@"id":@"全部"},@{@"param":@"A",@"id":@"A"},@{@"param":@"B",@"id":@"B"},@{@"param":@"C",@"id":@"C"},@{@"param":@"D",@"id":@"D"}]];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {
                 
-                [header.moreBtn setTitle:MC forState:UIControlStateNormal];
+                self->_clientStatus = MC;
+                [StrongHeader.moreBtn setTitle:MC forState:UIControlStateNormal];
                 [self RequestMethod];
             };
             [self.view addSubview:view];

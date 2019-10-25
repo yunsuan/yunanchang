@@ -700,6 +700,7 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_clientArr options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     [allDic setObject:jsonString forKey:@"client_list"];
+    [allDic setObject:_timeBtn.content.text forKey:@"client_visit_time"];
     [allDic setObject:@"1" forKey:@"source"];
     [allDic setObject:@"1" forKey:@"type"];
     [allDic setObject:_approachBtn->str forKey:@"listen_way"];
@@ -912,6 +913,7 @@
     
     _timeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
     [_timeBtn addTarget:self action:@selector(ActionTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _timeBtn.content.text = [_secondFormatter stringFromDate:[NSDate date]];
     [_scrollView addSubview:_timeBtn];
     
     BaseHeader *header = [[BaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
@@ -1277,7 +1279,7 @@
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_scrollView).offset(50 *SIZE);
+        make.top.equalTo(self->_scrollView).offset(54 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     

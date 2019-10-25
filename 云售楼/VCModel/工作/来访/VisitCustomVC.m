@@ -296,7 +296,7 @@
             cell.dataDic = _dataArr[indexPath.section - 1];;
             cell.callTelegramCellBlock = ^{
                 
-                NSString *phone = self->_dataArr[indexPath.section - 1][@"tel"];
+                NSString *phone = [self->_dataArr[indexPath.section - 1][@"tel"] componentsSeparatedByString:@","][0];
                 if (phone.length) {
                     
                     //获取目标号码字符串,转换成URL
@@ -323,7 +323,7 @@
         
         cell.callTelegramCellBlock = ^{
             
-            NSString *phone = self->_dataArr[indexPath.section][@"tel"];
+            NSString *phone = [self->_dataArr[indexPath.section][@"tel"] componentsSeparatedByString:@","][0];
             if (phone.length) {
                 
                 //获取目标号码字符串,转换成URL
