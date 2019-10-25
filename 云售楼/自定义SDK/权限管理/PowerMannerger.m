@@ -75,54 +75,58 @@
     [PowerModel defaultModel].WorkListPower = [WorkListPower copy];
     
     //报表
-    NSMutableArray * ReportListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];//,@0,@0] mutableCopy];
+    NSMutableArray * ReportListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];//,@0,@0] mutableCopy];
     if (datadic) {
         NSArray *arr = datadic[@"app_operate"];
         if (arr.count > 2) {
             
             NSDictionary *dic = arr[2];
-            if ([dic[@"report"][@"LFKHFXB"][@"detail"] integerValue] == 1) {
+            if ([dic[@"report"][@"LDKHFXB"][@"detail"] integerValue] == 1) {
                 
                 [ReportListPower replaceObjectAtIndex:0 withObject:@1];
             }
-            if ([dic[@"report"][@"QDFXB"][@"detail"] integerValue] == 1) {
+            if ([dic[@"report"][@"LFKHFXB"][@"detail"] integerValue] == 1) {
                 
                 [ReportListPower replaceObjectAtIndex:1 withObject:@1];
             }
+            if ([dic[@"report"][@"QDFXB"][@"detail"] integerValue] == 1) {
+                
+                [ReportListPower replaceObjectAtIndex:2 withObject:@1];
+            }
             if ([dic[@"report"][@"SKTJB"][@"detail"] integerValue] == 1) {
-                
-                [ReportListPower replaceObjectAtIndex:7 withObject:@1];
-            }
-            if ([dic[@"report"][@"XSMXB"][@"detail"] integerValue] == 1) {
-                
-                [ReportListPower replaceObjectAtIndex:4 withObject:@1];
-            }
-            if ([dic[@"report"][@"XSPMB"][@"detail"] integerValue] == 1) {
-                
-                [ReportListPower replaceObjectAtIndex:6 withObject:@1];
-            }
-            if ([dic[@"report"][@"XSYHZB"][@"detail"] integerValue] == 1) {
-                
-                [ReportListPower replaceObjectAtIndex:9 withObject:@1];
-            }
-            if ([dic[@"report"][@"XSZHZB"][@"detail"] integerValue] == 1) {
                 
                 [ReportListPower replaceObjectAtIndex:8 withObject:@1];
             }
-            if ([dic[@"report"][@"ZYPDB"][@"detail"] integerValue] == 1) {
+            if ([dic[@"report"][@"XSMXB"][@"detail"] integerValue] == 1) {
                 
                 [ReportListPower replaceObjectAtIndex:5 withObject:@1];
             }
+            if ([dic[@"report"][@"XSPMB"][@"detail"] integerValue] == 1) {
+                
+                [ReportListPower replaceObjectAtIndex:7 withObject:@1];
+            }
+            if ([dic[@"report"][@"XSYHZB"][@"detail"] integerValue] == 1) {
+                
+                [ReportListPower replaceObjectAtIndex:10 withObject:@1];
+            }
+            if ([dic[@"report"][@"XSZHZB"][@"detail"] integerValue] == 1) {
+                
+                [ReportListPower replaceObjectAtIndex:9 withObject:@1];
+            }
+            if ([dic[@"report"][@"ZYPDB"][@"detail"] integerValue] == 1) {
+                
+                [ReportListPower replaceObjectAtIndex:6 withObject:@1];
+            }
             if ([dic[@"report"][@"CJKHFXB"][@"detail"] integerValue] == 1) {
                 
-                [ReportListPower replaceObjectAtIndex:3 withObject:@1];
+                [ReportListPower replaceObjectAtIndex:4 withObject:@1];
             }
             if (arr.count > 3) {
                 
                 NSDictionary *dic = arr[3];
                 if ([dic[@"detail"] integerValue] == 1) {
                     
-                    [ReportListPower replaceObjectAtIndex:2 withObject:@1];
+                    [ReportListPower replaceObjectAtIndex:3 withObject:@1];
                 }
             }
         }else{

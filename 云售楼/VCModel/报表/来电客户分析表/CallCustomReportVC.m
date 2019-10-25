@@ -1,22 +1,21 @@
 //
-//  SaleRankVC.m
+//  CallCustomReportVC.m
 //  云售楼
 //
-//  Created by xiaoq on 2019/10/18.
+//  Created by 谷治墙 on 2019/10/24.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "SaleRankVC.h"
+#import "CallCustomReportVC.h"
 
-#import "SaleRankVisitCell.h"
-#import "SaleRankContractCell.h"
-#import "SaleRankOrderCell.h"
-#import "SaleRankTelCell.h"
+#import "DealCustomerReportPropertyVC.h"
 
+#import "DealCustomerReportPropertyCell.h"
+#import "DealCustomerReportChannelCell.h"
 #import "BaseHeader.h"
 #import "TypeTagCollCell.h"
 
-@interface SaleRankVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+@interface CallCustomReportVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
     NSInteger _percent;
@@ -31,6 +30,8 @@
     
     NSMutableArray *_dataArr;
 }
+
+//@property (nonatomic, strong) UISegmentedControl *segment;
 @property (nonatomic, strong) UICollectionView *segmentColl;
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
@@ -39,7 +40,7 @@
 
 @end
 
-@implementation SaleRankVC
+@implementation CallCustomReportVC
 
 - (instancetype)initWithProjectId:(NSString *)project_id
 {
@@ -57,7 +58,9 @@
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
+    
 }
+
 
 - (void)initDataSource{
     
@@ -69,10 +72,9 @@
    _dataArr = [@[] mutableCopy];
 }
 
-
 - (void)RequestMethod{
     
-    [BaseRequest GET:ReportSaleSort_URL parameters:@{@"project_id":_project_id,@"type":_status} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ReportSaleClientTelCount_URL parameters:@{@"project_id":_project_id,@"type":_status} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -135,7 +137,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 4;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -155,19 +157,13 @@
                 
         header = [[BaseHeader alloc] initWithReuseIdentifier:@"BaseHeader"];
     }
-    
+            
     if (section == 0) {
-        
-        header.titleL.text = @"按来单统计";
-    }else if (section == 1){
-        
-        header.titleL.text = @"按来访统计";
-    }else if (section == 2) {
                 
-        header.titleL.text = @"按认购统计";
+        header.titleL.text = @"认知途径";
     }else{
                      
-        header.titleL.text = @"按合同统计";
+        header.titleL.text = @"物业意向";
     }
     return header;
 }
@@ -175,83 +171,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
-        
-        SaleRankTelCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SaleRankTelCell"];
-                if (!cell) {
-                            
-                    cell = [[SaleRankTelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SaleRankTelCell"];
-                }
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                        
-            //            cell.singleBarChartView.delegate = self;
-
-                        
-                if ([_status isEqualToString:@"1"]) {
-
-                    if (_dataDic.count) {
-
-                        cell.dataDic = _dataDic;
-                    }else{
-
-                        cell.dataDic = @{};
-                    }
-                }else{
-
-                    if (_yearDic.count) {
-
-                        cell.dataDic = _yearDic;
-                    }else{
-
-                        cell.dataDic = @{};
-                    }
-                }
-                        
-                return cell;
-    }else if (indexPath.section == 1) {
-        
-        SaleRankVisitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SaleRankVisitCell"];
-                if (!cell) {
-                            
-                    cell = [[SaleRankVisitCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SaleRankVisitCell"];
-                }
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                        
-            //            cell.singleBarChartView.delegate = self;
-
-                        
-                if ([_status isEqualToString:@"1"]) {
-
-                    if (_dataDic.count) {
-
-                        cell.dataDic = _dataDic;
-                    }else{
-
-                        cell.dataDic = @{};
-                    }
-                }else{
-
-                    if (_yearDic.count) {
-
-                        cell.dataDic = _yearDic;
-                    }else{
-
-                        cell.dataDic = @{};
-                    }
-                }
-                        
-                return cell;
-    }else if (indexPath.section == 2) {
                 
-        SaleRankOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SaleRankOrderCell"];
+        DealCustomerReportChannelCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DealCustomerReportChannelCell"];
         if (!cell) {
                     
-            cell = [[SaleRankOrderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SaleRankOrderCell"];
+            cell = [[DealCustomerReportChannelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DealCustomerReportChannelCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
     //            cell.singleBarChartView.delegate = self;
-        cell.saleRankOrderCellBlock = ^(NSInteger index) {
+        cell.dealCustomerReportChannelCellBlock = ^(NSInteger index) {
                     
+            
 //            ChannelCustomVC *nextVC = [[ChannelCustomVC alloc] init];
 //            nextVC.index = index;
 //            nextVC.project_id = self->_project_id;
@@ -271,7 +202,7 @@
 
             if (_dataDic.count) {
 
-                cell.dataDic = _dataDic;
+                cell.dataDic =  _dataDic;
             }else{
 
                 cell.dataDic = @{};
@@ -290,29 +221,37 @@
         return cell;
     }else{
         
-        SaleRankContractCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SaleRankContractCell"];
+        DealCustomerReportPropertyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DealCustomerReportPropertyCell"];
             if (!cell) {
                         
-                cell = [[SaleRankContractCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SaleRankContractCell"];
+                cell = [[DealCustomerReportPropertyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DealCustomerReportPropertyCell"];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
         //            cell.singleBarChartView.delegate = self;
-            cell.saleRankContractCellBlock = ^(NSInteger index) {
+            cell.dealCustomerReportPropertyCellBlock = ^(NSInteger index) {
+                  
+                if ([self->_status isEqualToString:@"1"]) {
+                    
+                    for (int i = 0; i < [self->_dataDic[@"other"] count]; i++) {
                         
-//                ChannelCustomVC *nextVC = [[ChannelCustomVC alloc] init];
-//                nextVC.index = index;
-//                nextVC.project_id = self->_project_id;
-//                if ([self->_status isEqualToString:@"1"]) {
-//
-//                    nextVC.date = [self->_formatter stringFromDate:[NSDate date]];
-//                }else if ([self->_status isEqualToString:@"2"]){
-//
-//                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//                    [formatter setDateFormat:@"YYYY-MM-01"];
-//                    nextVC.date = [formatter stringFromDate:[NSDate date]];
-//                }
-//                [self.navigationController pushViewController:nextVC animated:YES];
+                        if ([self->_dataDic[@"property"][index][@"config_name"] isEqualToString:self->_dataDic[@"other"][i][@"property_name"]]) {
+                            
+                            DealCustomerReportPropertyVC *nextVC = [[DealCustomerReportPropertyVC alloc] initWithDataDic:self->_dataDic[@"other"][i]];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        }
+                    }
+                }else{
+                    
+                    for (int i = 0; i < [self->_yearDic[@"other"] count]; i++) {
+                        
+                        if ([self->_yearDic[@"property"][index][@"config_name"] isEqualToString:self->_yearDic[@"other"][i][@"property_name"]]) {
+                            
+                            DealCustomerReportPropertyVC *nextVC = [[DealCustomerReportPropertyVC alloc] initWithDataDic:self->_yearDic[@"other"][i]];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        }
+                    }
+                }
             };
                     
             if ([_status isEqualToString:@"1"]) {
@@ -356,7 +295,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"销售排名表";
+    self.titleLabel.text = @"来电客户分析表";
     
 //    _segment = [[UISegmentedControl alloc] initWithItems:[NSMutableArray arrayWithObjects:@"今日统计",@"累计统计", nil]];
 //    _segment.frame = CGRectMake(80 *SIZE, NAVIGATION_BAR_HEIGHT, 200 *SIZE, 30 *SIZE);
@@ -395,4 +334,5 @@
     _table.dataSource = self;
     [self.view addSubview:_table];
 }
+
 @end

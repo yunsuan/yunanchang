@@ -50,32 +50,32 @@
             _unit = [dataDic[@"contractSort"][i][@"count"] integerValue];
         }else{
             
-            if (_unit > [dataDic[@"contractSort"][i][@"count"] integerValue]) {
+            if (_unit < [dataDic[@"contractSort"][i][@"count"] integerValue]) {
                 
                 _unit = [dataDic[@"contractSort"][i][@"count"] integerValue];
             }
         }
-        if (_unit < 1) {
-            
-            _unit = 1;
-        }
-        _level = 1;
-        do {
-            
-            if (_unit / 5 > 10 && _unit / 10 < 10) {
-                
-                _unit = _unit / 10;
-                _level = _level * 10;
-            }else{
-                
-                _unit = _unit / 5;
-                _level = _level * 5;
-            }
-        } while (_unit > 10);
         
-        _singleBarChartView.yScaleValue = _level;
     }
+    if (_unit < 1) {
+        
+        _unit = 1;
+    }
+    _level = 1;
+    do {
+        
+        if (_unit / 5 > 10 && _unit / 10 < 10) {
+            
+            _unit = _unit / 10;
+            _level = _level * 10;
+        }else{
+            
+            _unit = _unit / 5;
+            _level = _level * 5;
+        }
+    } while (_unit > 10);
     
+    _singleBarChartView.yScaleValue = _level;
 
     _singleBarChartView.unit = @"人";
 }

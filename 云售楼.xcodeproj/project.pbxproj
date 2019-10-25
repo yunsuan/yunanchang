@@ -133,6 +133,9 @@
 		0C3D4F6223616DA6001CB6A9 /* DealCustomerReportPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F5F23616DA6001CB6A9 /* DealCustomerReportPropertyCell.m */; };
 		0C3D4F6623616DC9001CB6A9 /* DealCustomerReportPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F6523616DC9001CB6A9 /* DealCustomerReportPropertyVC.m */; };
 		0C3D4F6A23617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F6923617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m */; };
+		0C3D4F6E2361A851001CB6A9 /* CallCustomReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F6D2361A851001CB6A9 /* CallCustomReportVC.m */; };
+		0C3D4F732361AE8E001CB6A9 /* SaleRankVisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F722361AE8E001CB6A9 /* SaleRankVisitCell.m */; };
+		0C3D4F762361AE9C001CB6A9 /* SaleRankTelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F752361AE9C001CB6A9 /* SaleRankTelCell.m */; };
 		0C496DE122D42E0800789FFA /* AddNumeralModifyCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */; };
 		0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE422D4310600789FFA /* AddNumeralAddCustomVC.m */; };
 		0C496DE822D444F400789FFA /* AddNemeralHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE722D444F400789FFA /* AddNemeralHeader.m */; };
@@ -804,6 +807,12 @@
 		0C3D4F6523616DC9001CB6A9 /* DealCustomerReportPropertyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportPropertyVC.m; sourceTree = "<group>"; };
 		0C3D4F6823617052001CB6A9 /* DealCustomerReportPropertyDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealCustomerReportPropertyDetailCell.h; sourceTree = "<group>"; };
 		0C3D4F6923617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealCustomerReportPropertyDetailCell.m; sourceTree = "<group>"; };
+		0C3D4F6C2361A851001CB6A9 /* CallCustomReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CallCustomReportVC.h; sourceTree = "<group>"; };
+		0C3D4F6D2361A851001CB6A9 /* CallCustomReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CallCustomReportVC.m; sourceTree = "<group>"; };
+		0C3D4F712361AE8E001CB6A9 /* SaleRankVisitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaleRankVisitCell.h; sourceTree = "<group>"; };
+		0C3D4F722361AE8E001CB6A9 /* SaleRankVisitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaleRankVisitCell.m; sourceTree = "<group>"; };
+		0C3D4F742361AE9C001CB6A9 /* SaleRankTelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaleRankTelCell.h; sourceTree = "<group>"; };
+		0C3D4F752361AE9C001CB6A9 /* SaleRankTelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaleRankTelCell.m; sourceTree = "<group>"; };
 		0C496DDF22D42E0800789FFA /* AddNumeralModifyCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralModifyCustomVC.h; sourceTree = "<group>"; };
 		0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralModifyCustomVC.m; sourceTree = "<group>"; };
 		0C496DE322D4310600789FFA /* AddNumeralAddCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralAddCustomVC.h; sourceTree = "<group>"; };
@@ -2380,6 +2389,7 @@
 		0C3A9160225B372D00F04804 /* 报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D4F6B2361A81A001CB6A9 /* 来电客户分析表 */,
 				105162462359A4D500E7CA6F /* 成交分析表 */,
 				1051624A2359A4D600E7CA6F /* 收款统计表 */,
 				105162452359A4D500E7CA6F /* 销售明细表 */,
@@ -2578,6 +2588,33 @@
 				0C3D4F6923617052001CB6A9 /* DealCustomerReportPropertyDetailCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		0C3D4F6B2361A81A001CB6A9 /* 来电客户分析表 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F6C2361A851001CB6A9 /* CallCustomReportVC.h */,
+				0C3D4F6D2361A851001CB6A9 /* CallCustomReportVC.m */,
+			);
+			path = "来电客户分析表";
+			sourceTree = "<group>";
+		};
+		0C3D4F6F2361AE66001CB6A9 /* 按来电统计 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F742361AE9C001CB6A9 /* SaleRankTelCell.h */,
+				0C3D4F752361AE9C001CB6A9 /* SaleRankTelCell.m */,
+			);
+			path = "按来电统计";
+			sourceTree = "<group>";
+		};
+		0C3D4F702361AE70001CB6A9 /* 按来访统计 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D4F712361AE8E001CB6A9 /* SaleRankVisitCell.h */,
+				0C3D4F722361AE8E001CB6A9 /* SaleRankVisitCell.m */,
+			);
+			path = "按来访统计";
 			sourceTree = "<group>";
 		};
 		0C496DDE22D42DE800789FFA /* 修改客户 */ = {
@@ -4568,6 +4605,8 @@
 		105162472359A4D600E7CA6F /* 销售排名表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D4F702361AE70001CB6A9 /* 按来访统计 */,
+				0C3D4F6F2361AE66001CB6A9 /* 按来电统计 */,
 				0C75814F235D5AC70029B530 /* 按合同统计 */,
 				0C75814E235D5ABE0029B530 /* 按认购统计 */,
 				105162552359A5E400E7CA6F /* SaleRankVC.h */,
@@ -5335,6 +5374,7 @@
 				0CC7E8E822FA6E9C00AB0E1F /* SignAddMinusPersonVC.m in Sources */,
 				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
 				0C3D4F6123616DA6001CB6A9 /* DealCustomerReportChannelCell.m in Sources */,
+				0C3D4F762361AE9C001CB6A9 /* SaleRankTelCell.m in Sources */,
 				1051625D2359A60F00E7CA6F /* WeekCountVC.m in Sources */,
 				0CD7A02F225C6D5700EAE816 /* AddressChooseView2.m in Sources */,
 				0C038BC722E9896500D83DC2 /* ContentRightBtnCell.m in Sources */,
@@ -5352,6 +5392,7 @@
 				0C106981235EA19100CB58A2 /* ZQDataGridRightTableViewCellModel.m in Sources */,
 				0C04D7232329E86E003188BE /* CodeGenerateTools.m in Sources */,
 				0CEF8A37225DCA090057F3FD /* PersonalHeader.m in Sources */,
+				0C3D4F732361AE8E001CB6A9 /* SaleRankVisitCell.m in Sources */,
 				0C758160235DA7D40029B530 /* ReceiptCountChartHeader.m in Sources */,
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
 				0C75815D235DA6960029B530 /* ReceiptCountChartCell.m in Sources */,
@@ -5400,6 +5441,7 @@
 				10BC3A47228FEF2800DAB2D8 /* RotationCell.m in Sources */,
 				0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */,
 				0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */,
+				0C3D4F6E2361A851001CB6A9 /* CallCustomReportVC.m in Sources */,
 				0C4B7F6322C9A9B400BBC34F /* NumeralCell.m in Sources */,
 				0C221A6A227EDE73006B0510 /* BaseAddCell.m in Sources */,
 				0CD0433C227FE66B002C8BD3 /* InfoDetailCell.m in Sources */,

@@ -7,6 +7,8 @@
 //
 
 #import "ReportVC.h"
+
+#import "CallCustomReportVC.h"
 #import "VisitCustomReportVC.h"
 #import "ChannelAnalysisVC.h"
 #import "CommissionReportVC.h"
@@ -62,8 +64,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
-    _titleArr = @[@"来访客户分析表",@"渠道分析表",@"佣金统计表",@"成交客户分析表",@"销售明细表",@"资源盘点表",@"销售排名表",@"收款统计表",@"销售周汇总表",@"销售月汇总表"];
-    _imgArr = @[@"report_visit",@"report_channel",@"report_commission",@"chengjiapfenxi",@"xiangmuhuizong",@"ziyuanpandian",@"xiaoshoupaiming",@"shoukuantongji",@"zhouhuixong",@"yuehuizong"];
+    _titleArr = @[@"来电客户分析表",@"来访客户分析表",@"渠道分析表",@"佣金统计表",@"成交客户分析表",@"销售明细表",@"资源盘点表",@"销售排名表",@"收款统计表",@"销售周汇总表",@"销售月汇总表"];
+    _imgArr = @[@"report_visit",@"report_visit",@"report_channel",@"report_commission",@"chengjiapfenxi",@"xiangmuhuizong",@"ziyuanpandian",@"xiaoshoupaiming",@"shoukuantongji",@"zhouhuixong",@"yuehuizong"];
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].ReportListPower;
 }
@@ -184,42 +186,46 @@
     
     if (indexPath.row == 0) {
         
+        CallCustomReportVC *nextVC = [[CallCustomReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.row == 1) {
+        
         VisitCustomReportVC *nextVC = [[VisitCustomReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 1){
+    }else if(indexPath.row == 2){
         
         ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 2){
+    }else if(indexPath.row == 3){
         
         CommissionReportVC *nextVC = [[CommissionReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 3){
+    }else if(indexPath.row == 4){
         
         DealCustomerReportVC *nextVC = [[DealCustomerReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
 //        nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 4){
+    }else if(indexPath.row == 5){
         
         SaleDetailVC *nextVC = [[SaleDetailVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 5){
+    }else if(indexPath.row == 6){
         
         ResourcesAuditVC *nextVC = [[ResourcesAuditVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 6){
+    }else if(indexPath.row == 7){
         
         SaleRankVC *nextVC = [[SaleRankVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 7){
+    }else if(indexPath.row == 8){
         
        ReceiptCountVC *nextVC = [[ReceiptCountVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
                 [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 8){
+    }else if(indexPath.row == 9){
         
         WeekCountVC *nextVC = [[WeekCountVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";

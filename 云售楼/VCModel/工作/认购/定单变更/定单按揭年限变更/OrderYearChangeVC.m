@@ -883,9 +883,9 @@
                     if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                         
                         preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                        preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+//                        preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
                         price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                        price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+//                        price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
                         
                     }
                     
@@ -971,9 +971,9 @@
                             if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                                 
                                 preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                                preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+//                                preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
                                 price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                                price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+//                                price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
                             }
                             
                             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
@@ -1066,7 +1066,7 @@
             if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                 
                 preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
+//                preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];;
                 price = [self DecimalNumber:[strongSelf->_ordDic[@"total_price"] doubleValue] num2:preferPrice];
 //                price = [strongSelf->_ordDic[@"total_price"] floatValue] - preferPrice;
             }
@@ -1133,7 +1133,7 @@
             preferPrice = [self DecimalNumber:[strongSelf->_ordDic[@"total_price"] doubleValue] num2:price];
 //            preferPrice = [strongSelf->_ordDic[@"total_price"] floatValue] - price;
             preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//            preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
+//            preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];;
             price = [self DecimalNumber:[strongSelf->_ordDic[@"total_price"] doubleValue] num2:preferPrice];
 //            price = [strongSelf->_ordDic[@"total_price"] floatValue] - preferPrice;
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",price] forKey:@"price"];
@@ -1148,7 +1148,7 @@
             if ([strongSelf->_ordDic[@"fund_loan_money"] length]) {
                 
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",[strongSelf DecimalNumber:[strongSelf DecimalNumber:[strongSelf->_ordDic[@"price"] doubleValue] num2:[strongSelf->_ordDic[@"bank_loan_money"] doubleValue]] num2:[strongSelf->_ordDic[@"fund_loan_money"] doubleValue]]] forKey:@"downpayment"];
-//                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"bank_loan_money"] floatValue] - [strongSelf->_ordDic[@"fund_loan_money"] floatValue])] forKey:@"downpayment"];
+//                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",[strongSelf DecimalNumber:[strongSelf DecimalNumber:[strongSelf->_ordDic[@"price"] doubleValue] num2:[strongSelf->_ordDic[@"bank_loan_money"] doubleValue]] num2:[strongSelf->_ordDic[@"fund_loan_money"] doubleValue]]] forKey:@"downpayment"];
             }
         }else if (index == 11){ //综合贷款-商贷年限
             
@@ -1159,7 +1159,7 @@
             if ([strongSelf->_ordDic[@"bank_loan_money"] length]) {
                 
                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",[strongSelf DecimalNumber:[strongSelf DecimalNumber:[strongSelf->_ordDic[@"price"] doubleValue] num2:[strongSelf->_ordDic[@"bank_loan_money"] doubleValue]] num2:[strongSelf->_ordDic[@"fund_loan_money"] doubleValue]]] forKey:@"downpayment"];
-//                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"bank_loan_money"] floatValue] - [strongSelf->_ordDic[@"fund_loan_money"] floatValue])] forKey:@"downpayment"];
+//                [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",[strongSelf DecimalNumber:[strongSelf DecimalNumber:[strongSelf->_ordDic[@"price"] doubleValue] num2:[strongSelf->_ordDic[@"bank_loan_money"] doubleValue]] num2:[strongSelf->_ordDic[@"fund_loan_money"] doubleValue]]] forKey:@"downpayment"];
             }
         }else if (index == 14){ //综合贷款-公积金年限
             
@@ -1168,7 +1168,7 @@
             
             [strongSelf->_ordDic setObject:str forKey:@"loan_money"];
             [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",[strongSelf DecimalNumber:[strongSelf->_ordDic[@"price"] doubleValue] num2:[strongSelf->_ordDic[@"loan_money"] doubleValue]]] forKey:@"downpayment"];
-//            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",([strongSelf->_ordDic[@"price"] floatValue] - [strongSelf->_ordDic[@"loan_money"] floatValue])] forKey:@"downpayment"];
+//            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",[strongSelf DecimalNumber:[strongSelf->_ordDic[@"price"] doubleValue] num2:[strongSelf->_ordDic[@"loan_money"] doubleValue]]] forKey:@"downpayment"];
         }else if (index == 17){//银行、公积金贷款-贷款年限
             
             [strongSelf->_ordDic setObject:str forKey:@"loan_limit"];
@@ -1267,9 +1267,9 @@
                     if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                         
                         preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                        preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
+//                        preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];;
                         price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                        price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+//                        price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
                     }
                     
                     [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
@@ -1357,9 +1357,9 @@
                                 if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                                     
                                     preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                                    preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
+//                                    preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];;
                                     price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                                    price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+//                                    price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
                                 }
                                 
                                 [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
@@ -1465,9 +1465,9 @@
                                         if ([strongSelf->_ordDic[@"spePreferential"] doubleValue]) {
                                             
                                             preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//                                            preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];;
+//                                            preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];;
                                             price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-                                            price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+                                            price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
                                         }
                                         
                                         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];
@@ -1602,8 +1602,8 @@
             
             price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
             preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
-//            price = price - [strongSelf->_ordDic[@"spePreferential"] doubleValue];
-//            preferPrice = preferPrice + [strongSelf->_ordDic[@"spePreferential"] doubleValue];
+//            price = [self DecimalNumber:price num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
+//            preferPrice = [self AddNumber:preferPrice num2:[strongSelf->_ordDic[@"spePreferential"] doubleValue]];
         }
         
         [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%.2f",(price / [strongSelf->_roomDic[@"estimated_build_size"] floatValue])] forKey:@"sub_unit_price"];

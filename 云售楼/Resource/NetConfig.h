@@ -515,4 +515,7 @@ static NSString *const ReportSaleMonthCount_URL = @"saleApp/report/sale/month/co
 
 //单独获取月度成交统计
 static NSString *const ReportSaleMonthCountContract_URL = @"saleApp/report/sale/month/count/contract";
+
+//来电客户分析表
+static NSString *const ReportSaleClientTelCount_URL = @"saleApp/report/sale/client/tel/count";
 #endif /* NetConfig_h */

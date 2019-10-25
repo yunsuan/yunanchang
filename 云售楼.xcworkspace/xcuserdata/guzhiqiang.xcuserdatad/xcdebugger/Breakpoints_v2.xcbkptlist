@@ -135,17 +135,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "25FA251C-0C7F-4F00-AF0F-CBE7B70B9529"
+            uuid = "F222C30A-3E2A-4904-9179-6C660E453094"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/baseClass/BaseViewController.m"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x62a5;&#x8868;/&#x6765;&#x8bbf;&#x5ba2;&#x6237;&#x62a5;&#x8868;/&#x81ea;&#x7136;&#x6765;&#x8bbf;&#x8be6;&#x60c5;&#x62a5;&#x8868;/AutoVisitReportVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "675"
-            endingLineNumber = "675"
-            landmarkName = "-DecimalNumber:num2:"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "-RequestMethod"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F222C30A-3E2A-4904-9179-6C660E453094 - 25eb1598703a3648"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AutoVisitReportVC RequestMethod]"
+                  moduleName = "&#x4e91;&#x552e;&#x697c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%8A%A5%E8%A1%A8/%E6%9D%A5%E8%AE%BF%E5%AE%A2%E6%88%B7%E6%8A%A5%E8%A1%A8/%E8%87%AA%E7%84%B6%E6%9D%A5%E8%AE%BF%E8%AF%A6%E6%83%85%E6%8A%A5%E8%A1%A8/AutoVisitReportVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "F222C30A-3E2A-4904-9179-6C660E453094 - b786b59533982617"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[AutoVisitReportVC RequestMethod]_block_invoke"
+                  moduleName = "&#x4e91;&#x552e;&#x697c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E6%8A%A5%E8%A1%A8/%E6%9D%A5%E8%AE%BF%E5%AE%A2%E6%88%B7%E6%8A%A5%E8%A1%A8/%E8%87%AA%E7%84%B6%E6%9D%A5%E8%AE%BF%E8%AF%A6%E6%83%85%E6%8A%A5%E8%A1%A8/AutoVisitReportVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

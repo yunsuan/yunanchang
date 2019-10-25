@@ -1,21 +1,21 @@
 //
-//  SaleRankOrderCell.m
+//  SaleRankTelCell.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/10/21.
+//  Created by 谷治墙 on 2019/10/24.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "SaleRankOrderCell.h"
+#import "SaleRankTelCell.h"
 
-@interface SaleRankOrderCell ()<SingleBarChartViewDelegate>
+@interface SaleRankTelCell ()<SingleBarChartViewDelegate>
 
 @property (nonatomic, assign) NSInteger unit;
 @property (nonatomic, assign) NSInteger level;
 
 @end
 
-@implementation SaleRankOrderCell
+@implementation SaleRankTelCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -41,18 +41,18 @@
     _singleBarChartView.xValuesArr = [@[] mutableCopy];
     _singleBarChartView.yValuesArr = [@[] mutableCopy];
     _singleBarChartView.yScaleValue = 1;
-    for (int i = 0; i < [dataDic[@"subSort"] count]; i++) {
+    for (int i = 0; i < [dataDic[@"telSort"] count]; i++) {
         
-        [_singleBarChartView.xValuesArr addObject:dataDic[@"subSort"][i][@"name"]];
-        [_singleBarChartView.yValuesArr addObject:[NSString stringWithFormat:@"%@",dataDic[@"subSort"][i][@"count"]]];
+        [_singleBarChartView.xValuesArr addObject:dataDic[@"telSort"][i][@"name"]];
+        [_singleBarChartView.yValuesArr addObject:[NSString stringWithFormat:@"%@",dataDic[@"telSort"][i][@"count"]]];
         if (i == 0) {
             
-            _unit = [dataDic[@"subSort"][i][@"count"] integerValue];
+            _unit = [dataDic[@"telSort"][i][@"count"] integerValue];
         }else{
             
-            if (_unit < [dataDic[@"subSort"][i][@"count"] integerValue]) {
+            if (_unit < [dataDic[@"telSort"][i][@"count"] integerValue]) {
                 
-                _unit = [dataDic[@"subSort"][i][@"count"] integerValue];
+                _unit = [dataDic[@"telSort"][i][@"count"] integerValue];
             }
         }
         
@@ -83,10 +83,10 @@
 - (void)SingleBarChart:(SingleBarChartView *)chartView didSelectIndex:(NSInteger)index{
     
     NSLog(@"111111111111%ld",index);
-    if (self.saleRankOrderCellBlock) {
-        
-        self.saleRankOrderCellBlock(index);
-    }
+//    if (self.saleRankContractCellBlock) {
+//        
+//        self.saleRankContractCellBlock(index);
+//    }
 }
 
 - (void)initUI{
@@ -97,6 +97,5 @@
 
     [self.contentView addSubview:_singleBarChartView];
 }
-
 
 @end
