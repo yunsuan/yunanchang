@@ -54,7 +54,7 @@
     NSMutableArray *_roleArr;
     NSMutableArray *_rolePersonArr;
     NSMutableArray *_rolePersonSelectArr;
-//    NSMutableArray *_imgArr;;
+    NSMutableArray *_imgArr;
     
     NSDateFormatter *_formatter;
     NSDateFormatter *_secondFormatter;
@@ -74,9 +74,9 @@
 
 @property (nonatomic, strong) AddNumeralProcessView *addNumeralProcessView;
 
-//@property (nonatomic, strong) AddNemeralHeader *addNumeralFileHeader;
+@property (nonatomic, strong) AddNemeralHeader *addNumeralFileHeader;
 
-//@property (nonatomic, strong) AddNumeralFileView *addNumeralFileView;
+@property (nonatomic, strong) AddNumeralFileView *addNumeralFileView;
 
 @property (nonatomic, strong) UIDocumentPickerViewController *documentPickerVC;
 
@@ -132,7 +132,7 @@
     _rolePersonArr = [@[] mutableCopy];
     _rolePersonSelectArr = [@[] mutableCopy];
     _collArr = [@[] mutableCopy];
-//    _imgArr = [@[] mutableCopy];
+    _imgArr = [@[] mutableCopy];
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
@@ -269,8 +269,8 @@
         
        if ([resposeObject[@"code"] integerValue] == 200) {
 
-//           [self->_imgArr addObject:@{@"url":[NSString stringWithFormat:@"%@",resposeObject[@"data"]],@"name":name,@"create_time":name}];
-//           self->_addNumeralFileView.dataArr = self->_imgArr;
+           [self->_imgArr addObject:@{@"url":[NSString stringWithFormat:@"%@",resposeObject[@"data"]],@"name":name,@"create_time":name}];
+           self->_addNumeralFileView.dataArr = self->_imgArr;
        }else{
 
            [self showContent:resposeObject[@"msg"]];
@@ -407,12 +407,12 @@
     NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
     NSString *personjson1 = [[NSString alloc]initWithData:jsonData1 encoding:NSUTF8StringEncoding];
     [dic setObject:personjson1 forKey:@"advicer_list"];
-//    if (_imgArr.count) {
-//
-//        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:_imgArr options:NSJSONWritingPrettyPrinted error:&error];
-//        NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
-//        [dic setObject:jsonString2 forKey:@"enclosure_list"];
-//    }
+    if (_imgArr.count) {
+
+        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:_imgArr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+        [dic setObject:jsonString2 forKey:@"enclosure_list"];
+    }
     [dic setObject:_progressDic[@"progress_id"] forKey:@"progress_id"];
 //    NSString *param;
 //    for (int i = 0; i < _rolePersonSelectArr.count; i++) {
@@ -860,44 +860,44 @@
             [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@0];
             [strongSelf->_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addNumeralProcessView.hidden = YES;
-            [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(0);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-            }];
-//            [strongSelf->_addNumeralFileHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
 //
 //                make.left.equalTo(strongSelf->_scrollView).offset(0);
 //                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
 //                make.width.mas_equalTo(SCREEN_Width);
-//                make.height.mas_equalTo(40 *SIZE);
+//                make.height.mas_equalTo(0);
 //                make.right.equalTo(strongSelf->_scrollView).offset(0);
+//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
 //            }];
+            [strongSelf->_addNumeralFileHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(40 *SIZE);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+            }];
         }else{
             
             [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@1];
             [strongSelf->_processHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addNumeralProcessView.hidden = NO;
-//            [strongSelf->_addNumeralFileHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
-//
-//                make.left.equalTo(strongSelf->_scrollView).offset(0);
-//                make.top.equalTo(strongSelf->_addNumeralProcessView.mas_bottom).offset(0 *SIZE);
-//                make.width.mas_equalTo(SCREEN_Width);
-//                make.height.mas_equalTo(40 *SIZE);
-//                make.right.equalTo(strongSelf->_scrollView).offset(0);
-//            }];
-            [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [strongSelf->_addNumeralFileHeader mas_remakeConstraints:^(MASConstraintMaker *make) {
 
                 make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
+                make.top.equalTo(strongSelf->_addNumeralProcessView.mas_bottom).offset(0 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(40 *SIZE);
                 make.right.equalTo(strongSelf->_scrollView).offset(0);
-                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
             }];
+//            [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//
+//                make.left.equalTo(strongSelf->_scrollView).offset(0);
+//                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
+//                make.width.mas_equalTo(SCREEN_Width);
+//                make.right.equalTo(strongSelf->_scrollView).offset(0);
+//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+//            }];
         }
     };
     [_scrollView addSubview:_processHeader];
@@ -1097,63 +1097,63 @@
     };
     [_scrollView addSubview:_addNumeralProcessView];
     
-//    _addNumeralFileHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-//    _addNumeralFileHeader.titleL.text = @"附件文件";
-//    _addNumeralFileHeader.addBtn.hidden = YES;
-//    [_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-//    _addNumeralFileHeader.backgroundColor = CLWhiteColor;
-//    _addNumeralFileHeader.addNemeralHeaderAllBlock = ^{
-//
-//        strongSelf->_coll.hidden = YES;
-//        if ([strongSelf->_selectArr[3] integerValue]){
-//
-//            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
-//            [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-//            strongSelf->_addNumeralFileView.hidden = YES;
-//            [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//
-//                make.left.equalTo(strongSelf->_scrollView).offset(0);
-//                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
-//                make.width.mas_equalTo(SCREEN_Width);
-//                make.height.mas_equalTo(0);
-//                make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-//            }];
-//        }else{
-//
-//            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
-//            [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-//            strongSelf->_addNumeralFileView.hidden = NO;
-//            [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//
-//                make.left.equalTo(strongSelf->_scrollView).offset(0);
-//                make.top.equalTo(strongSelf->_addNumeralFileHeader.mas_bottom).offset(0 *SIZE);
-//                make.width.mas_equalTo(SCREEN_Width);
-//                make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-//            }];
-//        }
-//    };
-//    [_scrollView addSubview:_addNumeralFileHeader];
-//
-//    _addNumeralFileView = [[AddNumeralFileView alloc] init];
-//    _addNumeralFileView.hidden = YES;
-//    _addNumeralFileView.addNumeralFileViewAddBlock = ^{
-//
-//        [ZZQAvatarPicker startSelected:^(UIImage * _Nonnull image) {
-//
-//            if (image) {
-//
-//                [strongSelf updateheadimgbyimg:image];
-//            }
-//        }];
-//    };
-//    _addNumeralFileView.addNumeralFileViewDeleteBlock = ^(NSInteger idx) {
-//
-//        [strongSelf->_imgArr removeObjectAtIndex:idx];
-//        strongSelf->_addNumeralFileView.dataArr = strongSelf->_imgArr;
-//    };
-//    [_scrollView addSubview:_addNumeralFileView];
+    _addNumeralFileHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+    _addNumeralFileHeader.titleL.text = @"附件文件";
+    _addNumeralFileHeader.addBtn.hidden = YES;
+    [_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+    _addNumeralFileHeader.backgroundColor = CLWhiteColor;
+    _addNumeralFileHeader.addNemeralHeaderAllBlock = ^{
+
+        strongSelf->_coll.hidden = YES;
+        if ([strongSelf->_selectArr[3] integerValue]){
+
+            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
+            [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+            strongSelf->_addNumeralFileView.hidden = YES;
+            [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_addNumeralFileHeader.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(0);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+            }];
+        }else{
+
+            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
+            [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
+            strongSelf->_addNumeralFileView.hidden = NO;
+            [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_addNumeralFileHeader.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
+            }];
+        }
+    };
+    [_scrollView addSubview:_addNumeralFileHeader];
+
+    _addNumeralFileView = [[AddNumeralFileView alloc] init];
+    _addNumeralFileView.hidden = YES;
+    _addNumeralFileView.addNumeralFileViewAddBlock = ^{
+
+        [ZZQAvatarPicker startSelected:^(UIImage * _Nonnull image) {
+
+            if (image) {
+
+                [strongSelf updateheadimgbyimg:image];
+            }
+        }];
+    };
+    _addNumeralFileView.addNumeralFileViewDeleteBlock = ^(NSInteger idx) {
+
+        [strongSelf->_imgArr removeObjectAtIndex:idx];
+        strongSelf->_addNumeralFileView.dataArr = strongSelf->_imgArr;
+    };
+    [_scrollView addSubview:_addNumeralFileView];
     
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
@@ -1239,29 +1239,29 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_processHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
+//        make.height.mas_equalTo(0);
+        make.right.equalTo(self->_scrollView).offset(0);
+//        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
+    }];
+    
+    [_addNumeralFileHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.equalTo(self->_scrollView).offset(0);
+        make.top.equalTo(self->_processHeader.mas_bottom).offset(0 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(40 *SIZE);
+        make.right.equalTo(self->_scrollView).offset(0);
+    }];
+
+    [_addNumeralFileView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.equalTo(self->_scrollView).offset(0);
+        make.top.equalTo(self->_addNumeralFileHeader.mas_bottom).offset(0 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(0);
         make.right.equalTo(self->_scrollView).offset(0);
         make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];
-    
-//    [_addNumeralFileHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_scrollView).offset(0);
-//        make.top.equalTo(self->_processHeader.mas_bottom).offset(0 *SIZE);
-//        make.width.mas_equalTo(SCREEN_Width);
-//        make.height.mas_equalTo(40 *SIZE);
-//        make.right.equalTo(self->_scrollView).offset(0);
-//    }];
-//
-//    [_addNumeralFileView mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.equalTo(self->_scrollView).offset(0);
-//        make.top.equalTo(self->_addNumeralFileHeader.mas_bottom).offset(0 *SIZE);
-//        make.width.mas_equalTo(SCREEN_Width);
-//        make.height.mas_equalTo(0);
-//        make.right.equalTo(self->_scrollView).offset(0);
-//        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
-//    }];
     
     [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
        

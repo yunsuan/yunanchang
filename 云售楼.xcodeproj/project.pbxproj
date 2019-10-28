@@ -72,6 +72,7 @@
 		0C10698A235EA52800CB58A2 /* NomalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C106989235EA52800CB58A2 /* NomalCollectionViewCell.m */; };
 		0C10698E235EAAEC00CB58A2 /* myDataGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C10698D235EAAEC00CB58A2 /* myDataGridViewCell.m */; };
 		0C11BAB5233CB326000F77BD /* TaskReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11BAB4233CB326000F77BD /* TaskReportVC.m */; };
+		0C1385852366CCC10040F421 /* EnclosureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1385842366CCC10040F421 /* EnclosureCell.m */; };
 		0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */; };
 		0C221A4C227EAC30006B0510 /* TaskCallBackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */; };
 		0C221A4F227EAC81006B0510 /* TaskCallFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C221A4E227EAC81006B0510 /* TaskCallFollowCell.m */; };
@@ -688,6 +689,8 @@
 		0C10698D235EAAEC00CB58A2 /* myDataGridViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = myDataGridViewCell.m; sourceTree = "<group>"; };
 		0C11BAB3233CB326000F77BD /* TaskReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskReportVC.h; sourceTree = "<group>"; };
 		0C11BAB4233CB326000F77BD /* TaskReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskReportVC.m; sourceTree = "<group>"; };
+		0C1385832366CCC10040F421 /* EnclosureCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnclosureCell.h; sourceTree = "<group>"; };
+		0C1385842366CCC10040F421 /* EnclosureCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnclosureCell.m; sourceTree = "<group>"; };
 		0C192C9122CAEBC4000CA161 /* AddNumeralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralVC.h; sourceTree = "<group>"; };
 		0C192C9222CAEBC4000CA161 /* AddNumeralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralVC.m; sourceTree = "<group>"; };
 		0C221A48227EAC2F006B0510 /* TaskCallBackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCallBackCell.m; sourceTree = "<group>"; };
@@ -2648,6 +2651,15 @@
 			path = ZZQAvatarPicker;
 			sourceTree = "<group>";
 		};
+		0C3D4F972366CB65001CB6A9 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C1385832366CCC10040F421 /* EnclosureCell.h */,
+				0C1385842366CCC10040F421 /* EnclosureCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0C496DDE22D42DE800789FFA /* 修改客户 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2803,6 +2815,7 @@
 		0C4B8EDE22CC470A00D505BE /* 认购详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D4F972366CB65001CB6A9 /* view */,
 				0CE8F20C22F04F060032F8E6 /* 转合同 */,
 				0C4B8EDF22CC478400D505BE /* OrderDetailVC.h */,
 				0C4B8EE022CC478400D505BE /* OrderDetailVC.m */,
@@ -5399,6 +5412,7 @@
 				0CD043B92282715F002C8BD3 /* WaitAnimation.m in Sources */,
 				0CEF8A27225D7BF00057F3FD /* LoginVC.m in Sources */,
 				0C3A916E225B37B200F04804 /* TaskVC.m in Sources */,
+				0C1385852366CCC10040F421 /* EnclosureCell.m in Sources */,
 				0C496DEE22D469E500789FFA /* AddNumeralProcessView.m in Sources */,
 				0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */,
 				0CEF8AE4226427260057F3FD /* CallTelegramVC.m in Sources */,

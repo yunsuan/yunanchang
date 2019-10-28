@@ -456,9 +456,12 @@
         }else if (section == 4) {
             
             header.titleL.text = @"交易信息";
-        }else{
+        }else if (section == 5){
             
             header.titleL.text = @"审核信息";
+        }else{
+            
+            header.titleL.text = @"附件信息";
         }
         return header;
     }
