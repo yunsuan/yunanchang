@@ -2085,6 +2085,18 @@
         [strongSelf->_imgArr removeObjectAtIndex:idx];
         strongSelf->_addNumeralFileView.dataArr = strongSelf->_imgArr;
     };
+    _addNumeralFileView.addNumeralFileViewSelectBlock = ^(NSInteger idx) {
+      
+        ChangeFileNameView *view = [[ChangeFileNameView alloc] initWithFrame:strongSelf.view.bounds name:strongSelf->_imgArr[idx][@"name"]];
+        view.changeFileNameViewBlock = ^(NSString * _Nonnull name) {
+          
+            NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:strongSelf->_imgArr[idx]];
+            [tempDic setValue:name forKey:@"name"];
+            [strongSelf->_imgArr replaceObjectAtIndex:idx withObject:tempDic];
+            strongSelf->_addNumeralFileView.dataArr = strongSelf->_imgArr;
+        };
+        [strongSelf.view addSubview:view];
+    };
     [_scrollView addSubview:_addNumeralFileView];
     
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];

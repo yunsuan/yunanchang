@@ -25,6 +25,8 @@
 #import "OrderAddMinusPersonVC.h"
 #import "OrderChangeRoomVC.h"
 
+#import "FileReadingVC.h"
+
 #import "NumeralDetailInvalidView.h"
 #import "SinglePickView.h"
 
@@ -604,6 +606,13 @@
         
         cell.dataArr = _dataDic[@"enclosure"];
         
+        cell.enclosureCellBlock = ^(NSInteger idx) {
+          
+            FileReadingVC *nextVC = [[FileReadingVC alloc] initWithUrlString:_dataDic[@"enclosure"][idx][@"url"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+            NSLog(@"%@",_dataDic[@"enclosure"]);
+        };
+        
         return cell;
         
     }else{
@@ -668,8 +677,12 @@
                     }
                 };
             }else{
-                
+                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:@""];
+                cell.contentL.attributedText = attribtStr;
                 cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+                cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                    
+                };
             }
             
             return cell;

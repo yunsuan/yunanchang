@@ -18,6 +18,8 @@ typedef void(^AddNumeralFileCellDeleteBlock)(NSInteger idx);
 
 @property (nonatomic, strong) UIImageView *bigImg;
 
+@property (nonatomic, strong) UILabel *titleL;
+
 @property (nonatomic, strong) UIButton *deleteBtn;
 
 @end

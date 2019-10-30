@@ -14,12 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^AddNumeralFileViewAddBlock)(void);
 typedef void(^AddNumeralFileViewDeleteBlock)(NSInteger idx);
+typedef void(^AddNumeralFileViewSelectBlock)(NSInteger idx);
 
 @interface AddNumeralFileView : UIView
 
 @property (nonatomic, copy) AddNumeralFileViewAddBlock addNumeralFileViewAddBlock;
 
 @property (nonatomic, copy) AddNumeralFileViewDeleteBlock addNumeralFileViewDeleteBlock;
+
+@property (nonatomic, copy) AddNumeralFileViewSelectBlock addNumeralFileViewSelectBlock;
 
 @property (nonatomic, strong) UIButton *addBtn;
 

@@ -17,6 +17,8 @@
 #import "UserModelArchiver.h"
 //#import "PowerMannerger.h"
 
+#import "ChangeFileNameView.h"
+
 
 #import "NetConfig.h"
 #import "BaseRequest.h"
@@ -35,7 +37,7 @@
 #import "ZZQAvatarPicker.h"
 
 
-#define YACversion @"2.1.9"
+#define YACversion @"2.2.0"
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
 

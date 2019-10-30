@@ -63,18 +63,47 @@
     AddNumeralFileCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AddNumeralFileCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[AddNumeralFileCell alloc] initWithFrame:CGRectMake(0, 0, 100 *SIZE, 100 *SIZE)];
+        cell = [[AddNumeralFileCell alloc] initWithFrame:CGRectMake(0, 0, 110 *SIZE, 120 *SIZE)];
     }
     
     cell.tag = indexPath.item;
     
-    [cell.bigImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TestBase_Net,_imgArr[indexPath.item][@"url"]]] placeholderImage:IMAGE_WITH_NAME(@"") completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-       
-        if (error) {
+    cell.titleL.text = _imgArr[indexPath.item][@"name"];
+    
+    if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"avi"]) {
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"avi");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"mp4"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"mp4");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"mp3"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"mp3");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"txt"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"txt");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"jpg"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"jpg");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"png"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"png");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"ppt"] || [[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"pptx"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"ppt");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"exe"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"exe");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"doc"] || [[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"docx"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"doc");
+    }else if ([[_imgArr[indexPath.item][@"url"] pathExtension] isEqualToString:@"xlsx"]){
+        
+        cell.bigImg.image = IMAGE_WITH_NAME(@"exc");
+    }else{
             
-            cell.bigImg.image = IMAGE_WITH_NAME(@"");
-        }
-    }];
+        cell.bigImg.image = IMAGE_WITH_NAME(@"other");
+    }
     
     cell.addNumeralFileCellDeleteBlock = ^(NSInteger idx) {
         
@@ -88,7 +117,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+ 
+    if (self.addNumeralFileViewSelectBlock) {
+        
+        self.addNumeralFileViewSelectBlock(indexPath.item);
+    }
 }
 
 - (void)initUI{
@@ -102,8 +135,8 @@
     [_addBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_addBtn];
     
-    _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:15 *SIZE];
-    _layout.itemSize = CGSizeMake(100 *SIZE, 100 *SIZE);
+    _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:5 *SIZE];
+    _layout.itemSize = CGSizeMake(110 *SIZE, 120 *SIZE);
     
     _coll = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
     _coll.backgroundColor = CLWhiteColor;

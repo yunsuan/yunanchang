@@ -623,7 +623,12 @@
             //            cell.contentL.text = ;
         }else{
             
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:@""];
+            cell.contentL.attributedText = attribtStr;
             cell.contentL.text = _infoDataArr[_num][indexPath.row];
+            cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                
+            };
         }
         
         cell.callTelegramCustomDetailInfoCellEditBlock = ^{
