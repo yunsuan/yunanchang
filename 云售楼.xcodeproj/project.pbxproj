@@ -145,6 +145,10 @@
 		0C3DD5CC2369262000211766 /* StoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CB2369262000211766 /* StoreVC.m */; };
 		0C3DD5D0236927A500211766 /* StoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CF236927A500211766 /* StoreCell.m */; };
 		0C3DD5D42369295700211766 /* AddStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5D32369295700211766 /* AddStoreVC.m */; };
+		0C3DD5D82369391900211766 /* StoreDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5D72369391900211766 /* StoreDetailVC.m */; };
+		0C3DD5DB2369392900211766 /* AddStoreNeedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5DA2369392900211766 /* AddStoreNeedVC.m */; };
+		0C3DD5E223693F2200211766 /* StoreDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5E123693F2200211766 /* StoreDetailHeader.m */; };
+		0C3DD5E52369785A00211766 /* ThirdPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5E42369785A00211766 /* ThirdPickView.m */; };
 		0C4374C22366D0FD00B014D0 /* EnclosureCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4374C12366D0FD00B014D0 /* EnclosureCollCell.m */; };
 		0C4374C62367C2E500B014D0 /* FileReadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4374C52367C2E500B014D0 /* FileReadingVC.m */; };
 		0C4374CA2367DD6B00B014D0 /* ChangeFileNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4374C92367DD6B00B014D0 /* ChangeFileNameView.m */; };
@@ -843,6 +847,14 @@
 		0C3DD5CF236927A500211766 /* StoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreCell.m; sourceTree = "<group>"; };
 		0C3DD5D22369295700211766 /* AddStoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddStoreVC.h; sourceTree = "<group>"; };
 		0C3DD5D32369295700211766 /* AddStoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddStoreVC.m; sourceTree = "<group>"; };
+		0C3DD5D62369391900211766 /* StoreDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailVC.h; sourceTree = "<group>"; };
+		0C3DD5D72369391900211766 /* StoreDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailVC.m; sourceTree = "<group>"; };
+		0C3DD5D92369392900211766 /* AddStoreNeedVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddStoreNeedVC.h; sourceTree = "<group>"; };
+		0C3DD5DA2369392900211766 /* AddStoreNeedVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddStoreNeedVC.m; sourceTree = "<group>"; };
+		0C3DD5E023693F2200211766 /* StoreDetailHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailHeader.h; sourceTree = "<group>"; };
+		0C3DD5E123693F2200211766 /* StoreDetailHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailHeader.m; sourceTree = "<group>"; };
+		0C3DD5E32369785A00211766 /* ThirdPickView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdPickView.h; sourceTree = "<group>"; };
+		0C3DD5E42369785A00211766 /* ThirdPickView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdPickView.m; sourceTree = "<group>"; };
 		0C4374C02366D0FD00B014D0 /* EnclosureCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnclosureCollCell.h; sourceTree = "<group>"; };
 		0C4374C12366D0FD00B014D0 /* EnclosureCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnclosureCollCell.m; sourceTree = "<group>"; };
 		0C4374C42367C2E500B014D0 /* FileReadingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileReadingVC.h; sourceTree = "<group>"; };
@@ -2686,6 +2698,7 @@
 		0C3DD5C92369258D00211766 /* 商家 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3DD5D52369390C00211766 /* 商家详情 */,
 				0C3DD5D12369294400211766 /* 新增商家 */,
 				0C3DD5CD2369279900211766 /* view */,
 				0C3DD5CA2369262000211766 /* StoreVC.h */,
@@ -2708,8 +2721,29 @@
 			children = (
 				0C3DD5D22369295700211766 /* AddStoreVC.h */,
 				0C3DD5D32369295700211766 /* AddStoreVC.m */,
+				0C3DD5D92369392900211766 /* AddStoreNeedVC.h */,
+				0C3DD5DA2369392900211766 /* AddStoreNeedVC.m */,
 			);
 			path = "新增商家";
+			sourceTree = "<group>";
+		};
+		0C3DD5D52369390C00211766 /* 商家详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3DD5DC23693EBA00211766 /* view */,
+				0C3DD5D62369391900211766 /* StoreDetailVC.h */,
+				0C3DD5D72369391900211766 /* StoreDetailVC.m */,
+			);
+			path = "商家详情";
+			sourceTree = "<group>";
+		};
+		0C3DD5DC23693EBA00211766 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C3DD5E023693F2200211766 /* StoreDetailHeader.h */,
+				0C3DD5E123693F2200211766 /* StoreDetailHeader.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		0C4374C32367C2D200B014D0 /* 文件查阅 */ = {
@@ -3865,6 +3899,8 @@
 			children = (
 				0CD0436122802357002C8BD3 /* SinglePickView.h */,
 				0CD0436022802357002C8BD3 /* SinglePickView.m */,
+				0C3DD5E32369785A00211766 /* ThirdPickView.h */,
+				0C3DD5E42369785A00211766 /* ThirdPickView.m */,
 			);
 			path = "下拉单选框";
 			sourceTree = "<group>";
@@ -5319,6 +5355,7 @@
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
 				0C05330622F7DB5F00DA9143 /* OrderAddDepositVC.m in Sources */,
 				0CA8265522AE69290005F3ED /* PropertyVisitReportVC.m in Sources */,
+				0C3DD5E52369785A00211766 /* ThirdPickView.m in Sources */,
 				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,
 				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
 				0C0C103F235EFF4300A81888 /* LinesSelectCell.m in Sources */,
@@ -5351,6 +5388,7 @@
 				10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */,
 				0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */,
 				0CC7E8E422FA6E1600AB0E1F /* SignSpePerferChangeVC.m in Sources */,
+				0C3DD5D82369391900211766 /* StoreDetailVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
 				0C496DFF22D70A4900789FFA /* SelectSpePerferVC.m in Sources */,
 				0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */,
@@ -5499,6 +5537,7 @@
 				0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */,
 				0CC7E8E822FA6E9C00AB0E1F /* SignAddMinusPersonVC.m in Sources */,
 				0C4374C22366D0FD00B014D0 /* EnclosureCollCell.m in Sources */,
+				0C3DD5E223693F2200211766 /* StoreDetailHeader.m in Sources */,
 				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
 				0C3D4F6123616DA6001CB6A9 /* DealCustomerReportChannelCell.m in Sources */,
 				0C3D4F762361AE9C001CB6A9 /* SaleRankTelCell.m in Sources */,
@@ -5613,6 +5652,7 @@
 				0CFC16DA22EAD91400AD3D65 /* InstallMentDetailCell.m in Sources */,
 				0CAD457422980B9E00A5C1D0 /* WorkRecommendValidCell.m in Sources */,
 				0CFF71DC22A6423E0066732B /* VisitCustomReportVC.m in Sources */,
+				0C3DD5DB2369392900211766 /* AddStoreNeedVC.m in Sources */,
 				0C3A9124225B20C600F04804 /* main.m in Sources */,
 				0C26CA0022A6811D00A7CF47 /* TitleCollHeader.m in Sources */,
 				0C11BAB5233CB326000F77BD /* TaskReportVC.m in Sources */,

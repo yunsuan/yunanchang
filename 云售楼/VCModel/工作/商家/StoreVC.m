@@ -8,6 +8,8 @@
 
 #import "StoreVC.h"
 
+#import "AddStoreVC.h"
+
 #import "StoreCell.h"
 
 @interface StoreVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
@@ -63,7 +65,7 @@
     }
     
     _table.mj_footer.state = MJRefreshStateIdle;
-    [BaseRequest GET:ProjectHouseGetProjectSublist_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ProjectBusinessGetList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -85,7 +87,6 @@
         
         [self->_table.mj_header endRefreshing];
         [self showContent:@"网络错误"];
-        
     }];
 }
 
@@ -98,7 +99,7 @@
         [dic setObject:_searchBar.text forKey:@"search"];
     }
     //    _table.mj_footer.state = MJRefreshStateIdle;
-    [BaseRequest GET:ProjectHouseGetProjectSublist_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ProjectBusinessGetList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
 //        [self->_table.mj_footer endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -148,7 +149,7 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-//    AddVisitCustomVC *nextVC = [[AddVisitCustomVC alloc] initWithProjectId:_projectId info_id:_info_id];
+    AddStoreVC *nextVC = [[AddStoreVC alloc] initWithProjectId:_project_id info_id:_info_id];
 //    nextVC.addVisitCustomVCBlock = ^{
 //        
 //        [self RequestMethod];
@@ -157,7 +158,7 @@
 //            self.visitCustomVCBlock();
 //        }
 //    };
-//    [self.navigationController pushViewController:nextVC animated:YES];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 

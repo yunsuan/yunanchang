@@ -10,9 +10,9 @@
 #define NetConfig_h
 
 //新服务器
-//static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
-static NSString *const TestBase_Net = @"http://47.107.246.94/";
+//static NSString *const TestBase_Net = @"http://47.107.246.94/";
 
 #pragma mark --- 登录注册 ---
 
@@ -518,4 +518,29 @@ static NSString *const ReportSaleMonthCountContract_URL = @"saleApp/report/sale/
 
 //来电客户分析表
 static NSString *const ReportSaleClientTelCount_URL = @"saleApp/report/sale/client/tel/count";
+
+#pragma mark === 商家 =====
+//商家列表
+static NSString *const ProjectBusinessGetList_URL = @"saleTradeApp/projectBusiness/getList";
+
+//商家详情
+static NSString *const ProjectBusinessDetail_URL = @"saleTradeApp/projectBusiness/Detail";
+
+//添加商家
+static NSString *const ProjectBusinessAdd_URL = @"saleTradeApp/projectBusiness/add";
+
+//商家信息电话号码判重
+static NSString *const ProjectBusinessContactTelCheck_URL = @"saleTradeApp/projectBusiness/contactTelCheck";
+
+//商家基础信息设置列表
+static NSString *const ProjectBusinessGetBasicsList_URL = @"saleTradeApp/projectBusiness/getBasicsList";
+
+//商业经营状态列表
+static NSString *const ProjectBusinessGetFormatList_URL = @"saleTradeApp/projectBusiness/getFormatList";
+
+//公司品牌库列表
+static NSString *const ProjectBusinessGetBrandList_URL = @"saleTradeApp/projectBusiness/getBrandList";
+
+//商家认知途径列表
+static NSString *const ProjectBusinessGetSourceList_URL = @"saleTradeApp/projectBusiness/getSourceList";
 #endif /* NetConfig_h */
