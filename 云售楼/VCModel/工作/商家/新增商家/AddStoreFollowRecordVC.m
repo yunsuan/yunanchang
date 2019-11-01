@@ -19,6 +19,7 @@
 {
     
     NSDateFormatter *_formatter;
+    NSDateFormatter *_secondFormatter;
     
     NSMutableArray *_intentArr;
     NSMutableArray *_wayArr;
@@ -63,6 +64,8 @@
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
+    _secondFormatter = [[NSDateFormatter alloc] init];
+    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
 }
 
 - (void)ActionDropBtn:(UIButton *)btn{
@@ -166,8 +169,8 @@
             DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
             view.dateblock = ^(NSDate *date) {
                 
-                self->_timeBtn.content.text = [self->_formatter stringFromDate:date];
-                self->_timeBtn->str = [self->_formatter stringFromDate:date];
+                self->_timeBtn.content.text = [self->_secondFormatter stringFromDate:date];
+                self->_timeBtn->str = [self->_secondFormatter stringFromDate:date];
                 self->_intentBtn.placeL.text = @"";
             };
             [self.view addSubview:view];
@@ -210,37 +213,66 @@
     [followDic setValue:_intentBtn->str forKey:@"cooperation_level"];
     [followDic setValue:_wayBtn->str forKey:@"follow_way"];
     [followDic setValue:_stageBtn->str forKey:@"follow_state"];
-    [followDic setValue:_timeBtn->str forKey:@"follow_time"];
+    [followDic setValue:_timeBtn.content.text forKey:@"follow_time"];
     [followDic setValue:_contentView.text forKey:@"content"];
     
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:followDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@[followDic] options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     [self.allDic setValue:jsonString forKey:@"follow_list"];
     
-    [BaseRequest POST:ProjectBusinessAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
+    if (self.business_id.length) {
+        
+        NSMutableDictionary *tempDic = [@{} mutableCopy];
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@[followDic] options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [tempDic setValue:self.business_id forKey:@"business_id"];
+        [tempDic setValue:jsonString forKey:@"follow_list"];
+        
+        [BaseRequest POST:ProjectBusinessUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
 
-        if ([resposeObject[@"code"] integerValue] == 200) {
+            if ([resposeObject[@"code"] integerValue] == 200) {
 
-            if (self.addStoreFollowRecordVCBlock) {
-                
-                self.addStoreFollowRecordVCBlock();
-            }
-            for (UIViewController *vc in self.navigationController.viewControllers) {
-                
-                if ([vc isKindOfClass:[StoreVC class]]) {
+                if (self.addStoreFollowRecordVCBlock) {
                     
-                    [self.navigationController popToViewController:vc animated:YES];
+                    self.addStoreFollowRecordVCBlock();
                 }
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+
+                [self showContent:resposeObject[@"msg"]];
             }
-        }else{
+        } failure:^(NSError * _Nonnull error) {
 
-            [self showContent:resposeObject[@"msg"]];
-        }
-    } failure:^(NSError * _Nonnull error) {
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        [BaseRequest POST:ProjectBusinessAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
 
-        [self showContent:@"网络错误"];
-    }];
+            if ([resposeObject[@"code"] integerValue] == 200) {
+
+                if (self.addStoreFollowRecordVCBlock) {
+                    
+                    self.addStoreFollowRecordVCBlock();
+                }
+                for (UIViewController *vc in self.navigationController.viewControllers) {
+                    
+                    if ([vc isKindOfClass:[StoreVC class]]) {
+                        
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
+                }
+            }else{
+
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+
+            [self showContent:@"网络错误"];
+        }];
+    }
 }
 
 - (void)initUI{
@@ -274,6 +306,12 @@
                 [_scrollView addSubview:_intentL];
                 
                 _intentBtn = btn;
+                if (self.followDic.count) {
+                    
+                    _intentBtn.content.text = self.followDic[@"cooperation_level_name"];
+                    _intentBtn->str = self.followDic[@"cooperation_level"];
+                    _intentBtn.placeL.text = @"";
+                }
                 [_scrollView addSubview:_intentBtn];
                 break;
             }
@@ -287,6 +325,12 @@
                 [_scrollView addSubview:_wayL];
                 
                 _wayBtn = btn;
+                if (self.followDic.count) {
+                    
+                    _wayBtn.content.text = self.followDic[@"follow_way_name"];
+                    _wayBtn->str = self.followDic[@"follow_way"];
+                    _wayBtn.placeL.text = @"";
+                }
                 [_scrollView addSubview:_wayBtn];
                 break;
             }
@@ -299,6 +343,12 @@
                 [_scrollView addSubview:_stageL];
                 
                 _stageBtn = btn;
+                if (self.followDic.count) {
+                    
+                    _stageBtn.content.text = self.followDic[@"follow_state_name"];
+                    _stageBtn->str = self.followDic[@"follow_state"];
+                    _stageBtn.placeL.text = @"";
+                }
                 [_scrollView addSubview:_stageBtn];
                 break;
             }
@@ -336,9 +386,9 @@
     _contentView.clipsToBounds = YES;
     if ([self.followDic count]) {
             
-        if (self.followDic[@"comment"]) {
+        if (self.followDic[@"content"]) {
                 
-            _contentView.text = [NSString stringWithFormat:@"%@",self.followDic[@"comment"]];
+            _contentView.text = [NSString stringWithFormat:@"%@",self.followDic[@"content"]];
         }
     }
     _contentView.textContainerInset = UIEdgeInsetsMake(3 *SIZE, 3 *SIZE, 5 *SIZE, 30 *SIZE);

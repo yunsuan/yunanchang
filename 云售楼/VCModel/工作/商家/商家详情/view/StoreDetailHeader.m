@@ -95,9 +95,9 @@
     [self.contentView addSubview:_blueView];
     
     _headImg = [[UIImageView alloc] init];
-    _headImg.layer.cornerRadius = 33.5 *SIZE;
-    _headImg.clipsToBounds = YES;
-    _headImg.image = IMAGE_WITH_NAME(@"paihao");
+//    _headImg.layer.cornerRadius = 33.5 *SIZE;
+//    _headImg.clipsToBounds = YES;
+    _headImg.image = IMAGE_WITH_NAME(@"sjmerchant_1");
     [_blueView addSubview:_headImg];
     
     for (int i = 0; i < 3; i++) {

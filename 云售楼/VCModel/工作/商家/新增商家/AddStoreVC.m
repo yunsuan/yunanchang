@@ -15,6 +15,8 @@
 #import "AdressChooseView.h"
 #import "ThirdPickView.h"
 
+#import "GZQFlowLayout.h"
+
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
@@ -100,7 +102,7 @@
 
 @property (nonatomic, strong) TitleRightBtnHeader *brandHeader;
 
-@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
+@property (nonatomic, strong) GZQFlowLayout *layout;
 
 @property (nonatomic, strong) UICollectionView *brandColl;
 
@@ -542,29 +544,40 @@
     }
     
     
-    
-//    [BaseRequest POST:ProjectBusinessAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//
-//        [self showContent:@"网络错误"];
-//    }];
-    AddStoreNeedVC *nextVC = [[AddStoreNeedVC alloc] initWithDataDic:tempDic];
-    nextVC.addStoreNeedVCBlock = ^{
-      
-        if (self.addStoreVCBlock) {
-            
-            self.addStoreVCBlock();
-        }
-    };
-    [self.navigationController pushViewController:nextVC animated:YES];
+    if (self.storeDic.count) {
+        
+        [tempDic removeObjectForKey:@"project_id"];
+        [tempDic setValue:self.business_id forKey:@"business_id"];
+        
+        [BaseRequest POST:ProjectBusinessUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if (self.addStoreVCBlock) {
+                    
+                    self.addStoreVCBlock();
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        AddStoreNeedVC *nextVC = [[AddStoreNeedVC alloc] initWithDataDic:tempDic];
+        nextVC.addStoreNeedVCBlock = ^{
+          
+            if (self.addStoreVCBlock) {
+                
+                self.addStoreVCBlock();
+            }
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
     
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -1131,10 +1144,7 @@
     }
     [_scrollView addSubview:_descTV];
     
-    if (self.storeDic.count) {
-     
-        _brandArr = [NSMutableArray arrayWithArray:self.storeDic[@"resource_name_list"]];
-    }
+    
     
     _brandHeader = [[TitleRightBtnHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _brandHeader.titleL.text = @"品牌信息";
@@ -1149,13 +1159,21 @@
           
             strongSelf->_brandArr = [NSMutableArray arrayWithArray:arr];
             [strongSelf->_brandColl reloadData];
+            [strongSelf->_brandColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(strongSelf->_scrollView).offset(0 *SIZE);
+                    make.top.equalTo(strongSelf->_brandHeader.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(strongSelf->_brandColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+                    make.bottom.equalTo(strongSelf->_scrollView).offset(-20 *SIZE);
+            }];
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_brandHeader];
     
-    _layout = [[UICollectionViewFlowLayout alloc] init];
-    _layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:0];
+//    _layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     _layout.itemSize = CGSizeMake(SCREEN_Width, 50 *SIZE);
     
     _brandColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
@@ -1165,11 +1183,25 @@
     [_brandColl registerClass:[BrandCollCell class] forCellWithReuseIdentifier:@"BrandCollCell"];
     [_scrollView addSubview:_brandColl];
     
+    if (self.storeDic.count) {
+     
+        _brandArr = [NSMutableArray arrayWithArray:self.storeDic[@"resource_name_list"]];
+//        [self->_brandColl reloadData];
+//        [_brandColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                
+//                make.left.equalTo(self->_scrollView).offset(0 *SIZE);
+//                make.top.equalTo(self->_brandHeader.mas_bottom).offset(0 *SIZE);
+//                make.width.mas_equalTo(SCREEN_Width);
+//            make.height.mas_equalTo(self->_brandColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+//                make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
+//        }];
+    }
+    
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_nextBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
-    if (self.storeDic.count) {
+    if (!self.storeDic.count) {
         
         [_nextBtn setTitle:@"下一步 需求调查" forState:UIControlStateNormal];
     }else{
@@ -1428,9 +1460,10 @@
     
     [_brandColl mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.left.equalTo(self->_scrollView).offset(0 *SIZE);
         make.top.equalTo(self->_brandHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
+//        make.height.mas_equalTo(150 *SIZE);
         make.height.mas_equalTo(self->_brandColl.collectionViewLayout.collectionViewContentSize.height);
         make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
     }];

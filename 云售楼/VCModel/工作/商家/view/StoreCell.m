@@ -22,7 +22,7 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _headImg.image = IMAGE_WITH_NAME(@"paihao");
+    _headImg.image = IMAGE_WITH_NAME(@"sjmerchant_1");
     _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"business_name"]];
     _customL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_name"]];
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",dataDic[@"client_num"]];

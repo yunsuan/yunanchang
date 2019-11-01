@@ -33,7 +33,7 @@
 
 //初始化工作列表权限
 +(void)GetWorkListPowerWithdata:(NSDictionary *)datadic{
-    NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@1,@1] mutableCopy];
+    NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@1] mutableCopy];
     if (datadic) {
         
 //        [WorkListPower replaceObjectAtIndex:10 withObject:@1];
@@ -47,6 +47,23 @@
         }
         if ([datadic[@"duty_operate"] boolValue]) {
             [WorkListPower replaceObjectAtIndex:9 withObject:@1];
+        }
+        if (datadic[@"trade_app_operate"]) {
+            
+            if ([datadic[@"trade_app_operate"] isKindOfClass:[NSArray class]]) {
+                
+                if ([datadic[@"trade_app_operate"] count]) {
+                    
+                    if ([datadic[@"trade_app_operate"][0] isKindOfClass:[NSDictionary class]]) {
+                        
+                        if ([datadic[@"trade_app_operate"][0][@"detail"] integerValue] == 1) {
+                            
+                            [PowerModel defaultModel].storePower = [datadic[@"trade_app_operate"][0] copy];
+                            [WorkListPower replaceObjectAtIndex:10 withObject:@1];
+                        }
+                    }
+                }
+            }
         }
 //        if ([datadic[@"person_check"] boolValue]) {
 //            [WorkListPower replaceObjectAtIndex:8 withObject:@1];

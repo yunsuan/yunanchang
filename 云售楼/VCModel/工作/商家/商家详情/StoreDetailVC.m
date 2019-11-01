@@ -9,6 +9,7 @@
 #import "StoreDetailVC.h"
 
 #import "AddStoreVC.h"
+#import "AddStoreNeedVC.h"
 #import "AddStoreFollowRecordVC.h"
 
 #import "StoreDetailHeader.h"
@@ -108,11 +109,11 @@
             return 0;
         }else{
             
-//            if ([self.powerDic[@"follow"] boolValue]) {
-            //
+            if ([self.powerDic[@"update"] boolValue]) {
+            
                                 return 1;
-//            }
-//            return 0;
+            }
+            return 0;
         }
     }else{
         
@@ -176,15 +177,14 @@
             header = [[StoreDetailHeader alloc] initWithReuseIdentifier:@"StoreDetailHeader"];
         }
         
-//        if ([self.powerDic[@"update"] boolValue]) {
-//
-//            header.editBtn.hidden = NO;
-//            header.addBtn.hidden = NO;
-//        }else{
-//
-//            header.editBtn.hidden = YES;
-//            header.addBtn.hidden = YES;
-//        }
+        if ([self.powerDic[@"update"] boolValue]) {
+
+            header.editBtn.hidden = NO;
+            
+        }else{
+
+            header.editBtn.hidden = YES;
+        }
         
         
         header.dataDic = _storeDic;
@@ -208,6 +208,7 @@
 
             AddStoreVC *vc = [[AddStoreVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
             vc.storeDic = self->_storeDic;
+            vc.business_id = [NSString stringWithFormat:@"%@",self->_storeDic[@"business_id"]];
             vc.addStoreVCBlock = ^{
 
                 [self RequestMethod];
@@ -247,23 +248,14 @@
         
         if (indexPath.row == 0) {
             
-//            if ([self.powerDic[@"update"] boolValue]) {
-//
+            if ([self.powerDic[@"update"] boolValue]) {
+
                 cell.editBtn.hidden = NO;
-////                cell.deleteBtn.hidden = NO;
-//            }else{
-//
-//                cell.editBtn.hidden = YES;
-////                cell.deleteBtn.hidden = YES;
-//            }
-//            if ([self.powerDic[@"delete"] boolValue]) {
-//
-//                cell.deleteBtn.hidden = NO;
-//
-//            }else{
-//
-//                cell.deleteBtn.hidden = YES;
-//            }
+
+            }else{
+
+                cell.editBtn.hidden = YES;
+            }
         }else{
 
             cell.editBtn.hidden = YES;
@@ -277,33 +269,15 @@
 
         
         cell.callTelegramCustomDetailInfoCellEditBlock = ^{
-//
-//            CallTelegramSimpleCustomVC *nextVC = [[CallTelegramSimpleCustomVC alloc] initWithDataDic:self->_peopleArr[self->_num] projectId:self->_project_id info_id:self.info_id];
-//            nextVC.group_id = [NSString stringWithFormat:@"%@",self->_groupInfoDic[@"group_id"]];
-//            nextVC.callTelegramSimpleCustomVCEditBlock = ^(NSDictionary * _Nonnull dic) {
-//
-////                [self RequestMethod];
-//                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_peopleArr[self->_num]];
-//                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//
-//                    if (dic[key]) {
-//
-//                        [tempDic setObject:dic[key] forKey:key];
-//                    }
-//                }];
-//                [self->_peopleArr replaceObjectAtIndex:self->_num withObject:tempDic];
-//
-//                NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",tempDic[@"name"]],[NSString stringWithFormat:@"联系电话：%@",tempDic[@"tel"]],[NSString stringWithFormat:@"证件类型：%@",tempDic[@"card_type"]],[NSString stringWithFormat:@"证件号：%@",tempDic[@"card_num"]],[NSString stringWithFormat:@"邮政编码：%@",tempDic[@"mail_code"]],[NSString stringWithFormat:@"通讯地址：%@",tempDic[@"address"]],[NSString stringWithFormat:@"出生日期：%@",tempDic[@"birth"]],[NSString stringWithFormat:@"备注：%@",tempDic[@"comment"]]];
-//                [self->_infoDataArr replaceObjectAtIndex:self->_num withObject:arr];
-//
-//                [tableView reloadData];
-////                [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-//                if (self.callTelegramCustomDetailModifyBlock) {
-//
-//                    self.callTelegramCustomDetailModifyBlock();
-//                }
-//            };
-//            [self.navigationController pushViewController:nextVC animated:YES];
+
+            AddStoreNeedVC *nextVC = [[AddStoreNeedVC alloc] initWithData:self->_infoDataArr];
+            nextVC.business_id = [NSString stringWithFormat:@"%@",self->_storeDic[@"business_id"]];
+            nextVC.project_id = self->_project_id;
+            nextVC.addStoreNeedVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
         };
         
         return cell;
@@ -353,14 +327,11 @@
 
                 vc.followDic = [@{} mutableCopy];
             }
+            vc.business_id = [NSString stringWithFormat:@"%@",self->_storeDic[@"business_id"]];
             vc.status = @"direct";
             vc.addStoreFollowRecordVCBlock = ^{
 
                 [self RequestMethod];
-//                if (self.callTelegramCustomDetailModifyBlock) {
-//
-//                    self.callTelegramCustomDetailModifyBlock();
-//                }
             };
             [self.navigationController pushViewController:vc animated:YES];
         }

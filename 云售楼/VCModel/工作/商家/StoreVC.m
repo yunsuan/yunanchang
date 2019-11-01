@@ -194,6 +194,7 @@
     StoreDetailVC *nextVC = [[StoreDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"business_id"]]];
     nextVC.project_id = _project_id;
     nextVC.info_id = _info_id;
+    nextVC.powerDic = self.powerDic;
 //    nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
 //    nextVC.projectName = self.projectName;
 //    nextVC.orderDetailVCBlock = ^{
@@ -207,13 +208,13 @@
     
     self.titleLabel.text = @"商家";
     
-//    if ([self.powerDic[@"add"] boolValue]) {
-//
+    if ([self.powerDic[@"add"] boolValue]) {
+
         self.rightBtn.hidden = NO;
-//    }else{
-//
-//        self.rightBtn.hidden = YES;
-//    }
+    }else{
+
+        self.rightBtn.hidden = YES;
+    }
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_3") forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     

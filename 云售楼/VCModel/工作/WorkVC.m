@@ -72,7 +72,7 @@
     
     if ([UserModel defaultModel].agent_company_info_id) {
         
-        _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational",@"icon_phone",@"icon_phone"];
+        _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational",@"sjmerchant_1",@"icon_phone"];
         _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"定单",@"签约",@"收款",@"人事",@"轮岗",@"商家",@"号码查询"];
     }
     _projectArr = [UserModel defaultModel].project_list;
@@ -161,6 +161,7 @@
         
         [_powerArr replaceObjectAtIndex:9 withObject:[NSString stringWithFormat:@"当前A位：%@",data[@"duty"][@"current"]]];
     }
+    [_powerArr replaceObjectAtIndex:10 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"business"][@"today"],data[@"business"][@"total"],data[@"business"][@"wait"]]];
     [_table reloadData];
 }
 
@@ -300,6 +301,7 @@
     }else if (indexPath.row == 10){
         
         StoreVC *nextVC = [[StoreVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
+        nextVC.powerDic = [PowerModel defaultModel].storePower;
         [self.navigationController pushViewController:nextVC animated:YES];
     }
     else{

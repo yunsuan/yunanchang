@@ -18,6 +18,8 @@ typedef void(^AddStoreVCBlock)(void);
 
 @property (nonatomic, strong) NSDictionary *storeDic;
 
+@property (nonatomic, strong) NSString *business_id;
+
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 
 @end

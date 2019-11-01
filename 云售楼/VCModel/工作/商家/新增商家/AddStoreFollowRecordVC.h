@@ -20,6 +20,8 @@ typedef void(^AddStoreFollowRecordVCBlock)(void);
 
 @property (nonatomic, strong) NSMutableDictionary *followDic;
 
+@property (nonatomic, strong) NSString *business_id;
+
 @property (nonatomic, strong) NSString *status;
 
 @end

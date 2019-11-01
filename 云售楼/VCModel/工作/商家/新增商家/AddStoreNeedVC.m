@@ -13,6 +13,8 @@
 
 #import "BorderTextField.h"
 #import "DropBtn.h"
+#import "SinglePickView.h"
+#import "DateChooseView.h"
 
 #import "BoxSelectCollCell.h"
 #import "GZQFlowLayout.h"
@@ -31,6 +33,8 @@
     NSMutableArray *_selectArr;
     NSMutableArray *_moduleArr;
     NSMutableArray *_lastArr;
+    
+    NSDateFormatter *_formatter;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -78,13 +82,17 @@
     _labelArr = [@[] mutableCopy];
     _lastArr = [@[] mutableCopy];;
 //
-//    _formatter = [[NSDateFormatter alloc] init];
-//    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
 }
 
 - (void)RequestMethod{
     
     NSString *project_id = _dataDic[@"project_id"];
+    if (self.business_id) {
+        
+        project_id = self.project_id;
+    }
     if (project_id) {
         
         [BaseRequest GET:ProjectBusinessGetNeedList_URL parameters:@{@"project_id":project_id} success:^(id  _Nonnull resposeObject) {
@@ -118,30 +126,9 @@
         view.backgroundColor = [UIColor whiteColor];
 //        view.tag = [_countArr[a][@"id"] integerValue];
         [_viewArr addObject:view];
-//        for (int j = 0; j < _countArr.count; j++) {
-//
-//            UIView *view = [[UIView alloc] init];
-//            view.backgroundColor = [UIColor whiteColor];
-//            view.tag = [_countArr[j][@"id"] integerValue];
-//            [_viewArr addObject:view];
-//
-//            IntentSurveyHeader *header = [[IntentSurveyHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-//
-//            if (_countArr[j][@"param"]) {
-//
-//                header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"param"]];
-//            }else{
-//
-//                header.titleL.text = [NSString stringWithFormat:@"意向物业-%@",_countArr[j][@"property_name"]];
-//            }
-//            [_headArr addObject:header];
         _labelArr = [@[] mutableCopy];
         _moduleArr = [@[] mutableCopy];
         _selectArr = [@[] mutableCopy];
-//            [_labelArr addObject:@[]];
-//            [_moduleArr addObject:@[]];
-//            [_selectArr addObject:@[]];
-//        }
     }else{
 
         NSMutableArray *tempArr = [@[] mutableCopy];
@@ -150,7 +137,6 @@
 
         UIView *view = [[UIView alloc] init];
         view.backgroundColor = [UIColor whiteColor];
-//        view.tag = [_countArr[a][@"id"] integerValue];
         [_viewArr addObject:view];
         for (int i = 0; i < data.count; i++) {
 
@@ -176,16 +162,15 @@
                                                 
                     BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
                     tf.tag = i * 100 + i;
-//                        for (int k = 0; k < [_countArr[0][@"list"] count]; k++) {
-//
-//                            if ([dic[@"defined_name"] isEqualToString:_countArr[0][@"list"][k][@"defined_name"]]) {
-//
-//                                tf.textField.text = _countArr[0][@"list"][k][@"value"];
-//                            }
-//                        }
+                    for (int k = 0; k < [_countArr count]; k++) {
+
+                        if ([dic[@"defined_name"] isEqualToString:_countArr[k][@"defined_name"]]) {
+
+                            tf.textField.text = _countArr[k][@"value"];
+                        }
+                    }
                     [tempMrr addObject:tf];
                     tempSelect = [NSMutableArray arrayWithArray:@[]];
-                                                
                     break;
                 }
                 case 2:
@@ -193,16 +178,17 @@
                     DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
                     btn.tag = i * 100 + i;
                     [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
-//                        for (int k = 0; k < [_countArr[0][@"list"] count]; k++) {
-//
-//                            if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][k][@"config_name"]]) {
-//
-//                                btn.content.text = _countArr[0][@"list"][k][@"value"];
-//                                btn->str = _countArr[0][@"list"][k][@"value_id"];
-//                            }
-//                        }
+                    for (int k = 0; k < [_countArr count]; k++) {
+
+                        if ([dic[@"defined_name"] isEqualToString:_countArr[k][@"defined_name"]]) {
+
+                            btn.content.text = _countArr[k][@"value"];
+                            btn->str = _countArr[k][@"option_list"];
+                        }
+                    }
                     [tempMrr addObject:btn];
                     tempSelect = [NSMutableArray arrayWithArray:@[]];
+                    break;
                 }
                 case 3:
                 {
@@ -224,26 +210,25 @@
                             
                         [collSelect addObject:@0];
                     }
-//                        for (int m = 0; m < [dic[@"option"] count]; m++) {
-//
-//                            for (int k = 0; k < [_countArr[0][@"list"] count]; k++) {
-//
-//                                if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][k][@"config_name"]]) {
-//
-//                                    NSArray *arrC = [_countArr[0][@"list"][k][@"value_id"] componentsSeparatedByString:@","];
-//
-//                                    for (int n = 0; n < arrC.count; n++) {
-//
-//                                        if ([dic[@"option"][m][@"option_id"] integerValue] == [arrC[n] integerValue]) {
-//
-//                                            [collSelect replaceObjectAtIndex:m withObject:@1];
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
+                    for (int m = 0; m < [dic[@"option"] count]; m++) {
+
+                        for (int k = 0; k < [_countArr count]; k++) {
+
+                            if ([dic[@"defined_name"] isEqualToString:_countArr[k][@"defined_name"]]) {
+
+                                NSArray *arrC = [_countArr[k][@"option_list"] componentsSeparatedByString:@","];
+
+                                for (int n = 0; n < arrC.count; n++) {
+
+                                    if ([dic[@"option"][m][@"option_id"] integerValue] == [arrC[n] integerValue]) {
+
+                                        [collSelect replaceObjectAtIndex:m withObject:@1];
+                                    }
+                                }
+                            }
+                        }
+                    }
                     tempSelect = [NSMutableArray arrayWithArray:collSelect];
-//                        [tempSelect addObject:collSelect];
                     break;
                 }
                 case 4:
@@ -251,14 +236,14 @@
                     DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 25 *SIZE + i * 55 *SIZE, 258 *SIZE, 33 *SIZE)];
                     btn.tag = i * 100 + i;
                     [btn addTarget:self action:@selector(ActionTagNumBtn:) forControlEvents:UIControlEventTouchUpInside];
-//                        for (int k = 0; k < [_countArr[0][@"list"] count];k++) {
-//
-//                            if ([dic[@"config_name"] isEqualToString:_countArr[0][@"list"][k][@"config_name"]]) {
-//
-//                                btn.content.text = _countArr[0][@"list"][k][@"value"];
-//                                btn->str = _countArr[0][@"list"][k][@"value_id"];
-//                            }
-//                        }
+                    for (int k = 0; k < [_countArr count];k++) {
+
+                        if ([dic[@"defined_name"] isEqualToString:_countArr[k][@"defined_name"]]) {
+
+                            btn.content.text = _countArr[k][@"value"];
+                            btn->str = _countArr[k][@"option_list"];
+                        }
+                    }
                     [tempMrr addObject:btn];
                     tempSelect = [NSMutableArray arrayWithArray:@[]];
                     break;
@@ -275,16 +260,51 @@
 
 - (void)ActionTagNumBtn:(DropBtn *)btn{
     
+    for (int i = 0; i < _dataArr.count; i++) {
+        
+        if ((i * 100 + i) == btn.tag) {
+            
+            if ([_dataArr[i][@"type"] integerValue] == 2) {
+                        
+                NSMutableArray *tempArr = [@[] mutableCopy];
+                for (int k = 0; k < [_dataArr[i][@"option"] count]; k++) {
+                                
+                NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:_dataArr[i][@"option"][k]];
+                [tempDic setObject:tempDic[@"option_name"] forKey:@"param"];
+                [tempDic setObject:tempDic[@"option_id"] forKey:@"id"];
+                [tempDic removeObjectForKey:@"option_id"];
+                [tempDic removeObjectForKey:@"option_name"];
+                [tempArr addObject:tempDic];
+                }
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:tempArr];
+                            
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                                
+                    btn.content.text = MC;
+                    btn->str = [NSString stringWithFormat:@"%@",ID];
+                    //                NSMutableArray *arr = [NSMutableArray arrayWithArray:self->_moduleArr[i]];
+                    //                [arr replaceObjectAtIndex:j withObject:btn];
+                    [self->_moduleArr replaceObjectAtIndex:i withObject:btn];
+                };
+                [self.view addSubview:view];
+            }else{
+                
+                DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+                view.dateblock = ^(NSDate *date) {
+
+                    btn.content.text = [self->_formatter stringFromDate:date];
+                    btn->str = [self->_formatter stringFromDate:date];
+                    [self->_moduleArr replaceObjectAtIndex:i withObject:btn];
+                };
+                [self.view addSubview:view];
+            }
+        }
+    }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-//    if ([self.status isEqualToString:@"modify"]) {
-//
-//    }else{
-//
-//
-//    }
+
     [_lastArr removeAllObjects];
     for (int i = 0; i < _dataArr.count; i++) {
         
@@ -323,7 +343,7 @@
                     
                     [needDic setObject:dic[@"defined_id"] forKey:@"defined_id"];
                     [needDic setObject:btn.content.text forKey:@"value"];
-                    [needDic setObject:dic[@"option_id"] forKey:@"option_list"];
+                    [needDic setObject:btn->str forKey:@"option_list"];
                 }else{
                     
                     if ([dic[@"is_must"] integerValue] == 1) {
@@ -424,36 +444,58 @@
         NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
         [_dataDic setObject:jsonString forKey:@"need_list"];
     }
-    AddStoreFollowRecordVC *nextVC = [[AddStoreFollowRecordVC alloc] init];
-    nextVC.allDic = _dataDic;
-    nextVC.status = @"add";
-    nextVC.addStoreFollowRecordVCBlock = ^{
+    if (self.business_id.length) {
         
-        if (self.addStoreNeedVCBlock) {
+        for (int i = 0; i < _lastArr.count; i++) {
             
-            self.addStoreNeedVCBlock();
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:_lastArr[i]];
+            for (int j = 0 ; j < _countArr.count; j++) {
+                
+                if ([_lastArr[i][@"defined_id"] integerValue] == [_countArr[j][@"defined_id"] integerValue]) {
+                    
+                    [tempDic setObject:_countArr[i][@"need_id"] forKey:@"need_id"];
+                }
+            }
+            [_lastArr replaceObjectAtIndex:i withObject:tempDic];
         }
-    };
-    [self.navigationController pushViewController:nextVC animated:YES];
-//    [BaseRequest POST:ProjectBusinessAdd_URL parameters:_dataDic success:^(id  _Nonnull resposeObject) {
-//        
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//            
-//            for (UIViewController *vc in self.navigationController.viewControllers) {
-//                
-//                if ([vc isKindOfClass:[StoreVC class]]) {
-//                    
-//                    [self.navigationController popToViewController:vc animated:YES];
-//                }
-//            }
-//        }else{
-//            
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//        
-//        [self showContent:@"网络错误"];
-//    }];
+        NSMutableDictionary *tempDic = [@{} mutableCopy];
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_lastArr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [tempDic setObject:self.business_id forKey:@"business_id"];
+        [tempDic setObject:jsonString forKey:@"need_list"];
+        
+        [BaseRequest POST:ProjectBusinessUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                if (self.addStoreNeedVCBlock) {
+                    
+                    self.addStoreNeedVCBlock();
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
+    }else{
+        
+        AddStoreFollowRecordVC *nextVC = [[AddStoreFollowRecordVC alloc] init];
+        nextVC.allDic = _dataDic;
+        nextVC.status = @"add";
+        nextVC.addStoreFollowRecordVCBlock = ^{
+            
+            if (self.addStoreNeedVCBlock) {
+                
+                self.addStoreNeedVCBlock();
+            }
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 #pragma mark --coll代理
@@ -515,16 +557,13 @@
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 47 *SIZE - TAB_BAR_MORE, SCREEN_Width, 47 *SIZE + TAB_BAR_MORE);
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_nextBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    if ([self.status isEqualToString:@"add"]) {
-//
-//        [_nextBtn setTitle:@"确认" forState:UIControlStateNormal];
-//    }else if ([self.status isEqualToString:@"modify"]){
-//
-//        [_nextBtn setTitle:@"确认" forState:UIControlStateNormal];
-//    }else{
-//
-//        [_nextBtn setTitle:@"下一步 跟进记录" forState:UIControlStateNormal];
-//    }
+    if (self.business_id.length) {
+
+        [_nextBtn setTitle:@"提交" forState:UIControlStateNormal];
+    }else{
+
+        [_nextBtn setTitle:@"下一步 跟进记录" forState:UIControlStateNormal];
+    }
     [_nextBtn setBackgroundColor:CLBlueTagColor];
     _nextBtn.layer.cornerRadius = 5 *SIZE;
     _nextBtn.clipsToBounds = YES;

@@ -18,6 +18,10 @@ typedef void(^AddStoreNeedVCBlock)(void);
 
 @property (nonatomic, strong) NSString *status;
 
+@property (nonatomic, strong) NSString *business_id;
+
+@property (nonatomic, strong) NSString *project_id;
+
 - (instancetype)initWithData:(NSArray *)data;
 
 - (instancetype)initWithDataDic:(NSDictionary *)dataDic;

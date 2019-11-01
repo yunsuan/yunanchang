@@ -529,6 +529,9 @@ static NSString *const ProjectBusinessDetail_URL = @"saleTradeApp/projectBusines
 //添加商家
 static NSString *const ProjectBusinessAdd_URL = @"saleTradeApp/projectBusiness/add";
 
+//商家信息修改
+static NSString *const ProjectBusinessUpdate_URL = @"saleTradeApp/projectBusiness/update";
+
 //商家信息电话号码判重
 static NSString *const ProjectBusinessContactTelCheck_URL = @"saleTradeApp/projectBusiness/contactTelCheck";
 
