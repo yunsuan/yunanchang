@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddStoreNeedVCBlock)(void);
+
 @interface AddStoreNeedVC : BaseViewController
+
+@property (nonatomic, copy) AddStoreNeedVCBlock addStoreNeedVCBlock;
+
+@property (nonatomic, strong) NSString *status;
+
+- (instancetype)initWithData:(NSArray *)data;
 
 - (instancetype)initWithDataDic:(NSDictionary *)dataDic;
 

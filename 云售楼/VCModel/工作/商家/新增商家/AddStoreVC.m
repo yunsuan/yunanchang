@@ -9,6 +9,7 @@
 #import "AddStoreVC.h"
 
 #import "AddStoreNeedVC.h"
+#import "BrandVC.h"
 
 #import "SinglePickView.h"
 #import "AdressChooseView.h"
@@ -17,7 +18,10 @@
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
-@interface AddStoreVC ()<UITextFieldDelegate>
+#import "TitleRightBtnHeader.h"
+#import "BrandCollCell.h"
+
+@interface AddStoreVC ()<UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
     NSString *_info_id;
@@ -78,9 +82,9 @@
 
 @property (nonatomic, strong) DropBtn *approachBtn;
 
-@property (nonatomic, strong) UILabel *brandL;
-
-@property (nonatomic, strong) DropBtn *brandBtn;
+//@property (nonatomic, strong) UILabel *brandL;
+//
+//@property (nonatomic, strong) DropBtn *brandBtn;
 
 @property (nonatomic, strong) UILabel *regionL;
 
@@ -89,6 +93,16 @@
 @property (nonatomic, strong) UILabel *addressL;
 
 @property (nonatomic, strong) BorderTextField *addressTF;
+
+@property (nonatomic, strong) UILabel *descL;
+
+@property (nonatomic, strong) UITextView *descTV;
+
+@property (nonatomic, strong) TitleRightBtnHeader *brandHeader;
+
+@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
+
+@property (nonatomic, strong) UICollectionView *brandColl;
 
 @property (nonatomic, strong) UIButton *nextBtn;
 @end
@@ -144,22 +158,23 @@
                         
                         for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
                             
-                            if ([resposeObject[@"data"][i][@"basics_name"] isEqualToString:@"经营业态"]) {
-                                
-                                self->_formatArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][i][@"children"]];
-                            }
                             if ([resposeObject[@"data"][i][@"basics_name"] isEqualToString:@"经营关系"]) {
                                 
-                                self->_statusArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][i][@"children"]];
-                            }
-                            if ([resposeObject[@"data"][i][@"basics_name"] isEqualToString:@"认知途径"]) {
-                                
-                                self->_approachArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][i][@"children"]];
+                                for (int j = 0; j < [resposeObject[@"data"][i][@"children"] count]; j++) {
+                                    
+                                    NSDictionary *tempDic = resposeObject[@"data"][i][@"children"][j];
+                                    NSDictionary *dic = @{@"param":tempDic[@"basics_name"],
+                                                          @"id":tempDic[@"basics_id"]};
+                                    [self->_statusArr addObject:dic];
+                                }
                             }
                         }
-                        ThirdPickView *view = [[ThirdPickView alloc] initWithFrame:self.view.bounds withdata:self->_statusArr unitName:@"" unitId:@""];
-                        view.thirdPickViewBlock = ^(NSString * _Nonnull first, NSString * _Nonnull second, NSString * _Nonnull third, NSString * _Nonnull firstId, NSString * _Nonnull secondId, NSString * _Nonnull thirdId) {
+                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_statusArr];
+                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
                             
+                            self->_statusBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+                            self->_statusBtn->str = [NSString stringWithFormat:@"%@",ID];
+                            self->_statusBtn.placeL.text = @"";
                         };
                         [self.view addSubview:view];
                     }else{
@@ -172,9 +187,12 @@
                 }];
             }else{
                 
-                ThirdPickView *view = [[ThirdPickView alloc] initWithFrame:self.view.bounds withdata:_statusArr unitName:@"" unitId:@""];
-                view.thirdPickViewBlock = ^(NSString * _Nonnull first, NSString * _Nonnull second, NSString * _Nonnull third, NSString * _Nonnull firstId, NSString * _Nonnull secondId, NSString * _Nonnull thirdId) {
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_statusArr];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
                     
+                    self->_statusBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+                    self->_statusBtn->str = [NSString stringWithFormat:@"%@",ID];
+                    self->_statusBtn.placeL.text = @"";
                 };
                 [self.view addSubview:view];
             }
@@ -191,6 +209,27 @@
                         ThirdPickView *view = [[ThirdPickView alloc] initWithFrame:self.view.bounds withdata:self->_formatArr unitName:@"format_name" unitId:@"format_id"];
                         view.thirdPickViewBlock = ^(NSString * _Nonnull first, NSString * _Nonnull second, NSString * _Nonnull third, NSString * _Nonnull firstId, NSString * _Nonnull secondId, NSString * _Nonnull thirdId) {
                             
+                            if (third.length) {
+                                
+                                self->_formatBtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",first,second,third];
+                                self->_formatBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,secondId,thirdId];
+                                self->_formatBtn.placeL.text = @"";
+                            }else if (second.length){
+                                
+                                self->_formatBtn.content.text = [NSString stringWithFormat:@"%@/%@",first,second];
+                                self->_formatBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,secondId,@"0"];
+                                self->_formatBtn.placeL.text = @"";
+                            }else if (first.length){
+                                
+                                self->_formatBtn.content.text = [NSString stringWithFormat:@"%@",first];
+                                self->_formatBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,@"0",@"0"];
+                                self->_formatBtn.placeL.text = @"";
+                            }else{
+                                
+                                self->_formatBtn.content.text = @"";
+                                self->_formatBtn->str = @"0,0,0";
+                                self->_formatBtn.placeL.text = @"请选择经营业态";
+                            }
                         };
                         [self.view addSubview:view];
                     }else{
@@ -206,6 +245,27 @@
                 ThirdPickView *view = [[ThirdPickView alloc] initWithFrame:self.view.bounds withdata:_formatArr unitName:@"format_name" unitId:@"format_id"];
                 view.thirdPickViewBlock = ^(NSString * _Nonnull first, NSString * _Nonnull second, NSString * _Nonnull third, NSString * _Nonnull firstId, NSString * _Nonnull secondId, NSString * _Nonnull thirdId) {
                     
+                    if (third.length) {
+                        
+                        self->_formatBtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",first,second,third];
+                        self->_formatBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,secondId,thirdId];
+                        self->_formatBtn.placeL.text = @"";
+                    }else if (second.length){
+                        
+                        self->_formatBtn.content.text = [NSString stringWithFormat:@"%@/%@",first,second];
+                        self->_formatBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,secondId,@"0"];
+                        self->_formatBtn.placeL.text = @"";
+                    }else if (first.length){
+                        
+                        self->_formatBtn.content.text = [NSString stringWithFormat:@"%@",first];
+                        self->_formatBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,@"0",@"0"];
+                        self->_formatBtn.placeL.text = @"";
+                    }else{
+                        
+                        self->_formatBtn.content.text = @"";
+                        self->_formatBtn->str = @"0,0,0";
+                        self->_formatBtn.placeL.text = @"请选择认经营业态";
+                    }
                 };
                 [self.view addSubview:view];
             }
@@ -221,6 +281,27 @@
                         ThirdPickView *view = [[ThirdPickView alloc] initWithFrame:self.view.bounds withdata:self->_approachArr unitName:@"source_name" unitId:@"source_id"];
                         view.thirdPickViewBlock = ^(NSString * _Nonnull first, NSString * _Nonnull second, NSString * _Nonnull third, NSString * _Nonnull firstId, NSString * _Nonnull secondId, NSString * _Nonnull thirdId) {
                             
+                            if (third.length) {
+                                
+                                self->_approachBtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",first,second,third];
+                                self->_approachBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,secondId,thirdId];
+                                self->_approachBtn.placeL.text = @"";
+                            }else if (second.length){
+                                
+                                self->_approachBtn.content.text = [NSString stringWithFormat:@"%@/%@",first,second];
+                                self->_approachBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,secondId,@"0"];
+                                self->_approachBtn.placeL.text = @"";
+                            }else if (first.length){
+                                
+                                self->_approachBtn.content.text = [NSString stringWithFormat:@"%@",first];
+                                self->_approachBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,@"0",@"0"];
+                                self->_approachBtn.placeL.text = @"";
+                            }else{
+                                
+                                self->_approachBtn.content.text = @"";
+                                self->_approachBtn->str = @"0,0,0";
+                                self->_approachBtn.placeL.text = @"请选择认知途径";
+                            }
                         };
                         [self.view addSubview:view];
                     }else{
@@ -236,58 +317,79 @@
                 ThirdPickView *view = [[ThirdPickView alloc] initWithFrame:self.view.bounds withdata:_approachArr unitName:@"source_name" unitId:@"source_id"];
                 view.thirdPickViewBlock = ^(NSString * _Nonnull first, NSString * _Nonnull second, NSString * _Nonnull third, NSString * _Nonnull firstId, NSString * _Nonnull secondId, NSString * _Nonnull thirdId) {
                     
+                    if (third.length) {
+                        
+                        self->_approachBtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",first,second,third];
+                        self->_approachBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,secondId,thirdId];
+                        self->_approachBtn.placeL.text = @"";
+                    }else if (second.length){
+                        
+                        self->_approachBtn.content.text = [NSString stringWithFormat:@"%@/%@",first,second];
+                        self->_approachBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,secondId,@"0"];
+                        self->_approachBtn.placeL.text = @"";
+                    }else if (first.length){
+                        
+                        self->_approachBtn.content.text = [NSString stringWithFormat:@"%@",first];
+                        self->_approachBtn->str = [NSString stringWithFormat:@"%@,%@,%@",firstId,@"0",@"0"];
+                        self->_approachBtn.placeL.text = @"";
+                    }else{
+                        
+                        self->_approachBtn.content.text = @"";
+                        self->_approachBtn->str = @"0,0,0";
+                        self->_approachBtn.placeL.text = @"请选择认知途径";
+                    }
                 };
                 [self.view addSubview:view];
             }
             break;
         }case 3:{
             
-            if (!_brandArr.count) {
-                
-                [BaseRequest GET:ProjectBusinessGetBrandList_URL parameters:nil success:^(id  _Nonnull resposeObject) {
-                    
-                    if ([resposeObject[@"code"] integerValue] == 200) {
-                        
-                        [self->_brandArr removeAllObjects];
-                        for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
-                            
-                            NSDictionary *dic = resposeObject[@"data"][i];
-                            [self->_brandArr addObject:@{@"param":[NSString stringWithFormat:@"%@-%@",dic[@"resource_name"],dic[@"format_name"]],
-                                                         @"id":[NSString stringWithFormat:@"%@",dic[@"resource_id"]]}];
-                        }
-                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_brandArr];
-                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                            
-                            self->_brandBtn.content.text = [NSString stringWithFormat:@"%@",MC];
-                            self->_brandBtn->str = [NSString stringWithFormat:@"%@",ID];
-                            self->_brandBtn.placeL.text = @"";
-                        };
-                        [self.view addSubview:view];
-//                        self->_brandArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-//                        ThirdPickView *view = [[ThirdPickView alloc] initWithFrame:self.view.bounds withdata:self->_brandArr];
-//                        view.thirdPickViewBlock = ^(NSString * _Nonnull first, NSString * _Nonnull second, NSString * _Nonnull third, NSString * _Nonnull firstId, NSString * _Nonnull secondId, NSString * _Nonnull thirdId) {
+//            if (!_brandArr.count) {
 //
+//                [BaseRequest GET:ProjectBusinessGetBrandList_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+//
+//                    if ([resposeObject[@"code"] integerValue] == 200) {
+//
+//                        [self->_brandArr removeAllObjects];
+//                        for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+//
+//                            NSDictionary *dic = resposeObject[@"data"][i];
+//                            [self->_brandArr addObject:@{@"param":[NSString stringWithFormat:@"%@-%@",dic[@"resource_name"],dic[@"format_name"]],
+//                                                         @"id":[NSString stringWithFormat:@"%@",dic[@"resource_id"]]}];
+//                        }
+//                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_brandArr];
+//                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+//
+//                            self->_brandBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+//                            self->_brandBtn->str = [NSString stringWithFormat:@"%@",ID];
+//                            self->_brandBtn.placeL.text = @"";
 //                        };
 //                        [self.view addSubview:view];
-                    }else{
-                        
-                        [self showContent:resposeObject[@"msg"]];
-                    }
-                } failure:^(NSError * _Nonnull error) {
-                    
-                    [self showContent:@"网络错误"];
-                }];
-            }else{
-                
-                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_brandArr];
-                view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                    
-                    self->_brandBtn.content.text = [NSString stringWithFormat:@"%@",MC];
-                    self->_brandBtn->str = [NSString stringWithFormat:@"%@",ID];
-                    self->_brandBtn.placeL.text = @"";
-                };
-                [self.view addSubview:view];
-            }
+////                        self->_brandArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+////                        ThirdPickView *view = [[ThirdPickView alloc] initWithFrame:self.view.bounds withdata:self->_brandArr];
+////                        view.thirdPickViewBlock = ^(NSString * _Nonnull first, NSString * _Nonnull second, NSString * _Nonnull third, NSString * _Nonnull firstId, NSString * _Nonnull secondId, NSString * _Nonnull thirdId) {
+////
+////                        };
+////                        [self.view addSubview:view];
+//                    }else{
+//
+//                        [self showContent:resposeObject[@"msg"]];
+//                    }
+//                } failure:^(NSError * _Nonnull error) {
+//
+//                    [self showContent:@"网络错误"];
+//                }];
+//            }else{
+//
+//                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_brandArr];
+//                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+//
+//                    self->_brandBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+//                    self->_brandBtn->str = [NSString stringWithFormat:@"%@",ID];
+//                    self->_brandBtn.placeL.text = @"";
+//                };
+//                [self.view addSubview:view];
+//            }
             break;
         }case 4:{
             
@@ -390,8 +492,78 @@
     NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] init];
     
     [tempDic setValue:_project_id forKey:@"project_id"];
+    [tempDic setValue:_nameTF.textField.text forKey:@"business_name"];
+    [tempDic setValue:_contractTF.textField.text forKey:@"contact"];
+    if ([self checkTel:_phoneTF3.textField.text]) {
+        
+        [tempDic setValue:[NSString stringWithFormat:@"%@,%@,%@",_phoneTF1.textField.text,_phoneTF2.textField.text,_phoneTF3.textField.text] forKey:@"contact_tel"];
+    }else if ([self checkTel:_phoneTF2.textField.text]){
+        
+        [tempDic setValue:[NSString stringWithFormat:@"%@,%@",_phoneTF1.textField.text,_phoneTF2.textField.text] forKey:@"contact_tel"];
+    }else{
+        
+        [tempDic setValue:_phoneTF1.textField.text forKey:@"contact_tel"];
+    }
     
+    [tempDic setValue:_areaTF.textField.text forKey:@"lease_size"];
+    [tempDic setValue:_priceTF.textField.text forKey:@"lease_money"];
+    [tempDic setValue:_formatBtn->str forKey:@"format_list"];
+    [tempDic setValue:_approachBtn->str forKey:@"source_list"];
+    [tempDic setValue:_statusBtn->str forKey:@"business_type"];
+    [tempDic setValue:_proId forKey:@"province"];
+    [tempDic setValue:_cityId forKey:@"city"];
+    [tempDic setValue:_areaId forKey:@"district"];
+    if (_nickTF.textField.text.length) {
+        
+        [tempDic setValue:_nickTF.textField.text forKey:@"business_name_short"];
+    }
+    if (_addressTF.textField.text.length) {
+        
+        [tempDic setValue:_addressTF.textField.text forKey:@"address"];
+    }
+    if (_brandArr.count) {
+
+        NSString *str;
+        for (int i = 0; i < _brandArr.count; i++) {
+            
+            if (i == 0) {
+                
+                str = [NSString stringWithFormat:@"%@",_brandArr[0][@"business_id"]];
+            }else{
+                
+                str = [NSString stringWithFormat:@"%@,%@",str,_brandArr[i][@"business_id"]];
+            }
+        }
+        [tempDic setValue:str forKey:@"resource_list"];
+    }
+    if (_statusBtn.content.text.length) {
+
+        [tempDic setValue:_statusBtn->str forKey:@"business_type"];
+    }
+    
+    
+    
+//    [BaseRequest POST:ProjectBusinessAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+//
+//        if ([resposeObject[@"code"] integerValue] == 200) {
+//
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }else{
+//
+//            [self showContent:resposeObject[@"msg"]];
+//        }
+//    } failure:^(NSError * _Nonnull error) {
+//
+//        [self showContent:@"网络错误"];
+//    }];
     AddStoreNeedVC *nextVC = [[AddStoreNeedVC alloc] initWithDataDic:tempDic];
+    nextVC.addStoreNeedVCBlock = ^{
+      
+        if (self.addStoreVCBlock) {
+            
+            self.addStoreVCBlock();
+        }
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
     
@@ -600,16 +772,42 @@
     }
 }
 
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return _brandArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    BrandCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BrandCollCell" forIndexPath:indexPath];
+    if (!cell) {
+        
+        cell = [[BrandCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 50 *SIZE)];
+    }
+    
+    cell.titleL.text = _brandArr[indexPath.row][@"resource_name"];
+    cell.contentL.text = _brandArr[indexPath.row][@"format_name"];
+    
+    return cell;
+}
+
 - (void)initUI{
 
-    self.titleLabel.text = @"新增商家";
+    if (self.storeDic.count) {
+        
+        self.titleLabel.text = @"修改基本信息";
+    }else{
+        
+        self.titleLabel.text = @"新增商家";
+    }
+    
 
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLWhiteColor;
     [self.view addSubview:_scrollView];
     
-    NSArray *titleArr = @[@"商家名称：",@"商家简称：",@"联系人：",@"联系号码：",@"联系号码：",@"联系号码：",@"承租面积：",@"承租价格：",@"经营关系：",@"经营业态：",@"认知途径：",@"品牌信息：",@"所属区域：",@"通讯地址："];
-    for (int i = 0; i < 14; i++) {
+    NSArray *titleArr = @[@"商家名称：",@"商家简称：",@"联系人：",@"联系号码：",@"联系号码：",@"联系号码：",@"承租面积：",@"承租价格：",@"经营关系：",@"经营业态：",@"认知途径：",@"品牌信息：",@"所属区域：",@"通讯地址：",@"经营描述："];
+    for (int i = 0; i < 15; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
@@ -631,6 +829,10 @@
                 _nameTF = tf;
                 _nameTF.textField.delegate = self;
                 _nameTF.textField.placeholder = @"商家名称";
+                if (self.storeDic.count) {
+                    
+                    _nameTF.textField.text = self.storeDic[@"business_name"];
+                }
                 [_scrollView addSubview:_nameTF];
                 break;
             }
@@ -642,6 +844,10 @@
                 _nickTF = tf;
                 _nickTF.textField.delegate = self;
                 _nickTF.textField.placeholder = @"商家昵称";
+                if (self.storeDic.count) {
+                    
+                    _nickTF.textField.text = self.storeDic[@"business_name_short"];
+                }
                 [_scrollView addSubview:_nickTF];
                 break;
             }
@@ -656,6 +862,10 @@
                 _contractTF = tf;
                 _contractTF.textField.delegate = self;
                 _contractTF.textField.placeholder = @"联系人";
+                if (self.storeDic.count) {
+                    
+                    _contractTF.textField.text = self.storeDic[@"contact"];
+                }
                 [_scrollView addSubview:_contractTF];
                 break;
             }
@@ -671,6 +881,14 @@
                 _phoneTF1.textField.delegate = self;
                 _phoneTF1.textField.placeholder = @"联系电话";
                 _phoneTF1.textField.keyboardType = UIKeyboardTypePhonePad;
+                if (self.storeDic.count) {
+                    
+                    NSArray *arr = [self.storeDic[@"contact_tel"] componentsSeparatedByString:@","];
+                    if (arr.count) {
+                        
+                        _phoneTF1.textField.text = arr[0];
+                    }
+                }
                 [_scrollView addSubview:_phoneTF1];
                 break;
             }
@@ -683,6 +901,14 @@
                 _phoneTF2.textField.delegate = self;
                 _phoneTF2.textField.placeholder = @"联系电话";
                 _phoneTF2.textField.keyboardType = UIKeyboardTypePhonePad;
+                if (self.storeDic.count) {
+                    
+                    NSArray *arr = [self.storeDic[@"contact_tel"] componentsSeparatedByString:@","];
+                    if (arr.count > 1) {
+                        
+                        _phoneTF2.textField.text = arr[1];
+                    }
+                }
                 [_scrollView addSubview:_phoneTF2];
                 break;
             }
@@ -695,6 +921,14 @@
                 _phoneTF3.textField.delegate = self;
                 _phoneTF3.textField.placeholder = @"联系电话";
                 _phoneTF3.textField.keyboardType = UIKeyboardTypePhonePad;
+                if (self.storeDic.count) {
+                    
+                    NSArray *arr = [self.storeDic[@"contact_tel"] componentsSeparatedByString:@","];
+                    if (arr.count > 2) {
+                        
+                        _phoneTF3.textField.text = arr[2];
+                    }
+                }
                 [_scrollView addSubview:_phoneTF3];
                 break;
             }
@@ -711,6 +945,10 @@
                 _areaTF.textField.placeholder = @"承租面积";
                 _areaTF.unitL.text = @"㎡";
                 _areaTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+                if (self.storeDic.count) {
+                    
+                    _areaTF.textField.text = self.storeDic[@"lease_size"];
+                }
                 [_scrollView addSubview:_areaTF];
                 break;
             }
@@ -728,6 +966,10 @@
                 _priceTF.unitL.text = @"元/月/㎡";
                 _priceTF.unitL.adjustsFontSizeToFitWidth = YES;
                 _priceTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+                if (self.storeDic.count) {
+                    
+                    _priceTF.textField.text = self.storeDic[@"lease_money"];
+                }
                 [_scrollView addSubview:_priceTF];
                 break;
             }
@@ -762,8 +1004,8 @@
             }
             case 11:
             {
-                _brandL = label;
-                [_scrollView addSubview:_brandL];
+//                _brandL = label;
+//                [_scrollView addSubview:_brandL];
                 break;
             }
             case 12:
@@ -783,10 +1025,19 @@
                 _addressTF = tf;
                 _addressTF.textField.delegate = self;
                 _addressTF.textField.placeholder = @"请填写通讯地址";
+                if (self.storeDic.count) {
+                    
+                    _addressTF.textField.text = self.storeDic[@"address"];
+                }
                 [_scrollView addSubview:_addressTF];
                 break;
             }
-
+            case 14:
+            {
+                _descL = label;
+                [_scrollView addSubview:_descL];
+                break;
+            }
             default:
                 break;
         }
@@ -803,6 +1054,12 @@
                 
                 _statusBtn = btn;
                 _statusBtn.placeL.text = @"请选择经营关系";
+                if (self.storeDic.count) {
+                    
+                    _statusBtn.content.text = self.storeDic[@"business_type_name"];
+                    _statusBtn->str = self.storeDic[@"business_type"];
+                    _statusBtn.placeL.text = @"";
+                }
                 [_scrollView addSubview:_statusBtn];
                 break;
             }
@@ -811,6 +1068,12 @@
                 
                 _formatBtn = btn;
                 _formatBtn.placeL.text = @"请选择经营业态";
+                if (self.storeDic.count) {
+                    
+                    _formatBtn.content.text = self.storeDic[@"format_name"];
+                    _formatBtn->str = self.storeDic[@"format_list"];
+                    _formatBtn.placeL.text = @"";
+                }
                 [_scrollView addSubview:_formatBtn];
                 break;
             }
@@ -819,15 +1082,21 @@
                 
                 _approachBtn = btn;
                 _approachBtn.placeL.text = @"请选择认知途径";
+                if (self.storeDic.count) {
+                    
+                    _approachBtn.content.text = self.storeDic[@"source_name"];
+                    _approachBtn->str = self.storeDic[@"source_list"];
+                    _approachBtn.placeL.text = @"";
+                }
                 [_scrollView addSubview:_approachBtn];
                 break;
             }
             case 3:
             {
                 
-                _brandBtn = btn;
-                _regionBtn.placeL.text = @"请选择品牌信息";
-                [_scrollView addSubview:_brandBtn];
+//                _brandBtn = btn;
+//                _regionBtn.placeL.text = @"请选择品牌信息";
+//                [_scrollView addSubview:_brandBtn];
                 break;
             }
             case 4:
@@ -835,6 +1104,14 @@
                 
                 _regionBtn = btn;
                 _regionBtn.placeL.text = @"请选择所属区域";
+                if (self.storeDic.count) {
+                    
+                    _regionBtn.content.text = [NSString stringWithFormat:@"%@/%@/%@",self.storeDic[@"province_name"],self.storeDic[@"city_name"],self.storeDic[@"district_name"]];
+                    self->_proId = self.storeDic[@"province"];
+                    self->_cityId = self.storeDic[@"city"];
+                    self->_areaId = self.storeDic[@"district"];
+                    _regionBtn.placeL.text = @"";
+                }
                 [_scrollView addSubview:_regionBtn];
                 break;
             }
@@ -843,11 +1120,62 @@
         }
     }
     
+    _descTV = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 100 *SIZE)];
+    _descTV.layer.borderColor = _addressTF.layer.borderColor;
+    _descTV.layer.borderWidth = _addressTF.layer.borderWidth;
+    _descTV.layer.cornerRadius = _addressTF.layer.cornerRadius;
+    _descTV.clipsToBounds = YES;
+    if (self.storeDic.count) {
+        
+        _descTV.text = self.storeDic[@"comment"];
+    }
+    [_scrollView addSubview:_descTV];
+    
+    if (self.storeDic.count) {
+     
+        _brandArr = [NSMutableArray arrayWithArray:self.storeDic[@"resource_name_list"]];
+    }
+    
+    _brandHeader = [[TitleRightBtnHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+    _brandHeader.titleL.text = @"品牌信息";
+    _brandHeader.moreBtn.hidden = YES;
+    _brandHeader.addBtn.hidden = NO;
+    SS(strongSelf);
+    _brandHeader.titleRightBtnHeaderAddBlock = ^{
+        
+        BrandVC *nextVC = [[BrandVC alloc] initWithDataArr:strongSelf->_brandArr];
+        nextVC.project_id = strongSelf->_project_id;
+        nextVC.brandVCBlock = ^(NSArray * _Nonnull arr) {
+          
+            strongSelf->_brandArr = [NSMutableArray arrayWithArray:arr];
+            [strongSelf->_brandColl reloadData];
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+    };
+    [_scrollView addSubview:_brandHeader];
+    
+    _layout = [[UICollectionViewFlowLayout alloc] init];
+    _layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    _layout.itemSize = CGSizeMake(SCREEN_Width, 50 *SIZE);
+    
+    _brandColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
+    _brandColl.backgroundColor = CLWhiteColor;
+    _brandColl.delegate = self;
+    _brandColl.dataSource = self;
+    [_brandColl registerClass:[BrandCollCell class] forCellWithReuseIdentifier:@"BrandCollCell"];
+    [_scrollView addSubview:_brandColl];
+    
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
     [_nextBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_nextBtn setTitle:@"下一步 需求调查" forState:UIControlStateNormal];
+    if (self.storeDic.count) {
+        
+        [_nextBtn setTitle:@"下一步 需求调查" forState:UIControlStateNormal];
+    }else{
+        
+        [_nextBtn setTitle:@"保存" forState:UIControlStateNormal];
+    }
     [_nextBtn setBackgroundColor:CLBlueTagColor];
     [self.view addSubview:_nextBtn];
     
@@ -1030,32 +1358,32 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_brandL mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [_brandL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+//        make.top.equalTo(self->_approachBtn.mas_bottom).offset(31 *SIZE);
+//        make.width.mas_equalTo(70 *SIZE);
+//    }];
+//
+//    [_brandBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+//        make.top.equalTo(self->_approachBtn.mas_bottom).offset(21 *SIZE);
+//        make.width.mas_equalTo(258 *SIZE);
+//        make.height.mas_equalTo(33 *SIZE);
+//    }];
+    
+    [_regionL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
         make.top.equalTo(self->_approachBtn.mas_bottom).offset(31 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_brandBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_approachBtn.mas_bottom).offset(21 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
-        make.height.mas_equalTo(33 *SIZE);
-    }];
-    
-    [_regionL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_brandBtn.mas_bottom).offset(31 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
     [_regionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_brandBtn.mas_bottom).offset(21 *SIZE);
+        make.top.equalTo(self->_approachBtn.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -1073,6 +1401,37 @@
         make.top.equalTo(self->_regionBtn.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_descL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_addressTF.mas_bottom).offset(31 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_descTV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_addressTF.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(100 *SIZE);
+    }];
+    
+    [_brandHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(0 *SIZE);
+        make.top.equalTo(self->_descTV.mas_bottom).offset(21 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(40 *SIZE);
+    }];
+    
+    [_brandColl mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_brandHeader.mas_bottom).offset(0 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(self->_brandColl.collectionViewLayout.collectionViewContentSize.height);
         make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
     }];
 }

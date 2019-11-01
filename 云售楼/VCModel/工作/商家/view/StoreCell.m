@@ -22,11 +22,14 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-//    _headImg.image = IMAGE_WITH_NAME(@"paihao");
-//    _titleL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"batch_name"],dataDic[@"row_name"]];
-//    _customL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
+    _headImg.image = IMAGE_WITH_NAME(@"paihao");
+    _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"business_name"]];
+    _customL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_name"]];
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",dataDic[@"client_num"]];
-//    _timeL.text = dataDic[@"create_time"];
+    _ascriptionL.text = [NSString stringWithFormat:@"%@",dataDic[@"source_name"]];
+    _typeL.text = [NSString stringWithFormat:@"%@",dataDic[@"resource_name"]];
+    _addressL.text = [NSString stringWithFormat:@"%@%@%@",dataDic[@"province_name"],dataDic[@"city_name"],dataDic[@"district_name"]];
+    _timeL.text = dataDic[@"create_time"];
 }
 
 - (void)initUI{
@@ -52,6 +55,8 @@
             {
                 
                 _customL = label;
+                _customL.textAlignment = NSTextAlignmentRight;
+//                _customL.adjustsFontSizeToFitWidth = YES;
                 [self.contentView addSubview:_customL];
                 break;
             }
@@ -67,7 +72,8 @@
             {
                 
                 _addressL = label;
-                _addressL.textAlignment = NSTextAlignmentRight;
+                _addressL.adjustsFontSizeToFitWidth = YES;
+//                _addressL.textAlignment = NSTextAlignmentRight;
                 [self.contentView addSubview:_addressL];
                 break;
             }
@@ -75,10 +81,10 @@
             {
                 
                 _ascriptionL = label;
-                _ascriptionL.textColor = CLWhiteColor;
-                _ascriptionL.textAlignment = NSTextAlignmentCenter;
-                _ascriptionL.backgroundColor = CLBlueBtnColor;
-                _ascriptionL.font = FONT(11 *SIZE);
+//                _ascriptionL.textColor = CLWhiteColor;
+//                _ascriptionL.textAlignment = NSTextAlignmentCenter;
+//                _ascriptionL.backgroundColor = CLBlueBtnColor;
+//                _ascriptionL.font = FONT(11 *SIZE);
                 [self.contentView addSubview:_ascriptionL];
                 break;
             }
@@ -86,10 +92,12 @@
             {
                 
                 _typeL = label;
-                _typeL.textColor = CLWhiteColor;
-                _typeL.textAlignment = NSTextAlignmentCenter;
-                _typeL.backgroundColor = [UIColor darkGrayColor];
-                _typeL.font = FONT(11 *SIZE);
+//                _typeL.textColor = CLWhiteColor;
+//                _typeL.textAlignment = NSTextAlignmentCenter;
+//                _typeL.backgroundColor = [UIColor darkGrayColor];
+//                _typeL.font = FONT(11 *SIZE);
+                _typeL.textAlignment = NSTextAlignmentRight;
+                _typeL.adjustsFontSizeToFitWidth = YES;
                 [self.contentView addSubview:_typeL];
                 break;
             }
@@ -118,28 +126,43 @@
        
         make.left.equalTo(self.contentView).offset(100 *SIZE);
         make.top.equalTo(self.contentView).offset(18 *SIZE);
-        make.right.equalTo(self.contentView).offset(-120 *SIZE);
+        make.right.equalTo(self.contentView).offset(-150 *SIZE);
     }];
     
     [_customL mas_makeConstraints:^(MASConstraintMaker *make) {
         
+        make.left.equalTo(self.contentView).offset(215 *SIZE);
+        make.top.equalTo(self.contentView).offset(18 *SIZE);
+//        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
+    }];
+    
+    [_ascriptionL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
         make.left.equalTo(self.contentView).offset(100 *SIZE);
         make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
-        make.right.equalTo(self.contentView).offset(-100 *SIZE);
+        make.right.equalTo(self.contentView).offset(-120 *SIZE);
+    }];
+    
+    [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(280 *SIZE);
+        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.right.equalTo(self.contentView).offset(-10 *SIZE);
     }];
     
     [_addressL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(100 *SIZE);
-        make.top.equalTo(self->_customL.mas_bottom).offset(10 *SIZE);
-        make.right.equalTo(self.contentView).offset(-120 *SIZE);
+        make.top.equalTo(self->_ascriptionL.mas_bottom).offset(10 *SIZE);
+        make.right.equalTo(self.contentView).offset(-130 *SIZE);
     }];
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self.contentView).offset(-12 *SIZE);
-        make.top.equalTo(self.contentView).offset(18 *SIZE);
-        make.width.mas_equalTo(115 *SIZE);
+        make.top.equalTo(self->_ascriptionL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(110 *SIZE);
     }];
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {

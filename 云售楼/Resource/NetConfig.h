@@ -543,4 +543,7 @@ static NSString *const ProjectBusinessGetBrandList_URL = @"saleTradeApp/projectB
 
 //商家认知途径列表
 static NSString *const ProjectBusinessGetSourceList_URL = @"saleTradeApp/projectBusiness/getSourceList";
+
+//商家需求列表
+static NSString *const ProjectBusinessGetNeedList_URL = @"saleTradeApp/projectBusiness/getNeedList";
 #endif /* NetConfig_h */

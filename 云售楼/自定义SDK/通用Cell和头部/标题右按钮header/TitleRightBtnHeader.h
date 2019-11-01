@@ -12,11 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^TitleRightBtnHeaderMoreBlock)(void);
 
+typedef void(^TitleRightBtnHeaderAddBlock)(void);
+
 @interface TitleRightBtnHeader : UITableViewHeaderFooterView
 
 - (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title;
 
 @property (nonatomic, copy) TitleRightBtnHeaderMoreBlock titleRightBtnHeaderMoreBlock;
+
+@property (nonatomic, copy) TitleRightBtnHeaderAddBlock titleRightBtnHeaderAddBlock;
 
 @property (nonatomic, strong) UILabel *titleL;
 

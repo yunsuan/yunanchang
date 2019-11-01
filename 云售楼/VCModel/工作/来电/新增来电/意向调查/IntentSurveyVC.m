@@ -628,8 +628,8 @@
                                     
                                     if (!str.length) {
                                         
-                                        str = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_name"]];
-                                        strId = [NSString stringWithFormat:@"%@",dic[@"option"][0][@"option_id"]];
+                                        str = [NSString stringWithFormat:@"%@",dic[@"option"][m][@"option_name"]];
+                                        strId = [NSString stringWithFormat:@"%@",dic[@"option"][m][@"option_id"]];
                                     }else{
                                         
                                         str = [NSString stringWithFormat:@"%@,%@",str,dic[@"option"][m][@"option_name"]];

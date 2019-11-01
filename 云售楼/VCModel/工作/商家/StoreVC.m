@@ -8,6 +8,8 @@
 
 #import "StoreVC.h"
 
+#import "StoreDetailVC.h"
+
 #import "AddStoreVC.h"
 
 #import "StoreCell.h"
@@ -189,16 +191,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    OrderDetailVC *nextVC = [[OrderDetailVC alloc] initWithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
-//    nextVC.project_id = _project_id;
-//    nextVC.info_id = _info_id;
+    StoreDetailVC *nextVC = [[StoreDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"business_id"]]];
+    nextVC.project_id = _project_id;
+    nextVC.info_id = _info_id;
 //    nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
 //    nextVC.projectName = self.projectName;
 //    nextVC.orderDetailVCBlock = ^{
 //
 //        [self RequestMethod];
 //    };
-//    [self.navigationController pushViewController:nextVC animated:YES];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 - (void)initUI{
@@ -225,7 +227,7 @@
     //设置显示模式为永远显示(默认不显示)
     _searchBar.delegate = self;
     _searchBar.leftViewMode = UITextFieldViewModeAlways;
-    _searchBar.placeholder = @"输入电话/姓名";
+    _searchBar.placeholder = @"输入公司名称";
     _searchBar.font = [UIFont systemFontOfSize:12 *SIZE];
     _searchBar.layer.cornerRadius = 2 *SIZE;
     _searchBar.returnKeyType = UIReturnKeySearch;

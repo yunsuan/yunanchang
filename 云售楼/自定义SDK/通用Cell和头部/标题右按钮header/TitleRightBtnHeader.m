@@ -40,6 +40,14 @@
     }
 }
 
+- (void)ActionAddBtn:(UIButton *)btn{
+    
+    if (self.titleRightBtnHeaderAddBlock) {
+        
+        self.titleRightBtnHeaderAddBlock();
+    }
+}
+
 - (void)initUI{
     
     self.contentView.backgroundColor = [UIColor whiteColor];
@@ -58,7 +66,7 @@
     
     _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _addBtn.titleLabel.font = [UIFont systemFontOfSize:11 *SIZE];
-    //    [_moreBtn addTarget:self action:@selector(ActionMoreBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_addBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_addBtn setImage:[UIImage imageNamed:@"add_3"] forState:UIControlStateNormal];
     [self.contentView addSubview:_addBtn];
     
