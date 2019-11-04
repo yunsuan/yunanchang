@@ -111,7 +111,7 @@
             
             if ([self.powerDic[@"update"] boolValue]) {
             
-                                return 1;
+                return 1;
             }
             return 0;
         }

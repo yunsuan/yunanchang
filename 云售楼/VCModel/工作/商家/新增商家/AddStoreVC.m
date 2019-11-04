@@ -530,10 +530,10 @@
             
             if (i == 0) {
                 
-                str = [NSString stringWithFormat:@"%@",_brandArr[0][@"business_id"]];
+                str = [NSString stringWithFormat:@"%@",_brandArr[0][@"resource_id"]];
             }else{
                 
-                str = [NSString stringWithFormat:@"%@,%@",str,_brandArr[i][@"business_id"]];
+                str = [NSString stringWithFormat:@"%@,%@",str,_brandArr[i][@"resource_id"]];
             }
         }
         [tempDic setValue:str forKey:@"resource_list"];
@@ -541,6 +541,10 @@
     if (_statusBtn.content.text.length) {
 
         [tempDic setValue:_statusBtn->str forKey:@"business_type"];
+    }
+    if (_descTV.text.length) {
+        
+        [tempDic setObject:_descTV.text forKey:@"comment"];
     }
     
     
@@ -1185,16 +1189,21 @@
     
     if (self.storeDic.count) {
      
-        _brandArr = [NSMutableArray arrayWithArray:self.storeDic[@"resource_name_list"]];
-//        [self->_brandColl reloadData];
-//        [_brandColl mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                
-//                make.left.equalTo(self->_scrollView).offset(0 *SIZE);
-//                make.top.equalTo(self->_brandHeader.mas_bottom).offset(0 *SIZE);
-//                make.width.mas_equalTo(SCREEN_Width);
-//            make.height.mas_equalTo(self->_brandColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
-//                make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
-//        }];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            self->_brandArr = [NSMutableArray arrayWithArray:self.storeDic[@"resource_name_list"]];
+
+            [self->_brandColl reloadData];
+            [self->_brandColl mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.left.equalTo(self->_scrollView).offset(0 *SIZE);
+                    make.top.equalTo(self->_brandHeader.mas_bottom).offset(0 *SIZE);
+                    make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(self->_brandColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+                    make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
+            }];
+        });
+
     }
     
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];

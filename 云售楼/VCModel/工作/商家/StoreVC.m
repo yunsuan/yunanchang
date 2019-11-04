@@ -152,14 +152,14 @@
 - (void)ActionRightBtn:(UIButton *)btn{
     
     AddStoreVC *nextVC = [[AddStoreVC alloc] initWithProjectId:_project_id info_id:_info_id];
-//    nextVC.addVisitCustomVCBlock = ^{
-//        
-//        [self RequestMethod];
+    nextVC.addStoreVCBlock = ^{
+        
+        [self RequestMethod];
 //        if (self.visitCustomVCBlock) {
 //            
 //            self.visitCustomVCBlock();
 //        }
-//    };
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 

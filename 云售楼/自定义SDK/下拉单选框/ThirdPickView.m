@@ -388,8 +388,8 @@
         [self getThirdArrBySecondArr:row];
         [self.pickerView reloadComponent:2];
         [self.pickerView selectRow:0 inComponent:2 animated:YES];
-        self.secondStr = self.secondArr[0][_unitName];
-        self.secondId = self.secondArr[0][_unitId];
+        self.secondStr = self.secondArr[row][_unitName];
+        self.secondId = self.secondArr[row][_unitId];
         
         if (!self.thirdArr.count) {
             
@@ -402,8 +402,8 @@
         
     }else if (component == 2){//选择区
         
-        self.thirdStr = self.thirdArr[0][_unitName];
-        self.thirdId = self.thirdArr[0][_unitId];
+        self.thirdStr = self.thirdArr[row][_unitName];
+        self.thirdId = self.thirdArr[row][_unitId];
     }
 }
 
