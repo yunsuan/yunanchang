@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^StoreCellBlock)(NSInteger index);
+
 @interface StoreCell : UITableViewCell
+
+@property (nonatomic, copy) StoreCellBlock storeCellBlock;
 
 @property (nonatomic, strong) UIImageView *headImg;
 
@@ -25,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *timeL;
 
 @property (nonatomic, strong) UILabel *addressL;
+
+@property (nonatomic, strong) UIButton *phoneBtn;
 
 @property (nonatomic, strong) UIView *line;
 

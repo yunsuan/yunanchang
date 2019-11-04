@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView *whiteView;
 
+@property (nonatomic, strong) UILabel *nextTimeL;
+
 @property (nonatomic, strong) UILabel *timeL;
 
 @property (nonatomic, strong) UILabel *wayL;

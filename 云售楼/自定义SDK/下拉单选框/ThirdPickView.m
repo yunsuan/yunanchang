@@ -354,8 +354,8 @@
         self.selected = row;
         [self getSecondArrByFirstArr:row];
         [self getThirdArrBySecondArr:0];
-        self.firstStr = self.firstArr[row][_unitName];
-        self.firstId = self.firstArr[row][_unitId];
+//        self.firstStr = self.firstArr[row][_unitName];
+//        self.firstId = self.firstArr[row][_unitId];
         
         [self.pickerView reloadComponent:1];
         [self.pickerView selectRow:0 inComponent:1 animated:YES];
@@ -363,6 +363,14 @@
         [self.pickerView reloadComponent:2];
         [self.pickerView selectRow:0 inComponent:2 animated:YES];
         
+        if (!self.firstArr.count) {
+            
+            self.firstStr = @"";
+            self.firstId = @"0";
+        }else{
+            self.firstStr = self.firstArr[row][_unitName];
+            self.firstId = self.firstArr[row][_unitId];
+        }
 
         if (!self.secondArr.count) {
             
@@ -388,8 +396,16 @@
         [self getThirdArrBySecondArr:row];
         [self.pickerView reloadComponent:2];
         [self.pickerView selectRow:0 inComponent:2 animated:YES];
-        self.secondStr = self.secondArr[row][_unitName];
-        self.secondId = self.secondArr[row][_unitId];
+//        self.secondStr = self.secondArr[row][_unitName];
+//        self.secondId = self.secondArr[row][_unitId];
+        if (!self.secondArr.count) {
+            
+            self.secondStr = @"";
+            self.secondId = @"0";
+        }else{
+            self.secondStr = self.secondArr[row][_unitName];
+            self.secondId = self.secondArr[row][_unitId];
+        }
         
         if (!self.thirdArr.count) {
             
@@ -402,8 +418,16 @@
         
     }else if (component == 2){//选择区
         
-        self.thirdStr = self.thirdArr[row][_unitName];
-        self.thirdId = self.thirdArr[row][_unitId];
+        if (!self.thirdArr.count) {
+            
+            self.thirdStr = @"";
+            self.thirdId = @"0";
+        }else{
+            self.thirdStr = self.thirdArr[row][_unitName];
+            self.thirdId = self.thirdArr[row][_unitId];
+        }
+//        self.thirdStr = self.thirdArr[row][_unitName];
+//        self.thirdId = self.thirdArr[row][_unitId];
     }
 }
 

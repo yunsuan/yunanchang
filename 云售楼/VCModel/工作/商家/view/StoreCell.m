@@ -24,12 +24,29 @@
     
     _headImg.image = IMAGE_WITH_NAME(@"sjmerchant_1");
     _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"business_name"]];
-    _customL.text = [NSString stringWithFormat:@"%@",dataDic[@"agent_name"]];
+    _customL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
 //    _numL.text = [NSString stringWithFormat:@"组别人数：%@",dataDic[@"client_num"]];
-    _ascriptionL.text = [NSString stringWithFormat:@"%@",dataDic[@"source_name"]];
-    _typeL.text = [NSString stringWithFormat:@"%@",dataDic[@"resource_name"]];
-    _addressL.text = [NSString stringWithFormat:@"%@%@%@",dataDic[@"province_name"],dataDic[@"city_name"],dataDic[@"district_name"]];
+    if ([dataDic[@"format_name"] length]) {
+        
+        _ascriptionL.text = [NSString stringWithFormat:@"%@",dataDic[@"format_name"]];
+    }else{
+        
+        _ascriptionL.text = @" ";
+    }
+    
+    _typeL.text = [NSString stringWithFormat:@"可承受租金：%@",dataDic[@"lease_money"]];
+//    _typeL.text = [NSString stringWithFormat:@"%@",dataDic[@"resource_name"]];
+//    _addressL.text = [NSString stringWithFormat:@"%@%@%@",dataDic[@"province_name"],dataDic[@"city_name"],dataDic[@"district_name"]];
+    _addressL.text = [NSString stringWithFormat:@"承租面积：%@",dataDic[@"lease_size"]];
     _timeL.text = dataDic[@"create_time"];
+}
+
+- (void)ActionPhoneBtn:(UIButton *)btn{
+    
+    if (self.storeCellBlock) {
+        
+        self.storeCellBlock(self.tag);
+    }
 }
 
 - (void)initUI{
@@ -72,7 +89,7 @@
             {
                 
                 _addressL = label;
-                _addressL.adjustsFontSizeToFitWidth = YES;
+//                _addressL.adjustsFontSizeToFitWidth = YES;
 //                _addressL.textAlignment = NSTextAlignmentRight;
                 [self.contentView addSubview:_addressL];
                 break;
@@ -97,7 +114,7 @@
 //                _typeL.backgroundColor = [UIColor darkGrayColor];
 //                _typeL.font = FONT(11 *SIZE);
                 _typeL.textAlignment = NSTextAlignmentRight;
-                _typeL.adjustsFontSizeToFitWidth = YES;
+//                _typeL.adjustsFontSizeToFitWidth = YES;
                 [self.contentView addSubview:_typeL];
                 break;
             }
@@ -105,6 +122,11 @@
                 break;
         }
     }
+    
+    _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_phoneBtn addTarget:self action:@selector(ActionPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_phoneBtn setBackgroundImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
+    [self.contentView addSubview:_phoneBtn];
     
     _line = [[UIView alloc] init];
     _line.backgroundColor = CLLineColor;
@@ -134,19 +156,26 @@
         make.left.equalTo(self.contentView).offset(215 *SIZE);
         make.top.equalTo(self.contentView).offset(18 *SIZE);
 //        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.right.equalTo(self.contentView).offset(-30 *SIZE);
+    }];
+    
+    [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self.contentView).offset(16 *SIZE);
+        make.width.height.mas_equalTo(19 *SIZE);
     }];
     
     [_ascriptionL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(100 *SIZE);
         make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
-        make.right.equalTo(self.contentView).offset(-120 *SIZE);
+        make.right.equalTo(self.contentView).offset(-150 *SIZE);
     }];
     
     [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(280 *SIZE);
+        make.width.mas_equalTo(135 *SIZE);
         make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
     }];

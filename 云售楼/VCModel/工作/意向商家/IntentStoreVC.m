@@ -1,20 +1,19 @@
 //
-//  StoreVC.m
+//  IntentStoreVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/10/30.
+//  Created by 谷治墙 on 2019/11/4.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "StoreVC.h"
+#import "IntentStoreVC.h"
 
-#import "StoreDetailVC.h"
+#import "AddIntentStoreVC.h"
+#import "IntentStoreDetailVC.h"
 
-#import "AddStoreVC.h"
+#import "IntentStoreCell.h"
 
-#import "StoreCell.h"
-
-@interface StoreVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface IntentStoreVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     
     NSInteger _page;
@@ -24,13 +23,14 @@
     
     NSMutableArray *_dataArr;
 }
+
 @property (nonatomic, strong) UITextField *searchBar;
 
 @property (nonatomic, strong) UITableView *table;
 
 @end
 
-@implementation StoreVC
+@implementation IntentStoreVC
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(nonnull NSString *)info_id
 {
@@ -151,15 +151,15 @@
 
 - (void)ActionRightBtn:(UIButton *)btn{
     
-    AddStoreVC *nextVC = [[AddStoreVC alloc] initWithProjectId:_project_id info_id:_info_id];
-    nextVC.addStoreVCBlock = ^{
-        
-        [self RequestMethod];
-//        if (self.visitCustomVCBlock) {
-//            
-//            self.visitCustomVCBlock();
-//        }
-    };
+    AddIntentStoreVC *nextVC = [[AddIntentStoreVC alloc] initWithProjectId:_project_id info_id:_info_id];
+//    nextVC.addStoreVCBlock = ^{
+//
+//        [self RequestMethod];
+////        if (self.visitCustomVCBlock) {
+////
+////            self.visitCustomVCBlock();
+////        }
+//    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -177,37 +177,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    StoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoreCell"];
+    IntentStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IntentStoreCell"];
     if (!cell) {
         
-        cell = [[StoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreCell"];
+        cell = [[IntentStoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"IntentStoreCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.tag = indexPath.row;
-    
     cell.dataDic = _dataArr[indexPath.row];
     
-    cell.storeCellBlock = ^(NSInteger index) {
-        
-        NSString *phone = [self->_dataArr[index][@"contact_tel"] componentsSeparatedByString:@","][0];
-        if (phone.length) {
-            
-            //获取目标号码字符串,转换成URL
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
-            //调用系统方法拨号
-            [[UIApplication sharedApplication] openURL:url];
-        }else{
-            
-            [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
-        }
-    };
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    StoreDetailVC *nextVC = [[StoreDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"business_id"]]];
+    IntentStoreDetailVC *nextVC = [[IntentStoreDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"business_id"]]];
     nextVC.project_id = _project_id;
     nextVC.info_id = _info_id;
     nextVC.powerDic = self.powerDic;
@@ -222,7 +206,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"商家";
+    self.titleLabel.text = @"意向商家";
     
     if ([self.powerDic[@"add"] boolValue]) {
 

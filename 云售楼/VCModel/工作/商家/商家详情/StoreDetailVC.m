@@ -327,6 +327,7 @@
 
                 vc.followDic = [@{} mutableCopy];
             }
+            vc.project_id = self.project_id;
             vc.business_id = [NSString stringWithFormat:@"%@",self->_storeDic[@"business_id"]];
             vc.status = @"direct";
             vc.addStoreFollowRecordVCBlock = ^{

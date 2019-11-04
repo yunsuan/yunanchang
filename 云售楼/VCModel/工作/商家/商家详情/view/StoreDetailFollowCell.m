@@ -23,10 +23,11 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _stageL.text = [NSString stringWithFormat:@"跟进阶段：%@",dataDic[@"follow_state_name"]];
-    _timeL.text = [NSString stringWithFormat:@"跟进时间：%@",dataDic[@"follow_time"]];//@"跟进时间：2019-04-10";
+    _timeL.text = [NSString stringWithFormat:@"%@",dataDic[@"follow_time"]];//@"跟进时间：2019-04-10";
     _contentL.text = [NSString stringWithFormat:@"%@",dataDic[@"content"]];
     _wayL.text = [NSString stringWithFormat:@"跟进方式：%@",dataDic[@"follow_way_name"]];//@"跟进方式：电话";
     _intentL.text = [NSString stringWithFormat:@"合作意向：%@",dataDic[@"cooperation_level_name"]];//@"下次跟进时间：2019-04-12";
+    _nextTimeL.text = [NSString stringWithFormat:@"下次跟进时间：%@",dataDic[@"next_follow_time"]];
 }
 
 - (void)initUI{
@@ -45,7 +46,7 @@
     label.text = @"跟进内容：";
     [_whiteView addSubview:label];
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 6; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CL86Color;
@@ -102,6 +103,17 @@
                 [_whiteView addSubview:_stageL];
                 break;
             }
+            case 5:
+            {
+
+                _nextTimeL = label;
+                _nextTimeL.textColor = CLTitleLabColor;
+                _nextTimeL.font = FONT(12 *SIZE);
+                _nextTimeL.adjustsFontSizeToFitWidth = YES;
+                _nextTimeL.textAlignment = NSTextAlignmentRight;
+                [_whiteView addSubview:_nextTimeL];
+                break;
+            }
             default:
                 break;
         }
@@ -129,17 +141,25 @@
     
     [_wayL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_whiteView).offset(12 *SIZE);
-        make.top.equalTo(self->_whiteView).offset(40 *SIZE);
+        make.right.equalTo(self->_whiteView).offset(-13 *SIZE);
+        make.top.equalTo(self->_whiteView).offset(15 *SIZE);
         make.width.mas_equalTo(100 *SIZE);
     }];
     
     [_intentL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self->_whiteView).offset(-13 *SIZE);
+        make.left.equalTo(self->_whiteView).offset(12 *SIZE);
         make.top.equalTo(self->_whiteView).offset(40 *SIZE);
         make.width.mas_equalTo(100 *SIZE);
         
+    }];
+    
+    [_nextTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_whiteView).offset(58 *SIZE);
+        make.top.equalTo(self->_whiteView).offset(40 *SIZE);
+        make.right.equalTo(self->_whiteView).offset(-19 *SIZE);
+//        make.bottom.equalTo(self->_whiteView.mas_bottom).offset(-26 *SIZE);
     }];
 
     [_contentL mas_makeConstraints:^(MASConstraintMaker *make) {
