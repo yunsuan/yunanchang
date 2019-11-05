@@ -1,12 +1,12 @@
 //
-//  AddIntentStoreVC.m
+//  AddSignRentVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/11/4.
+//  Created by 谷治墙 on 2019/11/5.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddIntentStoreVC.h"
+#import "AddSignRentVC.h"
 
 #import "AddIntentSelectStoreVC.h"
 #import "AddStoreVC.h"
@@ -14,14 +14,12 @@
 #import "AddNemeralHeader.h"
 #import "AddIntentStoreRoomView.h"
 #import "AddNumeralProcessView.h"
-#import "AddIntentStoreIntentView.h"
 #import "AddIntentStoreInfoView.h"
 #import "AddNumeralFileView.h"
 
-
 #import "SinglePickView.h"
 
-@interface AddIntentStoreVC ()
+@interface AddSignRentVC ()
 {
     
     NSString *_info_id;
@@ -53,10 +51,6 @@
 
 @property (nonatomic, strong) AddIntentStoreInfoView *addIntentStoreInfoView;
 
-@property (nonatomic, strong) AddNemeralHeader *intentHeader;
-
-@property (nonatomic, strong) AddIntentStoreIntentView *addIntentStoreIntentView;
-
 @property (nonatomic, strong) AddNemeralHeader *processHeader;
 
 @property (nonatomic, strong) AddNumeralProcessView *addNumeralProcessView;
@@ -69,7 +63,7 @@
 
 @end
 
-@implementation AddIntentStoreVC
+@implementation AddSignRentVC
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id
 {
@@ -172,7 +166,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"新增意向商家";
+    self.titleLabel.text = @"新增签租";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLBackColor;
@@ -291,58 +285,6 @@
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_addIntentStoreInfoView];
-
-    
-    _intentHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _intentHeader.backgroundColor = CLWhiteColor;
-    _intentHeader.titleL.text = @"意向信息";
-    _intentHeader.addBtn.hidden = YES;
-    [_intentHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-    _intentHeader.addNemeralHeaderAllBlock = ^{
-        
-        if ([strongSelf->_selectArr[2] integerValue]){
-        
-            [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@0];
-            [strongSelf->_intentHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addIntentStoreIntentView.hidden = YES;
-            [strongSelf->_addIntentStoreIntentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_intentHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(0);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }else{
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@1];
-            [strongSelf->_intentHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-            strongSelf->_addIntentStoreIntentView.hidden = NO;
-            [strongSelf->_addIntentStoreIntentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_intentHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }
-    };
-    [_scrollView addSubview:_intentHeader];
-    
-    _addIntentStoreIntentView = [[AddIntentStoreIntentView alloc] init];
-    _addIntentStoreIntentView.hidden = YES;
-    _addIntentStoreIntentView.addIntentStoreIntentViewPeriodBlock = ^{
-        
-    };
-    
-    _addIntentStoreIntentView.addIntentStoreIntentViewTimeBlock = ^{
-        
-    };
-    
-    _addIntentStoreIntentView.addIntentStoreIntentViewStrBlock = ^(NSString * _Nonnull str, NSInteger idx) {
-        
-    };
-    [_scrollView addSubview:_addIntentStoreIntentView];
     
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _processHeader.titleL.text = @"流程信息";
@@ -696,29 +638,11 @@
         make.height.mas_equalTo(0 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
-    
-    [_intentHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_addIntentStoreInfoView.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
-        make.right.equalTo(self->_scrollView).offset(0);
-    }];
-
-    [_addIntentStoreIntentView mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_intentHeader.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0 *SIZE);
-        make.right.equalTo(self->_scrollView).offset(0);
-    }];
 
     [_processHeader mas_makeConstraints:^(MASConstraintMaker *make) {
 
         make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_addIntentStoreIntentView.mas_bottom).offset(0 *SIZE);
+        make.top.equalTo(self->_addIntentStoreInfoView.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(40 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);

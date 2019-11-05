@@ -137,6 +137,7 @@
     
     _header = [[BaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _header.titleL.text = @"基础信息";
+    [_header ReMasonryUI];
     [self.contentView addSubview:_header];
     
     for (int i = 0; i < 12; i++) {

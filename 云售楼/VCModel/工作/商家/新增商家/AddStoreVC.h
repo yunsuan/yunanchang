@@ -12,9 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^AddStoreVCBlock)(void);
 
+typedef void(^AddStoreVCDicBlock)(NSDictionary *dic);
+
 @interface AddStoreVC : BaseViewController
 
 @property (nonatomic, copy) AddStoreVCBlock addStoreVCBlock;
+
+@property (nonatomic, copy) AddStoreVCDicBlock addStoreVCDicBlock;
+
+@property (nonatomic, strong) NSString *status;
 
 @property (nonatomic, strong) NSDictionary *storeDic;
 

@@ -33,26 +33,26 @@
 //            textField.text = @"100";
 //        }
 //    }
-//    if (self.addNumeralPersonViewStrBlock) {
-//
-//        self.addNumeralPersonViewStrBlock(textField.text, _index);
-//    }
+    if (self.addIntentStoreIntentViewStrBlock) {
+
+        self.addIntentStoreIntentViewStrBlock(textField.text, textField.tag);
+    }
 }
 
 - (void)ActionTimeBtn:(UIButton *)btn{
     
-//    if (self.addNumeralInfoViewInfoTimeBlock) {
-//
-//        self.addNumeralInfoViewInfoTimeBlock();
-//    }
+    if (self.addIntentStoreIntentViewTimeBlock) {
+
+        self.addIntentStoreIntentViewTimeBlock();
+    }
 }
 
 - (void)ActionPeriodTimeBtn:(UIButton *)btn{
     
-//    if (self.addNumeralInfoViewFailTimeBlock) {
-//
-//        self.addNumeralInfoViewFailTimeBlock();
-//    }
+    if (self.addIntentStoreIntentViewPeriodBlock) {
+
+        self.addIntentStoreIntentViewPeriodBlock();
+    }
 }
 
 - (void)initUI{

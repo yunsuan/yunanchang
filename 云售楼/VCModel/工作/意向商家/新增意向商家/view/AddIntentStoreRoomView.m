@@ -93,10 +93,13 @@
     self.backgroundColor = CLWhiteColor;
     
     _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_addBtn setBackgroundColor:CLBackColor];
+    [_addBtn setBackgroundColor:CLOrangeColor];
     [_addBtn setTitle:@"添加房源" forState:UIControlStateNormal];
-    [_addBtn setTitleColor:CLTitleLabColor forState:UIControlStateNormal];
+    [_addBtn setTitleColor:CLWhiteColor forState:UIControlStateNormal];
     [_addBtn addTarget:self action:@selector(ActionAddBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _addBtn.titleLabel.font = FONT(13 *SIZE);
+    _addBtn.layer.cornerRadius = 15 *SIZE;
+    _addBtn.clipsToBounds = YES;
     [self addSubview:_addBtn];
     
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:5 *SIZE];
@@ -120,11 +123,11 @@
     
     [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self).offset(0 *SIZE);
-        make.top.equalTo(self->_coll.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
-        make.bottom.equalTo(self.mas_bottom).offset(0 *SIZE);
+        make.left.equalTo(self).offset(80 *SIZE);
+        make.top.equalTo(self).offset(10 *SIZE);
+        make.width.mas_equalTo(200 *SIZE);
+        make.height.mas_equalTo(30 *SIZE);
+        make.bottom.equalTo(self.mas_bottom).offset(-10 *SIZE);
     }];
 }
 

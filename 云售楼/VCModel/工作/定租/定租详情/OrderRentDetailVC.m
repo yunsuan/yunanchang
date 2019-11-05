@@ -1,19 +1,19 @@
 //
-//  IntentStoreDetailVC.m
+//  OrderRentDetailVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/11/4.
+//  Created by 谷治墙 on 2019/11/5.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "IntentStoreDetailVC.h"
+#import "OrderRentDetailVC.h"
 
 #import "BaseHeader.h"
 #import "IntentDetailHeader.h"
 #import "InfoDetailCell.h"
 #import "CallTelegramCustomDetailInfoCell.h"
 
-@interface IntentStoreDetailVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface OrderRentDetailVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     
     NSInteger _num;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation IntentStoreDetailVC
+@implementation OrderRentDetailVC
 
 - (instancetype)initWithBusinessId:(NSString *)businessId
 {
@@ -442,7 +442,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"意向商家详情";
+    self.titleLabel.text = @"定租详情";
     self.navBackgroundView.backgroundColor = CLBlueBtnColor;
     self.line.hidden = YES;
     self.titleLabel.textColor = CLWhiteColor;
@@ -463,5 +463,6 @@
     _table.estimatedRowHeight = 100 *SIZE;
     [self.view addSubview:_table];
 }
+
 
 @end

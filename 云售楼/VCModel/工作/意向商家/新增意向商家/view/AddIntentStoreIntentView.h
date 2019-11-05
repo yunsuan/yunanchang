@@ -13,7 +13,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddIntentStoreIntentViewStrBlock)(NSString *str, NSInteger idx);
+
+typedef void(^AddIntentStoreIntentViewTimeBlock)(void);
+
+typedef void(^AddIntentStoreIntentViewPeriodBlock)(void);
+
 @interface AddIntentStoreIntentView : UIView
+
+@property (nonatomic, copy) AddIntentStoreIntentViewStrBlock addIntentStoreIntentViewStrBlock;
+
+@property (nonatomic, copy) AddIntentStoreIntentViewTimeBlock addIntentStoreIntentViewTimeBlock;
+
+@property (nonatomic, copy) AddIntentStoreIntentViewPeriodBlock addIntentStoreIntentViewPeriodBlock;
 
 @property (nonatomic, strong) UILabel *codeL;
 

@@ -257,14 +257,13 @@
 
 -(void)updateheadimgbyimg:(UIImage *)img{
     
-//    NSData *data1 = [NSData ]
     NSData *data = [self resetSizeOfImageData:img maxSize:150];
 
     NSString *name = [self->_secondFormatter stringFromDate:[NSDate date]];
     [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         [formData appendPartWithFileData:data name:@"img" fileName:@"img.jpg" mimeType:@"image/jpg"];
-//        [formData appendPartWithFileData:data name:@"file_name" fileName:[NSString stringWithFormat:@"%@.jpg",name] mimeType:@"image/jpg"];
+        
     } url:UploadFile_URL parameters:@{@"file_name":@"img"} success:^(id  _Nonnull resposeObject) {
         
        if ([resposeObject[@"code"] integerValue] == 200) {

@@ -572,15 +572,37 @@
         }];
     }else{
         
-        AddStoreNeedVC *nextVC = [[AddStoreNeedVC alloc] initWithDataDic:tempDic];
-        nextVC.addStoreNeedVCBlock = ^{
-          
-            if (self.addStoreVCBlock) {
-                
-                self.addStoreVCBlock();
-            }
-        };
-        [self.navigationController pushViewController:nextVC animated:YES];
+        if ([self.status isEqualToString:@"direct"]) {
+            
+            [BaseRequest POST:ProjectBusinessAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+
+                if ([resposeObject[@"code"] integerValue] == 200) {
+
+                    if (self.addStoreVCDicBlock) {
+                        
+                        self.addStoreVCDicBlock(tempDic);
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+
+                [self showContent:@"网络错误"];
+            }];
+        }else{
+            
+            AddStoreNeedVC *nextVC = [[AddStoreNeedVC alloc] initWithDataDic:tempDic];
+            nextVC.addStoreNeedVCBlock = ^{
+              
+                if (self.addStoreVCBlock) {
+                    
+                    self.addStoreVCBlock();
+                }
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }
     }
 }
     
@@ -1212,7 +1234,13 @@
     [_nextBtn addTarget:self action:@selector(ActionNextBtn:) forControlEvents:UIControlEventTouchUpInside];
     if (!self.storeDic.count) {
         
-        [_nextBtn setTitle:@"下一步 需求调查" forState:UIControlStateNormal];
+        if ([self.status isEqualToString:@"direct"]) {
+            
+            [_nextBtn setTitle:@"提 交" forState:UIControlStateNormal];
+        }else{
+            
+            [_nextBtn setTitle:@"下一步 需求调查" forState:UIControlStateNormal];
+        }
     }else{
         
         [_nextBtn setTitle:@"保存" forState:UIControlStateNormal];
