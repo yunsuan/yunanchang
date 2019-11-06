@@ -18,7 +18,10 @@
     
     NSInteger _num;
     
+    NSMutableDictionary *_dataDic;
+    
     NSMutableArray *_dataArr;
+    NSMutableArray *_advicerArr;
 }
 
 @property (nonatomic, strong) UITableView *table;
@@ -48,82 +51,82 @@
 - (void)initDataSource{
 
     _dataArr = [@[] mutableCopy];
-//    _dataDic = [@{} mutableCopy];
-//    _advicerArr = [@[] mutableCopy];
+    _dataDic = [@{} mutableCopy];
+    _advicerArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
     
-//    [BaseRequest GET:ProjectRowGetRowDetail_URL parameters:@{@"row_id":_row_id} success:^(id  _Nonnull resposeObject) {
-//
-//        if ([resposeObject[@"code"] integerValue] == 200) {
-//
-//            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-//            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"beneficiary"]];
-//            for (int i = 0; i < tempArr.count; i++) {
-//
-//                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
-//                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//
-//                    if ([obj isKindOfClass:[NSNull class]]) {
-//
-//                        [tempDic setObject:@"" forKey:key];
-//                    }else{
-//
-//                        [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
-//                    }
-//                }];
-//                [tempArr replaceObjectAtIndex:i withObject:tempDic];
-//            }
-//            [self->_dataDic setObject:tempArr forKey:@"beneficiary"];
-//            if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
-//
-//                self.rightBtn.hidden = YES;
-//            }else{
-//
-//                self.rightBtn.hidden = NO;
-//            }
-//            self->_advicerArr = resposeObject[@"data"][@"advicer"];
-//            NSString *str = @"";
-//            for (int i = 0; i < self->_advicerArr.count; i++) {
-//
-//                if (str.length) {
-//
-//                    str = [NSString stringWithFormat:@"%@,%@",str,self->_advicerArr[i][@"name"]];
-//                }else{
-//
-//                    str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
-//                }
-//            }
-//            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"排号号码：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"排号时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"有效期至：%@",self->_dataDic[@"end_time"]]/*,[NSString stringWithFormat:@"归属人：%@",str],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_time"]]*/],@[[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"归属人：%@",self->_dataDic[@"advicer"][0][@"name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_name"]]]]];
-//            if ([self->_dataDic[@"check_state"] integerValue] != 2) {
-//
-//                if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
-//
-//                    NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"申请流程：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"progressList"][@"list"][0][@"update_time"]]]];
-//                    if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1) {
-//
-//                        [arr insertObject:@"流程类型：自由流程" atIndex:1];
-//                    }else if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 2){
-//
-//                        [arr insertObject:@"流程类型：固定流程" atIndex:1];
-//                    }else{
-//
-//                        [arr insertObject:@"流程类型：混合流程" atIndex:1];
-//                    }
-//                    [self->_dataArr addObject:arr];
-//                }
-//            }
-//            [self->_dataArr addObject:self->_dataDic[@"enclosure"]];
-//            [self->_table reloadData];
-//        }else{
-//
-//            [self showContent:resposeObject[@"msg"]];
-//        }
-//    } failure:^(NSError * _Nonnull error) {
-//
-//        [self showContent:@"网络错误"];
-//    }];
+    [BaseRequest GET:ProjectRowGetRowDetail_URL parameters:@{@"row_id":@""} success:^(id  _Nonnull resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 200) {
+
+            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"beneficiary"]];
+            for (int i = 0; i < tempArr.count; i++) {
+
+                NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
+                [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+
+                    if ([obj isKindOfClass:[NSNull class]]) {
+
+                        [tempDic setObject:@"" forKey:key];
+                    }else{
+
+                        [tempDic setObject:[NSString stringWithFormat:@"%@",obj] forKey:key];
+                    }
+                }];
+                [tempArr replaceObjectAtIndex:i withObject:tempDic];
+            }
+            [self->_dataDic setObject:tempArr forKey:@"beneficiary"];
+            if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
+
+                self.rightBtn.hidden = YES;
+            }else{
+
+                self.rightBtn.hidden = NO;
+            }
+            self->_advicerArr = resposeObject[@"data"][@"advicer"];
+            NSString *str = @"";
+            for (int i = 0; i < self->_advicerArr.count; i++) {
+
+                if (str.length) {
+
+                    str = [NSString stringWithFormat:@"%@,%@",str,self->_advicerArr[i][@"name"]];
+                }else{
+
+                    str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
+                }
+            }
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"beneficiary"][0][@"card_type"]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"联系人：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"所属区域：%@",self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"认知途径：%@",str],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"sign_agent_name"]]],@[[NSString stringWithFormat:@"意向编号：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"诚意金：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"意向租期：%@",self->_dataDic[@"advicer"][0][@"name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"row_name"]]]]];
+            if ([self->_dataDic[@"check_state"] integerValue] != 2) {
+
+                if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
+
+                    NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:@[[NSString stringWithFormat:@"申请流程：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"progressList"][@"list"][0][@"update_time"]]]];
+                    if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1) {
+
+                        [arr insertObject:@"流程类型：自由流程" atIndex:1];
+                    }else if ([self->_dataDic[@"progressList"][@"check_type"] integerValue] == 2){
+
+                        [arr insertObject:@"流程类型：固定流程" atIndex:1];
+                    }else{
+
+                        [arr insertObject:@"流程类型：混合流程" atIndex:1];
+                    }
+                    [self->_dataArr addObject:arr];
+                }
+            }
+            [self->_dataArr addObject:self->_dataDic[@"enclosure"]];
+            [self->_table reloadData];
+        }else{
+
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+
+        [self showContent:@"网络错误"];
+    }];
 }
 
 - (void)ActionRightBtn:(UIButton *)btn{

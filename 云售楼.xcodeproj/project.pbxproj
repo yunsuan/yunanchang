@@ -159,6 +159,7 @@
 		0C46D87823714C4B00EEC856 /* AddOrderRentalDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C46D87723714C4B00EEC856 /* AddOrderRentalDetailVC.m */; };
 		0C46D87C23714E2D00EEC856 /* AddOrderRentalDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C46D87B23714E2D00EEC856 /* AddOrderRentalDetailCell.m */; };
 		0C46D880237154CA00EEC856 /* ModifyAndAddRentalVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C46D87F237154CA00EEC856 /* ModifyAndAddRentalVC.m */; };
+		0C46D88423715E4800EEC856 /* AddSignRentAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C46D88323715E4800EEC856 /* AddSignRentAreaView.m */; };
 		0C496DE122D42E0800789FFA /* AddNumeralModifyCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */; };
 		0C496DE522D4310600789FFA /* AddNumeralAddCustomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE422D4310600789FFA /* AddNumeralAddCustomVC.m */; };
 		0C496DE822D444F400789FFA /* AddNemeralHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C496DE722D444F400789FFA /* AddNemeralHeader.m */; };
@@ -902,6 +903,8 @@
 		0C46D87B23714E2D00EEC856 /* AddOrderRentalDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderRentalDetailCell.m; sourceTree = "<group>"; };
 		0C46D87E237154CA00EEC856 /* ModifyAndAddRentalVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyAndAddRentalVC.h; sourceTree = "<group>"; };
 		0C46D87F237154CA00EEC856 /* ModifyAndAddRentalVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyAndAddRentalVC.m; sourceTree = "<group>"; };
+		0C46D88223715E4800EEC856 /* AddSignRentAreaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSignRentAreaView.h; sourceTree = "<group>"; };
+		0C46D88323715E4800EEC856 /* AddSignRentAreaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignRentAreaView.m; sourceTree = "<group>"; };
 		0C496DDF22D42E0800789FFA /* AddNumeralModifyCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralModifyCustomVC.h; sourceTree = "<group>"; };
 		0C496DE022D42E0800789FFA /* AddNumeralModifyCustomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNumeralModifyCustomVC.m; sourceTree = "<group>"; };
 		0C496DE322D4310600789FFA /* AddNumeralAddCustomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNumeralAddCustomVC.h; sourceTree = "<group>"; };
@@ -2857,6 +2860,7 @@
 		0C46D8662371136D00EEC856 /* 新增签租 */ = {
 			isa = PBXGroup;
 			children = (
+				0C46D88123715E3100EEC856 /* view */,
 				0C46D8672371137D00EEC856 /* AddSignRentVC.h */,
 				0C46D8682371137D00EEC856 /* AddSignRentVC.m */,
 			);
@@ -2912,6 +2916,15 @@
 				0C46D87F237154CA00EEC856 /* ModifyAndAddRentalVC.m */,
 			);
 			path = "添加、修改租金";
+			sourceTree = "<group>";
+		};
+		0C46D88123715E3100EEC856 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C46D88223715E4800EEC856 /* AddSignRentAreaView.h */,
+				0C46D88323715E4800EEC856 /* AddSignRentAreaView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		0C496DDE22D42DE800789FFA /* 修改客户 */ = {
@@ -5744,6 +5757,7 @@
 				0CD0432E227FD33B002C8BD3 /* WorkRecommendValidVC.m in Sources */,
 				0CAC92682284063C006B2B79 /* UserModelArchiver.m in Sources */,
 				10BC3A44228FEE4800DAB2D8 /* RotationHeadView.m in Sources */,
+				0C46D88423715E4800EEC856 /* AddSignRentAreaView.m in Sources */,
 				0C2A7011226D95C100571EC1 /* IntentSurveyVC.m in Sources */,
 				0C365CB022E8301200A586FC /* ModifyNumeralVC.m in Sources */,
 				0CD0439A228172AF002C8BD3 /* RoomDetailVC.m in Sources */,
