@@ -8,7 +8,7 @@
 
 #import "AddSignRentPropertyDetailVC.h"
 
-#import "AddSignRentOtherVC.h"
+#import "AddSignRentPropertyVC.h"
 
 #import "AddOrderRentalDetailCell.h"
 
@@ -34,7 +34,7 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    AddSignRentOtherVC *nextVC = [[AddSignRentOtherVC alloc] init];
+    AddSignRentPropertyVC *nextVC = [[AddSignRentPropertyVC alloc] init];
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -58,7 +58,7 @@
     
     cell.addOrderRentalDetailCellBlock = ^(NSInteger idx) {
       
-        AddSignRentOtherVC *nextVC = [[AddSignRentOtherVC alloc] init];
+        AddSignRentPropertyVC *nextVC = [[AddSignRentPropertyVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
     };
     

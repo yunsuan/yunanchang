@@ -32,6 +32,10 @@
 
 @property (nonatomic, strong) DropBtn *endRentBtn;
 
+@property (nonatomic, strong) UILabel *unitL;
+
+@property (nonatomic, strong) BorderTextField *unitTF;
+
 @property (nonatomic, strong) UILabel *originL;
 
 @property (nonatomic, strong) UILabel *resultL;
@@ -71,7 +75,7 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.dateblock = ^(NSDate *date) {
             
-            self->_timeBtn.content.text = [self->_formatter stringFromDate:date];
+            self->_timeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
         };
         [self.view addSubview:view];
     }else if (btn.tag == 1){
@@ -79,7 +83,7 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.dateblock = ^(NSDate *date) {
             
-            self->_rentBtn.content.text = [self->_formatter stringFromDate:date];
+            self->_rentBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
         };
         [self.view addSubview:view];
     }else if (btn.tag == 2){
@@ -87,7 +91,7 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.dateblock = ^(NSDate *date) {
             
-            self->_endTimeBtn.content.text = [self->_formatter stringFromDate:date];
+            self->_endTimeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
         };
         [self.view addSubview:view];
     }else if (btn.tag == 3){
@@ -95,7 +99,7 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.dateblock = ^(NSDate *date) {
             
-            self->_endRentBtn.content.text = [self->_formatter stringFromDate:date];
+            self->_endRentBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
         };
         [self.view addSubview:view];
     }else if (btn.tag == 5){
@@ -142,6 +146,144 @@
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == _unitTF.textField) {
+        
+        BOOL isHaveDian;
+        
+        //判断是否有小数点
+        if ([textField.text containsString:@"."]) {
+            isHaveDian = YES;
+        }else{
+            isHaveDian = NO;
+        }
+        
+        if (string.length > 0) {
+            
+            //当前输入的字符
+            unichar single = [string characterAtIndex:0];
+            NSLog(@"single = %c",single);
+            
+            //不能输入.0~9以外的字符
+            if (!((single >= '0' && single <= '9') || single == '.')){
+                NSLog(@"您输入的格式不正确");
+                return NO;
+            }
+            
+            //只能有一个小数点
+            if (isHaveDian && single == '.') {
+                NSLog(@"只能输入一个小数点");
+                return NO;
+            }
+            
+            //如果第一位是.则前面加上0
+            if ((textField.text.length == 0) && (single == '.')) {
+                textField.text = @"0";
+            }
+            
+            //如果第一位是0则后面必须输入.
+            if ([textField.text hasPrefix:@"0"]) {
+                if (textField.text.length > 1) {
+                    NSString *secondStr = [textField.text substringWithRange:NSMakeRange(1, 1)];
+                    if (![secondStr isEqualToString:@"."]) {
+                        NSLog(@"第二个字符必须是小数点");
+                        return NO;
+                    }
+                }else{
+                    if (![string isEqualToString:@"."]) {
+                        NSLog(@"第二个字符必须是小数点");
+                        return NO;
+                    }
+                }
+            }
+            
+            //小数点后最多能输入两位
+            if (isHaveDian) {
+                NSRange ran = [textField.text rangeOfString:@"."];
+                //由于range.location是NSUInteger类型的，所以不能通过(range.location - ran.location) > 2来判断
+                if (range.location > ran.location) {
+                    if ([textField.text pathExtension].length > 1) {
+                        NSLog(@"小数点后最多有两位小数");
+                        return NO;
+                    }
+                }
+            }
+            
+        }
+        
+        return YES;
+    }else if(textField == _resultTF.textField){
+        
+        BOOL isHaveDian;
+        
+        //判断是否有小数点
+        if ([textField.text containsString:@"."]) {
+            isHaveDian = YES;
+        }else{
+            isHaveDian = NO;
+        }
+        
+        if (string.length > 0) {
+            
+            //当前输入的字符
+            unichar single = [string characterAtIndex:0];
+            NSLog(@"single = %c",single);
+            
+            //不能输入.0~9以外的字符
+            if (!((single >= '0' && single <= '9') || single == '.')){
+                NSLog(@"您输入的格式不正确");
+                return NO;
+            }
+            
+            //只能有一个小数点
+            if (isHaveDian && single == '.') {
+                NSLog(@"只能输入一个小数点");
+                return NO;
+            }
+            
+            //如果第一位是.则前面加上0
+            if ((textField.text.length == 0) && (single == '.')) {
+                textField.text = @"0";
+            }
+            
+            //如果第一位是0则后面必须输入.
+            if ([textField.text hasPrefix:@"0"]) {
+                if (textField.text.length > 1) {
+                    NSString *secondStr = [textField.text substringWithRange:NSMakeRange(1, 1)];
+                    if (![secondStr isEqualToString:@"."]) {
+                        NSLog(@"第二个字符必须是小数点");
+                        return NO;
+                    }
+                }else{
+                    if (![string isEqualToString:@"."]) {
+                        NSLog(@"第二个字符必须是小数点");
+                        return NO;
+                    }
+                }
+            }
+            
+            //小数点后最多能输入两位
+            if (isHaveDian) {
+                NSRange ran = [textField.text rangeOfString:@"."];
+                //由于range.location是NSUInteger类型的，所以不能通过(range.location - ran.location) > 2来判断
+                if (range.location > ran.location) {
+                    if ([textField.text pathExtension].length > 1) {
+                        NSLog(@"小数点后最多有两位小数");
+                        return NO;
+                    }
+                }
+            }
+            
+        }
+        
+        return YES;
+    }else{
+        
+        return YES;
+    }
+}
+
 - (void)initUI{
     
     self.titleLabel.text = @"修改租金";
@@ -151,7 +293,7 @@
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
     
-    NSArray *titleArr = @[@"计价起止时间：",@"免租期起止时间：",@"计算金额：",@"实际金额：",@"备注：",@"交款时间：",@"提醒时间："];
+    NSArray *titleArr = @[@"计价起止时间：",@"免租期起止时间：",@"计算金额：",@"实际金额：",@"备注：",@"交款时间：",@"单价：",@"提醒时间："];
     
     for (int i = 0; i < 7; i++) {
         
@@ -204,6 +346,7 @@
             [_scrollView addSubview:_endRentBtn];
             
             _resultTF = tf;
+            _resultTF.textField.keyboardType = UIKeyboardTypeNumberPad;
             [_scrollView addSubview:_resultTF];
         }else if (i == 4){
             
@@ -221,6 +364,14 @@
             [_payTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             _payTimeBtn.tag = 5;
             [_scrollView addSubview:_payTimeBtn];
+        }else if (i == 6){
+            
+            _unitL = label;
+            [_scrollView addSubview:_unitL];
+            
+            _unitTF = tf;
+            _unitTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+            [_scrollView addSubview:_unitTF];
         }else{
             
             _remindL = label;
@@ -300,10 +451,25 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
+    [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_rentBtn.mas_bottom).offset(18 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_unitTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_rentBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
     [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_rentBtn.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_unitTF.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     

@@ -51,7 +51,9 @@ typedef void(^AddOrderRentInfoViewBtnBlock)(NSInteger idx);
 
 @property (nonatomic, strong) UILabel *payWayL;
 
-@property (nonatomic, strong) DropBtn *payWayBtn;
+@property (nonatomic, strong) DropBtn *payWayBtn1;
+
+@property (nonatomic, strong) DropBtn *payWayBtn2;
 
 @property (nonatomic, strong) UILabel *timeL;
 

@@ -41,7 +41,7 @@
 //    _priceL.text = @"实际单价：50元/月/㎡";
     if (dataDic.count) {
         
-        _totalL.text = [NSString stringWithFormat:@"合计总租金：%@",dataDic[@""]];
+        _totalL.text = [NSString stringWithFormat:@"%@：%@",self.title,dataDic[@""]];
         _addBtn.hidden = YES;
     }else{
      

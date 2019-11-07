@@ -50,9 +50,84 @@
     _priceTF.textField.text = dataDic[@"price"];
     _intentPeriodLBtn1.content.text = dataDic[@"min"];
     _intentPeriodLBtn2.content.text = dataDic[@"max"];
-    _payWayBtn.content.text = dataDic[@"payWay"];
-    _payWayBtn->str = dataDic[@"payWayId"];
+    _payWayBtn1.content.text = dataDic[@"payWay"];
+    _payWayBtn1->str = dataDic[@"payWayId"];
+    _payWayBtn2.content.text = dataDic[@"payWay"];
+    _payWayBtn2->str = dataDic[@"payWayId"];
     _timeBtn.content.text = dataDic[@"remindTime"];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == _priceTF.textField) {
+        
+        BOOL isHaveDian;
+        
+        //判断是否有小数点
+        if ([textField.text containsString:@"."]) {
+            isHaveDian = YES;
+        }else{
+            isHaveDian = NO;
+        }
+        
+        if (string.length > 0) {
+            
+            //当前输入的字符
+            unichar single = [string characterAtIndex:0];
+            NSLog(@"single = %c",single);
+            
+            //不能输入.0~9以外的字符
+            if (!((single >= '0' && single <= '9') || single == '.')){
+                NSLog(@"您输入的格式不正确");
+                return NO;
+            }
+            
+            //只能有一个小数点
+            if (isHaveDian && single == '.') {
+                NSLog(@"只能输入一个小数点");
+                return NO;
+            }
+            
+            //如果第一位是.则前面加上0
+            if ((textField.text.length == 0) && (single == '.')) {
+                textField.text = @"0";
+            }
+            
+            //如果第一位是0则后面必须输入.
+            if ([textField.text hasPrefix:@"0"]) {
+                if (textField.text.length > 1) {
+                    NSString *secondStr = [textField.text substringWithRange:NSMakeRange(1, 1)];
+                    if (![secondStr isEqualToString:@"."]) {
+                        NSLog(@"第二个字符必须是小数点");
+                        return NO;
+                    }
+                }else{
+                    if (![string isEqualToString:@"."]) {
+                        NSLog(@"第二个字符必须是小数点");
+                        return NO;
+                    }
+                }
+            }
+            
+//            //小数点后最多能输入两位
+//            if (isHaveDian) {
+//                NSRange ran = [textField.text rangeOfString:@"."];
+//                //由于range.location是NSUInteger类型的，所以不能通过(range.location - ran.location) > 2来判断
+//                if (range.location > ran.location) {
+//                    if ([textField.text pathExtension].length > 1) {
+//                        NSLog(@"小数点后最多有两位小数");
+//                        return NO;
+//                    }
+//                }
+//            }
+            
+        }
+        
+        return YES;
+    }else{
+        
+        return YES;
+    }
 }
 
 - (void)initUI{
@@ -79,6 +154,7 @@
                 [self addSubview:_codeL];
                 
                 _codeTF = tf;
+                _codeTF.textField.keyboardType = UIKeyboardTypeASCIICapable;
                 [self addSubview:_codeTF];
                 break;
             }
@@ -112,6 +188,13 @@
                 [self addSubview:_signNumL];
                 
                 _signNumTF = tf;
+                if (@available(iOS 10.0, *)) {
+                    
+                    _signNumTF.textField.keyboardType = UIKeyboardTypeASCIICapableNumberPad;
+                } else {
+                    
+                    _signNumTF.textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+                }
                 [self addSubview:_signNumTF];
                 break;
             }
@@ -148,10 +231,15 @@
                 _payWayL = label;
                 [self addSubview:_payWayL];
                 
-                _payWayBtn = [[DropBtn alloc] initWithFrame:tf.frame];
-                [_payWayBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-                _payWayBtn.tag = 6;
-                [self addSubview:_payWayBtn];
+                _payWayBtn1 = [[DropBtn alloc] initWithFrame:_intentPeriodLBtn1.frame];
+                [_payWayBtn1 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _payWayBtn1.tag = 6;
+                [self addSubview:_payWayBtn1];
+                
+                _payWayBtn2 = [[DropBtn alloc] initWithFrame:_intentPeriodLBtn1.frame];
+                [_payWayBtn2 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _payWayBtn2.tag = 8;
+                [self addSubview:_payWayBtn2];
                 break;
             }
             case 7:
@@ -276,26 +364,35 @@
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_payWayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_payWayBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self->_intentPeriodLBtn1
                          .mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_payWayBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(218 *SIZE);
+        make.top.equalTo(self->_intentPeriodLBtn1
+                         .mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
     [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(9 *SIZE);
-        make.top.equalTo(self->_payWayBtn.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_payWayBtn1.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(80 *SIZE);
-        make.top.equalTo(self->_payWayBtn.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self->_payWayBtn1.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
         make.bottom.equalTo(self).offset(-10 *SIZE);

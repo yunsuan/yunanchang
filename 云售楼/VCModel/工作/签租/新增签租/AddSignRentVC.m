@@ -14,6 +14,7 @@
 #import "AddSignRentOtherDetailVC.h"
 
 #import "RoomVC.h"
+#import "AddSignRentPropertyDetailVC.h"
 
 #import "AddNemeralHeader.h"
 #import "AddIntentStoreRoomView.h"
@@ -494,6 +495,16 @@
                 strongSelf->_signView.dataDic = strongSelf->_orderDic;
             };
             [strongSelf.view addSubview:view];
+        }else if (idx == 8){
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_orderDic setValue:MC forKey:@"payWay"];
+                [strongSelf->_orderDic setValue:[NSString stringWithFormat:@"%@",ID] forKey:@"payWayId"];
+                strongSelf->_signView.dataDic = strongSelf->_orderDic;
+            };
+            [strongSelf.view addSubview:view];
         }else{
             
             DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
@@ -547,6 +558,7 @@
     
     _priceView = [[AddOrderRentPriceView alloc] init];
     _priceView.hidden = NO;
+    _priceView.title = @"合计租金";
     _priceView.dataDic = _rentPirceDic;
     _priceView.addOrderRentPriceViewBlock = ^{
         
@@ -612,6 +624,13 @@
     
     _propertyView = [[AddOrderRentPriceView alloc] init];
     _propertyView.hidden = NO;
+    _propertyView.title = @"合计物业费";
+    _propertyView.dataDic = _otherView.dataDic;
+    _propertyView.addOrderRentPriceViewAddBlock = ^{
+        
+        AddSignRentPropertyDetailVC *nextVC = [[AddSignRentPropertyDetailVC alloc] init];
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+    };
     [_scrollView addSubview:_propertyView];
     
 #pragma mark -- 其他费项 --
@@ -653,7 +672,9 @@
     
     _otherView = [[AddOrderRentPriceView alloc] init];
     _otherView.hidden = NO;
+    _otherView.title = @"合计费用";
     [_otherView.addBtn setTitle:@"新 增" forState:UIControlStateNormal];
+    _otherView.dataDic = _otherView.dataDic;
     _otherView.addOrderRentPriceViewAddBlock = ^{
         
         AddSignRentOtherDetailVC *nextVC = [[AddSignRentOtherDetailVC alloc] init];

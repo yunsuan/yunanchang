@@ -151,6 +151,7 @@
             
             _numTF = tf;
             _numTF.hidden = YES;
+            _numTF.textField.keyboardType = UIKeyboardTypeNumberPad;
             [_scrollView addSubview:_numTF];
         }else if (i == 7){
             
@@ -163,6 +164,7 @@
             [_scrollView addSubview:_resultL];
             
             _resultTF = tf;
+            _resultTF.textField.keyboardType = UIKeyboardTypeNumberPad;
             [_scrollView addSubview:_resultTF];
         }else{
             

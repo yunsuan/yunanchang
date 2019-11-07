@@ -28,6 +28,8 @@ typedef void(^AddOrderRentPriceViewAddBlock)(void);
 
 @property (nonatomic, strong) UIButton *addBtn;
 
+@property (nonatomic, strong) NSString *title;
+
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 
 @end

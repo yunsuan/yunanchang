@@ -420,6 +420,16 @@
                 strongSelf->_orderView.dataDic = strongSelf->_orderDic;
             };
             [strongSelf.view addSubview:view];
+        }else if (idx == 8){
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_orderDic setValue:MC forKey:@"payWay"];
+                [strongSelf->_orderDic setValue:[NSString stringWithFormat:@"%@",ID] forKey:@"payWayId"];
+                strongSelf->_orderView.dataDic = strongSelf->_orderDic;
+            };
+            [strongSelf.view addSubview:view];
         }else{
             
             DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
@@ -474,6 +484,7 @@
     
     _priceView = [[AddOrderRentPriceView alloc] init];
     _priceView.hidden = YES;
+    _priceView.title = @"合计租金";
     _priceView.dataDic = _rentPirceDic;
     _priceView.addOrderRentPriceViewBlock = ^{
         
