@@ -18,6 +18,8 @@
     
     NSInteger _num;
     
+    NSString *_businessId;
+    
     NSMutableDictionary *_dataDic;
     
     NSMutableArray *_dataArr;
@@ -35,7 +37,7 @@
     self = [super init];
     if (self) {
         
-//        _businessId = businessId;
+        _businessId = businessId;
     }
     return self;
 }
@@ -57,7 +59,7 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:ProjectRowGetRowDetail_URL parameters:@{@"row_id":@""} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:ProjectBusinessDetail_URL parameters:@{@"business_id":_businessId} success:^(id  _Nonnull resposeObject) {
 
         if ([resposeObject[@"code"] integerValue] == 200) {
 
@@ -98,7 +100,7 @@
                     str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
                 }
             }
-            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"beneficiary"][0][@"card_type"]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"联系人：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"所属区域：%@",self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"认知途径：%@",str],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"sign_agent_name"]]],@[[NSString stringWithFormat:@"意向编号：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"诚意金：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"意向租期：%@",self->_dataDic[@"advicer"][0][@"name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"row_name"]]]]];
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@",self->_dataDic[@"beneficiary"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"beneficiary"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"beneficiary"]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"联系人：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"所属区域：%@",self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"认知途径：%@",str],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"sign_agent_name"]]],@[[NSString stringWithFormat:@"意向编号：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"诚意金：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"意向租期：%@",self->_dataDic[@"advicer"][0][@"name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"row_name"]]]]];
             if ([self->_dataDic[@"check_state"] integerValue] != 2) {
 
                 if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
