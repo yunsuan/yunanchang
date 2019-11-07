@@ -12,15 +12,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^AddOrderRentPriceViewBlock)(void);
 
+typedef void(^AddOrderRentPriceViewAddBlock)(void);
+
 @interface AddOrderRentPriceView : UIView
 
 @property (nonatomic, copy) AddOrderRentPriceViewBlock addOrderRentPriceViewBlock;
+
+@property (nonatomic, copy) AddOrderRentPriceViewAddBlock addOrderRentPriceViewAddBlock;
 
 @property (nonatomic, strong) UILabel *priceL;
 
 @property (nonatomic, strong) UILabel *totalL;
 
 @property (nonatomic, strong) UIButton *editBtn;
+
+@property (nonatomic, strong) UIButton *addBtn;
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 

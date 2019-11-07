@@ -37,11 +37,12 @@
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@""]];
     _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@""]];
     _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@""]];
+    _unitL.text = [NSString stringWithFormat:@"单单价：%@",dataDic[@""]];
 }
 
 - (void)initUI{
     
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
@@ -71,6 +72,10 @@
             
             _payTimeL = label;
             [self.contentView addSubview:_payTimeL];
+        }else if (i == 6){
+            
+            _unitL = label;
+            [self.contentView addSubview:_unitL];
         }else{
             
             _remindL = label;
@@ -102,46 +107,53 @@
         make.width.mas_equalTo(300 *SIZE);
     }];
     
-    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(12 *SIZE);
+        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(150 *SIZE);
+    }];
+    
+    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(170 *SIZE);
         make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(150 *SIZE);
     }];
     
     [_resultL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(170 *SIZE);
-        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
-    }];
-    
-    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_originL.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_unitL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(330 *SIZE);
     }];
     
     [_payTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_markL.mas_bottom).offset(12 *SIZE);
+        make.left.equalTo(self.contentView).offset(170 *SIZE);
+        make.top.equalTo(self->_unitL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(150 *SIZE);
-//        make.bottom.equalTo(self.contentView).offset(-12 *SIZE);
     }];
     
     [_remindL mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+        make.left.equalTo(self.contentView).offset(12 *SIZE);
+        make.top.equalTo(self->_resultL.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(150 *SIZE);
+    //        make.bottom.equalTo(self.contentView).offset(-12 *SIZE);
+    }];
+    
+    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(170 *SIZE);
-        make.top.equalTo(self->_markL.mas_bottom).offset(12 *SIZE);
+        make.left.equalTo(self.contentView).offset(12 *SIZE);
+        make.top.equalTo(self->_remindL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(150 *SIZE);
     }];
     
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(0 *SIZE);
-        make.top.equalTo(self->_payTimeL.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_markL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(1 *SIZE);
         make.bottom.equalTo(self.contentView).offset(-0 *SIZE);

@@ -20,15 +20,17 @@ typedef void(^AddOrderRentalDetailCellBlock)(NSInteger idx);
 
 @property (nonatomic, strong) UILabel *rentL;
 
+@property (nonatomic, strong) UILabel *unitL;
+
 @property (nonatomic, strong) UILabel *originL;
 
 @property (nonatomic, strong) UILabel *resultL;
 
-@property (nonatomic, strong) UILabel *markL;
-
 @property (nonatomic, strong) UILabel *payTimeL;
 
 @property (nonatomic, strong) UILabel *remindL;
+
+@property (nonatomic, strong) UILabel *markL;
 
 @property (nonatomic, strong) UIButton *editBtn;
 
