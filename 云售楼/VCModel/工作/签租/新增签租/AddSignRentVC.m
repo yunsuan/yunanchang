@@ -10,6 +10,8 @@
 
 #import "AddIntentSelectStoreVC.h"
 #import "AddStoreVC.h"
+#import "AddOrderRentalDetailVC.h"
+#import "AddSignRentOtherDetailVC.h"
 
 #import "AddNemeralHeader.h"
 #import "AddIntentStoreRoomView.h"
@@ -70,6 +72,10 @@
 
 @property (nonatomic, strong) AddOrderRentPriceView *propertyView;
 
+@property (nonatomic, strong) AddNemeralHeader *otherHeader;
+
+@property (nonatomic, strong) AddOrderRentPriceView *otherView;
+
 @property (nonatomic, strong) AddNemeralHeader *processHeader;
 
 @property (nonatomic, strong) AddNumeralProcessView *addNumeralProcessView;
@@ -105,7 +111,7 @@
 - (void)initDataSource{
     
     _titleArr = @[@"房源信息",@"商家信息",@"意向信息",@"流程信息"];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0,@0,@0,@0]];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0,@0,@0,@0,@0]];
     
     _progressDic = [@{} mutableCopy];
     
@@ -433,6 +439,11 @@
     
     _priceView = [[AddOrderRentPriceView alloc] init];
     _priceView.hidden = NO;
+    _priceView.addOrderRentPriceViewAddBlock = ^{
+      
+        AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+    };
     [_scrollView addSubview:_priceView];
     
 #pragma mark -- 物业费信息 --
@@ -476,6 +487,52 @@
     _propertyView.hidden = NO;
     [_scrollView addSubview:_propertyView];
     
+#pragma mark -- 其他费项 --
+    _otherHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+    _otherHeader.titleL.text = @"其他费项";
+    _otherHeader.addBtn.hidden = YES;
+    [_otherHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+    _otherHeader.backgroundColor = CLWhiteColor;
+    _otherHeader.addNemeralHeaderAllBlock = ^{
+            
+        if ([strongSelf->_selectArr[6] integerValue]){
+            
+            [strongSelf->_selectArr replaceObjectAtIndex:6 withObject:@0];
+            [strongSelf->_otherHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+            strongSelf->_otherView.hidden = YES;
+            [strongSelf->_otherView mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_otherHeader.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.height.mas_equalTo(0);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+            }];
+        }else{
+                
+            [strongSelf->_selectArr replaceObjectAtIndex:6 withObject:@1];
+            [strongSelf->_otherHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
+            strongSelf->_otherView.hidden = NO;
+            [strongSelf->_otherView mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+                make.left.equalTo(strongSelf->_scrollView).offset(0);
+                make.top.equalTo(strongSelf->_otherHeader.mas_bottom).offset(0 *SIZE);
+                make.width.mas_equalTo(SCREEN_Width);
+                make.right.equalTo(strongSelf->_scrollView).offset(0);
+            }];
+        }
+    };
+    [_scrollView addSubview:_otherHeader];
+    
+    _otherView = [[AddOrderRentPriceView alloc] init];
+    _otherView.hidden = NO;
+    [_otherView.addBtn setTitle:@"新 增" forState:UIControlStateNormal];
+    _otherView.addOrderRentPriceViewAddBlock = ^{
+        
+        AddSignRentOtherDetailVC *nextVC = [[AddSignRentOtherDetailVC alloc] init];
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+    };
+    [_scrollView addSubview:_otherView];
 #pragma mark -- 流程信息 --
     
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
@@ -485,9 +542,9 @@
     _processHeader.backgroundColor = CLWhiteColor;
     _processHeader.addNemeralHeaderAllBlock = ^{
         
-        if ([strongSelf->_selectArr[6] integerValue]){
+        if ([strongSelf->_selectArr[7] integerValue]){
         
-            [strongSelf->_selectArr replaceObjectAtIndex:6 withObject:@0];
+            [strongSelf->_selectArr replaceObjectAtIndex:7 withObject:@0];
             [strongSelf->_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addNumeralProcessView.hidden = YES;
             [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -501,7 +558,7 @@
             }];
         }else{
             
-            [strongSelf->_selectArr replaceObjectAtIndex:6 withObject:@1];
+            [strongSelf->_selectArr replaceObjectAtIndex:7 withObject:@1];
             [strongSelf->_processHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addNumeralProcessView.hidden = NO;
             [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -717,9 +774,9 @@
     _addNumeralFileHeader.backgroundColor = CLWhiteColor;
     _addNumeralFileHeader.addNemeralHeaderAllBlock = ^{
         
-        if ([strongSelf->_selectArr[7] integerValue]){
+        if ([strongSelf->_selectArr[8] integerValue]){
 
-            [strongSelf->_selectArr replaceObjectAtIndex:7 withObject:@0];
+            [strongSelf->_selectArr replaceObjectAtIndex:8 withObject:@0];
             [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addNumeralFileView.hidden = YES;
             [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -733,7 +790,7 @@
             }];
         }else{
 
-            [strongSelf->_selectArr replaceObjectAtIndex:7 withObject:@1];
+            [strongSelf->_selectArr replaceObjectAtIndex:8 withObject:@1];
             [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addNumeralFileView.hidden = NO;
             [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -900,11 +957,28 @@
         make.height.mas_equalTo(0 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);
     }];
+    
+    [_otherHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+        make.left.equalTo(self->_scrollView).offset(0);
+        make.top.equalTo(self->_propertyView.mas_bottom).offset(0 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(40 *SIZE);
+    }];
+        
+    [_otherView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+        make.left.equalTo(self->_scrollView).offset(0);
+        make.top.equalTo(self->_otherHeader.mas_bottom).offset(0 *SIZE);
+        make.width.mas_equalTo(SCREEN_Width);
+        make.height.mas_equalTo(0 *SIZE);
+        make.right.equalTo(self->_scrollView).offset(0);
+    }];
 
     [_processHeader mas_makeConstraints:^(MASConstraintMaker *make) {
 
         make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_propertyView.mas_bottom).offset(0 *SIZE);
+        make.top.equalTo(self->_otherView.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(40 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);

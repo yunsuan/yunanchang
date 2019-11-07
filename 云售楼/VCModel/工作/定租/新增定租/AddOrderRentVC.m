@@ -387,7 +387,12 @@
     _priceView.addOrderRentPriceViewBlock = ^{
         
         AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+    };
+    _priceView.addOrderRentPriceViewAddBlock = ^{
+        
+        AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_priceView];
     

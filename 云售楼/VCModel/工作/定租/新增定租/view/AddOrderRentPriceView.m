@@ -61,7 +61,8 @@
         }else{
             
             _totalL = label;
-            _totalL.hidden = YES;
+//            _totalL.hidden = YES;
+            _totalL.text = @" ";
             [self addSubview:_totalL];
         }
     }
