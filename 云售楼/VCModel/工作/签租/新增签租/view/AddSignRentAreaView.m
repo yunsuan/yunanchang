@@ -25,6 +25,29 @@
     return self;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    if (self.addSignRentAreaViewStrBlock) {
+
+        self.addSignRentAreaViewStrBlock(textField.text);
+    }
+}
+
+- (void)textFieldDidChange:(UITextField *)textField{
+    
+    if (self.addSignRentAreaViewStrBlock) {
+
+        self.addSignRentAreaViewStrBlock(textField.text);
+    }
+}
+
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
+    
+    _rentAreaL.text = [NSString stringWithFormat:@"租赁面积：%@",dataDic[@""]];
+    _chargeAreaTF.textField.text = dataDic[@""];
+    _realAreaL.text = [NSString stringWithFormat:@"实际面积：%@",dataDic[@""]];
+}
+
 - (void)initUI{
     
     self.backgroundColor = CLWhiteColor;
@@ -57,6 +80,7 @@
                 [self addSubview:_chargeAreaL];
                 
                 _chargeAreaTF = tf;
+                [_chargeAreaTF.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 [self addSubview:_chargeAreaTF];
                 break;
             }

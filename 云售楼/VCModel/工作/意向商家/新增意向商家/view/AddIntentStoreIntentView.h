@@ -17,7 +17,9 @@ typedef void(^AddIntentStoreIntentViewStrBlock)(NSString *str, NSInteger idx);
 
 typedef void(^AddIntentStoreIntentViewTimeBlock)(void);
 
-typedef void(^AddIntentStoreIntentViewPeriodBlock)(void);
+typedef void(^AddIntentStoreIntentViewPeriod1Block)(void);
+
+typedef void(^AddIntentStoreIntentViewPeriod2Block)(void);
 
 @interface AddIntentStoreIntentView : UIView
 
@@ -25,7 +27,9 @@ typedef void(^AddIntentStoreIntentViewPeriodBlock)(void);
 
 @property (nonatomic, copy) AddIntentStoreIntentViewTimeBlock addIntentStoreIntentViewTimeBlock;
 
-@property (nonatomic, copy) AddIntentStoreIntentViewPeriodBlock addIntentStoreIntentViewPeriodBlock;
+@property (nonatomic, copy) AddIntentStoreIntentViewPeriod1Block addIntentStoreIntentViewPeriod1Block;
+
+@property (nonatomic, copy) AddIntentStoreIntentViewPeriod2Block addIntentStoreIntentViewPeriod2Block;
 
 @property (nonatomic, strong) UILabel *codeL;
 
@@ -37,11 +41,15 @@ typedef void(^AddIntentStoreIntentViewPeriodBlock)(void);
 
 @property (nonatomic, strong) UILabel *intentPeriodL;
 
-@property (nonatomic, strong) DropBtn *intentPeriodLBtn;
+@property (nonatomic, strong) DropBtn *intentPeriodLBtn1;
+
+@property (nonatomic, strong) DropBtn *intentPeriodLBtn2;
 
 @property (nonatomic, strong) UILabel *timeL;
 
 @property (nonatomic, strong) DropBtn *timeBtn;
+
+@property (nonatomic, strong) NSMutableDictionary *dataDic;
 
 @end
 

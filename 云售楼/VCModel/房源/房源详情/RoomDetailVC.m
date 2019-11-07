@@ -13,6 +13,9 @@
 #import "ModifyOrderVC.h"
 #import "ModifySignVC.h"
 #import "OrderTranSignVC.h"
+#import "AddIntentStoreVC.h"
+#import "AddOrderRentVC.h"
+#import "AddSignRentVC.h"
 
 #import "SMScrollView.h"
 //#import "KyoCenterLineView.h"
@@ -618,7 +621,18 @@
                         
                         [self.navigationController popToViewController:vc animated:YES];
                     }
-                    
+                    if ([vc isKindOfClass:[AddIntentStoreVC class]]) {
+                        
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
+                    if ([vc isKindOfClass:[AddOrderRentVC class]]) {
+                        
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
+                    if ([vc isKindOfClass:[AddSignRentVC class]]) {
+                        
+                        [self.navigationController popToViewController:vc animated:YES];
+                    }
                 }
             }else{
                 

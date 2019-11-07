@@ -26,20 +26,13 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
-//    if (textField == _proportionTF.textField) {
-//
-//        if ([textField.text integerValue] > 100) {
-//
-//            textField.text = @"100";
-//        }
-//    }
     if (self.addOrderRentInfoViewStrBlock) {
 
         self.addOrderRentInfoViewStrBlock(textField.text, textField.tag);
     }
 }
 
-- (void)ActionTimeBtn:(UIButton *)btn{
+- (void)ActionDropBtn:(UIButton *)btn{
     
     if (self.addOrderRentInfoViewBtnBlock) {
 
@@ -47,12 +40,19 @@
     }
 }
 
-- (void)ActionPeriodTimeBtn:(UIButton *)btn{
+- (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    if (self.addOrderRentInfoViewPeriodBlock) {
-
-        self.addOrderRentInfoViewPeriodBlock();
-    }
+    _codeTF.textField.text = dataDic[@"codeName"];
+    _signerTF.textField.text = dataDic[@"signer"];
+    _signTypeBtn.content.text = dataDic[@"typeName"];
+    _signTypeBtn->str = dataDic[@"typeId"];
+    _signNumTF.textField.text = dataDic[@"signNum"];
+    _priceTF.textField.text = dataDic[@"price"];
+    _intentPeriodLBtn1.content.text = dataDic[@"min"];
+    _intentPeriodLBtn2.content.text = dataDic[@"max"];
+    _payWayBtn.content.text = dataDic[@"payWay"];
+    _payWayBtn->str = dataDic[@"payWayId"];
+    _timeBtn.content.text = dataDic[@"remindTime"];
 }
 
 - (void)initUI{
@@ -100,7 +100,8 @@
                 [self addSubview:_signTypeL];
                 
                 _signTypeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
-                [_signTypeBtn addTarget:self action:@selector(ActionPeriodTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
+                [_signTypeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _signTypeBtn.tag = 2;
                 [self addSubview:_signTypeBtn];
                 break;
             }
@@ -122,6 +123,11 @@
                 
                 _priceTF = tf;
                 [self addSubview:_priceTF];
+                
+                _intentPeriodLBtn1 = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
+                [_intentPeriodLBtn1 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _intentPeriodLBtn1.tag = 4;
+                [self addSubview:_intentPeriodLBtn1];
                 break;
             }
             case 5:
@@ -130,9 +136,10 @@
                 _intentPeriodL = label;
                 [self addSubview:_intentPeriodL];
                 
-                _intentPeriodLBtn = [[DropBtn alloc] initWithFrame:tf.frame];
-                [_signTypeBtn addTarget:self action:@selector(ActionPeriodTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
-                [self addSubview:_intentPeriodLBtn];
+                _intentPeriodLBtn2 = [[DropBtn alloc] initWithFrame:_intentPeriodLBtn1.frame];
+                [_intentPeriodLBtn2 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _intentPeriodLBtn2.tag = 5;
+                [self addSubview:_intentPeriodLBtn2];
                 break;
             }
             case 6:
@@ -142,7 +149,8 @@
                 [self addSubview:_payWayL];
                 
                 _payWayBtn = [[DropBtn alloc] initWithFrame:tf.frame];
-                [_signTypeBtn addTarget:self action:@selector(ActionPeriodTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
+                [_payWayBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _payWayBtn.tag = 6;
                 [self addSubview:_payWayBtn];
                 break;
             }
@@ -153,7 +161,8 @@
                 [self addSubview:_timeL];
                 
                 _timeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
-                [_signTypeBtn addTarget:self action:@selector(ActionPeriodTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
+                [_timeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _timeBtn.tag = 7;
                 [self addSubview:_timeBtn];
                 break;
             }
@@ -244,25 +253,34 @@
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_intentPeriodLBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_intentPeriodLBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(80 *SIZE);
         make.top.equalTo(self->_priceTF.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_intentPeriodLBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self).offset(218 *SIZE);
+        make.top.equalTo(self->_priceTF.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
     [_payWayL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(9 *SIZE);
-        make.top.equalTo(self->_intentPeriodLBtn.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_intentPeriodLBtn1.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_payWayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(80 *SIZE);
-        make.top.equalTo(self->_intentPeriodLBtn.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self->_intentPeriodLBtn1
+                         .mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];

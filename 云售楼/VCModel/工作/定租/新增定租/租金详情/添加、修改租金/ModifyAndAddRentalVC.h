@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ModifyAndAddRentalVC : BaseViewController
 
+@property (nonatomic , strong) NSString *status;
+
+@property (nonatomic , strong) NSDictionary *dataDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -64,7 +64,6 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     return _imgArr.count;
-//    return 3;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -72,12 +71,12 @@
     AddIntentStoreInfoCollCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AddIntentStoreInfoCollCell" forIndexPath:indexPath];
     if (!cell) {
         
-        cell = [[AddIntentStoreInfoCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 70 *SIZE)];
+        cell = [[AddIntentStoreInfoCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 105 *SIZE)];
     }
     
     cell.tag = indexPath.item;
     
-    
+    cell.dataDic = _imgArr[indexPath.item];
 
     cell.addIntentStoreInfoCollCellDeleteBlock = ^(NSInteger idx) {
 
@@ -120,7 +119,7 @@
     [self addSubview:_selectBtn];
     
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:5 *SIZE];
-    _layout.itemSize = CGSizeMake(SCREEN_Width, 70 *SIZE);
+    _layout.itemSize = CGSizeMake(SCREEN_Width, 105 *SIZE);
     
     _coll = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_layout];
     _coll.backgroundColor = CLWhiteColor;

@@ -11,6 +11,7 @@
 #import "AddIntentSelectStoreVC.h"
 #import "AddStoreVC.h"
 #import "AddOrderRentalDetailVC.h"
+#import "RoomVC.h"
 
 #import "AddNemeralHeader.h"
 #import "AddIntentStoreRoomView.h"
@@ -20,7 +21,10 @@
 #import "AddOrderRentInfoView.h"
 #import "AddOrderRentPriceView.h"
 
+#import "ModifyAndAddRentalView.h"
+
 #import "SinglePickView.h"
+#import "DateChooseView.h"
 
 @interface AddOrderRentVC ()
 {
@@ -31,9 +35,14 @@
     
     NSArray *_titleArr;
     
+    NSMutableDictionary *_orderDic;
+    
+    NSMutableDictionary *_rentPirceDic;
+    
     NSMutableDictionary *_progressDic;
     
     NSMutableArray *_roomArr;
+    NSMutableArray *_storeArr;
     NSMutableArray *_selectArr;
     NSMutableArray *_progressArr;
     NSMutableArray *_progressAllArr;
@@ -99,9 +108,12 @@
     _titleArr = @[@"房源信息",@"商家信息",@"意向信息",@"流程信息"];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0,@0]];
     
+    _orderDic = [@{} mutableCopy];
     _progressDic = [@{} mutableCopy];
+    _rentPirceDic = [@{} mutableCopy];
     
     _roomArr = [@[] mutableCopy];
+    _storeArr = [@[] mutableCopy];
     
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];
@@ -226,6 +238,14 @@
     _addIntentStoreRoomView.dataArr = self->_roomArr;
     _addIntentStoreRoomView.addIntentStoreRoomViewAddBlock = ^{
         
+        RoomVC *nextVC = [[RoomVC alloc] init];
+        nextVC.status = @"store";
+        nextVC.roomVCBlock = ^(NSDictionary * dic) {
+                 
+            [strongSelf->_roomArr addObject:dic];
+            strongSelf->_addIntentStoreRoomView.dataArr = strongSelf->_roomArr;
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addIntentStoreRoomView.addIntentStoreRoomViewDeleteBlock = ^(NSInteger idx) {
         
@@ -272,7 +292,7 @@
     [_scrollView addSubview:_storeHeader];
     
     _addIntentStoreInfoView = [[AddIntentStoreInfoView alloc] init];
-    _addIntentStoreInfoView.dataArr = self->_roomArr;
+    _addIntentStoreInfoView.dataArr = self->_storeArr;
     _addIntentStoreInfoView.hidden = YES;
     _addIntentStoreInfoView.addIntentStoreInfoViewAddBlock = ^{
         
@@ -280,20 +300,22 @@
         nextVC.status = @"direct";
         nextVC.addStoreVCDicBlock = ^(NSDictionary * _Nonnull dic) {
           
-            
+            [strongSelf->_storeArr addObject:dic];
+            strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addIntentStoreInfoView.addIntentStoreInfoViewDeleteBlock = ^(NSInteger idx) {
         
-        [strongSelf->_roomArr removeObjectAtIndex:idx];
-        strongSelf->_addIntentStoreRoomView.dataArr = strongSelf->_roomArr;
+        [strongSelf->_storeArr removeObjectAtIndex:idx];
+        strongSelf->_addIntentStoreRoomView.dataArr = strongSelf->_storeArr;
     };
     _addIntentStoreInfoView.addIntentStoreInfoViewSelectBlock = ^{
         
         AddIntentSelectStoreVC *nextVC = [[AddIntentSelectStoreVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.addIntentSelectStoreVCBlock = ^(NSDictionary * _Nonnull dic) {
-            
+            [strongSelf->_storeArr addObject:dic];
+            strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
@@ -340,6 +362,75 @@
     
     _orderView = [[AddOrderRentInfoView alloc] init];
     _orderView.hidden = YES;
+    _orderView.dataDic = _orderDic;
+    _orderView.addOrderRentInfoViewStrBlock = ^(NSString * _Nonnull str, NSInteger idx) {
+        
+        if (idx == 0) {
+            
+            [strongSelf->_orderDic setValue:str forKey:@"codeNum"];
+        }else if (idx == 1){
+            
+            [strongSelf->_orderDic setValue:str forKey:@"signer"];
+        }else if (idx == 3){
+            
+            [strongSelf->_orderDic setValue:str forKey:@"signNum"];
+        }else{
+            
+            [strongSelf->_orderDic setValue:str forKey:@"price"];
+        }
+        strongSelf->_orderView.dataDic = strongSelf->_orderDic;
+    };
+    _orderView.addOrderRentInfoViewBtnBlock = ^(NSInteger idx) {
+        
+        if (idx == 2) {
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_orderDic setValue:MC forKey:@"typeName"];
+                [strongSelf->_orderDic setValue:[NSString stringWithFormat:@"%@",ID] forKey:@"typeId"];
+                strongSelf->_orderView.dataDic = strongSelf->_orderDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else if (idx == 4) {
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+                
+                [strongSelf->_orderDic setValue:[[strongSelf->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"min"];
+                strongSelf->_orderView.dataDic = strongSelf->_orderDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else if (idx == 5){
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+                
+                [strongSelf->_orderDic setValue:[[strongSelf->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"max"];
+                strongSelf->_orderView.dataDic = strongSelf->_orderDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else if (idx == 6){
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                [strongSelf->_orderDic setValue:MC forKey:@"payWay"];
+                [strongSelf->_orderDic setValue:[NSString stringWithFormat:@"%@",ID] forKey:@"payWayId"];
+                strongSelf->_orderView.dataDic = strongSelf->_orderDic;
+            };
+            [strongSelf.view addSubview:view];
+        }else{
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+                
+                [strongSelf->_orderDic setValue:[strongSelf->_secondFormatter stringFromDate:date] forKey:@"remindTime"];
+                strongSelf->_orderView.dataDic = strongSelf->_orderDic;
+            };
+            [strongSelf.view addSubview:view];
+        }
+    };
     [_scrollView addSubview:_orderView];
     
 #pragma mark -- 租金信息 --
@@ -383,7 +474,7 @@
     
     _priceView = [[AddOrderRentPriceView alloc] init];
     _priceView.hidden = YES;
-    _priceView.dataDic = @{};
+    _priceView.dataDic = _rentPirceDic;
     _priceView.addOrderRentPriceViewBlock = ^{
         
         AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
@@ -391,8 +482,21 @@
     };
     _priceView.addOrderRentPriceViewAddBlock = ^{
         
-        AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
-        [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:strongSelf.view.bounds];
+        view.modifyAndAddRentalViewComfirmBtnBlock = ^{
+          
+            AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
+            [strongSelf.navigationController pushViewController:nextVC animated:YES];
+        };
+        view.modifyAndAddRentalViewBlock = ^{
+          
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+            };
+            [strongSelf.view addSubview:view];
+        };
+        [strongSelf.view addSubview:view];
     };
     [_scrollView addSubview:_priceView];
     

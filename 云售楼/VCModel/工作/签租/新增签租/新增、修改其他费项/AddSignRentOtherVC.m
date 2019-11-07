@@ -31,6 +31,18 @@
 
 @property (nonatomic, strong) DropBtn *typeBtn;
 
+@property (nonatomic, strong) UILabel *periodL;
+
+@property (nonatomic, strong) DropBtn *periodBtn;
+
+@property (nonatomic, strong) UILabel *unitL;
+
+@property (nonatomic, strong) UILabel *numL;
+
+@property (nonatomic, strong) BorderTextField *numTF;
+
+@property (nonatomic, strong) UILabel *originL;
+
 @property (nonatomic, strong) UILabel *resultL;
 
 @property (nonatomic, strong) BorderTextField *resultTF;
@@ -70,9 +82,9 @@
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
     
-    NSArray *titleArr = @[@"计价起止时间：",@"免租期起止时间：",@"计算金额：",@"实际金额：",@"备注：",@"交款时间：",@"提醒时间："];
+    NSArray *titleArr = @[@"费项名称：",@"交款时间：",@"提醒时间：",@"费项类别：",@"费用周期：",@"单价：",@"用量：",@"计算金额：",@"实际金额：",@"备注："];
     
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 10; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
@@ -86,40 +98,12 @@
         tf.textField.delegate = self;
         if (i == 0) {
             
-            _timeL = label;
-            [_scrollView addSubview:_timeL];
+            _nameL = label;
+            [_scrollView addSubview:_nameL];
             
-            _timeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
-            [_timeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:_timeBtn];
+            _nameTF = tf;
+            [_scrollView addSubview:_nameTF];
         }else if (i == 1){
-            
-            _rentL = label;
-            [_scrollView addSubview:_rentL];
-            
-            _rentBtn = [[DropBtn alloc] initWithFrame:tf.frame];
-            [_rentBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:_rentBtn];
-        }else if (i == 2){
-            
-            _originL = label;
-            _originL.numberOfLines = 0;
-            [_scrollView addSubview:_originL];
-        }else if (i == 3){
-            
-            _resultL = label;
-            [_scrollView addSubview:_resultL];
-            
-            _resultTF = tf;
-            [_scrollView addSubview:_resultTF];
-        }else if (i == 4){
-            
-            _markL = label;
-            [_scrollView addSubview:_markL];
-            
-            _marklTF = tf;
-            [_scrollView addSubview:_marklTF];
-        }else if (i == 5){
             
             _payTimeL = label;
             [_scrollView addSubview:_payTimeL];
@@ -127,14 +111,66 @@
             _payTimeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_payTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:_payTimeBtn];
-        }else{
+        }else if (i == 2){
             
-            _remindL = label;
+            _remindL = label;;
             [_scrollView addSubview:_remindL];
             
             _remindBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_remindBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:_remindBtn];
+        }else if (i == 3){
+            
+            _typeL = label;
+            [_scrollView addSubview:_typeL];
+            
+            _typeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+            [_typeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:_typeBtn];
+        }else if (i == 4){
+            
+            _periodL = label;
+            _periodL.hidden = YES;
+            [_scrollView addSubview:_periodL];
+            
+            _periodBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+            [_periodBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            _periodBtn.hidden = YES;
+            [_scrollView addSubview:_periodBtn];
+        }else if (i == 5){
+            
+            _unitL = label;
+            _unitL.hidden = YES;
+            [_scrollView addSubview:_unitL];
+            
+        }else if (i == 6){
+            
+            _numL = label;
+            _numL.hidden = YES;
+            [_scrollView addSubview:_numL];
+            
+            _numTF = tf;
+            _numTF.hidden = YES;
+            [_scrollView addSubview:_numTF];
+        }else if (i == 7){
+            
+            _originL = label;
+            _originL.hidden = YES;
+            [_scrollView addSubview:_originL];
+        }else if (i == 8){
+            
+            _resultL = label;
+            [_scrollView addSubview:_resultL];
+            
+            _resultTF = tf;
+            [_scrollView addSubview:_resultTF];
+        }else{
+            
+            _markL = label;
+            [_scrollView addSubview:_markL];
+            
+            _marklTF = tf;
+            [_scrollView addSubview:_marklTF];
         }
     }
     
@@ -159,14 +195,14 @@
         make.height.mas_equalTo(SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE);
     }];
     
-    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_nameL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(_scrollView).offset(9 *SIZE);
         make.top.equalTo(_scrollView).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_nameTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(_scrollView).offset(80 *SIZE);
         make.top.equalTo(_scrollView).offset(9 *SIZE);
@@ -174,69 +210,17 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_rentL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_timeBtn.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
-    [_rentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_timeBtn.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
-        make.height.mas_equalTo(33 *SIZE);
-    }];
-    
-    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_rentBtn.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
-    [_resultL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_originL.mas_bottom).offset(18 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
-    [_resultTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_originL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
-        make.height.mas_equalTo(33 *SIZE);
-    }];
-    
-    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_resultTF.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
-    
-    [_marklTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_resultTF.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
-        make.height.mas_equalTo(33 *SIZE);
-    }];
-    
     [_payTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_marklTF.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_nameTF.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_payTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_marklTF.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self->_nameTF.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -252,6 +236,96 @@
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_payTimeBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_remindBtn.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_typeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_remindBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_periodL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_typeBtn.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_periodBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_periodBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+//        make.height.mas_equalTo(33 *SIZE);
+    }];
+
+    [_numL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_unitL.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_numTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_unitL.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_numTF.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+    }];
+    
+    [_resultL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_typeBtn.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_resultTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_markL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_resultTF.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_marklTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_resultTF.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
         make.bottom.equalTo(self->_scrollView.mas_bottom).offset(-10 *SIZE);

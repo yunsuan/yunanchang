@@ -68,9 +68,9 @@
     
     cell.tag = indexPath.item;
     
-    cell.roomL.text = @"房间：一栋一单元201";
-    cell.areaL.text = @"房间：一栋一单元201";
-    cell.priceL.text = @"房间：一栋一单元201";
+    cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@%@",_imgArr[indexPath.item][@"build_name"],_imgArr[indexPath.item][@"unit_name"],_imgArr[indexPath.item][@"house_name"]];
+    cell.areaL.text = [NSString stringWithFormat:@"面积：%@㎡",_imgArr[indexPath.item][@"estimated_build_size"]];
+    cell.priceL.text = [NSString stringWithFormat:@"租金：%@元/月/㎡",_imgArr[indexPath.item][@"criterion_unit_price"]];
 
     cell.addIntentStoreRoomCollCellDeleteBlock = ^(NSInteger idx) {
 
@@ -124,7 +124,7 @@
     [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self).offset(80 *SIZE);
-        make.top.equalTo(self).offset(10 *SIZE);
+        make.top.equalTo(self->_coll.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(200 *SIZE);
         make.height.mas_equalTo(30 *SIZE);
         make.bottom.equalTo(self.mas_bottom).offset(-10 *SIZE);

@@ -103,6 +103,8 @@
 		0C365CB022E8301200A586FC /* ModifyNumeralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C365CAF22E8301200A586FC /* ModifyNumeralVC.m */; };
 		0C365CB422E84AC000A586FC /* ModifyOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C365CB322E84AC000A586FC /* ModifyOrderVC.m */; };
 		0C365CB822E9393C00A586FC /* ModifySignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C365CB722E9393C00A586FC /* ModifySignVC.m */; };
+		0C3804502373FA360075CABD /* AddOrderRentInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C46D87023711D1500EEC856 /* AddOrderRentInfoView.m */; };
+		0C3804542373FC0B0075CABD /* ModifyAndAddRentalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804532373FC0B0075CABD /* ModifyAndAddRentalView.m */; };
 		0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9115225B20C400F04804 /* AppDelegate.m */; };
 		0C3A9119225B20C400F04804 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9118225B20C400F04804 /* ViewController.m */; };
 		0C3A911C225B20C400F04804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3A911A225B20C400F04804 /* Main.storyboard */; };
@@ -793,6 +795,8 @@
 		0C365CB322E84AC000A586FC /* ModifyOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyOrderVC.m; sourceTree = "<group>"; };
 		0C365CB622E9393C00A586FC /* ModifySignVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifySignVC.h; sourceTree = "<group>"; };
 		0C365CB722E9393C00A586FC /* ModifySignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifySignVC.m; sourceTree = "<group>"; };
+		0C3804522373FC0B0075CABD /* ModifyAndAddRentalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyAndAddRentalView.h; sourceTree = "<group>"; };
+		0C3804532373FC0B0075CABD /* ModifyAndAddRentalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyAndAddRentalView.m; sourceTree = "<group>"; };
 		0C3A9111225B20C400F04804 /* 云售楼.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "云售楼.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3A9114225B20C400F04804 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0C3A9115225B20C400F04804 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2360,6 +2364,15 @@
 			path = "修改合同";
 			sourceTree = "<group>";
 		};
+		0C3804512373FBFB0075CABD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C3804522373FC0B0075CABD /* ModifyAndAddRentalView.h */,
+				0C3804532373FC0B0075CABD /* ModifyAndAddRentalView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0C3A9108225B20C400F04804 = {
 			isa = PBXGroup;
 			children = (
@@ -2926,6 +2939,7 @@
 		0C46D87D237154B100EEC856 /* 添加、修改租金 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3804512373FBFB0075CABD /* view */,
 				0C46D87E237154CA00EEC856 /* ModifyAndAddRentalVC.h */,
 				0C46D87F237154CA00EEC856 /* ModifyAndAddRentalVC.m */,
 			);
@@ -5764,6 +5778,7 @@
 				10EF17AE2292AE3400DE5566 /* AddCompanyVC.m in Sources */,
 				0C496DE122D42E0800789FFA /* AddNumeralModifyCustomVC.m in Sources */,
 				0C63F5A1236FBDB600946236 /* IntentStoreCell.m in Sources */,
+				0C3804542373FC0B0075CABD /* ModifyAndAddRentalView.m in Sources */,
 				0C63F5B2236FF6ED00946236 /* AddIntentStoreRoomView.m in Sources */,
 				0C05333922F95B7700DA9143 /* OrderSpePerferChangeVC.m in Sources */,
 				0C63F5C32371025B00946236 /* AddIntentSelectStoreVC.m in Sources */,
@@ -6077,6 +6092,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3804502373FA360075CABD /* AddOrderRentInfoView.m in Sources */,
 				0C3A9139225B20C600F04804 /* ___UITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

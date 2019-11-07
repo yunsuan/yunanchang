@@ -17,15 +17,11 @@ typedef void(^AddOrderRentInfoViewStrBlock)(NSString *str, NSInteger idx);
 
 typedef void(^AddOrderRentInfoViewBtnBlock)(NSInteger idx);
 
-typedef void(^AddOrderRentInfoViewPeriodBlock)(void);
-
 @interface AddOrderRentInfoView : UIView
 
 @property (nonatomic, copy) AddOrderRentInfoViewStrBlock addOrderRentInfoViewStrBlock;
 
 @property (nonatomic, copy) AddOrderRentInfoViewBtnBlock addOrderRentInfoViewBtnBlock;
-
-@property (nonatomic, copy) AddOrderRentInfoViewPeriodBlock addOrderRentInfoViewPeriodBlock;
 
 @property (nonatomic, strong) UILabel *codeL;
 
@@ -47,9 +43,11 @@ typedef void(^AddOrderRentInfoViewPeriodBlock)(void);
 
 @property (nonatomic, strong) BorderTextField *priceTF;
 
+@property (nonatomic, strong) DropBtn *intentPeriodLBtn1;
+
 @property (nonatomic, strong) UILabel *intentPeriodL;
 
-@property (nonatomic, strong) DropBtn *intentPeriodLBtn;
+@property (nonatomic, strong) DropBtn *intentPeriodLBtn2;
 
 @property (nonatomic, strong) UILabel *payWayL;
 
@@ -58,6 +56,8 @@ typedef void(^AddOrderRentInfoViewPeriodBlock)(void);
 @property (nonatomic, strong) UILabel *timeL;
 
 @property (nonatomic, strong) DropBtn *timeBtn;
+
+@property (nonatomic, strong) NSMutableDictionary *dataDic;
 
 @end
 

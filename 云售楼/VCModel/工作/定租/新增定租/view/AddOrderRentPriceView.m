@@ -38,8 +38,16 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _priceL.text = @"实际单价：50元/月/㎡";
-    _totalL.text = @"合计总租金：40000";
+//    _priceL.text = @"实际单价：50元/月/㎡";
+    if (dataDic.count) {
+        
+        _totalL.text = [NSString stringWithFormat:@"合计总租金：%@",dataDic[@""]];
+        _addBtn.hidden = YES;
+    }else{
+     
+        _totalL.text = @" ";
+        _addBtn.hidden = NO;
+    }
 }
 
 - (void)initUI{

@@ -574,12 +574,24 @@
         
         if ([self.status isEqualToString:@"direct"]) {
             
+            NSMutableDictionary *followDic = [@{} mutableCopy];
+            [followDic setObject:@"" forKey:@"cooperation_level"];
+            [followDic setObject:@"" forKey:@"follow_way"];
+            [followDic setObject:@"" forKey:@"follow_state"];
+            [followDic setObject:@"" forKey:@"follow_time"];
+            [followDic setObject:@"" forKey:@"next_follow_time"];
+            [followDic setObject:@"" forKey:@"content"];
+            NSError *error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@[followDic] options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+            [tempDic setValue:jsonString forKey:@"follow_list"];
             [BaseRequest POST:ProjectBusinessAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
 
                 if ([resposeObject[@"code"] integerValue] == 200) {
 
                     if (self.addStoreVCDicBlock) {
                         
+                        [tempDic setValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"]] forKey:@"business_id"];
                         self.addStoreVCDicBlock(tempDic);
                     }
                     [self.navigationController popViewControllerAnimated:YES];

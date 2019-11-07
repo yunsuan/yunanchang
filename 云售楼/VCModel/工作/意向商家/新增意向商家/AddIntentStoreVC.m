@@ -10,6 +10,7 @@
 
 #import "AddIntentSelectStoreVC.h"
 #import "AddStoreVC.h"
+#import "RoomVC.h"
 
 #import "AddNemeralHeader.h"
 #import "AddIntentStoreRoomView.h"
@@ -20,6 +21,8 @@
 
 
 #import "SinglePickView.h"
+#import "DateChooseView.h"
+#import "MinMaxDateChooseView.h"
 
 @interface AddIntentStoreVC ()
 {
@@ -30,9 +33,12 @@
     
     NSArray *_titleArr;
     
+    NSMutableDictionary *_intentDic;
+    
     NSMutableDictionary *_progressDic;
     
     NSMutableArray *_roomArr;
+    NSMutableArray *_storeArr;
     NSMutableArray *_selectArr;
     NSMutableArray *_progressArr;
     NSMutableArray *_progressAllArr;
@@ -94,9 +100,13 @@
     _titleArr = @[@"房源信息",@"商家信息",@"意向信息",@"流程信息"];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0]];
     
+    _intentDic = [@{} mutableCopy];
+    
     _progressDic = [@{} mutableCopy];
     
     _roomArr = [@[] mutableCopy];
+    
+    _storeArr = [@[] mutableCopy];
     
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];
@@ -180,6 +190,8 @@
     [self.view addSubview:_scrollView];
     
     SS(strongSelf);
+    
+#pragma mark -- 房源信息 --
     _roomHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _roomHeader.backgroundColor = CLWhiteColor;
     _roomHeader.titleL.text = @"房源信息";
@@ -220,6 +232,14 @@
     _addIntentStoreRoomView.dataArr = self->_roomArr;
     _addIntentStoreRoomView.addIntentStoreRoomViewAddBlock = ^{
         
+        RoomVC *nextVC = [[RoomVC alloc] init];
+        nextVC.status = @"store";
+        nextVC.roomVCBlock = ^(NSDictionary * dic) {
+                 
+            [strongSelf->_roomArr addObject:dic];
+            strongSelf->_addIntentStoreRoomView.dataArr = strongSelf->_roomArr;
+        };
+        [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addIntentStoreRoomView.addIntentStoreRoomViewDeleteBlock = ^(NSInteger idx) {
         
@@ -228,6 +248,8 @@
     };
     [_scrollView addSubview:_addIntentStoreRoomView];
     
+    
+#pragma mark -- 商家信息 --
     _storeHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _storeHeader.backgroundColor = CLWhiteColor;
     _storeHeader.titleL.text = @"商家信息";
@@ -265,7 +287,7 @@
     [_scrollView addSubview:_storeHeader];
     
     _addIntentStoreInfoView = [[AddIntentStoreInfoView alloc] init];
-    _addIntentStoreInfoView.dataArr = self->_roomArr;
+    _addIntentStoreInfoView.dataArr = self->_storeArr;
     _addIntentStoreInfoView.hidden = YES;
     _addIntentStoreInfoView.addIntentStoreInfoViewAddBlock = ^{
         
@@ -273,26 +295,29 @@
         nextVC.status = @"direct";
         nextVC.addStoreVCDicBlock = ^(NSDictionary * _Nonnull dic) {
           
-            
+            [strongSelf->_storeArr addObject:dic];
+            strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     _addIntentStoreInfoView.addIntentStoreInfoViewDeleteBlock = ^(NSInteger idx) {
         
-        [strongSelf->_roomArr removeObjectAtIndex:idx];
-        strongSelf->_addIntentStoreRoomView.dataArr = strongSelf->_roomArr;
+        [strongSelf->_storeArr removeObjectAtIndex:idx];
+        strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
     };
     _addIntentStoreInfoView.addIntentStoreInfoViewSelectBlock = ^{
         
         AddIntentSelectStoreVC *nextVC = [[AddIntentSelectStoreVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
         nextVC.addIntentSelectStoreVCBlock = ^(NSDictionary * _Nonnull dic) {
-            
+            [strongSelf->_storeArr addObject:dic];
+            strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
     [_scrollView addSubview:_addIntentStoreInfoView];
 
-    
+   
+#pragma mark -- 意向信息 --
     _intentHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _intentHeader.backgroundColor = CLWhiteColor;
     _intentHeader.titleL.text = @"意向信息";
@@ -331,19 +356,62 @@
     
     _addIntentStoreIntentView = [[AddIntentStoreIntentView alloc] init];
     _addIntentStoreIntentView.hidden = YES;
-    _addIntentStoreIntentView.addIntentStoreIntentViewPeriodBlock = ^{
+    _addIntentStoreIntentView.dataDic = _intentDic;
+    _addIntentStoreIntentView.addIntentStoreIntentViewPeriod1Block = ^{
         
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+        view.dateblock = ^(NSDate *date) {
+            
+            [strongSelf->_intentDic setObject:[[strongSelf->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"min"];
+            strongSelf->_addIntentStoreIntentView.dataDic = strongSelf->_intentDic;
+        };
+        [strongSelf.view addSubview:view];
+    };
+    
+    _addIntentStoreIntentView.addIntentStoreIntentViewPeriod2Block = ^{
+        
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+        view.dateblock = ^(NSDate *date) {
+            
+            [strongSelf->_intentDic setObject:[[strongSelf->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"max"];
+            strongSelf->_addIntentStoreIntentView.dataDic = strongSelf->_intentDic;
+        };
+        [strongSelf.view addSubview:view];
     };
     
     _addIntentStoreIntentView.addIntentStoreIntentViewTimeBlock = ^{
         
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+        view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
+        [view.pickerView setCalendar:[NSCalendar currentCalendar]];
+        [view.pickerView setMaximumDate:[NSDate date]];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setDay:15];//设置最大时间为：当前时间推后10天
+        [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
+        view.dateblock = ^(NSDate *date) {
+            
+            [strongSelf->_intentDic setObject:[strongSelf->_secondFormatter stringFromDate:date] forKey:@"time"];
+            strongSelf->_addIntentStoreIntentView.dataDic = strongSelf->_intentDic;
+        };
+        [strongSelf.view addSubview:view];
     };
     
     _addIntentStoreIntentView.addIntentStoreIntentViewStrBlock = ^(NSString * _Nonnull str, NSInteger idx) {
         
+        if (idx == 0) {
+            
+            [strongSelf->_intentDic setValue:str forKey:@"code"];
+        }else{
+            
+            [strongSelf->_intentDic setValue:str forKey:@"sincerity"];
+        }
+        strongSelf->_addIntentStoreIntentView.dataDic = strongSelf->_intentDic;
     };
     [_scrollView addSubview:_addIntentStoreIntentView];
     
+    
+#pragma mark -- 流程信息 --
     _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _processHeader.titleL.text = @"流程信息";
     _processHeader.addBtn.hidden = YES;
@@ -574,6 +642,8 @@
     };
     [_scrollView addSubview:_addNumeralProcessView];
     
+    
+#pragma mark -- 附件文件 --
     _addNumeralFileHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _addNumeralFileHeader.titleL.text = @"附件文件";
     _addNumeralFileHeader.addBtn.hidden = YES;
