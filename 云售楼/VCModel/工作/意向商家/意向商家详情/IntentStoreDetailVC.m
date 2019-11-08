@@ -119,7 +119,8 @@
                     [self->_dataArr addObject:arr];
                 }
             }
-            [self->_dataArr addObject:self->_dataDic[@"enclosure"]];
+            [self->_dataArr addObject:@[]];
+//            [self->_dataArr addObject:self->_dataDic[@"enclosure"]];
             [self->_table reloadData];
         }else{
 
@@ -436,7 +437,7 @@
             
             NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:@""];
             cell.contentL.attributedText = attribtStr;
-            cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+//            cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
             cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
                 
             };

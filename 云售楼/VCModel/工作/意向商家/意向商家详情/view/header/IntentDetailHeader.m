@@ -289,8 +289,12 @@
         [_selectArr addObject:@0];
     }
     _selectNum = num;
-    [_selectArr replaceObjectAtIndex:num withObject:@1];
+    if (_selectArr.count) {
+        
+        [_selectArr replaceObjectAtIndex:num withObject:@1];
+    }
 }
+    
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
