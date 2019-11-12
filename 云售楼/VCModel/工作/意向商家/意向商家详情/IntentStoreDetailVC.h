@@ -10,13 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^IntentStoreDetailVCBlock)(void);
+
 @interface IntentStoreDetailVC : BaseViewController
+
+@property (nonatomic, copy) IntentStoreDetailVCBlock intentStoreDetailVCBlock;
 
 @property (nonatomic, strong) NSString *project_id;
 
 @property (nonatomic, strong) NSString *info_id;
 
 @property (nonatomic, strong) NSDictionary *powerDic;
+
+@property (nonatomic, strong) NSString *projectName;
 
 - (instancetype)initWithBusinessId:(NSString *)businessId;
 

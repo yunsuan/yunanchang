@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^IntentStoreCellBlock)(NSInteger index);
+
 @interface IntentStoreCell : UITableViewCell
+
+@property (nonatomic, copy) IntentStoreCellBlock intentStoreCellBlock;
 
 @property (nonatomic, strong) UIImageView *headImg;
 
@@ -19,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *contractL;
 
 @property (nonatomic, strong) UILabel *registerL;
+
+@property (nonatomic, strong) UIButton *phoneBtn;
 
 @property (nonatomic, strong) UILabel *buildL;
 

@@ -113,6 +113,9 @@
 		0C38049723756CF70075CABD /* StoreSignAuditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C38049623756CF70075CABD /* StoreSignAuditCell.m */; };
 		0C38049B23756ECF0075CABD /* StoreOrderMinPriceProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C38049A23756ECF0075CABD /* StoreOrderMinPriceProcessCell.m */; };
 		0C38049F237570030075CABD /* StoreSignMinPriceProcessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C38049E237570030075CABD /* StoreSignMinPriceProcessCell.m */; };
+		0C3804A32379109B0075CABD /* ShopRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804A22379109B0075CABD /* ShopRoomVC.m */; };
+		0C3804A6237930AE0075CABD /* ShopRoomDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804A5237930AE0075CABD /* ShopRoomDetailVC.m */; };
+		0C3804AA237A8C520075CABD /* ModifyIntentStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804A9237A8C520075CABD /* ModifyIntentStoreVC.m */; };
 		0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9115225B20C400F04804 /* AppDelegate.m */; };
 		0C3A9119225B20C400F04804 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9118225B20C400F04804 /* ViewController.m */; };
 		0C3A911C225B20C400F04804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3A911A225B20C400F04804 /* Main.storyboard */; };
@@ -821,6 +824,12 @@
 		0C38049A23756ECF0075CABD /* StoreOrderMinPriceProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreOrderMinPriceProcessCell.m; sourceTree = "<group>"; };
 		0C38049D237570030075CABD /* StoreSignMinPriceProcessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreSignMinPriceProcessCell.h; sourceTree = "<group>"; };
 		0C38049E237570030075CABD /* StoreSignMinPriceProcessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreSignMinPriceProcessCell.m; sourceTree = "<group>"; };
+		0C3804A12379109B0075CABD /* ShopRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopRoomVC.h; sourceTree = "<group>"; };
+		0C3804A22379109B0075CABD /* ShopRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopRoomVC.m; sourceTree = "<group>"; };
+		0C3804A4237930AE0075CABD /* ShopRoomDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopRoomDetailVC.h; sourceTree = "<group>"; };
+		0C3804A5237930AE0075CABD /* ShopRoomDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopRoomDetailVC.m; sourceTree = "<group>"; };
+		0C3804A8237A8C520075CABD /* ModifyIntentStoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyIntentStoreVC.h; sourceTree = "<group>"; };
+		0C3804A9237A8C520075CABD /* ModifyIntentStoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyIntentStoreVC.m; sourceTree = "<group>"; };
 		0C3A9111225B20C400F04804 /* 云售楼.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "云售楼.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3A9114225B20C400F04804 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0C3A9115225B20C400F04804 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2492,6 +2501,26 @@
 			path = "签租底价流程";
 			sourceTree = "<group>";
 		};
+		0C3804A0237910880075CABD /* 选择房源 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3804A12379109B0075CABD /* ShopRoomVC.h */,
+				0C3804A22379109B0075CABD /* ShopRoomVC.m */,
+				0C3804A4237930AE0075CABD /* ShopRoomDetailVC.h */,
+				0C3804A5237930AE0075CABD /* ShopRoomDetailVC.m */,
+			);
+			path = "选择房源";
+			sourceTree = "<group>";
+		};
+		0C3804A7237A8C3E0075CABD /* 修改意向商家 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3804A8237A8C520075CABD /* ModifyIntentStoreVC.h */,
+				0C3804A9237A8C520075CABD /* ModifyIntentStoreVC.m */,
+			);
+			path = "修改意向商家";
+			sourceTree = "<group>";
+		};
 		0C3A9108225B20C400F04804 = {
 			isa = PBXGroup;
 			children = (
@@ -3303,6 +3332,7 @@
 		0C63F59A236FBC8200946236 /* 意向商家 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3804A7237A8C3E0075CABD /* 修改意向商家 */,
 				0C63F5AB236FC9A300946236 /* 新增意向商家 */,
 				0C63F5A2236FC4FE00946236 /* 意向商家详情 */,
 				0C63F59E236FBDA400946236 /* view */,
@@ -3351,6 +3381,7 @@
 		0C63F5AB236FC9A300946236 /* 新增意向商家 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3804A0237910880075CABD /* 选择房源 */,
 				0C63F5C02371024900946236 /* 选择商家 */,
 				0C63F5AF236FF6D600946236 /* view */,
 				0C63F5AC236FC9B300946236 /* AddIntentStoreVC.h */,
@@ -5837,6 +5868,7 @@
 				0CF1A316228E8E04001C77CF /* SignFailVC.m in Sources */,
 				0C63F5D52371118700946236 /* SignRentDetailVC.m in Sources */,
 				0CD043E32283C6EC002C8BD3 /* CalendarsManger.m in Sources */,
+				0C3804A32379109B0075CABD /* ShopRoomVC.m in Sources */,
 				0C365CB422E84AC000A586FC /* ModifyOrderVC.m in Sources */,
 				0C4D14CA2373AA0300747DE0 /* AddSignRentPropertyDetailVC.m in Sources */,
 				10BC3A4E228FF80300DAB2D8 /* RotationSettingVC.m in Sources */,
@@ -6038,6 +6070,7 @@
 				0C1385852366CCC10040F421 /* EnclosureCell.m in Sources */,
 				0C496DEE22D469E500789FFA /* AddNumeralProcessView.m in Sources */,
 				0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */,
+				0C3804A6237930AE0075CABD /* ShopRoomDetailVC.m in Sources */,
 				0CEF8AE4226427260057F3FD /* CallTelegramVC.m in Sources */,
 				0C46D8742371436900EEC856 /* AddOrderRentPriceView.m in Sources */,
 				0C10695E235EA13700CB58A2 /* myDataGridView.m in Sources */,
@@ -6106,6 +6139,7 @@
 				0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */,
 				0C496E0B22D82B2F00789FFA /* AddSignVC.m in Sources */,
 				0C63F5A5236FC50F00946236 /* IntentStoreDetailVC.m in Sources */,
+				0C3804AA237A8C520075CABD /* ModifyIntentStoreVC.m in Sources */,
 				0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */,
 				0C05334C22F97DCA00DA9143 /* QueryPhoneVC.m in Sources */,
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,

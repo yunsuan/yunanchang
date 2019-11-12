@@ -139,11 +139,11 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _codeTF.textField.text = dataDic[@"code"];
+    _codeTF.textField.text = dataDic[@"row_code"];
     _sincerityTF.textField.text = dataDic[@"sincerity"];
-    _timeBtn.content.text = dataDic[@"time"];
-    _intentPeriodLBtn1.content.text = dataDic[@"min"];
-    _intentPeriodLBtn2.content.text = dataDic[@"max"];
+    _timeBtn.content.text = dataDic[@"sign_time"];
+    _intentPeriodLBtn1.content.text = dataDic[@"start_time"];
+    _intentPeriodLBtn2.content.text = dataDic[@"end_time"];
 }
 
 - (void)initUI{

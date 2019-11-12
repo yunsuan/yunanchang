@@ -34,15 +34,18 @@
 - (void)setDataArr:(NSMutableArray *)dataArr{
     
     _imgArr = [NSMutableArray arrayWithArray:dataArr];
-    [_coll reloadData];
-    [_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
-    
-        make.left.equalTo(self).offset(0 *SIZE);
-        make.top.equalTo(self->_addBtn.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
-        make.bottom.equalTo(self.mas_bottom).offset(-10 *SIZE);
-    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self->_coll reloadData];
+        [self->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+            make.left.equalTo(self).offset(0 *SIZE);
+            make.top.equalTo(self->_addBtn.mas_bottom).offset(9 *SIZE);
+            make.width.mas_equalTo(SCREEN_Width);
+            make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+            make.bottom.equalTo(self.mas_bottom).offset(-10 *SIZE);
+        }];
+    });
 }
 
 - (void)ActionAddBtn:(UIButton *)btn{

@@ -20,15 +20,23 @@
     return self;
 }
 
+- (void)ActionPhoneBtn:(UIButton *)btn{
+    
+    if (self.intentStoreCellBlock) {
+        
+        self.intentStoreCellBlock(self.tag);
+    }
+}
+
 - (void)setDataDic:(NSDictionary *)dataDic{
     
     _headImg.image = IMAGE_WITH_NAME(@"sjmerchant_1");
 
-    _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"house_name"]];
-    _contractL.text = [NSString stringWithFormat:@"%@",dataDic[@"house_name"]];
-    _registerL.text = [NSString stringWithFormat:@"%@",dataDic[@"house_name"]];
-    _buildL.text = [NSString stringWithFormat:@"%@",dataDic[@"house_name"]];
-    _timeL.text = [NSString stringWithFormat:@"%@",dataDic[@"house_name"]];
+    _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"business_name"]];
+    _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
+    _registerL.text = [NSString stringWithFormat:@"登记号：%@",dataDic[@"row_code"]];
+    _buildL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
+    _timeL.text = [NSString stringWithFormat:@"%@",dataDic[@"sign_time"]];
     switch ([dataDic[@"disabled_state"] integerValue]) {
      
         case 0:
@@ -181,6 +189,11 @@
         }
     }
     
+    _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_phoneBtn addTarget:self action:@selector(ActionPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_phoneBtn setBackgroundImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
+    [self.contentView addSubview:_phoneBtn];
+    
     _line = [[UIView alloc] init];
     _line.backgroundColor = CLLineColor;
     [self.contentView addSubview:_line];
@@ -208,8 +221,15 @@
         
         make.left.equalTo(self.contentView).offset(215 *SIZE);
         make.top.equalTo(self.contentView).offset(18 *SIZE);
-//        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        //        make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
+        make.right.equalTo(self.contentView).offset(-30 *SIZE);
+    }];
+    
+    [_phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
+        make.top.equalTo(self.contentView).offset(16 *SIZE);
+        make.width.height.mas_equalTo(19 *SIZE);
     }];
     
     [_registerL mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -62,6 +62,8 @@ typedef void(^IntentDetailHeaderCollBlock)(NSInteger index);
 
 @property (nonatomic, strong) NSDictionary *signDic;
 
+@property (nonatomic, strong) NSDictionary *storeIntentDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,12 +1,12 @@
 //
-//  AddIntentStoreVC.m
+//  ModifyIntentStoreVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/11/4.
+//  Created by 谷治墙 on 2019/11/12.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddIntentStoreVC.h"
+#import "ModifyIntentStoreVC.h"
 
 #import "AddIntentSelectStoreVC.h"
 #import "AddStoreVC.h"
@@ -24,13 +24,15 @@
 #import "DateChooseView.h"
 #import "MinMaxDateChooseView.h"
 
-@interface AddIntentStoreVC ()
-{
+@interface ModifyIntentStoreVC (){
     
     NSString *_info_id;
     NSString *_project_id;
     NSString *_role_id;
     NSString *_chargeId;
+    NSString *_row_id;
+    
+    NSDictionary *_dataDic;
     
     NSArray *_titleArr;
     
@@ -64,9 +66,9 @@
 
 @property (nonatomic, strong) AddIntentStoreIntentView *addIntentStoreIntentView;
 
-@property (nonatomic, strong) AddNemeralHeader *processHeader;
-
-@property (nonatomic, strong) AddNumeralProcessView *addNumeralProcessView;
+//@property (nonatomic, strong) AddNemeralHeader *processHeader;
+//
+//@property (nonatomic, strong) AddNumeralProcessView *addNumeralProcessView;
 
 @property (nonatomic, strong) AddNemeralHeader *addNumeralFileHeader;
 
@@ -76,15 +78,39 @@
 
 @end
 
-@implementation AddIntentStoreVC
+@implementation ModifyIntentStoreVC
 
-- (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id
+- (instancetype)initWithRowId:(NSString *)row_id projectId:(NSString *)project_id info_Id:(NSString *)info_id dataDic:(NSDictionary *)dataDic
 {
     self = [super init];
     if (self) {
         
-        _project_id = projectId;
+        _row_id = row_id;
+        _project_id = project_id;
         _info_id = info_id;
+        
+        _dataDic = dataDic;
+        
+        _intentDic = [@{} mutableCopy];
+        [_intentDic setValue:[NSString stringWithFormat:@"%@",dataDic[@"row_code"]] forKey:@"row_code"];
+        [_intentDic setValue:[NSString stringWithFormat:@"%@",dataDic[@"sincerity"]] forKey:@"sincerity"];
+        [_intentDic setValue:dataDic[@"start_time"] forKey:@"start_time"];
+        [_intentDic setValue:dataDic[@"end_time"] forKey:@"end_time"];
+        [_intentDic setValue:dataDic[@"sign_time"] forKey:@"sign_time"];
+//        [_intentDic setValue:[NSString stringWithFormat:@"%@",dataDic[@"from_id"]] forKey:@"from_id"];
+        _chargeId = [NSString stringWithFormat:@"%@",dataDic[@"shop_detail_list"][@"charge_company_id"]];
+        
+        
+        _progressDic = [@{} mutableCopy];
+        [_progressDic setObject:dataDic[@"progressList"][@"progress_id"] forKey:@"progress_id"];
+        [_progressDic setObject:dataDic[@"progressList"][@"check_type"] forKey:@"check_type"];
+        
+        _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_list"]];
+        _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
+        
+        _imgArr = [@[] mutableCopy];
+        _imgArr = [NSMutableArray arrayWithArray:self->_dataDic[@"enclosure"]];
+//        _addNumeralFileView.dataArr = _imgArr;
     }
     return self;
 }
@@ -98,24 +124,24 @@
 
 - (void)initDataSource{
     
-    _titleArr = @[@"房源信息",@"商家信息",@"意向信息",@"流程信息"];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0]];
+    _titleArr = @[@"房源信息",@"商家信息",@"意向信息"];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0]];
     
-    _intentDic = [@{} mutableCopy];
+//    _intentDic = [@{} mutableCopy];
     
-    _progressDic = [@{} mutableCopy];
+//    _progressDic = [@{} mutableCopy];
+//
+//    _roomArr = [@[] mutableCopy];
+//
+//    _storeArr = [@[] mutableCopy];
     
-    _roomArr = [@[] mutableCopy];
+//    _progressArr = [@[] mutableCopy];
+//    _progressAllArr = [@[] mutableCopy];
     
-    _storeArr = [@[] mutableCopy];
-    
-    _progressArr = [@[] mutableCopy];
-    _progressAllArr = [@[] mutableCopy];
-    
-    _roleArr = [@[] mutableCopy];
-    _rolePersonArr = [@[] mutableCopy];
-    _rolePersonSelectArr = [@[] mutableCopy];
-    _imgArr = [@[] mutableCopy];
+//    _roleArr = [@[] mutableCopy];
+//    _rolePersonArr = [@[] mutableCopy];
+//    _rolePersonSelectArr = [@[] mutableCopy];
+//    _imgArr = [@[] mutableCopy];
     
     _secondFormatter = [[NSDateFormatter alloc] init];
     [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
@@ -163,41 +189,43 @@
         [self showContent:@"请选择登记时间"];
         return;
     }
-    if (!_addNumeralProcessView.typeBtn.content.text.length) {
-        [self showContent:@"请选择审批流程"];
-        return;
-    }
-    if ([_progressDic[@"check_type"] integerValue] == 1) {
-        
-        if (!_addNumeralProcessView.auditBtn.content.text.length) {
-            [self showContent:@"请选择流程类型"];
-            return;
-        }
-    }
-    NSString *param;
-    if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
-        
-        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-            
-            if ([_rolePersonSelectArr[i] integerValue] == 1) {
-                
-                if (param.length) {
-                    
-                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-                }else{
-                    
-                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-                }
-            }
-        }
-        if (!param.length) {
-            
-            [self showContent:@"请选择审核人员"];
-            return;
-        }
-    }
+//    if (!_addNumeralProcessView.typeBtn.content.text.length) {
+//        [self showContent:@"请选择审批流程"];
+//        return;
+//    }
+//    if ([_progressDic[@"check_type"] integerValue] == 1) {
+//
+//        if (!_addNumeralProcessView.auditBtn.content.text.length) {
+//            [self showContent:@"请选择流程类型"];
+//            return;
+//        }
+//    }
+//    NSString *param;
+//    if ([_addNumeralProcessView.auditBtn.content.text isEqualToString:@"自由流程"]) {
+//
+//        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+//
+//            if ([_rolePersonSelectArr[i] integerValue] == 1) {
+//
+//                if (param.length) {
+//
+//                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+//                }else{
+//
+//                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+//                }
+//            }
+//        }
+//        if (!param.length) {
+//
+//            [self showContent:@"请选择审核人员"];
+//            return;
+//        }
+//    }
     
     NSMutableDictionary *dic = [@{} mutableCopy];
+    
+    [dic setValue:_row_id forKey:@"row_id"];
     NSString *room;
     for (int i = 0; i < _roomArr.count; i++) {
         
@@ -236,60 +264,37 @@
         NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:_imgArr options:NSJSONWritingPrettyPrinted error:&error];
         NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
         [dic setObject:jsonString2 forKey:@"enclosure_list"];
-    }
-    [dic setObject:_progressDic[@"progress_id"] forKey:@"current_progress"];
-    if (param.length) {
+    }else{
         
-        [dic setObject:param forKey:@"param"];
+        NSError *error;
+        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:_imgArr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+        [dic setObject:jsonString2 forKey:@"enclosure_list"];
     }
-    [BaseRequest POST:ShopRowAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-        
+//    [dic setObject:_progressDic[@"progress_id"] forKey:@"current_progress"];
+//    if (param.length) {
+//
+//        [dic setObject:param forKey:@"param"];
+//    }
+    [BaseRequest POST:ShopRowUpdateTradeRow_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+
         if ([resposeObject[@"code"] integerValue] == 200) {
-            
-            if (self.addIntentStoreVCBlock) {
-                
-                self.addIntentStoreVCBlock();
+
+            if (self.modifyIntentStoreVCBlock) {
+
+                self.modifyIntentStoreVCBlock();
             }
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            
+
             [self showContent:resposeObject[@"msg"]];
         }
     } failure:^(NSError * _Nonnull error) {
-        
+
         [self showContent:@"网络错误"];
     }];
 }
 
-- (void)RequestMethod{
-    
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id}];
-    
-    if (_role_id.length) {
-        
-        [dic setObject:_role_id forKey:@"role_id"];
-    }
-    
-    [BaseRequest GET:ProjectRolePersonList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 200) {
-            
-            self->_rolePersonArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-            for (int i = 0 ; i < [resposeObject[@"data"] count]; i++) {
-                
-                [self->_rolePersonSelectArr addObject:@0];
-            }
-            self->_addNumeralProcessView.personArr = self->_rolePersonArr;
-            self->_addNumeralProcessView.personSelectArr = self->_rolePersonSelectArr;
-        }else{
-            
-            
-        }
-    } failure:^(NSError * _Nonnull error) {
-        
-        NSLog(@"%@",error);
-    }];
-}
 
 -(void)updateheadimgbyimg:(UIImage *)img{
     
@@ -319,7 +324,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"新增意向商家";
+    self.titleLabel.text = @"修改意向商家";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLBackColor;
@@ -437,7 +442,6 @@
         nextVC.status = @"direct";
         nextVC.addStoreVCDicBlock = ^(NSDictionary * _Nonnull dic) {
           
-            [strongSelf->_storeArr removeAllObjects];
             [strongSelf->_storeArr addObject:dic];
             strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
         };
@@ -445,7 +449,6 @@
     };
     _addIntentStoreInfoView.addIntentStoreInfoViewDeleteBlock = ^(NSInteger idx) {
         
-        [strongSelf->_storeArr removeAllObjects];
         [strongSelf->_storeArr removeObjectAtIndex:idx];
         strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
     };
@@ -554,239 +557,6 @@
     };
     [_scrollView addSubview:_addIntentStoreIntentView];
     
-    
-#pragma mark -- 流程信息 --
-    _processHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _processHeader.titleL.text = @"流程信息";
-    _processHeader.addBtn.hidden = YES;
-    [_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-    _processHeader.backgroundColor = CLWhiteColor;
-    _processHeader.addNemeralHeaderAllBlock = ^{
-        
-        if ([strongSelf->_selectArr[3] integerValue]){
-        
-            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
-            [strongSelf->_processHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addNumeralProcessView.hidden = YES;
-            [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(0);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-            }];
-        }else{
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
-            [strongSelf->_processHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-            strongSelf->_addNumeralProcessView.hidden = NO;
-            [strongSelf->_addNumeralProcessView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_processHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-//                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-            }];
-        }
-    };
-    [_scrollView addSubview:_processHeader];
-    
-    _addNumeralProcessView = [[AddNumeralProcessView alloc] init];
-    _addNumeralProcessView.hidden = YES;
-    _addNumeralProcessView.dataDic = _progressDic;
-    _addNumeralProcessView.addNumeralProcessViewAuditBlock = ^{
-    
-        SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[@{@"param":@"自由流程",@"id":@"1"},@{@"param":@"固定流程",@"id":@"2"}]];
-        view.selectedBlock = ^(NSString *MC, NSString *ID) {
-            
-            [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"auditMC"];
-            [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"auditID"];
-            strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
-        };
-        [strongSelf.view addSubview:view];
-    };
-    _addNumeralProcessView.addNumeralProcessViewTypeBlock = ^{
-        
-        if (strongSelf->_progressArr.count) {
-            
-            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
-            view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                
-                if ([MC containsString:@"自由"]) {
-                    
-                    [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
-                    [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
-                }else if ([MC containsString:@"固定"]){
-                    
-                    [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
-                    [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
-                }else{
-                    
-                    [strongSelf->_progressDic removeObjectForKey:@"auditMC"];
-                    [strongSelf->_progressDic removeObjectForKey:@"auditID"];
-                }
-                if (![MC isEqualToString:strongSelf->_progressDic[@"progress_name"]]) {
-                    
-                    [strongSelf->_rolePersonArr removeAllObjects];
-                    [strongSelf->_rolePersonSelectArr removeAllObjects];
-                    strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
-                    strongSelf->_addNumeralProcessView.personSelectArr = strongSelf->_rolePersonSelectArr;
-                    [strongSelf->_progressDic removeObjectForKey:@"role_name"];
-                    [strongSelf->_progressDic removeObjectForKey:@"role_id"];
-                }
-                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
-                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
-                for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
-                    
-                    if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
-                        
-                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
-                    }
-                }
-                if ([strongSelf->_progressDic[@"check_type"] integerValue] == 1) {
-                    
-                    [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
-                    [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
-                }else if ([strongSelf->_progressDic[@"check_type"] integerValue] == 2) {
-                    
-                    [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
-                    [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
-                }
-                strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
-            };
-            [strongSelf.view addSubview:view];
-        }else{
-            
-            [BaseRequest GET:ShopGetProgress_URL parameters:@{@"project_id":strongSelf->_project_id,@"config_type":@"1",@"progress_defined_id":@"4"} success:^(id  _Nonnull resposeObject) {
-                
-                if ([resposeObject[@"code"] integerValue] == 200) {
-                    
-                    [strongSelf->_progressArr removeAllObjects];
-                    [strongSelf->_progressAllArr removeAllObjects];
-                    strongSelf->_progressAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-                    for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
-                        
-                        [strongSelf->_progressArr addObject:@{@"param":[NSString stringWithFormat:@"%@",resposeObject[@"data"][i][@"progress_name"]],@"id":resposeObject[@"data"][i][@"progress_id"]}];
-                    }
-                    
-                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_progressArr];
-                    view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                        
-                        if ([MC containsString:@"自由"]) {
-                            
-                            [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
-                            [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
-                        }else if ([MC containsString:@"固定"]){
-                            
-                            [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
-                            [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
-                        }else{
-                            
-                            [strongSelf->_progressDic removeObjectForKey:@"auditMC"];
-                            [strongSelf->_progressDic removeObjectForKey:@"auditID"];
-                        }
-                        if (![MC isEqualToString:strongSelf->_progressDic[@"progress_name"]]) {
-                            
-                            [strongSelf->_rolePersonArr removeAllObjects];
-                            [strongSelf->_rolePersonSelectArr removeAllObjects];
-                            strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
-                            strongSelf->_addNumeralProcessView.personSelectArr = strongSelf->_rolePersonSelectArr;
-                            [strongSelf->_progressDic removeObjectForKey:@"role_name"];
-                            [strongSelf->_progressDic removeObjectForKey:@"role_id"];
-                        }
-                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
-                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
-                        for (int i = 0; i < strongSelf->_progressAllArr.count; i++) {
-                            
-                            if ([ID integerValue] == [strongSelf->_progressAllArr[i][@"progress_id"] integerValue]) {
-                                
-                                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
-                            }
-                        }
-                        if ([strongSelf->_progressDic[@"check_type"] integerValue] == 1) {
-                            
-                            [strongSelf->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
-                            [strongSelf->_progressDic setObject:@"1" forKey:@"auditID"];
-                        }else if ([strongSelf->_progressDic[@"check_type"] integerValue] == 2) {
-                            
-                            [strongSelf->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
-                            [strongSelf->_progressDic setObject:@"2" forKey:@"auditID"];
-                        }
-                        strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
-                    };
-                    [strongSelf.view addSubview:view];
-                }else{
-                    
-                    
-                }
-            } failure:^(NSError * _Nonnull error) {
-                
-                
-            }];
-        }
-    };
-    
-    _addNumeralProcessView.addNumeralProcessViewRoleBlock = ^{
-      
-        if (strongSelf->_roleArr.count) {
-            
-            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
-            view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                
-                if (![MC isEqualToString:strongSelf->_progressDic[@"role_name"]]) {
-                    
-                    [strongSelf->_rolePersonArr removeAllObjects];
-                    [strongSelf->_rolePersonSelectArr removeAllObjects];
-                    strongSelf->_addNumeralProcessView.personArr = strongSelf->_rolePersonArr;
-                    strongSelf->_addNumeralProcessView.personSelectArr = strongSelf->_rolePersonSelectArr;
-                }
-                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
-                [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];
-                strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
-                [strongSelf RequestMethod];
-            };
-            [strongSelf.view addSubview:view];
-        }else{
-            
-            [BaseRequest GET:ProjectRoleListAll_URL parameters:@{@"project_id":strongSelf->_project_id} success:^(id  _Nonnull resposeObject) {
-                
-                if ([resposeObject[@"code"] integerValue] == 200) {
-                    
-                    for (NSDictionary *dic in resposeObject[@"data"]) {
-                        
-                        [strongSelf->_roleArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",dic[@"project_name"],dic[@"role_name"]],@"id":dic[@"role_id"]}];
-                    }
-                    SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:strongSelf->_roleArr];
-                    view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                        
-                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
-                        [strongSelf->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];
-                        strongSelf->_addNumeralProcessView.dataDic = strongSelf->_progressDic;
-                        [strongSelf RequestMethod];
-                    };
-                    [strongSelf.view addSubview:view];
-                }else{
-                    
-                    
-                }
-            } failure:^(NSError * _Nonnull error) {
-                
-                NSLog(@"%@",error);
-            }];
-        }
-    };
-    
-    _addNumeralProcessView.addNumeralProcessViewSelectBlock = ^(NSArray * _Nonnull arr) {
-      
-//        strongSelf->_coll.hidden = YES;
-        strongSelf->_rolePersonSelectArr = [NSMutableArray arrayWithArray:arr];
-    };
-    [_scrollView addSubview:_addNumeralProcessView];
-    
-    
 #pragma mark -- 附件文件 --
     _addNumeralFileHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _addNumeralFileHeader.titleL.text = @"附件文件";
@@ -795,9 +565,9 @@
     _addNumeralFileHeader.backgroundColor = CLWhiteColor;
     _addNumeralFileHeader.addNemeralHeaderAllBlock = ^{
         
-        if ([strongSelf->_selectArr[4] integerValue]){
+        if ([strongSelf->_selectArr[3] integerValue]){
 
-            [strongSelf->_selectArr replaceObjectAtIndex:4 withObject:@0];
+            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
             [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addNumeralFileView.hidden = YES;
             [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -811,7 +581,7 @@
             }];
         }else{
 
-            [strongSelf->_selectArr replaceObjectAtIndex:4 withObject:@1];
+            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
             [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addNumeralFileView.hidden = NO;
             [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -828,6 +598,7 @@
 
     _addNumeralFileView = [[AddNumeralFileView alloc] init];
     _addNumeralFileView.hidden = YES;
+    _addNumeralFileView.dataArr = _imgArr;
     _addNumeralFileView.addNumeralFileViewAddBlock = ^{
 
         [ZZQAvatarPicker startSelected:^(UIImage * _Nonnull image) {
@@ -929,30 +700,10 @@
         make.right.equalTo(self->_scrollView).offset(0);
     }];
 
-    [_processHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_addIntentStoreIntentView.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
-        make.right.equalTo(self->_scrollView).offset(0);
-//        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
-    }];
-    
-    [_addNumeralProcessView mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_processHeader.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0);
-        make.right.equalTo(self->_scrollView).offset(0);
-//        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
-    }];
-    
     [_addNumeralFileHeader mas_makeConstraints:^(MASConstraintMaker *make) {
 
         make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_addNumeralProcessView.mas_bottom).offset(0 *SIZE);
+        make.top.equalTo(self->_addIntentStoreIntentView.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(40 *SIZE);
         make.right.equalTo(self->_scrollView).offset(0);

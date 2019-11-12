@@ -310,6 +310,7 @@
         
         IntentStoreVC *nextVC = [[IntentStoreVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         nextVC.powerDic = [PowerModel defaultModel].storePower;
+        nextVC.projectName = [UserModel defaultModel].projectinfo[@"project_name"];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 12){
         

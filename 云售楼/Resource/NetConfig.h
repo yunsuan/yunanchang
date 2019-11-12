@@ -549,4 +549,32 @@ static NSString *const ProjectBusinessGetSourceList_URL = @"saleTradeApp/project
 
 //商家需求列表
 static NSString *const ProjectBusinessGetNeedList_URL = @"saleTradeApp/projectBusiness/getNeedList";
+
+#pragma mark === 意向商家 =====
+//获取楼栋单元列表
+static NSString *const ShopGetTitleList_URL = @"saleTradeApp/shop/getTitleList";
+
+//房源列表
+static NSString *const ShopGetShopList_URL = @"saleTradeApp/shop/getShopList";
+
+//添加意向商家
+static NSString *const ShopRowAdd_URL = @"saleTradeApp/row/add";
+
+//获取有效流程
+static NSString *const ShopGetProgress_URL = @"saleTradeApp/getProgress";
+
+//房源详情
+static NSString *const ShopGetShopDetail_URL = @"saleTradeApp/shop/getShopDetail";
+
+//意向商家列表
+static NSString *const ShopRowGetTradeRowList_URL = @"saleTradeApp/row/getTradeRowList";
+
+//意向商家详情
+static NSString *const ShopRowGetTradeRowDetail_URL = @"saleTradeApp/row/getTradeRowDetail";
+
+//修改意向商家
+static NSString *const ShopRowUpdateTradeRow_URL = @"saleTradeApp/row/updateTradeRow";
+
+//意向商家作废
+static NSString *const ShopRowTradeRowDel_URL = @"saleTradeApp/row/TradeRowDel";
 #endif /* NetConfig_h */

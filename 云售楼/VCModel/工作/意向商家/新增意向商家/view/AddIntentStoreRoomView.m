@@ -34,14 +34,17 @@
 - (void)setDataArr:(NSMutableArray *)dataArr{
     
     _imgArr = [NSMutableArray arrayWithArray:dataArr];
-    [_coll reloadData];
-    [_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
-    
-        make.left.equalTo(self).offset(0 *SIZE);
-        make.top.equalTo(self).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
-    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self->_coll reloadData];
+        [self->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+            make.left.equalTo(self).offset(0 *SIZE);
+            make.top.equalTo(self).offset(0 *SIZE);
+            make.width.mas_equalTo(SCREEN_Width);
+            make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
+        }];
+    });
 }
 
 - (void)ActionAddBtn:(UIButton *)btn{
@@ -68,9 +71,9 @@
     
     cell.tag = indexPath.item;
     
-    cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@%@",_imgArr[indexPath.item][@"build_name"],_imgArr[indexPath.item][@"unit_name"],_imgArr[indexPath.item][@"house_name"]];
-    cell.areaL.text = [NSString stringWithFormat:@"面积：%@㎡",_imgArr[indexPath.item][@"estimated_build_size"]];
-    cell.priceL.text = [NSString stringWithFormat:@"租金：%@元/月/㎡",_imgArr[indexPath.item][@"criterion_unit_price"]];
+    cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@%@",_imgArr[indexPath.item][@"build_name"],_imgArr[indexPath.item][@"unit_name"],_imgArr[indexPath.item][@"name"]];
+    cell.areaL.text = [NSString stringWithFormat:@"面积：%@㎡",_imgArr[indexPath.item][@"build_size"]];
+    cell.priceL.text = [NSString stringWithFormat:@"租金：%@元/月/㎡",_imgArr[indexPath.item][@"total_rent"]];
 
     cell.addIntentStoreRoomCollCellDeleteBlock = ^(NSInteger idx) {
 

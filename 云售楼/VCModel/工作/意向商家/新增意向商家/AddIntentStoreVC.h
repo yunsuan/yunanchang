@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddIntentStoreVCBlock)(void);
+
 @interface AddIntentStoreVC : BaseViewController
+
+@property (nonatomic, copy)AddIntentStoreVCBlock addIntentStoreVCBlock;
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 
