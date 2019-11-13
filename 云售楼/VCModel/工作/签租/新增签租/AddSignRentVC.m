@@ -74,38 +74,6 @@
     
     NSDateFormatter *_secondFormatter;
 }
-@property (nonatomic, strong) UIScrollView *scrollView;
-
-@property (nonatomic, strong) AddNemeralHeader *roomHeader;
-
-@property (nonatomic, strong) AddIntentStoreRoomView *addIntentStoreRoomView;
-
-@property (nonatomic, strong) AddNemeralHeader *areaHeader;
-
-@property (nonatomic, strong) AddSignRentAreaView *areaView;
-
-@property (nonatomic, strong) AddNemeralHeader *storeHeader;
-
-@property (nonatomic, strong) AddIntentStoreInfoView *addIntentStoreInfoView;
-
-@property (nonatomic, strong) AddNemeralHeader *signHeader;
-
-@property (nonatomic, strong) AddOrderRentInfoView *signView;
-
-@property (nonatomic, strong) AddNemeralHeader *priceHeader;
-
-@property (nonatomic, strong) AddOrderRentPriceView *priceView;
-
-@property (nonatomic, strong) AddNemeralHeader *propertyHeader;
-
-@property (nonatomic, strong) AddOrderRentPriceView *propertyView;
-
-@property (nonatomic, strong) AddNemeralHeader *otherHeader;
-
-@property (nonatomic, strong) AddOrderRentPriceView *otherView;
-
-@property (nonatomic, strong) AddNemeralHeader *processHeader;
-
 @property (nonatomic, strong) UITableView *table;
 
 @property (nonatomic, strong) UIButton *nextBtn;

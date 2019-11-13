@@ -125,6 +125,9 @@
 		0C3804C4237B90560075CABD /* AddOrderRentInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804C3237B90560075CABD /* AddOrderRentInfoCell.m */; };
 		0C3804C7237B95510075CABD /* AddOrderRentPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804C6237B95510075CABD /* AddOrderRentPriceCell.m */; };
 		0C3804CB237B9A2E0075CABD /* AddSignRentAreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804CA237B9A2E0075CABD /* AddSignRentAreaCell.m */; };
+		0C3804CF237B9FCC0075CABD /* RoomReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804CE237B9FCC0075CABD /* RoomReportVC.m */; };
+		0C3804D2237BACB30075CABD /* PaymentInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804D1237BACB30075CABD /* PaymentInfoVC.m */; };
+		0C3804D5237BE9DA0075CABD /* PayWayProcessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804D4237BE9DA0075CABD /* PayWayProcessVC.m */; };
 		0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9115225B20C400F04804 /* AppDelegate.m */; };
 		0C3A9119225B20C400F04804 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9118225B20C400F04804 /* ViewController.m */; };
 		0C3A911C225B20C400F04804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3A911A225B20C400F04804 /* Main.storyboard */; };
@@ -855,6 +858,12 @@
 		0C3804C6237B95510075CABD /* AddOrderRentPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderRentPriceCell.m; sourceTree = "<group>"; };
 		0C3804C9237B9A2E0075CABD /* AddSignRentAreaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSignRentAreaCell.h; sourceTree = "<group>"; };
 		0C3804CA237B9A2E0075CABD /* AddSignRentAreaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignRentAreaCell.m; sourceTree = "<group>"; };
+		0C3804CD237B9FCC0075CABD /* RoomReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomReportVC.h; sourceTree = "<group>"; };
+		0C3804CE237B9FCC0075CABD /* RoomReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomReportVC.m; sourceTree = "<group>"; };
+		0C3804D0237BACB30075CABD /* PaymentInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentInfoVC.h; sourceTree = "<group>"; };
+		0C3804D1237BACB30075CABD /* PaymentInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentInfoVC.m; sourceTree = "<group>"; };
+		0C3804D3237BE9DA0075CABD /* PayWayProcessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayWayProcessVC.h; sourceTree = "<group>"; };
+		0C3804D4237BE9DA0075CABD /* PayWayProcessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayWayProcessVC.m; sourceTree = "<group>"; };
 		0C3A9111225B20C400F04804 /* 云售楼.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "云售楼.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3A9114225B20C400F04804 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0C3A9115225B20C400F04804 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2581,6 +2590,15 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		0C3804CC237B9FBB0075CABD /* 房源报表 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3804CD237B9FCC0075CABD /* RoomReportVC.h */,
+				0C3804CE237B9FCC0075CABD /* RoomReportVC.m */,
+			);
+			path = "房源报表";
+			sourceTree = "<group>";
+		};
 		0C3A9108225B20C400F04804 = {
 			isa = PBXGroup;
 			children = (
@@ -2759,6 +2777,7 @@
 		0C3A9160225B372D00F04804 /* 报表 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3804CC237B9FBB0075CABD /* 房源报表 */,
 				0C3D4F6B2361A81A001CB6A9 /* 来电客户分析表 */,
 				105162462359A4D500E7CA6F /* 成交分析表 */,
 				1051624A2359A4D600E7CA6F /* 收款统计表 */,
@@ -3334,6 +3353,10 @@
 			children = (
 				0C4B8EE622CC49BB00D505BE /* SignDetailVC.h */,
 				0C4B8EE722CC49BB00D505BE /* SignDetailVC.m */,
+				0C3804D0237BACB30075CABD /* PaymentInfoVC.h */,
+				0C3804D1237BACB30075CABD /* PaymentInfoVC.m */,
+				0C3804D3237BE9DA0075CABD /* PayWayProcessVC.h */,
+				0C3804D4237BE9DA0075CABD /* PayWayProcessVC.m */,
 			);
 			path = "签约详情";
 			sourceTree = "<group>";
@@ -6005,6 +6028,7 @@
 				0C4374CA2367DD6B00B014D0 /* ChangeFileNameView.m in Sources */,
 				0C3D4F6623616DC9001CB6A9 /* DealCustomerReportPropertyVC.m in Sources */,
 				0C74522122A91131008F2F07 /* ChannelDealCell.m in Sources */,
+				0C3804D2237BACB30075CABD /* PaymentInfoVC.m in Sources */,
 				0CD0432B227FD329002C8BD3 /* WorkRecommendWaitVC.m in Sources */,
 				0CA8265B22B0FCD20005F3ED /* EmptyPieView.m in Sources */,
 				0C4B8EE122CC478400D505BE /* OrderDetailVC.m in Sources */,
@@ -6122,6 +6146,7 @@
 				0C3D4F842362D8A3001CB6A9 /* ZZQAuthorizationManager.m in Sources */,
 				0CD04396228170ED002C8BD3 /* RoomFooter.m in Sources */,
 				0C106985235EA19100CB58A2 /* ZQDataGridLeftTabelViewCell.m in Sources */,
+				0C3804D5237BE9DA0075CABD /* PayWayProcessVC.m in Sources */,
 				0C496DFB22D49E0100789FFA /* installmentCollCell.m in Sources */,
 				0C496DEB22D4466500789FFA /* AddNumeralInfoView.m in Sources */,
 				0C3A914F225B216400F04804 /* BaseRequest.m in Sources */,
@@ -6129,6 +6154,7 @@
 				0CD043B92282715F002C8BD3 /* WaitAnimation.m in Sources */,
 				0CEF8A27225D7BF00057F3FD /* LoginVC.m in Sources */,
 				0C3A916E225B37B200F04804 /* TaskVC.m in Sources */,
+				0C3804CF237B9FCC0075CABD /* RoomReportVC.m in Sources */,
 				0C1385852366CCC10040F421 /* EnclosureCell.m in Sources */,
 				0C496DEE22D469E500789FFA /* AddNumeralProcessView.m in Sources */,
 				0CEF8A26225D7BF00057F3FD /* RegisterVC.m in Sources */,

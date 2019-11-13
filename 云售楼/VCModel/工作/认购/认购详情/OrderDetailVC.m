@@ -25,6 +25,7 @@
 #import "OrderAddMinusPersonVC.h"
 #import "OrderChangeRoomVC.h"
 
+#import "PaymentInfoVC.h"
 #import "FileReadingVC.h"
 
 #import "NumeralDetailInvalidView.h"
@@ -537,6 +538,33 @@
         cell.infoDetailCellBlock = ^{
           
             SpePerferDetailVC *nextVC = [[SpePerferDetailVC alloc] initWithDataArr:self->_dataDic[@"discount"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+    }else if (indexPath.section == 3 && indexPath.row == 1) {
+        
+        InfoDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoDetailCell"];
+        if (!cell) {
+            
+            cell = [[InfoDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InfoDetailCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.contentlab.text = _dataArr[indexPath.section][indexPath.row];
+        cell.contentlab.font = FONT(14 *SIZE);
+        cell.contentlab.textColor = CL95Color;
+        [cell.contentlab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.contentView).offset(28 *SIZE);
+            make.top.equalTo(cell.contentView).offset(10 *SIZE);
+            make.width.mas_lessThanOrEqualTo(200 *SIZE);
+            make.bottom.equalTo(cell.contentView).offset(-10 *SIZE);
+        }];
+        [cell.moreBtn setTitle:@"查看付款信息" forState:UIControlStateNormal];
+        cell.infoDetailCellBlock = ^{
+            
+            PaymentInfoVC *nextVC = [[PaymentInfoVC alloc] init];
+            nextVC.dataArr = self->_dataDic[@"finance"];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
