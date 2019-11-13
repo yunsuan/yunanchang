@@ -116,6 +116,15 @@
 		0C3804A32379109B0075CABD /* ShopRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804A22379109B0075CABD /* ShopRoomVC.m */; };
 		0C3804A6237930AE0075CABD /* ShopRoomDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804A5237930AE0075CABD /* ShopRoomDetailVC.m */; };
 		0C3804AA237A8C520075CABD /* ModifyIntentStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804A9237A8C520075CABD /* ModifyIntentStoreVC.m */; };
+		0C3804AE237AB31D0075CABD /* AddIntentStoreAddCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804AD237AB31D0075CABD /* AddIntentStoreAddCell.m */; };
+		0C3804B1237ABC2B0075CABD /* AddIntentStoreRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804B0237ABC2B0075CABD /* AddIntentStoreRoomCell.m */; };
+		0C3804B4237AC04A0075CABD /* AddIntentStoreDoubleBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804B3237AC04A0075CABD /* AddIntentStoreDoubleBtnCell.m */; };
+		0C3804B7237AC2510075CABD /* AddIntentStoreIntentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804B6237AC2510075CABD /* AddIntentStoreIntentCell.m */; };
+		0C3804BA237AC51A0075CABD /* AddIntentStoreProccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804B9237AC51A0075CABD /* AddIntentStoreProccessCell.m */; };
+		0C3804C0237AC5410075CABD /* AddIntentStoreFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804BF237AC5410075CABD /* AddIntentStoreFileCell.m */; };
+		0C3804C4237B90560075CABD /* AddOrderRentInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804C3237B90560075CABD /* AddOrderRentInfoCell.m */; };
+		0C3804C7237B95510075CABD /* AddOrderRentPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804C6237B95510075CABD /* AddOrderRentPriceCell.m */; };
+		0C3804CB237B9A2E0075CABD /* AddSignRentAreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3804CA237B9A2E0075CABD /* AddSignRentAreaCell.m */; };
 		0C3A9116225B20C400F04804 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9115225B20C400F04804 /* AppDelegate.m */; };
 		0C3A9119225B20C400F04804 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A9118225B20C400F04804 /* ViewController.m */; };
 		0C3A911C225B20C400F04804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3A911A225B20C400F04804 /* Main.storyboard */; };
@@ -211,8 +220,6 @@
 		0C63F5A5236FC50F00946236 /* IntentStoreDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F5A4236FC50F00946236 /* IntentStoreDetailVC.m */; };
 		0C63F5AA236FC61C00946236 /* IntentDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F5A9236FC61C00946236 /* IntentDetailHeader.m */; };
 		0C63F5AE236FC9B300946236 /* AddIntentStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F5AD236FC9B300946236 /* AddIntentStoreVC.m */; };
-		0C63F5B2236FF6ED00946236 /* AddIntentStoreRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F5B1236FF6ED00946236 /* AddIntentStoreRoomView.m */; };
-		0C63F5B6236FF7A200946236 /* AddIntentStoreRoomCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F5B5236FF7A200946236 /* AddIntentStoreRoomCollCell.m */; };
 		0C63F5B92370002800946236 /* AddIntentStoreIntentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F5B82370002800946236 /* AddIntentStoreIntentView.m */; };
 		0C63F5BC23705CD000946236 /* AddIntentStoreInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F5BB23705CD000946236 /* AddIntentStoreInfoView.m */; };
 		0C63F5BF2370632500946236 /* AddIntentStoreInfoCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F5BE2370632500946236 /* AddIntentStoreInfoCollCell.m */; };
@@ -830,6 +837,24 @@
 		0C3804A5237930AE0075CABD /* ShopRoomDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopRoomDetailVC.m; sourceTree = "<group>"; };
 		0C3804A8237A8C520075CABD /* ModifyIntentStoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyIntentStoreVC.h; sourceTree = "<group>"; };
 		0C3804A9237A8C520075CABD /* ModifyIntentStoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyIntentStoreVC.m; sourceTree = "<group>"; };
+		0C3804AC237AB31D0075CABD /* AddIntentStoreAddCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreAddCell.h; sourceTree = "<group>"; };
+		0C3804AD237AB31D0075CABD /* AddIntentStoreAddCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreAddCell.m; sourceTree = "<group>"; };
+		0C3804AF237ABC2B0075CABD /* AddIntentStoreRoomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreRoomCell.h; sourceTree = "<group>"; };
+		0C3804B0237ABC2B0075CABD /* AddIntentStoreRoomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreRoomCell.m; sourceTree = "<group>"; };
+		0C3804B2237AC04A0075CABD /* AddIntentStoreDoubleBtnCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreDoubleBtnCell.h; sourceTree = "<group>"; };
+		0C3804B3237AC04A0075CABD /* AddIntentStoreDoubleBtnCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreDoubleBtnCell.m; sourceTree = "<group>"; };
+		0C3804B5237AC2510075CABD /* AddIntentStoreIntentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreIntentCell.h; sourceTree = "<group>"; };
+		0C3804B6237AC2510075CABD /* AddIntentStoreIntentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreIntentCell.m; sourceTree = "<group>"; };
+		0C3804B8237AC51A0075CABD /* AddIntentStoreProccessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreProccessCell.h; sourceTree = "<group>"; };
+		0C3804B9237AC51A0075CABD /* AddIntentStoreProccessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreProccessCell.m; sourceTree = "<group>"; };
+		0C3804BE237AC5410075CABD /* AddIntentStoreFileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreFileCell.h; sourceTree = "<group>"; };
+		0C3804BF237AC5410075CABD /* AddIntentStoreFileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreFileCell.m; sourceTree = "<group>"; };
+		0C3804C2237B90560075CABD /* AddOrderRentInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddOrderRentInfoCell.h; sourceTree = "<group>"; };
+		0C3804C3237B90560075CABD /* AddOrderRentInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderRentInfoCell.m; sourceTree = "<group>"; };
+		0C3804C5237B95510075CABD /* AddOrderRentPriceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddOrderRentPriceCell.h; sourceTree = "<group>"; };
+		0C3804C6237B95510075CABD /* AddOrderRentPriceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddOrderRentPriceCell.m; sourceTree = "<group>"; };
+		0C3804C9237B9A2E0075CABD /* AddSignRentAreaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSignRentAreaCell.h; sourceTree = "<group>"; };
+		0C3804CA237B9A2E0075CABD /* AddSignRentAreaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignRentAreaCell.m; sourceTree = "<group>"; };
 		0C3A9111225B20C400F04804 /* 云售楼.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "云售楼.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3A9114225B20C400F04804 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0C3A9115225B20C400F04804 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1022,10 +1047,6 @@
 		0C63F5A9236FC61C00946236 /* IntentDetailHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentDetailHeader.m; sourceTree = "<group>"; };
 		0C63F5AC236FC9B300946236 /* AddIntentStoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreVC.h; sourceTree = "<group>"; };
 		0C63F5AD236FC9B300946236 /* AddIntentStoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreVC.m; sourceTree = "<group>"; };
-		0C63F5B0236FF6ED00946236 /* AddIntentStoreRoomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreRoomView.h; sourceTree = "<group>"; };
-		0C63F5B1236FF6ED00946236 /* AddIntentStoreRoomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreRoomView.m; sourceTree = "<group>"; };
-		0C63F5B4236FF7A200946236 /* AddIntentStoreRoomCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreRoomCollCell.h; sourceTree = "<group>"; };
-		0C63F5B5236FF7A200946236 /* AddIntentStoreRoomCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreRoomCollCell.m; sourceTree = "<group>"; };
 		0C63F5B72370002800946236 /* AddIntentStoreIntentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreIntentView.h; sourceTree = "<group>"; };
 		0C63F5B82370002800946236 /* AddIntentStoreIntentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIntentStoreIntentView.m; sourceTree = "<group>"; };
 		0C63F5BA23705CD000946236 /* AddIntentStoreInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIntentStoreInfoView.h; sourceTree = "<group>"; };
@@ -2521,6 +2542,45 @@
 			path = "修改意向商家";
 			sourceTree = "<group>";
 		};
+		0C3804AB237AB2FD0075CABD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C3804AC237AB31D0075CABD /* AddIntentStoreAddCell.h */,
+				0C3804AD237AB31D0075CABD /* AddIntentStoreAddCell.m */,
+				0C3804AF237ABC2B0075CABD /* AddIntentStoreRoomCell.h */,
+				0C3804B0237ABC2B0075CABD /* AddIntentStoreRoomCell.m */,
+				0C3804B2237AC04A0075CABD /* AddIntentStoreDoubleBtnCell.h */,
+				0C3804B3237AC04A0075CABD /* AddIntentStoreDoubleBtnCell.m */,
+				0C3804B5237AC2510075CABD /* AddIntentStoreIntentCell.h */,
+				0C3804B6237AC2510075CABD /* AddIntentStoreIntentCell.m */,
+				0C3804B8237AC51A0075CABD /* AddIntentStoreProccessCell.h */,
+				0C3804B9237AC51A0075CABD /* AddIntentStoreProccessCell.m */,
+				0C3804BE237AC5410075CABD /* AddIntentStoreFileCell.h */,
+				0C3804BF237AC5410075CABD /* AddIntentStoreFileCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0C3804C1237B90470075CABD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C3804C2237B90560075CABD /* AddOrderRentInfoCell.h */,
+				0C3804C3237B90560075CABD /* AddOrderRentInfoCell.m */,
+				0C3804C5237B95510075CABD /* AddOrderRentPriceCell.h */,
+				0C3804C6237B95510075CABD /* AddOrderRentPriceCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0C3804C8237B9A220075CABD /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0C3804C9237B9A2E0075CABD /* AddSignRentAreaCell.h */,
+				0C3804CA237B9A2E0075CABD /* AddSignRentAreaCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		0C3A9108225B20C400F04804 = {
 			isa = PBXGroup;
 			children = (
@@ -3034,6 +3094,7 @@
 		0C46D8662371136D00EEC856 /* 新增签租 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3804C8237B9A220075CABD /* cell */,
 				0C4D14C72373A9EF00747DE0 /* 新增修改物业费 */,
 				0C4D14C02373A81B00747DE0 /* 新增、修改其他费项 */,
 				0C46D88123715E3100EEC856 /* view */,
@@ -3046,6 +3107,7 @@
 		0C46D86A2371138E00EEC856 /* 新增定租 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3804C1237B90470075CABD /* cell */,
 				0C46D87523714BCE00EEC856 /* 租金详情 */,
 				0C46D86E23711CF500EEC856 /* view */,
 				0C46D86B2371139D00EEC856 /* AddOrderRentVC.h */,
@@ -3381,6 +3443,7 @@
 		0C63F5AB236FC9A300946236 /* 新增意向商家 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3804AB237AB2FD0075CABD /* cell */,
 				0C3804A0237910880075CABD /* 选择房源 */,
 				0C63F5C02371024900946236 /* 选择商家 */,
 				0C63F5AF236FF6D600946236 /* view */,
@@ -3394,8 +3457,6 @@
 			isa = PBXGroup;
 			children = (
 				0C63F5B3236FF78C00946236 /* cell */,
-				0C63F5B0236FF6ED00946236 /* AddIntentStoreRoomView.h */,
-				0C63F5B1236FF6ED00946236 /* AddIntentStoreRoomView.m */,
 				0C63F5B72370002800946236 /* AddIntentStoreIntentView.h */,
 				0C63F5B82370002800946236 /* AddIntentStoreIntentView.m */,
 				0C63F5BA23705CD000946236 /* AddIntentStoreInfoView.h */,
@@ -3407,8 +3468,6 @@
 		0C63F5B3236FF78C00946236 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				0C63F5B4236FF7A200946236 /* AddIntentStoreRoomCollCell.h */,
-				0C63F5B5236FF7A200946236 /* AddIntentStoreRoomCollCell.m */,
 				0C63F5BD2370632500946236 /* AddIntentStoreInfoCollCell.h */,
 				0C63F5BE2370632500946236 /* AddIntentStoreInfoCollCell.m */,
 			);
@@ -5872,6 +5931,7 @@
 				0C365CB422E84AC000A586FC /* ModifyOrderVC.m in Sources */,
 				0C4D14CA2373AA0300747DE0 /* AddSignRentPropertyDetailVC.m in Sources */,
 				10BC3A4E228FF80300DAB2D8 /* RotationSettingVC.m in Sources */,
+				0C3804C7237B95510075CABD /* AddOrderRentPriceCell.m in Sources */,
 				0CFDB36922EFEFC900F21976 /* AddNumeralCodeCollCell.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
 				0C38049323756B300075CABD /* StoreOrderAuditCell.m in Sources */,
@@ -5912,6 +5972,7 @@
 				0C46D87823714C4B00EEC856 /* AddOrderRentalDetailVC.m in Sources */,
 				10BC3A40228FEA6A00DAB2D8 /* RotationVC.m in Sources */,
 				0C192C9322CAEBC4000CA161 /* AddNumeralVC.m in Sources */,
+				0C3804CB237B9A2E0075CABD /* AddSignRentAreaCell.m in Sources */,
 				0CC7E8E422FA6E1600AB0E1F /* SignSpePerferChangeVC.m in Sources */,
 				0C3DD5D82369391900211766 /* StoreDetailVC.m in Sources */,
 				0CD043D42282C6AD002C8BD3 /* AuditTaskDetailVC.m in Sources */,
@@ -5932,7 +5993,6 @@
 				0C496DE122D42E0800789FFA /* AddNumeralModifyCustomVC.m in Sources */,
 				0C63F5A1236FBDB600946236 /* IntentStoreCell.m in Sources */,
 				0C3804542373FC0B0075CABD /* ModifyAndAddRentalView.m in Sources */,
-				0C63F5B2236FF6ED00946236 /* AddIntentStoreRoomView.m in Sources */,
 				0C05333922F95B7700DA9143 /* OrderSpePerferChangeVC.m in Sources */,
 				0C63F5C32371025B00946236 /* AddIntentSelectStoreVC.m in Sources */,
 				0CD0438F22813659002C8BD3 /* IntentSurVeySelectVC.m in Sources */,
@@ -5957,6 +6017,7 @@
 				0CFF71E022A644D60066732B /* VisitCustomHeader.m in Sources */,
 				0CEF8A28225D7BF00057F3FD /* FindPassWordVC.m in Sources */,
 				0CFDB36522EF067300F21976 /* AddNumeralCodeColl.m in Sources */,
+				0C3804B4237AC04A0075CABD /* AddIntentStoreDoubleBtnCell.m in Sources */,
 				0CF1A318228E8E04001C77CF /* SignListCell.m in Sources */,
 				10EF17BB2293884900DE5566 /* AddPeopleVC.m in Sources */,
 				1084D10B2296AC53001DB0FD /* PowerModel.m in Sources */,
@@ -6006,6 +6067,7 @@
 				0C63F5BC23705CD000946236 /* AddIntentStoreInfoView.m in Sources */,
 				0C3D4F7C2362C523001CB6A9 /* AddNumeralFileCell.m in Sources */,
 				0C4B8EDD22CC461300D505BE /* OrderVC.m in Sources */,
+				0C3804C4237B90560075CABD /* AddOrderRentInfoCell.m in Sources */,
 				0CD043DF2283BC05002C8BD3 /* CaptchaView.m in Sources */,
 				0CD7A018225C67F900EAE816 /* PersonalIntroVC.m in Sources */,
 				0C3D4F852362D8A3001CB6A9 /* ZZQAvatarPicker.m in Sources */,
@@ -6084,6 +6146,7 @@
 				0C4374C22366D0FD00B014D0 /* EnclosureCollCell.m in Sources */,
 				0C3DD5E223693F2200211766 /* StoreDetailHeader.m in Sources */,
 				0C3A915A225B225A00F04804 /* UserModel.m in Sources */,
+				0C3804C0237AC5410075CABD /* AddIntentStoreFileCell.m in Sources */,
 				0C3D4F6123616DA6001CB6A9 /* DealCustomerReportChannelCell.m in Sources */,
 				0C3D4F762361AE9C001CB6A9 /* SaleRankTelCell.m in Sources */,
 				1051625D2359A60F00E7CA6F /* WeekCountVC.m in Sources */,
@@ -6129,7 +6192,6 @@
 				0C0C103D235EFF4300A81888 /* LHYLinesPaoPaoView.m in Sources */,
 				0CD0435E22802254002C8BD3 /* UITextField+ExtentRange.m in Sources */,
 				0C74521D22A8FDB6008F2F07 /* ChannelRecommendCell.m in Sources */,
-				0C63F5B6236FF7A200946236 /* AddIntentStoreRoomCollCell.m in Sources */,
 				0CD0436222802357002C8BD3 /* SinglePickView.m in Sources */,
 				0CFDB30122EE8F2F00F21976 /* SincerityChangeView.m in Sources */,
 				0C26C9ED22A667FC00A7CF47 /* ChannelAnalysisVC.m in Sources */,
@@ -6157,10 +6219,12 @@
 				0C74522522A91CAB008F2F07 /* MinMaxDateChooseView.m in Sources */,
 				0CD7A032225C6D5700EAE816 /* BDDynamicTreeCell.m in Sources */,
 				0C038BC322E9852400D83DC2 /* AuditDetailVC.m in Sources */,
+				0C3804BA237AC51A0075CABD /* AddIntentStoreProccessCell.m in Sources */,
 				0CD04365228025D4002C8BD3 /* WorkCompleteCustomVC2.m in Sources */,
 				10BC3A47228FEF2800DAB2D8 /* RotationCell.m in Sources */,
 				0C3A919E225C484500F04804 /* TitleRightBtnHeader.m in Sources */,
 				0C0CE32822DDB61500092293 /* TransSignCell.m in Sources */,
+				0C3804B7237AC2510075CABD /* AddIntentStoreIntentCell.m in Sources */,
 				0C3D4F6E2361A851001CB6A9 /* CallCustomReportVC.m in Sources */,
 				0C4B7F6322C9A9B400BBC34F /* NumeralCell.m in Sources */,
 				0C63F51F236AC38500946236 /* BrandCollCell.m in Sources */,
@@ -6201,6 +6265,7 @@
 				0C3D4F6223616DA6001CB6A9 /* DealCustomerReportPropertyCell.m in Sources */,
 				0CD043AB22817622002C8BD3 /* KyoCenterLineView.m in Sources */,
 				0C0C104F235F000600A81888 /* MonthCountCell.m in Sources */,
+				0C3804B1237ABC2B0075CABD /* AddIntentStoreRoomCell.m in Sources */,
 				10EF17A622928A6700DE5566 /* AddCompanyView.m in Sources */,
 				0C4B7F7422CA050600BBC34F /* AddEncumbrancerVC.m in Sources */,
 				0C63F5B92370002800946236 /* AddIntentStoreIntentView.m in Sources */,
@@ -6238,6 +6303,7 @@
 				0C6BFED7231663800079B304 /* VisitCustomMergeVC.m in Sources */,
 				0C63F5BF2370632500946236 /* AddIntentStoreInfoCollCell.m in Sources */,
 				0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */,
+				0C3804AE237AB31D0075CABD /* AddIntentStoreAddCell.m in Sources */,
 				0C758155235D5B090029B530 /* SaleRankContractCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -34,11 +34,42 @@
         _ascriptionL.text = @" ";
     }
     
-    _typeL.text = [NSString stringWithFormat:@"可承受租金：%@",dataDic[@"lease_money"]];
+    _typeL.text = [NSString stringWithFormat:@"可承受租金：%@元/月/㎡",dataDic[@"lease_money"]];
 //    _typeL.text = [NSString stringWithFormat:@"%@",dataDic[@"resource_name"]];
 //    _addressL.text = [NSString stringWithFormat:@"%@%@%@",dataDic[@"province_name"],dataDic[@"city_name"],dataDic[@"district_name"]];
-    _addressL.text = [NSString stringWithFormat:@"承租面积：%@",dataDic[@"lease_size"]];
-    _timeL.text = dataDic[@"create_time"];
+    _addressL.text = [NSString stringWithFormat:@"承租面积：%@㎡",dataDic[@"lease_size"]];
+    _timeL.text = [dataDic[@"create_time"] componentsSeparatedByString:@" "][0];
+    if (_ascriptionL.bounds.size.height > _typeL.bounds.size.height) {
+        
+        [_addressL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(100 *SIZE);
+            make.top.equalTo(self->_ascriptionL.mas_bottom).offset(10 *SIZE);
+            make.right.equalTo(self.contentView).offset(-130 *SIZE);
+        }];
+        
+        [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self.contentView).offset(-12 *SIZE);
+            make.top.equalTo(self->_ascriptionL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(110 *SIZE);
+        }];
+    }else{
+        
+        [_addressL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(100 *SIZE);
+            make.top.equalTo(self->_typeL.mas_bottom).offset(10 *SIZE);
+            make.right.equalTo(self.contentView).offset(-130 *SIZE);
+        }];
+        
+        [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self.contentView).offset(-12 *SIZE);
+            make.top.equalTo(self->_typeL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(110 *SIZE);
+        }];
+    }
 }
 
 - (void)ActionPhoneBtn:(UIButton *)btn{
@@ -58,6 +89,7 @@
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
+        label.numberOfLines = 2;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         switch (i) {
             case 0:
@@ -197,7 +229,7 @@
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(0 *SIZE);
-        make.top.equalTo(self->_headImg.mas_bottom).offset(14 *SIZE);
+        make.top.equalTo(self->_addressL.mas_bottom).offset(14 *SIZE);
         make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(SIZE);
         make.bottom.equalTo(self.contentView).offset(0);

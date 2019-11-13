@@ -20,7 +20,8 @@
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
-#import "TitleRightBtnHeader.h"
+//#import "TitleRightBtnHeader.h"
+#import "AddNemeralHeader.h"
 #import "BrandCollCell.h"
 
 @interface AddStoreVC ()<UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
@@ -100,7 +101,7 @@
 
 @property (nonatomic, strong) UITextView *descTV;
 
-@property (nonatomic, strong) TitleRightBtnHeader *brandHeader;
+@property (nonatomic, strong) AddNemeralHeader *brandHeader;
 
 @property (nonatomic, strong) GZQFlowLayout *layout;
 
@@ -1184,12 +1185,12 @@
     
     
     
-    _brandHeader = [[TitleRightBtnHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
+    _brandHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _brandHeader.titleL.text = @"品牌信息";
     _brandHeader.moreBtn.hidden = YES;
     _brandHeader.addBtn.hidden = NO;
     SS(strongSelf);
-    _brandHeader.titleRightBtnHeaderAddBlock = ^{
+    _brandHeader.addNemeralHeaderAllBlock = ^{
         
         BrandVC *nextVC = [[BrandVC alloc] initWithDataArr:strongSelf->_brandArr];
         nextVC.project_id = strongSelf->_project_id;

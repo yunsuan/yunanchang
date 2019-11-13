@@ -37,6 +37,65 @@
     _registerL.text = [NSString stringWithFormat:@"登记号：%@",dataDic[@"row_code"]];
     _buildL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
     _timeL.text = [NSString stringWithFormat:@"%@",dataDic[@"sign_time"]];
+    if (_registerL.bounds.size.height > _buildL.bounds.size.height) {
+        
+        [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(100 *SIZE);
+            make.top.equalTo(self->_registerL.mas_bottom).offset(10 *SIZE);
+            make.right.equalTo(self.contentView).offset(-170 *SIZE);
+        }];
+        
+        [_payL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self.contentView).offset(-12 *SIZE);
+            make.top.equalTo(self->_registerL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+        
+        [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self->_payL.mas_left).offset(-5 *SIZE);
+            make.top.equalTo(self->_registerL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+        
+        [_statusL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self->_auditL.mas_left).offset(-5 *SIZE);
+            make.top.equalTo(self->_registerL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+    }else{
+        
+        [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(100 *SIZE);
+            make.top.equalTo(self->_buildL.mas_bottom).offset(10 *SIZE);
+            make.right.equalTo(self.contentView).offset(-170 *SIZE);
+        }];
+        
+        [_payL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self.contentView).offset(-12 *SIZE);
+            make.top.equalTo(self->_buildL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+        
+        [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self->_payL.mas_left).offset(-5 *SIZE);
+            make.top.equalTo(self->_buildL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+        
+        [_statusL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self->_auditL.mas_left).offset(-5 *SIZE);
+            make.top.equalTo(self->_buildL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+    }
     switch ([dataDic[@"disabled_state"] integerValue]) {
      
         case 0:
@@ -110,6 +169,8 @@
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
+        label.numberOfLines = 2;
+//        label.adjustsFontSizeToFitWidth = YES;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         switch (i) {
             case 0:
@@ -236,12 +297,12 @@
         
         make.left.equalTo(self.contentView).offset(100 *SIZE);
         make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
-        make.right.equalTo(self.contentView).offset(-170 *SIZE);
+        make.right.equalTo(self.contentView).offset(-150 *SIZE);
     }];
     
     [_buildL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.width.mas_equalTo(150 *SIZE);
+        make.left.equalTo(self.contentView).offset(215 *SIZE);
         make.top.equalTo(self->_titleL.mas_bottom).offset(10 *SIZE);
         make.right.equalTo(self.contentView).offset(-10 *SIZE);
     }];
@@ -277,7 +338,7 @@
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(0 *SIZE);
-        make.top.equalTo(self->_headImg.mas_bottom).offset(14 *SIZE);
+        make.top.equalTo(self->_timeL.mas_bottom).offset(14 *SIZE);
         make.width.mas_equalTo(360 *SIZE);
         make.height.mas_equalTo(SIZE);
         make.bottom.equalTo(self.contentView).offset(0);

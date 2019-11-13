@@ -12,19 +12,27 @@
 #import "AddStoreVC.h"
 #import "ShopRoomVC.h"
 
-#import "AddNemeralHeader.h"
-#import "AddIntentStoreRoomView.h"
-#import "AddNumeralProcessView.h"
-#import "AddIntentStoreIntentView.h"
-#import "AddIntentStoreInfoView.h"
-#import "AddNumeralFileView.h"
 
+#import "TitleRightBtnHeader.h"
+
+#import "AddIntentStoreAddCell.h"
+#import "AddIntentStoreRoomCell.h"
+
+#import "AddIntentStoreDoubleBtnCell.h"
+#import "StoreCell.h"
+
+#import "AddIntentStoreIntentCell.h"
+
+#import "AddIntentStoreProccessCell.h"
+
+#import "AddIntentStoreFileCell.h"
 
 #import "SinglePickView.h"
 #import "DateChooseView.h"
 #import "MinMaxDateChooseView.h"
 
-@interface ModifyIntentStoreVC (){
+@interface ModifyIntentStoreVC ()<UITableViewDelegate,UITableViewDataSource>
+{
     
     NSString *_info_id;
     NSString *_project_id;
@@ -52,27 +60,8 @@
     
     NSDateFormatter *_secondFormatter;
 }
-@property (nonatomic, strong) UIScrollView *scrollView;
 
-@property (nonatomic, strong) AddNemeralHeader *roomHeader;
-
-@property (nonatomic, strong) AddIntentStoreRoomView *addIntentStoreRoomView;
-
-@property (nonatomic, strong) AddNemeralHeader *storeHeader;
-
-@property (nonatomic, strong) AddIntentStoreInfoView *addIntentStoreInfoView;
-
-@property (nonatomic, strong) AddNemeralHeader *intentHeader;
-
-@property (nonatomic, strong) AddIntentStoreIntentView *addIntentStoreIntentView;
-
-//@property (nonatomic, strong) AddNemeralHeader *processHeader;
-//
-//@property (nonatomic, strong) AddNumeralProcessView *addNumeralProcessView;
-
-@property (nonatomic, strong) AddNemeralHeader *addNumeralFileHeader;
-
-@property (nonatomic, strong) AddNumeralFileView *addNumeralFileView;
+@property (nonatomic, strong) UITableView *table;
 
 @property (nonatomic, strong) UIButton *nextBtn;
 
@@ -124,7 +113,7 @@
 
 - (void)initDataSource{
     
-    _titleArr = @[@"房源信息",@"商家信息",@"意向信息"];
+    _titleArr = @[@"房源信息",@"商家信息",@"意向信息",@"附件文件"];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0]];
     
 //    _intentDic = [@{} mutableCopy];
@@ -161,34 +150,34 @@
         return;
     }
     
-    if (!_addIntentStoreIntentView.codeTF.textField.text.length) {
-        
-        [self showContent:@"请输入意向编号"];
-        return;
-    }
-    
-    if (!_addIntentStoreIntentView.sincerityTF.textField.text.length) {
-        
-        [self showContent:@"请输入诚意金"];
-        return;
-    }
-    if (!_addIntentStoreIntentView.intentPeriodLBtn1.content.text.length) {
-        
-        [self showContent:@"请选择租期开始时间"];
-        return;
-    }
-    
-    if (!_addIntentStoreIntentView.intentPeriodLBtn2.content.text.length) {
-        
-        [self showContent:@"请选择租期结束时间"];
-        return;
-    }
-    
-    if (!_addIntentStoreIntentView.timeBtn.content.text.length) {
-        
-        [self showContent:@"请选择登记时间"];
-        return;
-    }
+    if (!_intentDic[@"row_code"]) {
+
+           [self showContent:@"请输入意向编号"];
+           return;
+       }
+
+       if (!_intentDic[@"sincerity"]) {
+
+           [self showContent:@"请输入诚意金"];
+           return;
+       }
+       if (!_intentDic[@"start_time"]) {
+
+           [self showContent:@"请选择租期开始时间"];
+           return;
+       }
+
+       if (!_intentDic[@"end_time"]) {
+
+           [self showContent:@"请选择租期结束时间"];
+           return;
+       }
+
+       if (!_intentDic[@"sign_time"]) {
+
+           [self showContent:@"请选择登记时间"];
+           return;
+       }
 //    if (!_addNumeralProcessView.typeBtn.content.text.length) {
 //        [self showContent:@"请选择审批流程"];
 //        return;
@@ -252,12 +241,12 @@
     }
     [dic setValue:store forKey:@"from_id"];
     [dic setValue:_project_id forKey:@"project_id"];
-    [dic setValue:_addIntentStoreIntentView.codeTF.textField.text forKey:@"row_code"];
-    [dic setValue:_addIntentStoreIntentView.sincerityTF.textField.text forKey:@"sincerity"];
-    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn1.content.text forKey:@"start_time"];
-    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn2.content.text forKey:@"end_time"];
+//    [dic setValue:_addIntentStoreIntentView.codeTF.textField.text forKey:@"row_code"];
+//    [dic setValue:_addIntentStoreIntentView.sincerityTF.textField.text forKey:@"sincerity"];
+//    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn1.content.text forKey:@"start_time"];
+//    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn2.content.text forKey:@"end_time"];
     [dic setValue:_chargeId forKey:@"charge_company_id"];
-    [dic setValue:[_addIntentStoreIntentView.timeBtn.content.text componentsSeparatedByString:@" "][0] forKey:@"sign_time"];
+//    [dic setValue:[_addIntentStoreIntentView.timeBtn.content.text componentsSeparatedByString:@" "][0] forKey:@"sign_time"];
     if (_imgArr.count) {
         
         NSError *error;
@@ -310,7 +299,7 @@
        if ([resposeObject[@"code"] integerValue] == 200) {
 
            [self->_imgArr addObject:@{@"url":[NSString stringWithFormat:@"%@",resposeObject[@"data"]],@"name":name,@"create_time":name}];
-           self->_addNumeralFileView.dataArr = self->_imgArr;
+//           self->_addNumeralFileView.dataArr = self->_imgArr;
        }else{
 
            [self showContent:resposeObject[@"msg"]];
@@ -321,312 +310,368 @@
         [self showContent:@"网络错误"];
     }];
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return _selectArr.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    if ([_selectArr[section] integerValue]) {
+        
+        if (section == 0) {
+            
+            return _roomArr.count + 1;
+        }else if (section == 1){
+            
+            return _storeArr.count + 1;
+        }else if (section == 2){
+            
+            return 1;
+        }else if (section == 3){
+            
+            return 1;
+        }else{
+            
+            return _imgArr.count ? 2: 1;
+        }
+    }else{
+        
+        return 0;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 40 *SIZE;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    TitleRightBtnHeader *header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
+    if (!header) {
+        
+        header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
+    }
+    header.titleL.text = _titleArr[section];
+    header.addBtn.hidden = YES;
+    if ([_selectArr[section] integerValue] == 0) {
+        
+        [header.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+    }else{
+        
+        [header.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    }
+    header.titleRightBtnHeaderMoreBlock = ^{
+        
+        if ([self->_selectArr[section] integerValue] == 0) {
+            
+            [self->_selectArr replaceObjectAtIndex:section withObject:@1];
+        }else{
+            
+            [self->_selectArr replaceObjectAtIndex:section withObject:@0];
+        }
+        [tableView reloadData];
+    };
+    
+    return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return CGFLOAT_MIN;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return [[UIView alloc] init];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        
+        if (indexPath.row < _roomArr.count) {
+            
+            return YES;
+        }else{
+            
+            return NO;
+        }
+    }else if (indexPath.section == 1){
+        
+        if (indexPath.row == 1) {
+            
+            return YES;
+        }else{
+            
+            return NO;
+        }
+    }else{
+        
+        return NO;
+    }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        
+        [_roomArr removeObjectAtIndex:indexPath.row];
+    }else{
+        
+        [_storeArr removeAllObjects];
+    }
+    [tableView reloadData];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        
+        if (indexPath.row == _roomArr.count) {
+            
+            AddIntentStoreAddCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreAddCell"];
+            
+            if (!cell) {
+                
+                cell = [[AddIntentStoreAddCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddIntentStoreAddCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [cell.addBtn setTitle:@"添加房源" forState:UIControlStateNormal];
+            
+            cell.addIntentStoreAddCellBlock = ^{
+                
+                ShopRoomVC *nextVC = [[ShopRoomVC alloc] init];
+                nextVC.project_id = self->_project_id;
+                nextVC.roomArr = self->_roomArr;
+                nextVC.shopRoomVCBlock = ^(NSDictionary * _Nonnull dic, NSString * _Nonnull chargeId) {
+
+                    if (!self->_chargeId) {
+
+                        self->_chargeId = chargeId;
+                    }
+                    [self->_roomArr addObject:dic];
+                    [tableView reloadData];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            };
+            return cell;
+        }else{
+            
+            AddIntentStoreRoomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreRoomCell"];
+            
+            if (!cell) {
+                
+                cell = [[AddIntentStoreRoomCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddIntentStoreRoomCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@%@",_roomArr[indexPath.row ][@"build_name"],_roomArr[indexPath.row][@"unit_name"],_roomArr[indexPath.row][@"name"]];
+            cell.areaL.text = [NSString stringWithFormat:@"面积：%@㎡",_roomArr[indexPath.row][@"build_size"]];
+            cell.priceL.text = [NSString stringWithFormat:@"租金：%@元/月/㎡",_roomArr[indexPath.row][@"total_rent"]];
+            
+            return cell;
+        }
+    }else if (indexPath.section == 1){
+        
+        if (indexPath.row == 0) {
+            
+            AddIntentStoreDoubleBtnCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreDoubleBtnCell"];
+            
+            if (!cell) {
+                
+                cell = [[AddIntentStoreDoubleBtnCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddIntentStoreDoubleBtnCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.addIntentStoreDoubleBtnCellAddBlock = ^{
+                
+                AddStoreVC *nextVC = [[AddStoreVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+                nextVC.status = @"direct";
+                nextVC.addStoreVCDicBlock = ^(NSDictionary * _Nonnull dic) {
+
+                    [self->_storeArr removeAllObjects];
+                    [self->_storeArr addObject:dic];
+                    [tableView reloadData];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            };
+            
+            cell.addIntentStoreDoubleBtnCellSelectBlock = ^{
+                
+                AddIntentSelectStoreVC *nextVC = [[AddIntentSelectStoreVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+                nextVC.addIntentSelectStoreVCBlock = ^(NSDictionary * _Nonnull dic) {
+                    
+                    [self->_storeArr removeAllObjects];
+                    [self->_storeArr addObject:dic];
+                    [tableView reloadData];
+                };
+                [self.navigationController pushViewController:nextVC animated:YES];
+            };
+            return cell;
+        }else{
+            
+            StoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoreCell"];
+            if (!cell) {
+                   
+                cell = [[StoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+               
+            cell.tag = indexPath.row;
+               
+            cell.dataDic = _storeArr[indexPath.row - 1];
+               
+            return cell;
+        }
+    }else if (indexPath.section == 2){
+        
+        AddIntentStoreIntentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreIntentCell"];
+        
+        if (!cell) {
+            
+            cell = [[AddIntentStoreIntentCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddIntentStoreIntentCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataDic = _intentDic;
+        
+        cell.addIntentStoreIntentCellStrBlock = ^(NSString * _Nonnull str, NSInteger idx) {
+          
+            if (idx == 0) {
+
+                [self->_intentDic setValue:str forKey:@"row_code"];
+            }else{
+
+                [self->_intentDic setValue:str forKey:@"sincerity"];
+            }
+            [tableView reloadData];
+        };
+        
+        cell.addIntentStoreIntentCellTimeBlock = ^{
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+            view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
+            [view.pickerView setCalendar:[NSCalendar currentCalendar]];
+            [view.pickerView setMaximumDate:[NSDate date]];
+            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *comps = [[NSDateComponents alloc] init];
+            [comps setDay:15];//设置最大时间为：当前时间推后10天
+            [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
+            view.dateblock = ^(NSDate *date) {
+
+                [self->_intentDic setObject:[self->_secondFormatter stringFromDate:date] forKey:@"sign_time"];
+                [tableView reloadData];
+            };
+            [tableView reloadData];
+        };
+        
+        cell.addIntentStoreIntentCellPeriod1Block = ^{
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+
+                [self->_intentDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"start_time"];
+                [tableView reloadData];
+            };
+            [self.view addSubview:view];
+        };
+        
+        cell.addIntentStoreIntentCellPeriod2Block = ^{
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+
+                [self->_intentDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"end_time"];
+                [tableView reloadData];
+            };
+            [self.view addSubview:view];
+        };
+        
+        return cell;
+    }else{
+        
+        if (indexPath.row == 0) {
+            
+            AddIntentStoreAddCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreAddCell"];
+            
+            if (!cell) {
+                
+                cell = [[AddIntentStoreAddCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddIntentStoreAddCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [cell.addBtn setTitle:@"选择文件上传" forState:UIControlStateNormal];
+            
+            cell.addIntentStoreAddCellBlock = ^{
+                
+                [ZZQAvatarPicker startSelected:^(UIImage * _Nonnull image) {
+
+                    if (image) {
+
+                        [self updateheadimgbyimg:image];
+                    }
+                }];
+            };
+            return cell;
+        }else{
+            
+            AddIntentStoreFileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreFileCell"];
+                       
+            if (!cell) {
+                           
+                cell = [[AddIntentStoreFileCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddIntentStoreFileCell"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+            cell.dataArr = _imgArr;
+            
+            cell.addIntentStoreFileCellSelectBlock = ^(NSInteger idx) {
+                
+                ChangeFileNameView *view = [[ChangeFileNameView alloc] initWithFrame:self.view.bounds name:self->_imgArr[idx][@"name"]];
+                view.changeFileNameViewBlock = ^(NSString * _Nonnull name) {
+
+                    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:self->_imgArr[idx]];
+                    [tempDic setValue:name forKey:@"name"];
+                    [self->_imgArr replaceObjectAtIndex:idx withObject:tempDic];
+                    [tableView reloadData];
+                };
+                [self.view addSubview:view];
+            };
+            cell.addIntentStoreFileCellDeleteBlock = ^(NSInteger idx) {
+              
+                [self->_imgArr removeObjectAtIndex:idx];
+                [tableView reloadData];
+            };
+            return cell;
+        }
+    }
+}
 
 - (void)initUI{
     
     self.titleLabel.text = @"修改意向商家";
     
-    _scrollView = [[UIScrollView alloc] init];
-    _scrollView.backgroundColor = CLBackColor;
-    _scrollView.bounces = NO;
-    [self.view addSubview:_scrollView];
-    
-    SS(strongSelf);
-    
-#pragma mark -- 房源信息 --
-    _roomHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _roomHeader.backgroundColor = CLWhiteColor;
-    _roomHeader.titleL.text = @"房源信息";
-    _roomHeader.addBtn.hidden = YES;
-    [_roomHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-    _roomHeader.addNemeralHeaderAllBlock = ^{
-      
-        if ([strongSelf->_selectArr[0] integerValue]){
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:0 withObject:@0];
-            [strongSelf->_roomHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addIntentStoreRoomView.hidden = YES;
-            [strongSelf->_addIntentStoreRoomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_roomHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(0);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }else{
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:0 withObject:@1];
-            [strongSelf->_roomHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-            strongSelf->_addIntentStoreRoomView.hidden = NO;
-            [strongSelf->_addIntentStoreRoomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_roomHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }
-    };
-    [_scrollView addSubview:_roomHeader];
-    
-    _addIntentStoreRoomView = [[AddIntentStoreRoomView alloc] init];
-    _addIntentStoreRoomView.dataArr = self->_roomArr;
-    _addIntentStoreRoomView.addIntentStoreRoomViewAddBlock = ^{
-        
-        ShopRoomVC *nextVC = [[ShopRoomVC alloc] init];
-        nextVC.project_id = strongSelf->_project_id;
-        nextVC.roomArr = strongSelf->_roomArr;
-        nextVC.shopRoomVCBlock = ^(NSDictionary * _Nonnull dic, NSString * _Nonnull chargeId) {
-                
-            if (!strongSelf->_chargeId) {
-                
-                strongSelf->_chargeId = chargeId;
-            }
-            [strongSelf->_roomArr addObject:dic];
-            strongSelf->_addIntentStoreRoomView.dataArr = strongSelf->_roomArr;
-        };
-        [strongSelf.navigationController pushViewController:nextVC animated:YES];
-    };
-    _addIntentStoreRoomView.addIntentStoreRoomViewDeleteBlock = ^(NSInteger idx) {
-        
-        [strongSelf->_roomArr removeObjectAtIndex:idx];
-        strongSelf->_addIntentStoreRoomView.dataArr = strongSelf->_roomArr;
-    };
-    [_scrollView addSubview:_addIntentStoreRoomView];
-    
-    
-#pragma mark -- 商家信息 --
-    _storeHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _storeHeader.backgroundColor = CLWhiteColor;
-    _storeHeader.titleL.text = @"商家信息";
-    _storeHeader.addBtn.hidden = YES;
-    [_storeHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-    _storeHeader.addNemeralHeaderAllBlock = ^{
-        
-        if ([strongSelf->_selectArr[1] integerValue]){
-        
-            [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@0];
-            [strongSelf->_storeHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addIntentStoreInfoView.hidden = YES;
-            [strongSelf->_addIntentStoreInfoView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_storeHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(0);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }else{
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:1 withObject:@1];
-            [strongSelf->_storeHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-            strongSelf->_addIntentStoreInfoView.hidden = NO;
-            [strongSelf->_addIntentStoreInfoView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_storeHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }
-    };
-    [_scrollView addSubview:_storeHeader];
-    
-    _addIntentStoreInfoView = [[AddIntentStoreInfoView alloc] init];
-    _addIntentStoreInfoView.dataArr = self->_storeArr;
-    _addIntentStoreInfoView.hidden = YES;
-    _addIntentStoreInfoView.addIntentStoreInfoViewAddBlock = ^{
-        
-        AddStoreVC *nextVC = [[AddStoreVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-        nextVC.status = @"direct";
-        nextVC.addStoreVCDicBlock = ^(NSDictionary * _Nonnull dic) {
-          
-            [strongSelf->_storeArr addObject:dic];
-            strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
-        };
-        [strongSelf.navigationController pushViewController:nextVC animated:YES];
-    };
-    _addIntentStoreInfoView.addIntentStoreInfoViewDeleteBlock = ^(NSInteger idx) {
-        
-        [strongSelf->_storeArr removeObjectAtIndex:idx];
-        strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
-    };
-    _addIntentStoreInfoView.addIntentStoreInfoViewSelectBlock = ^{
-        
-        AddIntentSelectStoreVC *nextVC = [[AddIntentSelectStoreVC alloc] initWithProjectId:strongSelf->_project_id info_id:strongSelf->_info_id];
-        nextVC.addIntentSelectStoreVCBlock = ^(NSDictionary * _Nonnull dic) {
-            [strongSelf->_storeArr addObject:dic];
-            strongSelf->_addIntentStoreInfoView.dataArr = strongSelf->_storeArr;
-        };
-        [strongSelf.navigationController pushViewController:nextVC animated:YES];
-    };
-    [_scrollView addSubview:_addIntentStoreInfoView];
-
-   
-#pragma mark -- 意向信息 --
-    _intentHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _intentHeader.backgroundColor = CLWhiteColor;
-    _intentHeader.titleL.text = @"意向信息";
-    _intentHeader.addBtn.hidden = YES;
-    [_intentHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-    _intentHeader.addNemeralHeaderAllBlock = ^{
-        
-        if ([strongSelf->_selectArr[2] integerValue]){
-        
-            [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@0];
-            [strongSelf->_intentHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addIntentStoreIntentView.hidden = YES;
-            [strongSelf->_addIntentStoreIntentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_intentHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(0);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }else{
-            
-            [strongSelf->_selectArr replaceObjectAtIndex:2 withObject:@1];
-            [strongSelf->_intentHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-            strongSelf->_addIntentStoreIntentView.hidden = NO;
-            [strongSelf->_addIntentStoreIntentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_intentHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-            }];
-        }
-    };
-    [_scrollView addSubview:_intentHeader];
-    
-    _addIntentStoreIntentView = [[AddIntentStoreIntentView alloc] init];
-    _addIntentStoreIntentView.hidden = YES;
-    _addIntentStoreIntentView.dataDic = _intentDic;
-    _addIntentStoreIntentView.addIntentStoreIntentViewPeriod1Block = ^{
-        
-        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
-        view.dateblock = ^(NSDate *date) {
-            
-            [strongSelf->_intentDic setObject:[[strongSelf->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"min"];
-            strongSelf->_addIntentStoreIntentView.dataDic = strongSelf->_intentDic;
-        };
-        [strongSelf.view addSubview:view];
-    };
-    
-    _addIntentStoreIntentView.addIntentStoreIntentViewPeriod2Block = ^{
-        
-        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
-        view.dateblock = ^(NSDate *date) {
-            
-            [strongSelf->_intentDic setObject:[[strongSelf->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"max"];
-            strongSelf->_addIntentStoreIntentView.dataDic = strongSelf->_intentDic;
-        };
-        [strongSelf.view addSubview:view];
-    };
-    
-    _addIntentStoreIntentView.addIntentStoreIntentViewTimeBlock = ^{
-        
-        DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
-        view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
-        [view.pickerView setCalendar:[NSCalendar currentCalendar]];
-        [view.pickerView setMaximumDate:[NSDate date]];
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        NSDateComponents *comps = [[NSDateComponents alloc] init];
-        [comps setDay:15];//设置最大时间为：当前时间推后10天
-        [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
-        view.dateblock = ^(NSDate *date) {
-            
-            [strongSelf->_intentDic setObject:[strongSelf->_secondFormatter stringFromDate:date] forKey:@"time"];
-            strongSelf->_addIntentStoreIntentView.dataDic = strongSelf->_intentDic;
-        };
-        [strongSelf.view addSubview:view];
-    };
-    
-    _addIntentStoreIntentView.addIntentStoreIntentViewStrBlock = ^(NSString * _Nonnull str, NSInteger idx) {
-        
-        if (idx == 0) {
-            
-            [strongSelf->_intentDic setValue:str forKey:@"code"];
-        }else{
-            
-            [strongSelf->_intentDic setValue:str forKey:@"sincerity"];
-        }
-        strongSelf->_addIntentStoreIntentView.dataDic = strongSelf->_intentDic;
-    };
-    [_scrollView addSubview:_addIntentStoreIntentView];
-    
-#pragma mark -- 附件文件 --
-    _addNumeralFileHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
-    _addNumeralFileHeader.titleL.text = @"附件文件";
-    _addNumeralFileHeader.addBtn.hidden = YES;
-    [_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-    _addNumeralFileHeader.backgroundColor = CLWhiteColor;
-    _addNumeralFileHeader.addNemeralHeaderAllBlock = ^{
-        
-        if ([strongSelf->_selectArr[3] integerValue]){
-
-            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
-            [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
-            strongSelf->_addNumeralFileView.hidden = YES;
-            [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_addNumeralFileHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.height.mas_equalTo(0);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-            }];
-        }else{
-
-            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
-            [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
-            strongSelf->_addNumeralFileView.hidden = NO;
-            [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
-
-                make.left.equalTo(strongSelf->_scrollView).offset(0);
-                make.top.equalTo(strongSelf->_addNumeralFileHeader.mas_bottom).offset(0 *SIZE);
-                make.width.mas_equalTo(SCREEN_Width);
-                make.right.equalTo(strongSelf->_scrollView).offset(0);
-                make.bottom.equalTo(strongSelf->_scrollView.mas_bottom).offset(0);
-            }];
-        }
-    };
-    [_scrollView addSubview:_addNumeralFileHeader];
-
-    _addNumeralFileView = [[AddNumeralFileView alloc] init];
-    _addNumeralFileView.hidden = YES;
-    _addNumeralFileView.dataArr = _imgArr;
-    _addNumeralFileView.addNumeralFileViewAddBlock = ^{
-
-        [ZZQAvatarPicker startSelected:^(UIImage * _Nonnull image) {
-
-            if (image) {
-
-                [strongSelf updateheadimgbyimg:image];
-            }
-        }];
-    };
-    _addNumeralFileView.addNumeralFileViewDeleteBlock = ^(NSInteger idx) {
-
-        [strongSelf->_imgArr removeObjectAtIndex:idx];
-        strongSelf->_addNumeralFileView.dataArr = strongSelf->_imgArr;
-    };
-    _addNumeralFileView.addNumeralFileViewSelectBlock = ^(NSInteger idx) {
-      
-        ChangeFileNameView *view = [[ChangeFileNameView alloc] initWithFrame:strongSelf.view.bounds name:strongSelf->_imgArr[idx][@"name"]];
-        view.changeFileNameViewBlock = ^(NSString * _Nonnull name) {
-          
-            NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:strongSelf->_imgArr[idx]];
-            [tempDic setValue:name forKey:@"name"];
-            [strongSelf->_imgArr replaceObjectAtIndex:idx withObject:tempDic];
-            strongSelf->_addNumeralFileView.dataArr = strongSelf->_imgArr;
-        };
-        [strongSelf.view addSubview:view];
-    };
-    [_scrollView addSubview:_addNumeralFileView];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
+    _table.backgroundColor = CLBackColor;
+    _table.delegate = self;
+    _table.dataSource = self;
+    _table.rowHeight = UITableViewAutomaticDimension;
+    _table.estimatedRowHeight = 100 *SIZE;
+    _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:_table];
     
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _nextBtn.frame = CGRectMake(0, SCREEN_Height - 43 *SIZE - TAB_BAR_MORE, SCREEN_Width, 43 *SIZE + TAB_BAR_MORE);
@@ -636,88 +681,6 @@
     [_nextBtn setBackgroundColor:CLBlueTagColor];
     [self.view addSubview:_nextBtn];
     
-    [self MasonryUI];
-}
-
-- (void)MasonryUI{
-    
-    [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.view).offset(0);
-        make.top.equalTo(self.view).offset(NAVIGATION_BAR_HEIGHT);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE);
-    }];
-    
-    [_roomHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_scrollView).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
-    }];
-    
-    [_addIntentStoreRoomView mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_roomHeader.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.right.equalTo(self->_scrollView).offset(0);
-    }];
-    
-    [_storeHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_addIntentStoreRoomView.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
-    }];
-        
-    [_addIntentStoreInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-    
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_storeHeader.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0 *SIZE);
-        make.right.equalTo(self->_scrollView).offset(0);
-    }];
-    
-    [_intentHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_addIntentStoreInfoView.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
-        make.right.equalTo(self->_scrollView).offset(0);
-    }];
-
-    [_addIntentStoreIntentView mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_intentHeader.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0 *SIZE);
-        make.right.equalTo(self->_scrollView).offset(0);
-    }];
-
-    [_addNumeralFileHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_addIntentStoreIntentView.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(40 *SIZE);
-        make.right.equalTo(self->_scrollView).offset(0);
-    }];
-
-    [_addNumeralFileView mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self->_scrollView).offset(0);
-        make.top.equalTo(self->_addNumeralFileHeader.mas_bottom).offset(0 *SIZE);
-        make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0);
-        make.right.equalTo(self->_scrollView).offset(0);
-        make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
-    }];
 }
 
 @end
