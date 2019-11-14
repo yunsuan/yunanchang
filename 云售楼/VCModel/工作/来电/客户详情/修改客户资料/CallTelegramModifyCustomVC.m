@@ -12,6 +12,7 @@
 #import "BaseHeader.h"
 
 #import "SinglePickView.h"
+#import "DateChooseView.h"
 //#import "AddressChooseView3.h"
 #import "AdressChooseView.h"
 
@@ -31,8 +32,14 @@
     
     NSMutableArray *_approachArr;
     NSMutableArray *_approachArr2;
+    
+    NSDateFormatter *_secondFormatter;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) UILabel *timeL;
+
+@property (nonatomic, strong) DropBtn *timeBtn;
 
 @property (nonatomic, strong) UILabel *customSourceL;
 
@@ -88,6 +95,9 @@
     
     _approachArr = [@[] mutableCopy];
     _approachArr2 = [@[] mutableCopy];
+    
+    _secondFormatter = [[NSDateFormatter alloc] init];
+    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
 }
 
 - (void)PropertyRequestMethod{
@@ -130,6 +140,19 @@
     }];
 }
 
+- (void)ActionTimeBtn:(UIButton *)btn{
+    
+    DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.frame];
+    view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
+    view.dateblock = ^(NSDate *date) {
+        
+        self->_timeBtn.content.text = [self->_secondFormatter stringFromDate:date];
+        self->_timeBtn.placeL.text = @"";
+//        self->_birthBtn.content.text = [self->_formatter stringFromDate:date];
+//        self->_birthBtn.placeL.text = @"";
+    };
+    [self.view addSubview:view];
+}
 
 - (void)ActionTagBtn:(UIButton *)btn{
     
@@ -310,6 +333,25 @@
     header.titleL.text = @"组信息";
     [_scrollView addSubview:header];
     
+    _timeL = [[UILabel alloc] init];
+    _timeL.textColor = CLTitleLabColor;
+//    _timeL.text = @"来电时间：";
+    if ([self.telOrVisit isEqualToString:@"tel"]) {
+        
+        _timeL.text = @"来电时间：";
+    }else{
+        
+        _timeL.text = @"来访时间：";
+    }
+    _timeL.font = [UIFont systemFontOfSize:13 *SIZE];
+    _timeL.adjustsFontSizeToFitWidth = YES;
+    [_scrollView addSubview:_timeL];
+    
+    _timeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+    [_timeBtn addTarget:self action:@selector(ActionTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _timeBtn.content.text = [NSString stringWithFormat:@"%@",_dataDic[@"client_visit_time"]];
+    [_scrollView addSubview:_timeBtn];
+    
 
     NSArray *titleArr = @[@"客户来源：",@"认知途径：",@"来源类型："];
     
@@ -351,7 +393,7 @@
     for (int i = 0; i < 4; i++) {
         
         DropBtn *btn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
-        btn.placeL.text = @"请选择证件类型";
+//        btn.placeL.text = @"请选择证件类型";
         btn.tag = i;
         [btn addTarget:self action:@selector(ActionTagBtn:) forControlEvents:UIControlEventTouchUpInside];
         switch (i) {
@@ -359,6 +401,7 @@
             {
                 
                 _customSourceBtn = btn;
+                _customSourceBtn.placeL.text = @"请选择客户来源";
                 if ([_dataDic[@"province_name"] length]) {
                     
                     _customSourceBtn.content.text = [NSString stringWithFormat:@"%@%@%@",_dataDic[@"province_name"],_dataDic[@"city_name"],_dataDic[@"district_name"]];
@@ -371,6 +414,7 @@
             {
                 
                 _approachBtn = btn;
+                _approachBtn.placeL.text = @"请选择客户认知途径";
                 if ([_dataDic[@"listen_way"] length]){
                     
                     _approachBtn.content.text = _dataDic[@"listen_way"];
@@ -469,18 +513,33 @@
         make.height.mas_equalTo(SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE);
     }];
     
-    
-    [_customSourceL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
         make.top.equalTo(self->_scrollView).offset(56 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_customSourceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_scrollView).offset(46 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    
+    [_customSourceL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_timeBtn.mas_bottom).offset(31 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_customSourceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_timeBtn.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];

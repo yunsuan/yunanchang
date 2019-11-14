@@ -17,6 +17,8 @@
 #import "UserModelArchiver.h"
 //#import "PowerMannerger.h"
 
+#import "ChangeFileNameView.h"
+
 
 #import "NetConfig.h"
 #import "BaseRequest.h"
@@ -32,11 +34,14 @@
 #import "GZQGifHeader.h"
 #import "GZQGifFooter.h"
 #import "UIImageView+WebCache.h"
+#import "ZZQAvatarPicker.h"
 
 
-#define YACversion @"2.1.7"
+#define YACversion @"2.2.1"
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
+
+#define MonthDic @{@"1":@"January",@"2":@"February",@"3":@"March",@"4":@"April",@"5":@"May",@"6":@"June",@"7":@"July",@"8":@"August",@"9":@"Septemper",@"10":@"October",@"11":@"November",@"12":@"December"}
 
 
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
@@ -83,6 +88,7 @@
 #define CLLoginBtnColor   COLOR(0x1b, 0x80, 0xfe, 1)
 #define CLBlueBtnColor   COLOR(27, 152, 255, 1)
 #define CLBlueTagColor   COLOR(81, 163, 237, 1)
+#define CLBlueTitleColor   COLOR(18, 184, 246, 1)
 #define CLBlueBackColor   COLOR(213, 242, 255, 1)
 #define CLOrangeColor  COLOR(249, 156, 59, 1)
 #define CLYellowColor  COLOR(255, 235, 17, 1)

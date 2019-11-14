@@ -146,6 +146,12 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
 
 - (NSString *)base64DecodeString:(NSString *)string;
 
+- (double)DecimalNumber:(double)num1 num2:(double)num2;
+
+- (double)AddNumber:(double)num1 num2:(double)num2;
+
+- (double)MultiplyingNumber:(double)num1 num2:(double)num2;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -185,7 +185,7 @@
         make.left.equalTo(self.contentView).offset(68 *SIZE);
         make.top.equalTo(self.contentView).offset(21 *SIZE);
         make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_greaterThanOrEqualTo(140 *SIZE);
     }];
     
     [_genderImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -199,7 +199,7 @@
         
         make.left.equalTo(self.contentView).offset(68 *SIZE);
         make.top.equalTo(self->_nameL.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(100 *SIZE);
+        make.width.mas_equalTo(140 *SIZE);
     }];
     
     [_groupL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -211,8 +211,9 @@
     
     [_effectTagL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(205 *SIZE);
+        make.left.equalTo(self.contentView).offset(210 *SIZE);
         make.top.equalTo(self.contentView).offset(20 *SIZE);
+//        make.top.equalTo(self->_nameL.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(33 *SIZE);
         make.height.mas_equalTo(17 *SIZE);
     }];

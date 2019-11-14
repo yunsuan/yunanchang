@@ -54,8 +54,13 @@
     NSMutableArray *_groupArr;
     
     NSDateFormatter *_formatter;
+    NSDateFormatter *_secondFormatter;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) UILabel *timeL;
+
+@property (nonatomic, strong) DropBtn *timeBtn;
 
 @property (nonatomic, strong) UILabel *groupL;
 
@@ -154,6 +159,8 @@
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd"];
+    _secondFormatter = [[NSDateFormatter alloc] init];
+    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     
     _propertyDArr = [@[] mutableCopy];
     
@@ -258,6 +265,20 @@
         _femaleBtn.selected = YES;
         _gender = @"2";
     }
+}
+
+- (void)ActionTimeBtn:(UIButton *)btn{
+    
+    DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.frame];
+    view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
+    view.dateblock = ^(NSDate *date) {
+        
+        self->_timeBtn.content.text = [self->_secondFormatter stringFromDate:date];
+        self->_timeBtn.placeL.text = @"";
+//        self->_birthBtn.content.text = [self->_formatter stringFromDate:date];
+//        self->_birthBtn.placeL.text = @"";
+    };
+    [self.view addSubview:view];
 }
 
 - (void)ActionDropBtn:(UIButton *)btn{
@@ -679,6 +700,7 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_clientArr options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     [allDic setObject:jsonString forKey:@"client_list"];
+    [allDic setObject:_timeBtn.content.text forKey:@"client_visit_time"];
     [allDic setObject:@"1" forKey:@"source"];
     [allDic setObject:@"1" forKey:@"type"];
     [allDic setObject:_approachBtn->str forKey:@"listen_way"];
@@ -881,6 +903,18 @@
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLWhiteColor;
     [self.view addSubview:_scrollView];
+    
+    _timeL = [[UILabel alloc] init];
+    _timeL.textColor = CLTitleLabColor;
+    _timeL.text = @"来电时间：";
+    _timeL.font = [UIFont systemFontOfSize:13 *SIZE];
+    _timeL.adjustsFontSizeToFitWidth = YES;
+    [_scrollView addSubview:_timeL];
+    
+    _timeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+    [_timeBtn addTarget:self action:@selector(ActionTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    _timeBtn.content.text = [_secondFormatter stringFromDate:[NSDate date]];
+    [_scrollView addSubview:_timeBtn];
     
     BaseHeader *header = [[BaseHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     header.titleL.text = @"客户信息";
@@ -1242,17 +1276,32 @@
         make.height.mas_equalTo(SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE);
     }];
     
+    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_scrollView).offset(54 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_scrollView).offset(46 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
     [_groupL mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_scrollView).offset(50 *SIZE);
+        make.top.equalTo(self->_timeBtn.mas_bottom).offset(21 *SIZE);
         make.width.mas_lessThanOrEqualTo(280 *SIZE);
     }];
     
     [_addGroupBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_groupL.mas_right).offset(5 *SIZE);
-        make.top.equalTo(self->_scrollView).offset(46 *SIZE);
+        make.top.equalTo(self->_timeBtn.mas_bottom).offset(17 *SIZE);
         make.width.mas_equalTo(20 *SIZE);
         make.height.mas_equalTo(20 *SIZE);
     }];

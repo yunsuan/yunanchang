@@ -115,7 +115,7 @@
                 if (x > 0) {
                     
                     [tempArr addObject:dataArr[i][@"config_name"]];
-                    [percentArr addObject:[NSString stringWithFormat:@"%.2f",x]];
+                    [percentArr addObject:[NSString stringWithFormat:@"%.4f",x]];
                 }
             }
             _pieChartView.titlesArr = tempArr;
@@ -159,7 +159,7 @@
                 float x = [approachArr[i][@"count"] floatValue] / index;
                 if (x > 0) {
                     
-                    [percentArr addObject:[NSString stringWithFormat:@"%.2f",x]];
+                    [percentArr addObject:[NSString stringWithFormat:@"%.4f",x]];
                 }
             }
             _pieChartView.percentageArr = percentArr;
@@ -201,7 +201,7 @@
                 float x = [propertyArr[i][@"count"] floatValue] / index;
                 if (x > 0) {
                     
-                    [percentArr addObject:[NSString stringWithFormat:@"%.2f",x]];
+                    [percentArr addObject:[NSString stringWithFormat:@"%.4f",x]];
                 }
             }
             _pieChartView.percentageArr = percentArr;

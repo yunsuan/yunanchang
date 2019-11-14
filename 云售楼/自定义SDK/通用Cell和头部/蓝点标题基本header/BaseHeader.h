@@ -16,4 +16,6 @@
 
 @property (nonatomic, strong) UIView *lineView;
 
+- (void)ReMasonryUI;
+
 @end

@@ -8,11 +8,22 @@
 
 #import "MonthCountVC.h"
 
-@interface MonthCountVC ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+#import "TitleRightBtnHeader.h"
+#import "MonthCountHeader.h"
+#import "MonthCountCell.h"
+
+#import "SinglePickView.h"
+
+@interface MonthCountVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
+    NSString *_project_id;
+    
+    NSString *_clientStatus;
+    NSInteger _index;
     
     NSMutableArray *_dataArr;
+    NSMutableArray *_clientArr;
 }
 @property (nonatomic, strong) UIScrollView *scroll;
 
@@ -22,127 +33,168 @@
 
 @implementation MonthCountVC
 
+- (instancetype)initWithProjectId:(NSString *)project_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = project_id;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
-    
 }
 
-
 - (void)initDataSource{
-    
-   
+
+    _index = 0;
+    _clientStatus = @"全部";
+    _dataArr = [@[] mutableCopy];
+    _clientArr = [@[] mutableCopy];
 }
 
 - (void)RequestMethod{
     
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id,@"type":@"1"}];
+    if (![_clientStatus isEqualToString:@"全部"]) {
+        
+        [dic setValue:_clientStatus forKey:@"level"];
+    }
+    [dic setValue:@(_index + 1) forKey:@"type"];
     
+    [BaseRequest GET:ReportSaleMonthCount_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+                
+            [self->_dataArr removeAllObjects];
+            [self->_clientArr removeAllObjects];
+            for (int i = 0; i < [resposeObject[@"data"][@"contract"] count]; i++) {
+                
+                [self->_dataArr addObject:[NSString stringWithFormat:@"%@",resposeObject[@"data"][@"contract"][i][@"count"]]];
+            }
+            
+            for (int i = 0; i < [resposeObject[@"data"][@"client"] count]; i++) {
+                
+                [self->_clientArr addObject:[NSString stringWithFormat:@"%@",resposeObject[@"data"][@"client"][i][@"count"]]];
+            }
+            
+            [self->_table reloadData];
+        }else{
+                
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+                    
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _dataArr.count + 1;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 0) {
-        
-        return 40 *SIZE;
-    }
+    return 250 *SIZE;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    return UITableViewAutomaticDimension;
+    if (section == 0) {
+        
+        TitleRightBtnHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleRightBtnHeader"];
+        if (!header) {
+            
+            header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
+        }
+        
+        header.titleL.text = @"客户统计";
+        header.addBtn.hidden = YES;
+        [header.moreBtn setTitle:_clientStatus forState:UIControlStateNormal];
+        __strong __typeof(&*header)StrongHeader = header;
+        header.titleRightBtnHeaderMoreBlock = ^{
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"param":@"全部",@"id":@"全部"},@{@"param":@"A",@"id":@"A"},@{@"param":@"B",@"id":@"B"},@{@"param":@"C",@"id":@"C"},@{@"param":@"D",@"id":@"D"}]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                self->_clientStatus = MC;
+                [StrongHeader.moreBtn setTitle:MC forState:UIControlStateNormal];
+                [self RequestMethod];
+            };
+            [self.view addSubview:view];
+        };
+        
+        return header;
+    }else{
+        
+        MonthCountHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"MonthCountHeader"];
+        if (!header) {
+            
+            header = [[MonthCountHeader alloc] initWithReuseIdentifier:@"MonthCountHeader"];
+        }
+        header.titleL.text = @"销售统计";
+        
+        header.index = _index;
+        header.monthCountHeaderBlock = ^(NSInteger index) {
+          
+            self->_index = index;
+            [self RequestMethod];
+        };
+        return header;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    MonthCountCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MonthCountCell"];
     if (!cell) {
         
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+        cell = [[MonthCountCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-//    if (indexPath.row == 0) {
-//
-//        cell.contentView.backgroundColor = CLBlueBtnColor;
-//        cell.companyL.textColor = CLWhiteColor;
-//        cell.contactL.textColor = CLWhiteColor;
-//        cell.phoneL.textColor = CLWhiteColor;
-//        cell.moneyL.textColor = CLWhiteColor;
-//        cell.numL.textColor = CLWhiteColor;
-//
-//        cell.line1.hidden = YES;
-//        cell.line2.hidden = YES;
-//        cell.line3.hidden = YES;
-//        cell.line4.hidden = YES;
-//
-//
-//        cell.companyL.text = @"乙方公司";
-//        cell.contactL.text = @"乙方负责人";
-//        cell.phoneL.text = @"乙方联系电话";
-//        cell.moneyL.text = @"累计金额（￥）";
-//        cell.numL.text = @"累计笔数";
-//    }else{
-//
-//        cell.contentView.backgroundColor = CLWhiteColor;
-//        cell.companyL.textColor = CL86Color;
-//        cell.contactL.textColor = CL86Color;
-//        cell.phoneL.textColor = CL86Color;
-//        cell.moneyL.textColor = CLBlueBtnColor;
-//        cell.numL.textColor = CL86Color;
-//
-//        cell.line1.hidden = NO;
-//        cell.line2.hidden = NO;
-//        cell.line3.hidden = NO;
-//        cell.line4.hidden = NO;
-//
-//        cell.companyL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_company_name"]];
-//        cell.contactL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_docker"]];
-//        cell.phoneL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_docker_tel"]];
-//        cell.moneyL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"broker_num"]];
-//        cell.numL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"count"]];
-//    }
-//
+    if (indexPath.section == 0) {
+        
+        cell.dataArr = _clientArr;
+    }else{
+        
+        cell.dataArr = _dataArr;
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    if (indexPath.row == 0) {
-//
-//    }else{
-//
-//        CompanyCommissionReportVC *nextVC = [[CompanyCommissionReportVC alloc] initWithRuleId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"rule_id"]] project_id:_project_id];
-//        nextVC.money = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"broker_num"]];;
-//        nextVC.num = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"count"]];
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//    }
+
 }
 
 - (void)initUI{
     
     self.titleLabel.text = @"销售月汇总表";
     
-    _scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT)];
-    _scroll.delegate = self;
-    _scroll.bounces = NO;
-    [_scroll setContentSize:CGSizeMake(120 *SIZE * 3, SCREEN_Height - NAVIGATION_BAR_HEIGHT)];
-    [self.view addSubview:_scroll];
-    
-    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE * 3, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
-    _table.rowHeight = UITableViewAutomaticDimension;
-    _table.estimatedRowHeight = 40 *SIZE;
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
+    _table.sectionHeaderHeight = UITableViewAutomaticDimension;
+    _table.estimatedSectionHeaderHeight = 40 *SIZE;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.backgroundColor = CLBackColor;
     _table.delegate = self;
     _table.dataSource = self;
-    [_scroll addSubview:_table];
-    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
-       
-        [self RequestMethod];
-    }];
+    [self.view addSubview:_table];
+//    _table.mj_header = [GZQGifHeader headerWithRefreshingBlock:^{
+//       
+//        [self RequestMethod];
+//    }];
 }
 @end

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , strong) NSArray *WorkListPower;
 @property (nonatomic , strong) NSDictionary *telCallPower;//来电权限
 @property (nonatomic , strong) NSDictionary *visitPower;//来访权限
+@property (nonatomic , strong) NSDictionary *storePower;//商家权限
 @property (nonatomic , strong) NSArray *ReportListPower;
 @property (nonatomic, strong) NSDictionary *visitReport; //来访报表
 @property (nonatomic, strong) NSDictionary *channelReport; //来访报表

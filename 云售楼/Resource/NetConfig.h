@@ -492,4 +492,89 @@ static NSString *const BrokerRuleCompanyList_URL = @"saleApp/broker/rule/company
 //佣金详情列表
 static NSString *const BrokerCompanyList_URL = @"saleApp/broker/company/list";
 
+//成交客户分析表
+static NSString *const ReportClientContractType_URL = @"saleApp/report/client/contract/type";
+
+//资源盘点表
+static NSString *const ReportFormZYPDB_URL = @"sale/app/reportForm/zypdb";
+
+//收款统计表
+static NSString *const ReportFormSKTJB_URL = @"sale/app/reportForm/sktjb";
+
+//销售明细表
+static NSString *const ReportSaleCount_URL = @"saleApp/report/sale/count";
+
+//销售排名表
+static NSString *const ReportSaleSort_URL = @"saleApp/report/sale/sort";
+
+//销售周汇总表
+static NSString *const ReportSaleDateCount_URL = @"saleApp/report/sale/date/count";
+
+//销售月汇总表
+static NSString *const ReportSaleMonthCount_URL = @"saleApp/report/sale/month/count";
+
+//单独获取月度成交统计
+static NSString *const ReportSaleMonthCountContract_URL = @"saleApp/report/sale/month/count/contract";
+
+//来电客户分析表
+static NSString *const ReportSaleClientTelCount_URL = @"saleApp/report/sale/client/tel/count";
+
+#pragma mark === 商家 =====
+//商家列表
+static NSString *const ProjectBusinessGetList_URL = @"saleTradeApp/projectBusiness/getList";
+
+//商家详情
+static NSString *const ProjectBusinessDetail_URL = @"saleTradeApp/projectBusiness/Detail";
+
+//添加商家
+static NSString *const ProjectBusinessAdd_URL = @"saleTradeApp/projectBusiness/add";
+
+//商家信息修改
+static NSString *const ProjectBusinessUpdate_URL = @"saleTradeApp/projectBusiness/update";
+
+//商家信息电话号码判重
+static NSString *const ProjectBusinessContactTelCheck_URL = @"saleTradeApp/projectBusiness/contactTelCheck";
+
+//商家基础信息设置列表
+static NSString *const ProjectBusinessGetBasicsList_URL = @"saleTradeApp/projectBusiness/getBasicsList";
+
+//商业经营状态列表
+static NSString *const ProjectBusinessGetFormatList_URL = @"saleTradeApp/projectBusiness/getFormatList";
+
+//公司品牌库列表
+static NSString *const ProjectBusinessGetBrandList_URL = @"saleTradeApp/projectBusiness/getBrandList";
+
+//商家认知途径列表
+static NSString *const ProjectBusinessGetSourceList_URL = @"saleTradeApp/projectBusiness/getSourceList";
+
+//商家需求列表
+static NSString *const ProjectBusinessGetNeedList_URL = @"saleTradeApp/projectBusiness/getNeedList";
+
+#pragma mark === 意向商家 =====
+//获取楼栋单元列表
+static NSString *const ShopGetTitleList_URL = @"saleTradeApp/shop/getTitleList";
+
+//房源列表
+static NSString *const ShopGetShopList_URL = @"saleTradeApp/shop/getShopList";
+
+//添加意向商家
+static NSString *const ShopRowAdd_URL = @"saleTradeApp/row/add";
+
+//获取有效流程
+static NSString *const ShopGetProgress_URL = @"saleTradeApp/getProgress";
+
+//房源详情
+static NSString *const ShopGetShopDetail_URL = @"saleTradeApp/shop/getShopDetail";
+
+//意向商家列表
+static NSString *const ShopRowGetTradeRowList_URL = @"saleTradeApp/row/getTradeRowList";
+
+//意向商家详情
+static NSString *const ShopRowGetTradeRowDetail_URL = @"saleTradeApp/row/getTradeRowDetail";
+
+//修改意向商家
+static NSString *const ShopRowUpdateTradeRow_URL = @"saleTradeApp/row/updateTradeRow";
+
+//意向商家作废
+static NSString *const ShopRowTradeRowDel_URL = @"saleTradeApp/row/TradeRowDel";
 #endif /* NetConfig_h */

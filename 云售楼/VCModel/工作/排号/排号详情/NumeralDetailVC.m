@@ -22,6 +22,8 @@
 #import "NumeralChangeNameVC.h"
 #import "NumeralAddMinusPersonVC.h"
 
+#import "FileReadingVC.h"
+
 #import "NumeralDetailInvalidView.h"
 #import "SinglePickView.h"
 
@@ -30,6 +32,7 @@
 
 #import "CallTelegramCustomDetailInfoCell.h"
 #import "InfoDetailCell.h"
+#import "EnclosureCell.h"
 
 @interface NumeralDetailVC ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -122,7 +125,7 @@
                     str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
                 }
             }
-            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"排号号码：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"排号时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"有效期至：%@",self->_dataDic[@"end_time"]]/*,[NSString stringWithFormat:@"归属人：%@",str],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_time"]]*/],@[[NSString stringWithFormat:@"申请流程：：%@",self->_dataDic[@"progressList"][@"progress_name"]],[NSString stringWithFormat:@"流程类型：%@",[self->_dataDic[@"progressList"][@"check_type"] integerValue] == 1 ? @"自由流程":@"固定流程"],[NSString stringWithFormat:@"申请人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_time"]]]]];
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][0][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][0][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][0][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][0][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][0][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][0][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][0][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]],@[[NSString stringWithFormat:@"排号号码：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"排号时间：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"有效期至：%@",self->_dataDic[@"end_time"]]/*,[NSString stringWithFormat:@"归属人：%@",str],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_time"]]*/],@[[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"归属人：%@",self->_dataDic[@"advicer"][0][@"name"]],[NSString stringWithFormat:@"归属时间：%@",self->_dataDic[@"row_name"]]]]];
             if ([self->_dataDic[@"check_state"] integerValue] != 2) {
                 
                 if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
@@ -141,6 +144,7 @@
                     [self->_dataArr addObject:arr];
                 }
             }
+            [self->_dataArr addObject:self->_dataDic[@"enclosure"]];
             [self->_table reloadData];
         }else{
             
@@ -323,6 +327,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    if (section == _dataArr.count - 1) {
+        
+        return 1;
+    }
     return [_dataArr[section] count];
 }
 
@@ -399,6 +407,9 @@
         }else if (section == 3) {
             
             header.titleL.text = @"交易信息";
+        }else if (section == _dataArr.count - 1){
+            
+            header.titleL.text = @"附件信息";
         }else{
             
             header.titleL.text = @"审核信息";
@@ -464,6 +475,26 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
+    }else if(indexPath.section == _dataArr.count - 1){
+        
+        EnclosureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EnclosureCell"];
+        if (!cell) {
+            
+            cell = [[EnclosureCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"EnclosureCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataArr = _dataDic[@"enclosure"];
+        
+        cell.enclosureCellBlock = ^(NSInteger idx) {
+          
+            FileReadingVC *nextVC = [[FileReadingVC alloc] initWithUrlString:_dataDic[@"enclosure"][idx][@"url"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+            NSLog(@"%@",_dataDic[@"enclosure"]);
+        };
+        
+        return cell;
+        
     }else{
     
         CallTelegramCustomDetailInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCustomDetailInfoCell"];
@@ -496,7 +527,12 @@
             };
         }else{
             
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:@""];
+            cell.contentL.attributedText = attribtStr;
             cell.contentL.text = _dataArr[indexPath.section][indexPath.row];
+            cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                
+            };
         }
         return cell;
     }

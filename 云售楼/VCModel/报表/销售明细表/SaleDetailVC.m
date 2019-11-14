@@ -8,11 +8,17 @@
 
 #import "SaleDetailVC.h"
 
+#import "TitleRightBtnHeader.h"
+#import "SaleDetailCell.h"
+
 @interface SaleDetailVC ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
     
+    NSString *_project_id;
     
     NSMutableArray *_dataArr;
+    
+    NSMutableDictionary *_dataDic;
 }
 @property (nonatomic, strong) UIScrollView *scroll;
 
@@ -22,28 +28,82 @@
 
 @implementation SaleDetailVC
 
+- (instancetype)initWithProjectId:(NSString *)project_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = project_id;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self initDataSource];
     [self initUI];
     [self RequestMethod];
-    
 }
 
 
 - (void)initDataSource{
     
-   
+    _dataDic = [@{} mutableCopy];
 }
 
 - (void)RequestMethod{
     
+    [BaseRequest GET:ReportSaleCount_URL parameters:@{@"project_id":_project_id} success:^(id  _Nonnull resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
+            [self->_table reloadData];
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError * _Nonnull error) {
+                
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return _dataArr.count + 1;
+    return 4;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    TitleRightBtnHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TitleRightBtnHeader"];
+    if (!header) {
+        
+        header = [[TitleRightBtnHeader alloc] initWithReuseIdentifier:@"TitleRightBtnHeader"];
+    }
+    
+    if (section == 0) {
+        
+        header.titleL.text = @"客户信息";
+    }else if (section == 1){
+        
+        header.titleL.text = @"排号信息";
+    }else if (section == 2){
+        
+        header.titleL.text = @"订单信息";
+    }else{
+        
+        header.titleL.text = @"合同信息";
+    }
+    header.addBtn.hidden = YES;
+    header.moreBtn.hidden = YES;
+    return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -58,54 +118,152 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    SaleDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SaleDetailCell"];
     if (!cell) {
         
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+        cell = [[SaleDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SaleDetailCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-//    if (indexPath.row == 0) {
-//
-//        cell.contentView.backgroundColor = CLBlueBtnColor;
-//        cell.companyL.textColor = CLWhiteColor;
-//        cell.contactL.textColor = CLWhiteColor;
-//        cell.phoneL.textColor = CLWhiteColor;
-//        cell.moneyL.textColor = CLWhiteColor;
-//        cell.numL.textColor = CLWhiteColor;
-//
+    if (indexPath.row == 0) {
+
+        cell.contentView.backgroundColor = CLBackColor;
+        cell.statisticsL.textColor = CLTitleLabColor;
+        cell.numL1.textColor = CLTitleLabColor;
+        cell.numL2.textColor = CLTitleLabColor;
+        cell.numL3.textColor = CLTitleLabColor;
+        cell.statisticsL.backgroundColor = CLBackColor;
+
 //        cell.line1.hidden = YES;
 //        cell.line2.hidden = YES;
 //        cell.line3.hidden = YES;
 //        cell.line4.hidden = YES;
-//
-//
-//        cell.companyL.text = @"乙方公司";
-//        cell.contactL.text = @"乙方负责人";
-//        cell.phoneL.text = @"乙方联系电话";
-//        cell.moneyL.text = @"累计金额（￥）";
-//        cell.numL.text = @"累计笔数";
-//    }else{
-//
-//        cell.contentView.backgroundColor = CLWhiteColor;
-//        cell.companyL.textColor = CL86Color;
-//        cell.contactL.textColor = CL86Color;
-//        cell.phoneL.textColor = CL86Color;
-//        cell.moneyL.textColor = CLBlueBtnColor;
-//        cell.numL.textColor = CL86Color;
-//
-//        cell.line1.hidden = NO;
-//        cell.line2.hidden = NO;
-//        cell.line3.hidden = NO;
-//        cell.line4.hidden = NO;
-//
-//        cell.companyL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_company_name"]];
-//        cell.contactL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_docker"]];
-//        cell.phoneL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"sell_docker_tel"]];
-//        cell.moneyL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"broker_num"]];
-//        cell.numL.text = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row - 1][@"count"]];
-//    }
-//
+
+        if (indexPath.section == 0) {
+            
+            cell.statisticsL.text = @"客户统计";
+            cell.numL1.text = @"来电个数";
+            cell.numL2.text = @"来访个数";
+            cell.numL3.text = @"回访个数";
+        }else if (indexPath.section == 1){
+            
+            cell.statisticsL.text = @"排号统计";
+            cell.numL1.text = @"排号个数";
+            cell.numL2.text = @"排号金额";
+            cell.numL3.text = @"排号回款";
+        }else if (indexPath.section == 2){
+            
+            cell.statisticsL.text = @"定单统计";
+            cell.numL1.text = @"认购个数";
+            cell.numL2.text = @"认购金额";
+            cell.numL3.text = @"认购回款";
+        }else{
+            
+            cell.statisticsL.text = @"合同统计";
+            cell.numL1.text = @"合同个数";
+            cell.numL2.text = @"合同金额";
+            cell.numL3.text = @"合同回款";
+        }
+    }else{
+
+        cell.contentView.backgroundColor = CLWhiteColor;
+        cell.statisticsL.backgroundColor = CLBlueBtnColor;
+        cell.statisticsL.textColor = CLWhiteColor;
+
+        if (indexPath.row == 1) {
+            
+            cell.statisticsL.text = @"今日新增";
+        }else if (indexPath.row == 2){
+            
+            cell.statisticsL.text = @"本月累计";
+        }else if (indexPath.row == 3){
+            
+            cell.statisticsL.text = @"项目累计";
+        }
+        
+        if (self->_dataDic.count) {
+            
+            if (indexPath.section == 0) {
+                
+                if (indexPath.row == 1) {
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"month"][@"tel"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"month"][@"visit"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"month"][@"reVisit"]];
+                }else if (indexPath.row == 2){
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"today"][@"tel"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"today"][@"visit"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"today"][@"reVisit"]];
+                }else{
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"total"][@"tel"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"total"][@"visit"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"client"][@"total"][@"reVisit"]];
+                }
+            }else if (indexPath.section == 1){
+                
+                if (indexPath.row == 1) {
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"today"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"today"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"today"][@"finance_sum"]];
+                }else if (indexPath.row == 2){
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"month"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"month"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"month"][@"finance_sum"]];
+                }else{
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"total"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"total"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"row"][@"total"][@"finance_sum"]];
+                }
+            }else if (indexPath.section == 2){
+                
+                if (indexPath.row == 1) {
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"today"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"today"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"today"][@"finance_sum"]];
+                }else if (indexPath.row == 2){
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"month"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"month"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"month"][@"finance_sum"]];
+                }else{
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"total"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"total"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"sub"][@"total"][@"finance_sum"]];
+                }
+            }else{
+                
+                if (indexPath.row == 1) {
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"today"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"today"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"today"][@"finance_sum"]];
+                }else if (indexPath.row == 2){
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"month"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"month"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"month"][@"finance_sum"]];
+                }else{
+                    
+                    cell.numL1.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"total"][@"count"]];
+                    cell.numL2.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"total"][@"down_pay"]];
+                    cell.numL3.text = [NSString stringWithFormat:@"%@",self->_dataDic[@"contract"][@"total"][@"finance_sum"]];
+                }
+            }
+        }else{
+            
+            cell.numL1.text = @"0";
+            cell.numL2.text = @"0";
+            cell.numL3.text = @"0";
+        }
+    }
+
     return cell;
 }
 
@@ -135,6 +293,8 @@
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE * 3, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.rowHeight = UITableViewAutomaticDimension;
     _table.estimatedRowHeight = 40 *SIZE;
+    _table.sectionHeaderHeight = UITableViewAutomaticDimension;
+    _table.estimatedSectionHeaderHeight = 40 *SIZE;
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     _table.backgroundColor = CLBackColor;
     _table.delegate = self;

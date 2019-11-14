@@ -425,6 +425,7 @@
         header.callTelegramCustomDetailHeaderEditBlock = ^(NSInteger index) {
             
             CallTelegramModifyCustomVC *vc = [[CallTelegramModifyCustomVC alloc] initWithDataDic:self->_groupInfoDic projectId:self->_project_id info_id:self->_info_id];
+            vc.telOrVisit = @"visit";
             if ([self->_groupInfoDic[@"source"] isEqualToString:@"分配分销"]) {
                 
                 vc.status = @"分配";
@@ -607,7 +608,7 @@
             cell.contentL.attributedText = attribtStr;
             cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
                 
-                NSString *phone = [_infoDataArr[_num][indexPath.row] substringFromIndex:5];
+                NSString *phone = [[_infoDataArr[_num][indexPath.row] substringFromIndex:5] componentsSeparatedByString:@","][0];
                 if (phone.length) {
                     
                     //获取目标号码字符串,转换成URL
@@ -622,7 +623,12 @@
             //            cell.contentL.text = ;
         }else{
             
+            NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc] initWithString:@""];
+            cell.contentL.attributedText = attribtStr;
             cell.contentL.text = _infoDataArr[_num][indexPath.row];
+            cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
+                
+            };
         }
         
         cell.callTelegramCustomDetailInfoCellEditBlock = ^{

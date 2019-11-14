@@ -7,6 +7,8 @@
 //
 
 #import "ReportVC.h"
+
+#import "CallCustomReportVC.h"
 #import "VisitCustomReportVC.h"
 #import "ChannelAnalysisVC.h"
 #import "CommissionReportVC.h"
@@ -17,6 +19,7 @@
 #import "MonthCountVC.h"
 #import "WeekCountVC.h"
 #import "ResourcesAuditVC.h"
+#import "RoomReportVC.h"
 
 #import "PowerMannerger.h"
 #import "SinglePickView.h"
@@ -62,8 +65,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
-    _titleArr = @[@"来访客户分析表",@"渠道分析表",@"佣金统计表",@"成交客户分析表",@"销售明细表",@"资源盘点表",@"销售排名表",@"收款统计表",@"销售周汇总表",@"销售月汇总表"];
-    _imgArr = @[@"report_visit",@"report_channel",@"report_commission",@"chengjiapfenxi",@"xiangmuhuizong",@"ziyuanpandian",@"xiaoshoupaiming",@"shoukuantongji",@"zhouhuixong",@"yuehuizong"];
+    _titleArr = @[@"来电客户分析表",@"来访客户分析表",@"渠道分析表",@"佣金统计表",@"成交客户分析表",@"销售明细表",@"资源盘点表",@"销售排名表",@"收款统计表",@"销售周汇总表",@"销售月汇总表",@"房源"];
+    _imgArr = @[@"report_visit",@"report_visit",@"report_channel",@"report_commission",@"chengjiapfenxi",@"xiangmuhuizong",@"ziyuanpandian",@"xiaoshoupaiming",@"shoukuantongji",@"zhouhuixong",@"yuehuizong",@"yuehuizong"];
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].ReportListPower;
 }
@@ -184,52 +187,59 @@
     
     if (indexPath.row == 0) {
         
+        CallCustomReportVC *nextVC = [[CallCustomReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.row == 1) {
+        
         VisitCustomReportVC *nextVC = [[VisitCustomReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 1){
+    }else if(indexPath.row == 2){
         
         ChannelAnalysisVC *nextVC = [[ChannelAnalysisVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         nextVC.status = @"1";
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 2){
+    }else if(indexPath.row == 3){
         
         CommissionReportVC *nextVC = [[CommissionReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if(indexPath.row == 3){
-        
-        DealCustomerReportVC *nextVC = [[DealCustomerReportVC alloc] init];
-//        nextVC.status = @"1";
-        [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 4){
         
-        SaleDetailVC *nextVC = [[SaleDetailVC alloc] init];
-        //        nextVC.status = @"1";
-                [self.navigationController pushViewController:nextVC animated:YES];
+        DealCustomerReportVC *nextVC = [[DealCustomerReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+//        nextVC.status = @"1";
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 5){
         
-       ResourcesAuditVC *nextVC = [[ResourcesAuditVC alloc] init];
+        SaleDetailVC *nextVC = [[SaleDetailVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
-                [self.navigationController pushViewController:nextVC animated:YES];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 6){
         
-       SaleRankVC *nextVC = [[SaleRankVC alloc] init];
+        ResourcesAuditVC *nextVC = [[ResourcesAuditVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
-                [self.navigationController pushViewController:nextVC animated:YES];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 7){
         
-       ReceiptCountVC *nextVC = [[ReceiptCountVC alloc] init];
-        //        nextVC.status = @"1";
-                [self.navigationController pushViewController:nextVC animated:YES];
+        SaleRankVC *nextVC = [[SaleRankVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else if(indexPath.row == 8){
         
-        WeekCountVC *nextVC = [[WeekCountVC alloc] init];
+       ReceiptCountVC *nextVC = [[ReceiptCountVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
         //        nextVC.status = @"1";
                 [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 9){
+        
+        WeekCountVC *nextVC = [[WeekCountVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        //        nextVC.status = @"1";
+                [self.navigationController pushViewController:nextVC animated:YES];
+    }else if(indexPath.row == 10){
+        
+        MonthCountVC *nextVC = [[MonthCountVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"]];
+        //        nextVC.status = @"1";
+        [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
-        MonthCountVC *nextVC = [[MonthCountVC alloc] init];
-        //        nextVC.status = @"1";
-                [self.navigationController pushViewController:nextVC animated:YES];
+        RoomReportVC *nextVC = [[RoomReportVC alloc] init];
+        [self.navigationController pushViewController:nextVC animated:YES];
     }
 }
 

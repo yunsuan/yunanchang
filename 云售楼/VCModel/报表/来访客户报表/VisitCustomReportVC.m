@@ -218,6 +218,9 @@
                 
                 cell.percentL.text = [NSString stringWithFormat:@"占比：%.2f%@",[_dataDic[@"basic"][@"auto_visit"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue]) * 100,@"%"];
             }
+            cell.titleL.textColor = CLBlueTitleColor;
+            cell.numL.textColor = CLBlueTitleColor;
+            cell.percentL.textColor = CLBlueTitleColor;
         }else if (indexPath.row == 1){
             
             cell.titleL.text = @"渠道分销";
@@ -229,6 +232,10 @@
                 
                 cell.percentL.text = [NSString stringWithFormat:@"占比：%.2f%@",[_dataDic[@"basic"][@"company"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue]) * 100,@"%"];
             }
+            
+            cell.titleL.textColor = CLTitleLabColor;
+            cell.numL.textColor = CLTitleLabColor;
+            cell.percentL.textColor = CLTitleLabColor;
         }else{
             
             cell.titleL.text = @"全民营销";
@@ -240,6 +247,10 @@
                 
                 cell.percentL.text = [NSString stringWithFormat:@"占比：%.2f%@",[_dataDic[@"basic"][@"person"] floatValue] / ([_dataDic[@"basic"][@"auto_visit"] floatValue] + [_dataDic[@"basic"][@"company"] floatValue] + [_dataDic[@"basic"][@"person"] floatValue]) * 100,@"%"];
             }
+            
+            cell.titleL.textColor = CLTitleLabColor;
+            cell.numL.textColor = CLTitleLabColor;
+            cell.percentL.textColor = CLTitleLabColor;
         }
     }else{
         
@@ -257,6 +268,10 @@
             
             cell.percentL.text = [NSString stringWithFormat:@"占比：%.2f%@",[_dataDic[@"property"][indexPath.row][@"count"] floatValue] / _percent * 100,@"%"];
         }
+        
+        cell.titleL.textColor = CLBlueTitleColor;
+        cell.numL.textColor = CLBlueTitleColor;
+        cell.percentL.textColor = CLBlueTitleColor;
     }
     
     return cell;

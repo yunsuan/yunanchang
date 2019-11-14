@@ -22,6 +22,10 @@
 #import "OrderVC.h"
 #import "SignVC.h"
 #import "QueryPhoneVC.h"
+#import "StoreVC.h"
+#import "IntentStoreVC.h"
+#import "OrderRentVC.h"
+#import "SignRentVC.h"
 
 #import "SinglePickView.h"
 
@@ -48,6 +52,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    if ([[UserModel defaultModel].projectinfo count]) {
+        
+        _table.hidden = NO;
+    }else{
+        
+        _table.hidden = YES;
+    }
 }
 
 - (void)viewDidLoad {
@@ -64,8 +75,8 @@
     
     if ([UserModel defaultModel].agent_company_info_id) {
         
-        _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational",@"icon_phone"];
-        _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"定单",@"签约",@"收款",@"人事",@"轮岗",@"号码查询"];
+        _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational",@"sjmerchant_1",@"sjmerchant_1",@"sjmerchant_1",@"sjmerchant_1",@"icon_phone"];
+        _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"定单",@"签约",@"收款",@"人事",@"轮岗",@"商家",@"意向商家",@"定租",@"签租",@"号码查询"];
     }
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].WorkListPower;
@@ -153,6 +164,7 @@
         
         [_powerArr replaceObjectAtIndex:9 withObject:[NSString stringWithFormat:@"当前A位：%@",data[@"duty"][@"current"]]];
     }
+    [_powerArr replaceObjectAtIndex:10 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"business"][@"today"],data[@"business"][@"total"],data[@"business"][@"wait"]]];
     [_table reloadData];
 }
 
@@ -291,11 +303,29 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 10){
         
+        StoreVC *nextVC = [[StoreVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
+        nextVC.powerDic = [PowerModel defaultModel].storePower;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.row == 11){
+        
+        IntentStoreVC *nextVC = [[IntentStoreVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
+        nextVC.powerDic = [PowerModel defaultModel].storePower;
+        nextVC.projectName = [UserModel defaultModel].projectinfo[@"project_name"];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.row == 12){
+        
+        OrderRentVC *nextVC = [[OrderRentVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
+        nextVC.powerDic = [PowerModel defaultModel].storePower;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.row == 13){
+        
+        SignRentVC *nextVC = [[SignRentVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
+        nextVC.powerDic = [PowerModel defaultModel].storePower;
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else{
+        
         QueryPhoneVC *nextVC = [[QueryPhoneVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
-    }
-    else{
-        
 //        NumeralVC *nextVC = [[NumeralVC alloc] init];
 //        [self.navigationController pushViewController:nextVC animated:YES];
 //        AuditTaskVC *nextVC = [[AuditTaskVC alloc] init];
