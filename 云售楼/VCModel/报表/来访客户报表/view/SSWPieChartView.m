@@ -125,7 +125,10 @@
         layer.lineJoin = kCALineJoinRound;
         layer.lineCap = kCALineCapRound;
         layer.fillColor = [UIColor clearColor].CGColor;
-        [self.layer addSublayer:layer];
+        if ([self.percentageArr[i] floatValue]) {
+            
+            [self.layer addSublayer:layer];
+        }
         
         UIBezierPath  *linePath = [UIBezierPath bezierPath];
         UILabel  *titleLab = [[UILabel alloc]init];
@@ -133,7 +136,10 @@
         titleLab.text = [NSString stringWithFormat:@"%@%.2f%%",self.titlesArr[i],[self.percentageArr[i] floatValue]*100];
         titleLab.adjustsFontSizeToFitWidth = YES;
         titleLab.textColor = self.colorsArr[i % 10];
-        [self addSubview:titleLab];
+        if ([self.percentageArr[i] floatValue]) {
+            
+            [self addSubview:titleLab];
+        }
         
         [self.polyLineLayerArr addObject:layer];//将折线layer添加到折线数组中
         [self.titleLabArr addObject:titleLab];//将标题lab添加到标题数组中
