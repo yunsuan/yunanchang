@@ -61,16 +61,16 @@
     
     if (indexPath.row == 0) {
         
-        cell.contentL.text = [NSString stringWithFormat:@"费项名称：%@",self.dataArr[indexPath.section][@"receive_type_list"]];
+        cell.contentL.text = [NSString stringWithFormat:@"费项名称：%@",self.dataArr[indexPath.section][@"type"]];
     }else if (indexPath.row == 1){
         
-        cell.contentL.text = [NSString stringWithFormat:@"收款方式：%@",self.dataArr[indexPath.section][@""]];
+        cell.contentL.text = [NSString stringWithFormat:@"收款方式：%@",self.dataArr[indexPath.section][@"receive_type_list"]];
     }else if (indexPath.row == 2){
         
         cell.contentL.text = [NSString stringWithFormat:@"收款日期：%@",self.dataArr[indexPath.section][@"receive_time"]];
     }else if (indexPath.row == 3){
         
-        cell.contentL.text = [NSString stringWithFormat:@"收款金额：%@",self.dataArr[indexPath.section][@"receive_num_tota"]];
+        cell.contentL.text = [NSString stringWithFormat:@"收款金额：%@元",self.dataArr[indexPath.section][@"receive_num_total"]];
     }else{
         
         cell.contentL.text = [NSString stringWithFormat:@"收款人：%@",self.dataArr[indexPath.section][@"sign_agent_name"]];

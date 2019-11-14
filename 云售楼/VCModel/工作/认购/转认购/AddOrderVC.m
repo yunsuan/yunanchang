@@ -809,6 +809,7 @@
     };
     [_scrollView addSubview:_addNumeralPersonView];
     
+#pragma mark -- 房源信息 --
     _roomHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _roomHeader.titleL.text = @"房源信息";
     _roomHeader.addBtn.hidden = YES;
@@ -903,6 +904,7 @@
     };
     [_scrollView addSubview:_addOrderRoomView];
     
+#pragma mark -- 定单信息 --
     _orderHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _orderHeader.titleL.text = @"定单信息";
     _orderHeader.addBtn.hidden = YES;

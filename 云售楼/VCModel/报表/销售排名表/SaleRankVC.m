@@ -158,7 +158,7 @@
     
     if (section == 0) {
         
-        header.titleL.text = @"按来单统计";
+        header.titleL.text = @"按来电统计";
     }else if (section == 1){
         
         header.titleL.text = @"按来访统计";

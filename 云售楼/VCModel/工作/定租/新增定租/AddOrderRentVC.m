@@ -458,7 +458,6 @@
             
             cell.addIntentStoreAddCellBlock = ^{
                 
-                [strongSelf->_orderDic setValue:[[strongSelf->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"min"];
                 ShopRoomVC *nextVC = [[ShopRoomVC alloc] init];
                 nextVC.project_id = self->_project_id;
                 nextVC.roomArr = self->_roomArr;

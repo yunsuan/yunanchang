@@ -143,7 +143,7 @@
     
     
     _certArr = [@[] mutableCopy];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0]];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0]];
     _progressArr = [@[] mutableCopy];
     _progressAllArr = [@[] mutableCopy];
     _roleArr = [@[] mutableCopy];
@@ -1129,14 +1129,14 @@
     [_addOrderView.payWayL mas_remakeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(strongSelf->_addOrderView).offset(9 *SIZE);
-        make.top.equalTo(strongSelf->_addOrderView.codeTF.mas_bottom).offset(21 *SIZE);
+        make.top.equalTo(strongSelf->_addOrderView.timeBtn.mas_bottom).offset(21 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_addOrderView.payWayBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(strongSelf->_addOrderView).offset(80 *SIZE);
-        make.top.equalTo(strongSelf->_addOrderView.codeTF.mas_bottom).offset(14 *SIZE);
+        make.top.equalTo(strongSelf->_addOrderView.timeBtn.mas_bottom).offset(14 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -2401,9 +2401,9 @@
     _addNumeralFileHeader.addNemeralHeaderAllBlock = ^{
 
 //        strongSelf->_coll.hidden = YES;
-        if ([strongSelf->_selectArr[3] integerValue]){
+        if ([strongSelf->_selectArr[4] integerValue]){
 
-            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@0];
+            [strongSelf->_selectArr replaceObjectAtIndex:4 withObject:@0];
             [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"展开" forState:UIControlStateNormal];
             strongSelf->_addNumeralFileView.hidden = YES;
             [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -2417,7 +2417,7 @@
             }];
         }else{
 
-            [strongSelf->_selectArr replaceObjectAtIndex:3 withObject:@1];
+            [strongSelf->_selectArr replaceObjectAtIndex:4 withObject:@1];
             [strongSelf->_addNumeralFileHeader.moreBtn setTitle:@"关闭" forState:UIControlStateNormal];
             strongSelf->_addNumeralFileView.hidden = NO;
             [strongSelf->_addNumeralFileView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -2550,7 +2550,7 @@
         make.left.equalTo(self->_scrollView).offset(0);
         make.top.equalTo(self->_processHeader.mas_bottom).offset(0 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
-        make.height.mas_equalTo(0);
+//        make.height.mas_equalTo(0);
         make.right.equalTo(self->_scrollView).offset(0);
 //                make.bottom.equalTo(self->_scrollView.mas_bottom).offset(0);
     }];

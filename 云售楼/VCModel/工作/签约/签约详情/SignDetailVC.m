@@ -26,6 +26,7 @@
 #import "FileReadingVC.h"
 
 #import "PaymentInfoVC.h"
+#import "PayWayProcessVC.h"
 
 
 #import "NumeralDetailInvalidView.h"
@@ -558,7 +559,7 @@
             [cell.moreBtn setTitle:@"查看按揭过程" forState:UIControlStateNormal];
             cell.infoDetailCellBlock = ^{
                 
-                PaymentInfoVC *nextVC = [[PaymentInfoVC alloc] init];
+                PayWayProcessVC *nextVC = [[PayWayProcessVC alloc] init];
                 nextVC.dataArr = self->_dataDic[@"loan"];
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
