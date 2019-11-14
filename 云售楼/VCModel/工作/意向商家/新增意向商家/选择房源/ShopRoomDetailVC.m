@@ -97,7 +97,7 @@
 
 -(void)initInterFace
 {
-    NSArray *arr = @[@"未售",@"已定",@"已售"];
+    NSArray *arr = @[@"未租",@"已定",@"已租"];
     
     
     for (NSUInteger i = 0 ; i<3; i++) {
@@ -590,48 +590,48 @@
         if ([resposeObject[@"code"] integerValue] == 200) {
             NSLog(@"%@",resposeObject);
             self->_fjxx = resposeObject[@"data"][@"shop_list"][0];
-            if (self.status.length) {
-
-                BOOL contain = NO;
-                for (int i = 0; i < self.roomArr.count; i++) {
-                    
-                    if ([self->_fjxx[@"shop_id"] integerValue] == [self.roomArr[i][@"shop_id"] integerValue]) {
-                        
-                        contain = YES;
-                        break;
-                    }
-                }
-                if (contain) {
-                    
-                    [self showContent:@"已选择该房间"];
-                }else{
-                    
-                    self.shopRoomDetailVCBlock(self->_fjxx,[NSString stringWithFormat:@"%@",resposeObject[@"data"][@"charge_company_id"]]);
-                    for (UIViewController *vc in self.navigationController.viewControllers) {
-
-                        if ([vc isKindOfClass:[AddIntentStoreVC class]]) {
-
-                            [self.navigationController popToViewController:vc animated:YES];
-                        }
-                        if ([vc isKindOfClass:[ModifyIntentStoreVC class]]) {
-
-                            [self.navigationController popToViewController:vc animated:YES];
-                        }
-                        if ([vc isKindOfClass:[AddOrderRentVC class]]) {
-
-                            [self.navigationController popToViewController:vc animated:YES];
-                        }
-                        if ([vc isKindOfClass:[AddSignRentVC class]]) {
-
-                            [self.navigationController popToViewController:vc animated:YES];
-                        }
-                    }
-                }
-            }else{
+//            if (self.status.length) {
+//
+//                BOOL contain = NO;
+//                for (int i = 0; i < self.roomArr.count; i++) {
+//
+//                    if ([self->_fjxx[@"shop_id"] integerValue] == [self.roomArr[i][@"shop_id"] integerValue]) {
+//
+//                        contain = YES;
+//                        break;
+//                    }
+//                }
+//                if (contain) {
+//
+//                    [self showContent:@"已选择该房间"];
+//                }else{
+//
+//                    self.shopRoomDetailVCBlock(self->_fjxx,[NSString stringWithFormat:@"%@",resposeObject[@"data"][@"charge_company_id"]]);
+//                    for (UIViewController *vc in self.navigationController.viewControllers) {
+//
+//                        if ([vc isKindOfClass:[AddIntentStoreVC class]]) {
+//
+//                            [self.navigationController popToViewController:vc animated:YES];
+//                        }
+//                        if ([vc isKindOfClass:[ModifyIntentStoreVC class]]) {
+//
+//                            [self.navigationController popToViewController:vc animated:YES];
+//                        }
+//                        if ([vc isKindOfClass:[AddOrderRentVC class]]) {
+//
+//                            [self.navigationController popToViewController:vc animated:YES];
+//                        }
+//                        if ([vc isKindOfClass:[AddSignRentVC class]]) {
+//
+//                            [self.navigationController popToViewController:vc animated:YES];
+//                        }
+//                    }
+//                }
+//            }else{
 
                 [self.view addSubview:self.maskView];
                 [self.view addSubview:self.tanchuanView];
-            }
+//            }
         }
         else{
 

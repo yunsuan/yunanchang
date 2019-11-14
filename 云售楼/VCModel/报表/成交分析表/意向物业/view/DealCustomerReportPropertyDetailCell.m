@@ -69,8 +69,13 @@
             _level = _level * 10;
         }else{
             
-            _unit = _unit / 5;
-            _level = _level * 5;
+            if (_unit < 5) {
+                
+            }else{
+                
+                _unit = _unit / 5;
+                _level = _level * 5;
+            }
         }
     } while (_unit > 10);
     

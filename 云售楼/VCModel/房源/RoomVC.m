@@ -9,7 +9,7 @@
 #import "RoomVC.h"
 #import "PowerMannerger.h"
 
-
+#import "ShopRoomDetailVC.h"
 #import "RoomDetailVC.h"
 #import "CompanyAuthVC.h"
 
@@ -23,6 +23,7 @@
 {
     
     NSMutableArray *_dataArr;
+    NSMutableArray *_shopArr;
     NSArray *_projectArr;
 //    NSString *_info_id;
 //    NSString *_project_id;
@@ -70,7 +71,7 @@
 //    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];
 //    _project_id =[UserModel defaultModel].projectinfo[@"project_id"];
     _dataArr = [@[] mutableCopy];
-
+    _shopArr = [@[] mutableCopy];
 }
 
 - (void)ActionNSNotificationMethod{
@@ -115,6 +116,31 @@
             vc.roomDetailVCBlock = ^(NSDictionary * _Nonnull dic) {
                 
                 self.roomVCBlock(dic);
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+    }];
+}
+
+-(void)postWithUnitId:(NSString *)unitId buildId:(NSString *)buildId;
+{
+    NSDictionary *prameters;
+    prameters = @{@"build_id":buildId,@"unit_id":unitId};
+    
+    
+    [BaseRequest GET:ShopGetShopList_URL parameters:prameters success:^(id  _Nonnull resposeObject) {
+        if ([resposeObject[@"code"] integerValue]== 200) {
+            NSLog(@"%@",resposeObject);
+            ShopRoomDetailVC *vc = [[ShopRoomDetailVC alloc] init];
+            vc.LDinfo = resposeObject[@"data"];
+            vc.LDtitle = self->_ldtitle;
+            vc.status = @"store";
+//            vc.roomArr = self.roomArr;
+            vc.shopRoomDetailVCBlock = ^(NSDictionary * _Nonnull dic, NSString * _Nonnull chargeId) {
+
+//                self.shopRoomVCBlock(dic,chargeId);
             };
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -174,6 +200,22 @@
             
             [self showContent:@"网络错误"];
         }];
+        
+        [BaseRequest GET:ShopGetTitleList_URL parameters:@{@"info_id":[UserModel defaultModel].projectinfo[@"info_id"]} success:^(id  _Nonnull resposeObject) {
+            
+            if ([resposeObject[@"code"] integerValue] == 200) {
+                
+                [self->_shopArr removeAllObjects];
+                self->_shopArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+                [self->_coll reloadData];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        } failure:^(NSError * _Nonnull error) {
+            
+            [self showContent:@"网络错误"];
+        }];
     }
 }
 
@@ -187,12 +229,18 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return _dataArr.count;
+    return _dataArr.count + _shopArr.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return [_dataArr[section][@"buildList"] count];
+    if (section < _dataArr.count) {
+        
+        return [_dataArr[section][@"buildList"] count];
+    }else{
+        
+        return [_shopArr[section - _dataArr.count][@"build"] count];
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
@@ -217,7 +265,14 @@
         
         header.lineView.hidden = YES;
         
-        header.titleL.text = _dataArr[indexPath.section][@"batch_name"];
+        if (indexPath.section < _dataArr.count) {
+            
+            header.titleL.text = [NSString stringWithFormat:@"新房-%@",_dataArr[indexPath.section][@"batch_name"]];
+        }else{
+            
+            header.titleL.text = [NSString stringWithFormat:@"商业-%@",_shopArr[indexPath.section - _dataArr.count][@"batch_name"]];
+        }
+        
         
         return header;
     }else{
@@ -239,7 +294,14 @@
         
         cell = [[RoomCollCell alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width / 4, 145 *SIZE)];
     }
-    cell.titleL.text = _dataArr[indexPath.section][@"buildList"][indexPath.item][@"build_name"];
+    if (indexPath.section < _dataArr.count) {
+        
+        cell.titleL.text = _dataArr[indexPath.section][@"buildList"][indexPath.item][@"build_name"];
+    }else{
+        
+        cell.titleL.text = _shopArr[indexPath.section - _dataArr.count][@"build"][indexPath.item][@"build_name"];
+    }
+    
     //[NSString stringWithFormat:@"%ld号楼",indexPath.item + 1];
     
     return cell;
@@ -248,36 +310,66 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
 
-    NSMutableArray *unitList =_dataArr[indexPath.section][@"buildList"][indexPath.row][@"unitList"];
-    if(unitList.count == 0)
-    {
-        _ldtitle = [NSString stringWithFormat:@"%@-%@",_dataArr[indexPath.section][@"batch_name"],_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"]];
-        [self PostWithType:1 Houseid:_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_id"]];
-    }
-    else{
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"] message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    if (indexPath.section < _dataArr.count) {
         
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSMutableArray *unitList =_dataArr[indexPath.section][@"buildList"][indexPath.row][@"unitList"];
+        if(unitList.count == 0)
+        {
+            _ldtitle = [NSString stringWithFormat:@"%@-%@",_dataArr[indexPath.section][@"batch_name"],_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"]];
+            [self PostWithType:1 Houseid:_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_id"]];
+        }
+        else{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"] message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
             
-        }];
-        
-        for (int i= 0; i<unitList.count; i++) {
-            UIAlertAction *alertaction = [UIAlertAction actionWithTitle:unitList[i][@"unit_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                self->_ldtitle = [NSString stringWithFormat:@"%@-%@-%@",self->_dataArr[indexPath.section][@"batch_name"],self->_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"],unitList[i][@"unit_name"]];
-                [self PostWithType:2 Houseid:unitList[i][@"unit_id"]];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
-               [alert addAction:alertaction];
-        }
-        
-        [alert addAction:cancel];
-        [self.navigationController presentViewController:alert animated:YES completion:^{
             
-        }];
+            for (int i= 0; i<unitList.count; i++) {
+                UIAlertAction *alertaction = [UIAlertAction actionWithTitle:unitList[i][@"unit_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    self->_ldtitle = [NSString stringWithFormat:@"%@-%@-%@",self->_dataArr[indexPath.section][@"batch_name"],self->_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_name"],unitList[i][@"unit_name"]];
+                    [self PostWithType:2 Houseid:unitList[i][@"unit_id"]];
+                    
+                }];
+                   [alert addAction:alertaction];
+            }
+            
+            [alert addAction:cancel];
+            [self.navigationController presentViewController:alert animated:YES completion:^{
+                
+            }];
+        }
+    }else{
+        
+        NSMutableArray *unitList = _shopArr[indexPath.section - _dataArr.count][@"build"][indexPath.row][@"unitList"];
+            if(unitList.count == 0)
+            {
+                _ldtitle = [NSString stringWithFormat:@"%@-%@",_shopArr[indexPath.section - _dataArr.count][@"batch_name"],_shopArr[indexPath.section - _dataArr.count][@"build"][indexPath.row][@"build_name"]];
+                
+                [self postWithUnitId:@"0" buildId:[NSString stringWithFormat:@"%@",self->_shopArr[indexPath.section - _dataArr.count][@"build"][indexPath.row][@"build_id"]]];
+        //        [self PostWithType:1 Houseid:_dataArr[indexPath.section][@"buildList"][indexPath.row][@"build_id"]];
+            }
+            else{
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:_shopArr[indexPath.section - _dataArr.count][@"buildList"][indexPath.row][@"build_name"] message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                
+                for (int i= 0; i<unitList.count; i++) {
+                    UIAlertAction *alertaction = [UIAlertAction actionWithTitle:unitList[i][@"unit_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        self->_ldtitle = [NSString stringWithFormat:@"%@-%@-%@",self->_shopArr[indexPath.section - self->_dataArr.count][@"batch_name"],self->_shopArr[indexPath.section - self->_dataArr.count][@"build"][indexPath.row][@"build_name"],unitList[i][@"unit_name"]];
+                        [self postWithUnitId:[NSString stringWithFormat:@"%@",unitList[i][@"unit_id"]] buildId:[NSString stringWithFormat:@"%@",self->_shopArr[indexPath.section - self->_dataArr.count][@"build"][indexPath.row][@"build_id"]]];
+                    }];
+                       [alert addAction:alertaction];
+                }
+                
+                [alert addAction:cancel];
+                [self.navigationController presentViewController:alert animated:YES completion:^{
+                    
+                }];
+            }
     }
-    
-
-
 }
 
 - (void)initUI{
