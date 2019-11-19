@@ -25,8 +25,8 @@
     
     NSMutableArray *_dataArr;
     NSArray *_projectArr;
-//    NSString *_info_id;
-//    NSString *_project_id;
+    NSString *_info_id;
+    NSString *_project_id;
     NSString *_ldtitle;
 
 }
@@ -42,6 +42,17 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
+}
+
+- (instancetype)initWithProjectId:(NSString *)projectId info_id:(nonnull NSString *)info_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = projectId;
+        _info_id = info_id;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -100,10 +111,11 @@
     [BaseRequest GET:ProjectHouseGetDetail_URL parameters:prameters success:^(id  _Nonnull resposeObject) {
         if ([resposeObject[@"code"] integerValue]== 200) {
             NSLog(@"%@",resposeObject);
-            RoomDetailVC *vc = [[RoomDetailVC alloc] init];
+            RoomDetailVC *vc = [[RoomDetailVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
             vc.LDinfo = resposeObject[@"data"];
             vc.LDtitle = self->_ldtitle;
 //            vc.status = self.status;
+            vc.statusStr = @"report";
             vc.roomDetailVCBlock = ^(NSDictionary * _Nonnull dic) {
                 
 //                self.roomVCBlock(dic);
@@ -267,9 +279,6 @@
             
         }];
     }
-    
-
-
 }
 
 - (void)initUI{

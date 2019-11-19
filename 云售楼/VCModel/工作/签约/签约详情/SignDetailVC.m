@@ -45,6 +45,8 @@
     
     NSString *_sub_id;
     
+    NSString *_house_id;
+    
     NSArray *_bankArr;
     
     NSMutableDictionary *_dataDic;
@@ -67,6 +69,17 @@
     }
     return self;
 }
+
+- (instancetype)initWithHouseId:(NSString *)house_id
+{
+    self = [super init];
+    if (self) {
+        
+        _house_id = house_id;
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -103,7 +116,16 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:ProjectHouseGetProjectContractDetail_URL parameters:@{@"contract_id":_sub_id} success:^(id  _Nonnull resposeObject) {
+    
+    NSDictionary *dic;
+    if (_house_id) {
+        
+        dic = @{@"house_id":_house_id};
+    }else{
+        
+        dic = @{@"contract_id":_sub_id};
+    }
+    [BaseRequest GET:ProjectHouseGetProjectContractDetail_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

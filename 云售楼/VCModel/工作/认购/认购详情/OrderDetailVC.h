@@ -16,6 +16,8 @@ typedef void(^OrderDetailVCBlock)(void);
 
 @property (nonatomic, copy) OrderDetailVCBlock orderDetailVCBlock;
 
+@property (nonatomic, strong) NSString *house_id;
+
 @property (nonatomic, strong) NSString *project_id;
 
 @property (nonatomic, strong) NSString *info_id;
@@ -27,6 +29,8 @@ typedef void(^OrderDetailVCBlock)(void);
 @property (nonatomic, strong) NSString *projectName;
 
 - (instancetype)initWithSubId:(NSString *)sub_id;
+
+- (instancetype)initWithHouseId:(NSString *)house_id;
 
 @end
 

@@ -449,6 +449,8 @@
 		0CAC928C22855928006B2B79 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAC928B22855928006B2B79 /* UserInfoModel.m */; };
 		0CAD45682298092A00A5C1D0 /* WorkPhoneConfrimFailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD45672298092A00A5C1D0 /* WorkPhoneConfrimFailCell.m */; };
 		0CAD457422980B9E00A5C1D0 /* WorkRecommendValidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD457222980B9E00A5C1D0 /* WorkRecommendValidCell.m */; };
+		0CB9AE0523827F0C0007E5D3 /* GZQFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB9AE0423827F0C0007E5D3 /* GZQFilterView.m */; };
+		0CB9AE0823828EA60007E5D3 /* GZQFilterView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB9AE0723828EA60007E5D3 /* GZQFilterView2.m */; };
 		0CBD70F5228FF338002A6B48 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CBD70F4228FF338002A6B48 /* region.json */; };
 		0CBD70F8229000D7002A6B48 /* AddressBookCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */; };
 		0CBD711222912FF0002A6B48 /* TaskSignAuditCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBD711122912FF0002A6B48 /* TaskSignAuditCollCell.m */; };
@@ -1327,6 +1329,10 @@
 		0CAD45672298092A00A5C1D0 /* WorkPhoneConfrimFailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkPhoneConfrimFailCell.m; sourceTree = "<group>"; };
 		0CAD457222980B9E00A5C1D0 /* WorkRecommendValidCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkRecommendValidCell.m; sourceTree = "<group>"; };
 		0CAD457322980B9E00A5C1D0 /* WorkRecommendValidCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkRecommendValidCell.h; sourceTree = "<group>"; };
+		0CB9AE0323827F0C0007E5D3 /* GZQFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GZQFilterView.h; sourceTree = "<group>"; };
+		0CB9AE0423827F0C0007E5D3 /* GZQFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GZQFilterView.m; sourceTree = "<group>"; };
+		0CB9AE0623828EA60007E5D3 /* GZQFilterView2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GZQFilterView2.h; sourceTree = "<group>"; };
+		0CB9AE0723828EA60007E5D3 /* GZQFilterView2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GZQFilterView2.m; sourceTree = "<group>"; };
 		0CBD70F4228FF338002A6B48 /* region.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = region.json; sourceTree = "<group>"; };
 		0CBD70F6229000D7002A6B48 /* AddressBookCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookCollCell.h; sourceTree = "<group>"; };
 		0CBD70F7229000D7002A6B48 /* AddressBookCollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookCollCell.m; sourceTree = "<group>"; };
@@ -2599,6 +2605,17 @@
 			path = "房源报表";
 			sourceTree = "<group>";
 		};
+		0C38052B238240AE0075CABD /* 筛选框 */ = {
+			isa = PBXGroup;
+			children = (
+				0CB9AE0323827F0C0007E5D3 /* GZQFilterView.h */,
+				0CB9AE0423827F0C0007E5D3 /* GZQFilterView.m */,
+				0CB9AE0623828EA60007E5D3 /* GZQFilterView2.h */,
+				0CB9AE0723828EA60007E5D3 /* GZQFilterView2.m */,
+			);
+			path = "筛选框";
+			sourceTree = "<group>";
+		};
 		0C3A9108225B20C400F04804 = {
 			isa = PBXGroup;
 			children = (
@@ -2663,6 +2680,7 @@
 		0C3A9147225B211400F04804 /* 自定义SDK */ = {
 			isa = PBXGroup;
 			children = (
+				0C38052B238240AE0075CABD /* 筛选框 */,
 				0C4374C72367DD5600B014D0 /* 修改名称 */,
 				1084D10522969BEC001DB0FD /* 权限管理 */,
 				0CD043E02283C6EC002C8BD3 /* 日历manger */,
@@ -6106,6 +6124,7 @@
 				0C04D7132329E86E003188BE /* CustomTools.m in Sources */,
 				105162512359A5B200E7CA6F /* ReceiptCountVC.m in Sources */,
 				0CEF8AF722646DBD0057F3FD /* CallTelegramCustomDetailHeader.m in Sources */,
+				0CB9AE0523827F0C0007E5D3 /* GZQFilterView.m in Sources */,
 				0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */,
 				0C106987235EA19100CB58A2 /* ZQDataGridComponent.m in Sources */,
 				0C758152235D5AED0029B530 /* SaleRankOrderCell.m in Sources */,
@@ -6198,6 +6217,7 @@
 				10BC3A5622912D7C00DAB2D8 /* AbdicateCell.m in Sources */,
 				0C75815D235DA6960029B530 /* ReceiptCountChartCell.m in Sources */,
 				0C106982235EA19100CB58A2 /* ZQDataGridRightTableViewCell.m in Sources */,
+				0CB9AE0823828EA60007E5D3 /* GZQFilterView2.m in Sources */,
 				0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */,
 				0C743A5B22C1B52200F5CB6B /* CommissReportCell.m in Sources */,
 				0C4D14CD2373AA1100747DE0 /* AddSignRentPropertyVC.m in Sources */,

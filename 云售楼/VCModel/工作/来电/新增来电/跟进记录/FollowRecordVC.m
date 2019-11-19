@@ -170,7 +170,7 @@
                     
                     if ([self.followDic[@"level"] isEqualToString:self->_levelArr[i][@"config_name"]]) {
                         
-                        self->_level = [NSString stringWithFormat:@"%@",self->_levelArr[i][@"config_name"]];
+                        self->_level = [NSString stringWithFormat:@"%@",self->_levelArr[i][@"config_id"]];
                         NSDate *newDate = [[NSDate date] dateByAddingTimeInterval:24 * 60 * 60  * [self->_levelArr[i][@"value_time"] integerValue]];
                         self->_nextTimeBtn.content.text = [NSString stringWithFormat:@"%@", [self->_formatter stringFromDate:newDate]];
                         [self->_levelSelectArr replaceObjectAtIndex:i withObject:@1];
@@ -578,7 +578,7 @@
             
             [_levelSelectArr replaceObjectAtIndex:i withObject:@0];
         }
-        _level = [NSString stringWithFormat:@"%@",_levelArr[indexPath.item][@"config_name"]];
+        _level = [NSString stringWithFormat:@"%@",_levelArr[indexPath.item][@"config_id"]];
         
         NSDate *newDate = [[NSDate date] dateByAddingTimeInterval:24 * 60 * 60  * [_levelArr[indexPath.item][@"value_time"] integerValue]];
         _nextTimeBtn.content.text = [NSString stringWithFormat:@"%@", [_formatter stringFromDate:newDate]];

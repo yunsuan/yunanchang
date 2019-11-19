@@ -238,7 +238,7 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         
-        RoomReportVC *nextVC = [[RoomReportVC alloc] init];
+        RoomReportVC *nextVC = [[RoomReportVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
         [self.navigationController pushViewController:nextVC animated:YES];
     }
 }

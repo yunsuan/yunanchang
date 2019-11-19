@@ -28,6 +28,8 @@ typedef void(^SignDetailVCBlock)(void);
 
 - (instancetype)initWithSubId:(NSString *)sub_id;
 
+- (instancetype)initWithHouseId:(NSString *)house_id;
+
 @end
 
 NS_ASSUME_NONNULL_END

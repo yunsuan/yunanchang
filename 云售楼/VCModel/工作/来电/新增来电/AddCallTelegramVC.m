@@ -742,6 +742,24 @@
     }else if (textField == _mailCodeTF.textField){
         
         return [self validateNumber:string];
+    }else if (textField == _certNumTF.textField){
+            
+        if (string.length > 0) {
+                    
+            //当前输入的字符
+            unichar single = [string characterAtIndex:0];
+            NSLog(@"single = %c",single);
+                  
+            //不能输入.0~9以外的字符
+            if (((single >= '0' && single <= '9') || (single >= 'A' && single <= 'Z') || (single >= 'a' && single <= 'z'))){
+                NSLog(@"您输入的格式不正确");
+                return YES;
+            }else{
+                
+                return NO;
+            }
+        }
+        return YES;
     }else{
         
         return YES;
@@ -832,7 +850,7 @@
         }
         if (textField == _phoneTF.textField || textField == _phoneTF2.textField || textField == _phoneTF3.textField) {
             
-            [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text} success:^(id  _Nonnull resposeObject) {
+            [BaseRequest GET:TelRepeatCheck_URL parameters:@{@"project_id":_project_id,@"tel":textField.text,@"is_client":@"1"} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 400) {
                     

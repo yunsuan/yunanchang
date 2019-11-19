@@ -34,6 +34,8 @@ typedef void(^RoomDetailVCBlock)(NSDictionary *dic);
 
 @property (nonatomic, strong) NSString *status;
 
+- (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
+
 @end
 
 NS_ASSUME_NONNULL_END

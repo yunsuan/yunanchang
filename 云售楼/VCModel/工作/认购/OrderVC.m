@@ -12,6 +12,11 @@
 
 #import "NumeralCell.h"
 
+#import "GZQFilterView2.h"
+
+#import "SinglePickView.h"
+#import "DateChooseView.h"
+
 @interface OrderVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     
@@ -20,11 +25,19 @@
     NSString *_project_id;
     NSString *_info_id;
     
+    NSMutableDictionary *_requestDic;
+    
     NSMutableArray *_dataArr;
+    
+    NSDateFormatter *_dateformatter;
 }
 @property (nonatomic, strong) UITextField *searchBar;
 
 @property (nonatomic, strong) UITableView *table;
+
+@property (nonatomic, strong) UIButton *searchBtn;
+
+@property (nonatomic, strong) GZQFilterView2 *filterView;
 
 @end
 
@@ -53,6 +66,9 @@
     
     _page = 1;
     _dataArr = [@[] mutableCopy];
+    
+    _dateformatter = [[NSDateFormatter alloc] init];
+    [_dateformatter setDateFormat:@"YYYY-MM-dd"];
 }
 
 - (void)RequestMethod{
@@ -63,7 +79,18 @@
         
         [dic setObject:_searchBar.text forKey:@"search"];
     }
-    
+    if (_requestDic.count) {
+        
+        [_requestDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+           
+            if ([key isEqualToString:@"receive_name"]) {
+                
+            }else{
+                
+                [dic setValue:obj forKey:key];
+            }
+        }];
+    }
     _table.mj_footer.state = MJRefreshStateIdle;
     [BaseRequest GET:ProjectHouseGetProjectSublist_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
@@ -98,6 +125,18 @@
     if (![self isEmpty:_searchBar.text]) {
         
         [dic setObject:_searchBar.text forKey:@"search"];
+    }
+    if (_requestDic.count) {
+        
+        [_requestDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+           
+            if ([key isEqualToString:@"receive_name"]) {
+                
+            }else{
+                
+                [dic setValue:obj forKey:key];
+            }
+        }];
     }
     //    _table.mj_footer.state = MJRefreshStateIdle;
     [BaseRequest GET:ProjectHouseGetProjectSublist_URL parameters:dic success:^(id  _Nonnull resposeObject) {
@@ -148,6 +187,24 @@
     [_table reloadData];
 }
 
+- (void)ActionSearchBtn:(UIButton *)btn{
+    
+    if ([_requestDic[@"start_time"] length]) {
+        
+        _filterView.followBeginBtn.content.text = [_requestDic[@"start_time"] componentsSeparatedByString:@" "][0];
+    }
+    if ([_requestDic[@"end_time"] length]) {
+        
+        _filterView.followEndBtn.content.text = [_requestDic[@"end_time"] componentsSeparatedByString:@" "][0];
+    }
+    if ([_requestDic[@"receive_name"] length]) {
+        
+        _filterView.levelBtn.content.text = _requestDic[@"receive_name"];
+        _filterView.levelBtn->str = _requestDic[@"receive_state"];
+    }
+    [self.view addSubview:_filterView];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [self RequestMethod];
@@ -195,7 +252,7 @@
     whiteView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:whiteView];
     
-    _searchBar = [[UITextField alloc] initWithFrame:CGRectMake(10 *SIZE, 3 *SIZE, 340 *SIZE, 33 *SIZE)];
+    _searchBar = [[UITextField alloc] initWithFrame:CGRectMake(10 *SIZE, 3 *SIZE, 300 *SIZE, 33 *SIZE)];
     _searchBar.backgroundColor = CLLineColor;
     _searchBar.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 11 *SIZE, 0)];
     //设置显示模式为永远显示(默认不显示)
@@ -214,6 +271,80 @@
     _searchBar.clearButtonMode = UITextFieldViewModeWhileEditing;
     _searchBar.delegate = self;
     [whiteView addSubview:_searchBar];
+    
+    _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _searchBtn.frame = CGRectMake(315 *SIZE, 0, 40 *SIZE, 40 *SIZE);
+    [_searchBtn setTitle:@"更多" forState:UIControlStateNormal];
+    _searchBtn.titleLabel.font = FONT(13 *SIZE);
+    [_searchBtn setTitleColor:CLTitleLabColor forState:UIControlStateNormal];
+    [_searchBtn addTarget:self action:@selector(ActionSearchBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [whiteView addSubview:_searchBtn];
+    
+    SS(strongSelf);
+    _filterView = [[GZQFilterView2 alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+    _filterView.GzqFilterView2ConfirmBlock = ^(NSDictionary * _Nonnull dic) {
+      
+        self->_requestDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
+        [strongSelf RequestMethod];
+    };
+    _filterView.GzqFilterView2TagBlock = ^(NSInteger idx) {
+      
+        if (idx == 0) {
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+                
+                strongSelf->_filterView.followBeginBtn.content.text = [strongSelf->_dateformatter stringFromDate:date];
+                strongSelf->_filterView.followBeginBtn.placeL.text = @"";
+                
+                if ([[strongSelf->_dateformatter dateFromString:strongSelf->_filterView.followBeginBtn.content.text] compare:[strongSelf->_dateformatter dateFromString:strongSelf->_filterView.followEndBtn.content.text]] == NSOrderedDescending) {
+                    
+                    NSLog(@"1 > 2");
+                    [strongSelf showContent:@"开始时间不能大于结束时间"];
+                    strongSelf->_filterView.followBeginBtn.content.text = @"";
+                    strongSelf->_filterView.followBeginBtn.placeL.text = @"请选择登记开始时间：";
+                }else if ([[strongSelf->_dateformatter dateFromString:strongSelf->_filterView.followBeginBtn.content.text] compare:[strongSelf->_dateformatter dateFromString:strongSelf->_filterView.followEndBtn.content.text]] == NSOrderedAscending){
+                    
+                    NSLog(@"2 > 1");
+                }else{
+                    
+                    NSLog(@"2 = 1");
+                }
+            };
+            [strongSelf.view addSubview:view];
+        }else if (idx == 1){
+            
+            DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
+            view.dateblock = ^(NSDate *date) {
+                
+                strongSelf->_filterView.followEndBtn.content.text = [strongSelf->_dateformatter stringFromDate:date];
+                strongSelf->_filterView.followEndBtn.placeL.text = @"";
+                if ([[strongSelf->_dateformatter dateFromString:strongSelf->_filterView.followBeginBtn.content.text] compare:[strongSelf->_dateformatter dateFromString:strongSelf->_filterView.followEndBtn.content.text]] == NSOrderedAscending) {
+                    
+                    NSLog(@"1 > 2");
+                }else if ([[strongSelf->_dateformatter dateFromString:strongSelf->_filterView.followBeginBtn.content.text] compare:[strongSelf->_dateformatter dateFromString:strongSelf->_filterView.followEndBtn.content.text]] == NSOrderedDescending){
+                    
+                    [strongSelf showContent:@"登记结束时间不能小于开始时间"];
+                    strongSelf->_filterView.followEndBtn.content.text = @"";
+                    strongSelf->_filterView.followEndBtn.placeL.text = @"请选择登记结束时间：";
+                }else{
+                    
+                    
+                }
+            };
+            [strongSelf.view addSubview:view];
+        }else if (idx == 2){
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[@{@"param":@"待付款",@"id":@"2"},@{@"param":@"已付款",@"id":@"1"}]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                strongSelf->_filterView.levelBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+                strongSelf->_filterView.levelBtn->str = [NSString stringWithFormat:@"%@",ID];
+                strongSelf->_filterView.levelBtn.placeL.text = @"";
+            };
+            [strongSelf.view addSubview:view];
+        }
+    };
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 40 *SIZE, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 40 *SIZE) style:UITableViewStylePlain];
     _table.backgroundColor = self.view.backgroundColor;

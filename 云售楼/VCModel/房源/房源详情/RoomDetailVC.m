@@ -8,6 +8,9 @@
 
 #import "RoomDetailVC.h"
 
+#import "OrderDetailVC.h"
+#import "SignDetailVC.h"
+
 #import "AddOrderVC.h"
 #import "AddSignVC.h"
 #import "ModifyOrderVC.h"
@@ -33,6 +36,10 @@
 @interface RoomDetailVC ()<SMCinameSeatScrollViewDelegate,UIScrollViewDelegate>
 
 {
+    
+    NSString *_project_id;
+    NSString *_info_id;
+    
     NSArray *_headarr;
     NSArray *_titlearr;
     NSArray *_contentarr;
@@ -82,6 +89,18 @@
 @end
 
 @implementation RoomDetailVC
+
+
+- (instancetype)initWithProjectId:(NSString *)projectId info_id:(nonnull NSString *)info_id
+{
+    self = [super init];
+    if (self) {
+        
+        _project_id = projectId;
+        _info_id = info_id;
+    }
+    return self;
+}
 
 
 - (void)viewDidLoad {
@@ -307,10 +326,15 @@
                 
 //
 //                }
-                else if ([_LDinfo[row][@"houseList"][column][@"state"] integerValue] ==4)
+                else if ([_LDinfo[row][@"houseList"][column][@"state"] integerValue] == 4 || [_LDinfo[row][@"houseList"][column][@"state"] integerValue] == 3)
                 {
-                    btnSeat.backgroundColor = KyishouColor;
+                    
                     btnSeat.userInteractionEnabled = NO;
+                    btnSeat.backgroundColor = KyishouColor;
+                    if (self.statusStr.length) {
+                        
+                        btnSeat.userInteractionEnabled = YES;
+                    }
                 }
                 else
                 {
@@ -633,6 +657,25 @@
                         
                         [self.navigationController popToViewController:vc animated:YES];
                     }
+                }
+            }else if(self.statusStr.length){
+             
+                if ([self->_LDinfo[btn.tag][@"houseList"][columns][@"state"] integerValue] == 3) {
+                    
+                    OrderDetailVC *nextVC = [[OrderDetailVC alloc] initWithHouseId:self->_LDinfo[btn.tag][@"houseList"][columns][@"house_id"]];//WithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
+                    nextVC.project_id = self->_project_id;
+                    nextVC.info_id = self->_info_id;
+//                    nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
+//                    nextVC.projectName = self.projectName;
+                    [self.navigationController pushViewController:nextVC animated:YES];
+                }else if ([self->_LDinfo[btn.tag][@"houseList"][columns][@"state"] integerValue] == 4){
+                    
+                    SignDetailVC *nextVC = [[SignDetailVC alloc] initWithHouseId:self->_LDinfo[btn.tag][@"houseList"][columns][@"house_id"]];//WithSubId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"contract_id"]]];
+                       nextVC.project_id = self->_project_id;
+                       nextVC.info_id = self->_info_id;
+//                       nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
+//                       nextVC.projectName = self.projectName;
+                       [self.navigationController pushViewController:nextVC animated:YES];
                 }
             }else{
                 
