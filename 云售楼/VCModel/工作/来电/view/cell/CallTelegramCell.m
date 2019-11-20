@@ -23,6 +23,7 @@
     if (self) {
         
         _formatter = [[NSDateFormatter alloc] init];
+        
 //        _formatter set
         [self initUI];
     }
@@ -68,7 +69,8 @@
     _timeL.text = @"";
     NSDate *date = [NSDate date];
     [_formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-    if (dataDic[@"time_limit"]) {
+    
+    if (dataDic[@"time_limit"] && [dataDic[@"time_limit"] isKindOfClass:[NSString class]] && [dataDic[@"time_limit"] length]) {
         
         NSDate *timeLimit = [_formatter dateFromString:dataDic[@"time_limit"]];
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -89,9 +91,10 @@
             _timeL.text = [NSString stringWithFormat:@"跟进已超期：%ld天",0 - delta.day];
             _timeL.textColor = CLOrangeColor;
         }
+    }else{
+        
+        _timeL.text = @" ";
     }
-    
-//    _timeL.text = [NSString stringWithFormat:@"%@",dataDic[@"create_time"]];//@"2018.12.30";
     _contactL.text = dataDic[@"agent_name"]; //@"温嘉琪";
     
     [_nameL mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -99,7 +102,7 @@
 //        make.left.equalTo(self.contentView).offset(84 *SIZE);
 //        make.top.equalTo(self.contentView).offset(21 *SIZE);
         make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(50 *SIZE);
+        make.width.mas_lessThanOrEqualTo(140 *SIZE);
     }];
 }
 
@@ -185,7 +188,7 @@
         make.left.equalTo(self.contentView).offset(68 *SIZE);
         make.top.equalTo(self.contentView).offset(21 *SIZE);
         make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(140 *SIZE);
+        make.width.mas_lessThanOrEqualTo(140 *SIZE);
     }];
     
     [_genderImg mas_makeConstraints:^(MASConstraintMaker *make) {

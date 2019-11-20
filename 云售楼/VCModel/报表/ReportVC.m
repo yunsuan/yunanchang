@@ -66,7 +66,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
     _titleArr = @[@"来电客户分析表",@"来访客户分析表",@"渠道分析表",@"佣金统计表",@"成交客户分析表",@"销售明细表",@"资源盘点表",@"销售排名表",@"收款统计表",@"销售周汇总表",@"销售月汇总表",@"房源"];
-    _imgArr = @[@"report_visit",@"report_visit",@"report_channel",@"report_commission",@"chengjiapfenxi",@"xiangmuhuizong",@"ziyuanpandian",@"xiaoshoupaiming",@"shoukuantongji",@"zhouhuixong",@"yuehuizong",@"yuehuizong"];
+    _imgArr = @[@"report_visit",@"report_visit",@"report_channel",@"report_commission",@"chengjiapfenxi",@"xiangmuhuizong",@"ziyuanpandian",@"xiaoshoupaiming",@"shoukuantongji",@"zhouhuixong",@"yuehuizong",@"xiangmuhuizong"];
     _projectArr = [UserModel defaultModel].project_list;
     _showArr = [PowerModel defaultModel].ReportListPower;
 }

@@ -99,12 +99,16 @@
     [PowerModel defaultModel].WorkListPower = [WorkListPower copy];
     
     //报表
-    NSMutableArray * ReportListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@1] mutableCopy];//,@0,@0] mutableCopy];
+    NSMutableArray * ReportListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];//,@0,@0] mutableCopy];
     if (datadic) {
         NSArray *arr = datadic[@"app_operate"];
         if (arr.count > 2) {
             
             NSDictionary *dic = arr[2];
+            if ([dic[@"report"][@"FYSMXXB"][@"detail"] integerValue] == 1) {
+                
+                [ReportListPower replaceObjectAtIndex:11 withObject:@1];
+            }
             if ([dic[@"report"][@"LDKHFXB"][@"detail"] integerValue] == 1) {
                 
                 [ReportListPower replaceObjectAtIndex:0 withObject:@1];

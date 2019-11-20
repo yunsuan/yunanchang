@@ -37,7 +37,7 @@
 #import "ZZQAvatarPicker.h"
 
 
-#define YACversion @"2.2.1"
+#define YACversion @"2.2.2"
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
 

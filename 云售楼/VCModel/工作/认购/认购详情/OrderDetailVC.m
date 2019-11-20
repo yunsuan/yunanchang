@@ -125,7 +125,7 @@
         dic = @{@"house_id":_house_id};
     }else{
         
-        dic = @{@"contract_id":_sub_id};
+        dic = @{@"sub_id":_sub_id};
     }
     
     [BaseRequest GET:ProjectHouseGetProjectSubDetail_URL parameters:dic success:^(id  _Nonnull resposeObject) {

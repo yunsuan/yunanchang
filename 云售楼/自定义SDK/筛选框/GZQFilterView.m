@@ -50,24 +50,24 @@
 - (void)didClickFinishBtn:(UIButton*)sender{
     
     NSMutableDictionary *dic = [@{} mutableCopy];
-    if (_levelBtn.content.text) {
+    if (_levelBtn.content.text.length) {
         
         [dic setValue:_levelBtn->str forKey:@"level"];
         [dic setValue:_levelBtn.content.text forKey:@"level_name"];
     }
-    if (_regiterBeginBtn.content.text) {
+    if (_regiterBeginBtn.content.text.length) {
         
         [dic setValue:[NSString stringWithFormat:@"%@ 00:00:00",_regiterBeginBtn.content.text] forKey:@"start_time"];
     }
-    if (_regiterEndBtn.content.text) {
+    if (_regiterEndBtn.content.text.length) {
         
         [dic setValue:[NSString stringWithFormat:@"%@ 23:59:59",_regiterEndBtn.content.text] forKey:@"end_time"];
     }
-    if (_followBeginBtn.content.text) {
+    if (_followBeginBtn.content.text.length) {
         
         [dic setValue:[NSString stringWithFormat:@"%@ 00:00:00",_followBeginBtn.content.text] forKey:@"follow_time_start"];
     }
-    if (_followEndBtn.content.text) {
+    if (_followEndBtn.content.text.length) {
         
         [dic setValue:[NSString stringWithFormat:@"%@ 23:59:59",_followEndBtn.content.text] forKey:@"follow_time_end"];
     }

@@ -31,13 +31,13 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@",dataDic[@""]];
-    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@""]];
-    _originL.text = [NSString stringWithFormat:@"计算金额：%@",dataDic[@""]];
+//    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@""]];
+//    _originL.text = [NSString stringWithFormat:@"计算金额：%@",dataDic[@""]];
     _resultL.text = [NSString stringWithFormat:@"实际金额：%@",dataDic[@""]];
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@""]];
     _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@""]];
     _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@""]];
-    _unitL.text = [NSString stringWithFormat:@"单单价：%@",dataDic[@""]];
+//    _unitL.text = [NSString stringWithFormat:@"单单价：%@",dataDic[@""]];
 }
 
 - (void)initUI{
@@ -54,12 +54,12 @@
             [self.contentView addSubview:_timeL];
         }else if (i == 1){
             
-            _rentL = label;
-            [self.contentView addSubview:_rentL];
+//            _rentL = label;
+//            [self.contentView addSubview:_rentL];
         }else if (i == 2){
             
-            _originL = label;
-            [self.contentView addSubview:_originL];
+//            _originL = label;
+//            [self.contentView addSubview:_originL];
         }else if (i == 3){
             
             _resultL = label;
@@ -74,8 +74,8 @@
             [self.contentView addSubview:_payTimeL];
         }else if (i == 6){
             
-            _unitL = label;
-            [self.contentView addSubview:_unitL];
+//            _unitL = label;
+//            [self.contentView addSubview:_unitL];
         }else{
             
             _remindL = label;
@@ -100,38 +100,38 @@
         make.width.mas_equalTo(300 *SIZE);
     }];
     
-    [_rentL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_timeL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(300 *SIZE);
-    }];
-    
-    [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
-    }];
-    
-    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.contentView).offset(170 *SIZE);
-        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
-    }];
+//    [_rentL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(12 *SIZE);
+//        make.top.equalTo(self->_timeL.mas_bottom).offset(12 *SIZE);
+//        make.width.mas_equalTo(300 *SIZE);
+//    }];
+//
+//    [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(12 *SIZE);
+//        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
+//        make.width.mas_equalTo(150 *SIZE);
+//    }];
+//
+//    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(170 *SIZE);
+//        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
+//        make.width.mas_equalTo(150 *SIZE);
+//    }];
     
     [_resultL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_unitL.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_timeL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(330 *SIZE);
     }];
     
     [_payTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(170 *SIZE);
-        make.top.equalTo(self->_unitL.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_timeL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(150 *SIZE);
     }];
     
