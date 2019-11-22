@@ -11,7 +11,10 @@
 #import "AddIntentSelectStoreVC.h"
 #import "AddStoreVC.h"
 #import "AddOrderRentalDetailVC.h"
+#import "AddSignRentPropertyDetailVC.h"
+#import "AddSignRentPropertyVC.h"
 #import "AddSignRentOtherDetailVC.h"
+#import "AddSignRentOtherVC.h"
 
 #import "ShopRoomVC.h"
 #import "AddSignRentPropertyDetailVC.h"
@@ -584,6 +587,23 @@
         
         cell.dataDic = _orderDic;
         
+        cell.remindTimeL.hidden = YES;
+        cell.remindTimeBtn.hidden = YES;
+        [cell.rentTimeBeginL mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.contentView).offset(9 *SIZE);
+            make.top.equalTo(cell.signTimeBtn.mas_bottom).offset(12 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
+        
+        [cell.rentTimeBeginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.contentView).offset(80 *SIZE);
+            make.top.equalTo(cell.signTimeBtn.mas_bottom).offset(9 *SIZE);
+            make.width.mas_equalTo(258 *SIZE);
+            make.height.mas_equalTo(33 *SIZE);
+        }];
+        
         cell.addOrderRentInfoCellStrBlock = ^(NSString * _Nonnull str, NSInteger idx) {
           
             if (idx == 0) {
@@ -716,7 +736,7 @@
         
         cell.addOrderRentPriceCellBlock = ^{
           
-            AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
+            AddSignRentPropertyVC *nextVC = [[AddSignRentPropertyVC alloc] init];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         cell.addOrderRentPriceCellAddBlock = ^{
@@ -724,7 +744,7 @@
             ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
             view.modifyAndAddRentalViewComfirmBtnBlock = ^{
               
-                AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
+                AddSignRentPropertyVC *nextVC = [[AddSignRentPropertyVC alloc] init];
                 [self.navigationController pushViewController:nextVC animated:YES];
             };
             view.modifyAndAddRentalViewBlock = ^{

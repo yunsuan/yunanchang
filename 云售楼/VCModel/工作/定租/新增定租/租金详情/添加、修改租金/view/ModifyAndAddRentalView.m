@@ -157,17 +157,17 @@
         label.font = FONT(13 *SIZE);
         if (i == 0) {
             
-            label.text = @"租金递增周期：";
+            label.text = @"期数：";
         }else{
             
-            label.text = @"租金递增率：";
+            label.text = @"每期租金：";
         }
         [alertView addSubview:label];
     }
     
-    _periodBtn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 20 *SIZE, 180 *SIZE, 33 *SIZE)];
-    [_periodBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [alertView addSubview:_periodBtn];
+//    _periodBtn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 20 *SIZE, 180 *SIZE, 33 *SIZE)];
+//    [_periodBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [alertView addSubview:_periodBtn];
     
     //添加输入框
     _periodTF = [[BorderTextField alloc] initWithFrame:CGRectMake(80 *SIZE, 80 *SIZE, 180 *SIZE, 33 *SIZE)];

@@ -2,8 +2,8 @@
 //  UIView+Extension.m
 //  Moneyhll
 //
-//  Created by 李雪阳 on 16/7/9.
-//  Copyright © 2016年 浙江龙之游旅游开发有限公司. All rights reserved.
+//  Created by 谷治墙 on 16/7/9.
+//  Copyright © 2019 谷治墙. All rights reserved.
 //
 
 #import "UIView+Extension.h"

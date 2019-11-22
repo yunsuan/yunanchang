@@ -1,14 +1,14 @@
 //
-//  AddOrderRentalDetailCell.m
+//  AddSignRentPropertyDetailCell.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/11/5.
+//  Created by 谷治墙 on 2019/11/22.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddOrderRentalDetailCell.h"
+#import "AddSignRentPropertyDetailCell.h"
 
-@implementation AddOrderRentalDetailCell
+@implementation AddSignRentPropertyDetailCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -22,16 +22,16 @@
 
 - (void)ActionEditBtn:(UIButton *)btn{
     
-    if (self.addOrderRentalDetailCellBlock) {
+    if (self.addSignRentPropertyDetailCellBlock) {
         
-        self.addOrderRentalDetailCellBlock(self.tag);
+        self.addSignRentPropertyDetailCellBlock(self.tag);
     }
 }
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@",dataDic[@""]];
-    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@""]];
+//    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@""]];
     _originL.text = [NSString stringWithFormat:@"计算金额：%@",dataDic[@""]];
     _resultL.text = [NSString stringWithFormat:@"实际金额：%@",dataDic[@""]];
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@""]];
@@ -100,17 +100,17 @@
         make.width.mas_equalTo(300 *SIZE);
     }];
     
-    [_rentL mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_timeL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(300 *SIZE);
-    }];
+//    [_rentL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(12 *SIZE);
+//        make.top.equalTo(self->_timeL.mas_bottom).offset(12 *SIZE);
+//        make.width.mas_equalTo(300 *SIZE);
+//    }];
 
     [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
 
         make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_timeL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(150 *SIZE);
     }];
 

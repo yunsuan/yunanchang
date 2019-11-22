@@ -360,7 +360,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(UNNotification *)notification{
     
-    NSDictionary * userInfo = notification.request.content.userInfo;
+//    NSDictionary * userInfo = notification.request.content.userInfo;
     if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //从通知界面直接进入应用
     }else{

@@ -2,8 +2,8 @@
 //  ZZQResourceSheetView.m
 //  ZZQAvatarPicker
 //
-//  Created by 郑志强 on 2018/10/31.
-//  Copyright © 2018 郑志强. All rights reserved.
+//  Created by 谷治墙 on 2018/10/31.
+//  Copyright © 2019 谷治墙. All rights reserved.
 //
 
 #import "ZZQResourceSheetView.h"

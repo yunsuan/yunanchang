@@ -37,6 +37,8 @@
 
 @property (nonatomic, strong) UIImageView *Headerimg;
 
+@property (nonatomic, strong) UIButton *settingbtn;
+
 @end
 
 @implementation LoginVC
@@ -45,6 +47,53 @@
     [super viewDidLoad];
     
     [self initUI];
+}
+
+-(void)action_sever
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"服务器选择" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *cs = [UIAlertAction actionWithTitle:@"测试服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:@"ServerControl.plist"];
+        NSArray *dataarr  = @[@"http://120.27.21.136:2798/"];
+        [dataarr writeToFile:filePath atomically:YES];
+        
+        
+    }];
+    
+    
+//    UIAlertAction *ys = [UIAlertAction actionWithTitle:@"演示服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//        NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:@"ServerControl.plist"];
+//        NSArray *dataarr  = @[@"http://47.106.39.169:2797/"];
+//        [dataarr writeToFile:filePath atomically:YES];
+//    }];
+    
+    UIAlertAction *zs = [UIAlertAction actionWithTitle:@"正式服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:@"ServerControl.plist"];
+        NSArray *dataarr  = @[@"http://47.107.246.94/"];
+        [dataarr writeToFile:filePath atomically:YES];
+    }];
+    
+//    UIAlertAction *new  = [UIAlertAction actionWithTitle:@"新服" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//        NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:@"ServerControl.plist"];
+//        NSArray *dataarr  = @[@"http://47.107.246.94/"];
+//        [dataarr writeToFile:filePath atomically:YES];
+//    }];
+    
+    [alert addAction:cs];
+//    [alert addAction:ys];
+    [alert addAction:zs];
+//    [alert addAction:new];
+    [alert addAction:cancel];
+    [self.navigationController presentViewController:alert animated:YES completion:^{
+        
+    }];
 }
 
 - (void)textFieldDidChange:(UITextField *)textField
@@ -212,6 +261,8 @@
 //    self.line.hidden = YES;
     self.navBackgroundView.hidden = YES;
     
+    [self.view addSubview:self.settingbtn];
+    
     _Headerimg = [[UIImageView alloc]initWithFrame:CGRectMake(130*SIZE, 39 *SIZE + NAVIGATION_BAR_HEIGHT, 100*SIZE, 100*SIZE)];
     _Headerimg.image = [UIImage imageNamed:@"logo_anchang"];
     [self.view addSubview:_Headerimg];
@@ -286,6 +337,18 @@
     _FindPassWordBtn.titleLabel.font = [UIFont systemFontOfSize:14*SIZE];
     [_FindPassWordBtn addTarget:self action:@selector(ActionFindPassBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_FindPassWordBtn];
+}
+
+-(UIButton *)settingbtn
+{
+    if (!_settingbtn) {
+        _settingbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _settingbtn.center = CGPointMake(SCREEN_Width - 25 * SIZE, STATUS_BAR_HEIGHT+20);
+        _settingbtn.bounds = CGRectMake(0, 0, 80 * SIZE, 33 * SIZE);
+        [_settingbtn addTarget:self action:@selector(action_sever) forControlEvents:UIControlEventTouchUpInside];
+        [_settingbtn setImage:[UIImage imageNamed:@"housing_selected"] forState:UIControlStateNormal];
+    }
+    return _settingbtn;
 }
 
 

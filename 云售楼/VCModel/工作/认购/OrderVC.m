@@ -97,6 +97,7 @@
         [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
+            self.titleLabel.text = [NSString stringWithFormat:@"定单(共%@条)",resposeObject[@"data"][@"total"]];
             [self->_dataArr removeAllObjects];
             [self->_table reloadData];
             if ([resposeObject[@"data"][@"data"] count]) {

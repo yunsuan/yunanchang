@@ -2,8 +2,8 @@
 //  ZQDataGridLeftTabelViewCell.h
 //  XPMS
 //
-//  Created by zhiqing on 2019/1/23.
-//  Copyright © 2019 zhenhua.shen. All rights reserved.
+//  Created by 谷治墙 on 2019/1/23.
+//  Copyright © 2019 谷治墙. All rights reserved.
 //
 
 #import "ZQDataGridBaseCell.h"

@@ -37,83 +37,83 @@
 #import "SignSelectWorkerView.h"
 #import "SignFailView.h"
 
-static NSInteger const SALE_MESSAGE_ROW_CHECK=10; //排号审核
-
-static NSInteger const SALE_MESSAGE_SUB_CHECK=11; //定单审核
-
-static NSInteger const SALE_MESSAGE_CONS_CHECK=12;//签约审核
-
-static NSInteger const SALE_MESSAGE_HOUSE_RESERVE=13; //房源预留
-
-static NSInteger const SALE_MESSAGE_HOUSE_PRICE_SET=14; //房源定价
-
-static NSInteger const SALE_MESSAGE_HOUSE_CTL=15; //房源销控
-
-static NSInteger const SALE_MESSAGE_HOUSE_PRICE_FIX=16; //房源调价
-
-static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折扣
-
-static NSInteger const SALE_MESSAGE_ROW_SINCERITY_ADD=21; //排号增加诚意金
-
-static NSInteger const SALE_MESSAGE_ROW_CANCEL=22; //排号退号
-
-static NSInteger const SALE_MESSAGE_ROW_RENAME=23; //排号更名
-
-static NSInteger const SALE_MESSAGE_ROW_ADD_BENEFIT=24; //排号增减权益人
-
-static NSInteger const SALE_MESSAGE_SUB_BREACH=25; //定单挞定
-
-static NSInteger const SALE_MESSAGE_SUB_ADD_DOWNPAY=26; //定单增加定金
-
-static NSInteger const SALE_MESSAGE_SUB_EXCHANGE_BENEFIT=27; //定单主从变更
-
-static NSInteger const SALE_MESSAGE_SUB_CHANGE_PAY_WYA=28; //定单付款方式变更
-
-static NSInteger const SALE_MESSAGE_SUB_CHANGE_TIME_LIMIT=29; //定单按揭年限变更
-
-static NSInteger const SALE_MESSAGE_SUB_CHANGE_DISCOUNT=30; //定单特殊优惠变更
-
-static NSInteger const SALE_MESSAGE_SUB_DELAY_CONS=31; //定单延期签约变更
-
-static NSInteger const SALE_MESSAGE_SUB_CHANGE_BENEFIT=32; //定单增减权益人
-
-static NSInteger const SALE_MESSAGE_SUB_CANCEL=33; //定单退房
-
-static NSInteger const SALE_MESSAGE_SUB_EXCHANGE_HOUSE=34; //定单换房
-
-static NSInteger const SALE_MESSAGE_SUB_RENAME=35; //定单更名
-
-static NSInteger const SALE_MESSAGE_CONS_CHANGE_PAY_WAY=36; //合同付款方式变更
-
-static NSInteger const SALE_MESSAGE_CONS_EXCHANGE_BENEFIT=37; //合同主从变更
-
-static NSInteger const SALE_MESSAGE_CONS_CHANGE_DISCOUNT=38; //合同特殊优惠变更
-
-static NSInteger const SALE_MESSAGE_CONS_DELAY_CONS=39; //合同延期签约变更
-
-static NSInteger const SALE_MESSAGE_CONS_CHANGE_BENEFIT=40; //合同增减权益人
-
-static NSInteger const SALE_MESSAGE_CONS_CANCEL=41; //合同退房
-
-static NSInteger const SALE_MESSAGE_CONS_EXCHANGE_HOUSE=42; //合同换房
-
-static NSInteger const SALE_MESSAGE_CONS_RENAME=43; //合同更名
-
-static NSInteger const SALE_MESSAGE_CONS_DELAY=44; //合同延期
-
-static NSInteger const SALE_MESSAGE_CHANGE_BANK_LIMIT=45; //合同按揭年限变更
-
-static NSInteger const SALE_MESSAGE_CONS_CHANGE_BANK=46; //合同按揭银行变更
-
-static NSInteger const SALE_MESSAGE_CONS_ADD_DOWMPAYMENT=47; //合同增加首付款
-
-static NSInteger const SALE_MESSAGE_CONS_PAY_DELAY=48; //合同付款延期
-
-static NSInteger const TEMPLATE_PUSH_DAY=50; //日报
-
-static NSInteger const TEMPLATE_PUSH_WEEK=51; //周报
-
-static NSInteger const TEMPLATE_PUSH_MONTH=52; //月报
+//static NSInteger const SALE_MESSAGE_ROW_CHECK=10; //排号审核
+//
+//static NSInteger const SALE_MESSAGE_SUB_CHECK=11; //定单审核
+//
+//static NSInteger const SALE_MESSAGE_CONS_CHECK=12;//签约审核
+//
+//static NSInteger const SALE_MESSAGE_HOUSE_RESERVE=13; //房源预留
+//
+//static NSInteger const SALE_MESSAGE_HOUSE_PRICE_SET=14; //房源定价
+//
+//static NSInteger const SALE_MESSAGE_HOUSE_CTL=15; //房源销控
+//
+//static NSInteger const SALE_MESSAGE_HOUSE_PRICE_FIX=16; //房源调价
+//
+//static NSInteger const SALE_MESSAGE_HOUSE_PRICE_DISCOUNT=17; //房源标准折扣
+//
+//static NSInteger const SALE_MESSAGE_ROW_SINCERITY_ADD=21; //排号增加诚意金
+//
+//static NSInteger const SALE_MESSAGE_ROW_CANCEL=22; //排号退号
+//
+//static NSInteger const SALE_MESSAGE_ROW_RENAME=23; //排号更名
+//
+//static NSInteger const SALE_MESSAGE_ROW_ADD_BENEFIT=24; //排号增减权益人
+//
+//static NSInteger const SALE_MESSAGE_SUB_BREACH=25; //定单挞定
+//
+//static NSInteger const SALE_MESSAGE_SUB_ADD_DOWNPAY=26; //定单增加定金
+//
+//static NSInteger const SALE_MESSAGE_SUB_EXCHANGE_BENEFIT=27; //定单主从变更
+//
+//static NSInteger const SALE_MESSAGE_SUB_CHANGE_PAY_WYA=28; //定单付款方式变更
+//
+//static NSInteger const SALE_MESSAGE_SUB_CHANGE_TIME_LIMIT=29; //定单按揭年限变更
+//
+//static NSInteger const SALE_MESSAGE_SUB_CHANGE_DISCOUNT=30; //定单特殊优惠变更
+//
+//static NSInteger const SALE_MESSAGE_SUB_DELAY_CONS=31; //定单延期签约变更
+//
+//static NSInteger const SALE_MESSAGE_SUB_CHANGE_BENEFIT=32; //定单增减权益人
+//
+//static NSInteger const SALE_MESSAGE_SUB_CANCEL=33; //定单退房
+//
+//static NSInteger const SALE_MESSAGE_SUB_EXCHANGE_HOUSE=34; //定单换房
+//
+//static NSInteger const SALE_MESSAGE_SUB_RENAME=35; //定单更名
+//
+//static NSInteger const SALE_MESSAGE_CONS_CHANGE_PAY_WAY=36; //合同付款方式变更
+//
+//static NSInteger const SALE_MESSAGE_CONS_EXCHANGE_BENEFIT=37; //合同主从变更
+//
+//static NSInteger const SALE_MESSAGE_CONS_CHANGE_DISCOUNT=38; //合同特殊优惠变更
+//
+//static NSInteger const SALE_MESSAGE_CONS_DELAY_CONS=39; //合同延期签约变更
+//
+//static NSInteger const SALE_MESSAGE_CONS_CHANGE_BENEFIT=40; //合同增减权益人
+//
+//static NSInteger const SALE_MESSAGE_CONS_CANCEL=41; //合同退房
+//
+//static NSInteger const SALE_MESSAGE_CONS_EXCHANGE_HOUSE=42; //合同换房
+//
+//static NSInteger const SALE_MESSAGE_CONS_RENAME=43; //合同更名
+//
+//static NSInteger const SALE_MESSAGE_CONS_DELAY=44; //合同延期
+//
+//static NSInteger const SALE_MESSAGE_CHANGE_BANK_LIMIT=45; //合同按揭年限变更
+//
+//static NSInteger const SALE_MESSAGE_CONS_CHANGE_BANK=46; //合同按揭银行变更
+//
+//static NSInteger const SALE_MESSAGE_CONS_ADD_DOWMPAYMENT=47; //合同增加首付款
+//
+//static NSInteger const SALE_MESSAGE_CONS_PAY_DELAY=48; //合同付款延期
+//
+//static NSInteger const TEMPLATE_PUSH_DAY=50; //日报
+//
+//static NSInteger const TEMPLATE_PUSH_WEEK=51; //周报
+//
+//static NSInteger const TEMPLATE_PUSH_MONTH=52; //月报
 
 @interface TaskVC ()<UITableViewDelegate,UITableViewDataSource>
 {

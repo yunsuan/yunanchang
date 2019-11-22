@@ -10,7 +10,7 @@
 
 #import "AddSignRentPropertyVC.h"
 
-#import "AddOrderRentalDetailCell.h"
+#import "AddSignRentPropertyDetailCell.h"
 
 @interface AddSignRentPropertyDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -45,10 +45,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    AddOrderRentalDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddOrderRentalDetailCell"];
+    AddSignRentPropertyDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddSignRentPropertyDetailCell"];
     if (!cell) {
         
-        cell = [[AddOrderRentalDetailCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddOrderRentalDetailCell"];
+        cell = [[AddSignRentPropertyDetailCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddSignRentPropertyDetailCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -56,7 +56,7 @@
     
     cell.dataDic = @{};
     
-    cell.addOrderRentalDetailCellBlock = ^(NSInteger idx) {
+    cell.addSignRentPropertyDetailCellBlock = ^(NSInteger idx) {
       
         AddSignRentPropertyVC *nextVC = [[AddSignRentPropertyVC alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];

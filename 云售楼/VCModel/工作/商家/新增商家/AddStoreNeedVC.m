@@ -501,7 +501,7 @@
 #pragma mark --coll代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    NSInteger iNum = collectionView.tag / 100;
+//    NSInteger iNum = collectionView.tag / 100;
     NSInteger jNum = collectionView.tag % 100;
     return [_dataArr[jNum][@"option"] count];
 }
@@ -517,7 +517,7 @@
     
     cell.tag = 1;
     
-    NSInteger iNum = collectionView.tag / 100;
+//    NSInteger iNum = collectionView.tag / 100;
     NSInteger jNum = collectionView.tag % 100;
     [cell setIsSelect:[_selectArr[jNum][indexPath.item] integerValue]];
     cell.titleL.text = _dataArr[jNum][@"option"][indexPath.item][@"option_name"];
@@ -526,7 +526,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSInteger iNum = collectionView.tag / 100;
+//    NSInteger iNum = collectionView.tag / 100;
     NSInteger jNum = collectionView.tag % 100;
     
     NSMutableArray *temp1 = [[NSMutableArray alloc] initWithArray:_selectArr[jNum]];

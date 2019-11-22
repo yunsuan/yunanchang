@@ -48,13 +48,16 @@
     _signTypeBtn->str = dataDic[@"typeId"];
     _signNumTF.textField.text = dataDic[@"signNum"];
     _priceTF.textField.text = dataDic[@"price"];
-    _intentPeriodLBtn1.content.text = dataDic[@"min"];
-    _intentPeriodLBtn2.content.text = dataDic[@"max"];
+    _openTimeBtn.content.text = dataDic[@"openTime"];
+    _signTimeBtn.content.text = dataDic[@"signTime"];
+    _rentTimeBeginBtn.content.text = dataDic[@"rentBeginTime"];
+    _rentTimePeriodTF.textField.text = dataDic[@"rentPeriod"];
     _payWayBtn1.content.text = dataDic[@"payWay"];
     _payWayBtn1->str = dataDic[@"payWayId"];
     _payWayBtn2.content.text = dataDic[@"payWay"];
     _payWayBtn2->str = dataDic[@"payWayId"];
-    _timeBtn.content.text = dataDic[@"remindTime"];
+    _remindTimeBtn.content.text = dataDic[@"remindTime"];
+    _depositTF.textField.text = dataDic[@"deposit"];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -134,8 +137,8 @@
     
     self.backgroundColor = CLWhiteColor;
 
-    NSArray *titleArr = @[@"定租编号：",@"签约人：",@"签约人证件类型：",@"签约人证件号码：",@"定金金额：",@"租期：",@"付款方式：",@"提醒签约时间："];
-    for (int i = 0; i < 8; i++) {
+    NSArray *titleArr = @[@"定租编号：",@"签约人：",@"签约人证件类型：",@"签约人证件号码：",@"定金金额：",@"开业时间：",@"定租时间：",@"提醒签约时间：",@"租期开始时间：",@"租期时长：",@"付款方式：",@"押金金额："];
+    for (int i = 0; i < 12; i++) {
     
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
@@ -207,51 +210,92 @@
                 _priceTF = tf;
                 [self.contentView addSubview:_priceTF];
                 
-                _intentPeriodLBtn1 = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
-                [_intentPeriodLBtn1 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-                _intentPeriodLBtn1.tag = 4;
-                [self.contentView addSubview:_intentPeriodLBtn1];
                 break;
             }
             case 5:
             {
                 
-                _intentPeriodL = label;
-                [self.contentView addSubview:_intentPeriodL];
+                _openTimeL = label;
+                [self.contentView addSubview:_openTimeL];
                 
-                _intentPeriodLBtn2 = [[DropBtn alloc] initWithFrame:_intentPeriodLBtn1.frame];
-                [_intentPeriodLBtn2 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-                _intentPeriodLBtn2.tag = 5;
-                [self.contentView addSubview:_intentPeriodLBtn2];
+                _openTimeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_openTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _openTimeBtn.tag = 5;
+                [self.contentView addSubview:_openTimeBtn];
                 break;
             }
             case 6:
             {
                 
-                _payWayL = label;
-                [self.contentView addSubview:_payWayL];
+                _signTimeL = label;
+                [self.contentView addSubview:_signTimeL];
                 
-                _payWayBtn1 = [[DropBtn alloc] initWithFrame:_intentPeriodLBtn1.frame];
-                [_payWayBtn1 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-                _payWayBtn1.tag = 6;
-                [self.contentView addSubview:_payWayBtn1];
-                
-                _payWayBtn2 = [[DropBtn alloc] initWithFrame:_intentPeriodLBtn1.frame];
-                [_payWayBtn2 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-                _payWayBtn2.tag = 8;
-                [self.contentView addSubview:_payWayBtn2];
+                _signTimeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_signTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _signTimeBtn.tag = 6;
+                [self.contentView addSubview:_signTimeBtn];
                 break;
             }
             case 7:
             {
                 
-                _timeL = label;
-                [self.contentView addSubview:_timeL];
+                _remindTimeL = label;
+                [self.contentView addSubview:_remindTimeL];
                 
-                _timeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
-                [_timeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-                _timeBtn.tag = 7;
-                [self.contentView addSubview:_timeBtn];
+                _remindTimeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_remindTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _remindTimeBtn.tag = 7;
+                [self.contentView addSubview:_remindTimeBtn];
+                break;
+            }
+            case 8:
+            {
+                
+                _rentTimeBeginL = label;
+                [self.contentView addSubview:_rentTimeBeginL];
+                
+                _rentTimeBeginBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_rentTimeBeginBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _rentTimeBeginBtn.tag = 8;
+                [self.contentView addSubview:_rentTimeBeginBtn];
+                break;
+            }
+            case 9:
+            {
+                
+                _rentTimePeriodL = label;
+                [self.contentView addSubview:_rentTimePeriodL];
+                
+                _rentTimePeriodTF = tf;
+                [self.contentView addSubview:_rentTimePeriodTF];
+                
+                break;
+            }
+            case 10:
+            {
+                
+                _payWayL = label;
+                [self.contentView addSubview:_payWayL];
+                
+                _payWayBtn1 = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
+                [_payWayBtn1 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _payWayBtn1.tag = 10;
+                [self.contentView addSubview:_payWayBtn1];
+                
+                _payWayBtn2 = [[DropBtn alloc] initWithFrame:_payWayBtn1.frame];
+                [_payWayBtn2 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _payWayBtn2.tag = 11;
+                [self.contentView addSubview:_payWayBtn2];
+                break;
+            }
+            case 11:
+            {
+                
+                _depositL = label;
+                [self.contentView addSubview:_depositL];
+                
+                _depositTF = tf;
+                [self.contentView addSubview:_depositTF];
                 break;
             }
             default:
@@ -334,40 +378,93 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_intentPeriodL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_openTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(9 *SIZE);
         make.top.equalTo(self->_priceTF.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_intentPeriodLBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_openTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(80 *SIZE);
         make.top.equalTo(self->_priceTF.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(120 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_intentPeriodLBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_signTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(218 *SIZE);
-        make.top.equalTo(self->_priceTF.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(120 *SIZE);
+        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.top.equalTo(self->_openTimeBtn.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_signTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(80 *SIZE);
+        make.top.equalTo(self->_openTimeBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
+    
+    [_remindTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.top.equalTo(self->_signTimeBtn.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_remindTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(80 *SIZE);
+        make.top.equalTo(self->_signTimeBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_rentTimeBeginL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.top.equalTo(self->_remindTimeBtn.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_rentTimeBeginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(80 *SIZE);
+        make.top.equalTo(self->_remindTimeBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_rentTimePeriodL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(9 *SIZE);
+        make.top.equalTo(self->_rentTimeBeginBtn.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_rentTimePeriodTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.contentView).offset(80 *SIZE);
+        make.top.equalTo(self->_rentTimeBeginBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
     
     [_payWayL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(9 *SIZE);
-        make.top.equalTo(self->_intentPeriodLBtn1.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_rentTimePeriodTF.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_payWayBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(80 *SIZE);
-        make.top.equalTo(self->_intentPeriodLBtn1
+        make.top.equalTo(self->_rentTimePeriodTF
                          .mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
@@ -376,20 +473,20 @@
     [_payWayBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(218 *SIZE);
-        make.top.equalTo(self->_intentPeriodLBtn1
+        make.top.equalTo(self->_rentTimePeriodTF
                          .mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(120 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_timeL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_depositL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(9 *SIZE);
         make.top.equalTo(self->_payWayBtn1.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_depositTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView).offset(80 *SIZE);
         make.top.equalTo(self->_payWayBtn1.mas_bottom).offset(9 *SIZE);

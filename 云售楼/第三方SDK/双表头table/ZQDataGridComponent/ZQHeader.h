@@ -2,8 +2,8 @@
 //  Header.h
 //  ZQDatagridComponentDemo
 //
-//  Created by zhiqing on 2019/3/7.
-//  Copyright © 2019 zhiqing. All rights reserved.
+//  Created by 谷治墙 on 2019/3/7.
+//  Copyright © 2019 谷治墙. All rights reserved.
 //
 
 #ifndef ZQHeader_h

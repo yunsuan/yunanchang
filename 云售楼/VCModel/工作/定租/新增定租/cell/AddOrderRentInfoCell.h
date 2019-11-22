@@ -43,11 +43,25 @@ typedef void(^AddOrderRentInfoCellBtnBlock)(NSInteger idx);
 
 @property (nonatomic, strong) BorderTextField *priceTF;
 
-@property (nonatomic, strong) DropBtn *intentPeriodLBtn1;
+@property (nonatomic, strong) UILabel *openTimeL;
 
-@property (nonatomic, strong) UILabel *intentPeriodL;
+@property (nonatomic, strong) DropBtn *openTimeBtn;
 
-@property (nonatomic, strong) DropBtn *intentPeriodLBtn2;
+@property (nonatomic, strong) UILabel *signTimeL;
+
+@property (nonatomic, strong) DropBtn *signTimeBtn;
+
+@property (nonatomic, strong) UILabel *remindTimeL;
+
+@property (nonatomic, strong) DropBtn *remindTimeBtn;
+
+@property (nonatomic, strong) UILabel *rentTimeBeginL;
+
+@property (nonatomic, strong) DropBtn *rentTimeBeginBtn;
+
+@property (nonatomic, strong) UILabel *rentTimePeriodL;
+
+@property (nonatomic, strong) BorderTextField *rentTimePeriodTF;
 
 @property (nonatomic, strong) UILabel *payWayL;
 
@@ -55,9 +69,9 @@ typedef void(^AddOrderRentInfoCellBtnBlock)(NSInteger idx);
 
 @property (nonatomic, strong) DropBtn *payWayBtn2;
 
-@property (nonatomic, strong) UILabel *timeL;
+@property (nonatomic, strong) UILabel *depositL;
 
-@property (nonatomic, strong) DropBtn *timeBtn;
+@property (nonatomic, strong) BorderTextField *depositTF;
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 

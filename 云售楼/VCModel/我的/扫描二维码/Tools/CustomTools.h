@@ -2,8 +2,8 @@
 //  CustomTools.h
 //  moneyhll
 //
-//  Created by 李雪阳 on 16/11/7.
-//  Copyright © 2016年 浙江龙之游旅游开发有限公司. All rights reserved.
+//  Created by 谷治墙 on 16/11/7.
+//  Copyright © 2019 谷治墙. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

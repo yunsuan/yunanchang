@@ -2,8 +2,8 @@
 //  ZZQAuthorizationManager.h
 //  ZZQAvatarPicker
 //
-//  Created by 郑志强 on 2018/11/1.
-//  Copyright © 2018 郑志强. All rights reserved.
+//  Created by 谷治墙 on 2018/11/1.
+//  Copyright © 2019 谷治墙. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

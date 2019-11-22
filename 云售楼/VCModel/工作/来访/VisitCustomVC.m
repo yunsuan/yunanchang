@@ -163,6 +163,7 @@
         [self->_table reloadData];
         if ([resposeObject[@"code"] integerValue] == 200) {
             
+            self.titleLabel.text = [NSString stringWithFormat:@"来访(共%@条)",resposeObject[@"data"][@"total"]];
             if ([resposeObject[@"data"][@"data"] count]) {
                 
                 [self->_dataArr removeAllObjects];
@@ -457,7 +458,7 @@
         }
         nextVC.visitCustomDetailModifyBlock = ^{
             
-            [self RequestMethod];
+//            [self RequestMethod];
         };
         [self.navigationController pushViewController:nextVC animated:YES];
     }else{

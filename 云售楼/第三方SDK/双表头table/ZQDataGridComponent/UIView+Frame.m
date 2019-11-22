@@ -2,7 +2,7 @@
 //  UIView+LYKit.m
 //  Lvyue
 //
-//  Created by zhenhua.shen on 2018/3/19.
+//  Created by 谷治墙 on 2018/3/19.
 //  Copyright © 2018年 szh. All rights reserved.
 //
 

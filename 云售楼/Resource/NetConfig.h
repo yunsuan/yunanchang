@@ -10,7 +10,7 @@
 #define NetConfig_h
 
 //新服务器
-static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
+//static NSString *const TestBase_Net = @"http://120.27.21.136:2798/";
 
 //static NSString *const TestBase_Net = @"http://47.107.246.94/";
 
@@ -577,4 +577,14 @@ static NSString *const ShopRowUpdateTradeRow_URL = @"saleTradeApp/row/updateTrad
 
 //意向商家作废
 static NSString *const ShopRowTradeRowDel_URL = @"saleTradeApp/row/TradeRowDel";
+
+#pragma mark --- 定租 ---
+//添加
+static NSString *const TradeSubAdd_URL = @"saleTradeApp/trade/sub/add";
+
+//修改
+static NSString *const TradeSubUpdate_URL = @"saleTradeApp/trade/sub/update";
+
+//租金检测
+static NSString *const TradeSubCheckRent_URL = @"saleTradeApp/trade/sub/checkRent";
 #endif /* NetConfig_h */

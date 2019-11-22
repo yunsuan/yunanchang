@@ -167,6 +167,8 @@
 		0C3D4F842362D8A3001CB6A9 /* ZZQAuthorizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F7E2362D8A3001CB6A9 /* ZZQAuthorizationManager.m */; };
 		0C3D4F852362D8A3001CB6A9 /* ZZQAvatarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F7F2362D8A3001CB6A9 /* ZZQAvatarPicker.m */; };
 		0C3D4F862362D8A3001CB6A9 /* ZZQResourceSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D4F802362D8A3001CB6A9 /* ZZQResourceSheetView.m */; };
+		0C3D7E602387AF3500ACBC56 /* AddSignRentPropertyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E5F2387AF3500ACBC56 /* AddSignRentPropertyDetailCell.m */; };
+		0C3D7E632387AF4300ACBC56 /* AddSignRentOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E622387AF4300ACBC56 /* AddSignRentOtherCell.m */; };
 		0C3DD5CC2369262000211766 /* StoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CB2369262000211766 /* StoreVC.m */; };
 		0C3DD5D0236927A500211766 /* StoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CF236927A500211766 /* StoreCell.m */; };
 		0C3DD5D42369295700211766 /* AddStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5D32369295700211766 /* AddStoreVC.m */; };
@@ -947,6 +949,10 @@
 		0C3D4F812362D8A3001CB6A9 /* ZZQAuthorizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZQAuthorizationManager.h; sourceTree = "<group>"; };
 		0C3D4F822362D8A3001CB6A9 /* ZZQResourceSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZQResourceSheetView.h; sourceTree = "<group>"; };
 		0C3D4F832362D8A3001CB6A9 /* ZZQAvatarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZQAvatarPicker.h; sourceTree = "<group>"; };
+		0C3D7E5E2387AF3500ACBC56 /* AddSignRentPropertyDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSignRentPropertyDetailCell.h; sourceTree = "<group>"; };
+		0C3D7E5F2387AF3500ACBC56 /* AddSignRentPropertyDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignRentPropertyDetailCell.m; sourceTree = "<group>"; };
+		0C3D7E612387AF4300ACBC56 /* AddSignRentOtherCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSignRentOtherCell.h; sourceTree = "<group>"; };
+		0C3D7E622387AF4300ACBC56 /* AddSignRentOtherCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignRentOtherCell.m; sourceTree = "<group>"; };
 		0C3DD5CA2369262000211766 /* StoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreVC.h; sourceTree = "<group>"; };
 		0C3DD5CB2369262000211766 /* StoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreVC.m; sourceTree = "<group>"; };
 		0C3DD5CE236927A500211766 /* StoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreCell.h; sourceTree = "<group>"; };
@@ -3056,6 +3062,24 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0C3D7E5C2387AD9800ACBC56 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E612387AF4300ACBC56 /* AddSignRentOtherCell.h */,
+				0C3D7E622387AF4300ACBC56 /* AddSignRentOtherCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C3D7E5D2387ADA800ACBC56 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E5E2387AF3500ACBC56 /* AddSignRentPropertyDetailCell.h */,
+				0C3D7E5F2387AF3500ACBC56 /* AddSignRentPropertyDetailCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		0C3DD5C92369258D00211766 /* 商家 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3398,6 +3422,7 @@
 		0C4D14C02373A81B00747DE0 /* 新增、修改其他费项 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D7E5C2387AD9800ACBC56 /* view */,
 				0C4D14C12373A82C00747DE0 /* AddSignRentOtherVC.h */,
 				0C4D14C22373A82C00747DE0 /* AddSignRentOtherVC.m */,
 				0C4D14C42373A84700747DE0 /* AddSignRentOtherDetailVC.h */,
@@ -3409,6 +3434,7 @@
 		0C4D14C72373A9EF00747DE0 /* 新增修改物业费 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D7E5D2387ADA800ACBC56 /* view */,
 				0C4D14C82373AA0300747DE0 /* AddSignRentPropertyDetailVC.h */,
 				0C4D14C92373AA0300747DE0 /* AddSignRentPropertyDetailVC.m */,
 				0C4D14CB2373AA1100747DE0 /* AddSignRentPropertyVC.h */,
@@ -6253,8 +6279,10 @@
 				0CF1A2F9228D6307001C77CF /* CallTelegramSimpleCustomVC.m in Sources */,
 				0C496E0B22D82B2F00789FFA /* AddSignVC.m in Sources */,
 				0C63F5A5236FC50F00946236 /* IntentStoreDetailVC.m in Sources */,
+				0C3D7E632387AF4300ACBC56 /* AddSignRentOtherCell.m in Sources */,
 				0C3804AA237A8C520075CABD /* ModifyIntentStoreVC.m in Sources */,
 				0CEF89DC225C71890057F3FD /* CompanyInfoVC.m in Sources */,
+				0C3D7E602387AF3500ACBC56 /* AddSignRentPropertyDetailCell.m in Sources */,
 				0C05334C22F97DCA00DA9143 /* QueryPhoneVC.m in Sources */,
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
 				0CBD712422925B1E002A6B48 /* PushSettingCell.m in Sources */,

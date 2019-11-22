@@ -97,13 +97,13 @@
     }
     _contactL.text = dataDic[@"agent_name"]; //@"温嘉琪";
     
-    [_nameL mas_updateConstraints:^(MASConstraintMaker *make) {
-        
-//        make.left.equalTo(self.contentView).offset(84 *SIZE);
-//        make.top.equalTo(self.contentView).offset(21 *SIZE);
-        make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
-        make.width.mas_lessThanOrEqualTo(140 *SIZE);
-    }];
+//    [_nameL mas_updateConstraints:^(MASConstraintMaker *make) {
+//
+////        make.left.equalTo(self.contentView).offset(84 *SIZE);
+////        make.top.equalTo(self.contentView).offset(21 *SIZE);
+////        make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
+//        make.width.mas_lessThanOrEqualTo(140 *SIZE);
+//    }];
 }
 
 - (void)ActionPhone{
@@ -187,8 +187,8 @@
         
         make.left.equalTo(self.contentView).offset(68 *SIZE);
         make.top.equalTo(self.contentView).offset(21 *SIZE);
-        make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
-        make.width.mas_lessThanOrEqualTo(140 *SIZE);
+//        make.width.mas_equalTo(self->_nameL.mj_textWith + 5 *SIZE);
+        make.width.mas_lessThanOrEqualTo(170 *SIZE);
     }];
     
     [_genderImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -214,7 +214,7 @@
     
     [_effectTagL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(210 *SIZE);
+        make.left.equalTo(self.contentView).offset(240 *SIZE);
         make.top.equalTo(self.contentView).offset(20 *SIZE);
 //        make.top.equalTo(self->_nameL.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(33 *SIZE);
@@ -225,7 +225,7 @@
         
         make.right.equalTo(self.contentView.mas_right).offset(-10 *SIZE);
         make.top.equalTo(self.contentView).offset(24 *SIZE);
-        make.width.mas_equalTo(100 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_contactL mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -667,7 +667,7 @@
     
   NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
     
-  NSDecimalNumber *n3 = [n1 decimalNumberBySubtracting:n2];
+//  NSDecimalNumber *n3 = [n1 decimalNumberBySubtracting:n2];
     
   NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
   NSDecimalNumber *num = [n1 decimalNumberBySubtracting:n2 withBehavior:handler];
@@ -681,7 +681,7 @@
       
     NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
       
-    NSDecimalNumber *n3 = [n1 decimalNumberByAdding:n2];
+//    NSDecimalNumber *n3 = [n1 decimalNumberByAdding:n2];
     
     NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
     NSDecimalNumber *num = [n1 decimalNumberByAdding:n2 withBehavior:handler];
@@ -695,7 +695,7 @@
       
     NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
       
-    NSDecimalNumber *n3 = [n1 decimalNumberByMultiplyingBy:n2];
+//    NSDecimalNumber *n3 = [n1 decimalNumberByMultiplyingBy:n2];
       
     NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
     NSDecimalNumber *num = [n1 decimalNumberByMultiplyingBy:n2 withBehavior:handler];
