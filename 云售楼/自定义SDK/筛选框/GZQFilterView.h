@@ -38,6 +38,10 @@ typedef void(^GZQFilterViewConfirmBlock)(NSDictionary *dic);
 
 @property (nonatomic, strong) DropBtn *followEndBtn;
 
+@property (nonatomic, strong) UILabel *needFollowL;
+
+@property (nonatomic, strong) DropBtn *needFollowBtn;
+
 @property (nonatomic, copy) GZQFilterViewTagBlock GzqFilterViewTagBlock;
 
 @property (nonatomic, copy) GZQFilterViewConfirmBlock GzqFilterViewConfirmBlock;

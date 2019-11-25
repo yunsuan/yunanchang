@@ -633,6 +633,7 @@
     };
     [_scrollView addSubview:_addNumeralPersonView];
     
+#pragma mark -- 排号信息 --
     _infoHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _infoHeader.titleL.text = @"排号信息";
     _infoHeader.addBtn.hidden = YES;
@@ -761,6 +762,7 @@
                         }
                     }
                 }
+                [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_typeAllArr[0][@"num_list"][0][@"row_code"]] forKey:@"row_code"];
                 strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
             };
             [strongSelf.view addSubview:view];
@@ -796,6 +798,7 @@
                                 }
                             }
                         }
+                        [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_typeAllArr[0][@"num_list"][0][@"row_code"]] forKey:@"row_code"];
                         strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
                     };
                     [strongSelf.view addSubview:view];

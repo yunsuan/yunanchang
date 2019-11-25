@@ -1,8 +1,8 @@
 //
-//  AddSignRentPropertyDetailVC.h
+//  StageDetailVC.h
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/11/7.
+//  Created by 谷治墙 on 2019/11/25.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddSignRentPropertyDetailVC : BaseViewController
+@interface StageDetailVC : BaseViewController
 
 - (instancetype)initWithDataArr:(NSArray *)dataArr;
 

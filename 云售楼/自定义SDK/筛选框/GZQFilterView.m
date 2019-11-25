@@ -38,12 +38,14 @@
     _levelBtn.content.text = @"";
     _followBeginBtn.content.text = @"";
     _followEndBtn.content.text = @"";
+    _needFollowBtn.content.text = @"";
     
     _regiterBeginBtn.placeL.text = @"请选择登记开始时间：";
     _regiterEndBtn.placeL.text = @"请选择登记结束时间：";
     _levelBtn.placeL.text = @"请选择客户等级：";
     _followBeginBtn.placeL.text = @"请选择最后跟进时间（开始）：";
     _followEndBtn.placeL.text = @"请选择最后跟进时间（结束）：";
+    _needFollowBtn.placeL.text = @"是否待跟进";
 }
 
 /*完成按钮*/
@@ -70,6 +72,11 @@
     if (_followEndBtn.content.text.length) {
         
         [dic setValue:[NSString stringWithFormat:@"%@ 23:59:59",_followEndBtn.content.text] forKey:@"follow_time_end"];
+    }
+    if (_needFollowBtn.content.text.length) {
+        
+        [dic setValue:_needFollowBtn->str forKey:@"time_limit"];
+        [dic setValue:_needFollowBtn.content.text forKey:@"time_limit_name"];
     }
     if (self.GzqFilterViewConfirmBlock) {
         
@@ -101,7 +108,7 @@
     alphaView.alpha = 0.4;
     [self addSubview:alphaView];
     
-    _whiteView = [[UIView alloc] initWithFrame:CGRectMake(20 *SIZE, 100 *SIZE, 320 *SIZE, 440 *SIZE)];
+    _whiteView = [[UIView alloc] initWithFrame:CGRectMake(20 *SIZE, 100 *SIZE, 320 *SIZE, 510 *SIZE)];
     _whiteView.backgroundColor = CLWhiteColor;
     _whiteView.layer.cornerRadius = 5 *SIZE;
     _whiteView.clipsToBounds = YES;
@@ -113,8 +120,8 @@
     labe.textAlignment = NSTextAlignmentCenter;
     [_whiteView addSubview:labe];
     
-    NSArray *titleArr = @[@"登记开始时间：",@"登记结束时间：",@"客户等级：",@"最后跟进时间（开始）：",@"最后跟进时间（结束）："];
-    for (int i = 0; i < 5; i++) {
+    NSArray *titleArr = @[@"登记开始时间：",@"登记结束时间：",@"客户等级：",@"最后跟进时间（开始）：",@"最后跟进时间（结束）：",@"待跟进客户："];
+    for (int i = 0; i < 6; i++) {
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10 *SIZE, 40 *SIZE + i * 63 *SIZE, 300 *SIZE, 14 *SIZE)];
         label.textColor = CLTitleLabColor;
@@ -153,18 +160,25 @@
             
             _followBeginBtn = btn;
             [_whiteView addSubview:_followBeginBtn];
-        }else{
+        }else if (i == 4){
             
             _followEndL = label;
             [_whiteView addSubview:_followEndL];
             
             _followEndBtn = btn;
             [_whiteView addSubview:_followEndBtn];
+        }else{
+            
+            _needFollowL = label;
+            [_whiteView addSubview:_needFollowL];
+            
+            _needFollowBtn = btn;
+            [_whiteView addSubview:_needFollowBtn];
         }
     }
 
     _resetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _resetBtn.frame = CGRectMake(0 *SIZE, 400 *SIZE, 160 *SIZE, 40 *SIZE);
+    _resetBtn.frame = CGRectMake(0 *SIZE, 470 *SIZE, 160 *SIZE, 40 *SIZE);
     [_resetBtn setBackgroundColor:CLBackColor];
     [_resetBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
 //    _resetBtn.titleLabel.textColor = CLTitleLabColor;
@@ -174,7 +188,7 @@
     [_whiteView addSubview:_resetBtn];
     
     _finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _finishBtn.frame = CGRectMake(160 *SIZE, 400 *SIZE, 160 *SIZE, 40 *SIZE);
+    _finishBtn.frame = CGRectMake(160 *SIZE, 470 *SIZE, 160 *SIZE, 40 *SIZE);
     [_finishBtn setBackgroundColor:CLBlueBtnColor];
     [_finishBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [_finishBtn setTitle:@"查询" forState:UIControlStateNormal];

@@ -449,7 +449,7 @@
             }
 //            self->_addNumeralProcessView.personArr = self->_rolePersonArr;
 //            self->_addNumeralProcessView.personSelectArr = self->_rolePersonSelectArr;
-            [_table reloadData];
+            [self->_table reloadData];
         }else{
             
             
@@ -474,7 +474,7 @@
        if ([resposeObject[@"code"] integerValue] == 200) {
 
            [self->_imgArr addObject:@{@"url":[NSString stringWithFormat:@"%@",resposeObject[@"data"]],@"name":name,@"create_time":name}];
-           [_table reloadData];
+           [self->_table reloadData];
 //           self->_addNumeralFileView.dataArr = self->_imgArr;
        }else{
 
@@ -866,7 +866,7 @@
         
         cell.addOrderRentPriceCellBlock = ^{
           
-            AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
+            AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         cell.addOrderRentPriceCellAddBlock = ^{

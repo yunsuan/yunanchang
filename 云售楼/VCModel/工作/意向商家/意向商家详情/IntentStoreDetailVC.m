@@ -11,7 +11,7 @@
 #import "ModifyIntentStoreVC.h"
 #import "AuditDetailVC.h"
 #import "FileReadingVC.h"
-#import "BelongDetailVC.h"
+#import "ShopBelongDetailVC.h"
 
 #import "BaseHeader.h"
 //#import "IntentDetailHeader.h"
@@ -96,7 +96,7 @@
 
                 self.rightBtn.hidden = NO;
             }
-            self->_advicerArr = resposeObject[@"data"][@"advicer"];
+            self->_advicerArr = resposeObject[@"data"][@"advicer_list"];
 //            NSString *str = @"";
 //            for (int i = 0; i < self->_advicerArr.count; i++) {
 //
@@ -429,7 +429,7 @@
         [cell.moreBtn setTitle:@"查看归属人详情" forState:UIControlStateNormal];
         cell.infoDetailCellBlock = ^{
 
-            BelongDetailVC *nextVC = [[BelongDetailVC alloc] initWithDataArr:self->_dataDic[@"advicer"]];
+            ShopBelongDetailVC *nextVC = [[ShopBelongDetailVC alloc] initWithDataArr:self->_dataDic[@"advicer_list"]];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;

@@ -75,6 +75,8 @@ typedef void(^AddOrderRentInfoCellBtnBlock)(NSInteger idx);
 
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 
+@property (nonatomic, strong) NSMutableDictionary *signDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

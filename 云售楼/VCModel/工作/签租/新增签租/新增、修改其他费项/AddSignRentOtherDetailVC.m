@@ -26,6 +26,16 @@
 
 @implementation AddSignRentOtherDetailVC
 
+- (instancetype)initWithDataArr:(NSArray *)dataArr
+{
+    self = [super init];
+    if (self) {
+        
+        _dataArr = [[NSMutableArray alloc] initWithArray:dataArr];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -40,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return _dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -54,7 +64,7 @@
     
     cell.tag = indexPath.row;
     
-    cell.dataDic = @{};
+    cell.dataDic = _dataArr[indexPath.row];
     
     cell.addOrderRentalDetailCellBlock = ^(NSInteger idx) {
       

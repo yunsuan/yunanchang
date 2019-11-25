@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddSignRentVCBlock)(void);
+
 @interface AddSignRentVC : BaseViewController
+
+@property (nonatomic, strong) AddSignRentVCBlock addSignRentVCBlock;
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 

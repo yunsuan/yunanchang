@@ -148,7 +148,7 @@
         
         [_requestDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
            
-            if ([key isEqualToString:@"level_name"]) {
+            if ([key isEqualToString:@"level_name"] || [key isEqualToString:@"time_limit_name"]) {
                 
             }else{
                 
@@ -193,7 +193,7 @@
         
         [_requestDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
            
-            if ([key isEqualToString:@"level_name"]) {
+            if ([key isEqualToString:@"level_name"] || [key isEqualToString:@"time_limit_name"]) {
                 
             }else{
                 
@@ -281,6 +281,11 @@
     if ([_requestDic[@"follow_time_end"] length]) {
         
         _filterView.followEndBtn.content.text = [_requestDic[@"follow_time_end"] componentsSeparatedByString:@" "][0];
+    }
+    if ([_requestDic[@"time_limit"] length]) {
+        
+        _filterView.needFollowBtn.content.text = _requestDic[@"time_limit_name"];
+        _filterView.needFollowBtn->str = _requestDic[@"time_limit"];
     }
     [self.view addSubview:_filterView];
 }
@@ -664,7 +669,7 @@
                 }
             };
             [strongSelf.view addSubview:view];
-        }else{
+        }else if (idx == 4){
             
             DateChooseView *view = [[DateChooseView alloc] initWithFrame:strongSelf.view.bounds];
             view.dateblock = ^(NSDate *date) {
@@ -683,6 +688,16 @@
                     
                     
                 }
+            };
+            [strongSelf.view addSubview:view];
+        }else{
+            
+            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:@[@{@"param":@"是",@"id":@"1"},@{@"param":@"否",@"id":@"0"}]];
+            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                
+                strongSelf->_filterView.needFollowBtn.content.text = [NSString stringWithFormat:@"%@",MC];
+                strongSelf->_filterView.needFollowBtn->str = [NSString stringWithFormat:@"%@",ID];
+                strongSelf->_filterView.needFollowBtn.placeL.text = @"";
             };
             [strongSelf.view addSubview:view];
         }

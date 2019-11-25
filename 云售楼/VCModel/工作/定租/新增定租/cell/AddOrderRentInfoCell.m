@@ -60,6 +60,26 @@
     _depositTF.textField.text = dataDic[@"deposit"];
 }
 
+- (void)setSignDic:(NSMutableDictionary *)signDic{
+    
+    _codeTF.textField.text = signDic[@"contact_code"];
+    _signerTF.textField.text = signDic[@"signatory"];
+    _signTypeBtn.content.text = signDic[@"typeName"];
+    _signTypeBtn->str = signDic[@"card_type"];
+    _signNumTF.textField.text = signDic[@"card_num"];
+    _priceTF.textField.text = signDic[@"down_pay"];
+    _openTimeBtn.content.text = signDic[@"open_time"];
+    _signTimeBtn.content.text = signDic[@"contact_time"];
+    _rentTimeBeginBtn.content.text = signDic[@"start_time"];
+    _rentTimePeriodTF.textField.text = signDic[@"rent_month_num"];
+    _payWayBtn1.content.text = signDic[@"pay_name1"];
+    _payWayBtn1->str = signDic[@"pay_way1"];
+    _payWayBtn2.content.text = signDic[@"pay_name2"];
+    _payWayBtn2->str = signDic[@"pay_way2"];
+    _remindTimeBtn.content.text = signDic[@"remind_time"];
+    _depositTF.textField.text = signDic[@"deposit"];
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
     if (textField == _priceTF.textField) {

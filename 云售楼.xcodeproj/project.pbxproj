@@ -170,6 +170,10 @@
 		0C3D7E602387AF3500ACBC56 /* AddSignRentPropertyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E5F2387AF3500ACBC56 /* AddSignRentPropertyDetailCell.m */; };
 		0C3D7E632387AF4300ACBC56 /* AddSignRentOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E622387AF4300ACBC56 /* AddSignRentOtherCell.m */; };
 		0C3D7E67238B7EE400ACBC56 /* ShopDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E66238B7EE400ACBC56 /* ShopDetailHeader.m */; };
+		0C3D7E6B238BAF6100ACBC56 /* StageDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E6A238BAF6100ACBC56 /* StageDetailVC.m */; };
+		0C3D7E6F238BB19900ACBC56 /* StageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E6E238BB19900ACBC56 /* StageDetailCell.m */; };
+		0C3D7E73238BB40C00ACBC56 /* ModifyOrderRentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E72238BB40C00ACBC56 /* ModifyOrderRentVC.m */; };
+		0C3D7E77238BB8BE00ACBC56 /* ShopBelongDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E76238BB8BE00ACBC56 /* ShopBelongDetailVC.m */; };
 		0C3DD5CC2369262000211766 /* StoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CB2369262000211766 /* StoreVC.m */; };
 		0C3DD5D0236927A500211766 /* StoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CF236927A500211766 /* StoreCell.m */; };
 		0C3DD5D42369295700211766 /* AddStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5D32369295700211766 /* AddStoreVC.m */; };
@@ -956,6 +960,14 @@
 		0C3D7E622387AF4300ACBC56 /* AddSignRentOtherCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignRentOtherCell.m; sourceTree = "<group>"; };
 		0C3D7E65238B7EE400ACBC56 /* ShopDetailHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopDetailHeader.h; sourceTree = "<group>"; };
 		0C3D7E66238B7EE400ACBC56 /* ShopDetailHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopDetailHeader.m; sourceTree = "<group>"; };
+		0C3D7E69238BAF6100ACBC56 /* StageDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StageDetailVC.h; sourceTree = "<group>"; };
+		0C3D7E6A238BAF6100ACBC56 /* StageDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StageDetailVC.m; sourceTree = "<group>"; };
+		0C3D7E6D238BB19900ACBC56 /* StageDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StageDetailCell.h; sourceTree = "<group>"; };
+		0C3D7E6E238BB19900ACBC56 /* StageDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StageDetailCell.m; sourceTree = "<group>"; };
+		0C3D7E71238BB40C00ACBC56 /* ModifyOrderRentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyOrderRentVC.h; sourceTree = "<group>"; };
+		0C3D7E72238BB40C00ACBC56 /* ModifyOrderRentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyOrderRentVC.m; sourceTree = "<group>"; };
+		0C3D7E75238BB8BE00ACBC56 /* ShopBelongDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopBelongDetailVC.h; sourceTree = "<group>"; };
+		0C3D7E76238BB8BE00ACBC56 /* ShopBelongDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopBelongDetailVC.m; sourceTree = "<group>"; };
 		0C3DD5CA2369262000211766 /* StoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreVC.h; sourceTree = "<group>"; };
 		0C3DD5CB2369262000211766 /* StoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreVC.m; sourceTree = "<group>"; };
 		0C3DD5CE236927A500211766 /* StoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreCell.h; sourceTree = "<group>"; };
@@ -3092,6 +3104,43 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		0C3D7E68238BAF3E00ACBC56 /* 租金详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E6C238BB18700ACBC56 /* view */,
+				0C3D7E69238BAF6100ACBC56 /* StageDetailVC.h */,
+				0C3D7E6A238BAF6100ACBC56 /* StageDetailVC.m */,
+			);
+			path = "租金详情";
+			sourceTree = "<group>";
+		};
+		0C3D7E6C238BB18700ACBC56 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E6D238BB19900ACBC56 /* StageDetailCell.h */,
+				0C3D7E6E238BB19900ACBC56 /* StageDetailCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		0C3D7E70238BB3FC00ACBC56 /* 修改定租 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E71238BB40C00ACBC56 /* ModifyOrderRentVC.h */,
+				0C3D7E72238BB40C00ACBC56 /* ModifyOrderRentVC.m */,
+			);
+			path = "修改定租";
+			sourceTree = "<group>";
+		};
+		0C3D7E74238BB8B000ACBC56 /* 归属人详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E75238BB8BE00ACBC56 /* ShopBelongDetailVC.h */,
+				0C3D7E76238BB8BE00ACBC56 /* ShopBelongDetailVC.m */,
+			);
+			path = "归属人详情";
+			sourceTree = "<group>";
+		};
 		0C3DD5C92369258D00211766 /* 商家 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3601,6 +3650,9 @@
 		0C63F5CF2371115900946236 /* 定租详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D7E74238BB8B000ACBC56 /* 归属人详情 */,
+				0C3D7E70238BB3FC00ACBC56 /* 修改定租 */,
+				0C3D7E68238BAF3E00ACBC56 /* 租金详情 */,
 				0C3D7E64238B7EB100ACBC56 /* view */,
 				0C63F5D02371116700946236 /* OrderRentDetailVC.h */,
 				0C63F5D12371116700946236 /* OrderRentDetailVC.m */,
@@ -6028,6 +6080,7 @@
 				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
 				0C63F5C823710F2F00946236 /* OrderRentVC.m in Sources */,
 				0C0C103F235EFF4300A81888 /* LinesSelectCell.m in Sources */,
+				0C3D7E73238BB40C00ACBC56 /* ModifyOrderRentVC.m in Sources */,
 				0C0C103C235EFF4300A81888 /* YJYLinesCell.m in Sources */,
 				0CC2730E226868DE00EB881F /* RecordView.m in Sources */,
 				0CF1A31A228E8E04001C77CF /* SignSelectWorkerView.m in Sources */,
@@ -6066,6 +6119,7 @@
 				0C26C9F822A67E0D00A7CF47 /* ChannelRankListVC.m in Sources */,
 				0C310E3922A4F80300083504 /* ARotationFollowCell.m in Sources */,
 				0C4B8EEF22CDAED000D505BE /* AddNumeralPersonView.m in Sources */,
+				0C3D7E6B238BAF6100ACBC56 /* StageDetailVC.m in Sources */,
 				0CA8264B22AE26D30005F3ED /* AutoVisitReportVC.m in Sources */,
 				0C7451F822A7B14A008F2F07 /* ChannelAnalysisCell.m in Sources */,
 				0C3DD5D0236927A500211766 /* StoreCell.m in Sources */,
@@ -6323,6 +6377,7 @@
 				0C4B7F6322C9A9B400BBC34F /* NumeralCell.m in Sources */,
 				0C63F51F236AC38500946236 /* BrandCollCell.m in Sources */,
 				0C221A6A227EDE73006B0510 /* BaseAddCell.m in Sources */,
+				0C3D7E6F238BB19900ACBC56 /* StageDetailCell.m in Sources */,
 				0CD0433C227FE66B002C8BD3 /* InfoDetailCell.m in Sources */,
 				0C10698E235EAAEC00CB58A2 /* myDataGridViewCell.m in Sources */,
 				0CEF8B042265ADA20057F3FD /* AddCallTelegramVC.m in Sources */,
@@ -6364,6 +6419,7 @@
 				0C4B7F7422CA050600BBC34F /* AddEncumbrancerVC.m in Sources */,
 				0C63F5B92370002800946236 /* AddIntentStoreIntentView.m in Sources */,
 				0CD7A03F225C6F1100EAE816 /* ChangePassWordVC.m in Sources */,
+				0C3D7E77238BB8BE00ACBC56 /* ShopBelongDetailVC.m in Sources */,
 				0C46D880237154CA00EEC856 /* ModifyAndAddRentalVC.m in Sources */,
 				0C46D8692371137D00EEC856 /* AddSignRentVC.m in Sources */,
 				0CD0439222816ED9002C8BD3 /* RoomHeader.m in Sources */,

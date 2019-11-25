@@ -41,12 +41,20 @@
 //    _priceL.text = @"实际单价：50元/月/㎡";
     if (dataArr.count) {
         
-//        _totalL.text = [NSString stringWithFormat:@"%@：%@",self.title,dataDic[@""]];
+        double money = 0;
+        for (int i = 0; i < dataArr.count; i++) {
+            
+            money = money + [dataArr[i][@"total_rent"] doubleValue];
+        }
+        
+        _totalL.text = [NSString stringWithFormat:@"合计总实付金额：%.2f元",money];
         _addBtn.hidden = YES;
+        _editBtn.hidden = NO;
     }else{
      
         _totalL.text = @" ";
         _addBtn.hidden = NO;
+        _editBtn.hidden = YES;
     }
 }
 
@@ -122,6 +130,20 @@
         make.width.mas_equalTo(30 *SIZE);
         make.height.mas_equalTo(30 *SIZE);
     }];
+}
+
+- (double)AddNumber:(double)num1 num2:(double)num2{
+    
+    NSDecimalNumber *n1 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num1]];
+      
+    NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
+      
+//    NSDecimalNumber *n3 = [n1 decimalNumberByAdding:n2];
+    
+    NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+    NSDecimalNumber *num = [n1 decimalNumberByAdding:n2 withBehavior:handler];
+    NSLog(@"num===%@",num);
+    return num.doubleValue;
 }
 
 @end

@@ -1,23 +1,17 @@
 //
-//  AddSignRentVC.m
+//  ModifyOrderRentVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/11/5.
+//  Created by 谷治墙 on 2019/11/25.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddSignRentVC.h"
+#import "ModifyOrderRentVC.h"
 
 #import "AddIntentSelectStoreVC.h"
 #import "AddStoreVC.h"
 #import "AddOrderRentalDetailVC.h"
-#import "AddSignRentPropertyDetailVC.h"
-//#import "AddSignRentPropertyVC.h"
-#import "AddSignRentOtherDetailVC.h"
-//#import "AddSignRentOtherVC.h"
-
 #import "ShopRoomVC.h"
-#import "AddSignRentPropertyDetailVC.h"
 
 #import "TitleRightBtnHeader.h"
 
@@ -27,23 +21,19 @@
 #import "AddIntentStoreDoubleBtnCell.h"
 #import "StoreCell.h"
 
-#import "ModifyAndAddRentalView.h"
-
-#import "AddOrderRentPriceCell.h"
-
 #import "AddOrderRentInfoCell.h"
 
-#import "AddSignRentAreaCell.h"
+#import "AddOrderRentPriceCell.h"
 
 #import "AddIntentStoreProccessCell.h"
 
 #import "AddIntentStoreFileCell.h"
 
+#import "ModifyAndAddRentalView.h"
 #import "SinglePickView.h"
 #import "DateChooseView.h"
 
-
-@interface AddSignRentVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface ModifyOrderRentVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     NSString *_info_id;
@@ -55,32 +45,20 @@
     
     NSArray *_certArr;
     
-    NSMutableDictionary *_areaDic;
     
     NSMutableDictionary *_orderDic;
     
     NSMutableDictionary *_rentPirceDic;
-    
-    NSMutableDictionary *_propertyDic;
-    
-    NSMutableDictionary *_otherDic;
-    
-    NSMutableDictionary *_progressDic;
+
     
     NSMutableArray *_roomArr;
     NSMutableArray *_storeArr;
     NSMutableArray *_selectArr;
     NSMutableArray *_payArr1;
     NSMutableArray *_payArr2;
-    NSMutableArray *_progressArr;
-    NSMutableArray *_progressAllArr;
-    NSMutableArray *_roleArr;
-    NSMutableArray *_rolePersonArr;
-    NSMutableArray *_rolePersonSelectArr;
+
     NSMutableArray *_imgArr;
     NSMutableArray *_stageArr;
-    NSMutableArray *_propertyArr;
-    NSMutableArray *_otherArr;
     
     NSDateFormatter *_secondFormatter;
 }
@@ -90,7 +68,7 @@
 
 @end
 
-@implementation AddSignRentVC
+@implementation ModifyOrderRentVC
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id
 {
@@ -113,8 +91,7 @@
 - (void)initDataSource{
     
     _stageArr = [@[] mutableCopy];
-    _propertyArr = [@[] mutableCopy];
-    _otherArr = [@[] mutableCopy];
+    _stageArr = [NSMutableArray arrayWithArray:self.dataDic[@"stage_list"]];
     _payArr1 = [@[] mutableCopy];
     _payArr2 = [@[] mutableCopy];
     
@@ -127,27 +104,23 @@
             [_payArr2 addObject:@{@"param":[NSString stringWithFormat:@"付%d",i + 1],@"id":[NSString stringWithFormat:@"%d",i + 1]}];
         }
     }
-    
-    _titleArr = @[@"房源信息",@"面积信息",@"商家信息",@"签租信息",@"租金信息",@"物业费信息",@"其他费项",@"流程信息",@"附件文件"];
-    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0,@0,@0,@0,@0]];
+    _titleArr = @[@"房源信息",@"商家信息",@"定租信息",@"租金信息",@"附件文件"];
+    _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0,@0]];
     
     _orderDic = [@{} mutableCopy];
+//    _orderDic
     
     _rentPirceDic = [@{} mutableCopy];
     
-    _progressDic = [@{} mutableCopy];
     
     _roomArr = [@[] mutableCopy];
+    _roomArr = [NSMutableArray arrayWithArray:self.dataDic[@"shop_detail_list"]];
     
     _storeArr = [@[] mutableCopy];
-    
-    _progressArr = [@[] mutableCopy];
-    _progressAllArr = [@[] mutableCopy];
-    
-    _roleArr = [@[] mutableCopy];
-    _rolePersonArr = [@[] mutableCopy];
-    _rolePersonSelectArr = [@[] mutableCopy];
+    _storeArr = [NSMutableArray arrayWithArray:@[self.dataDic[@"business_info"]]];
+
     _imgArr = [@[] mutableCopy];
+    _imgArr = [NSMutableArray arrayWithArray:self.dataDic[@"enclosure_list"]];
     
     _secondFormatter = [[NSDateFormatter alloc] init];
     [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
@@ -167,6 +140,7 @@
         return;
     }
     
+
     if (!_orderDic[@"sub_code"]) {
 
         [self showContent:@"请输入意向编号"];
@@ -237,40 +211,7 @@
         return;
     }
     
-    if (!_progressDic[@"progress_name"]) {
-        [self showContent:@"请选择审批流程"];
-        return;
-    }
-    
-    if ([_progressDic[@"check_type"] integerValue] == 1) {
 
-        if (!_progressDic[@"auditMC"]) {
-            [self showContent:@"请选择流程类型"];
-            return;
-        }
-    }
-    NSString *param;
-    if ([_progressDic[@"auditMC"] isEqualToString:@"自由流程"]) {
-
-        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-
-            if ([_rolePersonSelectArr[i] integerValue] == 1) {
-
-                if (param.length) {
-
-                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-                }else{
-
-                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-                }
-            }
-        }
-        if (!param.length) {
-
-            [self showContent:@"请选择审核人员"];
-            return;
-        }
-    }
     
     NSMutableDictionary *dic = [@{} mutableCopy];
     NSString *room;
@@ -315,6 +256,7 @@
     [dic setValue:_orderDic[@"deposit"] forKey:@"deposit"];
     [dic setValue:_orderDic[@"pay_way"] forKey:@"pay_way"];
     [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
+    [dic setValue:self.dataDic[@"sub_id"] forKey:@"sub_id"];
     
     [dic setValue:_chargeId forKey:@"charge_company_id"];
     
@@ -333,18 +275,14 @@
         NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
         [dic setObject:jsonString2 forKey:@"enclosure_list"];
     }
-    [dic setObject:_progressDic[@"progress_id"] forKey:@"current_progress"];
-    if (param.length) {
 
-        [dic setObject:param forKey:@"param"];
-    }
-    [BaseRequest POST:ShopRowAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest POST:TradeSubUpdate_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            if (self.addSignRentVCBlock) {
+            if (self.modifyOrderRentVCBlock) {
 
-                self.addSignRentVCBlock();
+                self.modifyOrderRentVCBlock();
             }
             [self.navigationController popViewControllerAnimated:YES];
         }else{
@@ -357,83 +295,7 @@
     }];
 }
 
-- (void)ProgreesMethod{
-    
-    NSMutableDictionary *dic = [@{} mutableCopy];
-    NSString *room;
-    for (int i = 0; i < _roomArr.count; i++) {
-        
-        if (i == 0) {
-            
-            room = _roomArr[i][@"shop_id"];
-        }else{
-            
-            room = [NSString stringWithFormat:@"%@,%@",room,_roomArr[i][@"shop_id"]];
-        }
-    }
-    
-    if (_stageArr.count) {
-        
-        NSError *error;
-        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:_stageArr options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
-        [dic setObject:jsonString2 forKey:@"stage_list"];
-    }
-    
-    [dic setValue:room forKey:@"shop_list"];
-    [BaseRequest GET:TradeSubCheckRent_URL parameters:dic success:^(id  _Nonnull resposeObject) {
 
-        if ([resposeObject[@"code"] integerValue] == 250) {
-
-            [self->_progressArr removeAllObjects];
-            [self->_progressAllArr removeAllObjects];
-            self->_progressAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-            for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
-
-                [self->_progressArr addObject:@{@"param":[NSString stringWithFormat:@"%@",resposeObject[@"data"][i][@"progress_name"]],@"id":resposeObject[@"data"][i][@"progress_id"]}];
-            }
-
-            [self->_table reloadData];
-        }else{
-
-
-        }
-    } failure:^(NSError * _Nonnull error) {
-
-
-    }];
-}
-
-- (void)RequestMethod{
-    
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{@"project_id":_project_id}];
-    
-    if (_role_id.length) {
-        
-        [dic setObject:_role_id forKey:@"role_id"];
-    }
-    
-    [BaseRequest GET:ProjectRolePersonList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
-        
-        if ([resposeObject[@"code"] integerValue] == 200) {
-            
-            self->_rolePersonArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-            for (int i = 0 ; i < [resposeObject[@"data"] count]; i++) {
-                
-                [self->_rolePersonSelectArr addObject:@0];
-            }
-//            self->_addNumeralProcessView.personArr = self->_rolePersonArr;
-//            self->_addNumeralProcessView.personSelectArr = self->_rolePersonSelectArr;
-            [self->_table reloadData];
-        }else{
-            
-            
-        }
-    } failure:^(NSError * _Nonnull error) {
-        
-        NSLog(@"%@",error);
-    }];
-}
 
 -(void)updateheadimgbyimg:(UIImage *)img{
     
@@ -450,7 +312,6 @@
 
            [self->_imgArr addObject:@{@"url":[NSString stringWithFormat:@"%@",resposeObject[@"data"]],@"name":name,@"create_time":name}];
            [self->_table reloadData];
-//           self->_addNumeralFileView.dataArr = self->_imgArr;
        }else{
 
            [self showContent:resposeObject[@"msg"]];
@@ -464,7 +325,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return _titleArr.count;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -481,9 +342,6 @@
             
             return 1;
         }else if (section == 3){
-            
-            return 1;
-        }else if (section == 4){
             
             return 1;
         }else{
@@ -583,6 +441,10 @@
     if (indexPath.section == 0) {
         
         [_roomArr removeObjectAtIndex:indexPath.row];
+        if (!_roomArr.count) {
+            
+            [_stageArr removeAllObjects];
+        }
     }else{
         
         [_storeArr removeAllObjects];
@@ -641,24 +503,6 @@
         }
     }else if (indexPath.section == 1){
         
-        AddSignRentAreaCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddSignRentAreaCell"];
-        
-        if (!cell) {
-            
-            cell = [[AddSignRentAreaCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddSignRentAreaCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.dataDic = _areaDic;
-        
-        cell.addSignRentAreaCellStrBlock = ^(NSString * _Nonnull str) {
-          
-            [self->_areaDic setValue:str forKey:@""];
-        };
-        
-        return cell;
-    }else if (indexPath.section == 2){
-        
         if (indexPath.row == 0) {
             
             AddIntentStoreDoubleBtnCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreDoubleBtnCell"];
@@ -709,7 +553,7 @@
                
             return cell;
         }
-    }else if (indexPath.section == 3){
+    }else if (indexPath.section == 2){
         
         AddOrderRentInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddOrderRentInfoCell"];
         
@@ -719,48 +563,13 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.signDic = _orderDic;
-        
-        cell.codeL.text = @"签租编号";
-        cell.priceTF.hidden = YES;
-        cell.priceL.hidden = YES;
-        cell.remindTimeL.hidden = YES;
-        cell.remindTimeBtn.hidden = YES;
-        [cell.openTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.equalTo(cell.contentView).offset(9 *SIZE);
-            make.top.equalTo(cell.signNumTF.mas_bottom).offset(12 *SIZE);
-            make.width.mas_equalTo(70 *SIZE);
-        }];
-        
-        [cell.openTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.equalTo(cell.contentView).offset(80 *SIZE);
-            make.top.equalTo(cell.signNumTF.mas_bottom).offset(9 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
-            make.height.mas_equalTo(33 *SIZE);
-        }];
-        
-        [cell.rentTimeBeginL mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.equalTo(cell.contentView).offset(9 *SIZE);
-            make.top.equalTo(cell.signTimeBtn.mas_bottom).offset(12 *SIZE);
-            make.width.mas_equalTo(70 *SIZE);
-        }];
-        
-        [cell.rentTimeBeginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.equalTo(cell.contentView).offset(80 *SIZE);
-            make.top.equalTo(cell.signTimeBtn.mas_bottom).offset(9 *SIZE);
-            make.width.mas_equalTo(258 *SIZE);
-            make.height.mas_equalTo(33 *SIZE);
-        }];
+        cell.dataDic = _orderDic;
         
         cell.addOrderRentInfoCellStrBlock = ^(NSString * _Nonnull str, NSInteger idx) {
           
             if (idx == 0) {
 
-                [self->_orderDic setValue:str forKey:@"contact_code"];
+                [self->_orderDic setValue:str forKey:@"sub_code"];
             }else if (idx == 1) {
 
                 [self->_orderDic setValue:str forKey:@"signatory"];
@@ -775,7 +584,7 @@
                 [self->_orderDic setValue:str forKey:@"rent_month_num"];
             }else{
 
-//                [self->_orderDic setValue:str forKey:@"deposit"];
+                [self->_orderDic setValue:str forKey:@"deposit"];
             }
             [tableView reloadData];
         };
@@ -783,33 +592,33 @@
         cell.addOrderRentInfoCellBtnBlock = ^(NSInteger idx) {
           
             if (idx == 2) {
-                            
+                
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:self->_certArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                                
+                    
                     self->_orderDic[@"typeName"] = [NSString stringWithFormat:@"%@",MC];
                     self->_orderDic[@"card_type"] = [NSString stringWithFormat:@"%@",ID];
                     if ([self->_orderDic[@"typeName"] containsString:@"身份证"]) {
-                                    
+                        
                         if ([self->_orderDic[@"card_num"] length]) {
-                                        
+                            
                             if ([self validateIDCardNumber:self->_orderDic[@"card_num"]]) {
-                                            
-                                            
+                                
+                                
                             }else{
-                                            
+                                
                                 [self showContent:@"请输入正确的身份证号"];
                             }
                         }else{
-                                        
-            //                           [self showContent:@"请输入正确的身份证号"];
+                            
+//                            [self showContent:@"请输入正确的身份证号"];
                         }
                     }
                     [tableView reloadData];
                 };
                 [self.view addSubview:view];
             }else if (idx == 5){
-                            
+                
                 DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
                 view.dateblock = ^(NSDate *date) {
 
@@ -818,16 +627,16 @@
                 };
                 [self.view addSubview:view];
             }else if (idx == 6){
-                            
-                DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
-                view.dateblock = ^(NSDate *date) {
+                
+               DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+               view.dateblock = ^(NSDate *date) {
 
-                    [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"contact_time"];
-                    [tableView reloadData];
-                };
-                [self.view addSubview:view];
+                   [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"sub_time"];
+                   [tableView reloadData];
+               };
+               [self.view addSubview:view];
             }else if (idx == 7){
-                            
+                
                 DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
                 view.dateblock = ^(NSDate *date) {
 
@@ -836,7 +645,7 @@
                 };
                 [self.view addSubview:view];
             }else if (idx == 8){
-                            
+                
                 DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
                 view.dateblock = ^(NSDate *date) {
 
@@ -845,14 +654,14 @@
                 };
                 [self.view addSubview:view];
             }else if (idx == 10){
-                            
+                
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_payArr1];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
 
                     [self->_orderDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"pay_way1"];
                     [self->_orderDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"pay_name1"];
                     if (self->_orderDic[@"pay_way2"]) {
-                                    
+                        
                         [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",ID,self->_orderDic[@"pay_way2"]] forKey:@"pay_way"];
                         [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",MC,self->_orderDic[@"pay_name2"]] forKey:@"pay_name"];
                     }
@@ -860,14 +669,14 @@
                 };
                 [self.view addSubview:view];
             }else{
-                            
+                
                 SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_payArr2];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
 
                     [self->_orderDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"pay_way2"];
                     [self->_orderDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"pay_name2"];
                     if (self->_orderDic[@"pay_way1"]) {
-                                    
+                        
                         [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",self->_orderDic[@"pay_way2"],ID] forKey:@"pay_way"];
                         [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",self->_orderDic[@"pay_name2"],MC] forKey:@"pay_name"];
                     }
@@ -876,8 +685,10 @@
                 [self.view addSubview:view];
             }
         };
+
+        
         return cell;
-    }else if (indexPath.section == 4){
+    }else if (indexPath.section == 3){
         
      
         AddOrderRentPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddOrderRentPriceCell"];
@@ -887,6 +698,8 @@
             cell = [[AddOrderRentPriceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddOrderRentPriceCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataArr = _stageArr;
         
         cell.addOrderRentPriceCellBlock = ^{
           
@@ -960,7 +773,6 @@
                                 [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":[NSString stringWithFormat:@"%d",i + 1],@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date}];
                             }
                             [tableView reloadData];
-                            [self ProgreesMethod];
                             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
                             [self.navigationController pushViewController:nextVC animated:YES];
                         };
@@ -968,7 +780,6 @@
                           
                             SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[]];
                             view.selectedBlock = ^(NSString *MC, NSString *ID) {
-                                
                                 
                             };
                             [self.view addSubview:view];
@@ -982,318 +793,6 @@
             }
         };
         
-        return cell;
-    }else if (indexPath.section == 5){
-        
-     
-        AddOrderRentPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddOrderRentPriceCell"];
-        
-        if (!cell) {
-            
-            cell = [[AddOrderRentPriceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddOrderRentPriceCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.addOrderRentPriceCellBlock = ^{
-          
-            AddSignRentPropertyDetailVC *nextVC = [[AddSignRentPropertyDetailVC alloc] initWithDataArr:self->_propertyArr];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        };
-        cell.addOrderRentPriceCellAddBlock = ^{
-            
-            if (!self->_roomArr.count) {
-                
-                [self showContent:@"请先选择房源"];
-            }else{
-                
-                if (![self->_orderDic[@"rent_month_num"] length] || !self->_orderDic[@"start_time"]) {
-                    
-                    if (!self->_orderDic[@"start_time"]) {
-                        
-                        [self showContent:@"请先选择租期开始时间"];
-                    }else{
-                     
-                        [self showContent:@"请先输入租期时长"];
-                    }
-                }else{
-                    
-                    if (self->_orderDic[@"pay_way1"] && self->_orderDic[@"pay_way2"]) {
-                        
-                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        [formatter setDateFormat:@"YYYY-MM-dd"];
-                        
-                        NSString *unit = @"0";
-                        
-                        double total = 0;
-                        double area = 0;
-                        for (int i = 0; i < self->_roomArr.count; i++) {
-                            
-                            area = area + [self->_roomArr[i][@"build_size"] doubleValue];
-                        }
-                        if (area > 0) {
-                            
-                            unit = [NSString stringWithFormat:@"%.2f",total / area];
-                        }else{
-                            
-                            unit = [NSString stringWithFormat:@"%.2f",total];
-                        }
-                        NSString *date;
-                        NSString *endDate;
-                        NSString *resultDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:self->_orderDic[@"start_time"]] withMonth:[self->_orderDic[@"rent_month_num"] integerValue]]];
-                        [self->_orderDic setValue:resultDate forKey:@"end_time"];
-                        for (int i = 0; i < ([self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]); i++) {
-
-                            if (i == 0) {
-                                
-                                date = self->_orderDic[@"start_time"];
-                            }else{
-                                
-                                date = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:date] withMonth:[self->_orderDic[@"pay_way2"] integerValue]]];
-                            }
-                            endDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:date] withMonth:[self->_orderDic[@"pay_way2"] integerValue]]];
-                            NSComparisonResult result = [endDate compare:resultDate];
-                            if (result == NSOrderedDescending) {
-                                
-                                endDate = resultDate;
-                            }
-                            
-                            [self->_stageArr addObject:@{@"unit_cost":unit,@"total_cost":@"",@"config_id":@"0",@"comment":@" ",@"cost_num":[NSString stringWithFormat:@"%d",i + 1],@"cost_start_time":date,@"cost_end_time":endDate,@"pay_time":date,@"remind_time":date}];
-                        }
-                        AddSignRentPropertyDetailVC *nextVC = [[AddSignRentPropertyDetailVC alloc] initWithDataArr:self->_propertyArr];
-                        [self.navigationController pushViewController:nextVC animated:YES];
-                    }else{
-                        
-                        [self showContent:@"请先选择付款方式"];
-                    }
-                }
-            }
-        };
-        
-        return cell;
-    }else if (indexPath.section == 6){
-        
-     
-        AddOrderRentPriceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddOrderRentPriceCell"];
-        
-        if (!cell) {
-            
-            cell = [[AddOrderRentPriceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddOrderRentPriceCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.addOrderRentPriceCellBlock = ^{
-          
-            AddSignRentOtherDetailVC *nextVC = [[AddSignRentOtherDetailVC alloc] initWithDataArr:self->_otherArr];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        };
-        cell.addOrderRentPriceCellAddBlock = ^{
-            
-            AddSignRentOtherDetailVC *nextVC = [[AddSignRentOtherDetailVC alloc] initWithDataArr:self->_otherArr];
-            [self.navigationController pushViewController:nextVC animated:YES];
-        };
-        
-        return cell;
-    }else if (indexPath.section == 7){
-        
-        AddIntentStoreProccessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreProccessCell"];
-        
-        if (!cell) {
-            
-            cell = [[AddIntentStoreProccessCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddIntentStoreProccessCell"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.dataDic = _progressDic;
-        cell.personArr = self->_rolePersonArr;
-        cell.personSelectArr = self->_rolePersonSelectArr;
-        
-        cell.addIntentStoreProccessCellAuditBlock = ^{
-            
-            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"param":@"自由流程",@"id":@"1"},@{@"param":@"固定流程",@"id":@"2"}]];
-            view.selectedBlock = ^(NSString *MC, NSString *ID) {
-
-                [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"auditMC"];
-                [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"auditID"];
-                [tableView reloadData];
-            };
-            [self.view addSubview:view];
-        };
-        
-        cell.addIntentStoreProccessCellTypeBlock = ^{
-          
-            if (self->_progressArr.count) {
-
-                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_progressArr];
-                view.selectedBlock = ^(NSString *MC, NSString *ID) {
-
-                    if ([MC containsString:@"自由"]) {
-
-                        [self->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
-                        [self->_progressDic setObject:@"1" forKey:@"auditID"];
-                    }else if ([MC containsString:@"固定"]){
-
-                        [self->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
-                        [self->_progressDic setObject:@"2" forKey:@"auditID"];
-                    }else{
-
-                        [self->_progressDic removeObjectForKey:@"auditMC"];
-                        [self->_progressDic removeObjectForKey:@"auditID"];
-                    }
-                    if (![MC isEqualToString:self->_progressDic[@"progress_name"]]) {
-
-                        [self->_rolePersonArr removeAllObjects];
-                        [self->_rolePersonSelectArr removeAllObjects];
-                        cell.personArr = self->_rolePersonArr;
-                        cell.personSelectArr = self->_rolePersonSelectArr;
-                        [self->_progressDic removeObjectForKey:@"role_name"];
-                        [self->_progressDic removeObjectForKey:@"role_id"];
-                    }
-                    [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
-                    [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
-                    for (int i = 0; i < self->_progressAllArr.count; i++) {
-
-                        if ([ID integerValue] == [self->_progressAllArr[i][@"progress_id"] integerValue]) {
-
-                            [self->_progressDic setObject:[NSString stringWithFormat:@"%@",self->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
-                        }
-                    }
-                    if ([self->_progressDic[@"check_type"] integerValue] == 1) {
-
-                        [self->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
-                        [self->_progressDic setObject:@"1" forKey:@"auditID"];
-                    }else if ([self->_progressDic[@"check_type"] integerValue] == 2) {
-
-                        [self->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
-                        [self->_progressDic setObject:@"2" forKey:@"auditID"];
-                    }
-                    [tableView reloadData];
-                };
-                [self.view addSubview:view];
-            }else{
-
-                [BaseRequest GET:ShopGetProgress_URL parameters:@{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"4"} success:^(id  _Nonnull resposeObject) {
-
-                    if ([resposeObject[@"code"] integerValue] == 200) {
-
-                        [self->_progressArr removeAllObjects];
-                        [self->_progressAllArr removeAllObjects];
-                        self->_progressAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-                        for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
-
-                            [self->_progressArr addObject:@{@"param":[NSString stringWithFormat:@"%@",resposeObject[@"data"][i][@"progress_name"]],@"id":resposeObject[@"data"][i][@"progress_id"]}];
-                        }
-
-                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_progressArr];
-                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
-
-                            if ([MC containsString:@"自由"]) {
-
-                                [self->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
-                                [self->_progressDic setObject:@"1" forKey:@"auditID"];
-                            }else if ([MC containsString:@"固定"]){
-
-                                [self->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
-                                [self->_progressDic setObject:@"2" forKey:@"auditID"];
-                            }else{
-
-                                [self->_progressDic removeObjectForKey:@"auditMC"];
-                                [self->_progressDic removeObjectForKey:@"auditID"];
-                            }
-                            if (![MC isEqualToString:self->_progressDic[@"progress_name"]]) {
-
-                                [self->_rolePersonArr removeAllObjects];
-                                [self->_rolePersonSelectArr removeAllObjects];
-                                cell.personArr = self->_rolePersonArr;
-                                cell.personSelectArr = self->_rolePersonSelectArr;
-                                [self->_progressDic removeObjectForKey:@"role_name"];
-                                [self->_progressDic removeObjectForKey:@"role_id"];
-                            }
-                            [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
-                            [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
-                            for (int i = 0; i < self->_progressAllArr.count; i++) {
-
-                                if ([ID integerValue] == [self->_progressAllArr[i][@"progress_id"] integerValue]) {
-
-                                    [self->_progressDic setObject:[NSString stringWithFormat:@"%@",self->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
-                                }
-                            }
-                            if ([self->_progressDic[@"check_type"] integerValue] == 1) {
-
-                                [self->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
-                                [self->_progressDic setObject:@"1" forKey:@"auditID"];
-                            }else if ([self->_progressDic[@"check_type"] integerValue] == 2) {
-
-                                [self->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
-                                [self->_progressDic setObject:@"2" forKey:@"auditID"];
-                            }
-                            [tableView reloadData];
-                        };
-                        [self.view addSubview:view];
-                    }else{
-
-
-                    }
-                } failure:^(NSError * _Nonnull error) {
-
-
-                }];
-            }
-        };
-        
-        cell.addIntentStoreProccessCellRoleBlock = ^{
-            
-            if (self->_roleArr.count) {
-
-                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_roleArr];
-                view.selectedBlock = ^(NSString *MC, NSString *ID) {
-
-                    if (![MC isEqualToString:self->_progressDic[@"role_name"]]) {
-
-                        [self->_rolePersonArr removeAllObjects];
-                        [self->_rolePersonSelectArr removeAllObjects];
-                        cell.personArr = self->_rolePersonArr;
-                        cell.personSelectArr = self->_rolePersonSelectArr;
-                    }
-                    [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
-                    [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];
-                    [tableView reloadData];
-                    [self RequestMethod];
-                };
-                [self.view addSubview:view];
-            }else{
-
-                [BaseRequest GET:ProjectRoleListAll_URL parameters:@{@"project_id":self->_project_id} success:^(id  _Nonnull resposeObject) {
-
-                    if ([resposeObject[@"code"] integerValue] == 200) {
-
-                        for (NSDictionary *dic in resposeObject[@"data"]) {
-
-                            [self->_roleArr addObject:@{@"param":[NSString stringWithFormat:@"%@/%@",dic[@"project_name"],dic[@"role_name"]],@"id":dic[@"role_id"]}];
-                        }
-                        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_roleArr];
-                        view.selectedBlock = ^(NSString *MC, NSString *ID) {
-
-                            [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
-                            [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];
-                            [tableView reloadData];
-                            [self RequestMethod];
-                        };
-                        [self.view addSubview:view];
-                    }else{
-
-
-                    }
-                } failure:^(NSError * _Nonnull error) {
-
-                    NSLog(@"%@",error);
-                }];
-            }
-        };
-        
-        cell.addIntentStoreProccessCellSelectBlock = ^(NSArray * _Nonnull arr) {
-          
-             self->_rolePersonSelectArr = [NSMutableArray arrayWithArray:arr];
-        };
         return cell;
     }else{
         

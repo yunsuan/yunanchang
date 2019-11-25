@@ -87,54 +87,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "349BACA5-CB0D-4BEA-A8BD-BADABF767C27"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x6392;&#x53f7;/&#x8f6c;&#x6392;&#x53f7;/AddNumeralVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
-            landmarkName = "-ActionNextBtn:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "349BACA5-CB0D-4BEA-A8BD-BADABF767C27 - cf438de3b8f3126"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AddNumeralVC ActionNextBtn:]"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E8%BD%AC%E6%8E%92%E5%8F%B7/AddNumeralVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "435"
-                  endingLineNumber = "435"
-                  offsetFromSymbolStart = "6264">
-               </Location>
-               <Location
-                  uuid = "349BACA5-CB0D-4BEA-A8BD-BADABF767C27 - 6278edc5aa7c86a9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__30-[AddNumeralVC ActionNextBtn:]_block_invoke"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E6%8E%92%E5%8F%B7/%E8%BD%AC%E6%8E%92%E5%8F%B7/AddNumeralVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "437"
-                  endingLineNumber = "437"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "355B4A72-7459-4E20-9D02-3B3F54DB189B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
