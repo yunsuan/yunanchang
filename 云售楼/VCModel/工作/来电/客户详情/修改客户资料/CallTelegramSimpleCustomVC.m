@@ -127,7 +127,14 @@
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-            self->_configDic = resposeObject[@"data"];
+            if ([resposeObject[@"data"] isKindOfClass:[NSDictionary class]]) {
+                
+                self->_configDic = resposeObject[@"data"];
+            }else{
+                
+                self->_configDic = @{};
+            }
+            
             [self initUI];
         }else{
             

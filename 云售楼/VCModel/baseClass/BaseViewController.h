@@ -152,6 +152,8 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
 
 - (double)MultiplyingNumber:(double)num1 num2:(double)num2;
 
+- (NSDate *)getPriousorLaterDateFromDate:(NSDate *)date withMonth:(NSInteger)month;
+
 @end
 
 NS_ASSUME_NONNULL_END

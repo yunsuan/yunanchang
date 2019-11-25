@@ -517,6 +517,7 @@
                 IntentSurveyVC *nextVC = [[IntentSurveyVC alloc] initWithData:@[dic]];
                 nextVC.status = @"modify";
                 nextVC.property_id = dic[@"id"];
+                nextVC.group_id = self->_groupId;
                 nextVC.intentSurveyVCBlock = ^{
                     
                     [self RequestMethod];

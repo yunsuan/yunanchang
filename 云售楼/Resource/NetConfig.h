@@ -579,6 +579,13 @@ static NSString *const ShopRowUpdateTradeRow_URL = @"saleTradeApp/row/updateTrad
 static NSString *const ShopRowTradeRowDel_URL = @"saleTradeApp/row/TradeRowDel";
 
 #pragma mark --- 定租 ---
+
+//列表
+static NSString *const TradeSubGetTradeSubList_URL = @"saleTradeApp/trade/sub/getTradeSubList";
+
+//详情
+static NSString *const TradeSubGetTradeSubDetail_URL = @"saleTradeApp/trade/sub/getTradeSubDetail";
+
 //添加
 static NSString *const TradeSubAdd_URL = @"saleTradeApp/trade/sub/add";
 

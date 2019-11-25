@@ -36,12 +36,12 @@
     }
 }
 
-- (void)setDataDic:(NSMutableDictionary *)dataDic{
+- (void)setDataArr:(NSMutableArray *)dataArr{
     
 //    _priceL.text = @"实际单价：50元/月/㎡";
-    if (dataDic.count) {
+    if (dataArr.count) {
         
-        _totalL.text = [NSString stringWithFormat:@"%@：%@",self.title,dataDic[@""]];
+//        _totalL.text = [NSString stringWithFormat:@"%@：%@",self.title,dataDic[@""]];
         _addBtn.hidden = YES;
     }else{
      

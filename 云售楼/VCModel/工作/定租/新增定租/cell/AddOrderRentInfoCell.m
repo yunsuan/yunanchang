@@ -42,21 +42,21 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _codeTF.textField.text = dataDic[@"codeName"];
-    _signerTF.textField.text = dataDic[@"signer"];
+    _codeTF.textField.text = dataDic[@"sub_code"];
+    _signerTF.textField.text = dataDic[@"signatory"];
     _signTypeBtn.content.text = dataDic[@"typeName"];
-    _signTypeBtn->str = dataDic[@"typeId"];
-    _signNumTF.textField.text = dataDic[@"signNum"];
-    _priceTF.textField.text = dataDic[@"price"];
-    _openTimeBtn.content.text = dataDic[@"openTime"];
-    _signTimeBtn.content.text = dataDic[@"signTime"];
-    _rentTimeBeginBtn.content.text = dataDic[@"rentBeginTime"];
-    _rentTimePeriodTF.textField.text = dataDic[@"rentPeriod"];
-    _payWayBtn1.content.text = dataDic[@"payWay"];
-    _payWayBtn1->str = dataDic[@"payWayId"];
-    _payWayBtn2.content.text = dataDic[@"payWay"];
-    _payWayBtn2->str = dataDic[@"payWayId"];
-    _remindTimeBtn.content.text = dataDic[@"remindTime"];
+    _signTypeBtn->str = dataDic[@"card_type"];
+    _signNumTF.textField.text = dataDic[@"card_num"];
+    _priceTF.textField.text = dataDic[@"down_pay"];
+    _openTimeBtn.content.text = dataDic[@"open_time"];
+    _signTimeBtn.content.text = dataDic[@"sub_time"];
+    _rentTimeBeginBtn.content.text = dataDic[@"start_time"];
+    _rentTimePeriodTF.textField.text = dataDic[@"rent_month_num"];
+    _payWayBtn1.content.text = dataDic[@"pay_name1"];
+    _payWayBtn1->str = dataDic[@"pay_way1"];
+    _payWayBtn2.content.text = dataDic[@"pay_name2"];
+    _payWayBtn2->str = dataDic[@"pay_way2"];
+    _remindTimeBtn.content.text = dataDic[@"remind_time"];
     _depositTF.textField.text = dataDic[@"deposit"];
 }
 
@@ -208,6 +208,7 @@
                 [self.contentView addSubview:_priceL];
                 
                 _priceTF = tf;
+                _priceTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self.contentView addSubview:_priceTF];
                 
                 break;
@@ -295,6 +296,7 @@
                 [self.contentView addSubview:_depositL];
                 
                 _depositTF = tf;
+                _depositTF.textField.keyboardType = UIKeyboardTypeNumberPad;
                 [self.contentView addSubview:_depositTF];
                 break;
             }

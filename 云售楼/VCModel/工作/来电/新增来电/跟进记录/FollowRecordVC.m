@@ -667,13 +667,13 @@
     _contentView.layer.borderWidth = SIZE;
     _contentView.layer.borderColor = _followPurposeTF.layer.borderColor;
     _contentView.clipsToBounds = YES;
-    if ([self.followDic count]) {
-        
-        if (self.followDic[@"comment"]) {
-            
-            _contentView.text = [NSString stringWithFormat:@"%@",self.followDic[@"comment"]];
-        }
-    }
+//    if ([self.followDic count]) {
+//
+//        if (self.followDic[@"comment"]) {
+//
+//            _contentView.text = [NSString stringWithFormat:@"%@",self.followDic[@"comment"]];
+//        }
+//    }
     _contentView.textContainerInset = UIEdgeInsetsMake(3 *SIZE, 3 *SIZE, 5 *SIZE, 30 *SIZE);
 //    _contentView.backgroundColor = CLLightGrayColor;
     _recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];

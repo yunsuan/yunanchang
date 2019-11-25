@@ -43,6 +43,9 @@
     
     NSArray *_titleArr;
     
+    NSArray *_certArr;
+    
+    
     NSMutableDictionary *_orderDic;
     
     NSMutableDictionary *_rentPirceDic;
@@ -52,12 +55,15 @@
     NSMutableArray *_roomArr;
     NSMutableArray *_storeArr;
     NSMutableArray *_selectArr;
+    NSMutableArray *_payArr1;
+    NSMutableArray *_payArr2;
     NSMutableArray *_progressArr;
     NSMutableArray *_progressAllArr;
     NSMutableArray *_roleArr;
     NSMutableArray *_rolePersonArr;
     NSMutableArray *_rolePersonSelectArr;
     NSMutableArray *_imgArr;
+    NSMutableArray *_stageArr;;;
     
     NSDateFormatter *_secondFormatter;
 }
@@ -89,6 +95,19 @@
 
 - (void)initDataSource{
     
+    _stageArr = [@[] mutableCopy];
+    _payArr1 = [@[] mutableCopy];
+    _payArr2 = [@[] mutableCopy];
+    
+    _certArr = @[@{@"param":@"身份证",@"id":@"1"},@{@"param":@"户口簿",@"id":@"2"},@{@"param":@"驾驶证",@"id":@"3"},@{@"param":@"军官证",@"id":@"4"},@{@"param":@"工商营业执照",@"id":@"5"},@{@"param":@"其他",@"id":@"6"}];
+    for (int i = 0; i < 12; i++) {
+        
+        if (i == 0 || i == 1 || i == 2 || i == 5 || i == 11) {
+            
+            [_payArr1 addObject:@{@"param":[NSString stringWithFormat:@"押%d",i + 1],@"id":[NSString stringWithFormat:@"%d",i + 1]}];
+            [_payArr2 addObject:@{@"param":[NSString stringWithFormat:@"付%d",i + 1],@"id":[NSString stringWithFormat:@"%d",i + 1]}];
+        }
+    }
     _titleArr = @[@"房源信息",@"商家信息",@"定租信息",@"租金信息",@"流程信息",@"附件文件"];
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0,@0]];
     
@@ -128,34 +147,77 @@
         return;
     }
     
-//    if (!_intentDic[@"row_code"]) {
-//
-//        [self showContent:@"请输入意向编号"];
-//        return;
-//    }
-//
-//    if (!_intentDic[@"sincerity"]) {
-//
-//        [self showContent:@"请输入诚意金"];
-//        return;
-//    }
-//    if (!_intentDic[@"start_time"]) {
-//
-//        [self showContent:@"请选择租期开始时间"];
-//        return;
-//    }
-//
-//    if (!_intentDic[@"end_time"]) {
-//
-//        [self showContent:@"请选择租期结束时间"];
-//        return;
-//    }
-//
-//    if (!_intentDic[@"sign_time"]) {
-//
-//        [self showContent:@"请选择登记时间"];
-//        return;
-//    }
+
+    if (!_orderDic[@"sub_code"]) {
+
+        [self showContent:@"请输入意向编号"];
+        return;
+    }
+
+    if (!_orderDic[@"signatory"]) {
+
+        [self showContent:@"请输入签约人"];
+        return;
+    }
+    if (!_orderDic[@"card_type"]) {
+
+        [self showContent:@"请选择证件类型"];
+        return;
+    }
+
+    if (!_orderDic[@"card_num"]) {
+
+        [self showContent:@"请输入证件号码"];
+        return;
+    }
+
+    if (!_orderDic[@"down_pay"]) {
+
+        [self showContent:@"请输入定金金额"];
+        return;
+    }
+    if (!_orderDic[@"open_time"]) {
+
+        [self showContent:@"请选择开业时间"];
+        return;
+    }
+
+    if (!_orderDic[@"sub_time"]) {
+
+        [self showContent:@"请选择定租时间"];
+        return;
+    }
+    if (!_orderDic[@"remind_time"]) {
+
+        [self showContent:@"请选择提醒签约时间"];
+        return;
+    }
+    if (!_orderDic[@"start_time"]) {
+
+        [self showContent:@"请选择租期开始时间"];
+        return;
+    }
+    if (!_orderDic[@"rent_month_num"]) {
+
+        [self showContent:@"请输入租期时长"];
+        return;
+    }
+    if (!_orderDic[@"pay_way1"] || !_orderDic[@"pay_way2"]) {
+
+        [self showContent:@"请选择付款方式"];
+        return;
+    }
+    if (!_orderDic[@"deposit"]) {
+
+        [self showContent:@"请输入押金金额"];
+        return;
+    }
+    if (!_stageArr.count) {
+        
+        [self showContent:@"请生成租金信息"];
+        return;
+    }
+    
     if (!_progressDic[@"progress_name"]) {
         [self showContent:@"请选择审批流程"];
         return;
@@ -216,13 +278,34 @@
         }
     }
     [dic setValue:store forKey:@"from_id"];
+    [dic setValue:store forKey:@"business_id"];
+    [dic setValue:@"2" forKey:@"from_type"];
     [dic setValue:_project_id forKey:@"project_id"];
-//    [dic setValue:_addIntentStoreIntentView.codeTF.textField.text forKey:@"row_code"];
-//    [dic setValue:_addIntentStoreIntentView.sincerityTF.textField.text forKey:@"sincerity"];
-//    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn1.content.text forKey:@"start_time"];
-//    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn2.content.text forKey:@"end_time"];
+    [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
+    [dic setValue:_orderDic[@"signatory"] forKey:@"signatory"];
+    [dic setValue:_orderDic[@"card_type"] forKey:@"card_type"];
+    [dic setValue:_orderDic[@"card_num"] forKey:@"card_num"];
+    [dic setValue:_orderDic[@"end_time"] forKey:@"end_time"];
+    [dic setValue:_orderDic[@"down_pay"] forKey:@"down_pay"];
+    [dic setValue:_orderDic[@"open_time"] forKey:@"open_time"];
+    [dic setValue:_orderDic[@"sub_time"] forKey:@"sub_time"];
+    [dic setValue:_orderDic[@"start_time"] forKey:@"start_time"];
+    [dic setValue:_orderDic[@"rent_month_num"] forKey:@"rent_month_num"];
+    [dic setValue:_orderDic[@"remind_time"] forKey:@"remind_time"];
+    [dic setValue:_orderDic[@"deposit"] forKey:@"deposit"];
+    [dic setValue:_orderDic[@"pay_way"] forKey:@"pay_way"];
+    [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
+    
     [dic setValue:_chargeId forKey:@"charge_company_id"];
-//    [dic setValue:[_addIntentStoreIntentView.timeBtn.content.text componentsSeparatedByString:@" "][0] forKey:@"sign_time"];
+    
+    if (_stageArr.count) {
+        
+        NSError *error;
+        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:_stageArr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+        [dic setObject:jsonString2 forKey:@"stage_list"];
+    }
+    
     if (_imgArr.count) {
         
         NSError *error;
@@ -231,18 +314,18 @@
         [dic setObject:jsonString2 forKey:@"enclosure_list"];
     }
     [dic setObject:_progressDic[@"progress_id"] forKey:@"current_progress"];
-//    if (param.length) {
-//
-//        [dic setObject:param forKey:@"param"];
-//    }
-    [BaseRequest POST:ShopRowAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    if (param.length) {
+
+        [dic setObject:param forKey:@"param"];
+    }
+    [BaseRequest POST:TradeSubAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
-//            if (self.addIntentStoreVCBlock) {
-//
-//                self.addIntentStoreVCBlock();
-//            }
+            if (self.addOrderRentVCBlock) {
+
+                self.addOrderRentVCBlock();
+            }
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             
@@ -251,6 +334,98 @@
     } failure:^(NSError * _Nonnull error) {
         
         [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)ProgreesMethod{
+    
+    NSMutableDictionary *dic = [@{} mutableCopy];
+    NSString *room;
+    for (int i = 0; i < _roomArr.count; i++) {
+        
+        if (i == 0) {
+            
+            room = _roomArr[i][@"shop_id"];
+        }else{
+            
+            room = [NSString stringWithFormat:@"%@,%@",room,_roomArr[i][@"shop_id"]];
+        }
+    }
+    
+    if (_stageArr.count) {
+        
+        NSError *error;
+        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:_stageArr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+        [dic setObject:jsonString2 forKey:@"stage_list"];
+    }
+    
+    [dic setValue:room forKey:@"shop_list"];
+    [BaseRequest GET:TradeSubCheckRent_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+
+        if ([resposeObject[@"code"] integerValue] == 250) {
+
+            [self->_progressArr removeAllObjects];
+            [self->_progressAllArr removeAllObjects];
+            self->_progressAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+            for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+
+                [self->_progressArr addObject:@{@"param":[NSString stringWithFormat:@"%@",resposeObject[@"data"][i][@"progress_name"]],@"id":resposeObject[@"data"][i][@"progress_id"]}];
+            }
+
+//            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_progressArr];
+//            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+//
+//                if ([MC containsString:@"自由"]) {
+//
+//                    [self->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+//                    [self->_progressDic setObject:@"1" forKey:@"auditID"];
+//                }else if ([MC containsString:@"固定"]){
+//
+//                    [self->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+//                    [self->_progressDic setObject:@"2" forKey:@"auditID"];
+//                }else{
+//
+//                    [self->_progressDic removeObjectForKey:@"auditMC"];
+//                    [self->_progressDic removeObjectForKey:@"auditID"];
+//                }
+//                if (![MC isEqualToString:self->_progressDic[@"progress_name"]]) {
+//
+//                    [self->_rolePersonArr removeAllObjects];
+//                    [self->_rolePersonSelectArr removeAllObjects];
+//                    cell.personArr = self->_rolePersonArr;
+//                    cell.personSelectArr = self->_rolePersonSelectArr;
+//                    [self->_progressDic removeObjectForKey:@"role_name"];
+//                    [self->_progressDic removeObjectForKey:@"role_id"];
+//                }
+//                [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"progress_name"];
+//                [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"progress_id"];
+//                for (int i = 0; i < self->_progressAllArr.count; i++) {
+//
+//                    if ([ID integerValue] == [self->_progressAllArr[i][@"progress_id"] integerValue]) {
+//
+//                        [self->_progressDic setObject:[NSString stringWithFormat:@"%@",self->_progressAllArr[i][@"check_type"]] forKey:@"check_type"];
+//                    }
+//                }
+//                if ([self->_progressDic[@"check_type"] integerValue] == 1) {
+//
+//                    [self->_progressDic setObject:@"自由流程" forKey:@"auditMC"];
+//                    [self->_progressDic setObject:@"1" forKey:@"auditID"];
+//                }else if ([self->_progressDic[@"check_type"] integerValue] == 2) {
+//
+//                    [self->_progressDic setObject:@"固定流程" forKey:@"auditMC"];
+//                    [self->_progressDic setObject:@"2" forKey:@"auditID"];
+//                }
+                [self->_table reloadData];
+//            };
+//            [self.view addSubview:view];
+        }else{
+
+
+        }
+    } failure:^(NSError * _Nonnull error) {
+
+
     }];
 }
 
@@ -557,16 +732,22 @@
           
             if (idx == 0) {
 
-                [self->_orderDic setValue:str forKey:@"row_code"];
+                [self->_orderDic setValue:str forKey:@"sub_code"];
             }else if (idx == 1) {
 
-                [self->_orderDic setValue:str forKey:@"row_code"];
+                [self->_orderDic setValue:str forKey:@"signatory"];
             }else if (idx == 3) {
 
-                [self->_orderDic setValue:str forKey:@"row_code"];
+                [self->_orderDic setValue:str forKey:@"card_num"];
+            }else if (idx == 4){
+
+                [self->_orderDic setValue:str forKey:@"down_pay"];
+            }else if (idx == 9){
+
+                [self->_orderDic setValue:str forKey:@"rent_month_num"];
             }else{
 
-                [self->_orderDic setValue:str forKey:@"sincerity"];
+                [self->_orderDic setValue:str forKey:@"deposit"];
             }
             [tableView reloadData];
         };
@@ -575,18 +756,27 @@
           
             if (idx == 2) {
                 
-                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[]];
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.frame WithData:self->_certArr];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
-
                     
-                };
-                [self.view addSubview:view];
-            }else if (idx == 4){
-                
-                DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
-                view.dateblock = ^(NSDate *date) {
-
-                    [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"start_time"];
+                    self->_orderDic[@"typeName"] = [NSString stringWithFormat:@"%@",MC];
+                    self->_orderDic[@"card_type"] = [NSString stringWithFormat:@"%@",ID];
+                    if ([self->_orderDic[@"typeName"] containsString:@"身份证"]) {
+                        
+                        if ([self->_orderDic[@"card_num"] length]) {
+                            
+                            if ([self validateIDCardNumber:self->_orderDic[@"card_num"]]) {
+                                
+                                
+                            }else{
+                                
+                                [self showContent:@"请输入正确的身份证号"];
+                            }
+                        }else{
+                            
+//                            [self showContent:@"请输入正确的身份证号"];
+                        }
+                    }
                     [tableView reloadData];
                 };
                 [self.view addSubview:view];
@@ -595,42 +785,67 @@
                 DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
                 view.dateblock = ^(NSDate *date) {
 
-                    [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"start_time"];
+                    [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"open_time"];
                     [tableView reloadData];
                 };
                 [self.view addSubview:view];
             }else if (idx == 6){
                 
-                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[]];
-                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+               DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+               view.dateblock = ^(NSDate *date) {
 
-                    
+                   [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"sub_time"];
+                   [tableView reloadData];
+               };
+               [self.view addSubview:view];
+            }else if (idx == 7){
+                
+                DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+                view.dateblock = ^(NSDate *date) {
+
+                    [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"remind_time"];
+                    [tableView reloadData];
                 };
                 [self.view addSubview:view];
             }else if (idx == 8){
                 
-                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[]];
+                DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+                view.dateblock = ^(NSDate *date) {
+
+                    [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"start_time"];
+                    [tableView reloadData];
+                };
+                [self.view addSubview:view];
+            }else if (idx == 10){
+                
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_payArr1];
                 view.selectedBlock = ^(NSString *MC, NSString *ID) {
 
-                    
+                    [self->_orderDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"pay_way1"];
+                    [self->_orderDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"pay_name1"];
+                    if (self->_orderDic[@"pay_way2"]) {
+                        
+                        [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",ID,self->_orderDic[@"pay_way2"]] forKey:@"pay_way"];
+                        [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",MC,self->_orderDic[@"pay_name2"]] forKey:@"pay_name"];
+                    }
+                    [tableView reloadData];
                 };
                 [self.view addSubview:view];
             }else{
                 
-                DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
-                view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
-                [view.pickerView setCalendar:[NSCalendar currentCalendar]];
-                [view.pickerView setMaximumDate:[NSDate date]];
-                NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-                NSDateComponents *comps = [[NSDateComponents alloc] init];
-                [comps setDay:15];//设置最大时间为：当前时间推后10天
-                [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
-                view.dateblock = ^(NSDate *date) {
+                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:self->_payArr2];
+                view.selectedBlock = ^(NSString *MC, NSString *ID) {
 
-                    [self->_orderDic setObject:[self->_secondFormatter stringFromDate:date] forKey:@"sign_time"];
+                    [self->_orderDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"pay_way2"];
+                    [self->_orderDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"pay_name2"];
+                    if (self->_orderDic[@"pay_way1"]) {
+                        
+                        [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",self->_orderDic[@"pay_way2"],ID] forKey:@"pay_way"];
+                        [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",self->_orderDic[@"pay_name2"],MC] forKey:@"pay_name"];
+                    }
                     [tableView reloadData];
                 };
-                [tableView reloadData];
+                [self.view addSubview:view];
             }
         };
 
@@ -647,6 +862,8 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        cell.dataArr = _stageArr;
+        
         cell.addOrderRentPriceCellBlock = ^{
           
             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
@@ -654,21 +871,90 @@
         };
         cell.addOrderRentPriceCellAddBlock = ^{
             
-            ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
-            view.modifyAndAddRentalViewComfirmBtnBlock = ^{
-              
-                AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
-                [self.navigationController pushViewController:nextVC animated:YES];
-            };
-            view.modifyAndAddRentalViewBlock = ^{
-              
-                SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[]];
-                view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            if (!self->_roomArr.count) {
+                
+                [self showContent:@"请先选择房源"];
+            }else{
+                
+                if (![self->_orderDic[@"rent_month_num"] length] || !self->_orderDic[@"start_time"]) {
                     
-                };
-                [self.view addSubview:view];
-            };
-            [self.view addSubview:view];
+                    if (!self->_orderDic[@"start_time"]) {
+                        
+                        [self showContent:@"请先选择租期开始时间"];
+                    }else{
+                     
+                        [self showContent:@"请先输入租期时长"];
+                    }
+                }else{
+                    
+                    if (self->_orderDic[@"pay_way1"] && self->_orderDic[@"pay_way2"]) {
+                        
+                        ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
+                        view.periodTF.textField.text = self->_orderDic[@"desipot"];
+                        view.numL.text = [NSString stringWithFormat:@"期数：%.0f",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
+                        [self->_stageArr removeAllObjects];
+                        view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
+                          
+                            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                            [formatter setDateFormat:@"YYYY-MM-dd"];
+                            
+                            NSString *unit = @"0";
+                            
+                            double total = [self MultiplyingNumber:[str doubleValue] num2:([self->_orderDic[@"rent_month_num"] doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+                            double area = 0;
+                            for (int i = 0; i < self->_roomArr.count; i++) {
+                                
+                                area = area + [self->_roomArr[i][@"build_size"] doubleValue];
+                            }
+                            if (area > 0) {
+                                
+                                unit = [NSString stringWithFormat:@"%.2f",total / area];
+                            }else{
+                                
+                                unit = [NSString stringWithFormat:@"%.2f",total];
+                            }
+                            NSString *date;
+                            NSString *endDate;
+                            NSString *resultDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:self->_orderDic[@"start_time"]] withMonth:[self->_orderDic[@"rent_month_num"] integerValue]]];
+                            [self->_orderDic setValue:resultDate forKey:@"end_time"];
+                            for (int i = 0; i < ([self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]); i++) {
+
+                                if (i == 0) {
+                                    
+                                    date = self->_orderDic[@"start_time"];
+                                }else{
+                                    
+                                    date = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:date] withMonth:[self->_orderDic[@"pay_way2"] integerValue]]];
+                                }
+                                endDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:date] withMonth:[self->_orderDic[@"pay_way2"] integerValue]]];
+                                NSComparisonResult result = [endDate compare:resultDate];
+                                if (result == NSOrderedDescending) {
+                                    
+                                    endDate = resultDate;
+                                }
+                                
+                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":[NSString stringWithFormat:@"%d",i + 1],@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date}];
+                            }
+                            [tableView reloadData];
+                            [self ProgreesMethod];
+                            AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
+                            [self.navigationController pushViewController:nextVC animated:YES];
+                        };
+                        view.modifyAndAddRentalViewBlock = ^{
+                          
+                            SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[]];
+                            view.selectedBlock = ^(NSString *MC, NSString *ID) {
+                                
+                            };
+                            [self.view addSubview:view];
+                        };
+                        [self.view addSubview:view];
+                    }else{
+                        
+                        [self showContent:@"请先选择付款方式"];
+                    }
+                }
+            }
         };
         
         return cell;
@@ -750,7 +1036,7 @@
                 [self.view addSubview:view];
             }else{
 
-                [BaseRequest GET:ShopGetProgress_URL parameters:@{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"4"} success:^(id  _Nonnull resposeObject) {
+                [BaseRequest GET:ShopGetProgress_URL parameters:@{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"5"} success:^(id  _Nonnull resposeObject) {
 
                     if ([resposeObject[@"code"] integerValue] == 200) {
 

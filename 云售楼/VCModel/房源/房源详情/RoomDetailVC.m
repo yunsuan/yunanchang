@@ -551,7 +551,7 @@
     
     UILabel *contentlab1 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 171*SIZE, 200*SIZE, 16*SIZE)];
     contentlab1.font = FONT(12);
-    contentlab1.text = [NSString stringWithFormat:@"计价规则:  %@",_fjxx[@"price_way"]];
+    contentlab1.text = [NSString stringWithFormat:@"计价规则:  %@",_fjxx[@"price_way_name"]];
     contentlab1.textColor = CLContentLabColor;
     [_tanchuanView addSubview:contentlab1];
     

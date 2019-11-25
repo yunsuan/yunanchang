@@ -8,15 +8,20 @@
 
 #import "OrderRentDetailVC.h"
 
+#import "FileReadingVC.h"
+
 #import "BaseHeader.h"
-#import "IntentDetailHeader.h"
+#import "ShopDetailHeader.h"
 #import "InfoDetailCell.h"
+#import "EnclosureCell.h"
 #import "CallTelegramCustomDetailInfoCell.h"
 
 @interface OrderRentDetailVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     
     NSInteger _num;
+    
+    NSString *_sub_id;
     
     NSMutableDictionary *_dataDic;
     
@@ -35,7 +40,7 @@
     self = [super init];
     if (self) {
         
-//        _businessId = businessId;
+        _sub_id = businessId;
     }
     return self;
 }
@@ -57,12 +62,12 @@
 
 - (void)RequestMethod{
     
-    [BaseRequest GET:ProjectRowGetRowDetail_URL parameters:@{@"row_id":@""} success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:TradeSubGetTradeSubDetail_URL parameters:@{@"sub_id":_sub_id} success:^(id  _Nonnull resposeObject) {
 
             if ([resposeObject[@"code"] integerValue] == 200) {
 
                 self->_dataDic = [NSMutableDictionary dictionaryWithDictionary:resposeObject[@"data"]];
-                NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"beneficiary"]];
+                NSMutableArray *tempArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_detail_list"]];
                 for (int i = 0; i < tempArr.count; i++) {
 
                     NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:tempArr[i]];
@@ -78,7 +83,7 @@
                     }];
                     [tempArr replaceObjectAtIndex:i withObject:tempDic];
                 }
-                [self->_dataDic setObject:tempArr forKey:@"beneficiary"];
+                [self->_dataDic setObject:tempArr forKey:@"shop_detail_list"];
                 if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
 
                     self.rightBtn.hidden = YES;
@@ -98,7 +103,7 @@
                         str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
                     }
                 }
-                self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@",self->_dataDic[@"beneficiary"][0][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"beneficiary"][0][@"tel"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"beneficiary"][0][@"card_type"]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"联系人：%@",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"所属区域：%@",self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"认知途径：%@",str],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"row_time"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"sign_agent_name"]]],@[[NSString stringWithFormat:@"定租编号：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"签约人：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"advicer"][0][@"name"]],[NSString stringWithFormat:@"签约人证件号码：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"定金金额：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"租期：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"开业时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"提醒签约时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"row_name"]]],@[[NSString stringWithFormat:@"实际单价：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"合计总租金：%@",self->_dataDic[@"row_name"]]]]];
+                self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@%@%@",self->_dataDic[@"shop_detail_list"][0][@"build_name"],self->_dataDic[@"shop_detail_list"][0][@"unit_name"],self->_dataDic[@"shop_detail_list"][0][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"shop_detail_list"][0][@"build_size"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"shop_detail_list"][0][@"total_rent"]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"business_info"][@"business_name"]],[NSString stringWithFormat:@"联系人：%@",self->_dataDic[@"business_info"][@"contact"]],[NSString stringWithFormat:@"所属区域：%@%@%@",self->_dataDic[@"business_info"][@"province_name"],self->_dataDic[@"business_info"][@"city_name"],self->_dataDic[@"business_info"][@"district_name"]],[NSString stringWithFormat:@"认知途径：%@",self->_dataDic[@"business_info"][@"source_name"]],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"business_info"][@"lease_size"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"business_info"][@"lease_money"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"business_info"][@"sign_agent_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"business_info"][@"format_name"]]],@[[NSString stringWithFormat:@"定租编号：%@",self->_dataDic[@"sub_code"]],[NSString stringWithFormat:@"签约人：%@",self->_dataDic[@"signatory"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"card_type"]],[NSString stringWithFormat:@"签约人证件号码：%@",self->_dataDic[@"card_num"]],[NSString stringWithFormat:@"定金金额：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"租期：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"开业时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"付款方式：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"提醒签约时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"row_name"]]],@[[NSString stringWithFormat:@"实际单价：%@",self->_dataDic[@"row_name"]],[NSString stringWithFormat:@"合计总租金：%@",self->_dataDic[@"row_name"]]]]];
                 if ([self->_dataDic[@"check_state"] integerValue] != 2) {
 
                     if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
@@ -117,7 +122,7 @@
                         [self->_dataArr addObject:arr];
                     }
                 }
-                [self->_dataArr addObject:self->_dataDic[@"enclosure"]];
+                [self->_dataArr addObject:self->_dataDic[@"enclosure_list"]];
                 [self->_table reloadData];
             }else{
 
@@ -263,38 +268,37 @@
     
     if (section == 0) {
         
-        IntentDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"IntentDetailHeader"];
+        ShopDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"ShopDetailHeader"];
         if (!header) {
             
-            header = [[IntentDetailHeader alloc] initWithReuseIdentifier:@"IntentDetailHeader"];
+            header = [[ShopDetailHeader alloc] initWithReuseIdentifier:@"ShopDetailHeader"];
         }
         
-//        header.dataDic = self->_dataDic;
-//        header.moneyL.text = [NSString stringWithFormat:@"诚意金：%@元",self->_dataDic[@"sincerity"]];
+        header.dataDic = self->_dataDic;
         header.num = _num;
         
-//        if ([self->_dataDic[@"beneficiary"] count]) {
-//
-//            if ([self->_dataDic[@"beneficiary"][_num][@"sex"] integerValue] == 1) {
+        if ([self->_dataDic[@"shop_detail_list"] count]) {
+
+//            if ([self->_dataDic[@"shop_detail_list"][_num][@"sex"] integerValue] == 1) {
 //
 //                header.headImg.image = IMAGE_WITH_NAME(@"nan");
 //            }else{
 //
 //                header.headImg.image = IMAGE_WITH_NAME(@"nv");
 //            }
-//        }
+        }
         
         header.addBtn.hidden = YES;
         
         
 
-        header.intentDetailHeaderAddBlock = ^{
+        header.shopDetailHeaderAddBlock = ^{
             
 //            AddEncumbrancerVC *nextVC = [[AddEncumbrancerVC alloc] init];
 //            [self.navigationController pushViewController:nextVC animated:YES];
         };
         
-        header.intentDetailHeaderEditBlock = ^{
+        header.shopDetailHeaderEditBlock = ^{
             
 //            ModifyNumeralVC *nextVC = [[ModifyNumeralVC alloc] initWithRowId:self->_row_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
 //            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer"]];
@@ -307,11 +311,11 @@
 //            [self.navigationController pushViewController:nextVC animated:YES];
         };
         
-        header.intentDetailHeaderCollBlock = ^(NSInteger index) {
+        header.shopDetailHeaderCollBlock = ^(NSInteger index) {
             
             self->_num = index;
-//            NSArray *arr = @[[NSString stringWithFormat:@"姓名：%@",self->_dataDic[@"beneficiary"][index][@"name"]],[NSString stringWithFormat:@"手机：%@",self->_dataDic[@"beneficiary"][index][@"tel"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"beneficiary"][index][@"card_type"]],[NSString stringWithFormat:@"证件号码：%@",self->_dataDic[@"beneficiary"][index][@"card_num"]],[NSString stringWithFormat:@"出生日期：%@",self->_dataDic[@"beneficiary"][index][@"birth"]],[NSString stringWithFormat:@"通讯地址：%@",self->_dataDic[@"beneficiary"][index][@"address"]],[NSString stringWithFormat:@"邮政编码：%@",self->_dataDic[@"beneficiary"][index][@"mail_code"]],[NSString stringWithFormat:@"产权比例：%@%@",self->_dataDic[@"beneficiary"][index][@"property"],@"%"],[NSString stringWithFormat:@"类型：%@",[self->_dataDic[@"beneficiary"][index][@"beneficiary_type"] integerValue] == 1? @"主权益人":@"附权益人"]];
-//            [self->_dataArr replaceObjectAtIndex:1 withObject:arr];
+            NSArray *arr = @[[NSString stringWithFormat:@"房间：%@%@%@",self->_dataDic[@"shop_detail_list"][index][@"build_name"],self->_dataDic[@"shop_detail_list"][index][@"unit_name"],self->_dataDic[@"shop_detail_list"][index][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"shop_detail_list"][index][@"build_size"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"shop_detail_list"][index][@"total_rent"]]];
+            [self->_dataArr replaceObjectAtIndex:1 withObject:arr];
             [tableView reloadData];
         };
         
@@ -400,6 +404,26 @@
 //            [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;
+    }else if(indexPath.section == _dataArr.count - 1){
+        
+        EnclosureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EnclosureCell"];
+        if (!cell) {
+            
+            cell = [[EnclosureCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"EnclosureCell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.dataArr = _dataDic[@"enclosure_list"];
+        
+        cell.enclosureCellBlock = ^(NSInteger idx) {
+          
+            FileReadingVC *nextVC = [[FileReadingVC alloc] initWithUrlString:_dataDic[@"enclosure_list"][idx][@"url"]];
+            [self.navigationController pushViewController:nextVC animated:YES];
+            NSLog(@"%@",_dataDic[@"enclosure_list"]);
+        };
+        
+        return cell;
+        
     }else{
     
         CallTelegramCustomDetailInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallTelegramCustomDetailInfoCell"];

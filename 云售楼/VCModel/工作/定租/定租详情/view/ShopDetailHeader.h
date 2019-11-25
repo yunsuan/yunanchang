@@ -1,8 +1,8 @@
 //
-//  IntentDetailHeader.h
+//  ShopDetailHeader.h
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/11/4.
+//  Created by 谷治墙 on 2019/11/25.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
@@ -12,19 +12,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^IntentDetailHeaderAddBlock)(void);
+typedef void(^ShopDetailHeaderAddBlock)(void);
 
-typedef void(^IntentDetailHeaderEditBlock)(void);
+typedef void(^ShopDetailHeaderEditBlock)(void);
 
-typedef void(^IntentDetailHeaderCollBlock)(NSInteger index);
+typedef void(^ShopDetailHeaderCollBlock)(NSInteger index);
 
-@interface IntentDetailHeader : UITableViewHeaderFooterView
+@interface ShopDetailHeader : UITableViewHeaderFooterView
 
-@property (nonatomic, copy) IntentDetailHeaderCollBlock intentDetailHeaderCollBlock;
+@property (nonatomic, copy) ShopDetailHeaderCollBlock shopDetailHeaderCollBlock;
 
-@property (nonatomic, copy) IntentDetailHeaderAddBlock intentDetailHeaderAddBlock;
+@property (nonatomic, copy) ShopDetailHeaderAddBlock shopDetailHeaderAddBlock;
 
-@property (nonatomic, copy) IntentDetailHeaderEditBlock intentDetailHeaderEditBlock;
+@property (nonatomic, copy) ShopDetailHeaderEditBlock shopDetailHeaderEditBlock;
 
 @property (nonatomic, assign) NSInteger num;
 
@@ -58,11 +58,7 @@ typedef void(^IntentDetailHeaderCollBlock)(NSInteger index);
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 
-@property (nonatomic, strong) NSDictionary *orderDic;
-
-@property (nonatomic, strong) NSDictionary *signDic;
-
-//@property (nonatomic, strong) NSDictionary *storeIntentDic;
+@property (nonatomic, strong) NSDictionary *storeIntentDic;
 
 @end
 

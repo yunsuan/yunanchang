@@ -706,7 +706,7 @@
         cell.addOrderRentPriceCellAddBlock = ^{
             
             ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
-            view.modifyAndAddRentalViewComfirmBtnBlock = ^{
+            view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
               
                 AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
                 [self.navigationController pushViewController:nextVC animated:YES];
@@ -742,7 +742,7 @@
         cell.addOrderRentPriceCellAddBlock = ^{
             
             ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
-            view.modifyAndAddRentalViewComfirmBtnBlock = ^{
+            view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
               
                 AddSignRentPropertyVC *nextVC = [[AddSignRentPropertyVC alloc] init];
                 [self.navigationController pushViewController:nextVC animated:YES];
@@ -778,7 +778,7 @@
         cell.addOrderRentPriceCellAddBlock = ^{
             
             ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
-            view.modifyAndAddRentalViewComfirmBtnBlock = ^{
+            view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
               
                 AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] init];
                 [self.navigationController pushViewController:nextVC animated:YES];

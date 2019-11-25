@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddOrderRentVCBlock)(void);
+
 @interface AddOrderRentVC : BaseViewController
+
+@property (nonatomic, strong) AddOrderRentVCBlock addOrderRentVCBlock;
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddOrderRentalDetailVC : BaseViewController
 
+- (instancetype)initWithStageArr:(NSArray *)stageArr;
+
 @end
 
 NS_ASSUME_NONNULL_END

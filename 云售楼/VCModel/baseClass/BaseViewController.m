@@ -703,6 +703,16 @@
     return num.doubleValue;
 }
 
+- (NSDate *)getPriousorLaterDateFromDate:(NSDate *)date withMonth:(NSInteger)month
+{
+  
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setMonth:month];
+    NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *mDate = [calender dateByAddingComponents:comps toDate:date options:0];
+    return mDate;
+}
+
 
 
 @end

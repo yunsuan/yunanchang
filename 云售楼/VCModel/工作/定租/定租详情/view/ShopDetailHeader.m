@@ -1,16 +1,16 @@
 //
-//  IntentDetailHeader.m
+//  ShopDetailHeader.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/11/4.
+//  Created by 谷治墙 on 2019/11/25.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "IntentDetailHeader.h"
+#import "ShopDetailHeader.h"
 
 #import "CallTelegramCustomDetailHeaderCollCell.h"
 
-@interface IntentDetailHeader ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface ShopDetailHeader ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     
     NSInteger _selectNum;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation IntentDetailHeader
+@implementation ShopDetailHeader
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -34,11 +34,11 @@
     return self;
 }
 
-#pragma mark -- 排号 --
+#pragma mark -- 定租 --
 - (void)setDataDic:(NSDictionary *)dataDic{
 
     
-    _collArr = [[NSMutableArray alloc] initWithArray:dataDic[@"beneficiary"]];
+    _collArr = [[NSMutableArray alloc] initWithArray:dataDic[@"shop_detail_list"]];
     [_coll reloadData];
     
 //    for (int i = 0; i < _collArr.count; i++) {
@@ -64,17 +64,17 @@
         }
         case 3:
         {
-            _statusL.text = @"转定单";
+            _statusL.text = @"转定租";
             break;
         }
         case 4:
         {
-            _statusL.text = @"转签约";
+            _statusL.text = @"转签租";
             break;
         }
         case 5:
         {
-            _statusL.text = @"退号";
+            _statusL.text = @"退租";
             break;
         }
         default:
@@ -116,19 +116,30 @@
     }
     
     _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
-    _numL.text = [NSString stringWithFormat:@"排号号码：%@",dataDic[@"row_code"]];
-    _customL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"advicer"][0][@"name"]];
-    _titleL.text = [NSString stringWithFormat:@"%@/%@",dataDic[@"batch_name"],dataDic[@"row_name"]];
+    NSString *room = @"";
+    for (int i = 0; i < [dataDic[@"shop_detail_list"] count]; i++) {
+        
+        if (room.length) {
+            
+            room = [NSString stringWithFormat:@"%@,%@",room,dataDic[@"shop_detail_list"][i][@"name"]];
+        }else{
+            
+            room = [NSString stringWithFormat:@"%@",dataDic[@"shop_detail_list"][i][@"name"]];
+        }
+    }
+    _numL.text = [NSString stringWithFormat:@"%@",room];
+    _customL.text = [NSString stringWithFormat:@"联系人：%@/%@",dataDic[@"contact"],dataDic[@"contact_tel"]];
+    _titleL.text = [NSString stringWithFormat:@"定租编号：%@",dataDic[@"sub_code"]];
 //    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
 }
 
-#pragma mark -- 定单 --
-- (void)setOrderDic:(NSDictionary *)orderDic{
+#pragma mark -- 意向商家 --
+- (void)setStoreIntentDic:(NSDictionary *)storeIntentDic{
     
-    _collArr = [[NSMutableArray alloc] initWithArray:orderDic[@"beneficiary"]];
+    _collArr = [[NSMutableArray alloc] initWithArray:storeIntentDic[@"shop_list"]];
     [_coll reloadData];
     
-    switch ([orderDic[@"disabled_state"] integerValue]) {
+    switch ([storeIntentDic[@"disabled_state"] integerValue]) {
         case 0:
         {
             _statusL.text = @"有效";
@@ -146,24 +157,24 @@
         }
         case 3:
         {
-            _statusL.text = @"转定单";
+            _statusL.text = @"转定租";
             break;
         }
         case 4:
         {
-            _statusL.text = @"转签约";
+            _statusL.text = @"转签租";
             break;
         }
         case 5:
         {
-            _statusL.text = @"退号";
+            _statusL.text = @"退租";
             break;
         }
         default:
-            _statusL.text = @"定单";
+            _statusL.text = @"有效";
             break;
     }
-    switch ([orderDic[@"check_state"] integerValue]) {
+    switch ([storeIntentDic[@"check_state"] integerValue]) {
         case 0:
         {
             _auditL.text = @"不通过";
@@ -189,7 +200,7 @@
             break;
     }
     
-    if ([orderDic[@"disabled_state"] integerValue] == 0 && [orderDic[@"check_state"] integerValue] == 2) {
+    if ([storeIntentDic[@"disabled_state"] integerValue] == 0 && [storeIntentDic[@"check_state"] integerValue] == 2) {
         
         _editBtn.hidden = NO;
     }else{
@@ -197,186 +208,24 @@
         _editBtn.hidden = YES;
     }
     
-    _payL.text = [orderDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
-    _numL.text = [NSString stringWithFormat:@"付款方式：%@",orderDic[@"pay_way_name"]];
-    _customL.text = [NSString stringWithFormat:@"成交总价：%@元",orderDic[@"sub_total_price"]];
-    _titleL.text = [NSString stringWithFormat:@"%@/%@/%@",orderDic[@"batch_name"],orderDic[@"build_name"],orderDic[@"property_type"]];
-}
-
-#pragma mark -- 签约 --
-- (void)setSignDic:(NSDictionary *)signDic{
+    _payL.text = [storeIntentDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
     
-    _collArr = [[NSMutableArray alloc] initWithArray:signDic[@"beneficiary"]];
-    [_coll reloadData];
-    
-    switch ([signDic[@"disabled_state"] integerValue]) {
-        case 0:
-        {
-            _statusL.text = @"有效";
-            break;
-        }
-        case 1:
-        {
-            _statusL.text = @"变更";
-            break;
-        }
-        case 2:
-        {
-            _statusL.text = @"作废";
-            break;
-        }
-        case 3:
-        {
-            _statusL.text = @"转定单";
-            break;
-        }
-        case 4:
-        {
-            _statusL.text = @"转签约";
-            break;
-        }
-        case 5:
-        {
-            _statusL.text = @"退号";
-            break;
-        }
-        default:
-            _statusL.text = @"签约";
-            break;
-    }
-    switch ([signDic[@"check_state"] integerValue]) {
-        case 0:
-        {
-            _auditL.text = @"不通过";
-            break;
-        }
-        case 1:
-        {
-            _auditL.text = @"已审核";
-            break;
-        }
-        case 2:
-        {
-            _auditL.text = @"未审核";
-            break;
-        }
-        case 3:
-        {
-            _auditL.text = @"审核中";
-            break;
-        }
-        default:
-            _auditL.text = @"未审核";
-            break;
-    }
-    
-    if ([signDic[@"disabled_state"] integerValue] == 0 && [signDic[@"check_state"] integerValue] == 2) {
+    NSString *room = @"";
+    for (int i = 0; i < [storeIntentDic[@"shop_list"] count]; i++) {
         
-        _editBtn.hidden = NO;
-    }else{
-        
-        _editBtn.hidden = YES;
+        if (room.length) {
+            
+            room = [NSString stringWithFormat:@"%@,%@",room,storeIntentDic[@"shop_list"][i][@"name"]];
+        }else{
+            
+            room = [NSString stringWithFormat:@"%@",storeIntentDic[@"shop_list"][i][@"name"]];
+        }
     }
-    
-    _payL.text = [signDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
-    _numL.text = [NSString stringWithFormat:@"付款方式：%@",signDic[@"pay_way_name"]];
-    _customL.text = [NSString stringWithFormat:@"成交总价：%@元",signDic[@"contract_total_price"]];
-    _titleL.text = [NSString stringWithFormat:@"%@/%@",signDic[@"build_name"],signDic[@"house_name"]];
+    _numL.text = [NSString stringWithFormat:@"%@",room];
+    _customL.text = [NSString stringWithFormat:@"联系人：%@/%@",storeIntentDic[@"contact"],storeIntentDic[@"contact_tel"]];
+    _titleL.text = [NSString stringWithFormat:@"意向编号：%@",storeIntentDic[@"row_code"]];
+//    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
 }
-
-//#pragma mark -- 意向商家 --
-//- (void)setStoreIntentDic:(NSDictionary *)storeIntentDic{
-//    
-//    _collArr = [[NSMutableArray alloc] initWithArray:storeIntentDic[@"shop_list"]];
-//    [_coll reloadData];
-//    
-//    switch ([storeIntentDic[@"disabled_state"] integerValue]) {
-//        case 0:
-//        {
-//            _statusL.text = @"有效";
-//            break;
-//        }
-//        case 1:
-//        {
-//            _statusL.text = @"变更";
-//            break;
-//        }
-//        case 2:
-//        {
-//            _statusL.text = @"作废";
-//            break;
-//        }
-//        case 3:
-//        {
-//            _statusL.text = @"转定单";
-//            break;
-//        }
-//        case 4:
-//        {
-//            _statusL.text = @"转签约";
-//            break;
-//        }
-//        case 5:
-//        {
-//            _statusL.text = @"退号";
-//            break;
-//        }
-//        default:
-//            _statusL.text = @"有效";
-//            break;
-//    }
-//    switch ([storeIntentDic[@"check_state"] integerValue]) {
-//        case 0:
-//        {
-//            _auditL.text = @"不通过";
-//            break;
-//        }
-//        case 1:
-//        {
-//            _auditL.text = @"已审核";
-//            break;
-//        }
-//        case 2:
-//        {
-//            _auditL.text = @"未审核";
-//            break;
-//        }
-//        case 3:
-//        {
-//            _auditL.text = @"审核中";
-//            break;
-//        }
-//        default:
-//            _auditL.text = @"未审核";
-//            break;
-//    }
-//    
-//    if ([storeIntentDic[@"disabled_state"] integerValue] == 0 && [storeIntentDic[@"check_state"] integerValue] == 2) {
-//        
-//        _editBtn.hidden = NO;
-//    }else{
-//        
-//        _editBtn.hidden = YES;
-//    }
-//    
-//    _payL.text = [storeIntentDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
-//    
-//    NSString *room = @"";
-//    for (int i = 0; i < [storeIntentDic[@"shop_list"] count]; i++) {
-//        
-//        if (room.length) {
-//            
-//            room = [NSString stringWithFormat:@"%@,%@",room,storeIntentDic[@"shop_list"][i][@"name"]];
-//        }else{
-//            
-//            room = [NSString stringWithFormat:@"%@",storeIntentDic[@"shop_list"][i][@"name"]];
-//        }
-//    }
-//    _numL.text = [NSString stringWithFormat:@"%@",room];
-//    _customL.text = [NSString stringWithFormat:@"联系人：%@/%@",storeIntentDic[@"contact"],storeIntentDic[@"contact_tel"]];
-//    _titleL.text = [NSString stringWithFormat:@"意向编号：%@",storeIntentDic[@"row_code"]];
-////    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
-//}
 
 - (void)setNum:(NSInteger)num{
     
@@ -395,17 +244,17 @@
 
 - (void)ActionAddBtn:(UIButton *)btn{
     
-    if (self.intentDetailHeaderAddBlock) {
+    if (self.shopDetailHeaderAddBlock) {
         
-        self.intentDetailHeaderAddBlock();
+        self.shopDetailHeaderAddBlock();
     }
 }
 
 - (void)ActionEditBtn:(UIButton *)btn{
     
-    if (self.intentDetailHeaderEditBlock) {
+    if (self.shopDetailHeaderEditBlock) {
         
-        self.intentDetailHeaderEditBlock();
+        self.shopDetailHeaderEditBlock();
     }
 }
 
@@ -438,9 +287,9 @@
     
     [_selectArr replaceObjectAtIndex:indexPath.item withObject:@1];
     [collectionView reloadData];
-    if (self.intentDetailHeaderCollBlock) {
+    if (self.shopDetailHeaderCollBlock) {
 
-        self.intentDetailHeaderCollBlock(indexPath.item);
+        self.shopDetailHeaderCollBlock(indexPath.item);
     }
 }
 
@@ -637,5 +486,4 @@
         make.width.height.mas_equalTo(25 *SIZE);
     }];
 }
-
 @end

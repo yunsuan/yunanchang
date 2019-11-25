@@ -15,9 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^ModifyAndAddRentalViewBlock)(void);
 
-typedef void(^ModifyAndAddRentalViewComfirmBtnBlock)(void);
+typedef void(^ModifyAndAddRentalViewComfirmBtnBlock)(NSString *str);
 
 @interface ModifyAndAddRentalView : UIView
+
+@property (nonatomic, strong) UILabel *numL;
 
 @property (nonatomic, strong) DropBtn *periodBtn;
 

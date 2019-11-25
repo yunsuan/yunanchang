@@ -30,14 +30,14 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@",dataDic[@""]];
-    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@""]];
-    _originL.text = [NSString stringWithFormat:@"计算金额：%@",dataDic[@""]];
-    _resultL.text = [NSString stringWithFormat:@"实际金额：%@",dataDic[@""]];
-    _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@""]];
-    _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@""]];
-    _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@""]];
-    _unitL.text = [NSString stringWithFormat:@"单价：%@",dataDic[@""]];
+    _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@至%@",dataDic[@"stage_start_time"],dataDic[@"stage_end_time"]];
+    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@"free_rent"]];
+    _originL.text = [NSString stringWithFormat:@"计算金额：%@",dataDic[@"total_rent"]];
+    _resultL.text = [NSString stringWithFormat:@"实际金额：%@",dataDic[@"total_rent"]];
+    _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
+    _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@"pay_time"]];
+    _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@"remind_time"]];
+    _unitL.text = [NSString stringWithFormat:@"单价：%@",dataDic[@"unit_rent"]];
 }
 
 - (void)initUI{

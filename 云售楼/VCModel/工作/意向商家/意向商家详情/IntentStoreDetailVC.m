@@ -14,7 +14,8 @@
 #import "BelongDetailVC.h"
 
 #import "BaseHeader.h"
-#import "IntentDetailHeader.h"
+//#import "IntentDetailHeader.h"
+#import "ShopDetailHeader.h"
 #import "InfoDetailCell.h"
 #import "EnclosureCell.h"
 #import "CallTelegramCustomDetailInfoCell.h"
@@ -301,10 +302,10 @@
     
     if (section == 0) {
         
-        IntentDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"IntentDetailHeader"];
+        ShopDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"ShopDetailHeader"];
         if (!header) {
             
-            header = [[IntentDetailHeader alloc] initWithReuseIdentifier:@"IntentDetailHeader"];
+            header = [[ShopDetailHeader alloc] initWithReuseIdentifier:@"ShopDetailHeader"];
         }
         
         header.storeIntentDic = self->_dataDic;
@@ -315,13 +316,13 @@
         
         
 
-        header.intentDetailHeaderAddBlock = ^{
+        header.shopDetailHeaderAddBlock = ^{
             
 //            AddEncumbrancerVC *nextVC = [[AddEncumbrancerVC alloc] init];
 //            [self.navigationController pushViewController:nextVC animated:YES];
         };
         
-        header.intentDetailHeaderEditBlock = ^{
+        header.shopDetailHeaderEditBlock = ^{
             
             ModifyIntentStoreVC *nextVC = [[ModifyIntentStoreVC alloc] initWithRowId:self->_businessId projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
             nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer"]];
@@ -338,7 +339,7 @@
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         
-        header.intentDetailHeaderCollBlock = ^(NSInteger index) {
+        header.shopDetailHeaderCollBlock = ^(NSInteger index) {
             
             self->_num = index;
             

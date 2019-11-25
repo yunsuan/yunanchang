@@ -68,7 +68,7 @@
     }
     
     _table.mj_footer.state = MJRefreshStateIdle;
-    [BaseRequest GET:ProjectBusinessGetList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest GET:TradeSubGetTradeSubList_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         [self->_table.mj_header endRefreshing];
         if ([resposeObject[@"code"] integerValue] == 200) {
@@ -153,14 +153,10 @@
 - (void)ActionRightBtn:(UIButton *)btn{
     
     AddOrderRentVC *nextVC = [[AddOrderRentVC alloc] initWithProjectId:_project_id info_id:_info_id];
-//    nextVC.addStoreVCBlock = ^{
-//
-//        [self RequestMethod];
-////        if (self.visitCustomVCBlock) {
-////
-////            self.visitCustomVCBlock();
-////        }
-//    };
+    nextVC.addOrderRentVCBlock = ^{
+
+        [self RequestMethod];
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -187,12 +183,26 @@
     
     cell.dataDic = _dataArr[indexPath.row];
     
+    cell.intentStoreCellBlock = ^(NSInteger index) {
+        
+        NSString *phone = [self->_dataArr[index][@"contact_tel"] componentsSeparatedByString:@","][0];
+        if (phone.length) {
+            
+            //获取目标号码字符串,转换成URL
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+            //调用系统方法拨号
+            [[UIApplication sharedApplication] openURL:url];
+        }else{
+            
+            [self alertControllerWithNsstring:@"温馨提示" And:@"暂时未获取到联系电话"];
+        }
+    };
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    OrderRentDetailVC *nextVC = [[OrderRentDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"business_id"]]];
+    OrderRentDetailVC *nextVC = [[OrderRentDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"sub_id"]]];
     nextVC.project_id = _project_id;
     nextVC.info_id = _info_id;
     nextVC.powerDic = self.powerDic;

@@ -491,6 +491,7 @@
                 nextVC.status = @"modify";
                 nextVC.property_id = dic[@"id"];
                 nextVC.need_id = dic[@"list"][0][@"need_id"];
+                nextVC.group_id = self->_groupId;
                 nextVC.intentSurveyVCBlock = ^{
                     
                     [self RequestMethod];

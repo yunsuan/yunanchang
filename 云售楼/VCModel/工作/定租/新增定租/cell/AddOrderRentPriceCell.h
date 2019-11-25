@@ -30,7 +30,7 @@ typedef void(^AddOrderRentPriceCellAddBlock)(void);
 
 @property (nonatomic, strong) NSString *title;
 
-@property (nonatomic, strong) NSMutableDictionary *dataDic;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 

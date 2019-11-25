@@ -43,14 +43,14 @@
 //        [MBProgressHUD showError:@"请选择递增周期"];
 //        return;
 //    }
-//    if (!_periodTF.textField.text.length) {
-//        
-//        [MBProgressHUD showError:@"请输入递增率"];
-//        return;
-//    }
+    if (!_periodTF.textField.text.length) {
+        
+        [MBProgressHUD showError:@"请输入租金"];
+        return;
+    }
     if (self.modifyAndAddRentalViewComfirmBtnBlock) {
         
-        self.modifyAndAddRentalViewComfirmBtnBlock();
+        self.modifyAndAddRentalViewComfirmBtnBlock(_periodTF.textField.text);
     }
     [self removeFromSuperview];
 }
@@ -158,11 +158,13 @@
         if (i == 0) {
             
             label.text = @"期数：";
+            _numL = label;
+            [alertView addSubview:_numL];
         }else{
             
             label.text = @"每期租金：";
+            [alertView addSubview:label];
         }
-        [alertView addSubview:label];
     }
     
 //    _periodBtn = [[DropBtn alloc] initWithFrame:CGRectMake(80 *SIZE, 20 *SIZE, 180 *SIZE, 33 *SIZE)];

@@ -234,10 +234,10 @@
         [dic setObject:jsonString2 forKey:@"enclosure_list"];
     }
     [dic setObject:_progressDic[@"progress_id"] forKey:@"current_progress"];
-//    if (param.length) {
-//
-//        [dic setObject:param forKey:@"param"];
-//    }
+    if (param.length) {
+
+        [dic setObject:param forKey:@"param"];
+    }
     [BaseRequest POST:ShopRowAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
