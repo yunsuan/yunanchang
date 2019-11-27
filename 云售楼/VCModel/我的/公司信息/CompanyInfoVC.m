@@ -143,7 +143,7 @@
         nextVC.status = @"modify";
         nextVC.projectRoleVCBlock = ^(NSString * _Nonnull roleId, NSString * _Nonnull name) {
             
-            [BaseRequest GET:CompanyAuthInfo_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+            [BaseRequest GET:CompanyAuthInfo_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     

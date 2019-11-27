@@ -980,7 +980,7 @@
                         
                     }
                 } failure:^(NSError * _Nonnull error) {
-                    [self showContent:@"网络错误"];
+                    [strongSelf showContent:@"网络错误"];
                 }];
             }
         }else{

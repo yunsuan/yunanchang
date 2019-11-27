@@ -31,13 +31,47 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@至%@",dataDic[@"stage_start_time"],dataDic[@"stage_end_time"]];
-    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@"free_rent"]];
-    _originL.text = [NSString stringWithFormat:@"计算金额：%@",dataDic[@"total_rent"]];
-    _resultL.text = [NSString stringWithFormat:@"实际金额：%@",dataDic[@"total_rent"]];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd"];
+//    NSString *endDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:dataDic[@"stage_start_time"]] withMonth:[dataDic[@"free_month_num"] integerValue]]];
+//    if ([dataDic[@"free_rent"] integerValue]) {
+        
+        _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@至%@",dataDic[@"free_start_time"],dataDic[@"free_end_time"]];
+//    }else{
+//
+//        _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@"free_month_num"]];
+//    }
+    _originL.text = [NSString stringWithFormat:@"计算金额：%@元",dataDic[@"total_rent"]];
+    _resultL.text = [NSString stringWithFormat:@"实际金额：%.2f元",[self DecimalNumber:[dataDic[@"total_rent"] doubleValue] num2:[dataDic[@"free_rent"] doubleValue]]];
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
     _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@"pay_time"]];
     _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@"remind_time"]];
-    _unitL.text = [NSString stringWithFormat:@"单价：%@",dataDic[@"unit_rent"]];
+    _unitL.text = [NSString stringWithFormat:@"单价：%@元/月/㎡",dataDic[@"unit_rent"]];
+}
+
+- (NSDate *)getPriousorLaterDateFromDate:(NSDate *)date withMonth:(NSInteger)month
+{
+  
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setMonth:month];
+    NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *mDate = [calender dateByAddingComponents:comps toDate:date options:0];
+    return mDate;
+}
+
+- (double)DecimalNumber:(double)num1 num2:(double)num2{
+    
+  NSDecimalNumber *n1 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num1]];
+    
+  NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
+    
+//  NSDecimalNumber *n3 = [n1 decimalNumberBySubtracting:n2];
+    
+  NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+  NSDecimalNumber *num = [n1 decimalNumberBySubtracting:n2 withBehavior:handler];
+  NSLog(@"num===%@",num);
+  return num.doubleValue;
 }
 
 - (void)initUI{

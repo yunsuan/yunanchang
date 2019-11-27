@@ -258,18 +258,19 @@
         UIAlertAction *numeral = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     
             NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+            __strong __typeof(&*view)strongView = view;
             view.numeralDetailInvalidViewBlock = ^{
                 
                 NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"id":self->_sub_id}];
-                if ([self isEmpty:view.reasonTV.text]) {
+                if ([self isEmpty:strongView.reasonTV.text]) {
                     
-                    [tempDic setObject:view.reasonTV.text forKey:@"disabled_reason"];
+                    [tempDic setObject:strongView.reasonTV.text forKey:@"disabled_reason"];
                 }
                 [BaseRequest POST:ProjectRowDisabled_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
-                        [view removeFromSuperview];
+                        [strongView removeFromSuperview];
                         [self.navigationController popViewControllerAnimated:YES];
                     }else{
                         
@@ -280,7 +281,7 @@
                     [self showContent:@"网络错误"];
                 }];
             };
-            [self.view addSubview:view];
+            [self.view addSubview:strongView];
         }];
     
     UIAlertAction *audit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -300,81 +301,81 @@
         [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
-    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"id":@"1",@"param":@"合同付款方式变更"},@{@"id":@"2",@"param":@"合同主从变更"},@{@"id":@"3",@"param":@"合同特殊优惠变更"},@{@"id":@"4",@"param":@"合同延期签约变更"},@{@"id":@"5",@"param":@"合同增减权益人"},@{@"id":@"6",@"param":@"合同退房"},@{@"id":@"7",@"param":@"合同换房"},@{@"id":@"8",@"param":@"合同更名"},@{@"id":@"9",@"param":@"合同延期"},@{@"id":@"10",@"param":@"合同按揭年限变更"},@{@"id":@"11",@"param":@"合同按揭银行变更"},@{@"id":@"12",@"param":@"合同添加首付款"},@{@"id":@"13",@"param":@"合同付款延期"}]];
-        view.selectedBlock = ^(NSString *MC, NSString *ID) {
-            if ([ID integerValue] == 1) {
-                
-                SignPayWayChangeVC *nextVC = [[SignPayWayChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
-                nextVC.signPayWayChangeVCBlock = ^{
-                    
-                };
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else if ([ID integerValue] == 2){
-                
-                SignMasterSlaveChangeVC *nextVC = [[SignMasterSlaveChangeVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
-                nextVC.signMasterSlaveChangeVCBlock = ^{
-                    
-                };
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else if ([ID integerValue] == 3){
-                
-                SignSpePerferChangeVC *nextVC = [[SignSpePerferChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
-                nextVC.signSpePerferChangeVCBlock = ^{
-                    
-                };
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else if ([ID integerValue] == 4){
-                
-                
-            }else if ([ID integerValue] == 5){
-                
-                SignAddMinusPersonVC *nextVC = [[SignAddMinusPersonVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
-                nextVC.signAddMinusPersonVCBlock = ^{
-                    
-                    
-                };
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else if ([ID integerValue] == 6){
-                
-                SignExitRoomVC *nextVC = [[SignExitRoomVC alloc] init];
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else if ([ID integerValue] == 7){
-                
-                SignChangeRoomVC *nextVC = [[SignChangeRoomVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
-                nextVC.signChangeRoomVCBlock = ^{
-                    
-                };
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else if ([ID integerValue] == 8){
-                
-                
-            }else if ([ID integerValue] == 9){
-                
-                
-            }else if ([ID integerValue] == 10){
-                
-                SignYearChangeVC *nextVC = [[SignYearChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
-                nextVC.signYearChangeVCBlock = ^{
-                    
-                    
-                };
-                [self.navigationController pushViewController:nextVC animated:YES];
-            }else if ([ID integerValue] == 11){
-                
-                
-            }else if ([ID integerValue] == 12){
-                
-                
-            }else if ([ID integerValue] == 13){
-                
-                
-            }
-        };
-        [self.view addSubview:view];
-    }];
-    
+//    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        
+//        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"id":@"1",@"param":@"合同付款方式变更"},@{@"id":@"2",@"param":@"合同主从变更"},@{@"id":@"3",@"param":@"合同特殊优惠变更"},@{@"id":@"4",@"param":@"合同延期签约变更"},@{@"id":@"5",@"param":@"合同增减权益人"},@{@"id":@"6",@"param":@"合同退房"},@{@"id":@"7",@"param":@"合同换房"},@{@"id":@"8",@"param":@"合同更名"},@{@"id":@"9",@"param":@"合同延期"},@{@"id":@"10",@"param":@"合同按揭年限变更"},@{@"id":@"11",@"param":@"合同按揭银行变更"},@{@"id":@"12",@"param":@"合同添加首付款"},@{@"id":@"13",@"param":@"合同付款延期"}]];
+//        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+//            if ([ID integerValue] == 1) {
+//                
+//                SignPayWayChangeVC *nextVC = [[SignPayWayChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+//                nextVC.signPayWayChangeVCBlock = ^{
+//                    
+//                };
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else if ([ID integerValue] == 2){
+//                
+//                SignMasterSlaveChangeVC *nextVC = [[SignMasterSlaveChangeVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
+//                nextVC.signMasterSlaveChangeVCBlock = ^{
+//                    
+//                };
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else if ([ID integerValue] == 3){
+//                
+//                SignSpePerferChangeVC *nextVC = [[SignSpePerferChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+//                nextVC.signSpePerferChangeVCBlock = ^{
+//                    
+//                };
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else if ([ID integerValue] == 4){
+//                
+//                
+//            }else if ([ID integerValue] == 5){
+//                
+//                SignAddMinusPersonVC *nextVC = [[SignAddMinusPersonVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
+//                nextVC.signAddMinusPersonVCBlock = ^{
+//                    
+//                    
+//                };
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else if ([ID integerValue] == 6){
+//                
+//                SignExitRoomVC *nextVC = [[SignExitRoomVC alloc] init];
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else if ([ID integerValue] == 7){
+//                
+//                SignChangeRoomVC *nextVC = [[SignChangeRoomVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+//                nextVC.signChangeRoomVCBlock = ^{
+//                    
+//                };
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else if ([ID integerValue] == 8){
+//                
+//                
+//            }else if ([ID integerValue] == 9){
+//                
+//                
+//            }else if ([ID integerValue] == 10){
+//                
+//                SignYearChangeVC *nextVC = [[SignYearChangeVC alloc] initWithSubId:self->_sub_id projectId:self->_project_id info_Id:self->_info_id dataDic:self->_dataDic];
+//                nextVC.signYearChangeVCBlock = ^{
+//                    
+//                    
+//                };
+//                [self.navigationController pushViewController:nextVC animated:YES];
+//            }else if ([ID integerValue] == 11){
+//                
+//                
+//            }else if ([ID integerValue] == 12){
+//                
+//                
+//            }else if ([ID integerValue] == 13){
+//                
+//                
+//            }
+//        };
+//        [self.view addSubview:view];
+//    }];
+//    
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     
@@ -671,9 +672,9 @@
         
         cell.enclosureCellBlock = ^(NSInteger idx) {
           
-            FileReadingVC *nextVC = [[FileReadingVC alloc] initWithUrlString:_dataDic[@"enclosure"][idx][@"url"]];
+            FileReadingVC *nextVC = [[FileReadingVC alloc] initWithUrlString:self->_dataDic[@"enclosure"][idx][@"url"]];
             [self.navigationController pushViewController:nextVC animated:YES];
-            NSLog(@"%@",_dataDic[@"enclosure"]);
+            NSLog(@"%@",self->_dataDic[@"enclosure"]);
         };
         return cell;
         

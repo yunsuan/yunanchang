@@ -69,7 +69,7 @@
             }else{
                 
                 [self->_dataArr removeAllObjects];
-                [_intentColl reloadData];
+                [self->_intentColl reloadData];
             }
         }else{
             

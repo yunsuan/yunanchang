@@ -220,12 +220,12 @@
     }
     [dic setValue:store forKey:@"from_id"];
     [dic setValue:_project_id forKey:@"project_id"];
-//    [dic setValue:_addIntentStoreIntentView.codeTF.textField.text forKey:@"row_code"];
-//    [dic setValue:_addIntentStoreIntentView.sincerityTF.textField.text forKey:@"sincerity"];
-//    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn1.content.text forKey:@"start_time"];
-//    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn2.content.text forKey:@"end_time"];
+    [dic setValue:_intentDic[@"row_code"] forKey:@"row_code"];
+    [dic setValue:_intentDic[@"sincerity"] forKey:@"sincerity"];
+    [dic setValue:_intentDic[@"end_time"] forKey:@"end_time"];
+    [dic setValue:_intentDic[@"start_time"] forKey:@"start_time"];
     [dic setValue:_chargeId forKey:@"charge_company_id"];
-//    [dic setValue:[_addIntentStoreIntentView.timeBtn.content.text componentsSeparatedByString:@" "][0] forKey:@"sign_time"];
+    [dic setValue:[_intentDic[@"sign_time"] componentsSeparatedByString:@" "][0] forKey:@"sign_time"];
     if (_imgArr.count) {
         
         NSError *error;
@@ -277,7 +277,7 @@
             }
 //            self->_addNumeralProcessView.personArr = self->_rolePersonArr;
 //            self->_addNumeralProcessView.personSelectArr = self->_rolePersonSelectArr;
-            [_table reloadData];
+            [self->_table reloadData];
         }else{
             
             
@@ -302,7 +302,7 @@
        if ([resposeObject[@"code"] integerValue] == 200) {
 
            [self->_imgArr addObject:@{@"url":[NSString stringWithFormat:@"%@",resposeObject[@"data"]],@"name":name,@"create_time":name}];
-           [_table reloadData];
+           [self->_table reloadData];
 //           self->_addNumeralFileView.dataArr = self->_imgArr;
        }else{
 
@@ -444,6 +444,7 @@
     
     if (indexPath.section == 0) {
         
+#pragma mark -- 房源 --
         if (indexPath.row == _roomArr.count) {
             
             AddIntentStoreAddCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreAddCell"];
@@ -489,6 +490,8 @@
             
             return cell;
         }
+        
+#pragma mark -- 商家信息 --
     }else if (indexPath.section == 1){
         
         if (indexPath.row == 0) {
@@ -541,6 +544,8 @@
                
             return cell;
         }
+        
+#pragma mark -- 意向信息 --
     }else if (indexPath.section == 2){
         
         AddIntentStoreIntentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreIntentCell"];
@@ -580,7 +585,7 @@
                 [self->_intentDic setObject:[self->_secondFormatter stringFromDate:date] forKey:@"sign_time"];
                 [tableView reloadData];
             };
-            [tableView reloadData];
+            [self.view addSubview:view];
         };
         
         cell.addIntentStoreIntentCellPeriod1Block = ^{
@@ -631,7 +636,7 @@
             };
             [self.view addSubview:view];
         };
-        
+        __strong __typeof(&*cell)strongCell = cell;
         cell.addIntentStoreProccessCellTypeBlock = ^{
           
             if (self->_progressArr.count) {
@@ -656,8 +661,8 @@
 
                         [self->_rolePersonArr removeAllObjects];
                         [self->_rolePersonSelectArr removeAllObjects];
-                        cell.personArr = self->_rolePersonArr;
-                        cell.personSelectArr = self->_rolePersonSelectArr;
+                        strongCell.personArr = self->_rolePersonArr;
+                        strongCell.personSelectArr = self->_rolePersonSelectArr;
                         [self->_progressDic removeObjectForKey:@"role_name"];
                         [self->_progressDic removeObjectForKey:@"role_id"];
                     }
@@ -716,8 +721,8 @@
 
                                 [self->_rolePersonArr removeAllObjects];
                                 [self->_rolePersonSelectArr removeAllObjects];
-                                cell.personArr = self->_rolePersonArr;
-                                cell.personSelectArr = self->_rolePersonSelectArr;
+                                strongCell.personArr = self->_rolePersonArr;
+                                strongCell.personSelectArr = self->_rolePersonSelectArr;
                                 [self->_progressDic removeObjectForKey:@"role_name"];
                                 [self->_progressDic removeObjectForKey:@"role_id"];
                             }
@@ -764,8 +769,8 @@
 
                         [self->_rolePersonArr removeAllObjects];
                         [self->_rolePersonSelectArr removeAllObjects];
-                        cell.personArr = self->_rolePersonArr;
-                        cell.personSelectArr = self->_rolePersonSelectArr;
+                        strongCell.personArr = self->_rolePersonArr;
+                        strongCell.personSelectArr = self->_rolePersonSelectArr;
                     }
                     [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
                     [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];

@@ -40,6 +40,8 @@ typedef void(^IntentStoreCellBlock)(NSInteger index);
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 
+@property (nonatomic, strong) NSDictionary *orderDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

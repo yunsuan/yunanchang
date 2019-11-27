@@ -128,7 +128,7 @@
         }
     }
     _numL.text = [NSString stringWithFormat:@"%@",room];
-    _customL.text = [NSString stringWithFormat:@"联系人：%@/%@",dataDic[@"contact"],dataDic[@"contact_tel"]];
+    _customL.text = [NSString stringWithFormat:@"联系人：%@/%@",dataDic[@"business_info"][@"contact"],dataDic[@"business_info"][@"contact_tel"]];
     _titleL.text = [NSString stringWithFormat:@"定租编号：%@",dataDic[@"sub_code"]];
 //    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
 }

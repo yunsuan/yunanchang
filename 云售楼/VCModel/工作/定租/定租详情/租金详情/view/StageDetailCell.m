@@ -24,13 +24,27 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@至%@",dataDic[@"stage_start_time"],dataDic[@"stage_end_time"]];
-    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@"free_rent"]];
+    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@至%@",dataDic[@"free_start_time"],dataDic[@"free_end_time"]];
     _total.text = [NSString stringWithFormat:@"总租金：%@元",dataDic[@"total_rent"]];
-    _resultL.text = [NSString stringWithFormat:@"实付金额：%@元",dataDic[@"total_rent"]];
+    _resultL.text = [NSString stringWithFormat:@"实付金额：%.2f元",[self DecimalNumber:[dataDic[@"total_rent"] doubleValue] num2:[dataDic[@"free_rent"] doubleValue]]];
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
     _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@"pay_time"]];
     _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@"remind_time"]];
-    _freeL.text = [NSString stringWithFormat:@"免租金额：%@元",dataDic[@"unit_rent"]];
+    _freeL.text = [NSString stringWithFormat:@"免租金额：%@元",dataDic[@"free_rent"]];
+}
+
+- (double)DecimalNumber:(double)num1 num2:(double)num2{
+    
+  NSDecimalNumber *n1 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num1]];
+    
+  NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
+    
+//  NSDecimalNumber *n3 = [n1 decimalNumberBySubtracting:n2];
+    
+  NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+  NSDecimalNumber *num = [n1 decimalNumberBySubtracting:n2 withBehavior:handler];
+  NSLog(@"num===%@",num);
+  return num.doubleValue;
 }
 
 - (void)initUI{

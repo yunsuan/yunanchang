@@ -50,6 +50,7 @@
     NSString *_project_id;
     NSString *_role_id;
     NSString *_chargeId;
+    NSString *_differSize;
     
     NSArray *_titleArr;
     
@@ -112,6 +113,7 @@
 
 - (void)initDataSource{
     
+    _differSize = @"";
     _stageArr = [@[] mutableCopy];
     _propertyArr = [@[] mutableCopy];
     _otherArr = [@[] mutableCopy];
@@ -296,6 +298,10 @@
             
             store = [NSString stringWithFormat:@"%@,%@",store,_storeArr[i][@"business_id"]];
         }
+    }
+    if ([self->_areaDic[@"differ_size"] doubleValue]) {
+        
+        [dic setValue:self->_areaDic[@"differ_size"] forKey:@"differ_size"];
     }
     [dic setValue:store forKey:@"from_id"];
     [dic setValue:store forKey:@"business_id"];
@@ -618,6 +624,13 @@
                         self->_chargeId = chargeId;
                     }
                     [self->_roomArr addObject:dic];
+                    double size = 0;
+                    for (int i = 0; i < self->_roomArr.count; i++) {
+                        
+                        size = [self AddNumber:size num2:[self->_roomArr[i][@"build_size"] doubleValue]];
+                    }
+                    [self->_areaDic setValue:[NSString stringWithFormat:@"%.2f",size] forKey:@"rentSize"];
+                    [self->_areaDic setValue:[NSString stringWithFormat:@"%.2f",[self DecimalNumber:[self->_areaDic[@"rentSize"] doubleValue] num2:[self->_areaDic[@"differ_size"] doubleValue]]] forKey:@"realSize"];
                     [tableView reloadData];
                 };
                 [self.navigationController pushViewController:nextVC animated:YES];
@@ -653,7 +666,7 @@
         
         cell.addSignRentAreaCellStrBlock = ^(NSString * _Nonnull str) {
           
-            [self->_areaDic setValue:str forKey:@""];
+            [self->_areaDic setValue:str forKey:@"differ_size"];
         };
         
         return cell;
@@ -1119,6 +1132,7 @@
             [self.view addSubview:view];
         };
         
+        __strong __typeof(&*cell)strongCell = cell;
         cell.addIntentStoreProccessCellTypeBlock = ^{
           
             if (self->_progressArr.count) {
@@ -1143,8 +1157,8 @@
 
                         [self->_rolePersonArr removeAllObjects];
                         [self->_rolePersonSelectArr removeAllObjects];
-                        cell.personArr = self->_rolePersonArr;
-                        cell.personSelectArr = self->_rolePersonSelectArr;
+                        strongCell.personArr = self->_rolePersonArr;
+                        strongCell.personSelectArr = self->_rolePersonSelectArr;
                         [self->_progressDic removeObjectForKey:@"role_name"];
                         [self->_progressDic removeObjectForKey:@"role_id"];
                     }
@@ -1203,8 +1217,8 @@
 
                                 [self->_rolePersonArr removeAllObjects];
                                 [self->_rolePersonSelectArr removeAllObjects];
-                                cell.personArr = self->_rolePersonArr;
-                                cell.personSelectArr = self->_rolePersonSelectArr;
+                                strongCell.personArr = self->_rolePersonArr;
+                                strongCell.personSelectArr = self->_rolePersonSelectArr;
                                 [self->_progressDic removeObjectForKey:@"role_name"];
                                 [self->_progressDic removeObjectForKey:@"role_id"];
                             }
@@ -1251,8 +1265,8 @@
 
                         [self->_rolePersonArr removeAllObjects];
                         [self->_rolePersonSelectArr removeAllObjects];
-                        cell.personArr = self->_rolePersonArr;
-                        cell.personSelectArr = self->_rolePersonSelectArr;
+                        strongCell.personArr = self->_rolePersonArr;
+                        strongCell.personSelectArr = self->_rolePersonSelectArr;
                     }
                     [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
                     [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];

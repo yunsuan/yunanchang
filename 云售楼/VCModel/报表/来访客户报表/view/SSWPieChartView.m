@@ -50,15 +50,15 @@
 }
 -(void)tap:(UITapGestureRecognizer *)tap{
     
-    CGPoint  point = [tap locationInView:self];
-    for (UIBezierPath  *path in self.pathsArr) {
+//    CGPoint  point = [tap locationInView:self];
+//    for (UIBezierPath  *path in self.pathsArr) {
 //        if ([path containsPoint:point]) {
 //            if (self.delegate && [self.delegate respondsToSelector:@selector(SSWChartView:didSelectIndex:)]) {
 //                [self.delegate SSWChartView:self didSelectIndex:[self.pathsArr indexOfObject:path]];
 //            }
 //        }
         
-    }
+//    }
 }
 -(void)setPathForShapLayer{
     for (int i = 0 ; i<self.percentageArr.count; i++) {

@@ -116,7 +116,7 @@
 }
 
 
-#warning 使用openURL前添加scheme：prefs
+//使用方法网上
 + (void)openSystemSettings {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kIOS8_OR_LATER ? UIApplicationOpenSettingsURLString : @"prefs:root"]];
 }

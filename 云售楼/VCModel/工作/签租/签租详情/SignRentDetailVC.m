@@ -134,7 +134,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
     
-    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
 //        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
 //
@@ -148,9 +148,9 @@
 //
 //            [self showContent:@"未收款不能转签约"];
 //        }
-    }];
+//    }];
     
-    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
 //        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
 //
@@ -168,9 +168,9 @@
 //
 //            [self showContent:@"未收款不能转定单"];
 //        }
-    }];
+//    }];
     
-    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
 //        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"id":@"1",@"param":@"排号增加诚意金"},@{@"id":@"2",@"param":@"排号退号"},@{@"id":@"3",@"param":@"排号更名"},@{@"id":@"4",@"param":@"排号增减权益人"}]];
 //        view.selectedBlock = ^(NSString *MC, NSString *ID) {
@@ -214,7 +214,7 @@
 //            }
 //        };
 //        [self.view addSubview:view];
-    }];
+//    }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         

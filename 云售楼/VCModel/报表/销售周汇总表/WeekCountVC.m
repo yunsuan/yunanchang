@@ -317,7 +317,7 @@
             [self.dataGridView reloadData:[self getDataModel]];
         }else{
                 
-            _dataArr = [@[] mutableCopy];
+            self->_dataArr = [@[] mutableCopy];
             for (int i = 0; i < 8; i++) {
                 
                 NSMutableArray *tempArr = [@[] mutableCopy];
@@ -325,13 +325,13 @@
                     
                     [tempArr addObject:@"0"];
                 }
-                [_dataArr addObject:tempArr];
+                [self->_dataArr addObject:tempArr];
             }
             [self showContent:resposeObject[@"msg"]];
         }
     } failure:^(NSError * _Nonnull error) {
                     
-        _dataArr = [@[] mutableCopy];
+        self->_dataArr = [@[] mutableCopy];
         for (int i = 0; i < 8; i++) {
             
             NSMutableArray *tempArr = [@[] mutableCopy];
@@ -339,7 +339,7 @@
                 
                 [tempArr addObject:@"0"];
             }
-            [_dataArr addObject:tempArr];
+            [self->_dataArr addObject:tempArr];
         }
         [self showContent:@"网络错误"];
     }];

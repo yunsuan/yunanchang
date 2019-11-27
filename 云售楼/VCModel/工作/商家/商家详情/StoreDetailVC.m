@@ -11,6 +11,7 @@
 #import "AddStoreVC.h"
 #import "AddStoreNeedVC.h"
 #import "AddStoreFollowRecordVC.h"
+#import "AddOrderRentVC.h"
 
 #import "StoreDetailHeader.h"
 #import "CallTelegramCustomDetailInfoCell.h"
@@ -84,6 +85,50 @@
     } failure:^(NSError * _Nonnull error) {
 
         [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)ActionRightBtn:(UIButton *)btn{
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+
+
+    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+//        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
+
+        AddOrderRentVC *nextVC = [[AddOrderRentVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+            nextVC.from_type = @"2";
+            nextVC.dataDic = self->_storeDic;
+            nextVC.addOrderRentVCBlock = ^{
+
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+//        }else{
+    //
+//            [self showContent:@"未收款不能转定单"];
+//        }
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+    }];
+    
+//    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+    //
+        [alert addAction:order];
+//    }
+
+    
+    [alert addAction:cancel];
+    [self.navigationController presentViewController:alert animated:YES completion:^{
+        
     }];
 }
 
@@ -349,14 +394,14 @@
     
 //    if ([self.powerDic[@"giveUp"] boolValue] || [self.powerDic[@"visit"] boolValue]) {
 //
-//        self.rightBtn.hidden = NO;
+        self.rightBtn.hidden = NO;
 //    }else{
 //
 //        self.rightBtn.hidden = YES;
 //    }
 //
-//    [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_2") forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_2") forState:UIControlStateNormal];
     self.line.hidden = YES;
     
     

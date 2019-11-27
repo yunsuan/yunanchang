@@ -14,29 +14,29 @@
 /**
  自定义Label
  */
-+ (UILabel *)labelWithTitle:(NSString *)text Font:(NSInteger)font textColor:(UIColor *)color;
++ (UILabel *_Nullable)labelWithTitle:(NSString *_Nullable)text Font:(NSInteger)font textColor:(UIColor *_Nullable)color;
 
 
 /**
  自定义button
  */
-+ (UIButton *)buttonWithTitle:(NSString *)title font:(NSInteger)font titleColor:(UIColor *)color Selector:(SEL)btnSelect Target:(UIViewController *)vc;
++ (UIButton *_Nullable)buttonWithTitle:(NSString *_Nonnull)title font:(NSInteger)font titleColor:(UIColor *_Nullable)color Selector:(SEL _Nullable )btnSelect Target:(UIViewController *_Nullable)vc;
 
 
 /**
  自定义View层上button
  */
-+ (UIButton *)buttonFromViewWithTitle:(NSString *)title font:(NSInteger)font titleColor:(UIColor *)color Selector:(SEL)btnSelect Target:(UIView *)vc;
++ (UIButton *_Nullable)buttonFromViewWithTitle:(NSString *_Nullable)title font:(NSInteger)font titleColor:(UIColor *_Nullable)color Selector:(SEL _Nonnull )btnSelect Target:(UIView *_Nullable)vc;
 
 
 /**
  自定义textfield
  */
-+ (UITextField *)textFieldWithPlaceHolder:(NSString *)placeHolder textFont:(NSInteger)font textColor:(UIColor *)color;
++ (UITextField *_Nullable)textFieldWithPlaceHolder:(NSString *_Nullable)placeHolder textFont:(NSInteger)font textColor:(UIColor *_Nullable)color;
 
 
-+ (void)alertActionWithTitle:(NSString *)title Message:(NSString *)message actionHandler:(void (^ __nullable)(UIAlertAction *action))handler Target:(UIViewController *)viewController;
++ (void)alertActionWithTitle:(NSString *_Nullable)title Message:(NSString *_Nullable)message actionHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))handler Target:(UIViewController *_Nullable)viewController;
 
-+ (void)showAlert:(NSString *)message Target:(UIViewController *)viewController;
++ (void)showAlert:(NSString *_Nullable)message Target:(UIViewController *_Nullable)viewController;
 
 @end

@@ -16,7 +16,12 @@
 @interface ModifyAndAddRentalVC ()<UITextFieldDelegate>
 {
     
+    double _unit;
+    double _result;
+    double _free;
+    
     NSDateFormatter *_formatter;
+    NSDateFormatter *_formatter2;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -69,6 +74,10 @@
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    
+    _formatter2 = [[NSDateFormatter alloc] init];
+    [_formatter2 setDateFormat:@"YYYY-MM-dd"];
+    
     [self initUI];
 }
 
@@ -103,6 +112,7 @@
         view.dateblock = ^(NSDate *date) {
 
             self->_payTimeBtn.content.text = [self->_formatter stringFromDate:date];
+            
         };
         [self.view addSubview:view];
     }else{
@@ -125,12 +135,155 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    if ([self.status isEqualToString:@"add"]) {
+    if (!_timeBtn.content.text) {
         
+        [self showContent:@"请选择租金开始时间"];
+        return;
+    }
+    if (!_periodTF.textField.text.length) {
         
+        [self showContent:@"请输入本期时长"];
+        return;
+    }
+    if (!_totalTF.textField.text.length) {
+        
+        [self showContent:@"请输入总租金"];
+        return;
+    }
+    if (!_payTimeBtn.content.text) {
+        
+        [self showContent:@"请选择交款时间"];
+        return;
+    }
+    if (!_remindBtn.content.text) {
+        
+        [self showContent:@"请选择提醒时间"];
+        return;
+    }
+    NSMutableDictionary *tempDic = [@{} mutableCopy];
+    
+    [tempDic setValue:_timeBtn.content.text forKey:@"stage_start_time"];
+    [tempDic setValue:_periodTF.textField.text forKey:@"stage_num"];
+    [tempDic setValue:[_formatter2 stringFromDate:[self getPriousorLaterDateFromDate:[_formatter2 dateFromString:_timeBtn.content.text] withMonth:[_periodTF.textField.text integerValue]]] forKey:@"stage_end_time"];
+    [tempDic setValue:[NSString stringWithFormat:@"%@",_totalTF.textField.text] forKey:@"total_rent"];
+    [tempDic setValue:_payTimeBtn.content.text forKey:@"pay_time"];
+    [tempDic setValue:_remindBtn.content.text forKey:@"remind_time"];
+    
+    [tempDic setValue:[NSString stringWithFormat:@"%.2f",_unit] forKey:@"unit_rent"];
+//    [tempDic setValue:[NSString stringWithFormat:@"%.2f",_result] forKey:@"unit_rent"];
+    if (_freeBtn.content.text) {
+        
+        [tempDic setValue:_freeBtn.content.text forKey:@"free_start_time"];
     }else{
         
+        [tempDic setValue:_timeBtn.content.text forKey:@"free_start_time"];
+    }
+    if (_freePeriodTF.textField.text.length) {
         
+        [tempDic setValue:[NSString stringWithFormat:@"%@",_freePeriodTF.textField.text] forKey:@"free_month_num"];
+    }else{
+        
+        [tempDic setValue:@"0" forKey:@"free_month_num"];
+    }
+    [tempDic setValue:[_formatter2 stringFromDate:[self getPriousorLaterDateFromDate:[_formatter2 dateFromString:tempDic[@"free_start_time"]] withMonth:[tempDic[@"free_month_num"] integerValue]]] forKey:@"free_end_time"];
+    if (_free) {
+        
+        [tempDic setValue:[NSString stringWithFormat:@"%.2f",_free] forKey:@"free_rent"];
+    }else{
+        
+        [tempDic setValue:@"0" forKey:@"free_rent"];
+    }
+    if (_marklTF.textField.text.length) {
+        
+        [tempDic setValue:[NSString stringWithFormat:@"%@",_marklTF.textField.text] forKey:@"comment"];
+    }else{
+        
+        [tempDic setValue:@" " forKey:@"comment"];
+    }
+    if (_result < 0) {
+        
+        [self showContent:@"实付金额有误，检查数据是否正确"];
+        return;
+    }
+    if ([self.status isEqualToString:@"add"]) {
+        
+        if (self.modifyAndAddRentalVCBlock) {
+            
+            self.modifyAndAddRentalVCBlock(tempDic);
+        }
+    }else{
+        
+        if (self.modifyAndAddRentalVCBlock) {
+            
+            self.modifyAndAddRentalVCBlock(tempDic);
+        }
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    if (textField == _periodTF.textField) {
+        
+        if (_totalTF.textField.text.length && _periodTF.textField.text) {
+            
+            _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue] / self.area;
+        }else{
+            
+            _unit = 0;
+        }
+        _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
+    }else if (textField == _freePeriodTF.textField){
+        
+        if (_freePeriodTF.textField.text.length) {
+            
+            _free = [self MultiplyingNumber:[self MultiplyingNumber:_unit num2:self.area] num2:[_freePeriodTF.textField.text doubleValue]];
+        }else{
+            
+            _free = 0;
+        }
+        _originL.text = [NSString stringWithFormat:@"免租金额：%.2f元",_free];
+        if (_totalTF.textField.text.length) {
+            
+            _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:_free];
+        }
+        _resultL.text = [NSString stringWithFormat:@"实付金额：%.2f元",_result];
+    }
+}
+
+- (void)textFieldDidChange:(UITextField *)textField{
+    
+    if (textField == _periodTF.textField) {
+        
+        if (_totalTF.textField.text.length && _periodTF.textField.text) {
+            
+            if (self.area) {
+                
+                _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue] / self.area;
+            }else{
+            
+                _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue];
+            }
+        }else{
+            
+            _unit = 0;
+        }
+        _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
+    }else if (textField == _freePeriodTF.textField){
+        
+        if (_freePeriodTF.textField.text.length) {
+            
+            _free = [self MultiplyingNumber:[self MultiplyingNumber:_unit num2:self.area] num2:[_freePeriodTF.textField.text doubleValue]];
+        }else{
+            
+            _free = 0;
+        }
+        _originL.text = [NSString stringWithFormat:@"免租金额：%.2f元",_free];
+        if (_totalTF.textField.text.length) {
+            
+            _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:_free];
+        }
+        _resultL.text = [NSString stringWithFormat:@"实付金额：%.2f元",_result];
     }
 }
 
@@ -228,6 +381,7 @@
         
         BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
         tf.textField.tag = i;
+        [tf.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         tf.textField.delegate = self;
         if (i == 0) {
             
@@ -236,6 +390,10 @@
             
             _timeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
             [_timeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            if (self.dataDic.count) {
+                
+                _timeBtn.content.text = self.dataDic[@"stage_start_time"];
+            }
             _timeBtn.tag = 0;
             [_scrollView addSubview:_timeBtn];
         }else if (i == 1){
@@ -244,6 +402,11 @@
             [_scrollView addSubview:_periodL];
             
             _periodTF = tf;
+            if (self.dataDic.count) {
+                
+                _periodTF.textField.text = [NSString stringWithFormat:@"%@",self.dataDic[@"stage_num"]];
+//                _periodTF.textField.text = [NSString stringWithFormat:@"%ld",(long)[self getMonthFromDate:[_formatter2 dateFromString:self.dataDic[@"stage_start_time"]] withDate2:[_formatter2 dateFromString:self.dataDic[@"stage_end_time"]]]];
+            }
             [_scrollView addSubview:_periodTF];
         }else if (i == 2){
             
@@ -252,6 +415,13 @@
             
             _freeBtn = [[DropBtn alloc] initWithFrame:_timeBtn.frame];
             [_freeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            if (self.dataDic.count) {
+                
+                if (![self.dataDic[@"free_start_time"] isKindOfClass:[NSNull class]]) {
+                    
+                    _freeBtn.content.text = self.dataDic[@"free_start_time"];
+                }
+            }
             _freeBtn.tag = 2;
             [_scrollView addSubview:_freeBtn];
         }else if (i == 3){
@@ -262,6 +432,10 @@
             
             _freePeriodTF = tf;
             _freePeriodTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+            if (self.dataDic.count) {
+                
+                _freePeriodTF.textField.text = [NSString stringWithFormat:@"%@",self.dataDic[@"free_month_num"]];
+            }
             [_scrollView addSubview:_freePeriodTF];
         }else if (i == 4){
             
@@ -272,18 +446,36 @@
             
             _totalTF = tf;
             _totalTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+            if (self.dataDic.count) {
+                
+                _totalTF.textField.text = self.dataDic[@"total_rent"];
+            }
             [_scrollView addSubview:_totalTF];
         }else if (i == 5){
             
             _unitL = label;
+            if (self.dataDic.count) {
+            
+                _unitL.text = [NSString stringWithFormat:@"单价：%@元/月/㎡",self.dataDic[@"unit_rent"]];
+                _unit = [self.dataDic[@"total_rent"] doubleValue] / [_periodTF.textField.text integerValue] / self.area;
+            }
             [_scrollView addSubview:_unitL];
         }else if (i == 6){
             
             _originL = label;
+            if (self.dataDic.count) {
+                
+                _originL.text = [NSString stringWithFormat:@"免租金额：%@元",self.dataDic[@"free_rent"]];
+                _free = [self.dataDic[@"free_rent"] doubleValue];
+            }
             [_scrollView addSubview:_originL];
         }else if (i == 7){
             
             _resultL = label;
+            if (self.dataDic.count) {
+                
+                _resultL.text = [NSString stringWithFormat:@"实付金额：%.2f元",[self DecimalNumber:[self.dataDic[@"total_rent"] doubleValue] num2:[self.dataDic[@"free_rent"] doubleValue]]];
+            }
             [_scrollView addSubview:_resultL];
         }else if (i == 8){
             
@@ -292,6 +484,10 @@
             
             _payTimeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_payTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            if (self.dataDic.count) {
+                
+                _payTimeBtn.content.text = self.dataDic[@"pay_time"];
+            }
             _payTimeBtn.tag = 8;
             [_scrollView addSubview:_payTimeBtn];
         }else if (i == 9){
@@ -301,6 +497,10 @@
             
             _remindBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_remindBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            if (self.dataDic.count) {
+                
+                _remindBtn.content.text = self.dataDic[@"remind_time"];
+            }
             _remindBtn.tag = 9;
             [_scrollView addSubview:_remindBtn];
         }else{
@@ -309,6 +509,10 @@
             [_scrollView addSubview:_markL];
             
             _marklTF = tf;
+            if (self.dataDic.count) {
+                
+                _marklTF.textField.text = self.dataDic[@"comment"];
+            }
             [_scrollView addSubview:_marklTF];
         }
     }

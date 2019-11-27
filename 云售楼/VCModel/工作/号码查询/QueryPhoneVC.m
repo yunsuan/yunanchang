@@ -68,12 +68,12 @@
             
             if ([resposeObject[@"data"][@"state"] integerValue] == 1) {
                 
-                _contentL.text = resposeObject[@"data"][@"message"];
-                _addVisitBtn.hidden = NO;
-                _addTelBtn.hidden = NO;
+                self->_contentL.text = resposeObject[@"data"][@"message"];
+                self->_addVisitBtn.hidden = NO;
+                self->_addTelBtn.hidden = NO;
             }else{
                 
-                _contentL.text = resposeObject[@"data"][@"message"];
+                self->_contentL.text = resposeObject[@"data"][@"message"];
             }
         }else{
             

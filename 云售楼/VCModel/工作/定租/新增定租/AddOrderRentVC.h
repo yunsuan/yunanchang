@@ -16,6 +16,10 @@ typedef void(^AddOrderRentVCBlock)(void);
 
 @property (nonatomic, strong) AddOrderRentVCBlock addOrderRentVCBlock;
 
+@property (nonatomic, strong) NSString *from_type;
+
+@property (nonatomic, strong) NSDictionary *dataDic;
+
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 
 @end

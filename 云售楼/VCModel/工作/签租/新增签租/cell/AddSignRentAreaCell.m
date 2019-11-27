@@ -8,7 +8,7 @@
 
 #import "AddSignRentAreaCell.h"
 
-@interface AddSignRentAreaCell ()
+@interface AddSignRentAreaCell ()<UITextFieldDelegate>
 
 @end
 
@@ -42,9 +42,9 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _rentAreaL.text = [NSString stringWithFormat:@"租赁面积：%@",dataDic[@""]];
-    _chargeAreaTF.textField.text = dataDic[@""];
-    _realAreaL.text = [NSString stringWithFormat:@"实际面积：%@",dataDic[@""]];
+    _rentAreaL.text = [NSString stringWithFormat:@"租赁面积：%@",dataDic[@"rentSize"]];
+    _chargeAreaTF.textField.text = dataDic[@"differ_size"];
+    _realAreaL.text = [NSString stringWithFormat:@"实际面积：%@",dataDic[@"realSize"]];
 }
 
 - (void)initUI{

@@ -204,7 +204,7 @@
             
             if (!_formatArr.count) {
                 
-                [BaseRequest GET:ProjectBusinessGetFormatList_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+                [BaseRequest GET:ProjectBusinessGetFormatList_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
                     
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         

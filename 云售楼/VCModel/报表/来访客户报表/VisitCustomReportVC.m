@@ -206,7 +206,7 @@
     cell.colorView.backgroundColor = CLArr[indexPath.row % CLArr.count];
     if (indexPath.section == 0) {
 
-        NSMutableArray *percentArr = [@[] mutableCopy];
+//        NSMutableArray *percentArr = [@[] mutableCopy];
         if (indexPath.row == 0) {
             
             cell.titleL.text = @"自然来访";

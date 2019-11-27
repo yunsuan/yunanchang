@@ -43,7 +43,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = @{};
+//    cell.dataDic = @{};
     
     return cell;
 }

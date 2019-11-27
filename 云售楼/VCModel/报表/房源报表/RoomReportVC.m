@@ -67,7 +67,7 @@
 
 - (void)initDataSource{
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ActionNSNotificationMethod) name:@"reloadCompanyInfo" object:nil];
     
     _projectArr = [UserModel defaultModel].project_list;
 //    _info_id = [UserModel defaultModel].projectinfo[@"info_id"];

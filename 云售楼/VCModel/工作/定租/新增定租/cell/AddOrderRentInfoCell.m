@@ -51,7 +51,10 @@
     _openTimeBtn.content.text = dataDic[@"open_time"];
     _signTimeBtn.content.text = dataDic[@"sub_time"];
     _rentTimeBeginBtn.content.text = dataDic[@"start_time"];
-    _rentTimePeriodTF.textField.text = dataDic[@"rent_month_num"];
+    if (dataDic[@"rent_month_num"]) {
+        
+        _rentTimePeriodTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"rent_month_num"]];
+    }
     _payWayBtn1.content.text = dataDic[@"pay_name1"];
     _payWayBtn1->str = dataDic[@"pay_way1"];
     _payWayBtn2.content.text = dataDic[@"pay_name2"];

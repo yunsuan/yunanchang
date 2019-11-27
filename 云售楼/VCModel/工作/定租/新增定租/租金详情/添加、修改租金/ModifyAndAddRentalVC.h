@@ -10,7 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^ModifyAndAddRentalVCBlock)(NSDictionary *dic);
+
 @interface ModifyAndAddRentalVC : BaseViewController
+
+@property (nonatomic , copy) ModifyAndAddRentalVCBlock modifyAndAddRentalVCBlock;
+
+@property (nonatomic , assign) double area;
 
 @property (nonatomic , strong) NSString *status;
 

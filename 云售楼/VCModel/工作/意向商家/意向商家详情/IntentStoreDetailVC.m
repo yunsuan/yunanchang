@@ -12,6 +12,7 @@
 #import "AuditDetailVC.h"
 #import "FileReadingVC.h"
 #import "ShopBelongDetailVC.h"
+#import "AddOrderRentVC.h"
 
 #import "BaseHeader.h"
 //#import "IntentDetailHeader.h"
@@ -164,72 +165,25 @@
     UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
 //        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
-//
-//            AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
-//            nextVC.from_type = @"3";
-//            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer"]];
-//            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"name"]];
-//            nextVC.trans = @"trans";
-//            nextVC.addOrderVCBlock = ^{
-//
-//                [self RequestMethod];
-//            };
-//            [self.navigationController pushViewController:nextVC animated:YES];
+
+            AddOrderRentVC *nextVC = [[AddOrderRentVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+            nextVC.from_type = @"2";
+            nextVC.dataDic = self->_dataDic;
+            nextVC.addOrderRentVCBlock = ^{
+
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
 //        }else{
 //
 //            [self showContent:@"未收款不能转定单"];
 //        }
     }];
     
-    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-//        SinglePickView *view = [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:@[@{@"id":@"1",@"param":@"排号增加诚意金"},@{@"id":@"2",@"param":@"排号退号"},@{@"id":@"3",@"param":@"排号更名"},@{@"id":@"4",@"param":@"排号增减权益人"}]];
-//        view.selectedBlock = ^(NSString *MC, NSString *ID) {
-//
-//            if ([ID integerValue] == 1) {
-//
-//                SincerityChangeVC *nextVC = [[SincerityChangeVC alloc] initWithProject_id:self->_project_id sincerity:self->_dataDic[@"sincerity"] dataDic:self->_dataDic];
-//                nextVC.sincerityChangeVCBlock = ^{
-//
-//                    [self RequestMethod];
-//                    if (self.numeralDetailVCBlock) {
-//
-//                        self.numeralDetailVCBlock();
-//                    }
-//                };
-//                [self.navigationController pushViewController:nextVC animated:YES];
-//            }else if ([ID integerValue] == 2){
-//
-//                NumeralBackNumVC *nextVC = [[NumeralBackNumVC alloc] initWithProject_id:self->_project_id dataDic:self->_dataDic];
-//                nextVC.numeralBackNumVCBlock = ^{
-//
-//                    [self RequestMethod];
-//                };
-//                [self.navigationController pushViewController:nextVC animated:YES];
-//            }else if ([ID integerValue] == 3){
-//
-//                NumeralChangeNameVC *nextVC = [[NumeralChangeNameVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
-//                nextVC.numeralChangeNameVCBlock = ^{
-//
-//                    [self RequestMethod];
-//                };
-//                [self.navigationController pushViewController:nextVC animated:YES];
-//            }else{
-//
-//                NumeralAddMinusPersonVC *nextVC = [[NumeralAddMinusPersonVC alloc] initWithProject_id:self->_project_id personArr:self->_dataDic[@"beneficiary"] dataDic:self->_dataDic info_id:self->_info_id];
-//                nextVC.numeralAddMinusPersonVCBlock = ^{
-//
-//                    [self RequestMethod];
-//                };
-//                [self.navigationController pushViewController:nextVC animated:YES];
-//            }
-//        };
-//        [self.view addSubview:view];
-    }];
-    
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+        __strong __typeof(&*view)strongView = view;
         view.numeralDetailInvalidViewBlock = ^{
           
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"id":self->_businessId}];
@@ -241,7 +195,7 @@
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    [view removeFromSuperview];
+                    [strongView removeFromSuperview];
                     [self.navigationController popViewControllerAnimated:YES];
                 }else{
                     
@@ -266,7 +220,7 @@
 //    }
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
 //
-//        [alert addAction:order];
+        [alert addAction:order];
 //    }
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
 //

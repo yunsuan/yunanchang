@@ -108,7 +108,42 @@
     _selectArr = [[NSMutableArray alloc] initWithArray:@[@1,@0,@0,@0,@0,@0]];
     
     _orderDic = [@{} mutableCopy];
-//    _orderDic
+    [_orderDic setValue:self.dataDic[@"sub_code"] forKey:@"sub_code"];
+    [_orderDic setValue:self.dataDic[@"signatory"] forKey:@"signatory"];
+    if ([self.dataDic[@"card_type"] integerValue] == 1) {
+        
+        [_orderDic setValue:@"身份证" forKey:@"typeName"];
+    }else if ([self.dataDic[@"card_type"] integerValue] == 2){
+        
+        [_orderDic setValue:@"户口簿" forKey:@"typeName"];
+    }else if ([self.dataDic[@"card_type"] integerValue] == 3){
+        
+        [_orderDic setValue:@"驾驶证" forKey:@"typeName"];
+    }else if ([self.dataDic[@"card_type"] integerValue] == 4){
+        
+        [_orderDic setValue:@"军官证" forKey:@"typeName"];
+    }else if ([self.dataDic[@"card_type"] integerValue] == 5){
+        
+        [_orderDic setValue:@"工商营业执照" forKey:@"typeName"];
+    }else if ([self.dataDic[@"card_type"] integerValue] == 6){
+        
+        [_orderDic setValue:@"其他" forKey:@"typeName"];
+    }
+    [_orderDic setValue:self.dataDic[@"card_type"] forKey:@"card_type"];
+    [_orderDic setValue:self.dataDic[@"card_num"] forKey:@"card_num"];
+    [_orderDic setValue:self.dataDic[@"down_pay"] forKey:@"down_pay"];
+    [_orderDic setValue:self.dataDic[@"deposit"] forKey:@"deposit"];
+    [_orderDic setValue:self.dataDic[@"open_time"] forKey:@"open_time"];
+    [_orderDic setValue:self.dataDic[@"sub_time"] forKey:@"sub_time"];
+    [_orderDic setValue:self.dataDic[@"remind_time"] forKey:@"remind_time"];
+    [_orderDic setValue:self.dataDic[@"start_time"] forKey:@"start_time"];
+    [_orderDic setValue:self.dataDic[@"pay_way"] forKey:@"pay_way"];
+    [_orderDic setValue:[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][0] forKey:@"pay_way1"];
+    [_orderDic setValue:[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][1] forKey:@"pay_way2"];
+    [_orderDic setValue:[NSString stringWithFormat:@"押%@",[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][0]] forKey:@"pay_name1"];
+    [_orderDic setValue:[NSString stringWithFormat:@"付%@",[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][1]] forKey:@"pay_name2"];
+    [_orderDic setValue:self.dataDic[@"deposit"] forKey:@"deposit"];
+    [_orderDic setValue:self.dataDic[@"rent_month_num"] forKey:@"rent_month_num"];
     
     _rentPirceDic = [@{} mutableCopy];
     
@@ -703,7 +738,18 @@
         
         cell.addOrderRentPriceCellBlock = ^{
           
+            double area = 0;
+            for (int i = 0; i < self->_roomArr.count; i++) {
+                
+                area = area + [self->_roomArr[i][@"build_size"] doubleValue];
+            }
             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
+            nextVC.area = area;
+            nextVC.addOrderRentalDetailVCBlock = ^(NSArray * _Nonnull arr) {
+              
+                self->_stageArr = [NSMutableArray arrayWithArray:arr];
+                [tableView reloadData];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         cell.addOrderRentPriceCellAddBlock = ^{
@@ -773,7 +819,14 @@
                                 [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":[NSString stringWithFormat:@"%d",i + 1],@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date}];
                             }
                             [tableView reloadData];
+
                             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
+                            nextVC.area = area;
+                            nextVC.addOrderRentalDetailVCBlock = ^(NSArray * _Nonnull arr) {
+                              
+                                self->_stageArr = [NSMutableArray arrayWithArray:arr];
+                                [tableView reloadData];
+                            };
                             [self.navigationController pushViewController:nextVC animated:YES];
                         };
                         view.modifyAndAddRentalViewBlock = ^{

@@ -45,6 +45,16 @@
 - (void)ActionAddBtn:(UIButton *)btn{
     
     ModifyAndAddRentalVC *nextVC = [[ModifyAndAddRentalVC alloc] init];
+    nextVC.area = self.area;
+    nextVC.modifyAndAddRentalVCBlock = ^(NSDictionary * _Nonnull dic) {
+      
+        [self->_dataArr addObject:dic];
+        [self->_table reloadData];
+        if (self.addOrderRentalDetailVCBlock) {
+            
+            self.addOrderRentalDetailVCBlock(self->_dataArr);
+        }
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -69,6 +79,17 @@
     cell.addOrderRentalDetailCellBlock = ^(NSInteger idx) {
       
         ModifyAndAddRentalVC *nextVC = [[ModifyAndAddRentalVC alloc] init];
+        nextVC.dataDic = self->_dataArr[indexPath.row];
+        nextVC.area = self.area;
+        nextVC.modifyAndAddRentalVCBlock = ^(NSDictionary * _Nonnull dic) {
+          
+            [self->_dataArr replaceObjectAtIndex:idx withObject:dic];
+            [tableView reloadData];
+            if (self.addOrderRentalDetailVCBlock) {
+                
+                self.addOrderRentalDetailVCBlock(self->_dataArr);
+            }
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     };
     
@@ -99,6 +120,10 @@
     
     [_dataArr removeObjectAtIndex:indexPath.row];
     [tableView reloadData];
+    if (self.addOrderRentalDetailVCBlock) {
+        
+        self.addOrderRentalDetailVCBlock(self->_dataArr);
+    }
 }
 
 - (void)initUI{

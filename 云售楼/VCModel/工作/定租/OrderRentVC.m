@@ -181,7 +181,7 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.dataDic = _dataArr[indexPath.row];
+    cell.orderDic = _dataArr[indexPath.row];
     
     cell.intentStoreCellBlock = ^(NSInteger index) {
         

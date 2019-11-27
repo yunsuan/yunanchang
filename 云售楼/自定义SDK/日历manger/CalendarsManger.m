@@ -26,7 +26,7 @@ static CalendarsManger *calendar;
 
 -(void)createCalendarWithTitle:(NSString *)title location:(NSString *)location startDate:(NSDate *)startDate endDate:(NSDate *)endDate allDay:(BOOL)allDay alarmArray:(NSArray *)alarmArray
 {
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     EKEventStore *eventStore = [[EKEventStore alloc] init];
     
     if ([eventStore respondsToSelector:@selector(requestAccessToEntityType:completion:)])

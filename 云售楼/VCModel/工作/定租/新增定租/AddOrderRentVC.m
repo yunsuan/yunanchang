@@ -131,6 +131,11 @@
     
     _secondFormatter = [[NSDateFormatter alloc] init];
     [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    if (self.dataDic) {
+        
+        _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_list"]];
+        _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
+    }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
@@ -617,6 +622,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+#pragma mark -- 房源 --
     if (indexPath.section == 0) {
         
         if (indexPath.row == _roomArr.count) {
@@ -664,6 +670,8 @@
             
             return cell;
         }
+        
+#pragma mark -- 商家 --
     }else if (indexPath.section == 1){
         
         if (indexPath.row == 0) {
@@ -716,6 +724,8 @@
                
             return cell;
         }
+        
+#pragma mark -- 定租 --
     }else if (indexPath.section == 2){
         
         AddOrderRentInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddOrderRentInfoCell"];
@@ -840,8 +850,8 @@
                     [self->_orderDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"pay_name2"];
                     if (self->_orderDic[@"pay_way1"]) {
                         
-                        [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",self->_orderDic[@"pay_way2"],ID] forKey:@"pay_way"];
-                        [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",self->_orderDic[@"pay_name2"],MC] forKey:@"pay_name"];
+                        [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",self->_orderDic[@"pay_way1"],ID] forKey:@"pay_way"];
+                        [self->_orderDic setObject:[NSString stringWithFormat:@"%@,%@",self->_orderDic[@"pay_name1"],MC] forKey:@"pay_name"];
                     }
                     [tableView reloadData];
                 };
@@ -851,6 +861,8 @@
 
         
         return cell;
+        
+#pragma mark -- 租金 --
     }else if (indexPath.section == 3){
         
      
@@ -866,7 +878,18 @@
         
         cell.addOrderRentPriceCellBlock = ^{
           
+            double area = 0;
+            for (int i = 0; i < self->_roomArr.count; i++) {
+                
+                area = area + [self->_roomArr[i][@"build_size"] doubleValue];
+            }
             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
+            nextVC.area = area;
+            nextVC.addOrderRentalDetailVCBlock = ^(NSArray * _Nonnull arr) {
+              
+                self->_stageArr = [NSMutableArray arrayWithArray:arr];
+                [tableView reloadData];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         cell.addOrderRentPriceCellAddBlock = ^{
@@ -890,8 +913,8 @@
                     if (self->_orderDic[@"pay_way1"] && self->_orderDic[@"pay_way2"]) {
                         
                         ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
-                        view.periodTF.textField.text = self->_orderDic[@"desipot"];
-                        view.numL.text = [NSString stringWithFormat:@"期数：%.0f",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
+                        view.periodTF.textField.text = self->_orderDic[@"deposit"];
+                        view.numL.text = [NSString stringWithFormat:@"期数：%.0f期",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
                         [self->_stageArr removeAllObjects];
                         view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
                           
@@ -933,11 +956,17 @@
                                     endDate = resultDate;
                                 }
                                 
-                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":[NSString stringWithFormat:@"%d",i + 1],@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date}];
+                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":self->_orderDic[@"pay_way2"],@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
                             }
                             [tableView reloadData];
                             [self ProgreesMethod];
                             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
+                            nextVC.area = area;
+                            nextVC.addOrderRentalDetailVCBlock = ^(NSArray * _Nonnull arr) {
+                              
+                                self->_stageArr = [NSMutableArray arrayWithArray:arr];
+                                [tableView reloadData];
+                            };
                             [self.navigationController pushViewController:nextVC animated:YES];
                         };
                         view.modifyAndAddRentalViewBlock = ^{
@@ -958,6 +987,8 @@
         };
         
         return cell;
+        
+#pragma mark -- 流程 --
     }else if (indexPath.section == 4){
         
         AddIntentStoreProccessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddIntentStoreProccessCell"];
@@ -984,6 +1015,7 @@
             [self.view addSubview:view];
         };
         
+        __strong __typeof(&*cell)strongCell = cell;
         cell.addIntentStoreProccessCellTypeBlock = ^{
           
             if (self->_progressArr.count) {
@@ -1008,8 +1040,8 @@
 
                         [self->_rolePersonArr removeAllObjects];
                         [self->_rolePersonSelectArr removeAllObjects];
-                        cell.personArr = self->_rolePersonArr;
-                        cell.personSelectArr = self->_rolePersonSelectArr;
+                        strongCell.personArr = self->_rolePersonArr;
+                        strongCell.personSelectArr = self->_rolePersonSelectArr;
                         [self->_progressDic removeObjectForKey:@"role_name"];
                         [self->_progressDic removeObjectForKey:@"role_id"];
                     }
@@ -1036,7 +1068,15 @@
                 [self.view addSubview:view];
             }else{
 
-                [BaseRequest GET:ShopGetProgress_URL parameters:@{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"5"} success:^(id  _Nonnull resposeObject) {
+                NSDictionary *dic;
+                if ([self.from_type isEqualToString:@"2"]) {
+                    
+                    dic = @{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"14"};
+                }else{
+                    
+                    dic = @{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"5"};
+                }
+                [BaseRequest GET:ShopGetProgress_URL parameters:dic success:^(id  _Nonnull resposeObject) {
 
                     if ([resposeObject[@"code"] integerValue] == 200) {
 
@@ -1068,8 +1108,8 @@
 
                                 [self->_rolePersonArr removeAllObjects];
                                 [self->_rolePersonSelectArr removeAllObjects];
-                                cell.personArr = self->_rolePersonArr;
-                                cell.personSelectArr = self->_rolePersonSelectArr;
+                                strongCell.personArr = self->_rolePersonArr;
+                                strongCell.personSelectArr = self->_rolePersonSelectArr;
                                 [self->_progressDic removeObjectForKey:@"role_name"];
                                 [self->_progressDic removeObjectForKey:@"role_id"];
                             }
@@ -1116,8 +1156,8 @@
 
                         [self->_rolePersonArr removeAllObjects];
                         [self->_rolePersonSelectArr removeAllObjects];
-                        cell.personArr = self->_rolePersonArr;
-                        cell.personSelectArr = self->_rolePersonSelectArr;
+                        strongCell.personArr = self->_rolePersonArr;
+                        strongCell.personSelectArr = self->_rolePersonSelectArr;
                     }
                     [self->_progressDic setObject:[NSString stringWithFormat:@"%@",MC] forKey:@"role_name"];
                     [self->_progressDic setObject:[NSString stringWithFormat:@"%@",ID] forKey:@"role_id"];
@@ -1160,6 +1200,8 @@
              self->_rolePersonSelectArr = [NSMutableArray arrayWithArray:arr];
         };
         return cell;
+        
+#pragma mark -- 附件 --
     }else{
         
         if (indexPath.row == 0) {

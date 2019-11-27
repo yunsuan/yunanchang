@@ -34,10 +34,10 @@
 
     _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"business_name"]];
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
-    _registerL.text = [NSString stringWithFormat:@"定租编号：%@",dataDic[@"sub_code"]];
-    if ([dataDic[@"shop_name"] length]) {
+    _registerL.text = [NSString stringWithFormat:@"意向编号：%@",dataDic[@"row_code"]];
+    if ([dataDic[@"name"] length]) {
         
-        _buildL.text = [NSString stringWithFormat:@"%@",dataDic[@"shop_name"]];
+        _buildL.text = [NSString stringWithFormat:@"%@",dataDic[@"name"]];
     }else{
         
         _buildL.text = @" ";
@@ -165,6 +165,145 @@
             break;
     }
     _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+}
+
+- (void)setOrderDic:(NSDictionary *)orderDic{
+    
+    _headImg.image = IMAGE_WITH_NAME(@"sjmerchant_1");
+
+    _titleL.text = [NSString stringWithFormat:@"%@",orderDic[@"business_name"]];
+    _contractL.text = [NSString stringWithFormat:@"联系人：%@",orderDic[@"contact"]];
+    _registerL.text = [NSString stringWithFormat:@"定租编号：%@",orderDic[@"sub_code"]];
+    if ([orderDic[@"shop_name"] length]) {
+        
+        _buildL.text = [NSString stringWithFormat:@"%@",orderDic[@"shop_name"]];
+    }else{
+        
+        _buildL.text = @" ";
+    }
+    
+    _timeL.text = [NSString stringWithFormat:@"%@",[orderDic[@"create_time"] componentsSeparatedByString:@" "][0]];
+    if (_registerL.bounds.size.height > _buildL.bounds.size.height) {
+        
+        [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(100 *SIZE);
+            make.top.equalTo(self->_registerL.mas_bottom).offset(10 *SIZE);
+            make.right.equalTo(self.contentView).offset(-170 *SIZE);
+        }];
+        
+        [_payL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self.contentView).offset(-12 *SIZE);
+            make.top.equalTo(self->_registerL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+        
+        [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self->_payL.mas_left).offset(-5 *SIZE);
+            make.top.equalTo(self->_registerL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+        
+        [_statusL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self->_auditL.mas_left).offset(-5 *SIZE);
+            make.top.equalTo(self->_registerL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+    }else{
+        
+        [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self.contentView).offset(100 *SIZE);
+            make.top.equalTo(self->_buildL.mas_bottom).offset(10 *SIZE);
+            make.right.equalTo(self.contentView).offset(-170 *SIZE);
+        }];
+        
+        [_payL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self.contentView).offset(-12 *SIZE);
+            make.top.equalTo(self->_buildL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+        
+        [_auditL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self->_payL.mas_left).offset(-5 *SIZE);
+            make.top.equalTo(self->_buildL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+        
+        [_statusL mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self->_auditL.mas_left).offset(-5 *SIZE);
+            make.top.equalTo(self->_buildL.mas_bottom).offset(10 *SIZE);
+            make.width.mas_equalTo(40 *SIZE);
+        }];
+    }
+    switch ([orderDic[@"disabled_state"] integerValue]) {
+     
+        case 0:
+        {
+            _statusL.text = @"有效";
+            break;
+        }
+        case 1:
+        {
+            _statusL.text = @"变更";
+            break;
+        }
+        case 2:
+        {
+            _statusL.text = @"作废";
+            break;
+        }
+        case 3:
+        {
+            _statusL.text = @"定租";
+            break;
+        }
+        case 4:
+        {
+            _statusL.text = @"转签租";
+            break;
+        }
+        case 5:
+        {
+            _statusL.text = @"退号";
+            break;
+        }
+        default:
+            break;
+    }
+    switch ([orderDic[@"check_state"] integerValue]) {
+            
+        case 0:
+        {
+            _auditL.text = @"不通过";
+            break;
+        }
+        case 1:
+        {
+            _auditL.text = @"已审核";
+            break;
+        }
+        case 2:
+        {
+            _auditL.text = @"未审核";
+            break;
+        }
+        case 3:
+        {
+            _auditL.text = @"审核中";
+            break;
+        }
+        default:
+            _auditL.text = @"未审核";
+            break;
+    }
+    _payL.text = [orderDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
 }
 
 - (void)initUI{

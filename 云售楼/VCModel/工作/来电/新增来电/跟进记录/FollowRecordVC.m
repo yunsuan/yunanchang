@@ -694,7 +694,10 @@
     
     _remindTimeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
     [_remindTimeBtn addTarget:self action:@selector(ActionTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
-    _remindTimeBtn.placeL.text = @"选择日期";
+    _remindTimeBtn.placeL.text = @"";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    _remindTimeBtn.content.text = [NSString stringWithFormat:@"%@ 09:00:00",[dateFormatter stringFromDate:[NSDate date]]];
     [_scrollView addSubview:_remindTimeBtn];
     
     _nextTimeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];

@@ -66,7 +66,8 @@
 - (void)RequestDepart{
     
     [self->_departArr addObject:@{@"id":@"0",@"param":@"选择部门"}];
-    [BaseRequest GET:UserPersonalGetCompanyStructure_URL parameters:nil success:^(id  _Nonnull resposeObject) {
+    SS(strongSelf);
+    [BaseRequest GET:UserPersonalGetCompanyStructure_URL parameters:@{} success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -92,22 +93,22 @@
                 }
                 self->_postionId = @"";
                 self->_postion = @"选择岗位";
-                [self->_positionArr removeAllObjects];
-                [self->_positionArr addObject:@{@"id":@"0",@"param":@"选择岗位"}];
+                [strongSelf->_positionArr removeAllObjects];
+                [strongSelf->_positionArr addObject:@{@"id":@"0",@"param":@"选择岗位"}];
                 for (int i = 0; i < self->_collArr.count; i++) {
                     
                     if ([self->_postionId integerValue] == [self->_collArr[i][@"department_id"] integerValue]) {
                         
                         for (int j = 0; j < [self->_collArr[i][@"postList"] count]; j++) {
                             
-                            NSDictionary *dic = @{@"id":self->_collArr[i][@"postList"][j][@"post_id"],@"param":self->_collArr[i][@"postList"][j][@"post_name"]};
-                            [self->_positionArr addObject:dic];
+                            NSDictionary *dic = @{@"id":strongSelf->_collArr[i][@"postList"][j][@"post_id"],@"param":strongSelf->_collArr[i][@"postList"][j][@"post_name"]};
+                            [strongSelf->_positionArr addObject:dic];
                         }
                     }
                 }
-                [self RequestMethod];
+                [strongSelf RequestMethod];
             };
-            [self.view addSubview:self->_departView];
+            [strongSelf.view addSubview:strongSelf->_departView];
         }else{
             
             [self showContent:resposeObject[@"msg"]];

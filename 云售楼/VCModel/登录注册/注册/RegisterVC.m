@@ -134,6 +134,7 @@
 -(void)GetCode{
     //获取验证码
     
+    SS(strongSelf);
     if([self checkTel:_AccountTF.text]) {
         
         if ([[UserModel defaultModel].time isEqualToString:[_formatter stringFromDate:[NSDate date]]]) {
@@ -159,35 +160,35 @@
             _getCaptchaView = [[GetCaptchaView alloc] initWithFrame:self.view.bounds];
             _getCaptchaView.getCaptchaViewBlock = ^{
                 
-                self->_GetCodeBtn.userInteractionEnabled = NO;
+                strongSelf->_GetCodeBtn.userInteractionEnabled = NO;
                 NSDictionary *parameter = @{
-                                            @"tel":self->_AccountTF.text,
-                                            @"token":[self md5:@"yunsuankeji"]
+                                            @"tel":strongSelf->_AccountTF.text,
+                                            @"token":[strongSelf md5:@"yunsuankeji"]
                                             };
                 [BaseRequest GET:Captcha_URL parameters:parameter success:^(id resposeObject) {
                     NSLog(@"%@",resposeObject);
                     if ([resposeObject[@"code"] integerValue] == 200) {
                         
-                        [self showContent:@"验证码有效期为60分钟"];
+                        [strongSelf showContent:@"验证码有效期为60分钟"];
                         
-                        self->_GetCodeBtn.hidden = YES;
-                        self->_timeLabel.hidden = NO;
-                        self->surplusTime = 60;
-                        self->_timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)self->surplusTime];
+                        strongSelf->_GetCodeBtn.hidden = YES;
+                        strongSelf->_timeLabel.hidden = NO;
+                        strongSelf->surplusTime = 60;
+                        strongSelf->_timeLabel.text = [NSString stringWithFormat:@"%ldS", (long)strongSelf->surplusTime];
                         //倒计时
-                        self->time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+                        strongSelf->time = [NSTimer scheduledTimerWithTimeInterval:1.0 target:strongSelf selector:@selector(updateTime) userInfo:nil repeats:YES];
                         
                     }
                     else{
-                        [self showContent:resposeObject[@"msg"]];
+                        [strongSelf showContent:resposeObject[@"msg"]];
                     }
-                    self->_GetCodeBtn.userInteractionEnabled = YES;
+                    strongSelf->_GetCodeBtn.userInteractionEnabled = YES;
                 } failure:^(NSError *error) {
-                    self->_GetCodeBtn.userInteractionEnabled = YES;
-                    [self showContent:@"网络错误"];
+                    strongSelf->_GetCodeBtn.userInteractionEnabled = YES;
+                    [strongSelf showContent:@"网络错误"];
                 }];
             };
-            [self.view addSubview:_getCaptchaView];
+            [strongSelf.view addSubview:_getCaptchaView];
         }else{
             
             _GetCodeBtn.userInteractionEnabled = NO;

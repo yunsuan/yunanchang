@@ -262,18 +262,19 @@
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
+        __strong __typeof(&*view)strongView = view;
         view.numeralDetailInvalidViewBlock = ^{
           
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"1",@"id":self->_row_id}];
-            if ([self isEmpty:view.reasonTV.text]) {
+            if ([self isEmpty:strongView.reasonTV.text]) {
                 
-                [tempDic setObject:view.reasonTV.text forKey:@"disabled_reason"];
+                [tempDic setObject:strongView.reasonTV.text forKey:@"disabled_reason"];
             }
             [BaseRequest POST:ProjectRowDisabled_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    [view removeFromSuperview];
+                    [strongView removeFromSuperview];
                     [self.navigationController popViewControllerAnimated:YES];
                 }else{
                     
@@ -488,9 +489,9 @@
         
         cell.enclosureCellBlock = ^(NSInteger idx) {
           
-            FileReadingVC *nextVC = [[FileReadingVC alloc] initWithUrlString:_dataDic[@"enclosure"][idx][@"url"]];
+            FileReadingVC *nextVC = [[FileReadingVC alloc] initWithUrlString:self->_dataDic[@"enclosure"][idx][@"url"]];
             [self.navigationController pushViewController:nextVC animated:YES];
-            NSLog(@"%@",_dataDic[@"enclosure"]);
+            NSLog(@"%@",self->_dataDic[@"enclosure"]);
         };
         
         return cell;

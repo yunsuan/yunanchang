@@ -10,7 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddOrderRentalDetailVCBlock)(NSArray *arr);
+
 @interface AddOrderRentalDetailVC : BaseViewController
+
+@property (nonatomic, copy) AddOrderRentalDetailVCBlock addOrderRentalDetailVCBlock;
+
+@property (nonatomic, assign) double area;
 
 - (instancetype)initWithStageArr:(NSArray *)stageArr;
 

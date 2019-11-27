@@ -152,8 +152,11 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
 
 - (double)MultiplyingNumber:(double)num1 num2:(double)num2;
 
+//某个时间的几个月后
 - (NSDate *)getPriousorLaterDateFromDate:(NSDate *)date withMonth:(NSInteger)month;
 
+//两个时间的月差
+- (NSInteger)getMonthFromDate:(NSDate *)date1 withDate2:(NSDate *)date2;
 @end
 
 NS_ASSUME_NONNULL_END

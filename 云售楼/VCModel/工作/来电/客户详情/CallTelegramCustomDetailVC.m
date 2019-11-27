@@ -409,17 +409,17 @@
             };
             [self.navigationController pushViewController:vc animated:YES];
         };
-        
+        __strong __typeof(&*header)strongHeader = header;
         header.callTelegramCustomDetailHeaderCollBlock = ^(NSInteger index) {
           
             self->_num = index;
             self->_index = 0;
             if ([self->_peopleArr[index][@"sex"] integerValue] == 1) {
                 
-                header.headImg.image = IMAGE_WITH_NAME(@"nantouxiang");
+                strongHeader.headImg.image = IMAGE_WITH_NAME(@"nantouxiang");
             }else{
                 
-                header.headImg.image = IMAGE_WITH_NAME(@"nvtouxiang");
+                strongHeader.headImg.image = IMAGE_WITH_NAME(@"nvtouxiang");
             }
             [tableView reloadData];
         };
@@ -583,7 +583,7 @@
             cell.contentL.attributedText = attribtStr;
             cell.callTelegramCustomDetailInfoCellPhoneBlock = ^{
                 
-                NSString *phone = [[_infoDataArr[_num][indexPath.row] substringFromIndex:5] componentsSeparatedByString:@","][0];
+                NSString *phone = [[self->_infoDataArr[self->_num][indexPath.row] substringFromIndex:5] componentsSeparatedByString:@","][0];
                 if (phone.length) {
                     
                     //获取目标号码字符串,转换成URL
