@@ -74,7 +74,10 @@
     _openTimeBtn.content.text = signDic[@"open_time"];
     _signTimeBtn.content.text = signDic[@"contact_time"];
     _rentTimeBeginBtn.content.text = signDic[@"start_time"];
-    _rentTimePeriodTF.textField.text = signDic[@"rent_month_num"];
+    if (signDic[@"rent_month_num"]) {
+        
+        _rentTimePeriodTF.textField.text = [NSString stringWithFormat:@"%@",signDic[@"rent_month_num"]];
+    }
     _payWayBtn1.content.text = signDic[@"pay_name1"];
     _payWayBtn1->str = signDic[@"pay_way1"];
     _payWayBtn2.content.text = signDic[@"pay_name2"];

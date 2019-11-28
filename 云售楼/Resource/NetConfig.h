@@ -604,6 +604,8 @@ static NSString *const TradeContactbGetTradeContactList_URL = @"saleTradeApp/tra
 static NSString *const TradecContactGetTradeContactDetail_URL = @"saleTradeApp/trade/contact/getTradeContactDetail";
 
 //添加
-static NSString *const TradecontactCheckRent_URL = @"saleTradeApp/trade/contact/add";
+static NSString *const TradeContactAdd_URL = @"saleTradeApp/trade/contact/add";
 
+//修改
+static NSString *const TradeContactUpdate_URL = @"saleTradeApp/trade/contact/update";
 #endif /* NetConfig_h */

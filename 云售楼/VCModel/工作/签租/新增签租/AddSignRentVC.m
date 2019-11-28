@@ -370,7 +370,7 @@
 
         [dic setObject:param forKey:@"param"];
     }
-    [BaseRequest POST:TradecontactCheckRent_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    [BaseRequest POST:TradeContactAdd_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             

@@ -52,7 +52,7 @@
 
         money = [self AddNumber:money num2:[self->_dataArr[i][@"total_rent"] doubleValue]];
     }
-    header.titleL.text = [NSString stringWithFormat:@"合计总实付金额：%.2f元",money];
+    header.titleL.text = [NSString stringWithFormat:@"合计物业费：%.2f元",money];
     
     return header;
 }
@@ -78,7 +78,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"租金详情";
+    self.titleLabel.text = @"物业费详情";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT) style:UITableViewStylePlain];
     _table.backgroundColor = CLBackColor;

@@ -159,6 +159,7 @@
     [_orderDic setValue:self.dataDic[@"card_type"] forKey:@"card_type"];
     [_orderDic setValue:self.dataDic[@"card_num"] forKey:@"card_num"];
 //    [_orderDic setValue:self.dataDic[@"down_pay"] forKey:@"down_pay"];
+    [_orderDic setValue:self.dataDic[@"end_time"] forKey:@"end_time"];
     [_orderDic setValue:self.dataDic[@"deposit"] forKey:@"deposit"];
     [_orderDic setValue:self.dataDic[@"open_time"] forKey:@"open_time"];
     [_orderDic setValue:self.dataDic[@"contact_time"] forKey:@"contact_time"];
@@ -174,11 +175,24 @@
     
     _rentPirceDic = [@{} mutableCopy];
     
+    _differSize = [NSString stringWithFormat:@"%@",self.dataDic[@"differ_size"]];
+    
+    
     _secondFormatter = [[NSDateFormatter alloc] init];
     [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     
     _roomArr = [@[] mutableCopy];
     _roomArr = [NSMutableArray arrayWithArray:self.dataDic[@"shop_detail_list"]];
+    
+    self->_excuteArr = [[NSMutableArray alloc] initWithArray:self->_roomArr[0][@"cost_set_list"][@"custom"]];
+    double size = 0;
+    for (int i = 0; i < self->_roomArr.count; i++) {
+        
+        size = [self AddNumber:size num2:[self->_roomArr[i][@"build_size"] doubleValue]];
+    }
+    [self->_areaDic setValue:[NSString stringWithFormat:@"%.2f",size] forKey:@"rentSize"];
+    [self->_areaDic setValue:self.dataDic[@"differ_size"] forKey:@"differ_size"];
+    [self->_areaDic setValue:[NSString stringWithFormat:@"%.2f",[self DecimalNumber:[self->_areaDic[@"rentSize"] doubleValue] num2:[self->_areaDic[@"differ_size"] doubleValue]]] forKey:@"realSize"];
     
     _storeArr = [@[] mutableCopy];
     _storeArr = [NSMutableArray arrayWithArray:@[self.dataDic[@"business_info"]]];
@@ -275,39 +289,39 @@
         return;
     }
     
-    if (!_progressDic[@"progress_name"]) {
-        [self showContent:@"请选择审批流程"];
-        return;
-    }
-    if ([_progressDic[@"check_type"] integerValue] == 1) {
-
-        if (!_progressDic[@"auditMC"]) {
-            [self showContent:@"请选择流程类型"];
-            return;
-        }
-    }
-    NSString *param;
-    if ([_progressDic[@"auditMC"] isEqualToString:@"自由流程"]) {
-
-        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-
-            if ([_rolePersonSelectArr[i] integerValue] == 1) {
-
-                if (param.length) {
-
-                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-                }else{
-
-                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-                }
-            }
-        }
-        if (!param.length) {
-
-            [self showContent:@"请选择审核人员"];
-            return;
-        }
-    }
+//    if (!_progressDic[@"progress_name"]) {
+//        [self showContent:@"请选择审批流程"];
+//        return;
+//    }
+//    if ([_progressDic[@"check_type"] integerValue] == 1) {
+//
+//        if (!_progressDic[@"auditMC"]) {
+//            [self showContent:@"请选择流程类型"];
+//            return;
+//        }
+//    }
+//    NSString *param;
+//    if ([_progressDic[@"auditMC"] isEqualToString:@"自由流程"]) {
+//
+//        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+//
+//            if ([_rolePersonSelectArr[i] integerValue] == 1) {
+//
+//                if (param.length) {
+//
+//                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+//                }else{
+//
+//                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+//                }
+//            }
+//        }
+//        if (!param.length) {
+//
+//            [self showContent:@"请选择审核人员"];
+//            return;
+//        }
+//    }
     
     NSMutableDictionary *dic = [@{} mutableCopy];
     NSString *room;
@@ -347,7 +361,7 @@
     [dic setValue:_orderDic[@"card_type"] forKey:@"card_type"];
     [dic setValue:_orderDic[@"card_num"] forKey:@"card_num"];
     [dic setValue:_orderDic[@"end_time"] forKey:@"end_time"];
-    [dic setValue:_orderDic[@"down_pay"] forKey:@"down_pay"];
+//    [dic setValue:_orderDic[@"down_pay"] forKey:@"down_pay"];
     [dic setValue:_orderDic[@"open_time"] forKey:@"open_time"];
     [dic setValue:_orderDic[@"contact_time"] forKey:@"contact_time"];
     [dic setValue:_orderDic[@"start_time"] forKey:@"start_time"];
@@ -356,6 +370,7 @@
     [dic setValue:_orderDic[@"deposit"] forKey:@"deposit"];
     [dic setValue:_orderDic[@"pay_way"] forKey:@"pay_way"];
 //    [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
+    [dic setValue:self.dataDic[@"contact_id"] forKey:@"contact_id"];
     
     [dic setValue:_chargeId forKey:@"charge_company_id"];
     
@@ -388,12 +403,12 @@
         NSString *jsonString2 = [[NSString alloc]initWithData:jsonData2 encoding:NSUTF8StringEncoding];
         [dic setObject:jsonString2 forKey:@"enclosure_list"];
     }
-    [dic setObject:_progressDic[@"progress_id"] forKey:@"current_progress"];
-    if (param.length) {
-
-        [dic setObject:param forKey:@"param"];
-    }
-    [BaseRequest POST:TradecontactCheckRent_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+//    [dic setObject:_progressDic[@"progress_id"] forKey:@"current_progress"];
+//    if (param.length) {
+//
+//        [dic setObject:param forKey:@"param"];
+//    }
+    [BaseRequest POST:TradeContactUpdate_URL parameters:dic success:^(id  _Nonnull resposeObject) {
         
         if ([resposeObject[@"code"] integerValue] == 200) {
             
@@ -1286,7 +1301,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"新增定租";
+    self.titleLabel.text = @"修改定租";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
     _table.backgroundColor = CLBackColor;

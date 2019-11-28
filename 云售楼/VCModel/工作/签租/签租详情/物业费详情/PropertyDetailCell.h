@@ -16,9 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *total;
 
-@property (nonatomic, strong) UILabel *freeL;
-
-@property (nonatomic, strong) UILabel *resultL;
+@property (nonatomic, strong) UILabel *unitL;
 
 @property (nonatomic, strong) UILabel *payTimeL;
 

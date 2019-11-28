@@ -12,15 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OtherDetailCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *timeL;
+@property (nonatomic, strong) UILabel *nameL;
 
-@property (nonatomic, strong) UILabel *rentL;
+@property (nonatomic, strong) UILabel *typeL;
 
 @property (nonatomic, strong) UILabel *total;
-
-@property (nonatomic, strong) UILabel *freeL;
-
-@property (nonatomic, strong) UILabel *resultL;
 
 @property (nonatomic, strong) UILabel *payTimeL;
 

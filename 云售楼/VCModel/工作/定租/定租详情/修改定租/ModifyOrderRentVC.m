@@ -137,6 +137,7 @@
     [_orderDic setValue:self.dataDic[@"sub_time"] forKey:@"sub_time"];
     [_orderDic setValue:self.dataDic[@"remind_time"] forKey:@"remind_time"];
     [_orderDic setValue:self.dataDic[@"start_time"] forKey:@"start_time"];
+    [_orderDic setValue:self.dataDic[@"end_time"] forKey:@"end_time"];
     [_orderDic setValue:self.dataDic[@"pay_way"] forKey:@"pay_way"];
     [_orderDic setValue:[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][0] forKey:@"pay_way1"];
     [_orderDic setValue:[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][1] forKey:@"pay_way2"];
