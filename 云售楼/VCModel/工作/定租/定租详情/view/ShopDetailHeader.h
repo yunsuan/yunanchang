@@ -60,6 +60,8 @@ typedef void(^ShopDetailHeaderCollBlock)(NSInteger index);
 
 @property (nonatomic, strong) NSDictionary *storeIntentDic;
 
+@property (nonatomic, strong) NSDictionary *signDic;
+
 @end
 
 NS_ASSUME_NONNULL_END

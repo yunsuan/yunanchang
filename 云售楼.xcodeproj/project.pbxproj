@@ -174,6 +174,11 @@
 		0C3D7E6F238BB19900ACBC56 /* StageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E6E238BB19900ACBC56 /* StageDetailCell.m */; };
 		0C3D7E73238BB40C00ACBC56 /* ModifyOrderRentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E72238BB40C00ACBC56 /* ModifyOrderRentVC.m */; };
 		0C3D7E77238BB8BE00ACBC56 /* ShopBelongDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E76238BB8BE00ACBC56 /* ShopBelongDetailVC.m */; };
+		0C3D7E82238F61EF00ACBC56 /* ModifySignRentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E81238F61EF00ACBC56 /* ModifySignRentVC.m */; };
+		0C3D7E87238F6E7400ACBC56 /* PropertyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E86238F6E7400ACBC56 /* PropertyDetailVC.m */; };
+		0C3D7E8A238F6E8400ACBC56 /* OtherDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E89238F6E8300ACBC56 /* OtherDetailVC.m */; };
+		0C3D7E8D238F6F6B00ACBC56 /* OtherDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E8C238F6F6B00ACBC56 /* OtherDetailCell.m */; };
+		0C3D7E90238F6F7800ACBC56 /* PropertyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E8F238F6F7800ACBC56 /* PropertyDetailCell.m */; };
 		0C3DD5CC2369262000211766 /* StoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CB2369262000211766 /* StoreVC.m */; };
 		0C3DD5D0236927A500211766 /* StoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CF236927A500211766 /* StoreCell.m */; };
 		0C3DD5D42369295700211766 /* AddStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5D32369295700211766 /* AddStoreVC.m */; };
@@ -968,6 +973,16 @@
 		0C3D7E72238BB40C00ACBC56 /* ModifyOrderRentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyOrderRentVC.m; sourceTree = "<group>"; };
 		0C3D7E75238BB8BE00ACBC56 /* ShopBelongDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopBelongDetailVC.h; sourceTree = "<group>"; };
 		0C3D7E76238BB8BE00ACBC56 /* ShopBelongDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopBelongDetailVC.m; sourceTree = "<group>"; };
+		0C3D7E80238F61EF00ACBC56 /* ModifySignRentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifySignRentVC.h; sourceTree = "<group>"; };
+		0C3D7E81238F61EF00ACBC56 /* ModifySignRentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifySignRentVC.m; sourceTree = "<group>"; };
+		0C3D7E85238F6E7400ACBC56 /* PropertyDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropertyDetailVC.h; sourceTree = "<group>"; };
+		0C3D7E86238F6E7400ACBC56 /* PropertyDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PropertyDetailVC.m; sourceTree = "<group>"; };
+		0C3D7E88238F6E8300ACBC56 /* OtherDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherDetailVC.h; sourceTree = "<group>"; };
+		0C3D7E89238F6E8300ACBC56 /* OtherDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherDetailVC.m; sourceTree = "<group>"; };
+		0C3D7E8B238F6F6B00ACBC56 /* OtherDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherDetailCell.h; sourceTree = "<group>"; };
+		0C3D7E8C238F6F6B00ACBC56 /* OtherDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherDetailCell.m; sourceTree = "<group>"; };
+		0C3D7E8E238F6F7800ACBC56 /* PropertyDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropertyDetailCell.h; sourceTree = "<group>"; };
+		0C3D7E8F238F6F7800ACBC56 /* PropertyDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PropertyDetailCell.m; sourceTree = "<group>"; };
 		0C3DD5CA2369262000211766 /* StoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreVC.h; sourceTree = "<group>"; };
 		0C3DD5CB2369262000211766 /* StoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreVC.m; sourceTree = "<group>"; };
 		0C3DD5CE236927A500211766 /* StoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreCell.h; sourceTree = "<group>"; };
@@ -3141,6 +3156,37 @@
 			path = "归属人详情";
 			sourceTree = "<group>";
 		};
+		0C3D7E7F238F61DC00ACBC56 /* 修改签租 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E80238F61EF00ACBC56 /* ModifySignRentVC.h */,
+				0C3D7E81238F61EF00ACBC56 /* ModifySignRentVC.m */,
+			);
+			path = "修改签租";
+			sourceTree = "<group>";
+		};
+		0C3D7E83238F6E5000ACBC56 /* 物业费详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E85238F6E7400ACBC56 /* PropertyDetailVC.h */,
+				0C3D7E86238F6E7400ACBC56 /* PropertyDetailVC.m */,
+				0C3D7E8E238F6F7800ACBC56 /* PropertyDetailCell.h */,
+				0C3D7E8F238F6F7800ACBC56 /* PropertyDetailCell.m */,
+			);
+			path = "物业费详情";
+			sourceTree = "<group>";
+		};
+		0C3D7E84238F6E5A00ACBC56 /* 其他费项详情 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7E88238F6E8300ACBC56 /* OtherDetailVC.h */,
+				0C3D7E89238F6E8300ACBC56 /* OtherDetailVC.m */,
+				0C3D7E8B238F6F6B00ACBC56 /* OtherDetailCell.h */,
+				0C3D7E8C238F6F6B00ACBC56 /* OtherDetailCell.m */,
+			);
+			path = "其他费项详情";
+			sourceTree = "<group>";
+		};
 		0C3DD5C92369258D00211766 /* 商家 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3641,6 +3687,9 @@
 		0C63F5CE2371114C00946236 /* 签租详情 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D7E84238F6E5A00ACBC56 /* 其他费项详情 */,
+				0C3D7E83238F6E5000ACBC56 /* 物业费详情 */,
+				0C3D7E7F238F61DC00ACBC56 /* 修改签租 */,
 				0C63F5D32371118700946236 /* SignRentDetailVC.h */,
 				0C63F5D42371118700946236 /* SignRentDetailVC.m */,
 			);
@@ -6223,6 +6272,7 @@
 				0C04D7132329E86E003188BE /* CustomTools.m in Sources */,
 				105162512359A5B200E7CA6F /* ReceiptCountVC.m in Sources */,
 				0CEF8AF722646DBD0057F3FD /* CallTelegramCustomDetailHeader.m in Sources */,
+				0C3D7E87238F6E7400ACBC56 /* PropertyDetailVC.m in Sources */,
 				0CB9AE0523827F0C0007E5D3 /* GZQFilterView.m in Sources */,
 				0CEF89DF225C720E0057F3FD /* AddressBookVC.m in Sources */,
 				0C106987235EA19100CB58A2 /* ZQDataGridComponent.m in Sources */,
@@ -6242,6 +6292,7 @@
 				0C7451FC22A7B2A3008F2F07 /* ChannelSingleChartCell.m in Sources */,
 				0C496DE822D444F400789FFA /* AddNemeralHeader.m in Sources */,
 				0C4B7F5C22C995BD00BBC34F /* NumeralVC.m in Sources */,
+				0C3D7E82238F61EF00ACBC56 /* ModifySignRentVC.m in Sources */,
 				0C63F5AE236FC9B300946236 /* AddIntentStoreVC.m in Sources */,
 				0CEF8A55225F1D440057F3FD /* CompanyModel.m in Sources */,
 				0C991C5A2272B32700AF2817 /* ProjectRoleVC.m in Sources */,
@@ -6269,6 +6320,7 @@
 				0C496DFB22D49E0100789FFA /* installmentCollCell.m in Sources */,
 				0C496DEB22D4466500789FFA /* AddNumeralInfoView.m in Sources */,
 				0C3A914F225B216400F04804 /* BaseRequest.m in Sources */,
+				0C3D7E8A238F6E8400ACBC56 /* OtherDetailVC.m in Sources */,
 				0C221A62227ECEB2006B0510 /* CallTelegramModifyCustomVC.m in Sources */,
 				0CD043B92282715F002C8BD3 /* WaitAnimation.m in Sources */,
 				0CEF8A27225D7BF00057F3FD /* LoginVC.m in Sources */,
@@ -6353,6 +6405,7 @@
 				0C3D7E602387AF3500ACBC56 /* AddSignRentPropertyDetailCell.m in Sources */,
 				0C05334C22F97DCA00DA9143 /* QueryPhoneVC.m in Sources */,
 				0CEF8AF1226467010057F3FD /* CallTelegramCustomDetailVC.m in Sources */,
+				0C3D7E8D238F6F6B00ACBC56 /* OtherDetailCell.m in Sources */,
 				0CBD712422925B1E002A6B48 /* PushSettingCell.m in Sources */,
 				0C38049723756CF70075CABD /* StoreSignAuditCell.m in Sources */,
 				0C74520622A7DCB5008F2F07 /* MutiBarChartView.m in Sources */,
@@ -6455,6 +6508,7 @@
 				0CD0434B228008C1002C8BD3 /* WorkRecommendFailDetailVC.m in Sources */,
 				0C3804AE237AB31D0075CABD /* AddIntentStoreAddCell.m in Sources */,
 				0C758155235D5B090029B530 /* SaleRankContractCell.m in Sources */,
+				0C3D7E90238F6F7800ACBC56 /* PropertyDetailCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

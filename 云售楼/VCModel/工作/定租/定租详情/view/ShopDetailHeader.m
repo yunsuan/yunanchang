@@ -133,6 +133,105 @@
 //    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
 }
 
+#pragma mark -- 签租 --
+- (void)setSignDic:(NSDictionary *)signDic{
+
+    
+    _collArr = [[NSMutableArray alloc] initWithArray:signDic[@"shop_detail_list"]];
+    [_coll reloadData];
+    
+//    for (int i = 0; i < _collArr.count; i++) {
+//
+//        [_selectArr addObject:@0];
+//    }
+//    _statusL.text = @"排号";
+    switch ([signDic[@"disabled_state"] integerValue]) {
+        case 0:
+        {
+            _statusL.text = @"有效";
+            break;
+        }
+        case 1:
+        {
+            _statusL.text = @"变更";
+            break;
+        }
+        case 2:
+        {
+            _statusL.text = @"作废";
+            break;
+        }
+        case 3:
+        {
+            _statusL.text = @"转定租";
+            break;
+        }
+        case 4:
+        {
+            _statusL.text = @"转签租";
+            break;
+        }
+        case 5:
+        {
+            _statusL.text = @"退租";
+            break;
+        }
+        default:
+            _statusL.text = @"有效";
+            break;
+    }
+    switch ([signDic[@"check_state"] integerValue]) {
+        case 0:
+        {
+            _auditL.text = @"不通过";
+            break;
+        }
+        case 1:
+        {
+            _auditL.text = @"已审核";
+            break;
+        }
+        case 2:
+        {
+            _auditL.text = @"未审核";
+            break;
+        }
+        case 3:
+        {
+            _auditL.text = @"审核中";
+            break;
+        }
+        default:
+            _auditL.text = @"未审核";
+            break;
+    }
+    
+    if ([signDic[@"disabled_state"] integerValue] == 0 && [signDic[@"check_state"] integerValue] == 2) {
+        
+        _editBtn.hidden = NO;
+    }else{
+        
+        _editBtn.hidden = YES;
+    }
+    
+    _payL.text = [signDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+    NSString *room = @"";
+    for (int i = 0; i < [signDic[@"shop_detail_list"] count]; i++) {
+        
+        if (room.length) {
+            
+            room = [NSString stringWithFormat:@"%@,%@",room,signDic[@"shop_detail_list"][i][@"name"]];
+        }else{
+            
+            room = [NSString stringWithFormat:@"%@",signDic[@"shop_detail_list"][i][@"name"]];
+        }
+    }
+    _numL.text = [NSString stringWithFormat:@"%@",room];
+    _customL.text = [NSString stringWithFormat:@"联系人：%@/%@",signDic[@"business_info"][@"contact"],signDic[@"business_info"][@"contact_tel"]];
+    _titleL.text = [NSString stringWithFormat:@"签租编号：%@",signDic[@"contact_code"]];
+//    _moneyL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"down_pay"]];
+}
+
 #pragma mark -- 意向商家 --
 - (void)setStoreIntentDic:(NSDictionary *)storeIntentDic{
     

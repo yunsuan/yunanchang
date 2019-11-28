@@ -600,6 +600,9 @@ static NSString *const TradeSubCheckRent_URL = @"saleTradeApp/trade/sub/checkRen
 //列表
 static NSString *const TradeContactbGetTradeContactList_URL = @"saleTradeApp/trade/contact/getTradeContactList";
 
+//详情
+static NSString *const TradecContactGetTradeContactDetail_URL = @"saleTradeApp/trade/contact/getTradeContactDetail";
+
 //添加
 static NSString *const TradecontactCheckRent_URL = @"saleTradeApp/trade/contact/add";
 

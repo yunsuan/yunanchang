@@ -206,7 +206,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    SignRentDetailVC *nextVC = [[SignRentDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"business_id"]]];
+    SignRentDetailVC *nextVC = [[SignRentDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"contact_id"]]];
     nextVC.project_id = _project_id;
     nextVC.info_id = _info_id;
     nextVC.powerDic = self.powerDic;
