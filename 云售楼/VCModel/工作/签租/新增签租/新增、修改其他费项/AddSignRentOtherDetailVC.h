@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddSignRentOtherDetailVC : BaseViewController
 
+@property (nonatomic, strong) NSMutableArray *excuteArr;
+
 - (instancetype)initWithDataArr:(NSArray *)dataArr;
 
 @end

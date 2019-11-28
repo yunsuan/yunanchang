@@ -10,11 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddSignRentPropertyVCBlock)(NSDictionary *dic);
+
 @interface AddSignRentPropertyVC : BaseViewController
 
-@property (nonatomic , strong) NSString *status;
+@property (nonatomic , copy) AddSignRentPropertyVCBlock addSignRentPropertyVCBlock;
 
-@property (nonatomic , strong) NSDictionary *dataDic;
+@property (nonatomic, strong) NSString *status;
+
+@property (nonatomic, strong) NSString *config;
+
+@property (nonatomic, strong) NSDictionary *dataDic;
 
 @end
 

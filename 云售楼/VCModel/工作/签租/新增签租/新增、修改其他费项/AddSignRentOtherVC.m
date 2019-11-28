@@ -65,7 +65,14 @@
 
 - (void)ActionDropBtn:(UIButton *)btn{
     
+    if (btn.tag == 1) {
+        
+    }else if (btn.tag == 2){
+        
+        
+    }else if (btn.tag == 3){
     
+    }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
@@ -110,6 +117,7 @@
             
             _payTimeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_payTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            _payTimeBtn.tag = i;
             [_scrollView addSubview:_payTimeBtn];
         }else if (i == 2){
             
@@ -118,6 +126,7 @@
             
             _remindBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_remindBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            _remindBtn.tag = i;
             [_scrollView addSubview:_remindBtn];
         }else if (i == 3){
             
@@ -126,6 +135,7 @@
             
             _typeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_typeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            _typeBtn.tag = i;
             [_scrollView addSubview:_typeBtn];
         }else if (i == 4){
             
@@ -136,6 +146,7 @@
             _periodBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_periodBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             _periodBtn.hidden = YES;
+            _periodBtn.tag = i;
             [_scrollView addSubview:_periodBtn];
         }else if (i == 5){
             

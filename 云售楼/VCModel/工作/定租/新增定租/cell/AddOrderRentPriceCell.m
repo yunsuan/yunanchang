@@ -38,6 +38,7 @@
 
 - (void)setDataArr:(NSMutableArray *)dataArr{
     
+    [_addBtn setTitle:@"自动生成" forState:UIControlStateNormal];
 //    _priceL.text = @"实际单价：50元/月/㎡";
     if (dataArr.count) {
         
@@ -48,6 +49,52 @@
         }
         
         _totalL.text = [NSString stringWithFormat:@"合计总实付金额：%.2f元",money];
+        _addBtn.hidden = YES;
+        _editBtn.hidden = NO;
+    }else{
+     
+        _totalL.text = @" ";
+        _addBtn.hidden = NO;
+        _editBtn.hidden = YES;
+    }
+}
+
+- (void)setPropertyArr:(NSMutableArray *)propertyArr{
+    
+    [_addBtn setTitle:@"自动生成" forState:UIControlStateNormal];
+//    _priceL.text = @"实际单价：50元/月/㎡";
+    if (propertyArr.count) {
+        
+        double money = 0;
+        for (int i = 0; i < propertyArr.count; i++) {
+            
+            money = money + [propertyArr[i][@"total_cost"] doubleValue];
+        }
+        
+        _totalL.text = [NSString stringWithFormat:@"合计物业费：%.2f元",money];
+        _addBtn.hidden = YES;
+        _editBtn.hidden = NO;
+    }else{
+     
+        _totalL.text = @" ";
+        _addBtn.hidden = NO;
+        _editBtn.hidden = YES;
+    }
+}
+
+- (void)setOtherArr:(NSMutableArray *)otherArr{
+
+    [_addBtn setTitle:@"新 增" forState:UIControlStateNormal];
+//    _priceL.text = @"实际单价：50元/月/㎡";
+    if (otherArr.count) {
+        
+        double money = 0;
+        for (int i = 0; i < otherArr.count; i++) {
+            
+            money = money + [otherArr[i][@"total_cost"] doubleValue];
+        }
+        
+        _totalL.text = [NSString stringWithFormat:@"合计费用：%.2f元",money];
         _addBtn.hidden = YES;
         _editBtn.hidden = NO;
     }else{

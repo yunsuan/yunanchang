@@ -32,6 +32,10 @@ typedef void(^AddOrderRentPriceCellAddBlock)(void);
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
+@property (nonatomic, strong) NSMutableArray *propertyArr;
+
+@property (nonatomic, strong) NSMutableArray *otherArr;;
+
 @end
 
 NS_ASSUME_NONNULL_END

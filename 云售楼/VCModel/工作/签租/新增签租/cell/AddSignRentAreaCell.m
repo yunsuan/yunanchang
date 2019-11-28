@@ -34,17 +34,30 @@
 
 - (void)textFieldDidChange:(UITextField *)textField{
     
-    if (self.addSignRentAreaCellStrBlock) {
-
-        self.addSignRentAreaCellStrBlock(textField.text);
-    }
+//    if (self.addSignRentAreaCellStrBlock) {
+//
+//        self.addSignRentAreaCellStrBlock(textField.text);
+//    }
 }
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _rentAreaL.text = [NSString stringWithFormat:@"租赁面积：%@",dataDic[@"rentSize"]];
+    if (dataDic[@"rentSize"]) {
+        
+        _rentAreaL.text = [NSString stringWithFormat:@"租赁面积：%@㎡",dataDic[@"rentSize"]];
+    }else{
+        
+        _rentAreaL.text = @"租赁面积：0㎡";
+    }
+    
     _chargeAreaTF.textField.text = dataDic[@"differ_size"];
-    _realAreaL.text = [NSString stringWithFormat:@"实际面积：%@",dataDic[@"realSize"]];
+    if (dataDic[@"realSize"]) {
+        
+        _realAreaL.text = [NSString stringWithFormat:@"实际面积：%@㎡",dataDic[@"realSize"]];
+    }else{
+        
+        _realAreaL.text = @"实际面积：0㎡";
+    }
 }
 
 - (void)initUI{

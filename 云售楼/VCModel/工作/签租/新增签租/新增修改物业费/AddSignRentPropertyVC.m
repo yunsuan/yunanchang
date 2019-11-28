@@ -17,6 +17,8 @@
 {
     
     NSDateFormatter *_formatter;
+    
+    NSDateFormatter *_formatter2;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -24,7 +26,10 @@
 
 @property (nonatomic, strong) DropBtn *timeBtn;
 
-@property (nonatomic, strong) DropBtn *endTimeBtn;
+@property (nonatomic, strong) UILabel *periodL;
+
+@property (nonatomic, strong) BorderTextField *periodTF;
+//@property (nonatomic, strong) DropBtn *endTimeBtn;
 
 @property (nonatomic, strong) UILabel *unitL;
 
@@ -59,6 +64,10 @@
     
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    
+    _formatter2 = [[NSDateFormatter alloc] init];
+    [_formatter2 setDateFormat:@"YYYY-MM-dd"];
+    
     [self initUI];
 }
 
@@ -80,7 +89,7 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.dateblock = ^(NSDate *date) {
             
-            self->_endTimeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+//            self->_endTimeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
         };
         [self.view addSubview:view];
     }else if (btn.tag == 3){
@@ -121,13 +130,62 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+    if (!_timeBtn.content.text) {
+        
+        [self showContent:@"请选择物业费开始时间"];
+        return;
+    }
+    
+    if (!_periodTF.textField.text.length) {
+        
+        [self showContent:@"请输入本期时长"];
+        return;
+    }
+    if (!_unitTF.textField.text.length) {
+        
+        [self showContent:@"请输入单价"];
+        return;
+    }
+    if (!_resultTF.textField.text.length) {
+        
+        [self showContent:@"请输入实际金额"];
+        return;
+    }
+    if (!_payTimeBtn.content.text) {
+        
+        [self showContent:@"请选择交款时间"];
+        return;
+    }
+    if (!_remindBtn.content.text) {
+        
+        [self showContent:@"请选择提醒时间"];
+        return;
+    }
+    
+    NSMutableDictionary *tempDic = [@{} mutableCopy];
+    
+    [tempDic setValue:_timeBtn.content.text forKey:@"cost_start_time"];
+    [tempDic setValue:_periodTF.textField.text forKey:@"cost_num"];
+    [tempDic setValue:[_formatter2 stringFromDate:[self getPriousorLaterDateFromDate:[_formatter2 dateFromString:_timeBtn.content.text] withMonth:[_periodTF.textField.text integerValue]]] forKey:@"cost_end_time"];
+    [tempDic setValue:[NSString stringWithFormat:@"%@",_resultTF.textField.text] forKey:@"total_cost"];
+    [tempDic setValue:_payTimeBtn.content.text forKey:@"pay_time"];
+    [tempDic setValue:_remindBtn.content.text forKey:@"remind_time"];
+    [tempDic setValue:self.config forKey:@"config_id"];
+    [tempDic setValue:[NSString stringWithFormat:@"%@",_unitTF.textField.text] forKey:@"unit_cost"];
     if ([self.status isEqualToString:@"add"]) {
         
-        
+        if (self.addSignRentPropertyVCBlock) {
+            
+            self.addSignRentPropertyVCBlock(tempDic);
+        }
     }else{
         
-        
+        if (self.addSignRentPropertyVCBlock) {
+            
+            self.addSignRentPropertyVCBlock(tempDic);
+        }
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)initUI{
@@ -139,9 +197,9 @@
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
     
-    NSArray *titleArr = @[@"计价起止时间：",@"计算金额：",@"实际金额：",@"备注：",@"交款时间：",@"单价：",@"提醒时间："];
+    NSArray *titleArr = @[@"计价起止时间：",@"本期时长：",@"计算金额：",@"实际金额：",@"备注：",@"交款时间：",@"单价：",@"提醒时间："];
     
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
@@ -161,50 +219,81 @@
             _timeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
             [_timeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             _timeBtn.tag = 0;
+            if (self.dataDic.count) {
+                
+                _timeBtn.content.text = self.dataDic[@"cost_start_time"];
+            }
             [_scrollView addSubview:_timeBtn];
         }else if (i == 1){
+            _periodL = label;
+            [_scrollView addSubview:_periodL];
+            
+            
+            _periodTF = tf;
+            if (self.dataDic.count) {
+                            
+                _periodTF.textField.text = [NSString stringWithFormat:@"%@",self.dataDic[@"cost_num"]];
+            }
+            [_scrollView addSubview:_periodTF];
+        }else if (i == 2){
             
             _originL = label;
             _originL.numberOfLines = 0;
             [_scrollView addSubview:_originL];
             
-            _endTimeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
-            [_endTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
-            _endTimeBtn.tag = 2;
-            [_scrollView addSubview:_endTimeBtn];
-        }else if (i == 2){
+            
+            _resultTF = tf;
+            _resultTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+            if (self.dataDic.count) {
+                
+                _resultTF.textField.text = self.dataDic[@"total_cost"];
+            }
+            [_scrollView addSubview:_resultTF];
+        }else if (i == 3){
             
             _resultL = label;
             [_scrollView addSubview:_resultL];
             
-            _resultTF = tf;
-            _resultTF.textField.keyboardType = UIKeyboardTypeNumberPad;
-            [_scrollView addSubview:_resultTF];
-        }else if (i == 3){
+            
+            _marklTF = tf;
+            if (self.dataDic.count) {
+                
+                _marklTF.textField.text = self.dataDic[@"comment"];
+            }
+            [_scrollView addSubview:_marklTF];
+        }else if (i == 4){
             
             _markL = label;
             [_scrollView addSubview:_markL];
             
-            _marklTF = tf;
-            [_scrollView addSubview:_marklTF];
-        }else if (i == 4){
-            
-            _payTimeL = label;
-            [_scrollView addSubview:_payTimeL];
             
             _payTimeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_payTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             _payTimeBtn.tag = 5;
+            if (self.dataDic.count) {
+                
+                _payTimeBtn.content.text = self.dataDic[@"pay_time"];
+            }
             [_scrollView addSubview:_payTimeBtn];
         }else if (i == 5){
             
-            _unitL = label;
-            [_scrollView addSubview:_unitL];
+            _payTimeL = label;
+            [_scrollView addSubview:_payTimeL];
+            
             
             _unitTF = tf;
             _unitTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+            if (self.dataDic.count) {
+                
+                _unitTF.textField.text = self.dataDic[@"unit_cost"];
+            }
             [_scrollView addSubview:_unitTF];
+        }else if (i == 6){
+            
+            _unitL = label;
+            [_scrollView addSubview:_unitL];
         }else{
+            
             
             _remindL = label;
             [_scrollView addSubview:_remindL];
@@ -212,6 +301,10 @@
             _remindBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_remindBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             _remindBtn.tag = 6;
+            if (self.dataDic.count) {
+                
+                _remindBtn.content.text = self.dataDic[@"remind_time"];
+            }
             [_scrollView addSubview:_remindBtn];
         }
     }
@@ -248,29 +341,36 @@
         
         make.left.equalTo(_scrollView).offset(80 *SIZE);
         make.top.equalTo(_scrollView).offset(9 *SIZE);
-        make.width.mas_equalTo(120 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_endTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_periodL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(_scrollView).offset(218 *SIZE);
-        make.top.equalTo(_scrollView).offset(9 *SIZE);
-        make.width.mas_equalTo(120 *SIZE);
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_timeBtn.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_periodTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_timeBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
     [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_timeBtn.mas_bottom).offset(18 *SIZE);
+        make.top.equalTo(self->_periodTF.mas_bottom).offset(18 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_unitTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_timeBtn.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self->_periodTF.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];

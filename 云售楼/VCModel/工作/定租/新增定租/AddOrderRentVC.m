@@ -284,7 +284,13 @@
     }
     [dic setValue:store forKey:@"from_id"];
     [dic setValue:store forKey:@"business_id"];
-    [dic setValue:@"2" forKey:@"from_type"];
+    if ([self.from_type isEqualToString:@"2"]) {
+        
+        [dic setValue:@"2" forKey:@"from_type"];
+    }else{
+        
+        [dic setValue:@"1" forKey:@"from_type"];
+    }
     [dic setValue:_project_id forKey:@"project_id"];
     [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
     [dic setValue:_orderDic[@"signatory"] forKey:@"signatory"];
@@ -299,7 +305,7 @@
     [dic setValue:_orderDic[@"remind_time"] forKey:@"remind_time"];
     [dic setValue:_orderDic[@"deposit"] forKey:@"deposit"];
     [dic setValue:_orderDic[@"pay_way"] forKey:@"pay_way"];
-    [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
+//    [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
     
     [dic setValue:_chargeId forKey:@"charge_company_id"];
     
@@ -613,6 +619,8 @@
     if (indexPath.section == 0) {
         
         [_roomArr removeObjectAtIndex:indexPath.row];
+        
+        [_stageArr removeAllObjects];
     }else{
         
         [_storeArr removeAllObjects];
@@ -649,6 +657,7 @@
                         self->_chargeId = chargeId;
                     }
                     [self->_roomArr addObject:dic];
+                    [self->_stageArr removeAllObjects];
                     [tableView reloadData];
                 };
                 [self.navigationController pushViewController:nextVC animated:YES];
@@ -915,9 +924,10 @@
                         ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
                         view.periodTF.textField.text = self->_orderDic[@"deposit"];
                         view.numL.text = [NSString stringWithFormat:@"期数：%.0f期",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
-                        [self->_stageArr removeAllObjects];
                         view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
                           
+                            [self->_stageArr removeAllObjects];
+                            
                             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                             [formatter setDateFormat:@"YYYY-MM-dd"];
                             

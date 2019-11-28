@@ -10,7 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddSignRentPropertyDetailVCBlock)(NSArray *arr);
+
 @interface AddSignRentPropertyDetailVC : BaseViewController
+
+@property (nonatomic, copy) AddSignRentPropertyDetailVCBlock addSignRentPropertyDetailVCBlock;
+
+@property (nonatomic, strong) NSString *config;
 
 - (instancetype)initWithDataArr:(NSArray *)dataArr;
 

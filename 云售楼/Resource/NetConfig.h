@@ -594,4 +594,13 @@ static NSString *const TradeSubUpdate_URL = @"saleTradeApp/trade/sub/update";
 
 //租金检测
 static NSString *const TradeSubCheckRent_URL = @"saleTradeApp/trade/sub/checkRent";
+
+#pragma mark -- 签租 --
+
+//列表
+static NSString *const TradeContactbGetTradeContactList_URL = @"saleTradeApp/trade/contact/getTradeContactList";
+
+//添加
+static NSString *const TradecontactCheckRent_URL = @"saleTradeApp/trade/contact/add";
+
 #endif /* NetConfig_h */

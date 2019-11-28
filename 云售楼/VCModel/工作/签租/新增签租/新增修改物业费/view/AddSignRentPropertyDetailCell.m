@@ -30,14 +30,14 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@",dataDic[@""]];
+    _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@至%@",dataDic[@"cost_start_time"],dataDic[@"cost_end_time"]];
 //    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@",dataDic[@""]];
-    _originL.text = [NSString stringWithFormat:@"计算金额：%@",dataDic[@""]];
-    _resultL.text = [NSString stringWithFormat:@"实际金额：%@",dataDic[@""]];
-    _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@""]];
-    _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@""]];
-    _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@""]];
-    _unitL.text = [NSString stringWithFormat:@"单价：%@",dataDic[@""]];
+//    _originL.text = [NSString stringWithFormat:@"计算金额：%@",dataDic[@"total_cost"]];
+    _resultL.text = [NSString stringWithFormat:@"实际金额：%@元",dataDic[@"total_cost"]];
+    _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
+    _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@"pay_time"]];
+    _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@"remind_time"]];
+    _unitL.text = [NSString stringWithFormat:@"单价：%@元",dataDic[@"unit_cost"]];
 }
 
 - (void)initUI{
@@ -114,32 +114,32 @@
         make.width.mas_equalTo(150 *SIZE);
     }];
 
-    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self.contentView).offset(170 *SIZE);
-        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
-    }];
+//    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self.contentView).offset(170 *SIZE);
+//        make.top.equalTo(self->_rentL.mas_bottom).offset(12 *SIZE);
+//        make.width.mas_equalTo(150 *SIZE);
+//    }];
     
     [_resultL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_unitL.mas_bottom).offset(12 *SIZE);
+        make.left.equalTo(self.contentView).offset(170 *SIZE);
+        make.top.equalTo(self->_timeL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(330 *SIZE);
     }];
     
     [_payTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(170 *SIZE);
+        make.left.equalTo(self.contentView).offset(12 *SIZE);
         make.top.equalTo(self->_unitL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
+        make.width.mas_equalTo(300 *SIZE);
     }];
     
     [_remindL mas_makeConstraints:^(MASConstraintMaker *make) {
             
         make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_resultL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
+        make.top.equalTo(self->_payTimeL.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(300 *SIZE);
     //        make.bottom.equalTo(self.contentView).offset(-12 *SIZE);
     }];
     

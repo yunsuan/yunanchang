@@ -476,10 +476,7 @@
     if (indexPath.section == 0) {
         
         [_roomArr removeObjectAtIndex:indexPath.row];
-        if (!_roomArr.count) {
-            
-            [_stageArr removeAllObjects];
-        }
+        [_stageArr removeAllObjects];
     }else{
         
         [_storeArr removeAllObjects];
@@ -515,6 +512,7 @@
                         self->_chargeId = chargeId;
                     }
                     [self->_roomArr addObject:dic];
+                    [self->_stageArr removeAllObjects];
                     [tableView reloadData];
                 };
                 [self.navigationController pushViewController:nextVC animated:YES];

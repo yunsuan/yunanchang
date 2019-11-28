@@ -45,6 +45,7 @@
 - (void)ActionAddBtn:(UIButton *)btn{
     
     AddSignRentOtherVC *nextVC = [[AddSignRentOtherVC alloc] init];
+    nextVC.excuteArr = self.excuteArr;
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -69,6 +70,8 @@
     cell.addOrderRentalDetailCellBlock = ^(NSInteger idx) {
       
         AddSignRentOtherVC *nextVC = [[AddSignRentOtherVC alloc] init];
+        nextVC.dataDic = _dataArr[indexPath.row];
+        nextVC.excuteArr = self.excuteArr;
         [self.navigationController pushViewController:nextVC animated:YES];
     };
     
