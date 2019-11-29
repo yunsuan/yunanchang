@@ -469,6 +469,19 @@
                         self->_chargeId = chargeId;
                     }
                     [self->_roomArr addObject:dic];
+                    if (![self->_intentDic[@"sincerity"] length]) {
+                        
+                        for (int i = 0; i < [self->_roomArr[0][@"cost_set_list"][@"fixed"] count]; i++) {
+                            
+                            if ([self->_roomArr[0][@"cost_set_list"][@"fixed"][i][@"name"] isEqualToString:@"诚意金"]) {
+                                
+                                if ([self->_roomArr[0][@"cost_set_list"][@"fixed"][i][@"is_execute"] integerValue] == 1) {
+                                    
+                                    [self->_intentDic setValue:self->_roomArr[0][@"cost_set_list"][@"fixed"][i][@"param"] forKey:@"sincerity"];
+                                }
+                            }
+                        }
+                    }
                     [tableView reloadData];
                 };
                 [self.navigationController pushViewController:nextVC animated:YES];

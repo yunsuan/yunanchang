@@ -133,8 +133,25 @@
     [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     if (self.dataDic) {
         
-        _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_list"]];
+        _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_detail_list"]];
         _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
+        if (![self->_orderDic[@"down_pay"] length]) {
+        
+            if (_roomArr.count) {
+                
+                NSDictionary *dic = self->_roomArr[0][@"cost_set_list"];
+                for (int i = 0; i < [dic[@"fixed"] count]; i++) {
+                    
+                    if ([dic[@"fixed"][i][@"name"] isEqualToString:@"定金"]) {
+                        
+                        if ([dic[@"fixed"][i][@"is_execute"] integerValue] == 1) {
+                            
+                            [self->_orderDic setValue:dic[@"fixed"][i][@"param"] forKey:@"down_pay"];
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -657,6 +674,19 @@
                         self->_chargeId = chargeId;
                     }
                     [self->_roomArr addObject:dic];
+                    if (![self->_orderDic[@"down_pay"] length]) {
+                        
+                        for (int i = 0; i < [self->_roomArr[0][@"cost_set_list"][@"fixed"] count]; i++) {
+                            
+                            if ([self->_roomArr[0][@"cost_set_list"][@"fixed"][i][@"name"] isEqualToString:@"定金"]) {
+                                
+                                if ([self->_roomArr[0][@"cost_set_list"][@"fixed"][i][@"is_execute"] integerValue] == 1) {
+                                    
+                                    [self->_orderDic setValue:self->_roomArr[0][@"cost_set_list"][@"fixed"][i][@"param"] forKey:@"down_pay"];
+                                }
+                            }
+                        }
+                    }
                     [self->_stageArr removeAllObjects];
                     [tableView reloadData];
                 };

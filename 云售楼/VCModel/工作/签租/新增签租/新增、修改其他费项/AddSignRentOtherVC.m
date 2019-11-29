@@ -11,8 +11,14 @@
 #import "BorderTextField.h"
 #import "DropBtn.h"
 
-@interface AddSignRentOtherVC ()<UITextFieldDelegate>
+#import "DateChooseView.h"
+#import "SinglePickView.h"
 
+@interface AddSignRentOtherVC ()<UITextFieldDelegate>
+{
+    
+    NSString *_type;
+}
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) UILabel *nameL;
@@ -67,17 +73,219 @@
     
     if (btn.tag == 1) {
         
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        view.dateblock = ^(NSDate *date) {
+            
+        };
+        [self.view addSubview:view];
     }else if (btn.tag == 2){
         
-        
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        view.dateblock = ^(NSDate *date) {
+            
+        };
+        [self.view addSubview:view];
     }else if (btn.tag == 3){
     
+        NSMutableArray *tempArr = [@[] mutableCopy];
+        for (int i = 0; i < self.excuteArr.count; i++) {
+            
+            if ([self.excuteArr[i][@"is_execute"] integerValue] == 1) {
+                
+                [tempArr addObject:@{@"id":[NSString stringWithFormat:@"%@",self.excuteArr[i][@"config_id"]],@"param":self.excuteArr[i][@"name"]}];
+            }
+        }
+        SinglePickView *view= [[SinglePickView alloc] initWithFrame:self.view.bounds WithData:tempArr];
+        view.selectedBlock = ^(NSString *MC, NSString *ID) {
+            
+            self.typeBtn.content.text = MC;
+            self.typeBtn->str = [NSString stringWithFormat:@"%@",ID];
+            for (int i = 0; i < self.excuteArr.count; i++) {
+                
+                if ([ID integerValue] == [self.excuteArr[i][@"config_id"] integerValue]) {
+                    
+                    if ([self.excuteArr[i][@"formula"] integerValue] == 1) {
+                       
+                        self->_type = @"1";
+                
+                        self.periodL.hidden = YES;
+                        self.periodBtn.hidden = YES;
+                        self->_unitL.hidden = NO;
+                        self->_numL.hidden = NO;
+                        self->_numTF.hidden = NO;
+                        self->_originL.hidden = NO;
+                        
+                        self->_resultTF.userInteractionEnabled = NO;
+                        
+                        self->_resultL.text = @"实际金额";
+                        
+                        [self->_originL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_numTF.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                        }];
+                        
+                        [self->_resultL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_originL.mas_bottom).offset(12 *SIZE);
+                            make.width.mas_equalTo(70 *SIZE);
+                        }];
+                        
+                        [self->_resultTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                            make.top.equalTo(self->_originL.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                            make.height.mas_equalTo(33 *SIZE);
+                        }];
+                    }else if ([self.excuteArr[i][@"formula"] integerValue] == 2){
+                        
+                        self->_type = @"2";
+                        
+                        self.periodL.hidden = NO;
+                        self.periodBtn.hidden = NO;
+                        self->_unitL.hidden = NO;
+                        self->_numL.hidden = YES;
+                        self->_numTF.hidden = YES;
+                        self->_originL.hidden = NO;
+                        
+                        self->_resultTF.userInteractionEnabled = NO;
+                        self->_resultL.text = @"实际金额";
+                        [self->_originL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_unitL.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                        }];
+                        
+                        [self->_resultL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_originL.mas_bottom).offset(12 *SIZE);
+                            make.width.mas_equalTo(70 *SIZE);
+                        }];
+                        
+                        [self->_resultTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                            make.top.equalTo(self->_originL.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                            make.height.mas_equalTo(33 *SIZE);
+                        }];
+                    }else if ([self.excuteArr[i][@"formula"] integerValue] == 3){
+                        
+                        self->_type = @"3";
+                        
+                        self->_resultTF.userInteractionEnabled = NO;
+                        self->_resultL.text = @"费项金额";
+                        
+                        self.periodL.hidden = YES;
+                        self.periodBtn.hidden = YES;
+                        self->_unitL.hidden = YES;
+                        self->_numL.hidden = YES;
+                        self->_numTF.hidden = YES;
+                        self->_originL.hidden = YES;
+                        
+                        [self->_originL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_numTF.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                        }];
+                        
+                        [self->_resultL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_typeBtn.mas_bottom).offset(12 *SIZE);
+                            make.width.mas_equalTo(70 *SIZE);
+                        }];
+                        
+                        [self->_resultTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                            make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                            make.height.mas_equalTo(33 *SIZE);
+                        }];
+                    }else{
+                        
+                        self->_type = @"4";
+                        
+                        self.periodL.hidden = YES;
+                        self.periodBtn.hidden = YES;
+                        self->_unitL.hidden = YES;
+                        self->_numL.hidden = YES;
+                        self->_numTF.hidden = YES;
+                        self->_originL.hidden = YES;
+                        
+                        self->_resultTF.userInteractionEnabled = YES;
+                        self->_resultL.text = @"费项金额";
+                        
+                        [self->_originL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_numTF.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                        }];
+                        
+                        [self->_resultL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_typeBtn.mas_bottom).offset(12 *SIZE);
+                            make.width.mas_equalTo(70 *SIZE);
+                        }];
+                        
+                        [self->_resultTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+                            make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                            make.height.mas_equalTo(33 *SIZE);
+                        }];
+                    }
+                }
+            }
+        };
+        [self.view addSubview:view];
     }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-    
+    if (!_nameTF.textField.text.length) {
+        
+        [self showContent:@"请输入费项名称"];
+        return;
+    }
+    if (!_payTimeBtn.content.text.length) {
+        
+        [self showContent:@"请选择交款时间"];
+        return;
+    }
+    if (!_remindBtn.content.text.length) {
+        
+        [self showContent:@"请选择提醒时间"];
+        return;
+    }
+    if (!_resultTF.textField.text.length) {
+        
+        if ([_type integerValue] < 3) {
+            
+            [self showContent:@"请输入实际金额"];
+        }else{
+            
+            [self showContent:@"请输入费项金额"];
+        }
+        
+        return;
+    }
+    if (!_typeBtn.content.text.length) {
+        
+        [self showContent:@"请选择费项类别"];
+        return;
+    }
 }
 
 - (void)initUI{

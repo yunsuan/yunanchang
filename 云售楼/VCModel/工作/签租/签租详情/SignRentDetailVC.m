@@ -171,25 +171,29 @@
 //        }
 //    }];
     
-//    UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *quit = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-//        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
-//
-//            AddOrderVC *nextVC = [[AddOrderVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
-//            nextVC.from_type = @"3";
-//            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer"]];
-//            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"name"]];
-//            nextVC.trans = @"trans";
-//            nextVC.addOrderVCBlock = ^{
-//
-//                [self RequestMethod];
-//            };
-//            [self.navigationController pushViewController:nextVC animated:YES];
-//        }else{
-//
-//            [self showContent:@"未收款不能转定单"];
-//        }
-//    }];
+        [self alertControllerWithNsstring:@"温馨提示" And:@"" WithCancelBlack:^{
+            
+        } WithDefaultBlack:^{
+           
+            [BaseRequest POST:TradeContactTradeContactDel_URL parameters:@{@"contact_id":self->_contact_id} success:^(id  _Nonnull resposeObject) {
+                
+                if ([resposeObject[@"code"] integerValue] == 200) {
+                    
+                    [self showContent:@"作废成功"];
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    
+                    [self showContent:resposeObject[@"msg"]];
+                }
+            } failure:^(NSError * _Nonnull error) {
+                
+                [self showContent:@"网络错误"];
+            }];
+        }];
+    }];
     
 //    UIAlertAction *change = [UIAlertAction actionWithTitle:@"变更" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -257,7 +261,7 @@
 //
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
 //
-//        [alert addAction:quit];
+        [alert addAction:quit];
 //    }
     
     [alert addAction:cancel];

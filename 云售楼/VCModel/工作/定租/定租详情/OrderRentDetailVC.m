@@ -14,6 +14,7 @@
 #import "AuditDetailVC.h"
 #import "ModifyOrderRentVC.h"
 #import "AuditTaskDetailVC.h"
+#import "AddSignRentVC.h"
 
 #import "NumeralDetailInvalidView.h"
 
@@ -95,7 +96,7 @@
                     }];
                     [tempArr replaceObjectAtIndex:i withObject:tempDic];
                 }
-                [self->_dataDic setObject:tempArr forKey:@"shop_detail_list"];
+                [self->_dataDic setObject:tempArr forKey:@"shop_list"];
                 if ([self->_dataDic[@"disabled_state"] integerValue] == 2) {
 
                     self.rightBtn.hidden = YES;
@@ -166,12 +167,14 @@
         
 //        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
 //
-//            AddSignVC *nextVC = [[AddSignVC alloc] initWithRow_id:self->_row_id personArr:self->_dataDic[@"beneficiary"] project_id:self->_project_id info_id:self->_info_id];
-//            nextVC.from_type = @"3";
-//            nextVC.advicer_id = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"advicer"]];
-//            nextVC.advicer_name = [NSString stringWithFormat:@"%@",self->_advicerArr[0][@"name"]];
-//            nextVC.trans = @"trans";
-//            [self.navigationController pushViewController:nextVC animated:YES];
+            AddSignRentVC *nextVC = [[AddSignRentVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+            nextVC.from_type = @"3";
+            nextVC.dataDic = self->_dataDic;
+            nextVC.addSignRentVCBlock = ^{
+            
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
 //        }else{
 //
 //            [self showContent:@"未收款不能转签约"];
@@ -180,20 +183,16 @@
     
     UIAlertAction *quit = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        NumeralDetailInvalidView *view = [[NumeralDetailInvalidView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
-        __strong __typeof(&*view)strongView = view;
-        view.numeralDetailInvalidViewBlock = ^{
+        [self alertControllerWithNsstring:@"温馨提示" And:@"" WithCancelBlack:^{
             
-            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:@{@"type":@"2",@"id":self->_sub_id}];
-            if ([self isEmpty:strongView.reasonTV.text]) {
-                
-                [tempDic setObject:strongView.reasonTV.text forKey:@"disabled_reason"];
-            }
-            [BaseRequest POST:ProjectRowDisabled_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
+        } WithDefaultBlack:^{
+           
+            [BaseRequest POST:TradeSubTradeSubDel_URL parameters:@{@"sub_id":self->_sub_id} success:^(id  _Nonnull resposeObject) {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    [strongView removeFromSuperview];
+                    [self showContent:@"作废成功"];
+                    
                     [self.navigationController popViewControllerAnimated:YES];
                 }else{
                     
@@ -203,8 +202,7 @@
                 
                 [self showContent:@"网络错误"];
             }];
-        };
-        [self.view addSubview:view];
+        }];
     }];
 
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -218,10 +216,10 @@
     }
     
 
-    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+//    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
 
         [alert addAction:sign];
-    }
+//    }
 
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
 

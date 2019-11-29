@@ -20,6 +20,8 @@ typedef void(^AddSignRentVCBlock)(void);
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 
+//@property (nonatomic)
+
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 
 @end

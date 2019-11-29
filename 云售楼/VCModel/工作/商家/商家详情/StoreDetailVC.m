@@ -12,6 +12,7 @@
 #import "AddStoreNeedVC.h"
 #import "AddStoreFollowRecordVC.h"
 #import "AddOrderRentVC.h"
+#import "AddSignRentVC.h"
 
 #import "StoreDetailHeader.h"
 #import "CallTelegramCustomDetailInfoCell.h"
@@ -95,6 +96,14 @@
 
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
+        AddSignRentVC *nextVC = [[AddSignRentVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+        nextVC.from_type = @"1";
+        nextVC.dataDic = self->_storeDic;
+        nextVC.addSignRentVCBlock = ^{
+            
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
     }];
     
     UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -115,6 +124,30 @@
 //        }
     }];
     
+//    UIAlertAction *quit = [UIAlertAction actionWithTitle:@"作废" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//
+//        [self alertControllerWithNsstring:@"温馨提示" And:@"" WithCancelBlack:^{
+//
+//        } WithDefaultBlack:^{
+//
+//            [BaseRequest POST:ShopRowTradeRowDel_URL parameters:@{@"row_id":self->_businessId} success:^(id  _Nonnull resposeObject) {
+//
+//                if ([resposeObject[@"code"] integerValue] == 200) {
+//
+//                    [self showContent:@"作废成功"];
+//
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                }else{
+//
+//                    [self showContent:resposeObject[@"msg"]];
+//                }
+//            } failure:^(NSError * _Nonnull error) {
+//
+//                [self showContent:@"网络错误"];
+//            }];
+//        }];
+//    }];
+    
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
         
@@ -124,6 +157,7 @@
     //
         [alert addAction:order];
 //    }
+    [alert addAction:sign];
 
     
     [alert addAction:cancel];

@@ -676,6 +676,10 @@
 //                       nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
 //                       nextVC.projectName = self.projectName;
                        [self.navigationController pushViewController:nextVC animated:YES];
+                }else{
+                    
+                    [self.view addSubview:self.maskView];
+                    [self.view addSubview:self.tanchuanView];
                 }
             }else{
                 
@@ -685,6 +689,7 @@
         }
         else{
             
+    
         }
     } failure:^(NSError * _Nonnull error) {
         [self showContent:@"网络错误"];

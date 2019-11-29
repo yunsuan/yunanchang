@@ -158,9 +158,74 @@
     
     if (self.dataDic) {
         
-        _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_list"]];
-        _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
+        _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_detail_list"]];
+        if (_roomArr.count) {
+            
+            self->_excuteArr = [[NSMutableArray alloc] initWithArray:self->_roomArr[0][@"cost_set_list"][@"custom"]];
+            
+            double size = 0;
+            for (int i = 0; i < self->_roomArr.count; i++) {
+                
+                size = [self AddNumber:size num2:[self->_roomArr[i][@"build_size"] doubleValue]];
+            }
+            [self->_areaDic setValue:[NSString stringWithFormat:@"%.2f",size] forKey:@"rentSize"];
+            [self->_areaDic setValue:self.dataDic[@"differ_size"] forKey:@"differ_size"];
+            [self->_areaDic setValue:[NSString stringWithFormat:@"%.2f",[self DecimalNumber:[self->_areaDic[@"rentSize"] doubleValue] num2:[self->_areaDic[@"differ_size"] doubleValue]]] forKey:@"realSize"];
+        }
+        _differSize = @"0";
+
+        
+        if (self->_dataDic[@"business_info"]) {
+        
+            _storeArr = [NSMutableArray arrayWithArray:@[self.dataDic[@"business_info"]]];
+        }else{
+            
+            _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
+        }
         _stageArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"stage_list"]];
+        
+        [_orderDic setValue:self.dataDic[@"sub_code"] forKey:@"contact_code"];
+        [_orderDic setValue:self.dataDic[@"signatory"] forKey:@"signatory"];
+        if ([self.dataDic[@"card_type"] integerValue] == 1) {
+                
+            [_orderDic setValue:@"身份证" forKey:@"typeName"];
+        }else if ([self.dataDic[@"card_type"] integerValue] == 2){
+                
+            [_orderDic setValue:@"户口簿" forKey:@"typeName"];
+        }else if ([self.dataDic[@"card_type"] integerValue] == 3){
+                
+            [_orderDic setValue:@"驾驶证" forKey:@"typeName"];
+        }else if ([self.dataDic[@"card_type"] integerValue] == 4){
+                
+            [_orderDic setValue:@"军官证" forKey:@"typeName"];
+        }else if ([self.dataDic[@"card_type"] integerValue] == 5){
+                
+            [_orderDic setValue:@"工商营业执照" forKey:@"typeName"];
+        }else if ([self.dataDic[@"card_type"] integerValue] == 6){
+                
+            [_orderDic setValue:@"其他" forKey:@"typeName"];
+        }
+        [_orderDic setValue:self.dataDic[@"card_type"] forKey:@"card_type"];
+        [_orderDic setValue:self.dataDic[@"card_num"] forKey:@"card_num"];
+        //    [_orderDic setValue:self.dataDic[@"down_pay"] forKey:@"down_pay"];
+        [_orderDic setValue:self.dataDic[@"end_time"] forKey:@"end_time"];
+        [_orderDic setValue:self.dataDic[@"deposit"] forKey:@"deposit"];
+        [_orderDic setValue:self.dataDic[@"open_time"] forKey:@"open_time"];
+        [_orderDic setValue:self.dataDic[@"contact_time"] forKey:@"contact_time"];
+        [_orderDic setValue:self.dataDic[@"remind_time"] forKey:@"remind_time"];
+        [_orderDic setValue:self.dataDic[@"start_time"] forKey:@"start_time"];
+        [_orderDic setValue:self.dataDic[@"pay_way"] forKey:@"pay_way"];
+        [_orderDic setValue:[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][0] forKey:@"pay_way1"];
+        [_orderDic setValue:[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][1] forKey:@"pay_way2"];
+        if (self.dataDic[@"pay_way"]) {
+            
+            [_orderDic setValue:[NSString stringWithFormat:@"押%@",[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][0]] forKey:@"pay_name1"];
+            [_orderDic setValue:[NSString stringWithFormat:@"付%@",[self.dataDic[@"pay_way"] componentsSeparatedByString:@","][1]] forKey:@"pay_name2"];
+        }
+
+        [_orderDic setValue:self.dataDic[@"rent_month_num"] forKey:@"rent_month_num"];
+        
+        _imgArr = [NSMutableArray arrayWithArray:self.dataDic[@"enclosure_list"]];
     }
 }
 

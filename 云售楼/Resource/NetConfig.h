@@ -592,6 +592,9 @@ static NSString *const TradeSubAdd_URL = @"saleTradeApp/trade/sub/add";
 //修改
 static NSString *const TradeSubUpdate_URL = @"saleTradeApp/trade/sub/update";
 
+//作废
+static NSString *const TradeSubTradeSubDel_URL = @"saleTradeApp/trade/sub/TradeSubDel";
+
 //租金检测
 static NSString *const TradeSubCheckRent_URL = @"saleTradeApp/trade/sub/checkRent";
 
@@ -608,4 +611,7 @@ static NSString *const TradeContactAdd_URL = @"saleTradeApp/trade/contact/add";
 
 //修改
 static NSString *const TradeContactUpdate_URL = @"saleTradeApp/trade/contact/update";
+
+//作废
+static NSString *const TradeContactTradeContactDel_URL = @"saleTradeApp/trade/contact/TradeContactDel";
 #endif /* NetConfig_h */
