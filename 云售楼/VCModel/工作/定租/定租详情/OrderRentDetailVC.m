@@ -13,7 +13,7 @@
 #import "StageDetailVC.h"
 #import "AuditDetailVC.h"
 #import "ModifyOrderRentVC.h"
-#import "AuditTaskDetailVC.h"
+#import "ShopAuditTaskDetailVC.h"
 #import "AddSignRentVC.h"
 
 #import "NumeralDetailInvalidView.h"
@@ -147,21 +147,21 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *audit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-        AuditTaskDetailVC *nextVC = [[AuditTaskDetailVC alloc] init];
-        nextVC.status = @"2";
-        nextVC.requestId = self->_sub_id;
-        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
-        nextVC.auditTaskDetailVCBlock = ^{
             
-            [self RequestMethod];
-            if (self.orderRentDetailVCBlock) {
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"5";
+            nextVC.requestId = self->_sub_id;
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
                 
-                self.orderRentDetailVCBlock();
-            }
-        };
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }];
+                [self RequestMethod];
+    //            if (self.numeralDetailVCBlock) {
+    //
+    //                self.numeralDetailVCBlock();
+    //            }
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }];
     
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -210,10 +210,10 @@
         
     }];
     
-    if ([self.need_check integerValue] == 1 && [self->_dataDic[@"disabled_state"] integerValue] == 0 && ([self->_dataDic[@"check_state"] integerValue] != 0 || [self->_dataDic[@"check_state"] integerValue] != 1)) {
+//    if ([self.need_check integerValue] == 1 && [self->_dataDic[@"disabled_state"] integerValue] == 0 && ([self->_dataDic[@"check_state"] integerValue] != 0 || [self->_dataDic[@"check_state"] integerValue] != 1)) {
         
         [alert addAction:audit];
-    }
+//    }
     
 
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {

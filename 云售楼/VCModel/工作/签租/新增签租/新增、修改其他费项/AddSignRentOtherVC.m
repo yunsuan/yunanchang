@@ -18,6 +18,8 @@
 {
     
     NSString *_type;
+    
+    NSDateFormatter *_formatter;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -40,6 +42,8 @@
 @property (nonatomic, strong) UILabel *periodL;
 
 @property (nonatomic, strong) DropBtn *periodBtn;
+
+@property (nonatomic, strong) DropBtn *periodBtn2;
 
 @property (nonatomic, strong) UILabel *unitL;
 
@@ -66,6 +70,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _type = @"4";
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    
     [self initUI];
 }
 
@@ -76,6 +84,7 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.dateblock = ^(NSDate *date) {
             
+            self->_payTimeBtn.content.text = [self->_formatter stringFromDate:date];
         };
         [self.view addSubview:view];
     }else if (btn.tag == 2){
@@ -83,6 +92,7 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.dateblock = ^(NSDate *date) {
             
+            self->_remindBtn.content.text = [self->_formatter stringFromDate:date];
         };
         [self.view addSubview:view];
     }else if (btn.tag == 3){
@@ -110,6 +120,7 @@
                 
                         self.periodL.hidden = YES;
                         self.periodBtn.hidden = YES;
+                        self.periodBtn2.hidden = YES;
                         self->_unitL.hidden = NO;
                         self->_numL.hidden = NO;
                         self->_numTF.hidden = NO;
@@ -125,6 +136,14 @@
                             make.top.equalTo(self->_numTF.mas_bottom).offset(9 *SIZE);
                             make.width.mas_equalTo(258 *SIZE);
                         }];
+                        
+                        [self->_unitL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            
+                            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                            make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
+                            make.width.mas_equalTo(258 *SIZE);
+                        }];
+                        
                         
                         [self->_resultL mas_remakeConstraints:^(MASConstraintMaker *make) {
                             
@@ -146,6 +165,7 @@
                         
                         self.periodL.hidden = NO;
                         self.periodBtn.hidden = NO;
+                        self.periodBtn2.hidden = NO;
                         self->_unitL.hidden = NO;
                         self->_numL.hidden = YES;
                         self->_numTF.hidden = YES;
@@ -159,6 +179,14 @@
                             make.top.equalTo(self->_unitL.mas_bottom).offset(9 *SIZE);
                             make.width.mas_equalTo(258 *SIZE);
                         }];
+                        
+                        [self->_unitL mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                
+                                make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+                                make.top.equalTo(self->_periodBtn.mas_bottom).offset(9 *SIZE);
+                                make.width.mas_equalTo(258 *SIZE);
+                        //        make.height.mas_equalTo(33 *SIZE);
+                            }];
                         
                         [self->_resultL mas_remakeConstraints:^(MASConstraintMaker *make) {
                             
@@ -183,6 +211,7 @@
                         
                         self.periodL.hidden = YES;
                         self.periodBtn.hidden = YES;
+                        self.periodBtn2.hidden = YES;
                         self->_unitL.hidden = YES;
                         self->_numL.hidden = YES;
                         self->_numTF.hidden = YES;
@@ -215,6 +244,7 @@
                         
                         self.periodL.hidden = YES;
                         self.periodBtn.hidden = YES;
+                        self.periodBtn2.hidden = YES;
                         self->_unitL.hidden = YES;
                         self->_numL.hidden = YES;
                         self->_numTF.hidden = YES;
@@ -247,6 +277,22 @@
                     }
                 }
             }
+        };
+        [self.view addSubview:view];
+    }else if (btn.tag == 4){
+        
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        view.dateblock = ^(NSDate *date) {
+            
+            self->_periodBtn.content.text = [self->_formatter stringFromDate:date];
+        };
+        [self.view addSubview:view];
+    }else{
+        
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        view.dateblock = ^(NSDate *date) {
+            
+            self->_periodBtn2.content.text = [self->_formatter stringFromDate:date];
         };
         [self.view addSubview:view];
     }
@@ -285,6 +331,19 @@
         
         [self showContent:@"请选择费项类别"];
         return;
+    }
+    if ([_type integerValue] == 1) {
+        
+        
+    }else if ([_type integerValue] == 2){
+        
+        
+    }else if ([_type integerValue] == 3){
+        
+        
+    }else{
+        
+        
     }
 }
 
@@ -351,7 +410,7 @@
             _periodL.hidden = YES;
             [_scrollView addSubview:_periodL];
             
-            _periodBtn = [[DropBtn alloc] initWithFrame:tf.frame];
+            _periodBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 110 *SIZE, 33 *SIZE)];
             [_periodBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             _periodBtn.hidden = YES;
             _periodBtn.tag = i;
@@ -362,6 +421,11 @@
             _unitL.hidden = YES;
             [_scrollView addSubview:_unitL];
             
+            _periodBtn2 = [[DropBtn alloc] initWithFrame:_periodBtn.frame];
+            [_periodBtn2 addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            _periodBtn2.hidden = YES;
+            _periodBtn2.tag = i;
+            [_scrollView addSubview:_periodBtn2];
         }else if (i == 6){
             
             _numL = label;
@@ -487,7 +551,15 @@
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
-        make.width.mas_equalTo(258 *SIZE);
+        make.width.mas_equalTo(110 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_periodBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(228 *SIZE);
+        make.top.equalTo(self->_typeBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(110 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
@@ -508,7 +580,7 @@
     
     [_numTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_unitL.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);

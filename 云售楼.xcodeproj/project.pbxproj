@@ -179,6 +179,7 @@
 		0C3D7E8A238F6E8400ACBC56 /* OtherDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E89238F6E8300ACBC56 /* OtherDetailVC.m */; };
 		0C3D7E8D238F6F6B00ACBC56 /* OtherDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E8C238F6F6B00ACBC56 /* OtherDetailCell.m */; };
 		0C3D7E90238F6F7800ACBC56 /* PropertyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7E8F238F6F7800ACBC56 /* PropertyDetailCell.m */; };
+		0C3D7EA52391114D00ACBC56 /* ShopAuditTaskDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D7EA42391114D00ACBC56 /* ShopAuditTaskDetailVC.m */; };
 		0C3DD5CC2369262000211766 /* StoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CB2369262000211766 /* StoreVC.m */; };
 		0C3DD5D0236927A500211766 /* StoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5CF236927A500211766 /* StoreCell.m */; };
 		0C3DD5D42369295700211766 /* AddStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD5D32369295700211766 /* AddStoreVC.m */; };
@@ -983,6 +984,8 @@
 		0C3D7E8C238F6F6B00ACBC56 /* OtherDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherDetailCell.m; sourceTree = "<group>"; };
 		0C3D7E8E238F6F7800ACBC56 /* PropertyDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropertyDetailCell.h; sourceTree = "<group>"; };
 		0C3D7E8F238F6F7800ACBC56 /* PropertyDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PropertyDetailCell.m; sourceTree = "<group>"; };
+		0C3D7EA32391114D00ACBC56 /* ShopAuditTaskDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopAuditTaskDetailVC.h; sourceTree = "<group>"; };
+		0C3D7EA42391114D00ACBC56 /* ShopAuditTaskDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopAuditTaskDetailVC.m; sourceTree = "<group>"; };
 		0C3DD5CA2369262000211766 /* StoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreVC.h; sourceTree = "<group>"; };
 		0C3DD5CB2369262000211766 /* StoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreVC.m; sourceTree = "<group>"; };
 		0C3DD5CE236927A500211766 /* StoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreCell.h; sourceTree = "<group>"; };
@@ -3187,6 +3190,15 @@
 			path = "其他费项详情";
 			sourceTree = "<group>";
 		};
+		0C3D7EA22391112700ACBC56 /* 商业审核 */ = {
+			isa = PBXGroup;
+			children = (
+				0C3D7EA32391114D00ACBC56 /* ShopAuditTaskDetailVC.h */,
+				0C3D7EA42391114D00ACBC56 /* ShopAuditTaskDetailVC.m */,
+			);
+			path = "商业审核";
+			sourceTree = "<group>";
+		};
 		0C3DD5C92369258D00211766 /* 商家 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4991,6 +5003,7 @@
 		0CEF89EB225C87DF0057F3FD /* 审核代办 */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D7EA22391112700ACBC56 /* 商业审核 */,
 				0CD043D12282C69A002C8BD3 /* 审核详情 */,
 			);
 			path = "审核代办";
@@ -6120,6 +6133,7 @@
 				10BC3A4E228FF80300DAB2D8 /* RotationSettingVC.m in Sources */,
 				0C3804C7237B95510075CABD /* AddOrderRentPriceCell.m in Sources */,
 				0CFDB36922EFEFC900F21976 /* AddNumeralCodeCollCell.m in Sources */,
+				0C3D7EA52391114D00ACBC56 /* ShopAuditTaskDetailVC.m in Sources */,
 				0CEF8A47225F17770057F3FD /* ContentBaseCell.m in Sources */,
 				0C38049323756B300075CABD /* StoreOrderAuditCell.m in Sources */,
 				0C05330622F7DB5F00DA9143 /* OrderAddDepositVC.m in Sources */,

@@ -284,11 +284,20 @@ static NSString *const ButterTelDisabledList_URL = @"saleApp/work/butter/tel/dis
 //获取流程列表
 static NSString *const ProjectGetProgressList_URL = @"saleApp/project/getProgressList";
 
+//商业流程列表
+static NSString *const TradeGetProgreesList_URL = @"saleTradeApp/project/getProgressList";
+
 //审核流程通过
 static NSString *const ProjectProgressPass_URL = @"saleApp/project/progress/pass";
 
+//商业审核流程通过
+static NSString *const TradeProgressPass_URL = @"saleTradeApp/project/progress/pass";
+
 //审核流程拒绝
 static NSString *const ProjectProgressRefuse_URL = @"saleApp/project/progress/refuse";
+
+//商业审核流程拒绝
+static NSString *const TradeProgressRefuse_URL = @"saleTradeApp/project/progress/refuse";
 
 #pragma mark -- 排号 --
 

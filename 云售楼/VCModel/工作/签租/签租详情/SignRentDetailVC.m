@@ -15,7 +15,7 @@
 #import "PropertyDetailVC.h"
 #import "AuditDetailVC.h"
 #import "ModifySignRentVC.h"
-#import "AuditTaskDetailVC.h"
+#import "ShopAuditTaskDetailVC.h"
 
 #import "BaseHeader.h"
 #import "ShopDetailHeader.h"
@@ -114,12 +114,22 @@
 
                 money = [self AddNumber:money num2:[self->_stageArr[i][@"total_rent"] doubleValue]];
             }
+            double property = 0;
+            for (int i = 0; i < self->_propertyArr.count; i++) {
+
+                property = [self AddNumber:property num2:[self->_propertyArr[i][@"total_cost"] doubleValue]];
+            }
+            double other = 0;
+            for (int i = 0; i < self->_otherArr.count; i++) {
+
+                other = [self AddNumber:other num2:[self->_otherArr[i][@"total_cost"] doubleValue]];
+            }
             double area = 0;
             for (int i = 0; i < [self->_dataDic[@"shop_detail_list"] count]; i++) {
                 
                 area = [self AddNumber:area num2:[self->_dataDic[@"shop_detail_list"][i][@"build_size"] doubleValue]];
             }
-            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@%@%@",self->_dataDic[@"shop_detail_list"][0][@"build_name"],self->_dataDic[@"shop_detail_list"][0][@"unit_name"],self->_dataDic[@"shop_detail_list"][0][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"shop_detail_list"][0][@"build_size"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"shop_detail_list"][0][@"total_rent"]]],@[[NSString stringWithFormat:@"租赁面积：%.2f㎡",area],[NSString stringWithFormat:@"差异面积：%@㎡",self->_dataDic[@"disabled_state"]],[NSString stringWithFormat:@"实际面积：%.2f㎡",[self DecimalNumber:area num2:[self->_dataDic[@"differ_size"] doubleValue]]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"business_info"][@"business_name"]],[NSString stringWithFormat:@"联系人：%@",self->_dataDic[@"business_info"][@"contact"]],[NSString stringWithFormat:@"所属区域：%@%@%@",self->_dataDic[@"business_info"][@"province_name"],self->_dataDic[@"business_info"][@"city_name"],self->_dataDic[@"business_info"][@"district_name"]],[NSString stringWithFormat:@"认知途径：%@",self->_dataDic[@"business_info"][@"source_name"]],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"business_info"][@"lease_size"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"business_info"][@"lease_money"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"business_info"][@"business_type_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"business_info"][@"format_name"]]],@[[NSString stringWithFormat:@"签租编号：%@",self->_dataDic[@"contact_code"]],[NSString stringWithFormat:@"签约人：%@",self->_dataDic[@"signatory"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"card_type"]],[NSString stringWithFormat:@"签约人证件号码：%@",self->_dataDic[@"card_num"]],[NSString stringWithFormat:@"租期：%@个月",self->_dataDic[@"rent_month_num"]],[NSString stringWithFormat:@"开业时间：%@",self->_dataDic[@"open_time"]],[NSString stringWithFormat:@"付款方式：押%@付%@",[self->_dataDic[@"pay_way"] componentsSeparatedByString:@","][0],[self->_dataDic[@"pay_way"] componentsSeparatedByString:@","][1]],[NSString stringWithFormat:@"押金：%@元",self->_dataDic[@"deposit"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"sign_time"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]]],@[[NSString stringWithFormat:@"合计总实付金额：%.2f元",money]],@[[NSString stringWithFormat:@"单价：%.2f元/月/㎡",money],[NSString stringWithFormat:@"合计物业费：%.2f元",money]],@[[NSString stringWithFormat:@"合计费用：%.2f元",money]]]];
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@%@%@",self->_dataDic[@"shop_detail_list"][0][@"build_name"],self->_dataDic[@"shop_detail_list"][0][@"unit_name"],self->_dataDic[@"shop_detail_list"][0][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"shop_detail_list"][0][@"build_size"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"shop_detail_list"][0][@"total_rent"]]],@[[NSString stringWithFormat:@"租赁面积：%.2f㎡",area],[NSString stringWithFormat:@"差异面积：%@㎡",self->_dataDic[@"differ_size"]],[NSString stringWithFormat:@"实际面积：%.2f㎡",[self DecimalNumber:area num2:[self->_dataDic[@"differ_size"] doubleValue]]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"business_info"][@"business_name"]],[NSString stringWithFormat:@"联系人：%@",self->_dataDic[@"business_info"][@"contact"]],[NSString stringWithFormat:@"所属区域：%@%@%@",self->_dataDic[@"business_info"][@"province_name"],self->_dataDic[@"business_info"][@"city_name"],self->_dataDic[@"business_info"][@"district_name"]],[NSString stringWithFormat:@"认知途径：%@",self->_dataDic[@"business_info"][@"source_name"]],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"business_info"][@"lease_size"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"business_info"][@"lease_money"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"business_info"][@"business_type_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"business_info"][@"format_name"]]],@[[NSString stringWithFormat:@"签租编号：%@",self->_dataDic[@"contact_code"]],[NSString stringWithFormat:@"签约人：%@",self->_dataDic[@"signatory"]],[NSString stringWithFormat:@"证件类型：%@",self->_dataDic[@"card_type"]],[NSString stringWithFormat:@"签约人证件号码：%@",self->_dataDic[@"card_num"]],[NSString stringWithFormat:@"租期：%@个月",self->_dataDic[@"rent_month_num"]],[NSString stringWithFormat:@"开业时间：%@",self->_dataDic[@"open_time"]],[NSString stringWithFormat:@"付款方式：押%@付%@",[self->_dataDic[@"pay_way"] componentsSeparatedByString:@","][0],[self->_dataDic[@"pay_way"] componentsSeparatedByString:@","][1]],[NSString stringWithFormat:@"押金：%@元",self->_dataDic[@"deposit"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"sign_time"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]]],@[[NSString stringWithFormat:@"合计总实付金额：%.2f元",money]],@[[NSString stringWithFormat:@"单价：%@元/月/㎡",self->_propertyArr[0][@"unit_cost"]],[NSString stringWithFormat:@"合计物业费：%.2f元",property]],@[[NSString stringWithFormat:@"合计费用：%.2f元",other]]]];
             if ([self->_dataDic[@"check_state"] integerValue] != 2) {
 
                 if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
@@ -154,7 +164,22 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    
+    UIAlertAction *audit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"6";
+        nextVC.requestId = self->_contact_id;
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+//            if (self.numeralDetailVCBlock) {
+//
+//                self.numeralDetailVCBlock();
+//            }
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
 //    UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
 //        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
@@ -247,8 +272,8 @@
     }];
     
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
-//
-////        [alert addAction:change];
+
+        [alert addAction:audit];
 //    }
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
 //

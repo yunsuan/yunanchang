@@ -14,6 +14,7 @@
 #import "ShopBelongDetailVC.h"
 #import "AddOrderRentVC.h"
 #import "AddSignRentVC.h"
+#import "ShopAuditTaskDetailVC.h"
 
 #import "BaseHeader.h"
 //#import "IntentDetailHeader.h"
@@ -146,6 +147,22 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
+    UIAlertAction *audit = [UIAlertAction actionWithTitle:@"审核" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"4";
+            nextVC.requestId = self->_businessId;
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+    //            if (self.numeralDetailVCBlock) {
+    //
+    //                self.numeralDetailVCBlock();
+    //            }
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        }];
     
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -213,8 +230,8 @@
     }];
     
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
-//
-////        [alert addAction:change];
+
+        [alert addAction:audit];
 //    }
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
 //
