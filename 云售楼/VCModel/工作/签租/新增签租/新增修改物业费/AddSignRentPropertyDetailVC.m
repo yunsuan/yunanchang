@@ -118,7 +118,12 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    [_dataArr removeObjectAtIndex:indexPath.row];
+    [tableView reloadData];
+    if (self.addSignRentPropertyDetailVCBlock) {
+        
+        self.addSignRentPropertyDetailVCBlock(self->_dataArr);
+    }
 }
 
 - (void)initUI{

@@ -1243,8 +1243,15 @@
         
         cell.addOrderRentPriceCellBlock = ^{
           
+            double area = 0;
+            for (int i = 0; i < self->_roomArr.count; i++) {
+                
+                area = area + [self->_roomArr[i][@"build_size"] doubleValue];
+            }
+            
             AddSignRentOtherDetailVC *nextVC = [[AddSignRentOtherDetailVC alloc] initWithDataArr:self->_otherArr];
             nextVC.excuteArr = [[NSMutableArray alloc] initWithArray:self->_excuteArr];
+            nextVC.area = area;
             nextVC.addSignRentOtherDetailVCBlock = ^(NSArray * _Nonnull arr) {
                 
                 self->_otherArr = [NSMutableArray arrayWithArray:arr];
@@ -1264,8 +1271,15 @@
                     [self showContent:@"房源未设置其他费项，不可添加"];
                 }else{
                     
+                    double area = 0;
+                    for (int i = 0; i < self->_roomArr.count; i++) {
+                        
+                        area = area + [self->_roomArr[i][@"build_size"] doubleValue];
+                    }
+                    
                     AddSignRentOtherDetailVC *nextVC = [[AddSignRentOtherDetailVC alloc] initWithDataArr:self->_otherArr];
                     nextVC.excuteArr = [[NSMutableArray alloc] initWithArray:self->_excuteArr];
+                    nextVC.area = area;
                     nextVC.addSignRentOtherDetailVCBlock = ^(NSArray * _Nonnull arr) {
                         
                         self->_otherArr = [NSMutableArray arrayWithArray:arr];

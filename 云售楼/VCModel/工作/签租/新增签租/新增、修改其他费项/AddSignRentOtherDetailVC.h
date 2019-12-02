@@ -18,6 +18,8 @@ typedef void(^AddSignRentOtherDetailVCBlock)(NSArray *arr);
 
 @property (nonatomic, strong) NSMutableArray *excuteArr;
 
+@property (nonatomic, assign) double area;
+
 - (instancetype)initWithDataArr:(NSArray *)dataArr;
 
 @end

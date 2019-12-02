@@ -369,9 +369,11 @@
         return;
     }
     NSMutableDictionary *tempDic = [@{} mutableCopy];
+    [tempDic setValue:_nameTF.textField.text forKey:@"name"];
     [tempDic setValue:_payTimeBtn.content.text forKey:@"pay_time"];
     [tempDic setValue:_remindBtn.content.text forKey:@"remind_time"];
     [tempDic setValue:_typeBtn->str forKey:@"config_id"];
+    [tempDic setValue:_typeBtn.content.text forKey:@"config_name"];
     if (_marklTF.textField.text.length) {
         
         [tempDic setValue:_marklTF.textField.text forKey:@"comment"];

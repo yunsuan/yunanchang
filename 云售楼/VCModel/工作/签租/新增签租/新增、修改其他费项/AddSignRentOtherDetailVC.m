@@ -10,7 +10,7 @@
 
 #import "AddSignRentOtherVC.h"
 
-#import "AddOrderRentalDetailCell.h"
+#import "AddSignRentOtherCell.h"
 
 @interface AddSignRentOtherDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -65,10 +65,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    AddOrderRentalDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddOrderRentalDetailCell"];
+    AddSignRentOtherCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddSignRentOtherCell"];
     if (!cell) {
         
-        cell = [[AddOrderRentalDetailCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddOrderRentalDetailCell"];
+        cell = [[AddSignRentOtherCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"AddSignRentOtherCell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -76,7 +76,7 @@
     
     cell.dataDic = _dataArr[indexPath.row];
     
-    cell.addOrderRentalDetailCellBlock = ^(NSInteger idx) {
+    cell.addSignRentOtherCellBlock = ^(NSInteger idx) {
       
         AddSignRentOtherVC *nextVC = [[AddSignRentOtherVC alloc] init];
         nextVC.dataDic = self->_dataArr[indexPath.row];
@@ -118,7 +118,12 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    [_dataArr removeObjectAtIndex:indexPath.row];
+    [tableView reloadData];
+    if (self.addSignRentOtherDetailVCBlock) {
+        
+        self.addSignRentOtherDetailVCBlock(self->_dataArr);
+    }
 }
 
 - (void)initUI{
