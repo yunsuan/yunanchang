@@ -164,6 +164,7 @@
     
     NSMutableDictionary *tempDic = [@{} mutableCopy];
     
+    [tempDic setValue:@"物业费" forKey:@"name"];
     [tempDic setValue:_timeBtn.content.text forKey:@"cost_start_time"];
     [tempDic setValue:_periodTF.textField.text forKey:@"cost_num"];
     [tempDic setValue:[_formatter2 stringFromDate:[self getPriousorLaterDateFromDate:[_formatter2 dateFromString:_timeBtn.content.text] withMonth:[_periodTF.textField.text integerValue]]] forKey:@"cost_end_time"];

@@ -33,21 +33,23 @@
 
 @property (nonatomic, strong) BorderTextField *periodTF;
 
-@property (nonatomic, strong) UILabel *freeL;
+@property (nonatomic, strong) UILabel *freeBeginL;
 
-@property (nonatomic, strong) DropBtn *freeBtn;
+@property (nonatomic, strong) DropBtn *freeBeginBtn;
 
-@property (nonatomic, strong) UILabel *freePeriodL;
+@property (nonatomic, strong) UILabel *freeEndL;
 
-@property (nonatomic, strong) BorderTextField *freePeriodTF;
+@property (nonatomic, strong) DropBtn *freeEndBtn;
 
 @property (nonatomic, strong) UILabel *totalL;
 
 @property (nonatomic, strong) BorderTextField *totalTF;
 
-@property (nonatomic, strong) UILabel *unitL;
+@property (nonatomic, strong) UILabel *freeL;
 
-@property (nonatomic, strong) UILabel *originL;
+@property (nonatomic, strong) BorderTextField *freeTF;
+
+@property (nonatomic, strong) UILabel *unitL;
 
 @property (nonatomic, strong) UILabel *resultL;
 
@@ -96,7 +98,15 @@
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.dateblock = ^(NSDate *date) {
 
-            self->_freeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+            self->_freeBeginBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+        };
+        [self.view addSubview:view];
+    }else if (btn.tag == 3){
+
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        view.dateblock = ^(NSDate *date) {
+
+            self->_freeEndBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
         };
         [self.view addSubview:view];
     }else if (btn.tag == 8){
@@ -171,24 +181,25 @@
     
     [tempDic setValue:[NSString stringWithFormat:@"%.2f",_unit] forKey:@"unit_rent"];
 //    [tempDic setValue:[NSString stringWithFormat:@"%.2f",_result] forKey:@"unit_rent"];
-    if (_freeBtn.content.text) {
+    if (_freeBeginBtn.content.text) {
         
-        [tempDic setValue:_freeBtn.content.text forKey:@"free_start_time"];
+        [tempDic setValue:_freeBeginBtn.content.text forKey:@"free_start_time"];
     }else{
         
         [tempDic setValue:_timeBtn.content.text forKey:@"free_start_time"];
     }
-    if (_freePeriodTF.textField.text.length) {
+    if (_freeBeginBtn.content.text) {
         
-        [tempDic setValue:[NSString stringWithFormat:@"%@",_freePeriodTF.textField.text] forKey:@"free_month_num"];
+        [tempDic setValue:_freeBeginBtn.content.text forKey:@"free_end_time"];
     }else{
         
-        [tempDic setValue:@"0" forKey:@"free_month_num"];
+        [tempDic setValue:_timeBtn.content.text forKey:@"free_end_time"];
     }
-    [tempDic setValue:[_formatter2 stringFromDate:[self getPriousorLaterDateFromDate:[_formatter2 dateFromString:tempDic[@"free_start_time"]] withMonth:[tempDic[@"free_month_num"] integerValue]]] forKey:@"free_end_time"];
-    if (_free) {
+    [tempDic setValue:[NSString stringWithFormat:@"%ld",[self getMonthFromDate:[_formatter2 dateFromString:tempDic[@"free_start_time"]] withDate2:[_formatter2 dateFromString:tempDic[@"free_end_time"]]]] forKey:@"free_month_num"];
+
+    if (_freeTF.textField.text.length) {
         
-        [tempDic setValue:[NSString stringWithFormat:@"%.2f",_free] forKey:@"free_rent"];
+        [tempDic setValue:[NSString stringWithFormat:@"%@",_freeTF.textField.text] forKey:@"free_rent"];
     }else{
         
         [tempDic setValue:@"0" forKey:@"free_rent"];
@@ -202,7 +213,7 @@
     }
     if (_result < 0) {
         
-        [self showContent:@"实付金额有误，检查数据是否正确"];
+        [self showContent:@"应付金额有误，检查数据是否正确"];
         return;
     }
     if ([self.status isEqualToString:@"add"]) {
@@ -233,21 +244,22 @@
             _unit = 0;
         }
         _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
-    }else if (textField == _freePeriodTF.textField){
+    }else if (textField == _freeTF.textField){
         
-        if (_freePeriodTF.textField.text.length) {
-            
-            _free = [self MultiplyingNumber:[self MultiplyingNumber:_unit num2:self.area] num2:[_freePeriodTF.textField.text doubleValue]];
-        }else{
-            
-            _free = 0;
+        if (_freeTF.textField.text.length) {
+          
         }
-        _originL.text = [NSString stringWithFormat:@"免租金额：%.2f元",_free];
+//            _free = [self MultiplyingNumber:[self MultiplyingNumber:_unit num2:self.area] num2:[_freePeriodTF.textField.text doubleValue]];
+//        }else{
+//
+//            _free = 0;
+//        }
+//        _originL.text = [NSString stringWithFormat:@"免租金额：%.2f元",_free];
         if (_totalTF.textField.text.length) {
             
-            _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:_free];
+            _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
         }
-        _resultL.text = [NSString stringWithFormat:@"实付金额：%.2f元",_result];
+        _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
     }
 }
 
@@ -269,21 +281,21 @@
             _unit = 0;
         }
         _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
-    }else if (textField == _freePeriodTF.textField){
+    }else if (textField == _freeTF.textField){
         
-        if (_freePeriodTF.textField.text.length) {
-            
-            _free = [self MultiplyingNumber:[self MultiplyingNumber:_unit num2:self.area] num2:[_freePeriodTF.textField.text doubleValue]];
-        }else{
-            
-            _free = 0;
-        }
-        _originL.text = [NSString stringWithFormat:@"免租金额：%.2f元",_free];
+//        if (_freeTF.textField.text.length) {
+//
+//            _free = [self MultiplyingNumber:[self MultiplyingNumber:_unit num2:self.area] num2:[_freePeriodTF.textField.text doubleValue]];
+//        }else{
+//
+//            _free = 0;
+//        }
+//        _originL.text = [NSString stringWithFormat:@"免租金额：%.2f元",_free];
         if (_totalTF.textField.text.length) {
             
-            _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:_free];
+            _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
         }
-        _resultL.text = [NSString stringWithFormat:@"实付金额：%.2f元",_result];
+        _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
     }
 }
 
@@ -369,7 +381,7 @@
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
     
-    NSArray *titleArr = @[@"租金开始时间：",@"本期时长：",@"免租期开始时间：",@"免租期时长：",@"总租金（无免租期金额）：",@"单价：",@"免租金额：",@"实付金额：",@"交款时间：",@"提醒时间：",@"备注："];
+    NSArray *titleArr = @[@"租金开始时间：",@"本期时长：",@"免租开始时间：",@"免租结束时间：",@"总租金：",@"免租金额：",@"单价：",@"应付金额：",@"交款时间：",@"提醒时间：",@"备注："];
     
     for (int i = 0; i < 11; i++) {
         
@@ -410,33 +422,37 @@
             [_scrollView addSubview:_periodTF];
         }else if (i == 2){
             
-            _freeL = label;
-            [_scrollView addSubview:_freeL];
+            _freeBeginL = label;
+            [_scrollView addSubview:_freeBeginL];
             
-            _freeBtn = [[DropBtn alloc] initWithFrame:_timeBtn.frame];
-            [_freeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+            _freeBeginBtn = [[DropBtn alloc] initWithFrame:_timeBtn.frame];
+            [_freeBeginBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             if (self.dataDic.count) {
                 
                 if (![self.dataDic[@"free_start_time"] isKindOfClass:[NSNull class]]) {
                     
-                    _freeBtn.content.text = self.dataDic[@"free_start_time"];
+                    _freeBeginBtn.content.text = self.dataDic[@"free_start_time"];
                 }
             }
-            _freeBtn.tag = 2;
-            [_scrollView addSubview:_freeBtn];
+            _freeBeginBtn.tag = 2;
+            [_scrollView addSubview:_freeBeginBtn];
         }else if (i == 3){
             
-            _freePeriodL = label;
-            [_scrollView addSubview:_freePeriodL];
+            _freeEndL = label;
+            [_scrollView addSubview:_freeEndL];
 
             
-            _freePeriodTF = tf;
-            _freePeriodTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+            _freeEndBtn = [[DropBtn alloc] initWithFrame:_timeBtn.frame];
+            [_freeEndBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             if (self.dataDic.count) {
                 
-                _freePeriodTF.textField.text = [NSString stringWithFormat:@"%@",self.dataDic[@"free_month_num"]];
+                if (![self.dataDic[@"free_end_time"] isKindOfClass:[NSNull class]]) {
+                    
+                    _freeEndBtn.content.text = self.dataDic[@"free_end_time"];
+                }
             }
-            [_scrollView addSubview:_freePeriodTF];
+            _freeEndBtn.tag = 2;
+            [_scrollView addSubview:_freeEndBtn];
         }else if (i == 4){
             
             _totalL = label;
@@ -453,6 +469,20 @@
             [_scrollView addSubview:_totalTF];
         }else if (i == 5){
             
+            _freeL = label;
+            _freeL.numberOfLines = 0;
+            [_scrollView addSubview:_freeL];
+
+            
+            _freeTF = tf;
+            _freeTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+            if (self.dataDic.count) {
+                
+                _freeTF.textField.text = self.dataDic[@"free_rent"];
+            }
+            [_scrollView addSubview:_freeTF];
+        }else if (i == 6){
+            
             _unitL = label;
             if (self.dataDic.count) {
             
@@ -460,15 +490,6 @@
                 _unit = [self.dataDic[@"total_rent"] doubleValue] / [_periodTF.textField.text integerValue] / self.area;
             }
             [_scrollView addSubview:_unitL];
-        }else if (i == 6){
-            
-            _originL = label;
-            if (self.dataDic.count) {
-                
-                _originL.text = [NSString stringWithFormat:@"免租金额：%@元",self.dataDic[@"free_rent"]];
-                _free = [self.dataDic[@"free_rent"] doubleValue];
-            }
-            [_scrollView addSubview:_originL];
         }else if (i == 7){
             
             _resultL = label;
@@ -568,14 +589,14 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_freeL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_freeBeginL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
         make.top.equalTo(self->_periodTF.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_freeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_freeBeginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_periodTF.mas_bottom).offset(9 *SIZE);
@@ -583,17 +604,17 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_freePeriodL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_freeEndL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_freeBtn.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_freeBeginBtn.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
-    [_freePeriodTF mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_freeEndBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_freeBtn.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self->_freeBeginBtn.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -601,14 +622,29 @@
     [_totalL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_freePeriodTF.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_freeEndBtn.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_totalTF mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_freePeriodTF.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self->_freeEndBtn.mas_bottom).offset(9 *SIZE);
+        make.width.mas_equalTo(258 *SIZE);
+        make.height.mas_equalTo(33 *SIZE);
+    }];
+    
+    [_freeL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_totalTF.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(70 *SIZE);
+    }];
+    
+    [_freeTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+        make.top.equalTo(self->_totalTF.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
@@ -616,21 +652,14 @@
     [_unitL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_totalTF.mas_bottom).offset(18 *SIZE);
-        make.right.equalTo(self->_scrollView).offset(-9 *SIZE);
-    }];
-    
-    [_originL mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_unitL.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_freeTF.mas_bottom).offset(18 *SIZE);
         make.right.equalTo(self->_scrollView).offset(-9 *SIZE);
     }];
     
     [_resultL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_originL.mas_bottom).offset(18 *SIZE);
+        make.top.equalTo(self->_unitL.mas_bottom).offset(18 *SIZE);
         make.right.equalTo(self->_scrollView).offset(-9 *SIZE);
     }];
     

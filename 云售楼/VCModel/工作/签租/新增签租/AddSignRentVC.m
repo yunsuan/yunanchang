@@ -1245,6 +1245,11 @@
           
             AddSignRentOtherDetailVC *nextVC = [[AddSignRentOtherDetailVC alloc] initWithDataArr:self->_otherArr];
             nextVC.excuteArr = [[NSMutableArray alloc] initWithArray:self->_excuteArr];
+            nextVC.addSignRentOtherDetailVCBlock = ^(NSArray * _Nonnull arr) {
+                
+                self->_otherArr = [NSMutableArray arrayWithArray:arr];
+                [tableView reloadData];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         cell.addOrderRentPriceCellAddBlock = ^{
@@ -1261,6 +1266,11 @@
                     
                     AddSignRentOtherDetailVC *nextVC = [[AddSignRentOtherDetailVC alloc] initWithDataArr:self->_otherArr];
                     nextVC.excuteArr = [[NSMutableArray alloc] initWithArray:self->_excuteArr];
+                    nextVC.addSignRentOtherDetailVCBlock = ^(NSArray * _Nonnull arr) {
+                        
+                        self->_otherArr = [NSMutableArray arrayWithArray:arr];
+                        [tableView reloadData];
+                    };
                     [self.navigationController pushViewController:nextVC animated:YES];
                 }
             }

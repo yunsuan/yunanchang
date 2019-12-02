@@ -157,6 +157,9 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
 
 //两个时间的月差
 - (NSInteger)getMonthFromDate:(NSDate *)date1 withDate2:(NSDate *)date2;
+
+//两个时间的天差
+- (NSInteger)getDayFromDate:(NSDate *)date1 withDate2:(NSDate *)date2;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -19,7 +19,10 @@
     
     NSString *_type;
     
+    NSString *_unit;
+    
     NSDateFormatter *_formatter;
+    NSDateFormatter *_formatter2;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -126,9 +129,12 @@
                         self->_numTF.hidden = NO;
                         self->_originL.hidden = NO;
                         
-                        self->_resultTF.userInteractionEnabled = NO;
-                        
+                        self->_resultTF.userInteractionEnabled = YES;
+                        self->_resultTF.textField.text = @"";
                         self->_resultL.text = @"实际金额";
+                        
+                        self->_unitL.text = [NSString stringWithFormat:@"单价：%@元",self.excuteArr[i][@"param"]];
+                        self->_unit = [NSString stringWithFormat:@"%@",self.excuteArr[i][@"param"]];
                         
                         [self->_originL mas_remakeConstraints:^(MASConstraintMaker *make) {
                             
@@ -171,8 +177,20 @@
                         self->_numTF.hidden = YES;
                         self->_originL.hidden = NO;
                         
-                        self->_resultTF.userInteractionEnabled = NO;
+                        self->_resultTF.userInteractionEnabled = YES;
                         self->_resultL.text = @"实际金额";
+                        self->_resultTF.textField.text = @"";
+                        
+                        self->_unitL.text = [NSString stringWithFormat:@"单价：%@元",self.excuteArr[i][@"param"]];
+                        self->_unit = [NSString stringWithFormat:@"%@",self.excuteArr[i][@"param"]];
+                        if (self->_periodBtn.content.text && self->_periodBtn2.content.text) {
+                        
+                            self->_originL.text = [NSString stringWithFormat:@"计算金额：%.2f元",[self MultiplyingNumber:[self MultiplyingNumber:[self->_unit doubleValue] num2:[self getDayFromDate:[self->_formatter dateFromString:self->_periodBtn.content.text] withDate2:[self->_formatter dateFromString:self->_periodBtn2.content.text]]] num2:self.area]];
+                        }else{
+                            
+                            self->_originL.text = [NSString stringWithFormat:@"计算金额：0元"];
+                        }
+                        
                         [self->_originL mas_remakeConstraints:^(MASConstraintMaker *make) {
                             
                             make.left.equalTo(self->_scrollView).offset(9 *SIZE);
@@ -208,6 +226,8 @@
                         
                         self->_resultTF.userInteractionEnabled = NO;
                         self->_resultL.text = @"费项金额";
+                        
+                        self->_resultTF.textField.text = self.excuteArr[i][@"param"];
                         
                         self.periodL.hidden = YES;
                         self.periodBtn.hidden = YES;
@@ -253,6 +273,8 @@
                         self->_resultTF.userInteractionEnabled = YES;
                         self->_resultL.text = @"费项金额";
                         
+                        self->_resultTF.textField.text = @"";
+                        
                         [self->_originL mas_remakeConstraints:^(MASConstraintMaker *make) {
                             
                             make.left.equalTo(self->_scrollView).offset(9 *SIZE);
@@ -285,6 +307,13 @@
         view.dateblock = ^(NSDate *date) {
             
             self->_periodBtn.content.text = [self->_formatter stringFromDate:date];
+            if (self->_periodBtn.content.text && self->_periodBtn2.content.text) {
+            
+                self->_originL.text = [NSString stringWithFormat:@"计算金额：%.2f元",[self MultiplyingNumber:[self MultiplyingNumber:[self->_unit doubleValue] num2:[self getDayFromDate:[self->_formatter dateFromString:self->_periodBtn.content.text] withDate2:[self->_formatter dateFromString:self->_periodBtn2.content.text]]] num2:self.area]];
+            }else{
+                
+                self->_originL.text = [NSString stringWithFormat:@"计算金额：0元"];
+            }
         };
         [self.view addSubview:view];
     }else{
@@ -293,6 +322,13 @@
         view.dateblock = ^(NSDate *date) {
             
             self->_periodBtn2.content.text = [self->_formatter stringFromDate:date];
+            if (self->_periodBtn.content.text && self->_periodBtn2.content.text) {
+            
+                self->_originL.text = [NSString stringWithFormat:@"计算金额：%.2f元",[self MultiplyingNumber:[self MultiplyingNumber:[self->_unit doubleValue] num2:[self getDayFromDate:[self->_formatter dateFromString:self->_periodBtn.content.text] withDate2:[self->_formatter dateFromString:self->_periodBtn2.content.text]]] num2:self.area]];
+            }else{
+                
+                self->_originL.text = [NSString stringWithFormat:@"计算金额：0元"];
+            }
         };
         [self.view addSubview:view];
     }
@@ -332,24 +368,85 @@
         [self showContent:@"请选择费项类别"];
         return;
     }
+    NSMutableDictionary *tempDic = [@{} mutableCopy];
+    [tempDic setValue:_payTimeBtn.content.text forKey:@"pay_time"];
+    [tempDic setValue:_remindBtn.content.text forKey:@"remind_time"];
+    [tempDic setValue:_typeBtn->str forKey:@"config_id"];
+    if (_marklTF.textField.text.length) {
+        
+        [tempDic setValue:_marklTF.textField.text forKey:@"comment"];
+    }
+    [tempDic setValue:@"0" forKey:@"unit_cost"];
+    [tempDic setValue:@"0" forKey:@"total_cost"];
+    [tempDic setValue:@"1" forKey:@"cost_num"];
+    [tempDic setValue:@"0" forKey:@"quantity"];
+    [tempDic setValue:@"0" forKey:@"cost_start_time"];
+    [tempDic setValue:@"0" forKey:@"cost_end_time"];
     if ([_type integerValue] == 1) {
         
         
+        if (!_numTF.textField.text.length) {
+            
+            [self showContent:@"请输入用量"];
+            return;
+        }
+        if (!_resultTF.textField.text.length) {
+            
+            [self showContent:@"请输入实际金额"];
+            return;
+        }
+        [tempDic setValue:_unit forKey:@"unit_cost"];
+        [tempDic setValue:_numTF.textField.text forKey:@"quantity"];
+        [tempDic setValue:_resultTF.textField.text forKey:@"total_cost"];
     }else if ([_type integerValue] == 2){
         
-        
+        if (!_periodBtn.content.text) {
+            
+            [self showContent:@"请选择费用开始时间"];
+            return;
+        }
+        if (!_periodBtn2.content.text) {
+            
+            [self showContent:@"请选择费用结束时间"];
+            return;
+        }
+        if (!_resultTF.textField.text.length) {
+            
+            [self showContent:@"请输入实际金额"];
+            return;
+        }
+        [tempDic setValue:_unit forKey:@"unit_cost"];
+        [tempDic setValue:_periodBtn.content.text forKey:@"cost_start_time"];
+        [tempDic setValue:_periodBtn2.content.text forKey:@"cost_end_time"];
+        [tempDic setValue:_resultTF.textField.text forKey:@"total_cost"];
     }else if ([_type integerValue] == 3){
         
-        
+        [tempDic setValue:_resultTF.textField.text forKey:@"total_cost"];
     }else{
         
+        [tempDic setValue:_resultTF.textField.text forKey:@"total_cost"];
+    }
+    if (self.addSignRentOtherVCBlock) {
         
+        self.addSignRentOtherVCBlock(tempDic);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)textFieldDidChange:(UITextField *)textField{
+ 
+    if (textField == _numTF.textField) {
+        
+        if ([_type isEqualToString:@"1"]) {
+            
+            _originL.text = [NSString stringWithFormat:@"计算金额：%.2f元",[self MultiplyingNumber:[self->_unit doubleValue] num2:[_numTF.textField.text doubleValue]]];
+        }
     }
 }
 
 - (void)initUI{
     
-    self.titleLabel.text = @"修改租金";
+    self.titleLabel.text = @"修改费项";
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = CLWhiteColor;
@@ -369,6 +466,7 @@
         
         BorderTextField *tf = [[BorderTextField alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
         tf.textField.tag = i;
+        [tf.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         tf.textField.delegate = self;
         if (i == 0) {
             

@@ -23,9 +23,9 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@至%@",dataDic[@"stage_start_time"],dataDic[@"stage_end_time"]];
-    _total.text = [NSString stringWithFormat:@"计算金额：%@元",dataDic[@"total_rent"]];
-    _unitL.text = [NSString stringWithFormat:@"单价：%@元/月/㎡",dataDic[@""]];
+    _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@至%@",dataDic[@"cost_start_time"],dataDic[@"cost_end_time"]];
+    _total.text = [NSString stringWithFormat:@"计算金额：%@元",dataDic[@"total_cost"]];
+    _unitL.text = [NSString stringWithFormat:@"单价：%@元/月/㎡",dataDic[@"unit_cost"]];
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
     _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@"pay_time"]];
     _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@"remind_time"]];

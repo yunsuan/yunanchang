@@ -20,6 +20,8 @@ typedef void(^AddSignRentOtherVCBlock)(NSDictionary *dic);
 
 @property (nonatomic, strong) NSDictionary *dataDic;
 
+@property (nonatomic, assign) double area;
+
 @end
 
 NS_ASSUME_NONNULL_END

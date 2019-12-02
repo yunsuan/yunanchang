@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^AddSignRentOtherDetailVCBlock)(NSArray *arr);
+
 @interface AddSignRentOtherDetailVC : BaseViewController
+
+@property (nonatomic, copy) AddSignRentOtherDetailVCBlock addSignRentOtherDetailVCBlock;
 
 @property (nonatomic, strong) NSMutableArray *excuteArr;
 

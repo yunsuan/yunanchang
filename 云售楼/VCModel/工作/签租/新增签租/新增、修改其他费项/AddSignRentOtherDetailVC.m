@@ -46,6 +46,15 @@
     
     AddSignRentOtherVC *nextVC = [[AddSignRentOtherVC alloc] init];
     nextVC.excuteArr = self.excuteArr;
+    nextVC.addSignRentOtherVCBlock = ^(NSDictionary * _Nonnull dic) {
+      
+        [self->_dataArr addObject:dic];
+        [self->_table reloadData];
+        if (self.addSignRentOtherDetailVCBlock) {
+            
+            self.addSignRentOtherDetailVCBlock(self->_dataArr);
+        }
+    };
     [self.navigationController pushViewController:nextVC animated:YES];
 }
 
@@ -70,8 +79,17 @@
     cell.addOrderRentalDetailCellBlock = ^(NSInteger idx) {
       
         AddSignRentOtherVC *nextVC = [[AddSignRentOtherVC alloc] init];
-        nextVC.dataDic = _dataArr[indexPath.row];
+        nextVC.dataDic = self->_dataArr[indexPath.row];
         nextVC.excuteArr = self.excuteArr;
+        nextVC.addSignRentOtherVCBlock = ^(NSDictionary * _Nonnull dic) {
+          
+            [self->_dataArr replaceObjectAtIndex:indexPath.row withObject:dic];
+            [tableView reloadData];
+            if (self.addSignRentOtherDetailVCBlock) {
+                
+                self.addSignRentOtherDetailVCBlock(self->_dataArr);
+            }
+        };
         [self.navigationController pushViewController:nextVC animated:YES];
     };
     
@@ -105,7 +123,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"租金详情";
+    self.titleLabel.text = @"费项详情";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE) style:UITableViewStylePlain];
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
