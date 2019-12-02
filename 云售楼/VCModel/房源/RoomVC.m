@@ -201,21 +201,21 @@
             [self showContent:@"网络错误"];
         }];
         
-        [BaseRequest GET:ShopGetTitleList_URL parameters:@{@"info_id":[UserModel defaultModel].projectinfo[@"info_id"]} success:^(id  _Nonnull resposeObject) {
-            
-            if ([resposeObject[@"code"] integerValue] == 200) {
-                
-                [self->_shopArr removeAllObjects];
-                self->_shopArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-                [self->_coll reloadData];
-            }else{
-                
-                [self showContent:resposeObject[@"msg"]];
-            }
-        } failure:^(NSError * _Nonnull error) {
-            
-            [self showContent:@"网络错误"];
-        }];
+//        [BaseRequest GET:ShopGetTitleList_URL parameters:@{@"info_id":[UserModel defaultModel].projectinfo[@"info_id"]} success:^(id  _Nonnull resposeObject) {
+//            
+//            if ([resposeObject[@"code"] integerValue] == 200) {
+//                
+//                [self->_shopArr removeAllObjects];
+//                self->_shopArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
+//                [self->_coll reloadData];
+//            }else{
+//                
+//                [self showContent:resposeObject[@"msg"]];
+//            }
+//        } failure:^(NSError * _Nonnull error) {
+//            
+//            [self showContent:@"网络错误"];
+//        }];
     }
 }
 

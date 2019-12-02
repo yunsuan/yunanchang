@@ -171,6 +171,7 @@
                 
                 [UserModel defaultModel].Configdic = resposeObject[@"data"];
                 [UserModelArchiver archive];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"followReload" object:nil];
 //                return [self ConfigState:configState];
 //                [self ConfigState:configState];
             }

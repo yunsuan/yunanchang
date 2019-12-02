@@ -798,7 +798,11 @@
                                 }
                             }
                         }
-                        [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_typeAllArr[0][@"num_list"][0][@"row_code"]] forKey:@"row_code"];
+                        if (strongSelf->_typeAllArr.count) {
+                            
+                            [strongSelf->_infoDic setObject:[NSString stringWithFormat:@"%@",strongSelf->_typeAllArr[0][@"num_list"][0][@"row_code"]] forKey:@"row_code"];
+                        }
+                        
                         strongSelf->_addNumeralInfoView.dataDic = strongSelf->_infoDic;
                     };
                     [strongSelf.view addSubview:view];

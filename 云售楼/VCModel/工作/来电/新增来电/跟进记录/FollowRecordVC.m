@@ -113,6 +113,8 @@
 
 - (void)initDataSource{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FollowWay) name:@"followReload" object:nil];
+    
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     
@@ -120,6 +122,10 @@
     _directDic = [@{} mutableCopy];
     
     _followArr = [self getDetailConfigArrByConfigState:23];
+//    if (!_followArr.count) {
+//
+//        _followArr = [self getDetailConfigArrByConfigState:23];
+//    }
     _followSelectArr = [@[] mutableCopy];
     _levelSelectArr = [@[] mutableCopy];
     for (int i = 0; i < self->_followArr.count; i++) {
@@ -127,6 +133,16 @@
         [self->_followSelectArr addObject:@0];
     }
     _levelArr = [@[] mutableCopy];
+}
+
+- (void)FollowWay{
+    
+    _followArr = [self getDetailConfigArrByConfigState:23];
+    [self->_followWayColl reloadData];
+    [self->_followWayColl mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(self->_followWayColl.collectionViewLayout.collectionViewContentSize.height + 5 *SIZE);
+    }];
 }
 
 - (void)RequestMethod{
