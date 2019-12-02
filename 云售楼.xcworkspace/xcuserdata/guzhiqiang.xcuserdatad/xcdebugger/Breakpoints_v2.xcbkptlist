@@ -87,54 +87,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7972EF07-4E9B-4333-A168-23106BC10C8F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x4ee3;&#x529e;/&#x5ba1;&#x6838;&#x4ee3;&#x529e;/&#x5546;&#x4e1a;&#x5ba1;&#x6838;/ShopAuditTaskDetailVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "-ActionAuditBtn:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "7972EF07-4E9B-4333-A168-23106BC10C8F - 81aa3983ff5e7b2c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ShopAuditTaskDetailVC ActionAuditBtn:]"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E4%BB%A3%E5%8A%9E/%E5%AE%A1%E6%A0%B8%E4%BB%A3%E5%8A%9E/%E5%95%86%E4%B8%9A%E5%AE%A1%E6%A0%B8/ShopAuditTaskDetailVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "196"
-                  endingLineNumber = "196"
-                  offsetFromSymbolStart = "996">
-               </Location>
-               <Location
-                  uuid = "7972EF07-4E9B-4333-A168-23106BC10C8F - c314ecf1f403baa4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__40-[ShopAuditTaskDetailVC ActionAuditBtn:]_block_invoke"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E4%BB%A3%E5%8A%9E/%E5%AE%A1%E6%A0%B8%E4%BB%A3%E5%8A%9E/%E5%95%86%E4%B8%9A%E5%AE%A1%E6%A0%B8/ShopAuditTaskDetailVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "198"
-                  endingLineNumber = "198"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "6AFA6937-9793-4DB7-8A5D-F1C102BAB17D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -144,22 +96,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "215"
             endingLineNumber = "215"
-            landmarkName = "-ActionAuditBtn:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D5CF333E-0126-436A-A39E-CCCB7BE7BCCE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x4ee3;&#x529e;/&#x5ba1;&#x6838;&#x4ee3;&#x529e;/&#x5546;&#x4e1a;&#x5ba1;&#x6838;/ShopAuditTaskDetailVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
             landmarkName = "-ActionAuditBtn:"
             landmarkType = "7">
          </BreakpointContent>

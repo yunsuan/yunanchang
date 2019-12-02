@@ -44,7 +44,7 @@
     }
     
     _timeL.text = [NSString stringWithFormat:@"%@",[dataDic[@"create_time"] componentsSeparatedByString:@" "][0]];
-    if (_registerL.bounds.size.height > _buildL.bounds.size.height) {
+    if (_registerL.bounds.size.height >= _buildL.bounds.size.height) {
         
         [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -183,7 +183,7 @@
     }
     
     _timeL.text = [NSString stringWithFormat:@"%@",[orderDic[@"create_time"] componentsSeparatedByString:@" "][0]];
-    if (_registerL.bounds.size.height > _buildL.bounds.size.height) {
+    if (_registerL.bounds.size.height >= _buildL.bounds.size.height) {
         
         [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -322,7 +322,7 @@
     }
     
     _timeL.text = [NSString stringWithFormat:@"%@",[signDic[@"create_time"] componentsSeparatedByString:@" "][0]];
-    if (_registerL.bounds.size.height > _buildL.bounds.size.height) {
+    if (_registerL.bounds.size.height >= _buildL.bounds.size.height) {
         
         [_timeL mas_remakeConstraints:^(MASConstraintMaker *make) {
             
@@ -455,6 +455,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
         label.numberOfLines = 2;
+//        label.lineBreakMode = nsline
 //        label.adjustsFontSizeToFitWidth = YES;
         label.font = [UIFont systemFontOfSize:13 *SIZE];
         switch (i) {

@@ -50,7 +50,7 @@
     double money = 0;
     for (int i = 0; i < self->_dataArr.count; i++) {
 
-        money = [self AddNumber:money num2:[self->_dataArr[i][@"total_rent"] doubleValue]];
+        money = [self AddNumber:money num2:[self->_dataArr[i][@"total_cost"] doubleValue]];
     }
     header.titleL.text = [NSString stringWithFormat:@"合计费用：%.2f元",money];
     

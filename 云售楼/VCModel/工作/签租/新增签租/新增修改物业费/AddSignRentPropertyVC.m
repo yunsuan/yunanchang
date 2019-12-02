@@ -172,6 +172,7 @@
     [tempDic setValue:_payTimeBtn.content.text forKey:@"pay_time"];
     [tempDic setValue:_remindBtn.content.text forKey:@"remind_time"];
     [tempDic setValue:self.config forKey:@"config_id"];
+    [tempDic setValue:@"物业费" forKey:@"config_name"];
     [tempDic setValue:[NSString stringWithFormat:@"%@",_unitTF.textField.text] forKey:@"unit_cost"];
     if ([self.status isEqualToString:@"add"]) {
         

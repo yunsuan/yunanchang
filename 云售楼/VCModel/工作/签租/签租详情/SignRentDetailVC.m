@@ -13,7 +13,7 @@
 #import "StageDetailVC.h"
 #import "OtherDetailVC.h"
 #import "PropertyDetailVC.h"
-#import "AuditDetailVC.h"
+#import "ShopAuditDetailVC.h"
 #import "ModifySignRentVC.h"
 #import "ShopAuditTaskDetailVC.h"
 
@@ -411,8 +411,8 @@
         [cell.moreBtn setTitle:@"查看审核详情" forState:UIControlStateNormal];
         cell.infoDetailCellBlock = ^{
 
-            AuditDetailVC *nextVC = [[AuditDetailVC alloc] init];
-            nextVC.status = @"1";
+            ShopAuditDetailVC *nextVC = [[ShopAuditDetailVC alloc] init];
+            nextVC.status = @"6";
             nextVC.requestId = self->_contact_id;
             nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
             [self.navigationController pushViewController:nextVC animated:YES];
@@ -515,7 +515,7 @@
             make.width.mas_lessThanOrEqualTo(200 *SIZE);
             make.bottom.equalTo(cell.contentView).offset(-10 *SIZE);
         }];
-        [cell.moreBtn setTitle:@"查看其他费项详情" forState:UIControlStateNormal];
+        [cell.moreBtn setTitle:@"其他费项详情" forState:UIControlStateNormal];
         cell.infoDetailCellBlock = ^{
 
             OtherDetailVC *nextVC = [[OtherDetailVC alloc] initWithDataArr:self->_otherArr];

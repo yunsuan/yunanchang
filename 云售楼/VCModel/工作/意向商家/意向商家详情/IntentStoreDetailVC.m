@@ -9,7 +9,7 @@
 #import "IntentStoreDetailVC.h"
 
 #import "ModifyIntentStoreVC.h"
-#import "AuditDetailVC.h"
+#import "ShopAuditDetailVC.h"
 #import "FileReadingVC.h"
 #import "ShopBelongDetailVC.h"
 #import "AddOrderRentVC.h"
@@ -369,8 +369,8 @@
         [cell.moreBtn setTitle:@"查看审核详情" forState:UIControlStateNormal];
         cell.infoDetailCellBlock = ^{
 
-            AuditDetailVC *nextVC = [[AuditDetailVC alloc] init];
-            nextVC.status = @"1";
+            ShopAuditDetailVC *nextVC = [[ShopAuditDetailVC alloc] init];
+            nextVC.status = @"4";
             nextVC.requestId = self->_businessId;
             nextVC.project_id = [NSString stringWithFormat:@"%@",self->_project_id];
             [self.navigationController pushViewController:nextVC animated:YES];

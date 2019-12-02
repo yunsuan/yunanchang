@@ -32,7 +32,7 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _nameL.text = [NSString stringWithFormat:@"费项名称：%@",dataDic[@"name"]];
-    _typeL.text = [NSString stringWithFormat:@"费项类别：%@元",dataDic[@"config_name"]];
+    _typeL.text = [NSString stringWithFormat:@"费项类别：%@",dataDic[@"config_name"]];
     _totalL.text = [NSString stringWithFormat:@"费项金额：%@元",dataDic[@"total_cost"]];
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
     _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@"pay_time"]];

@@ -23,9 +23,9 @@
 
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
-    _nameL.text = [NSString stringWithFormat:@"费项名称：%@",dataDic[@"stage_start_time"]];
-    _typeL.text = [NSString stringWithFormat:@"费项类别：%@",dataDic[@"free_end_time"]];
-    _total.text = [NSString stringWithFormat:@"费项金额：%@元",dataDic[@"total_rent"]];
+    _nameL.text = [NSString stringWithFormat:@"费项名称：%@",dataDic[@"name"]];
+    _typeL.text = [NSString stringWithFormat:@"费项类别：%@",dataDic[@"config_name"]];
+    _totalL.text = [NSString stringWithFormat:@"费项金额：%@元",dataDic[@"total_cost"]];
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
     _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@"pay_time"]];
     _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@"remind_time"]];
@@ -63,13 +63,13 @@
             [self.contentView addSubview:_typeL];
         }else if (i == 2){
             
-            _total = label;
-            [self.contentView addSubview:_total];
+            _totalL = label;
+            [self.contentView addSubview:_totalL];
         }else if (i == 3){
-        
+            
             _markL = label;
             [self.contentView addSubview:_markL];
-        }else if (i == 5){
+        }else if (i == 4){
             
             _payTimeL = label;
             [self.contentView addSubview:_payTimeL];
@@ -88,35 +88,35 @@
         
         make.left.equalTo(self.contentView).offset(12 *SIZE);
         make.top.equalTo(self.contentView).offset(12 *SIZE);
-        make.width.mas_equalTo(300 *SIZE);
+        make.width.mas_equalTo(150 *SIZE);
     }];
     
     [_typeL mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
+        make.left.equalTo(self.contentView).offset(170 *SIZE);
+        make.top.equalTo(self.contentView).offset(12 *SIZE);
+        make.width.mas_equalTo(150 *SIZE);
+    }];
+    
+    [_totalL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
         make.left.equalTo(self.contentView).offset(12 *SIZE);
         make.top.equalTo(self->_nameL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(300 *SIZE);
     }];
-
-    [_total mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.equalTo(self.contentView).offset(12 *SIZE);
-        make.top.equalTo(self->_typeL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
-    }];
     
     [_payTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.contentView).offset(170 *SIZE);
-        make.top.equalTo(self->_total.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
+        make.left.equalTo(self.contentView).offset(12 *SIZE);
+        make.top.equalTo(self->_totalL.mas_bottom).offset(12 *SIZE);
+        make.width.mas_equalTo(300 *SIZE);
     }];
     
     [_remindL mas_makeConstraints:^(MASConstraintMaker *make) {
             
         make.left.equalTo(self.contentView).offset(12 *SIZE);
         make.top.equalTo(self->_payTimeL.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(150 *SIZE);
+        make.width.mas_equalTo(300 *SIZE);
     //        make.bottom.equalTo(self.contentView).offset(-12 *SIZE);
     }];
     

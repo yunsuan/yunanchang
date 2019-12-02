@@ -16,13 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *typeL;
 
-@property (nonatomic, strong) UILabel *total;
+@property (nonatomic, strong) UILabel *totalL;
+
+@property (nonatomic, strong) UILabel *markL;
 
 @property (nonatomic, strong) UILabel *payTimeL;
 
 @property (nonatomic, strong) UILabel *remindL;
-
-@property (nonatomic, strong) UILabel *markL;
 
 @property (nonatomic, strong) UIView *line;
 
