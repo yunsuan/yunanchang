@@ -79,6 +79,7 @@
             vc.LDinfo = resposeObject[@"data"];
             vc.LDtitle = self->_ldtitle;
             vc.status = @"store";
+            vc.isIntent = self.isIntent;
             vc.roomArr = self.roomArr;
             vc.shopRoomDetailVCBlock = ^(NSDictionary * _Nonnull dic, NSString * _Nonnull chargeId) {
 

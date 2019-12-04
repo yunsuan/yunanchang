@@ -55,6 +55,7 @@
   
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     [comps setMonth:month];
+    [comps setDay:-1];
     NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *mDate = [calender dateByAddingComponents:comps toDate:date options:0];
     return mDate;

@@ -295,24 +295,24 @@
                 //                btnSeat.layer.cornerRadius = 2;
 //                if ([_LDinfo[row][@"houseList"][column][@"FJZT"] integerValue] ==0 ||[_LDinfo[row][@"houseList"][column][@"FJZT"] integerValue] ==1)
 //                {
-                if ([_LDinfo[row][@"shopList"][column][@"state"] integerValue]==0||[_LDinfo[row][@"shopList"][column][@"disabled_state"] integerValue]==1) {
-                    btnSeat.backgroundColor = COLOR(0, 197, 198, 1);//KweixuanColor;
+                if (self.isIntent.length) {
+                    
+                    btnSeat.backgroundColor = COLOR(0, 197, 198, 1);
+                }else{
+                    
+                    if ([_LDinfo[row][@"shopList"][column][@"disabled_state"] integerValue]==0||[_LDinfo[row][@"shopList"][column][@"disabled_state"] integerValue]==1) {
+                                    
+                        btnSeat.backgroundColor = COLOR(0, 197, 198, 1);//KweixuanColor;
+                    }else if ([_LDinfo[row][@"shopList"][column][@"disabled_state"] integerValue] ==4)
+                    {
+                        btnSeat.backgroundColor = KyishouColor;
+                        btnSeat.userInteractionEnabled = NO;
+                    }else{
+                        
+                        btnSeat.backgroundColor = KyidingColor;
+                        btnSeat.userInteractionEnabled = NO;
+                    }
                 }
-                
-//
-//                }
-                else if ([_LDinfo[row][@"shopList"][column][@"disabled_state"] integerValue] ==4)
-                {
-                    btnSeat.backgroundColor = KyishouColor;
-                    btnSeat.userInteractionEnabled = NO;
-                }
-                else
-                {
-                    btnSeat.backgroundColor = KyidingColor;
-                    btnSeat.userInteractionEnabled = NO;
-                }
-                
-                //                btnSeat.backgroundColor = [UIColor grayColor];
 
                 [btnSeat addTarget:self action:@selector(btnSeatTouchIn:) forControlEvents:UIControlEventTouchUpInside];
                 [_contentView addSubview:btnSeat];

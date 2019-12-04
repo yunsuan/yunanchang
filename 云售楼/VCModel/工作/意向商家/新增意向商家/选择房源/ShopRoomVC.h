@@ -18,6 +18,8 @@ typedef void(^ShopRoomVCBlock)(NSDictionary *dic, NSString *chargeId);
 
 @property (nonatomic, strong) NSString *project_id;
 
+@property (nonatomic, strong) NSString *isIntent;
+
 @property (nonatomic, copy) ShopRoomVCBlock shopRoomVCBlock;
 
 @end

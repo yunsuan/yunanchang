@@ -1039,7 +1039,13 @@
                         
                         ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
                         view.periodTF.textField.text = self->_orderDic[@"deposit"];
-                        view.numL.text = [NSString stringWithFormat:@"期数：%.0f期",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
+                        if (([self->_orderDic[@"rent_month_num"] integerValue] % [self->_orderDic[@"pay_way2"] integerValue]) == 0) {
+                            
+                             view.numL.text = [NSString stringWithFormat:@"期数：%.0f期",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
+                        }else{
+                            
+                             view.numL.text = [NSString stringWithFormat:@"期数：%ld期",([self->_orderDic[@"rent_month_num"] integerValue] / [self->_orderDic[@"pay_way2"] integerValue]) + 1];
+                        }
                         
                         view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
                           
@@ -1083,7 +1089,9 @@
                                     endDate = resultDate;
                                 }
                                 
-                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":self->_orderDic[@"pay_way2"],@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
+                                NSString *stateNum = [NSString stringWithFormat:@"%ld",[self getMonthFromDate:[formatter dateFromString:date] withDate2:[formatter dateFromString:endDate]]];
+                                
+                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
                             }
                             [tableView reloadData];
                             [self ProgreesMethod];
@@ -1570,7 +1578,7 @@
 
 - (void)initUI{
     
-    self.titleLabel.text = @"新增定租";
+    self.titleLabel.text = @"新增签租";
     
     _table = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, SCREEN_Width, SCREEN_Height - NAVIGATION_BAR_HEIGHT - 43 *SIZE - TAB_BAR_MORE) style:UITableViewStyleGrouped];
     _table.backgroundColor = CLBackColor;

@@ -116,5 +116,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF7B82B5-9F9D-413E-B7DF-BF1866F77DFD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x5546;&#x5bb6;/&#x65b0;&#x589e;&#x5546;&#x5bb6;/AddStoreVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
+            landmarkName = "-ActionNextBtn:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DF7B82B5-9F9D-413E-B7DF-BF1866F77DFD - 47c1b0779838f734"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AddStoreVC ActionNextBtn:]"
+                  moduleName = "&#x4e91;&#x552e;&#x697c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E5%95%86%E5%AE%B6/%E6%96%B0%E5%A2%9E%E5%95%86%E5%AE%B6/AddStoreVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "589"
+                  endingLineNumber = "589"
+                  offsetFromSymbolStart = "8108">
+               </Location>
+               <Location
+                  uuid = "DF7B82B5-9F9D-413E-B7DF-BF1866F77DFD - aec3d27392e03652"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__28-[AddStoreVC ActionNextBtn:]_block_invoke_3"
+                  moduleName = "&#x4e91;&#x552e;&#x697c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E5%95%86%E5%AE%B6/%E6%96%B0%E5%A2%9E%E5%95%86%E5%AE%B6/AddStoreVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "591"
+                  endingLineNumber = "591"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B69CA772-F0C2-4916-ADB1-9D6F63CB35B6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x5b9a;&#x79df;/&#x65b0;&#x589e;&#x5b9a;&#x79df;/&#x79df;&#x91d1;&#x8be6;&#x60c5;/&#x6dfb;&#x52a0;&#x3001;&#x4fee;&#x6539;&#x79df;&#x91d1;/ModifyAndAddRentalVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "-ActionDropBtn:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

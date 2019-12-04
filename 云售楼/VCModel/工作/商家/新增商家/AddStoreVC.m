@@ -1187,8 +1187,10 @@
     
     _brandHeader = [[AddNemeralHeader alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, 40 *SIZE)];
     _brandHeader.titleL.text = @"品牌信息";
-    _brandHeader.moreBtn.hidden = YES;
-    _brandHeader.addBtn.hidden = NO;
+//    _brandHeader.moreBtn.hidden = YES;
+    _brandHeader.moreBtn.hidden = NO;
+    [_brandHeader.moreBtn setTitle:@"" forState:UIControlStateNormal];
+    [_brandHeader.moreBtn setImage:[UIImage imageNamed:@"add_3"] forState:UIControlStateNormal];
     SS(strongSelf);
     _brandHeader.addNemeralHeaderAllBlock = ^{
         

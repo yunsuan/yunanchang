@@ -462,6 +462,7 @@
                 ShopRoomVC *nextVC = [[ShopRoomVC alloc] init];
                 nextVC.project_id = self->_project_id;
                 nextVC.roomArr = self->_roomArr;
+                nextVC.isIntent = @"intent";
                 nextVC.shopRoomVCBlock = ^(NSDictionary * _Nonnull dic, NSString * _Nonnull chargeId) {
 
                     if (!self->_chargeId) {

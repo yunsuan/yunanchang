@@ -45,7 +45,7 @@
         double money = 0;
         for (int i = 0; i < dataArr.count; i++) {
             
-            money = money + [dataArr[i][@"total_rent"] doubleValue];
+            money = [self DecimalNumber:[self AddNumber:money num2:[dataArr[i][@"total_rent"] doubleValue]] num2:[dataArr[i][@"free_rent"] doubleValue]];
         }
         
         _totalL.text = [NSString stringWithFormat:@"合计总实付金额：%.2f元",money];
@@ -68,7 +68,7 @@
         double money = 0;
         for (int i = 0; i < propertyArr.count; i++) {
             
-            money = money + [propertyArr[i][@"total_cost"] doubleValue];
+            money = [self AddNumber:money num2:[propertyArr[i][@"total_cost"] doubleValue]];
         }
         
         _totalL.text = [NSString stringWithFormat:@"合计物业费：%.2f元",money];
@@ -91,7 +91,7 @@
         double money = 0;
         for (int i = 0; i < otherArr.count; i++) {
             
-            money = money + [otherArr[i][@"total_cost"] doubleValue];
+            money = [self AddNumber:money num2:[otherArr[i][@"total_cost"] doubleValue]];
         }
         
         _totalL.text = [NSString stringWithFormat:@"合计费用：%.2f元",money];
@@ -191,6 +191,20 @@
     NSDecimalNumber *num = [n1 decimalNumberByAdding:n2 withBehavior:handler];
     NSLog(@"num===%@",num);
     return num.doubleValue;
+}
+
+- (double)DecimalNumber:(double)num1 num2:(double)num2{
+    
+  NSDecimalNumber *n1 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num1]];
+    
+  NSDecimalNumber *n2 = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",num2]];
+    
+//  NSDecimalNumber *n3 = [n1 decimalNumberBySubtracting:n2];
+    
+  NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+  NSDecimalNumber *num = [n1 decimalNumberBySubtracting:n2 withBehavior:handler];
+  NSLog(@"num===%@",num);
+  return num.doubleValue;
 }
 
 @end

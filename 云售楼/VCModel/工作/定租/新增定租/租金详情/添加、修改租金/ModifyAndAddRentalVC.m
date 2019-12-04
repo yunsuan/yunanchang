@@ -451,7 +451,7 @@
                     _freeEndBtn.content.text = self.dataDic[@"free_end_time"];
                 }
             }
-            _freeEndBtn.tag = 2;
+            _freeEndBtn.tag = 3;
             [_scrollView addSubview:_freeEndBtn];
         }else if (i == 4){
             

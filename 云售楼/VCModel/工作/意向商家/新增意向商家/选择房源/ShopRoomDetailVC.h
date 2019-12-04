@@ -33,6 +33,8 @@ typedef void(^ShopRoomDetailVCBlock)(NSDictionary *dic, NSString *chargeId);
 
 @property (nonatomic, strong) NSArray *roomArr;
 
+@property (nonatomic, strong) NSString *isIntent;
+
 @end
 
 NS_ASSUME_NONNULL_END
