@@ -11,7 +11,9 @@
 #import "AddIntentStoreVC.h"
 #import "ModifyIntentStoreVC.h"
 #import "AddOrderRentVC.h"
+#import "ModifyOrderRentVC.h"
 #import "AddSignRentVC.h"
+#import "ModifySignRentVC.h"
 
 #import "SMScrollView.h"
 #import "SingleHouseCell.h"
@@ -621,7 +623,15 @@
 
                             [self.navigationController popToViewController:vc animated:YES];
                         }
+                        if ([vc isKindOfClass:[ModifyOrderRentVC class]]) {
+                            
+                            [self.navigationController popToViewController:vc animated:YES];
+                        }
                         if ([vc isKindOfClass:[AddSignRentVC class]]) {
+
+                            [self.navigationController popToViewController:vc animated:YES];
+                        }
+                        if ([vc isKindOfClass:[ModifySignRentVC class]]) {
 
                             [self.navigationController popToViewController:vc animated:YES];
                         }

@@ -115,6 +115,11 @@
     
     _secondFormatter = [[NSDateFormatter alloc] init];
     [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    
+    if (self.dataDic) {
+        
+        _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
+    }
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{

@@ -208,7 +208,7 @@
         make.right.equalTo(self->_whiteView.mas_right).offset(-6 *SIZE);
         make.top.equalTo(self->_shopNameL.mas_bottom).offset(8 *SIZE);
         make.width.mas_greaterThanOrEqualTo(150 *SIZE);
-        make.bottom.equalTo(self->_whiteView).offset(-18 *SIZE);
+        make.bottom.equalTo(self->_whiteView).offset(-28 *SIZE);
     }];
 
     [_auditBtn mas_makeConstraints:^(MASConstraintMaker *make) {

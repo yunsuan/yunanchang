@@ -222,7 +222,7 @@
         make.right.equalTo(self->_whiteView.mas_right).offset(-6 *SIZE);
         make.top.equalTo(self->_storeL.mas_bottom).offset(7 *SIZE);
         make.width.mas_greaterThanOrEqualTo(150 *SIZE);
-        make.bottom.equalTo(self->_whiteView.mas_bottom).offset(-18 *SIZE);
+        make.bottom.equalTo(self->_whiteView.mas_bottom).offset(-28 *SIZE);
     }];
 
 }

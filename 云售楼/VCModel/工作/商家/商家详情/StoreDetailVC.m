@@ -14,6 +14,8 @@
 #import "AddOrderRentVC.h"
 #import "AddSignRentVC.h"
 
+#import "AddIntentStoreVC.h"
+
 #import "StoreDetailHeader.h"
 #import "CallTelegramCustomDetailInfoCell.h"
 #import "ContentBaseCell.h"
@@ -93,7 +95,17 @@
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
 
+    UIAlertAction *intent = [UIAlertAction actionWithTitle:@"添加意向" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        AddIntentStoreVC *nextVC = [[AddIntentStoreVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+        nextVC.dataDic = self->_storeDic;
+        nextVC.addIntentStoreVCBlock = ^{
 
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }];
+    
     UIAlertAction *sign = [UIAlertAction actionWithTitle:@"转签租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         AddSignRentVC *nextVC = [[AddSignRentVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
@@ -153,6 +165,7 @@
         
     }];
     
+    [alert addAction:intent];
 //    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
     //
         [alert addAction:order];

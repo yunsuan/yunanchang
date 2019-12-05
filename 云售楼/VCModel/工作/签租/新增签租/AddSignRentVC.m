@@ -46,6 +46,9 @@
 @interface AddSignRentVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     
+    NSInteger _canCommit;
+    NSInteger _isDown;
+    
     NSString *_info_id;
     NSString *_project_id;
     NSString *_role_id;
@@ -113,6 +116,8 @@
 }
 
 - (void)initDataSource{
+    
+    self->_canCommit = 1;
     
     _differSize = @"";
     _stageArr = [@[] mutableCopy];
@@ -231,6 +236,11 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
+//    if (!_canCommit) {
+//
+//        [self showContent:@"当前未执行底价流程或免租期流程，请重新修改租金信息"];
+//        return;
+//    }
     if (!_roomArr.count) {
         
         [self showContent:@"请选择房源"];
@@ -313,41 +323,49 @@
         [self showContent:@"请生成租金信息"];
         return;
     }
-    
-    if (!_progressDic[@"progress_name"]) {
-        [self showContent:@"请选择审批流程"];
-        return;
-    }
-    if ([_progressDic[@"check_type"] integerValue] == 1) {
+    _canCommit = 1;
+    [self ProgreesMethod];
+}
 
-        if (!_progressDic[@"auditMC"]) {
-            [self showContent:@"请选择流程类型"];
+- (void)CommitRequest{
+    
+    NSString *param = @"";
+    if (!_isDown) {
+        
+        if (!_progressDic[@"progress_name"]) {
+            [self showContent:@"请选择审批流程"];
             return;
         }
-    }
-    NSString *param;
-    if ([_progressDic[@"auditMC"] isEqualToString:@"自由流程"]) {
+        if ([_progressDic[@"check_type"] integerValue] == 1) {
 
-        for (int i = 0; i < _rolePersonSelectArr.count; i++) {
-
-            if ([_rolePersonSelectArr[i] integerValue] == 1) {
-
-                if (param.length) {
-
-                    param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
-                }else{
-
-                    param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
-                }
+            if (!_progressDic[@"auditMC"]) {
+                [self showContent:@"请选择流程类型"];
+                return;
             }
         }
-        if (!param.length) {
+        if ([_progressDic[@"auditMC"] isEqualToString:@"自由流程"]) {
 
-            [self showContent:@"请选择审核人员"];
-            return;
+            for (int i = 0; i < _rolePersonSelectArr.count; i++) {
+
+                if ([_rolePersonSelectArr[i] integerValue] == 1) {
+
+                    if (param.length) {
+
+                        param = [NSString stringWithFormat:@"%@,%@",param,_rolePersonArr[i][@"agent_id"]];
+                    }else{
+
+                        param = [NSString stringWithFormat:@"%@",_rolePersonArr[i][@"agent_id"]];
+                    }
+                }
+            }
+            if (!param.length) {
+
+                [self showContent:@"请选择审核人员"];
+                return;
+            }
         }
     }
-    
+        
     NSMutableDictionary *dic = [@{} mutableCopy];
     NSString *room;
     for (int i = 0; i < _roomArr.count; i++) {
@@ -375,9 +393,6 @@
     }
     [dic setValue:store forKey:@"from_id"];
     [dic setValue:store forKey:@"business_id"];
-//    if ([self.from_type isEqualToString:@"1"]) {
-//        <#statements#>
-//    }
     [dic setValue:self.from_type forKey:@"from_type"];
     if ([self->_areaDic[@"differ_size"] doubleValue]) {
         
@@ -397,7 +412,6 @@
     [dic setValue:_orderDic[@"remind_time"] forKey:@"remind_time"];
     [dic setValue:_orderDic[@"deposit"] forKey:@"deposit"];
     [dic setValue:_orderDic[@"pay_way"] forKey:@"pay_way"];
-//    [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
     
     [dic setValue:_chargeId forKey:@"charge_company_id"];
     
@@ -456,13 +470,19 @@
 
 - (void)ProgreesMethod{
     
+    _isDown = 0;
+    [self->_progressArr removeAllObjects];
+    [self->_progressAllArr removeAllObjects];
+    [self->_rolePersonArr removeAllObjects];
+    [self->_rolePersonSelectArr removeAllObjects];
+    
     NSMutableDictionary *dic = [@{} mutableCopy];
-    NSString *room;
+    NSString *room = @"";
     for (int i = 0; i < _roomArr.count; i++) {
         
         if (i == 0) {
             
-            room = _roomArr[i][@"shop_id"];
+            room = [NSString stringWithFormat:@"%@",_roomArr[i][@"shop_id"]];
         }else{
             
             room = [NSString stringWithFormat:@"%@,%@",room,_roomArr[i][@"shop_id"]];
@@ -477,28 +497,78 @@
         [dic setObject:jsonString2 forKey:@"stage_list"];
     }
     
-    [dic setValue:room forKey:@"shop_list"];
-    [BaseRequest GET:TradeSubCheckRent_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+    if (room.length) {
+        
+        [dic setValue:room forKey:@"shop_list"];
+        [BaseRequest POST:TradeSubCheckRent_URL parameters:dic success:^(id  _Nonnull resposeObject) {
 
-        if ([resposeObject[@"code"] integerValue] == 250) {
+            if ([resposeObject[@"code"] integerValue] == 250) {
 
-            [self->_progressArr removeAllObjects];
-            [self->_progressAllArr removeAllObjects];
-            self->_progressAllArr = [NSMutableArray arrayWithArray:resposeObject[@"data"]];
-            for (int i = 0; i < [resposeObject[@"data"] count]; i++) {
+                [self->_progressArr removeAllObjects];
+                [self->_progressAllArr removeAllObjects];
+                if ([resposeObject[@"data"] integerValue] == 1) {
+                    
+                    [self alertControllerWithNsstring:@"是否执行免租期流程" And:@"当前租金符合免租期流程，如不执行免租期流程，本次定租将不能提交，需要返回重新修改租金信息" WithCancelBlack:^{
+                        
+                        self->_canCommit = 0;
+                    } WithDefaultBlack:^{
+                       
+                        self->_canCommit = 1;
+                        NSDictionary *dic;
+                        dic = @{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"13"};
+                        [BaseRequest GET:ShopGetProgress_URL parameters:dic success:^(id  _Nonnull resposeObject) {
 
-                [self->_progressArr addObject:@{@"param":[NSString stringWithFormat:@"%@",resposeObject[@"data"][i][@"progress_name"]],@"id":resposeObject[@"data"][i][@"progress_id"]}];
+                            if ([resposeObject[@"code"] integerValue] == 200) {
+
+                                [self->_progressDic setValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"][0][@"progress_id"]] forKey:@"progress_id"];
+                                self->_isDown = 1;
+                                [self CommitRequest];
+                            }else{
+
+                                [self showContent:@"当前未设置免租期流程,请修改租金信息后重新提交"];
+                            }
+                        } failure:^(NSError * _Nonnull error) {
+
+                            [self showContent:@"网络错误"];
+                        }];
+                    }];
+                }else{
+                    
+                    [self alertControllerWithNsstring:@"是否执底价流程" And:@"当前租金符合底价流程，如不执行底价流程，本次定租将不能提交，需要返回重新修改租金信息" WithCancelBlack:^{
+                        
+                        self->_canCommit = 0;
+                    } WithDefaultBlack:^{
+                       
+                        self->_canCommit = 1;
+                        NSDictionary *dic;
+                        dic = @{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"3"};
+                        [BaseRequest GET:ShopGetProgress_URL parameters:dic success:^(id  _Nonnull resposeObject) {
+
+                            if ([resposeObject[@"code"] integerValue] == 200) {
+
+                                [self->_progressDic setValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"][0][@"progress_id"]] forKey:@"progress_id"];
+                                self->_isDown = 1;
+                                [self CommitRequest];
+                            }else{
+
+                                [self showContent:@"当前未设置底价流程,请修改租金信息后重新提交"];
+                            }
+                        } failure:^(NSError * _Nonnull error) {
+
+                            [self showContent:@"网络错误"];
+                        }];
+                    }];
+                }
+            }else{
+
+                [self CommitRequest];
+                [self->_table reloadData];
             }
+        } failure:^(NSError * _Nonnull error) {
 
-            [self->_table reloadData];
-        }else{
-
-
-        }
-    } failure:^(NSError * _Nonnull error) {
-
-
-    }];
+            NSLog(@"%@",error);
+        }];
+    }
 }
 
 - (void)RequestMethod{
@@ -1014,7 +1084,20 @@
         
         cell.addOrderRentPriceCellBlock = ^{
           
+            double area = 0;
+            for (int i = 0; i < self->_roomArr.count; i++) {
+                
+                area = area + [self->_roomArr[i][@"build_size"] doubleValue];
+            }
             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
+            nextVC.area = area;
+            nextVC.addOrderRentalDetailVCBlock = ^(NSArray * _Nonnull arr) {
+              
+                self->_stageArr = [NSMutableArray arrayWithArray:arr];
+                [tableView reloadData];
+//                self->_canCommit = 1;
+//                [self ProgreesMethod];
+            };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         cell.addOrderRentPriceCellAddBlock = ^{
@@ -1094,7 +1177,8 @@
                                 [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
                             }
                             [tableView reloadData];
-                            [self ProgreesMethod];
+//                            self->_canCommit = 1;
+//                            [self ProgreesMethod];
                             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
                             nextVC.area = area;
                             nextVC.addOrderRentalDetailVCBlock = ^(NSArray * _Nonnull arr) {

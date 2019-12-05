@@ -16,6 +16,8 @@ typedef void(^AddIntentStoreVCBlock)(void);
 
 @property (nonatomic, copy)AddIntentStoreVCBlock addIntentStoreVCBlock;
 
+@property (nonatomic, strong) NSDictionary *dataDic;
+
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id;
 
 @end

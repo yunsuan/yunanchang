@@ -20,6 +20,9 @@
 #import "NumeralDetailVC.h"
 #import "TaskReportVC.h"
 
+#import "ShopAuditTaskDetailVC.h"
+#import "AddStoreFollowRecordVC.h"
+
 #import "TaskCallBackCell.h"
 #import "TaskCallFollowCell.h"
 #import "TaskTakeLookConfirmCell.h"
@@ -32,6 +35,20 @@
 #import "RoomPriceCell.h"
 
 #import "TaskSellReportCell.h"
+
+#import "StoreFollowCell.h"
+#import "PayRemindCell.h"
+#import "IntentStoreAuditCell.h"
+#import "CancelIntentAuditCell.h"
+#import "StoreOrderAuditCell.h"
+#import "StoreSignAuditCell.h"
+#import "StoreOrderMinPriceProcessCell.h"
+#import "StoreSignMinPriceProcessCell.h"
+#import "FreeOverTimeProcessCell.h"
+#import "ShopChangeAuditCell.h"
+#import "ShopFreePeriodChangeAuditCell.h"
+#import "ShopRentPeriodChangeAuditCell.h"
+#import "ShopRentPriceChangeAuditCell.h"
 
 #import "InvalidView.h"
 #import "SignSelectWorkerView.h"
@@ -114,6 +131,25 @@
 //static NSInteger const TEMPLATE_PUSH_WEEK=51; //周报
 //
 //static NSInteger const TEMPLATE_PUSH_MONTH=52; //月报
+
+//商业message_type类型：
+//70=>'房源定价',
+//71=>'房源调价',
+//72=>'定租底价流程',
+//73=>'商家转意向',
+//74=>'商家转定租',
+//75=>'商家转签租',
+//76=>'定租转签租',
+//77=>'房源预留',
+//78=>'房源销控',
+//79=>'房源解控',
+//80=>'票据审核流程',
+//81=>'签租底价流程',
+//82=>'定租免租期流程',
+//83=>'意向转定租',
+//84=>'意向转签租',
+//85=>'签租免租期流程',
+//    const SALE_MESSAGE_BUSINESS_FOLLOW=86; //商业商家跟进消息类型
 
 @interface TaskVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -1060,6 +1096,288 @@
         cell.contentL.numberOfLines = 2;
         cell.dataDic = _dataArr[indexPath.row];
         return cell;
+#pragma mark -- 72 定租底价流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 72){
+              
+        StoreOrderMinPriceProcessCell *cell = [[StoreOrderMinPriceProcessCell alloc] init];
+        if (!cell) {
+            
+            cell = [[StoreOrderMinPriceProcessCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreOrderMinPriceProcessCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.storeOrderMinPriceProcessCellAuditBlock = ^(NSInteger index) {
+            
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"5";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                        
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 73 商家转意向 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 73){
+              
+        IntentStoreAuditCell *cell = [[IntentStoreAuditCell alloc] init];
+        if (!cell) {
+            
+            cell = [[IntentStoreAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"IntentStoreAuditCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.intentStoreAuditCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"4";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                        
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 74 商家转定租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 74){
+              
+        StoreOrderAuditCell *cell = [[StoreOrderAuditCell alloc] init];
+        if (!cell) {
+            
+            cell = [[StoreOrderAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreOrderAuditCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.storeOrderAuditCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"5";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                        
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 75 商家转签租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 75){
+              
+        StoreSignAuditCell *cell = [[StoreSignAuditCell alloc] init];
+        if (!cell) {
+            
+            cell = [[StoreSignAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreSignAuditCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.storeSignAuditCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"6";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 76 定租转签租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 76){
+              
+        StoreSignAuditCell *cell = [[StoreSignAuditCell alloc] init];
+        if (!cell) {
+            
+            cell = [[StoreSignAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreSignAuditCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.storeSignAuditCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"6";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 80 票据审核流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 80){
+              
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.hidden = YES;
+        return cell;
+#pragma mark -- 81 签租底价流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 81){
+              
+        StoreSignMinPriceProcessCell *cell = [[StoreSignMinPriceProcessCell alloc] init];
+        if (!cell) {
+            
+            cell = [[StoreSignMinPriceProcessCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreSignMinPriceProcessCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.storeSignMinPriceProcessCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"6";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                        
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 82 定租免租期流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 82){
+              
+        ShopFreePeriodChangeAuditCell *cell = [[ShopFreePeriodChangeAuditCell alloc] init];
+        if (!cell) {
+            
+            cell = [[ShopFreePeriodChangeAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShopFreePeriodChangeAuditCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.shopFreePeriodChangeAuditCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"5";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                        
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 83 意向转定租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 83){
+              
+        StoreOrderAuditCell *cell = [[StoreOrderAuditCell alloc] init];
+        if (!cell) {
+            
+            cell = [[StoreOrderAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreOrderAuditCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.storeOrderAuditCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"5";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                        
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 84 意向转签租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 84){
+              
+        StoreSignAuditCell *cell = [[StoreSignAuditCell alloc] init];
+        if (!cell) {
+            
+            cell = [[StoreSignAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreSignAuditCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.storeSignAuditCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"6";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 85 签租免租期流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 85){
+              
+        ShopFreePeriodChangeAuditCell *cell = [[ShopFreePeriodChangeAuditCell alloc] init];
+        if (!cell) {
+            
+            cell = [[ShopFreePeriodChangeAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShopFreePeriodChangeAuditCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.shopFreePeriodChangeAuditCellAuditBlock = ^(NSInteger index) {
+          
+            ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+            nextVC.status = @"6";
+            nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+            nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            nextVC.shopAuditTaskDetailVCBlock = ^{
+                        
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:nextVC animated:YES];
+        };
+        return cell;
+#pragma mark -- 86 商家跟进 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 86){
+              
+        StoreFollowCell *cell = [[StoreFollowCell alloc] init];
+        if (!cell) {
+            
+            cell = [[StoreFollowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StoreFollowCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        cell.storeFollowCellBlock = ^{
+            
+            AddStoreFollowRecordVC *vc = [[AddStoreFollowRecordVC alloc] init];
+            vc.followDic = [@{} mutableCopy];
+            vc.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+            vc.business_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"business_id"]];
+            vc.status = @"direct";
+            vc.addStoreFollowRecordVCBlock = ^{
+
+                [self RequestMethod];
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        };
+        return cell;
     }else{
 
         UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -1290,6 +1608,144 @@
             nextVC.tit = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"title"]];
         }
         [self.navigationController pushViewController:nextVC animated:YES];
+        
+#pragma mark -- 72 定租底价流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 72){
+                  
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"5";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+                    
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 73 商家转意向 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 72){
+                  
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"4";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"row_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+                    
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 74 商家转定租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 74){
+          
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"5";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+                    
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 75 商家转签租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 75){
+                  
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"6";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 76 定租转签租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 76){
+                  
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"6";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 80 票据审核流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 80){
+                  
+            
+#pragma mark -- 81 签租底价流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 81){
+                
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"6";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+                    
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 82 定租免租期流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 82){
+                  
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"5";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+                    
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 83 意向转定租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 83){
+                  
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"5";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"sub_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+                    
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 84 意向转签租 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 84){
+                  
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"6";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+            
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 85 签租免租期流程 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 85){
+                  
+        ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
+        nextVC.status = @"6";
+        nextVC.requestId = self->_dataArr[indexPath.row][@"contact_id"];
+        nextVC.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        nextVC.shopAuditTaskDetailVCBlock = ^{
+                    
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+#pragma mark -- 86 商家跟进 --
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 86){
+        
+        AddStoreFollowRecordVC *vc = [[AddStoreFollowRecordVC alloc] init];
+        vc.followDic = [@{} mutableCopy];
+        vc.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+        vc.business_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"business_id"]];
+        vc.status = @"direct";
+        vc.addStoreFollowRecordVCBlock = ^{
+
+            [self RequestMethod];
+        };
+        [self.navigationController pushViewController:vc animated:YES];
     }else{
         
         

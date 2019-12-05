@@ -38,15 +38,15 @@
         _readImg.image = IMAGE_WITH_NAME(@"");
     }
     _titleL.text = @"签租底价流程";
-    _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"client_name"]];
+    _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
-    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"batchInfo"]];
-    _intentNumL.text = [NSString stringWithFormat:@"签租铺号：%@",dataDic[@"row_code"]];
+    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"shop_name"]];
+    _intentNumL.text = [NSString stringWithFormat:@"签租铺号：%@",dataDic[@"shop_list"]];
     _firstUnitPriceL.text = [NSString stringWithFormat:@"首月租金单价：%@",dataDic[@"sincerity"]];
-    _consultantL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"sign_agent_name"]];
-    _intentCodeL.text = [NSString stringWithFormat:@"签租编号：%@",dataDic[@"row_code"]];
+    _consultantL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"agent_name"]];
+    _intentCodeL.text = [NSString stringWithFormat:@"签租编号：%@",dataDic[@"contact_id"]];
     _UnitMinPriceL.text = [NSString stringWithFormat:@"租金单价底价：%@",dataDic[@"row_code"]];
-    _totalL.text = [NSString stringWithFormat:@"合计总租金：%@",dataDic[@"row_code"]];
+    _totalL.text = [NSString stringWithFormat:@"合计总租金：%@",dataDic[@"total_rent"]];
 }
 
 - (void)setTitle:(NSString *)title{
@@ -253,7 +253,7 @@
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_intentNumL.mas_bottom).offset(8 *SIZE);
         make.width.mas_greaterThanOrEqualTo(150 *SIZE);
-        make.bottom.equalTo(self->_whiteView).offset(-18 *SIZE);
+        make.bottom.equalTo(self->_whiteView).offset(-28 *SIZE);
     }];
 
     [_auditBtn mas_makeConstraints:^(MASConstraintMaker *make) {

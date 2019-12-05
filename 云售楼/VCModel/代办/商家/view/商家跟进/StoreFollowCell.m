@@ -38,11 +38,11 @@
         _readImg.image = IMAGE_WITH_NAME(@"");
     }
     _titleL.text = @"商家跟进";
-    _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"name"]];
+    _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
-    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"level"]];
-    _formatL.text = [NSString stringWithFormat:@"业态：%@",dataDic[@"tel"]];
-    _timeL.text = [NSString stringWithFormat:@"上次跟进时间：%@",dataDic[@"extra_comment"]];
+    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"business_name"]];
+    _formatL.text = [NSString stringWithFormat:@"业态：%@",dataDic[@"format_name"]];
+    _timeL.text = [NSString stringWithFormat:@"上次跟进时间：%@",dataDic[@"follow_time"]];
 }
 
 - (void)initUI{
@@ -198,7 +198,7 @@
     [_line mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(7 *SIZE);
-        make.top.equalTo(self->_projectL.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self->_storeL.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(340 *SIZE);
         make.height.mas_equalTo(SIZE);
     }];

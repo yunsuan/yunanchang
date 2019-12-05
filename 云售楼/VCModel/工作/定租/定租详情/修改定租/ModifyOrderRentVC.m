@@ -758,7 +758,7 @@
                 [self showContent:@"请先选择房源"];
             }else{
                 
-                if (![self->_orderDic[@"rent_month_num"] length] || !self->_orderDic[@"start_time"]) {
+                if (![self->_orderDic[@"rent_month_num"] integerValue] || !self->_orderDic[@"start_time"]) {
                     
                     if (!self->_orderDic[@"start_time"]) {
                         
