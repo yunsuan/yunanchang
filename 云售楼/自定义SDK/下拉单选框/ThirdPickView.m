@@ -214,8 +214,6 @@
 //                                                          error:&err];
     _dataSource = data;
     [self getFirstArr];
-    [self getSecondArrByFirstArr:0];
-    [self getThirdArrBySecondArr:0];
     if (!self.firstArr.count) {
         
         self.firstStr = @"";
@@ -232,6 +230,7 @@
         self.secondId = @"0";
     }else{
         
+        [self getSecondArrByFirstArr:0];
         self.secondStr = self.secondArr[0][_unitName];
         self.secondId = self.secondArr[0][_unitId];
     }
@@ -242,6 +241,7 @@
         self.thirdId = @"0";
     }else{
     
+        [self getThirdArrBySecondArr:0];
         self.thirdStr = self.thirdArr[0][_unitName];
         self.thirdId = self.thirdArr[0][_unitId];
     }
@@ -352,8 +352,6 @@
 {
     if (component == 0) {//选择省
         self.selected = row;
-        [self getSecondArrByFirstArr:row];
-        [self getThirdArrBySecondArr:0];
 //        self.firstStr = self.firstArr[row][_unitName];
 //        self.firstId = self.firstArr[row][_unitId];
         
@@ -377,6 +375,8 @@
             self.secondStr = @"";
             self.secondId = @"0";
         }else{
+            
+            [self getSecondArrByFirstArr:row];
             self.secondStr = self.secondArr[0][_unitName];
             self.secondId = self.secondArr[0][_unitId];
         }
@@ -386,6 +386,8 @@
             self.thirdStr = @"";
             self.thirdId = @"0";
         }else{
+            
+            [self getThirdArrBySecondArr:0];
             self.thirdStr = self.thirdArr[0][_unitName];
             self.thirdId = self.thirdArr[0][_unitId];
         }
@@ -393,7 +395,7 @@
         
     }else if (component == 1){//选择市
         
-        [self getThirdArrBySecondArr:row];
+        
         [self.pickerView reloadComponent:2];
         [self.pickerView selectRow:0 inComponent:2 animated:YES];
 //        self.secondStr = self.secondArr[row][_unitName];
@@ -412,6 +414,8 @@
             self.thirdStr = @"";
             self.thirdId = @"0";
         }else{
+            
+            [self getThirdArrBySecondArr:row];
             self.thirdStr = self.thirdArr[0][_unitName];
             self.thirdId = self.thirdArr[0][_unitId];
         }
