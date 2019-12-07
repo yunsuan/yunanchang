@@ -1622,7 +1622,7 @@
         };
         [self.navigationController pushViewController:nextVC animated:YES];
 #pragma mark -- 73 商家转意向 --
-    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 72){
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 73){
                   
         ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
         nextVC.status = @"4";

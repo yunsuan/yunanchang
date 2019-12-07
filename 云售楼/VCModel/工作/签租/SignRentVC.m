@@ -210,7 +210,7 @@
     nextVC.project_id = _project_id;
     nextVC.info_id = _info_id;
     nextVC.powerDic = self.powerDic;
-//    nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
+    nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
 //    nextVC.projectName = self.projectName;
 //    nextVC.orderDetailVCBlock = ^{
 //

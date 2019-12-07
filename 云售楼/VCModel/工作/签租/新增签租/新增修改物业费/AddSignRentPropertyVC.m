@@ -128,6 +128,17 @@
     }
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    if (_periodTF.textField.text.length && _unitTF.textField.text.length) {
+        
+        _originL.text = [NSString stringWithFormat:@"计算金额：%.2f元",[self MultiplyingNumber:[_periodTF.textField.text doubleValue] num2:[self MultiplyingNumber:[_unitTF.textField.text doubleValue] num2:self.area]]];
+    }else{
+        
+        _originL.text = @"计算金额：";
+    }
+}
+
 - (void)ActionNextBtn:(UIButton *)btn{
     
     if (!_timeBtn.content.text) {
@@ -173,6 +184,7 @@
     [tempDic setValue:_remindBtn.content.text forKey:@"remind_time"];
     [tempDic setValue:self.config forKey:@"config_id"];
     [tempDic setValue:@"物业费" forKey:@"config_name"];
+    [tempDic setValue:@"1" forKey:@"quantity"];
     [tempDic setValue:[NSString stringWithFormat:@"%@",_unitTF.textField.text] forKey:@"unit_cost"];
     if ([self.status isEqualToString:@"add"]) {
         
@@ -199,7 +211,7 @@
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
     
-    NSArray *titleArr = @[@"计价起止时间：",@"本期时长：",@"计算金额：",@"实际金额：",@"备注：",@"交款时间：",@"单价：",@"提醒时间："];
+    NSArray *titleArr = @[@"计价开始时间：",@"本期时长(月)：",@"计算金额：",@"实际金额：",@"备注：",@"交款时间：",@"单价：",@"提醒时间："];
     
     for (int i = 0; i < 7; i++) {
         
@@ -218,7 +230,7 @@
             _timeL = label;
             [_scrollView addSubview:_timeL];
             
-            _timeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 120 *SIZE, 33 *SIZE)];
+            _timeBtn = [[DropBtn alloc] initWithFrame:tf.frame];
             [_timeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             _timeBtn.tag = 0;
             if (self.dataDic.count) {

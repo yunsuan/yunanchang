@@ -81,12 +81,12 @@
     double money = 0;
     for (int i = 0; i < self->_dataArr.count; i++) {
 
-        money = [self AddNumber:money num2:[self->_dataArr[i][@"total_rent"] doubleValue]];
+       money = [self DecimalNumber:[self AddNumber:money num2:[self->_dataArr[i][@"total_rent"] doubleValue]] num2:[self->_dataArr[i][@"free_rent"] doubleValue]];
     }
     NSInteger day = 0;
     for (int i = 0; i < self->_dataArr.count; i++) {
         
-        day = day + [self getDayFromDate:[self->_formatter dateFromString:@"free_start_time"] withDate2:[self->_formatter dateFromString:@"free_end_time"]];
+        day = day + [self getDayFromDate:[self->_formatter dateFromString:self->_dataArr[i][@"free_start_time"]] withDate2:[self->_formatter dateFromString:self->_dataArr[i][@"free_end_time"]]];
     }
     header.titleL.text = [NSString stringWithFormat:@"合计总实付金额：%.2f元\n合计免租天数：%ld天",money,(long)day];
     [header.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {

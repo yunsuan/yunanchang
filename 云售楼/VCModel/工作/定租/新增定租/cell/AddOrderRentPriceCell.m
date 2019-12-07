@@ -48,7 +48,16 @@
             money = [self DecimalNumber:[self AddNumber:money num2:[dataArr[i][@"total_rent"] doubleValue]] num2:[dataArr[i][@"free_rent"] doubleValue]];
         }
         
-        _totalL.text = [NSString stringWithFormat:@"合计总实付金额：%.2f元",money];
+        NSInteger day = 0;
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"YYYY-MM-dd"];
+        for (int i = 0; i < dataArr.count; i++) {
+            
+            day = day + [self getDayFromDate:[formatter dateFromString:dataArr[i][@"free_start_time"]] withDate2:[formatter dateFromString:dataArr[i][@"free_end_time"]]];
+        }
+        
+        _totalL.text = [NSString stringWithFormat:@"合计总实付金额：%.2f元\n合计免租天数：%ld天",money,(long)day];
         _addBtn.hidden = YES;
         _editBtn.hidden = NO;
     }else{
@@ -205,6 +214,33 @@
   NSDecimalNumber *num = [n1 decimalNumberBySubtracting:n2 withBehavior:handler];
   NSLog(@"num===%@",num);
   return num.doubleValue;
+}
+
+- (NSInteger)getDayFromDate:(NSDate *)date1 withDate2:(NSDate *)date2{
+    
+    //创建两个日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+
+    //利用NSCalendar比较日期的差异
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    /**
+     * 要比较的时间单位,常用如下,可以同时传：
+     *    NSCalendarUnitDay : 天
+     *    NSCalendarUnitYear : 年
+     *    NSCalendarUnitMonth : 月
+     *    NSCalendarUnitHour : 时
+     *    NSCalendarUnitMinute : 分
+     *    NSCalendarUnitSecond : 秒
+     */
+    NSCalendarUnit unit = NSCalendarUnitDay;//只比较天数差异
+    //比较的结果是NSDateComponents类对象
+    NSDateComponents *delta = [calendar components:unit fromDate:date1 toDate:date2 options:0];
+    //打印
+    NSLog(@"%@",delta);
+    //获取其中的"天"
+//    NSLog(@"%ld",delta.day);
+    return delta.day;
 }
 
 @end

@@ -120,7 +120,7 @@
     
     UIAlertAction *order = [UIAlertAction actionWithTitle:@"转定租" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-//        if ([self->_dataDic[@"receive_state"] integerValue] == 1) {
+//        if ([self->_storeDic[@"receive_state"] integerValue] == 1) {
 
         AddOrderRentVC *nextVC = [[AddOrderRentVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
             nextVC.from_type = @"2";
@@ -131,7 +131,7 @@
             };
             [self.navigationController pushViewController:nextVC animated:YES];
 //        }else{
-    //
+//    
 //            [self showContent:@"未收款不能转定单"];
 //        }
     }];
@@ -439,14 +439,14 @@
     [self.leftButton setImage:[UIImage imageNamed:@"leftarrow_white"] forState:UIControlStateNormal];
     
     
-//    if ([self.powerDic[@"giveUp"] boolValue] || [self.powerDic[@"visit"] boolValue]) {
-//
+    if ([self.powerDic[@"contract"] boolValue] || [self.powerDic[@"row"] boolValue] || [self.powerDic[@"contract"] boolValue] || [self.powerDic[@"update"] boolValue]) {
+
         self.rightBtn.hidden = NO;
-//    }else{
-//
-//        self.rightBtn.hidden = YES;
-//    }
-//
+    }else{
+
+        self.rightBtn.hidden = YES;
+    }
+
     [self.rightBtn addTarget:self action:@selector(ActionRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightBtn setImage:IMAGE_WITH_NAME(@"add_2") forState:UIControlStateNormal];
     self.line.hidden = YES;

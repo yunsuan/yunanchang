@@ -171,6 +171,18 @@
         
         [_powerArr replaceObjectAtIndex:10 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"business"][@"today"],data[@"business"][@"total"],data[@"business"][@"wait"]]];
     }
+    if ([_showArr[11] integerValue]) {
+        
+        [_powerArr replaceObjectAtIndex:11 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@",data[@"trade_row"][@"today"],data[@"trade_row"][@"total"]]];
+    }
+    if ([_showArr[12] integerValue]) {
+        
+        [_powerArr replaceObjectAtIndex:12 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"trade_sub"][@"today"],data[@"trade_sub"][@"total"],data[@"trade_sub"][@"wait"]]];
+    }
+    if ([_showArr[13] integerValue]) {
+        
+        [_powerArr replaceObjectAtIndex:13 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"trade_contact"][@"today"],data[@"trade_contact"][@"total"],data[@"trade_contact"][@"wait"]]];
+    }
     [_table reloadData];
 }
 
@@ -315,18 +327,18 @@
     }else if (indexPath.row == 11){
         
         IntentStoreVC *nextVC = [[IntentStoreVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
-        nextVC.powerDic = [PowerModel defaultModel].storePower;
+        nextVC.powerDic = [PowerModel defaultModel].intentStorePower;
         nextVC.projectName = [UserModel defaultModel].projectinfo[@"project_name"];
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 12){
         
         OrderRentVC *nextVC = [[OrderRentVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
-        nextVC.powerDic = [PowerModel defaultModel].storePower;
+        nextVC.powerDic = [PowerModel defaultModel].orderStorePower;
         [self.navigationController pushViewController:nextVC animated:YES];
     }else if (indexPath.row == 13){
         
         SignRentVC *nextVC = [[SignRentVC alloc] initWithProjectId:[UserModel defaultModel].projectinfo[@"project_id"] info_id:[UserModel defaultModel].projectinfo[@"info_id"]];
-        nextVC.powerDic = [PowerModel defaultModel].storePower;
+        nextVC.powerDic = [PowerModel defaultModel].signStorePower;
         [self.navigationController pushViewController:nextVC animated:YES];
     }else{
         

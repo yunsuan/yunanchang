@@ -33,7 +33,7 @@
 
 //初始化工作列表权限
 +(void)GetWorkListPowerWithdata:(NSDictionary *)datadic{
-    NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@1,@1,@1,@0] mutableCopy];
+    NSMutableArray * WorkListPower =[@[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0] mutableCopy];
     if (datadic) {
         
 //        [WorkListPower replaceObjectAtIndex:10 withObject:@1];
@@ -52,14 +52,35 @@
             
             if ([datadic[@"trade_app_operate"] isKindOfClass:[NSArray class]]) {
                 
-                if ([datadic[@"trade_app_operate"] count]) {
+                for (int i = 0; i < [datadic[@"trade_app_operate"] count]; i++) {
                     
-                    if ([datadic[@"trade_app_operate"][0] isKindOfClass:[NSDictionary class]]) {
+                    if ([datadic[@"trade_app_operate"][i][@"type"] isEqualToString:@"商家信息"]) {
                         
-                        if ([datadic[@"trade_app_operate"][0][@"detail"] integerValue] == 1) {
-                            
-                            [PowerModel defaultModel].storePower = [datadic[@"trade_app_operate"][0] copy];
+                        if ([datadic[@"trade_app_operate"][i][@"detail"] integerValue] == 1) {
+
+                            [PowerModel defaultModel].storePower = [datadic[@"trade_app_operate"][i] copy];
                             [WorkListPower replaceObjectAtIndex:10 withObject:@1];
+                        }
+                    }else if ([datadic[@"trade_app_operate"][i][@"type"] isEqualToString:@"意向商家"]){
+                        
+                        if ([datadic[@"trade_app_operate"][i][@"detail"] integerValue] == 1) {
+
+                            [PowerModel defaultModel].intentStorePower = [datadic[@"trade_app_operate"][i] copy];
+                            [WorkListPower replaceObjectAtIndex:11 withObject:@1];
+                        }
+                    }else if ([datadic[@"trade_app_operate"][i][@"type"] isEqualToString:@"定租商家"]){
+                        
+                        if ([datadic[@"trade_app_operate"][i][@"detail"] integerValue] == 1) {
+
+                            [PowerModel defaultModel].orderStorePower = [datadic[@"trade_app_operate"][i] copy];
+                            [WorkListPower replaceObjectAtIndex:12 withObject:@1];
+                        }
+                    }else if ([datadic[@"trade_app_operate"][i][@"type"] isEqualToString:@"签租商家"]){
+                        
+                        if ([datadic[@"trade_app_operate"][i][@"detail"] integerValue] == 1) {
+
+                            [PowerModel defaultModel].signStorePower = [datadic[@"trade_app_operate"][i] copy];
+                            [WorkListPower replaceObjectAtIndex:13 withObject:@1];
                         }
                     }
                 }

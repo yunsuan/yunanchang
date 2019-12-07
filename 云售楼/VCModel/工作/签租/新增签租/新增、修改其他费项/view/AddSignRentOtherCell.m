@@ -34,7 +34,14 @@
     _nameL.text = [NSString stringWithFormat:@"费项名称：%@",dataDic[@"name"]];
     _typeL.text = [NSString stringWithFormat:@"费项类别：%@",dataDic[@"config_name"]];
     _totalL.text = [NSString stringWithFormat:@"费项金额：%@元",dataDic[@"total_cost"]];
-    _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
+    if (dataDic[@"comment"] && ![dataDic[@"comment"] isKindOfClass:[NSNull class]]) {
+        
+        _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];
+    }else{
+        
+        _markL.text = [NSString stringWithFormat:@"备注："];
+    }
+    
     _payTimeL.text = [NSString stringWithFormat:@"交款时间：%@",dataDic[@"pay_time"]];
     _remindL.text = [NSString stringWithFormat:@"提醒时间：%@",dataDic[@"remind_time"]];
 }

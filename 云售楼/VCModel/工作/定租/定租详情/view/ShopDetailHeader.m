@@ -47,6 +47,7 @@
 //    }
 //    _statusL.text = @"排号";
     switch ([dataDic[@"disabled_state"] integerValue]) {
+     
         case 0:
         {
             _statusL.text = @"有效";
@@ -64,21 +65,25 @@
         }
         case 3:
         {
-            _statusL.text = @"转定租";
+            _statusL.text = @"意向";
             break;
         }
         case 4:
         {
-            _statusL.text = @"转签租";
+            _statusL.text = @"转定租";
             break;
         }
         case 5:
         {
-            _statusL.text = @"退租";
+            _statusL.text = @"转签租";
+            break;
+        }
+        case 6:
+        {
+            _statusL.text = @"退号";
             break;
         }
         default:
-            _statusL.text = @"有效";
             break;
     }
     switch ([dataDic[@"check_state"] integerValue]) {
@@ -146,6 +151,7 @@
 //    }
 //    _statusL.text = @"排号";
     switch ([signDic[@"disabled_state"] integerValue]) {
+     
         case 0:
         {
             _statusL.text = @"有效";
@@ -163,21 +169,25 @@
         }
         case 3:
         {
-            _statusL.text = @"转定租";
+            _statusL.text = @"意向";
             break;
         }
         case 4:
         {
-            _statusL.text = @"转签租";
+            _statusL.text = @"转定租";
             break;
         }
         case 5:
         {
-            _statusL.text = @"退租";
+            _statusL.text = @"转签租";
+            break;
+        }
+        case 6:
+        {
+            _statusL.text = @"退号";
             break;
         }
         default:
-            _statusL.text = @"有效";
             break;
     }
     switch ([signDic[@"check_state"] integerValue]) {
@@ -239,6 +249,7 @@
     [_coll reloadData];
     
     switch ([storeIntentDic[@"disabled_state"] integerValue]) {
+     
         case 0:
         {
             _statusL.text = @"有效";
@@ -256,21 +267,25 @@
         }
         case 3:
         {
-            _statusL.text = @"转定租";
+            _statusL.text = @"意向";
             break;
         }
         case 4:
         {
-            _statusL.text = @"转签租";
+            _statusL.text = @"转定租";
             break;
         }
         case 5:
         {
-            _statusL.text = @"退租";
+            _statusL.text = @"转签租";
+            break;
+        }
+        case 6:
+        {
+            _statusL.text = @"退号";
             break;
         }
         default:
-            _statusL.text = @"有效";
             break;
     }
     switch ([storeIntentDic[@"check_state"] integerValue]) {

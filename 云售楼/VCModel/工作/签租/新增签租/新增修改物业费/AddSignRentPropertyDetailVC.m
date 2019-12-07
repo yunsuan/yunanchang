@@ -81,6 +81,7 @@
         AddSignRentPropertyVC *nextVC = [[AddSignRentPropertyVC alloc] init];
         nextVC.dataDic = self->_dataArr[indexPath.row];
         nextVC.config = self.config;
+        nextVC.area = self.area;
         nextVC.addSignRentPropertyVCBlock = ^(NSDictionary * _Nonnull dic) {
           
             [self->_dataArr replaceObjectAtIndex:idx withObject:dic];

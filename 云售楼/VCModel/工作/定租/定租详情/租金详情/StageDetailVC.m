@@ -60,7 +60,14 @@
     NSInteger day = 0;
     for (int i = 0; i < self->_dataArr.count; i++) {
         
-        day = day + [self getDayFromDate:[self->_formatter dateFromString:@"free_start_time"] withDate2:[self->_formatter dateFromString:@"free_end_time"]];
+        if (self->_dataArr[i][@"free_start_time"] && ![self->_dataArr[i][@"free_start_time"] isKindOfClass:[NSNull class]]) {
+            
+            if (self->_dataArr[i][@"free_end_time"] && ![self->_dataArr[i][@"free_end_time"] isKindOfClass:[NSNull class]]) {
+                
+                day = day + [self getDayFromDate:[self->_formatter dateFromString:self->_dataArr[i][@"free_start_time"]] withDate2:[self->_formatter dateFromString:self->_dataArr[i][@"free_end_time"]]];
+            }
+        }
+        
     }
     header.titleL.text = [NSString stringWithFormat:@"合计总实付金额：%.2f元\n合计免租天数：%ld天",money,(long)day];
     [header.lineView mas_remakeConstraints:^(MASConstraintMaker *make) {

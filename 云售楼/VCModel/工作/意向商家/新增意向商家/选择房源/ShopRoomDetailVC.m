@@ -502,7 +502,7 @@
     [_tanchuanView addSubview:blueview1];
     UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 96*SIZE, 200*SIZE, 16*SIZE)];
     lab1.font = FONT(13);
-    lab1.text = [NSString stringWithFormat:@"房号:%@",_fjxx[@"house_name"]];
+    lab1.text = [NSString stringWithFormat:@"房号:%@",_fjxx[@"name"]];
     lab1.textColor = CLTitleLabColor;
     [_tanchuanView addSubview:lab1];
     
@@ -523,19 +523,20 @@
     
     UILabel *contentlab1 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 171*SIZE, 200*SIZE, 16*SIZE)];
     contentlab1.font = FONT(12);
-    contentlab1.text = [NSString stringWithFormat:@"计价规则:  %@",_fjxx[@"price_way"]];
+//    contentlab1.text = [NSString stringWithFormat:@"计价规则:  %@",_fjxx[@"price_way"]];
     contentlab1.textColor = CLContentLabColor;
     [_tanchuanView addSubview:contentlab1];
     
     UILabel *contentlab2 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 198*SIZE, 200*SIZE, 16*SIZE)];
     contentlab2.font = FONT(12);
-    contentlab2.text = [NSString stringWithFormat:@"单价:  %@",_fjxx[@"criterion_unit_price"]];
+    NSString *unit = [NSString stringWithFormat:@"%.2f",[_fjxx[@"total_rent"] doubleValue] / [_fjxx[@"build_size"] doubleValue]];
+    contentlab2.text = [NSString stringWithFormat:@"单价:  %@元/㎡/月",unit];
     contentlab2.textColor = CLContentLabColor;
     [_tanchuanView addSubview:contentlab2];
     
     UILabel *contentlab3 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 224*SIZE, 200*SIZE, 16*SIZE)];
     contentlab3.font = FONT(12);
-    contentlab3.text = [NSString stringWithFormat:@"总价:  %@",_fjxx[@"total_price"]];
+    contentlab3.text = [NSString stringWithFormat:@"总价:  %@元/月",_fjxx[@"total_rent"]];
     contentlab3.textColor = CLContentLabColor;
     [_tanchuanView addSubview:contentlab3];
     
@@ -551,7 +552,7 @@
     lab3.font = FONT(13);
     lab3.text = [NSString stringWithFormat:@"物业:%@",_fjxx[@"property_type"]];
     lab3.textColor = CLTitleLabColor;
-    [_tanchuanView addSubview:lab3];
+//    [_tanchuanView addSubview:lab3];
     NSArray *detail = _fjxx[@"propertyDetail"];
     for (int i= 0; i<detail.count; i++) {
         UILabel *contentlab = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 309*SIZE+27*SIZE*i, 200*SIZE, 16*SIZE)];
@@ -645,6 +646,7 @@
         }
         else{
 
+            
         }
     } failure:^(NSError * _Nonnull error) {
         [self showContent:@"网络错误"];

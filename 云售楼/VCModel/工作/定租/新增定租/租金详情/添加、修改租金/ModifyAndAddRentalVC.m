@@ -188,14 +188,14 @@
         
         [tempDic setValue:_timeBtn.content.text forKey:@"free_start_time"];
     }
-    if (_freeBeginBtn.content.text) {
+    if (_freeEndBtn.content.text) {
         
-        [tempDic setValue:_freeBeginBtn.content.text forKey:@"free_end_time"];
+        [tempDic setValue:_freeEndBtn.content.text forKey:@"free_end_time"];
     }else{
         
         [tempDic setValue:_timeBtn.content.text forKey:@"free_end_time"];
     }
-    [tempDic setValue:[NSString stringWithFormat:@"%ld",[self getMonthFromDate:[_formatter2 dateFromString:tempDic[@"free_start_time"]] withDate2:[_formatter2 dateFromString:tempDic[@"free_end_time"]]]] forKey:@"free_month_num"];
+    [tempDic setValue:[NSString stringWithFormat:@"%ld",[self getMonthFromDate:[_formatter2 dateFromString:tempDic[@"free_start_time"]] withDate2:[_formatter2 dateFromString:tempDic[@"free_end_time"]]] + 1] forKey:@"free_month_num"];
 
     if (_freeTF.textField.text.length) {
         
@@ -235,6 +235,16 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
     if (textField == _periodTF.textField) {
+        
+        if (_totalTF.textField.text.length && _periodTF.textField.text) {
+            
+            _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue] / self.area;
+        }else{
+            
+            _unit = 0;
+        }
+        _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
+    }else if (textField == _totalTF.textField){
         
         if (_totalTF.textField.text.length && _periodTF.textField.text) {
             

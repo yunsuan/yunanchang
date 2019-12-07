@@ -721,7 +721,13 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@%@",_roomArr[indexPath.row ][@"build_name"],_roomArr[indexPath.row][@"unit_name"],_roomArr[indexPath.row][@"name"]];
+            if (![_roomArr[indexPath.row][@"unit_name"] isKindOfClass:[NSNull class]] && _roomArr[indexPath.row][@"unit_name"]) {
+                
+                cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@%@",_roomArr[indexPath.row ][@"build_name"],_roomArr[indexPath.row][@"unit_name"],_roomArr[indexPath.row][@"name"]];
+            }else{
+                
+                cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@",_roomArr[indexPath.row ][@"build_name"],_roomArr[indexPath.row][@"name"]];
+            }
             cell.areaL.text = [NSString stringWithFormat:@"面积：%@㎡",_roomArr[indexPath.row][@"build_size"]];
             cell.priceL.text = [NSString stringWithFormat:@"租金：%@元/月/㎡",_roomArr[indexPath.row][@"total_rent"]];
             
@@ -1023,7 +1029,7 @@
                             
                             NSString *unit = @"0";
                             
-                            double total = [self MultiplyingNumber:[str doubleValue] num2:([self->_orderDic[@"rent_month_num"] doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+//                            double total = [self MultiplyingNumber:[str doubleValue] num2:([self->_orderDic[@"rent_month_num"] doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
                             double area = 0;
                             for (int i = 0; i < self->_roomArr.count; i++) {
                                 
@@ -1031,10 +1037,10 @@
                             }
                             if (area > 0) {
                                 
-                                unit = [NSString stringWithFormat:@"%.2f",total / area];
+                                unit = [NSString stringWithFormat:@"%.2f",[str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue] / area];
                             }else{
                                 
-                                unit = [NSString stringWithFormat:@"%.2f",total];
+                                unit = [NSString stringWithFormat:@"%.2f",[str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue]];
                             }
                             NSString *date;
                             NSString *endDate;
@@ -1056,7 +1062,9 @@
                                     endDate = resultDate;
                                 }
                                 
-                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":self->_orderDic[@"pay_way2"],@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
+                                NSString *stateNum = [NSString stringWithFormat:@"%ld",[self getMonthFromDate:[formatter dateFromString:date] withDate2:[formatter dateFromString:endDate]] + 1];
+                                
+                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
                             }
                             [tableView reloadData];
                             [self ProgreesMethod];
@@ -1103,8 +1111,14 @@
         
         cell.addOrderRentPriceCellBlock = ^{
           
+            double area = 0;
+            for (int i = 0; i < self->_roomArr.count; i++) {
+                
+                area = area + [self->_roomArr[i][@"build_size"] doubleValue];
+            }
             AddSignRentPropertyDetailVC *nextVC = [[AddSignRentPropertyDetailVC alloc] initWithDataArr:self->_propertyArr];
             nextVC.config = self->_propertyArr[0][@"config_id"];
+            nextVC.area = area;
             nextVC.addSignRentPropertyDetailVCBlock = ^(NSArray * _Nonnull arr) {
                 
                 self->_propertyArr = [NSMutableArray arrayWithArray:arr];
@@ -1180,11 +1194,12 @@
                             NSInteger month = [self getMonthFromDate:[formatter dateFromString:date] withDate2:[formatter dateFromString:endDate]];
                             double total = [self MultiplyingNumber:[self MultiplyingNumber:[unit doubleValue] num2:area] num2:month];
                             
-                            [self->_propertyArr addObject:@{@"unit_cost":unit,@"total_cost":[NSString stringWithFormat:@"%.2f",total],@"config_id":config,@"comment":@" ",@"cost_num":self->_orderDic[@"pay_way2"],@"cost_start_time":date,@"cost_end_time":endDate,@"pay_time":date,@"remind_time":date}];
+                            [self->_propertyArr addObject:@{@"unit_cost":unit,@"total_cost":[NSString stringWithFormat:@"%.2f",total],@"config_id":config,@"comment":@" ",@"cost_num":self->_orderDic[@"pay_way2"],@"cost_start_time":date,@"cost_end_time":endDate,@"pay_time":date,@"remind_time":date,@"quantity":@"1",@"name":@"物业费",@"config_name":@"物业费"}];
                         }
                         [tableView reloadData];
                         AddSignRentPropertyDetailVC *nextVC = [[AddSignRentPropertyDetailVC alloc] initWithDataArr:self->_propertyArr];
                         nextVC.config = config;
+                        nextVC.area = area;
                         nextVC.addSignRentPropertyDetailVCBlock = ^(NSArray * _Nonnull arr) {
                           
                             self->_propertyArr = [NSMutableArray arrayWithArray:arr];

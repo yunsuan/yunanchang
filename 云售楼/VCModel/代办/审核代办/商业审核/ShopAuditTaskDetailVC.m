@@ -8,6 +8,10 @@
 
 #import "ShopAuditTaskDetailVC.h"
 
+#import "SignRentDetailVC.h"
+#import "OrderRentDetailVC.h"
+#import "IntentStoreDetailVC.h"
+
 #import "RoomHeader.h"
 #import "AuditTaskDetailCollCell.h"
 
@@ -36,6 +40,8 @@
 @property (nonatomic, strong) UILabel *applicantL;
 
 @property (nonatomic, strong) UILabel *applicantTimeL;
+
+@property (nonatomic, strong) UIButton *clickBtn;
 
 //@property (nonatomic, strong) BaseHeader *header;
 
@@ -74,6 +80,7 @@
 - (void)initDataSource{
     
 //    _isFinal = @"1";
+    
     _dataArr = [@[] mutableCopy];
     _roleArr = [@[] mutableCopy];
 }
@@ -97,7 +104,7 @@
             [self->_coll mas_remakeConstraints:^(MASConstraintMaker *make) {
                 
                 make.left.equalTo(self->_scroll).offset(0);
-                make.top.equalTo(self->_applicantTimeL.mas_bottom).offset(10 *SIZE);
+                make.top.equalTo(self->_clickBtn.mas_bottom).offset(10 *SIZE);
                 make.width.mas_equalTo(SCREEN_Width);
                 make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
             }];
@@ -142,6 +149,40 @@
         [self showContent:@"网络错误"];
         
     }];
+}
+
+- (void)ActionClickBtn:(UIButton *)btn{
+    
+    if ([self.status integerValue] == 4) {
+        
+        IntentStoreDetailVC *nextVC = [[IntentStoreDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",self.requestId]];
+//        nextVC.project_id = _project_id;
+//        nextVC.info_id = _info_id;
+//        nextVC.powerDic = self.powerDic;
+//        nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
+//        nextVC.projectName = self.projectName;
+//        nextVC.intentStoreDetailVCBlock = ^{
+//
+//            [self RequestMethod];
+//        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([self.status integerValue] == 5){
+        
+        OrderRentDetailVC *nextVC = [[OrderRentDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",self.requestId]];
+//        nextVC.project_id = _project_id;
+//        nextVC.info_id = _info_id;
+//        nextVC.powerDic = self.powerDic;
+//        nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if ([self.status integerValue] == 6){
+        
+        SignRentDetailVC *nextVC = [[SignRentDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",self.requestId]];
+//        nextVC.project_id = _project_id;
+//        nextVC.info_id = _info_id;
+//        nextVC.powerDic = self.powerDic;
+//        nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }
 }
 
 - (void)ActionTagBtn:(UIButton *)btn{
@@ -392,6 +433,23 @@
 //    _header.titleL.text = @"审核";
 //    [_scroll addSubview:_header];
     
+    _clickBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_clickBtn addTarget:self action:@selector(ActionClickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_clickBtn setTitleColor:CLBlueBtnColor forState:UIControlStateNormal];
+    _clickBtn.titleLabel.font = FONT(13 *SIZE);
+    [_scroll addSubview:_clickBtn];
+    
+    if ([self.status integerValue] == 4) {
+        
+        [_clickBtn setTitle:@"查看意向信息" forState:UIControlStateNormal];
+    }else if ([self.status integerValue] == 5){
+        
+        [_clickBtn setTitle:@"查看定租信息" forState:UIControlStateNormal];
+    }else if ([self.status integerValue] == 6){
+        
+        [_clickBtn setTitle:@"查看签租信息" forState:UIControlStateNormal];
+    }
+    
     _layout = [[GZQFlowLayout alloc] initWithType:AlignWithLeft betweenOfCell:5 *SIZE];
     _layout.itemSize = CGSizeMake(SCREEN_Width, 150 *SIZE);
     
@@ -497,6 +555,14 @@
         make.right.equalTo(self->_scroll).offset(-10 *SIZE);
     }];
     
+    [_clickBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scroll).offset(10 *SIZE);
+        make.top.equalTo(self->_applicantTimeL.mas_bottom).offset(10 *SIZE);
+        make.width.mas_equalTo(100 *SIZE);
+        make.height.mas_equalTo(20 *SIZE);
+    }];
+    
 //    [_header mas_remakeConstraints:^(MASConstraintMaker *make) {
 //
 //        make.left.equalTo(self->_scroll).offset(0 *SIZE);
@@ -509,7 +575,7 @@
     [_coll mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self->_scroll).offset(0);
-        make.top.equalTo(self->_applicantTimeL.mas_bottom).offset(10 *SIZE);
+        make.top.equalTo(self->_clickBtn.mas_bottom).offset(10 *SIZE);
         make.width.mas_equalTo(SCREEN_Width);
         make.height.mas_equalTo(self->_coll.collectionViewLayout.collectionViewContentSize.height);
     }];

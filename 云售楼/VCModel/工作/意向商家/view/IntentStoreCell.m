@@ -122,15 +122,20 @@
         }
         case 3:
         {
-            _statusL.text = @"定租";
+            _statusL.text = @"意向";
             break;
         }
         case 4:
         {
-            _statusL.text = @"转签租";
+            _statusL.text = @"转定租";
             break;
         }
         case 5:
+        {
+            _statusL.text = @"转签租";
+            break;
+        }
+        case 6:
         {
             _statusL.text = @"退号";
             break;
@@ -261,15 +266,20 @@
         }
         case 3:
         {
-            _statusL.text = @"定租";
+            _statusL.text = @"意向";
             break;
         }
         case 4:
         {
-            _statusL.text = @"转签租";
+            _statusL.text = @"转定租";
             break;
         }
         case 5:
+        {
+            _statusL.text = @"转签租";
+            break;
+        }
+        case 6:
         {
             _statusL.text = @"退号";
             break;
@@ -400,15 +410,20 @@
         }
         case 3:
         {
-            _statusL.text = @"定租";
+            _statusL.text = @"意向";
             break;
         }
         case 4:
         {
-            _statusL.text = @"转签租";
+            _statusL.text = @"转定租";
             break;
         }
         case 5:
+        {
+            _statusL.text = @"转签租";
+            break;
+        }
+        case 6:
         {
             _statusL.text = @"退号";
             break;

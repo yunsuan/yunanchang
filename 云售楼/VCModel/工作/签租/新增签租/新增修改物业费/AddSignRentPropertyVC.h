@@ -20,6 +20,8 @@ typedef void(^AddSignRentPropertyVCBlock)(NSDictionary *dic);
 
 @property (nonatomic, strong) NSString *config;
 
+@property (nonatomic, assign) double area;
+
 @property (nonatomic, strong) NSDictionary *dataDic;
 
 @end

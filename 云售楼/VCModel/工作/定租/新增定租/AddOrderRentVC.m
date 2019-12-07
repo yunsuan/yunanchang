@@ -138,7 +138,7 @@
     if (self.dataDic) {
         
         _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_detail_list"]];
-        _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
+        _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"business_id"]]}]];
         if (![self->_orderDic[@"down_pay"] length]) {
         
             if (_roomArr.count) {
@@ -726,7 +726,13 @@
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@%@",_roomArr[indexPath.row ][@"build_name"],_roomArr[indexPath.row][@"unit_name"],_roomArr[indexPath.row][@"name"]];
+            if (![_roomArr[indexPath.row][@"unit_name"] isKindOfClass:[NSNull class]] && _roomArr[indexPath.row][@"unit_name"]) {
+                
+                cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@%@",_roomArr[indexPath.row ][@"build_name"],_roomArr[indexPath.row][@"unit_name"],_roomArr[indexPath.row][@"name"]];
+            }else{
+                
+                cell.roomL.text = [NSString stringWithFormat:@"房间：%@%@",_roomArr[indexPath.row ][@"build_name"],_roomArr[indexPath.row][@"name"]];
+            }
             cell.areaL.text = [NSString stringWithFormat:@"面积：%@㎡",_roomArr[indexPath.row][@"build_size"]];
             cell.priceL.text = [NSString stringWithFormat:@"租金：%@元/月/㎡",_roomArr[indexPath.row][@"total_rent"]];
             
@@ -995,7 +1001,7 @@
                             
                             NSString *unit = @"0";
                             
-                            double total = [self MultiplyingNumber:[str doubleValue] num2:([self->_orderDic[@"rent_month_num"] doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+//                            double total = [self MultiplyingNumber:[str doubleValue] num2:([self->_orderDic[@"rent_month_num"] doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
                             double area = 0;
                             for (int i = 0; i < self->_roomArr.count; i++) {
                                 
@@ -1003,10 +1009,10 @@
                             }
                             if (area > 0) {
                                 
-                                unit = [NSString stringWithFormat:@"%.2f",total / area];
+                                unit = [NSString stringWithFormat:@"%.2f",[str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue] / area];
                             }else{
                                 
-                                unit = [NSString stringWithFormat:@"%.2f",total];
+                                unit = [NSString stringWithFormat:@"%.2f",[str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue]];
                             }
                             NSString *date;
                             NSString *endDate;
@@ -1027,7 +1033,7 @@
                                     
                                     endDate = resultDate;
                                 }
-                                NSString *stateNum = [NSString stringWithFormat:@"%ld",[self getMonthFromDate:[formatter dateFromString:date] withDate2:[formatter dateFromString:endDate]]];
+                                NSString *stateNum = [NSString stringWithFormat:@"%ld",[self getMonthFromDate:[formatter dateFromString:date] withDate2:[formatter dateFromString:endDate]] + 1];
                                 
                                 [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
                             }

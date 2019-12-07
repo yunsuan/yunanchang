@@ -24,7 +24,14 @@
 - (void)setDataDic:(NSMutableDictionary *)dataDic{
     
     _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@至%@",dataDic[@"stage_start_time"],dataDic[@"stage_end_time"]];
-    _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@至%@",dataDic[@"free_start_time"],dataDic[@"free_end_time"]];
+    if (dataDic[@"free_start_time"] && ![dataDic[@"free_start_time"] isKindOfClass:[NSNull class]]) {
+        
+        _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@至%@",dataDic[@"free_start_time"],dataDic[@"free_end_time"]];
+    }else{
+        
+        _rentL.text = [NSString stringWithFormat:@"免租期起止时间：%@至%@",dataDic[@"stage_start_time"],dataDic[@"stage_start_time"]];
+    }
+    
     _total.text = [NSString stringWithFormat:@"总租金：%@元",dataDic[@"total_rent"]];
     _resultL.text = [NSString stringWithFormat:@"实付金额：%.2f元",[self DecimalNumber:[dataDic[@"total_rent"] doubleValue] num2:[dataDic[@"free_rent"] doubleValue]]];
     _markL.text = [NSString stringWithFormat:@"备注：%@",dataDic[@"comment"]];

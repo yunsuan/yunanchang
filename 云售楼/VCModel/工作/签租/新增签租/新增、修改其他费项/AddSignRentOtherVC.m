@@ -377,6 +377,9 @@
     if (_marklTF.textField.text.length) {
         
         [tempDic setValue:_marklTF.textField.text forKey:@"comment"];
+    }else{
+        
+        [tempDic setValue:@"" forKey:@"comment"];
     }
     [tempDic setValue:@"0" forKey:@"unit_cost"];
     [tempDic setValue:@"0" forKey:@"total_cost"];
