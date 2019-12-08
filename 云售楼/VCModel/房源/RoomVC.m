@@ -81,6 +81,7 @@
         
         _coll.hidden = NO;
         self.rightBtn.hidden = NO;
+        [self RequestMethod];
     }else{
         
         _coll.hidden = YES;

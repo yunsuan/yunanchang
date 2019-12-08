@@ -123,7 +123,7 @@
 //        if ([self->_storeDic[@"receive_state"] integerValue] == 1) {
 
         AddOrderRentVC *nextVC = [[AddOrderRentVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
-            nextVC.from_type = @"2";
+            nextVC.from_type = @"1";
             nextVC.dataDic = self->_storeDic;
             nextVC.addOrderRentVCBlock = ^{
 

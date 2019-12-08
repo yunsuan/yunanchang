@@ -45,7 +45,7 @@
     _propertyL.text = [NSString stringWithFormat:@"合计物业费：%@元",dataDic[@"total_property"]];
     _consultantL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"agent_name"]];
     _intentCodeL.text = [NSString stringWithFormat:@"签租编号：%@",dataDic[@"contact_code"]];
-    _payWayL.text = [NSString stringWithFormat:@"付款方式：%@",dataDic[@"pay_way"]];
+    _payWayL.text = [NSString stringWithFormat:@"付款方式：押%@付%@",[dataDic[@"pay_way"] componentsSeparatedByString:@","][0],[dataDic[@"pay_way"] componentsSeparatedByString:@","][1]];
     _totalL.text = [NSString stringWithFormat:@"合计总租金：%@元",dataDic[@"total_rent"]];
     _otherL.text = [NSString stringWithFormat:@"合计其他费项：%@元",dataDic[@"total_other"]];
     _areaL.text = [NSString stringWithFormat:@"实租面积：%@㎡",dataDic[@"actual_size"]];

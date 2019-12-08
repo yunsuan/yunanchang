@@ -523,7 +523,7 @@
     
     UILabel *contentlab1 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 171*SIZE, 200*SIZE, 16*SIZE)];
     contentlab1.font = FONT(12);
-//    contentlab1.text = [NSString stringWithFormat:@"计价规则:  %@",_fjxx[@"price_way"]];
+    contentlab1.text = [NSString stringWithFormat:@"建筑面积:  %@㎡",_fjxx[@"build_size"]];
     contentlab1.textColor = CLContentLabColor;
     [_tanchuanView addSubview:contentlab1];
     
@@ -536,7 +536,7 @@
     
     UILabel *contentlab3 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 224*SIZE, 200*SIZE, 16*SIZE)];
     contentlab3.font = FONT(12);
-    contentlab3.text = [NSString stringWithFormat:@"总价:  %@元/月",_fjxx[@"total_rent"]];
+    contentlab3.text = [NSString stringWithFormat:@"规划业态:  %@",_fjxx[@"plan_format"]];
     contentlab3.textColor = CLContentLabColor;
     [_tanchuanView addSubview:contentlab3];
     
@@ -550,9 +550,17 @@
     [_tanchuanView addSubview:blueview3];
     UILabel *lab3 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 276*SIZE, 200*SIZE, 16*SIZE)];
     lab3.font = FONT(13);
-    lab3.text = [NSString stringWithFormat:@"物业:%@",_fjxx[@"property_type"]];
+    for (int i = 0; i < [_fjxx[@"cost_set_list"][@"fixed"] count]; i++) {
+        
+        NSDictionary *dic = _fjxx[@"cost_set_list"][@"fixed"][i];
+        if ([dic[@"name"] isEqualToString:@"物业费"]) {
+            
+            lab3.text = [NSString stringWithFormat:@"物业费:%@元/㎡/月",dic[@"param"]];
+        }
+    }
+    
     lab3.textColor = CLTitleLabColor;
-//    [_tanchuanView addSubview:lab3];
+    [_tanchuanView addSubview:lab3];
     NSArray *detail = _fjxx[@"propertyDetail"];
     for (int i= 0; i<detail.count; i++) {
         UILabel *contentlab = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 309*SIZE+27*SIZE*i, 200*SIZE, 16*SIZE)];

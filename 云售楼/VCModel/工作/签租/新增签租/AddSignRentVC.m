@@ -332,7 +332,7 @@
     NSString *param = @"";
     if (!_isDown) {
         
-        if (!_progressDic[@"progress_name"]) {
+        if (![_progressDic[@"progress_name"] length]) {
             [self showContent:@"请选择审批流程"];
             return;
         }
@@ -413,7 +413,7 @@
     [dic setValue:_orderDic[@"deposit"] forKey:@"deposit"];
     [dic setValue:_orderDic[@"pay_way"] forKey:@"pay_way"];
     
-    [dic setValue:_chargeId forKey:@"charge_company_id"];
+//    [dic setValue:_chargeId forKey:@"charge_company_id"];
     
     if (_stageArr.count) {
         
@@ -473,8 +473,8 @@
     _isDown = 0;
     [self->_progressArr removeAllObjects];
     [self->_progressAllArr removeAllObjects];
-    [self->_rolePersonArr removeAllObjects];
-    [self->_rolePersonSelectArr removeAllObjects];
+//    [self->_rolePersonArr removeAllObjects];
+//    [self->_rolePersonSelectArr removeAllObjects];
     
     NSMutableDictionary *dic = [@{} mutableCopy];
     NSString *room = @"";
@@ -520,9 +520,15 @@
 
                             if ([resposeObject[@"code"] integerValue] == 200) {
 
-                                [self->_progressDic setValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"][0][@"progress_id"]] forKey:@"progress_id"];
-                                self->_isDown = 1;
-                                [self CommitRequest];
+                                if ([resposeObject[@"data"] count]) {
+                                    
+                                    [self->_progressDic setValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"][0][@"progress_id"]] forKey:@"progress_id"];
+                                    self->_isDown = 1;
+                                    [self CommitRequest];
+                                }else{
+                                    
+                                    [self showContent:@"当前未设置免租期流程,请修改租金信息后重新提交"];
+                                }
                             }else{
 
                                 [self showContent:@"当前未设置免租期流程,请修改租金信息后重新提交"];
@@ -546,9 +552,15 @@
 
                             if ([resposeObject[@"code"] integerValue] == 200) {
 
-                                [self->_progressDic setValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"][0][@"progress_id"]] forKey:@"progress_id"];
-                                self->_isDown = 1;
-                                [self CommitRequest];
+                                if ([resposeObject[@"data"] count]) {
+                                    
+                                    [self->_progressDic setValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"][0][@"progress_id"]] forKey:@"progress_id"];
+                                    self->_isDown = 1;
+                                    [self CommitRequest];
+                                }else{
+                                    
+                                    [self showContent:@"当前未设置免租期流程,请修改租金信息后重新提交"];
+                                }
                             }else{
 
                                 [self showContent:@"当前未设置底价流程,请修改租金信息后重新提交"];

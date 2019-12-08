@@ -229,7 +229,7 @@
     [dic setValue:_intentDic[@"sincerity"] forKey:@"sincerity"];
     [dic setValue:_intentDic[@"end_time"] forKey:@"end_time"];
     [dic setValue:_intentDic[@"start_time"] forKey:@"start_time"];
-    [dic setValue:_chargeId forKey:@"charge_company_id"];
+//    [dic setValue:_chargeId forKey:@"charge_company_id"];
     [dic setValue:[_intentDic[@"sign_time"] componentsSeparatedByString:@" "][0] forKey:@"sign_time"];
     if (_imgArr.count) {
         

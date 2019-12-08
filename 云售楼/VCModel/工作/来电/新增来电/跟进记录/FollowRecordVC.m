@@ -36,7 +36,7 @@
     NSString *_level;
     NSString *_groupId;
     
-    NSArray *_followArr;
+    NSMutableArray *_followArr;
     
     NSMutableDictionary *_directDic;
     
@@ -121,13 +121,14 @@
     
     _directDic = [@{} mutableCopy];
     
-    _followArr = [self getDetailConfigArrByConfigState:23];
+    _followArr = [[NSMutableArray alloc] initWithArray:[self getDetailConfigArrByConfigState:23]];
 //    if (!_followArr.count) {
 //
 //        _followArr = [self getDetailConfigArrByConfigState:23];
 //    }
     _followSelectArr = [@[] mutableCopy];
     _levelSelectArr = [@[] mutableCopy];
+    [_followSelectArr removeAllObjects];
     for (int i = 0; i < self->_followArr.count; i++) {
         
         [self->_followSelectArr addObject:@0];
@@ -137,7 +138,12 @@
 
 - (void)FollowWay{
     
-    _followArr = [self getDetailConfigArrByConfigState:23];
+    _followArr = [[NSMutableArray alloc] initWithArray:[self getDetailConfigArrByConfigState:23]];
+    [_followSelectArr removeAllObjects];
+    for (int i = 0; i < self->_followArr.count; i++) {
+        
+        [self->_followSelectArr addObject:@0];
+    }
     [self->_followWayColl reloadData];
     [self->_followWayColl mas_updateConstraints:^(MASConstraintMaker *make) {
         
@@ -354,7 +360,7 @@
         }
     }
 
-
+    _confirmBtn.userInteractionEnabled = NO;
     if ([self.status isEqualToString:@"direct"]) {
         
         [_directDic setObject:_groupId forKey:@"group_id"];
@@ -380,6 +386,7 @@
         
         [BaseRequest UpdateFile:^(id<AFMultipartFormData>  _Nonnull formData) {
           
+            
             if (self->Isplay == YES) {
                 NSString* path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/aaa"];
                 NSURL* url = [NSURL fileURLWithPath:path];
@@ -392,6 +399,7 @@
             
         } url:WorkClientAutoFollowAdd_URL parameters:_directDic success:^(id  _Nonnull resposeObject) {
             
+            self->_confirmBtn.userInteractionEnabled = YES;
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -424,6 +432,7 @@
             }
         } failure:^(NSError * _Nonnull error) {
             
+            self->_confirmBtn.userInteractionEnabled = YES;
             [self showContent:@"网络错误"];
         }];
     }else{
@@ -457,6 +466,7 @@
            
         } url:ProjectClientAutoAdd_URL parameters:self.allDic success:^(id  _Nonnull resposeObject) {
             
+            self->_confirmBtn.userInteractionEnabled = YES;
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -526,6 +536,7 @@
             }
         } failure:^(NSError * _Nonnull error) {
             
+            self->_confirmBtn.userInteractionEnabled = YES;
             [self showContent:@"网络错误"];
         }];
     }

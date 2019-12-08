@@ -329,15 +329,7 @@
         header.num = _num;
                     
         header.addBtn.hidden = YES;
-        
-        if ([self.powerDic[@"update"] boolValue]) {
 
-            header.editBtn.hidden = NO;
-            
-        }else{
-
-            header.editBtn.hidden = YES;
-        }
                     
         header.shopDetailHeaderAddBlock = ^{
 

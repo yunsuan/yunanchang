@@ -45,7 +45,7 @@
     _depositL.text = [NSString stringWithFormat:@"定金：%@",dataDic[@"down_pay"]];
     _consultantL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"agent_name"]];
     _intentCodeL.text = [NSString stringWithFormat:@"定租编号：%@",dataDic[@"sub_code"]];
-    _payWayL.text = [NSString stringWithFormat:@"付款方式：%@",dataDic[@"pay_way"]];
+    _payWayL.text = [NSString stringWithFormat:@"付款方式：押%@付%@",[dataDic[@"pay_way"] componentsSeparatedByString:@","][0],[dataDic[@"pay_way"] componentsSeparatedByString:@","][1]];
     _totalL.text = [NSString stringWithFormat:@"合计总租金：%@",dataDic[@"total_rent"]];
 }
 

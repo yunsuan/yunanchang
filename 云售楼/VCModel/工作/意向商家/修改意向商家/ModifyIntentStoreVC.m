@@ -87,7 +87,7 @@
         [_intentDic setValue:dataDic[@"end_time"] forKey:@"end_time"];
         [_intentDic setValue:dataDic[@"sign_time"] forKey:@"sign_time"];
 //        [_intentDic setValue:[NSString stringWithFormat:@"%@",dataDic[@"from_id"]] forKey:@"from_id"];
-        _chargeId = [NSString stringWithFormat:@"%@",dataDic[@"shop_detail_list"][@"charge_company_id"]];
+//        _chargeId = [NSString stringWithFormat:@"%@",dataDic[@"shop_detail_list"][@"charge_company_id"]];
         
         
         _progressDic = [@{} mutableCopy];
@@ -245,7 +245,7 @@
 //    [dic setValue:_addIntentStoreIntentView.sincerityTF.textField.text forKey:@"sincerity"];
 //    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn1.content.text forKey:@"start_time"];
 //    [dic setValue:_addIntentStoreIntentView.intentPeriodLBtn2.content.text forKey:@"end_time"];
-    [dic setValue:_chargeId forKey:@"charge_company_id"];
+//    [dic setValue:_chargeId forKey:@"charge_company_id"];
 //    [dic setValue:[_addIntentStoreIntentView.timeBtn.content.text componentsSeparatedByString:@" "][0] forKey:@"sign_time"];
     if (_imgArr.count) {
         

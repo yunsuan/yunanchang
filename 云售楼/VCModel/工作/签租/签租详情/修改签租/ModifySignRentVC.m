@@ -372,7 +372,7 @@
 //    [dic setValue:_orderDic[@"sub_code"] forKey:@"sub_code"];
     [dic setValue:self.dataDic[@"contact_id"] forKey:@"contact_id"];
     
-    [dic setValue:_chargeId forKey:@"charge_company_id"];
+//    [dic setValue:_chargeId forKey:@"charge_company_id"];
     
     if (_stageArr.count) {
         

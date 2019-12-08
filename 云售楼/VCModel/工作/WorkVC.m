@@ -169,7 +169,7 @@
     }
     if ([_showArr[10] integerValue]) {
         
-        [_powerArr replaceObjectAtIndex:10 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@,变更%@",data[@"business"][@"today"],data[@"business"][@"total"],data[@"business"][@"wait"]]];
+        [_powerArr replaceObjectAtIndex:10 withObject:[NSString stringWithFormat:@"今日新增%@,累计%@",data[@"business"][@"today"],data[@"business"][@"total"]]];
     }
     if ([_showArr[11] integerValue]) {
         

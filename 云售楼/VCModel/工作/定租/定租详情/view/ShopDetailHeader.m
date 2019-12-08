@@ -40,7 +40,7 @@
     
     _collArr = [[NSMutableArray alloc] initWithArray:dataDic[@"shop_detail_list"]];
     [_coll reloadData];
-    
+
 //    for (int i = 0; i < _collArr.count; i++) {
 //
 //        [_selectArr addObject:@0];
@@ -247,6 +247,7 @@
     
     _collArr = [[NSMutableArray alloc] initWithArray:storeIntentDic[@"shop_list"]];
     [_coll reloadData];
+    
     
     switch ([storeIntentDic[@"disabled_state"] integerValue]) {
      
