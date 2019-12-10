@@ -31,12 +31,12 @@
         _readImg.image = IMAGE_WITH_NAME(@"");
     }
     _titleL.text = @"交款提醒";
-    _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"name"]];
+    _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
-    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"level"]];
-    _moneyL.text = [NSString stringWithFormat:@"欠款金额：%@",dataDic[@"tel"]];
-    _timeL.text = [NSString stringWithFormat:@"超期时间：%@",dataDic[@"extra_comment"]];
-    _FeeL.text = [NSString stringWithFormat:@"费项名称：%@",dataDic[@"extra_comment"]];
+    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"business_name"]];
+    _moneyL.text = [NSString stringWithFormat:@"欠款金额：%@元",dataDic[@"un_pay"]];
+    _timeL.text = [NSString stringWithFormat:@"超期时间：%@",dataDic[@"last_time"]];
+    _FeeL.text = [NSString stringWithFormat:@"费项名称：%@",dataDic[@"cost_name"]];
 }
 
 - (void)initUI{

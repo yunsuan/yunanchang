@@ -111,7 +111,7 @@
 //                    str = [NSString stringWithFormat:@"%@",self->_advicerArr[i][@"name"]];
 //                }
 //            }
-            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@-%@-%@",self->_dataDic[@"shop_list"][0][@"build_name"],(self->_dataDic[@"shop_detail_list"][0][@"unit_name"] && ![self->_dataDic[@"shop_detail_list"][0][@"unit_name"] isKindOfClass:[NSNull class]])?self->_dataDic[@"shop_detail_list"][0][@"unit_name"]:@"",self->_dataDic[@"shop_list"][0][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"shop_list"][0][@"build_size"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"shop_list"][0][@"total_rent"]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"sign_agent_name"]],[NSString stringWithFormat:@"联系人：%@/%@",self->_dataDic[@"contact"],self->_dataDic[@"contact_tel"]],[NSString stringWithFormat:@"所属区域：%@%@%@",self->_dataDic[@"province_name"],self->_dataDic[@"city_name"],self->_dataDic[@"district_name"]],[NSString stringWithFormat:@"认知途径：%@",self->_dataDic[@"source_name"]],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"lease_size"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"lease_money"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"business_type_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"format_name"]]],@[[NSString stringWithFormat:@"意向编号：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"诚意金：%@元",self->_dataDic[@"sincerity"]],[NSString stringWithFormat:@"意向租期：%@至%@",self->_dataDic[@"start_time"],self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"sign_time"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]]]]];
+            self->_dataArr = [NSMutableArray arrayWithArray:@[@[],@[[NSString stringWithFormat:@"房间：%@-%@-%@",self->_dataDic[@"shop_list"][0][@"build_name"],(self->_dataDic[@"shop_detail_list"][0][@"unit_name"] && ![self->_dataDic[@"shop_detail_list"][0][@"unit_name"] isKindOfClass:[NSNull class]])?self->_dataDic[@"shop_detail_list"][0][@"unit_name"]:@"",self->_dataDic[@"shop_list"][0][@"name"]],[NSString stringWithFormat:@"面积：%@㎡",self->_dataDic[@"shop_list"][0][@"build_size"]],[NSString stringWithFormat:@"租金：%@元/月/㎡",self->_dataDic[@"shop_list"][0][@"total_rent"]]],@[[NSString stringWithFormat:@"商家名称：%@",self->_dataDic[@"business_name"]],[NSString stringWithFormat:@"联系人：%@/%@",self->_dataDic[@"contact"],self->_dataDic[@"contact_tel"]],[NSString stringWithFormat:@"所属区域：%@%@%@",self->_dataDic[@"province_name"],self->_dataDic[@"city_name"],self->_dataDic[@"district_name"]],[NSString stringWithFormat:@"认知途径：%@",self->_dataDic[@"source_name"]],[NSString stringWithFormat:@"承租面积：%@㎡",self->_dataDic[@"lease_size"]],[NSString stringWithFormat:@"承受租价价格：%@元/月/㎡",self->_dataDic[@"lease_money"]],[NSString stringWithFormat:@"经营关系：%@",self->_dataDic[@"business_type_name"]],[NSString stringWithFormat:@"经营业态：%@",self->_dataDic[@"format_name"]]],@[[NSString stringWithFormat:@"意向编号：%@",self->_dataDic[@"row_code"]],[NSString stringWithFormat:@"诚意金：%@元",self->_dataDic[@"sincerity"]],[NSString stringWithFormat:@"意向租期：%@至%@",self->_dataDic[@"start_time"],self->_dataDic[@"end_time"]],[NSString stringWithFormat:@"登记时间：%@",self->_dataDic[@"sign_time"]],[NSString stringWithFormat:@"登记人：%@",self->_dataDic[@"sign_agent_name"]]]]];
             if ([self->_dataDic[@"check_state"] integerValue] != 2) {
 
                 if ([self->_dataDic[@"progressList"] isKindOfClass:[NSDictionary class]]) {
@@ -279,6 +279,10 @@
         
         header.storeIntentDic = self->_dataDic;
 
+        if (self.audit.length) {
+            
+            header.editBtn.hidden = YES;
+        }
         header.num = _num;
         
         header.addBtn.hidden = YES;
@@ -397,7 +401,7 @@
         [cell.moreBtn setTitle:@"查看归属人详情" forState:UIControlStateNormal];
         cell.infoDetailCellBlock = ^{
 
-            ShopBelongDetailVC *nextVC = [[ShopBelongDetailVC alloc] initWithDataArr:self->_dataDic[@"advicer_list"]];
+            ShopBelongDetailVC *nextVC = [[ShopBelongDetailVC alloc] initWithDataArr:self->_advicerArr];
             [self.navigationController pushViewController:nextVC animated:YES];
         };
         return cell;

@@ -22,6 +22,8 @@ typedef void(^OrderRentDetailVCBlock)(void);
 
 @property (nonatomic, strong) NSString *need_check;
 
+@property (nonatomic, strong) NSString *audit;
+
 @property (nonatomic, strong) NSDictionary *powerDic;
 
 - (instancetype)initWithBusinessId:(NSString *)businessId;

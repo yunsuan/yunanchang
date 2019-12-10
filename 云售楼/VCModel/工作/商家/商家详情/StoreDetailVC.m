@@ -80,6 +80,10 @@
             self->_followArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"follow_list"]];
             [self->_infoDataArr removeAllObjects];
             self->_infoDataArr = [NSMutableArray arrayWithArray:resposeObject[@"data"][@"need_list"]];
+            if (!self->_infoDataArr.count) {
+                
+                self->_infoDataArr = [NSMutableArray arrayWithArray:@[@{@"defined_name":@"",@"value":@"",@"defined_id":@"",@"option_list":@""}]];
+            }
             [self->_table reloadData];
         }else{
 

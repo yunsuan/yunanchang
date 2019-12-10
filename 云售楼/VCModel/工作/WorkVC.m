@@ -78,7 +78,7 @@
 //        _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational",@"sjmerchant_1",@"sjmerchant_1",@"sjmerchant_1",@"sjmerchant_1",@"icon_phone"];
 //        _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"定单",@"签约",@"收款",@"人事",@"轮岗",@"商家",@"意向商家",@"定租",@"签租",@"号码查询"];
 //    }
-    _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational",@"sjmerchant_1",@"sjmerchant_1",@"sjmerchant_1",@"sjmerchant_1",@"icon_phone"];
+    _imgArr = @[@"laidian",@"ys_find",@"recommended",@"laifang",@"paihao",@"subscribe",@"signing_2",@"shoukuan_2",@"audit",@"rotational",@"sjmerchant_1",@"xiaoshourbao",@"dingdan_1",@"hetong_1",@"icon_phone"];
     _titleArr = @[@"来电",@"带看",@"推荐",@"来访",@"排号",@"定单",@"签约",@"收款",@"人事",@"轮岗",@"商家",@"意向商家",@"定租",@"签租",@"号码查询"];
     
     _projectArr = [UserModel defaultModel].project_list;

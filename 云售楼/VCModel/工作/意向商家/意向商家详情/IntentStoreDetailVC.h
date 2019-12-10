@@ -22,6 +22,8 @@ typedef void(^IntentStoreDetailVCBlock)(void);
 
 @property (nonatomic, strong) NSString *need_check;
 
+@property (nonatomic, strong) NSString *audit;
+
 @property (nonatomic, strong) NSDictionary *powerDic;
 
 @property (nonatomic, strong) NSString *projectName;

@@ -96,7 +96,10 @@
         [_progressDic setObject:dataDic[@"progressList"][@"check_type"] forKey:@"check_type"];
         
         _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_list"]];
-        _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataDic[@"business_info"]];
+        [tempDic setValue:[NSString stringWithFormat:@"%@",self->_dataDic[@"business_id"]] forKey:@"business_id"];
+        _storeArr = [NSMutableArray arrayWithArray:@[tempDic]];
+//        _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"from_id"]]}]];
         
         _imgArr = [@[] mutableCopy];
         _imgArr = [NSMutableArray arrayWithArray:self->_dataDic[@"enclosure"]];
@@ -221,7 +224,7 @@
         
         if (i == 0) {
             
-            room = _roomArr[i][@"shop_id"];
+            room = [NSString stringWithFormat:@"%@",_roomArr[i][@"shop_id"]];
         }else{
             
             room = [NSString stringWithFormat:@"%@,%@",room,_roomArr[i][@"shop_id"]];
@@ -240,7 +243,8 @@
             store = [NSString stringWithFormat:@"%@,%@",store,_storeArr[i][@"business_id"]];
         }
     }
-    [dic setValue:store forKey:@"from_id"];
+    [dic setValue:[NSString stringWithFormat:@"%@",self->_dataDic[@"row_id"]] forKey:@"from_id"];
+    [dic setValue:store forKey:@"business_id"];
     [dic setValue:_project_id forKey:@"project_id"];
     
     NSMutableDictionary *tempDic = [@{} mutableCopy];
@@ -256,6 +260,7 @@
     [tempDic setValue:_storeArr[0][@"contact_tel"] forKey:@"contact_tel"];
     [tempDic setValue:_storeArr[0][@"province"] forKey:@"province"];
     [tempDic setValue:_storeArr[0][@"city"] forKey:@"city"];
+    [tempDic setValue:_storeArr[0][@"district"] forKey:@"district"];
     [tempDic setValue:_storeArr[0][@"address"] forKey:@"address"];
     [tempDic setValue:_storeArr[0][@"comment"] forKey:@"comment"];
     NSError *error;

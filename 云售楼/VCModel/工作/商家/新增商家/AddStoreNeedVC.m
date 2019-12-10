@@ -304,7 +304,6 @@
 
 - (void)ActionNextBtn:(UIButton *)btn{
     
-
     [_lastArr removeAllObjects];
     for (int i = 0; i < _dataArr.count; i++) {
         
@@ -435,7 +434,11 @@
             default:
                 break;
         }
-        [_lastArr addObject:needDic];
+        if (needDic.count) {
+            
+            [_lastArr addObject:needDic];
+        }
+        
     }
     if (_lastArr.count) {
     

@@ -56,6 +56,8 @@
     NSString *_chargeId;
     NSString *_differSize;
     
+    NSString *_form_id;
+    
     NSArray *_titleArr;
     
     NSArray *_certArr;
@@ -183,10 +185,23 @@
         
         if (self->_dataDic[@"business_info"]) {
         
-            _storeArr = [NSMutableArray arrayWithArray:@[self.dataDic[@"business_info"]]];
+//            _storeArr = [NSMutableArray arrayWithArray:@[self.dataDic[@"business_info"]]];
+            NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self.dataDic[@"business_info"]];
+            [tempDic setValue:[NSString stringWithFormat:@"%@",self.dataDic[@"business_id"]] forKey:@"business_id"];
+            _storeArr = [NSMutableArray arrayWithArray:@[tempDic]];
+            
+            if (self.dataDic[@"row_id"]) {
+                
+                _form_id = [NSString stringWithFormat:@"%@",self.dataDic[@"row_id"]];
+            }else{
+                
+                _form_id = [NSString stringWithFormat:@"%@",self.dataDic[@"sub_id"]];
+            }
         }else{
             
-            _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"business_id"]]}]];
+            _form_id = [NSString stringWithFormat:@"%@",self->_dataDic[@"business_id"]];
+            _storeArr = [[NSMutableArray alloc] initWithArray:@[self->_dataDic]];
+//            _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"business_id"]]}]];
         }
         _stageArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"stage_list"]];
         
@@ -373,7 +388,7 @@
         
         if (i == 0) {
             
-            room = _roomArr[i][@"shop_id"];
+            room = [NSString stringWithFormat:@"%@",_roomArr[i][@"shop_id"]];
         }else{
             
             room = [NSString stringWithFormat:@"%@,%@",room,_roomArr[i][@"shop_id"]];
@@ -392,8 +407,8 @@
             store = [NSString stringWithFormat:@"%@,%@",store,_storeArr[i][@"business_id"]];
         }
     }
-    [dic setValue:store forKey:@"from_id"];
     [dic setValue:store forKey:@"business_id"];
+    [dic setValue:self->_form_id forKey:@"from_id"];
     
     NSMutableDictionary *tempDic = [@{} mutableCopy];
     [tempDic setValue:_storeArr[0][@"business_type"] forKey:@"business_type"];
@@ -408,6 +423,7 @@
     [tempDic setValue:_storeArr[0][@"contact_tel"] forKey:@"contact_tel"];
     [tempDic setValue:_storeArr[0][@"province"] forKey:@"province"];
     [tempDic setValue:_storeArr[0][@"city"] forKey:@"city"];
+    [tempDic setValue:_storeArr[0][@"district"] forKey:@"district"];
     [tempDic setValue:_storeArr[0][@"address"] forKey:@"address"];
     [tempDic setValue:_storeArr[0][@"comment"] forKey:@"comment"];
     NSError *error;

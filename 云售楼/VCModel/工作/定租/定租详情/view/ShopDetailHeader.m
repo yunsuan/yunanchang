@@ -37,6 +37,7 @@
 #pragma mark -- 定租 --
 - (void)setDataDic:(NSDictionary *)dataDic{
 
+    _headImg.image = IMAGE_WITH_NAME(@"dingdan_1");
     
     _collArr = [[NSMutableArray alloc] initWithArray:dataDic[@"shop_detail_list"]];
     [_coll reloadData];
@@ -141,6 +142,7 @@
 #pragma mark -- 签租 --
 - (void)setSignDic:(NSDictionary *)signDic{
 
+    _headImg.image = IMAGE_WITH_NAME(@"hetong_1");
     
     _collArr = [[NSMutableArray alloc] initWithArray:signDic[@"shop_detail_list"]];
     [_coll reloadData];
@@ -244,6 +246,8 @@
 
 #pragma mark -- 意向商家 --
 - (void)setStoreIntentDic:(NSDictionary *)storeIntentDic{
+    
+    _headImg.image = IMAGE_WITH_NAME(@"xiaoshourbao");
     
     _collArr = [[NSMutableArray alloc] initWithArray:storeIntentDic[@"shop_list"]];
     [_coll reloadData];

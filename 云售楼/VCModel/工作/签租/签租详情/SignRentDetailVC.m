@@ -329,7 +329,10 @@
         header.num = _num;
                     
         header.addBtn.hidden = YES;
-
+        if (self.audit.length) {
+            
+            header.editBtn.hidden = YES;
+        }
                     
         header.shopDetailHeaderAddBlock = ^{
 

@@ -156,6 +156,7 @@
     if ([self.status integerValue] == 4) {
         
         IntentStoreDetailVC *nextVC = [[IntentStoreDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",self.requestId]];
+        nextVC.audit = @"audit";
 //        nextVC.project_id = _project_id;
 //        nextVC.info_id = _info_id;
 //        nextVC.powerDic = self.powerDic;
@@ -169,7 +170,8 @@
     }else if ([self.status integerValue] == 5){
         
         OrderRentDetailVC *nextVC = [[OrderRentDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",self.requestId]];
-//        nextVC.project_id = _project_id;
+        nextVC.audit = @"audit";
+        //        nextVC.project_id = _project_id;
 //        nextVC.info_id = _info_id;
 //        nextVC.powerDic = self.powerDic;
 //        nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];
@@ -177,7 +179,8 @@
     }else if ([self.status integerValue] == 6){
         
         SignRentDetailVC *nextVC = [[SignRentDetailVC alloc] initWithBusinessId:[NSString stringWithFormat:@"%@",self.requestId]];
-//        nextVC.project_id = _project_id;
+        nextVC.audit = @"audit";
+        //        nextVC.project_id = _project_id;
 //        nextVC.info_id = _info_id;
 //        nextVC.powerDic = self.powerDic;
 //        nextVC.need_check = [NSString stringWithFormat:@"%@",_dataArr[indexPath.row][@"need_check"]];

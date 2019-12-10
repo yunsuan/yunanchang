@@ -154,7 +154,9 @@
     _roomArr = [NSMutableArray arrayWithArray:self.dataDic[@"shop_detail_list"]];
     
     _storeArr = [@[] mutableCopy];
-    _storeArr = [NSMutableArray arrayWithArray:@[self.dataDic[@"business_info"]]];
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self.dataDic[@"business_info"]];
+    [tempDic setValue:[NSString stringWithFormat:@"%@",self.dataDic[@"business_info"][@"business_id"]] forKey:@"business_id"];
+    _storeArr = [NSMutableArray arrayWithArray:@[tempDic]];
 
     _imgArr = [@[] mutableCopy];
     _imgArr = [NSMutableArray arrayWithArray:self.dataDic[@"enclosure_list"]];
@@ -256,7 +258,7 @@
         
         if (i == 0) {
             
-            room = _roomArr[i][@"shop_id"];
+            room = [NSString stringWithFormat:@"%@",_roomArr[i][@"shop_id"]];
         }else{
             
             room = [NSString stringWithFormat:@"%@,%@",room,_roomArr[i][@"shop_id"]];
@@ -275,7 +277,7 @@
             store = [NSString stringWithFormat:@"%@,%@",store,_storeArr[i][@"business_id"]];
         }
     }
-    [dic setValue:store forKey:@"from_id"];
+    [dic setValue:[NSString stringWithFormat:@"%@",self.dataDic[@"sub_id"]] forKey:@"from_id"];
     [dic setValue:store forKey:@"business_id"];
     NSMutableDictionary *tempDic = [@{} mutableCopy];
     [tempDic setValue:_storeArr[0][@"business_type"] forKey:@"business_type"];
@@ -290,6 +292,7 @@
     [tempDic setValue:_storeArr[0][@"contact_tel"] forKey:@"contact_tel"];
     [tempDic setValue:_storeArr[0][@"province"] forKey:@"province"];
     [tempDic setValue:_storeArr[0][@"city"] forKey:@"city"];
+    [tempDic setValue:_storeArr[0][@"district"] forKey:@"district"];
     [tempDic setValue:_storeArr[0][@"address"] forKey:@"address"];
     [tempDic setValue:_storeArr[0][@"comment"] forKey:@"comment"];
     NSError *error;

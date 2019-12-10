@@ -67,10 +67,11 @@
     [_confirmBtn setTitleColor:CLWhiteColor forState:UIControlStateNormal];
     _confirmBtn.layer.cornerRadius = 5 *SIZE;
     _confirmBtn.clipsToBounds = YES;
+    [_confirmBtn addTarget:self action:@selector(ActionComfirmBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_whiteView addSubview:_confirmBtn];
     
     _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_cancelBtn setImage:[UIImage imageNamed:@"fork"] forState:UIControlStateNormal];
+    [_cancelBtn setImage:[UIImage imageNamed:@"updateCancel"] forState:UIControlStateNormal];
     [_cancelBtn addTarget:self action:@selector(ActionCancelBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_cancelBtn];
     
@@ -116,10 +117,10 @@
     
     [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self).offset(155 *SIZE);
+        make.left.equalTo(self).offset(165 *SIZE);
         make.top.equalTo(self).offset(435 *SIZE);
-        make.width.mas_equalTo(50 *SIZE);
-        make.height.mas_equalTo(50 *SIZE);
+        make.width.mas_equalTo(30 *SIZE);
+        make.height.mas_equalTo(30 *SIZE);
     }];
 }
 

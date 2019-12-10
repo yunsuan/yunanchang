@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSDictionary *powerDic;
 
+@property (nonatomic, strong) NSString *audit;
+
 - (instancetype)initWithBusinessId:(NSString *)businessId;
 
 @end

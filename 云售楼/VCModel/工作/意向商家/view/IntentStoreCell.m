@@ -30,7 +30,7 @@
 
 - (void)setDataDic:(NSDictionary *)dataDic{
     
-    _headImg.image = IMAGE_WITH_NAME(@"sjmerchant_1");
+    _headImg.image = IMAGE_WITH_NAME(@"xiaoshourbao");
 
     _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"business_name"]];
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
@@ -174,7 +174,7 @@
 
 - (void)setOrderDic:(NSDictionary *)orderDic{
     
-    _headImg.image = IMAGE_WITH_NAME(@"sjmerchant_1");
+    _headImg.image = IMAGE_WITH_NAME(@"dingdan_1");
 
     _titleL.text = [NSString stringWithFormat:@"%@",orderDic[@"business_name"]];
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",orderDic[@"contact"]];
@@ -318,7 +318,7 @@
 
 - (void)setSignDic:(NSDictionary *)signDic{
     
-    _headImg.image = IMAGE_WITH_NAME(@"sjmerchant_1");
+    _headImg.image = IMAGE_WITH_NAME(@"hetong_1");
 
     _titleL.text = [NSString stringWithFormat:@"%@",signDic[@"business_name"]];
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",signDic[@"contact"]];

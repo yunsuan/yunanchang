@@ -216,10 +216,10 @@
     }
     
 
-    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
+//    if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 1 && [self->_dataDic[@"receive_state"] integerValue] == 1) {
 
         [alert addAction:sign];
-    }
+//    }
 
     if ([self->_dataDic[@"disabled_state"] integerValue] == 0 && [self->_dataDic[@"check_state"] integerValue] == 2 && [self->_dataDic[@"receive_state"] integerValue] == 0) {
 
@@ -258,7 +258,10 @@
         
         header.dataDic = self->_dataDic;
         header.num = _num;
-        
+        if (self.audit.length) {
+            
+            header.editBtn.hidden = YES;
+        }
         
         header.addBtn.hidden = YES;
         

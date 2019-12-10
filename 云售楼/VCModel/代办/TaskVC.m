@@ -149,7 +149,10 @@
 //83=>'意向转定租',
 //84=>'意向转签租',
 //85=>'签租免租期流程',
-//    const SALE_MESSAGE_BUSINESS_FOLLOW=86; //商业商家跟进消息类型
+//const SALE_MESSAGE_BUSINESS_FOLLOW=86; //商业商家跟进消息类型
+//const SALE_MESSAGE_RENT_OVERDUE=87; //商业签租租金交款提醒
+
+//const SALE_MESSAGE_COST_OVERDUE=88; //商业签租物业费以及其他费用交款提醒
 
 @interface TaskVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -1378,6 +1381,18 @@
             [self.navigationController pushViewController:vc animated:YES];
         };
         return cell;
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 87 ){
+        
+        PayRemindCell *cell = [[PayRemindCell alloc] init];
+        if (!cell) {
+            
+            cell = [[PayRemindCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PayRemindCell"];
+        }
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        
+        cell.dataDic = _dataArr[indexPath.row];
+        
+        return cell;
     }else{
 
         UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -1746,6 +1761,18 @@
             [self RequestMethod];
         };
         [self.navigationController pushViewController:vc animated:YES];
+    }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 87){
+        
+//        AddStoreFollowRecordVC *vc = [[AddStoreFollowRecordVC alloc] init];
+//        vc.followDic = [@{} mutableCopy];
+//        vc.project_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"project_id"]];
+//        vc.business_id = [NSString stringWithFormat:@"%@",self->_dataArr[indexPath.row][@"business_id"]];
+//        vc.status = @"direct";
+//        vc.addStoreFollowRecordVCBlock = ^{
+//
+//            [self RequestMethod];
+//        };
+//        [self.navigationController pushViewController:vc animated:YES];
     }else{
         
         
