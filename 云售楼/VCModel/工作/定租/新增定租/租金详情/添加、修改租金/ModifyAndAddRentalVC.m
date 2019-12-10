@@ -88,6 +88,7 @@
     if (btn.tag == 0) {
 
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        
         view.dateblock = ^(NSDate *date) {
 
             self->_timeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
@@ -96,6 +97,14 @@
     }else if (btn.tag == 2){
 
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        [view.pickerView setCalendar:calendar];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setDay:1];
+        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:[self->_formatter2 dateFromString:self->_timeBtn.content.text] options:0];
+        [view.pickerView setMinimumDate:minDate];
+        
         view.dateblock = ^(NSDate *date) {
 
             self->_freeBeginBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
@@ -104,6 +113,14 @@
     }else if (btn.tag == 3){
 
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        [view.pickerView setCalendar:calendar];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setDay:1];
+        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:[self->_formatter2 dateFromString:self->_timeBtn.content.text] options:0];
+        [view.pickerView setMinimumDate:minDate];
+        
         view.dateblock = ^(NSDate *date) {
 
             self->_freeEndBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
@@ -113,12 +130,20 @@
 
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
-        [view.pickerView setCalendar:[NSCalendar currentCalendar]];
-        [view.pickerView setMaximumDate:[NSDate date]];
+        
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        [view.pickerView setCalendar:calendar];
         NSDateComponents *comps = [[NSDateComponents alloc] init];
-        [comps setDay:15];//设置最大时间为：当前时间推后10天
-        [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
+        [comps setDay:1];
+        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:[self->_formatter2 dateFromString:self->_timeBtn.content.text] options:0];
+        [view.pickerView setMinimumDate:minDate];
+        
+//        [view.pickerView setCalendar:[NSCalendar currentCalendar]];
+//        [view.pickerView setMaximumDate:[NSDate date]];
+//        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+//        NSDateComponents *comps = [[NSDateComponents alloc] init];
+//        [comps setDay:15];//设置最大时间为：当前时间推后10天
+//        [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
         view.dateblock = ^(NSDate *date) {
 
             self->_payTimeBtn.content.text = [self->_formatter stringFromDate:date];
@@ -129,12 +154,20 @@
 
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
-        [view.pickerView setCalendar:[NSCalendar currentCalendar]];
-        [view.pickerView setMaximumDate:[NSDate date]];
+        
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        [view.pickerView setCalendar:calendar];
         NSDateComponents *comps = [[NSDateComponents alloc] init];
-        [comps setDay:15];//设置最大时间为：当前时间推后10天
-        [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
+        [comps setDay:1];
+        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:[self->_formatter2 dateFromString:self->_timeBtn.content.text] options:0];
+        [view.pickerView setMinimumDate:minDate];
+        
+//        [view.pickerView setCalendar:[NSCalendar currentCalendar]];
+//        [view.pickerView setMaximumDate:[NSDate date]];
+//        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+//        NSDateComponents *comps = [[NSDateComponents alloc] init];
+//        [comps setDay:15];//设置最大时间为：当前时间推后10天
+//        [view.pickerView setMinimumDate:[calendar dateByAddingComponents:comps toDate:[NSDate date] options:0]];
         view.dateblock = ^(NSDate *date) {
 
             self->_remindBtn.content.text = [self->_formatter stringFromDate:date];

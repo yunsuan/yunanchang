@@ -186,49 +186,49 @@
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(7 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_contractL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self->_whiteView.mas_right).offset(-6 *SIZE);
         make.top.equalTo(self->_headImg.mas_bottom).offset(7 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_codeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_projectL.mas_bottom).offset(8 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_shopNameL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self->_whiteView.mas_right).offset(-6 *SIZE);
         make.top.equalTo(self->_projectL.mas_bottom).offset(8 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_shopCodeL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_codeL.mas_bottom).offset(8 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_advicerL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self->_whiteView.mas_right).offset(-6 *SIZE);
         make.top.equalTo(self->_shopNameL.mas_bottom).offset(8 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
     }];
     
     [_originPeriodL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_shopCodeL.mas_bottom).offset(8 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
 //        make.bottom.equalTo(self->_whiteView).offset(-18 *SIZE);
     }];
     
@@ -236,7 +236,7 @@
         
         make.left.equalTo(self->_whiteView).offset(8 *SIZE);
         make.top.equalTo(self->_originPeriodL.mas_bottom).offset(8 *SIZE);
-        make.width.mas_greaterThanOrEqualTo(150 *SIZE);
+        make.width.mas_lessThanOrEqualTo(165 *SIZE);
         make.bottom.equalTo(self->_whiteView).offset(-28 *SIZE);
     }];
 

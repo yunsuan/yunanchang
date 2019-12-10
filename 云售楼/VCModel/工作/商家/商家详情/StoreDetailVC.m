@@ -301,8 +301,12 @@
             AddStoreVC *vc = [[AddStoreVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
             vc.storeDic = self->_storeDic;
             vc.business_id = [NSString stringWithFormat:@"%@",self->_storeDic[@"business_id"]];
-            vc.addStoreVCBlock = ^{
-
+//            vc.addStoreVCBlock = ^{
+//
+//                [self RequestMethod];
+//            };
+            vc.addStoreVCDicBlock = ^(NSDictionary * _Nonnull dic) {
+              
                 [self RequestMethod];
             };
             [self.navigationController pushViewController:vc animated:YES];

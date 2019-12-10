@@ -14,6 +14,7 @@
 #import "AddSignRentPropertyDetailVC.h"
 //#import "AddSignRentPropertyVC.h"
 #import "AddSignRentOtherDetailVC.h"
+#import "ModifyNoChangeStoreVC.h"
 //#import "AddSignRentOtherVC.h"
 
 #import "ShopRoomVC.h"
@@ -393,6 +394,27 @@
     }
     [dic setValue:store forKey:@"from_id"];
     [dic setValue:store forKey:@"business_id"];
+    
+    NSMutableDictionary *tempDic = [@{} mutableCopy];
+    [tempDic setValue:_storeArr[0][@"business_type"] forKey:@"business_type"];
+    [tempDic setValue:_storeArr[0][@"resource_list"] forKey:@"resource_list"];
+    [tempDic setValue:_storeArr[0][@"format_list"] forKey:@"format_list"];
+    [tempDic setValue:_storeArr[0][@"source_list"] forKey:@"source_list"];
+    [tempDic setValue:_storeArr[0][@"business_name"] forKey:@"business_name"];
+    [tempDic setValue:_storeArr[0][@"business_name_short"] forKey:@"business_name_short"];
+    [tempDic setValue:_storeArr[0][@"lease_size"] forKey:@"lease_size"];
+    [tempDic setValue:_storeArr[0][@"lease_money"] forKey:@"lease_money"];
+    [tempDic setValue:_storeArr[0][@"contact"] forKey:@"contact"];
+    [tempDic setValue:_storeArr[0][@"contact_tel"] forKey:@"contact_tel"];
+    [tempDic setValue:_storeArr[0][@"province"] forKey:@"province"];
+    [tempDic setValue:_storeArr[0][@"city"] forKey:@"city"];
+    [tempDic setValue:_storeArr[0][@"address"] forKey:@"address"];
+    [tempDic setValue:_storeArr[0][@"comment"] forKey:@"comment"];
+    NSError *error;
+    NSData *jsonData3 = [NSJSONSerialization dataWithJSONObject:tempDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString3 = [[NSString alloc]initWithData:jsonData3 encoding:NSUTF8StringEncoding];
+    [dic setObject:jsonString3 forKey:@"business_info"];
+    
     [dic setValue:self.from_type forKey:@"from_type"];
     if ([self->_areaDic[@"differ_size"] doubleValue]) {
         
@@ -1321,7 +1343,7 @@
                             }
                             
                             NSInteger month = [self getMonthFromDate:[formatter dateFromString:date] withDate2:[formatter dateFromString:endDate]];
-                            double total = [self MultiplyingNumber:[self MultiplyingNumber:[unit doubleValue] num2:area] num2:month];
+                            double total = [self MultiplyingNumber:[self MultiplyingNumber:[unit doubleValue] num2:area] num2:[self->_orderDic[@"pay_way2"] doubleValue]];
                             
                             [self->_propertyArr addObject:@{@"unit_cost":unit,@"total_cost":[NSString stringWithFormat:@"%.2f",total],@"config_id":config,@"comment":@" ",@"cost_num":self->_orderDic[@"pay_way2"],@"cost_start_time":date,@"cost_end_time":endDate,@"pay_time":date,@"remind_time":date,@"quantity":@"1",@"name":@"物业费",@"config_name":@"物业费"}];
                         }
@@ -1682,6 +1704,26 @@
             };
             return cell;
         }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 2 && indexPath.row != 0) {
+        
+        ModifyNoChangeStoreVC *vc = [[ModifyNoChangeStoreVC alloc] initWithProjectId:self->_project_id info_id:self->_info_id];
+        vc.storeDic = self->_storeArr[indexPath.row - 1];
+        vc.business_id = [NSString stringWithFormat:@"%@",self->_storeArr[indexPath.row - 1][@"business_id"]];
+        vc.modifyNoChangeStoreVCBlock = ^(NSDictionary * _Nonnull dic) {
+            
+            [self->_storeArr replaceObjectAtIndex:indexPath.row - 1 withObject:dic];
+            [tableView reloadData];
+            if (self.addSignRentVCBlock) {
+                
+                self.addSignRentVCBlock();
+            }
+        };
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

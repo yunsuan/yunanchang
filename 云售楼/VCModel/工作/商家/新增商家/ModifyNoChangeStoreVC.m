@@ -1,12 +1,12 @@
 //
-//  AddStoreVC.m
+//  ModifyNoChangeStoreVC.m
 //  云售楼
 //
-//  Created by 谷治墙 on 2019/10/30.
+//  Created by 谷治墙 on 2019/12/10.
 //  Copyright © 2019 谷治墙. All rights reserved.
 //
 
-#import "AddStoreVC.h"
+#import "ModifyNoChangeStoreVC.h"
 
 #import "AddStoreNeedVC.h"
 #import "BrandVC.h"
@@ -24,7 +24,7 @@
 #import "AddNemeralHeader.h"
 #import "BrandCollCell.h"
 
-@interface AddStoreVC ()<UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+@interface ModifyNoChangeStoreVC ()<UITextFieldDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     
     NSString *_info_id;
@@ -108,9 +108,10 @@
 @property (nonatomic, strong) UICollectionView *brandColl;
 
 @property (nonatomic, strong) UIButton *nextBtn;
+
 @end
 
-@implementation AddStoreVC
+@implementation ModifyNoChangeStoreVC
 
 - (instancetype)initWithProjectId:(NSString *)projectId info_id:(NSString *)info_id
 {
@@ -549,78 +550,14 @@
     }
     
     
-    if (self.storeDic.count) {
+    [tempDic removeObjectForKey:@"project_id"];
+    [tempDic setValue:self.business_id forKey:@"business_id"];
+    
+    if (self.modifyNoChangeStoreVCBlock) {
         
-        [tempDic removeObjectForKey:@"project_id"];
-        [tempDic setValue:self.business_id forKey:@"business_id"];
-        
-        [BaseRequest POST:ProjectBusinessUpdate_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
-
-            if ([resposeObject[@"code"] integerValue] == 200) {
-                
-                if (self.addStoreVCDicBlock) {
-                    
-                    self.addStoreVCDicBlock(tempDic);
-                }
-                if (self.addStoreVCBlock) {
-                    
-                    self.addStoreVCBlock();
-                }
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-
-                [self showContent:resposeObject[@"msg"]];
-            }
-        } failure:^(NSError * _Nonnull error) {
-
-            [self showContent:@"网络错误"];
-        }];
-    }else{
-        
-        if ([self.status isEqualToString:@"direct"]) {
-            
-            NSMutableDictionary *followDic = [@{} mutableCopy];
-            [followDic setObject:@"" forKey:@"cooperation_level"];
-            [followDic setObject:@"" forKey:@"follow_way"];
-            [followDic setObject:@"" forKey:@"follow_state"];
-            [followDic setObject:@"" forKey:@"follow_time"];
-            [followDic setObject:@"" forKey:@"next_follow_time"];
-            [followDic setObject:@"" forKey:@"content"];
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@[followDic] options:NSJSONWritingPrettyPrinted error:&error];
-            NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-            [tempDic setValue:jsonString forKey:@"follow_list"];
-            [BaseRequest POST:ProjectBusinessAdd_URL parameters:tempDic success:^(id  _Nonnull resposeObject) {
-
-                if ([resposeObject[@"code"] integerValue] == 200) {
-
-                    if (self.addStoreVCDicBlock) {
-                        
-                        [tempDic setValue:[NSString stringWithFormat:@"%@",resposeObject[@"data"]] forKey:@"business_id"];
-                        self.addStoreVCDicBlock(tempDic);
-                    }
-                    [self.navigationController popViewControllerAnimated:YES];
-                }else{
-
-                    [self showContent:resposeObject[@"msg"]];
-                }
-            } failure:^(NSError * _Nonnull error) {
-
-                [self showContent:@"网络错误"];
-            }];
-        }else{
-            
-            AddStoreNeedVC *nextVC = [[AddStoreNeedVC alloc] initWithDataDic:tempDic];
-            nextVC.addStoreNeedVCBlock = ^{
-              
-                if (self.addStoreVCBlock) {
-                    
-                    self.addStoreVCBlock();
-                }
-            };
-            [self.navigationController pushViewController:nextVC animated:YES];
-        }
+        self.modifyNoChangeStoreVCBlock(tempDic);
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
     
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -1524,4 +1461,5 @@
         make.bottom.equalTo(self->_scrollView).offset(-20 *SIZE);
     }];
 }
+
 @end

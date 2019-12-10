@@ -18,6 +18,8 @@
 
 #import "CYLTabBarControllerConfig.h"
 
+#import "UpgradeTipsView.h"
+
 // 引入JPush功能所需头文件
 #import "JPUSHService.h"
 // iOS10注册APNs所需头文件
@@ -71,26 +73,20 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
                     
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"系统更新" message:resposeObject[@"data"][@"content"] preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    [alert addAction:[UIAlertAction actionWithTitle:@"去下载" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    UpgradeTipsView *view = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    view.contentL.text = dic[@"releaseNotes"];
+                    view.upgradeTipsViewBlock = ^{
                         
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1371990304?mt=8"]];
-                        
-                    }]];
-                    if (![resposeObject[@"data"][@"must"] integerValue]) {
-                        
-                        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
-                            
-                        }]];
+                    };
+                    if ([resposeObject[@"data"][@"must"] integerValue]) {
+
+                        view.cancelBtn.hidden = YES;
                     }
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
-                        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:^{
-                            
-                        }];
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
                     });
                 }
             } failure:^(NSError *error) {
@@ -557,28 +553,21 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
                     
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"系统更新" message:resposeObject[@"data"][@"content"] preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    [alert addAction:[UIAlertAction actionWithTitle:@"去下载" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    UpgradeTipsView *view = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    view.contentL.text = dic[@"releaseNotes"];
+                    view.upgradeTipsViewBlock = ^{
                         
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1371990304?mt=8"]];
-                        
-                    }]];
-                    if (![resposeObject[@"data"][@"must"] integerValue]) {
-                        
-                        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
-                            
-                        }]];
-                    }else{
-                        
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            
-                            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:^{
-                                
-                            }];
-                        });
+                    };
+                    if ([resposeObject[@"data"][@"must"] integerValue]) {
+
+                        view.cancelBtn.hidden = YES;
                     }
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
+                    });
                 }
             } failure:^(NSError *error) {
                 
@@ -610,29 +599,21 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"系统更新" message:resposeObject[@"data"][@"content"] preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    [alert addAction:[UIAlertAction actionWithTitle:@"去下载" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    UpgradeTipsView *view = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    view.contentL.text = dic[@"releaseNotes"];
+                    view.upgradeTipsViewBlock = ^{
                         
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1371990304?mt=8"]];
-                        
-                    }]];
-                    if (![resposeObject[@"data"][@"must"] integerValue]) {
-                        
-                        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
-                            
-                        }]];
-                    }else{
-                        
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            
-                            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:^{
-                                
-                            }];
-                        });
+                    };
+                    if ([resposeObject[@"data"][@"must"] integerValue]) {
+
+                        view.cancelBtn.hidden = YES;
                     }
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
+                    });
                 }
             } failure:^(NSError *error) {
                 
@@ -659,28 +640,21 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
                     
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"系统更新" message:resposeObject[@"data"][@"content"] preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    [alert addAction:[UIAlertAction actionWithTitle:@"去下载" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    UpgradeTipsView *view = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    view.contentL.text = dic[@"releaseNotes"];
+                    view.upgradeTipsViewBlock = ^{
                         
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1371990304?mt=8"]];
-                        
-                    }]];
-                    if (![resposeObject[@"data"][@"must"] integerValue]) {
-                        
-                        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
-                            
-                        }]];
-                    }else{
-                        
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            
-                            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:^{
-                                
-                            }];
-                        });
+                    };
+                    if ([resposeObject[@"data"][@"must"] integerValue]) {
+
+                        view.cancelBtn.hidden = YES;
                     }
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
+                    });
                 }
             } failure:^(NSError *error) {
                 

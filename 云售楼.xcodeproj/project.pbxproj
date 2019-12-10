@@ -39,6 +39,8 @@
 		0C05334522F9631E00DA9143 /* OrderChangeRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334422F9631E00DA9143 /* OrderChangeRoomVC.m */; };
 		0C05334822F97D6100DA9143 /* icon_phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C05334722F97D6000DA9143 /* icon_phone.png */; };
 		0C05334C22F97DCA00DA9143 /* QueryPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */; };
+		0C0814BA239F2CE600176F88 /* UpgradeTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0814B8239F2CE600176F88 /* UpgradeTipsView.m */; };
+		0C0814BD239F82D100176F88 /* ModifyNoChangeStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0814BC239F82D100176F88 /* ModifyNoChangeStoreVC.m */; };
 		0C08E79222F7CD990079A3A0 /* NumeralAddMinusPersonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */; };
 		0C09524123167B1F00E38F74 /* toTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C09524023167B1E00E38F74 /* toTop.png */; };
 		0C0C103C235EFF4300A81888 /* YJYLinesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C102F235EFF4300A81888 /* YJYLinesCell.m */; };
@@ -711,6 +713,10 @@
 		0C05334722F97D6000DA9143 /* icon_phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_phone.png; sourceTree = "<group>"; };
 		0C05334A22F97DCA00DA9143 /* QueryPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryPhoneVC.h; sourceTree = "<group>"; };
 		0C05334B22F97DCA00DA9143 /* QueryPhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryPhoneVC.m; sourceTree = "<group>"; };
+		0C0814B8239F2CE600176F88 /* UpgradeTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradeTipsView.m; sourceTree = "<group>"; };
+		0C0814B9239F2CE600176F88 /* UpgradeTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeTipsView.h; sourceTree = "<group>"; };
+		0C0814BB239F82D100176F88 /* ModifyNoChangeStoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyNoChangeStoreVC.h; sourceTree = "<group>"; };
+		0C0814BC239F82D100176F88 /* ModifyNoChangeStoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyNoChangeStoreVC.m; sourceTree = "<group>"; };
 		0C08E79022F7CD990079A3A0 /* NumeralAddMinusPersonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumeralAddMinusPersonVC.h; sourceTree = "<group>"; };
 		0C08E79122F7CD990079A3A0 /* NumeralAddMinusPersonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumeralAddMinusPersonVC.m; sourceTree = "<group>"; };
 		0C09524023167B1E00E38F74 /* toTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toTop.png; sourceTree = "<group>"; };
@@ -1973,6 +1979,15 @@
 			path = "号码查询";
 			sourceTree = "<group>";
 		};
+		0C0814B7239F2CE600176F88 /* 升级提示 */ = {
+			isa = PBXGroup;
+			children = (
+				0C0814B8239F2CE600176F88 /* UpgradeTipsView.m */,
+				0C0814B9239F2CE600176F88 /* UpgradeTipsView.h */,
+			);
+			path = "升级提示";
+			sourceTree = "<group>";
+		};
 		0C0C102E235EFF4300A81888 /* charView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2749,6 +2764,7 @@
 		0C3A9147225B211400F04804 /* 自定义SDK */ = {
 			isa = PBXGroup;
 			children = (
+				0C0814B7239F2CE600176F88 /* 升级提示 */,
 				0C38052B238240AE0075CABD /* 筛选框 */,
 				0C4374C72367DD5600B014D0 /* 修改名称 */,
 				1084D10522969BEC001DB0FD /* 权限管理 */,
@@ -3258,6 +3274,8 @@
 				0C3DD5DA2369392900211766 /* AddStoreNeedVC.m */,
 				0C63F519236AB28300946236 /* AddStoreFollowRecordVC.h */,
 				0C63F51A236AB28300946236 /* AddStoreFollowRecordVC.m */,
+				0C0814BB239F82D100176F88 /* ModifyNoChangeStoreVC.h */,
+				0C0814BC239F82D100176F88 /* ModifyNoChangeStoreVC.m */,
 			);
 			path = "新增商家";
 			sourceTree = "<group>";
@@ -6349,6 +6367,7 @@
 				0C4BEDE62394DD3B00B0B398 /* ShopRentPriceChangeAuditCell.m in Sources */,
 				0C0CE33122DDCFAB00092293 /* AuditTaskDetailCollCell.m in Sources */,
 				0C3A919A225C484500F04804 /* TitleContentBaseCell.m in Sources */,
+				0C0814BA239F2CE600176F88 /* UpgradeTipsView.m in Sources */,
 				0C380486237566530075CABD /* PayRemindCell.m in Sources */,
 				0C4BEDDD2394DC3800B0B398 /* ShopFreePeriodChangeAuditCell.m in Sources */,
 				0C365CB822E9393C00A586FC /* ModifySignVC.m in Sources */,
@@ -6565,6 +6584,7 @@
 				0CC2730522681FF100EB881F /* DropBtn.m in Sources */,
 				0CEF8A02225C8D460057F3FD /* TypeTagCollCell.m in Sources */,
 				0C221A7B227EED67006B0510 /* WorkPhoneConfrimWaitVC.m in Sources */,
+				0C0814BD239F82D100176F88 /* ModifyNoChangeStoreVC.m in Sources */,
 				0C0C103E235EFF4300A81888 /* LHYChartView.m in Sources */,
 				105162542359A5CD00E7CA6F /* SaleDetailVC.m in Sources */,
 				0CD043DE2283BC05002C8BD3 /* GetCaptchaView.m in Sources */,

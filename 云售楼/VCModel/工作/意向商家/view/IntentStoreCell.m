@@ -457,7 +457,7 @@
             _auditL.text = @"未审核";
             break;
     }
-    _payL.text = [signDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+    _payL.text = [signDic[@"receive_state"] integerValue] == 1? @"已收款":[signDic[@"receive_state"] integerValue] == 2?@"未收款":@"欠款";
 }
 
 - (void)initUI{

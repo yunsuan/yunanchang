@@ -120,7 +120,7 @@
         _editBtn.hidden = YES;
     }
     
-    _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+    _payL.text = [dataDic[@"receive_state"] integerValue] == 1? @"已收款":[dataDic[@"receive_state"] integerValue] == 2?@"未收款":@"欠款";
     NSString *room = @"";
     for (int i = 0; i < [dataDic[@"shop_detail_list"] count]; i++) {
         
@@ -224,7 +224,7 @@
         _editBtn.hidden = YES;
     }
     
-    _payL.text = [signDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+    _payL.text = [signDic[@"receive_state"] integerValue] == 1? @"已收款":[signDic[@"receive_state"] integerValue] == 2?@"未收款":@"欠款";
     NSString *room = @"";
     for (int i = 0; i < [signDic[@"shop_detail_list"] count]; i++) {
         
@@ -323,7 +323,7 @@
         _editBtn.hidden = YES;
     }
     
-    _payL.text = [storeIntentDic[@"receive_state"] integerValue] == 1? @"已收款":@"未收款";
+    _payL.text = [storeIntentDic[@"receive_state"] integerValue] == 1? @"已收款":[storeIntentDic[@"receive_state"] integerValue] == 2?@"未收款":@"欠款";
     
     NSString *room = @"";
     for (int i = 0; i < [storeIntentDic[@"shop_list"] count]; i++) {
