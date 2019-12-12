@@ -1029,7 +1029,7 @@
                 [self showContent:@"请先选择房源"];
             }else{
                 
-                if (![self->_orderDic[@"rent_month_num"] length] || !self->_orderDic[@"start_time"]) {
+                 if (![[NSString stringWithFormat:@"%@",self->_orderDic[@"rent_month_num"]] length] || !self->_orderDic[@"start_time"]) {
                     
                     if (!self->_orderDic[@"start_time"]) {
                         
@@ -1159,7 +1159,7 @@
                 [self showContent:@"请先选择房源"];
             }else{
                 
-                if (![self->_orderDic[@"rent_month_num"] length] || !self->_orderDic[@"start_time"]) {
+                 if (![[NSString stringWithFormat:@"%@",self->_orderDic[@"rent_month_num"]] length] || !self->_orderDic[@"start_time"]) {
                     
                     if (!self->_orderDic[@"start_time"]) {
                         

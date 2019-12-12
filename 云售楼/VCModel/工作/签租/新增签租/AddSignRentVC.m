@@ -1163,7 +1163,7 @@
                 [self showContent:@"请先选择房源"];
             }else{
                 
-                if (![self->_orderDic[@"rent_month_num"] length] || !self->_orderDic[@"start_time"]) {
+                 if (![[NSString stringWithFormat:@"%@",self->_orderDic[@"rent_month_num"]] length] || !self->_orderDic[@"start_time"]) {
                     
                     if (!self->_orderDic[@"start_time"]) {
                         
@@ -1300,7 +1300,7 @@
                 [self showContent:@"请先选择房源"];
             }else{
                 
-                if (![self->_orderDic[@"rent_month_num"] length] || !self->_orderDic[@"start_time"]) {
+                if (![[NSString stringWithFormat:@"%@",self->_orderDic[@"rent_month_num"]] length] || !self->_orderDic[@"start_time"]) {
                     
                     if (!self->_orderDic[@"start_time"]) {
                         
@@ -1535,7 +1535,7 @@
                     dic = @{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"6"};
                 }else if([self.from_type isEqualToString:@"3"]){
                     
-                    dic = @{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"16"};
+                    dic = @{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"7"};
                 }else{
                     
                     dic = @{@"project_id":self->_project_id,@"config_type":@"1",@"progress_defined_id":@"6"};

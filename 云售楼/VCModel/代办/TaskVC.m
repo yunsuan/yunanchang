@@ -1258,16 +1258,16 @@
 #pragma mark -- 82 定租免租期流程 --
     }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 82){
               
-        ShopFreePeriodChangeAuditCell *cell = [[ShopFreePeriodChangeAuditCell alloc] init];
+        FreeOverTimeProcessCell *cell = [[FreeOverTimeProcessCell alloc] init];
         if (!cell) {
             
-            cell = [[ShopFreePeriodChangeAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShopFreePeriodChangeAuditCell"];
+            cell = [[FreeOverTimeProcessCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FreeOverTimeProcessCell"];
         }
         cell.selectionStyle = UITableViewCellSeparatorStyleNone;
         
         cell.dataDic = _dataArr[indexPath.row];
         
-        cell.shopFreePeriodChangeAuditCellAuditBlock = ^(NSInteger index) {
+        cell.freeOverTimeProcessCellAuditBlock = ^(NSInteger index) {
           
             ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
             nextVC.status = @"5";
@@ -1333,16 +1333,16 @@
 #pragma mark -- 85 签租免租期流程 --
     }else if([_dataArr[indexPath.row][@"message_type"] integerValue] == 85){
               
-        ShopFreePeriodChangeAuditCell *cell = [[ShopFreePeriodChangeAuditCell alloc] init];
+        FreeOverTimeProcessCell *cell = [[FreeOverTimeProcessCell alloc] init];
         if (!cell) {
             
-            cell = [[ShopFreePeriodChangeAuditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShopFreePeriodChangeAuditCell"];
+            cell = [[FreeOverTimeProcessCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FreeOverTimeProcessCell"];
         }
         cell.selectionStyle = UITableViewCellSeparatorStyleNone;
         
-        cell.dataDic = _dataArr[indexPath.row];
+        cell.signDic = _dataArr[indexPath.row];
         
-        cell.shopFreePeriodChangeAuditCellAuditBlock = ^(NSInteger index) {
+        cell.freeOverTimeProcessCellAuditBlock = ^(NSInteger index) {
           
             ShopAuditTaskDetailVC *nextVC = [[ShopAuditTaskDetailVC alloc] init];
             nextVC.status = @"6";

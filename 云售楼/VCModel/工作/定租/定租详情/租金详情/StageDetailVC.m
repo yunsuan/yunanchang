@@ -55,7 +55,7 @@
     double money = 0;
     for (int i = 0; i < self->_dataArr.count; i++) {
 
-        money = [self AddNumber:money num2:[self->_dataArr[i][@"total_rent"] doubleValue]];
+        money = [self DecimalNumber:[self AddNumber:money num2:[self->_dataArr[i][@"total_rent"] doubleValue]] num2:[self->_dataArr[i][@"free_rent"] doubleValue]];
     }
     NSInteger day = 0;
     for (int i = 0; i < self->_dataArr.count; i++) {

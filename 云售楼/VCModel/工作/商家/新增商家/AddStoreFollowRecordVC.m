@@ -531,8 +531,8 @@
                 [_scrollView addSubview:_remindTimeL];
                 
                 _remindTimeBtn = btn;
-//                _remindTimeBtn.content.text = [_formatter stringFromDate:[NSDate date]];
                 [_scrollView addSubview:_remindTimeBtn];
+                 break;
             }
             case 5:
             {

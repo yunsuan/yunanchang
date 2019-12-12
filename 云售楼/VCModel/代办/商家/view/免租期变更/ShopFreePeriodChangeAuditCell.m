@@ -37,7 +37,7 @@
         
         _readImg.image = IMAGE_WITH_NAME(@"");
     }
-    _titleL.text = @"定租底价流程";
+    _titleL.text = @"免租期流程变更";
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"client_name"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
     _codeL.text = [NSString stringWithFormat:@"签租编号：%@",dataDic[@"batchInfo"]];

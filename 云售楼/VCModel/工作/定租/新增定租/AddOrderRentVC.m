@@ -328,7 +328,14 @@
             store = [NSString stringWithFormat:@"%@,%@",store,_storeArr[i][@"business_id"]];
         }
     }
-    [dic setValue:self->_form_id forKey:@"from_id"];
+    if (self->_form_id.length) {
+        
+        [dic setValue:self->_form_id forKey:@"from_id"];
+    }else{
+        
+        [dic setValue:store forKey:@"from_id"];
+    }
+    
     [dic setValue:store forKey:@"business_id"];
     NSMutableDictionary *tempDic = [@{} mutableCopy];
     [tempDic setValue:_storeArr[0][@"business_type"] forKey:@"business_type"];
@@ -1017,7 +1024,7 @@
                 [self showContent:@"请先选择房源"];
             }else{
                 
-                if (![self->_orderDic[@"rent_month_num"] length] || !self->_orderDic[@"start_time"]) {
+                 if (![[NSString stringWithFormat:@"%@",self->_orderDic[@"rent_month_num"]] length] || !self->_orderDic[@"start_time"]) {
                     
                     if (!self->_orderDic[@"start_time"]) {
                         

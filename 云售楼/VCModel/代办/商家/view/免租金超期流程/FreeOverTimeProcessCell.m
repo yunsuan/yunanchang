@@ -37,16 +37,37 @@
         
         _readImg.image = IMAGE_WITH_NAME(@"");
     }
-    _titleL.text = @"定租底价流程";
+    _titleL.text = @"定租免租期流程";
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
     _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"shop_name"]];
     _intentNumL.text = [NSString stringWithFormat:@"定租铺号：%@",dataDic[@"shop_list"]];
-    _firstUnitPriceL.text = [NSString stringWithFormat:@"实际免租期长：%@",dataDic[@"sincerity"]];
+    _firstUnitPriceL.text = [NSString stringWithFormat:@"实际免租期长：%@天",dataDic[@"actual_free_num"]];
     _consultantL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"agent_name"]];
     _intentCodeL.text = [NSString stringWithFormat:@"定租编号：%@",dataDic[@"sub_id"]];
-    _UnitMinPriceL.text = [NSString stringWithFormat:@"房间最长免租期：%@",dataDic[@"row_code"]];
+    _UnitMinPriceL.text = [NSString stringWithFormat:@"房间最长免租期：%@",dataDic[@"shop_free_num"]];
     _totalL.text = [NSString stringWithFormat:@"合计总租金：%@",dataDic[@"total_rent"]];
+}
+
+- (void)setSignDic:(NSMutableDictionary *)signDic{
+    
+    if ([signDic[@"is_read"] integerValue] == 0) {
+        
+        _readImg.image = IMAGE_WITH_NAME(@"SMS");
+    }else{
+        
+        _readImg.image = IMAGE_WITH_NAME(@"");
+    }
+    _titleL.text = @"签租免租期流程";
+    _contractL.text = [NSString stringWithFormat:@"联系人：%@",signDic[@"contact"]];
+    _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",signDic[@"project_name"]];
+    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",signDic[@"shop_name"]];
+    _intentNumL.text = [NSString stringWithFormat:@"签铺号：%@",signDic[@"shop_list"]];
+    _firstUnitPriceL.text = [NSString stringWithFormat:@"实际免租期长：%@天",signDic[@"actual_free_num"]];
+    _consultantL.text = [NSString stringWithFormat:@"归属人：%@",signDic[@"agent_name"]];
+    _intentCodeL.text = [NSString stringWithFormat:@"签租编号：%@",signDic[@"contact_id"]];
+    _UnitMinPriceL.text = [NSString stringWithFormat:@"房间最长免租期：%@",signDic[@"shop_free_num"]];
+    _totalL.text = [NSString stringWithFormat:@"合计总租金：%@",signDic[@"total_rent"]];
 }
 
 - (void)setTitle:(NSString *)title{
