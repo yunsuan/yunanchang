@@ -40,8 +40,8 @@
     _titleL.text = @"定租底价流程";
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"client_name"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
-    _codeL.text = [NSString stringWithFormat:@"签租编号：%@",dataDic[@"batchInfo"]];
-    _shopNameL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"row_code"]];
+    _codeL.text = [NSString stringWithFormat:@"签租编号：%@",dataDic[@"contact_id"]];
+    _shopNameL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"business_name"]];
     _shopCodeL.text = [NSString stringWithFormat:@"签租铺号：%@",dataDic[@"sincerity"]];
     _advicerL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"sign_agent_name"]];
 }

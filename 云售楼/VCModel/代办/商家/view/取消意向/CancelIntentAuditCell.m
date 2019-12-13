@@ -40,7 +40,7 @@
     _titleL.text = @"取消意向";
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"client_name"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
-    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"batchInfo"]];
+    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"business_name"]];
     _intentNumL.text = [NSString stringWithFormat:@"意向铺号：%@",dataDic[@"row_code"]];
     _sincerityL.text = [NSString stringWithFormat:@"诚意金：%@",dataDic[@"sincerity"]];
     _consultantL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"sign_agent_name"]];

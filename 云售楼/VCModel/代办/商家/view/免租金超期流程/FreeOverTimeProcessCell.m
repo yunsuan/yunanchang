@@ -40,7 +40,7 @@
     _titleL.text = @"定租免租期流程";
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
-    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"shop_name"]];
+    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"business_name"]];
     _intentNumL.text = [NSString stringWithFormat:@"定租铺号：%@",dataDic[@"shop_list"]];
     _firstUnitPriceL.text = [NSString stringWithFormat:@"实际免租期长：%@天",dataDic[@"actual_free_num"]];
     _consultantL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"agent_name"]];

@@ -40,7 +40,7 @@
     _titleL.text = @"意向商家审核";
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
     _projectL.text =  [NSString stringWithFormat:@"项目名称：%@",dataDic[@"project_name"]];
-    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"shop_name"]];
+    _storeL.text = [NSString stringWithFormat:@"商家名称：%@",dataDic[@"business_name"]];
     _intentNumL.text = [NSString stringWithFormat:@"意向铺号：%@",dataDic[@"shop_list"]];
     _sincerityL.text = [NSString stringWithFormat:@"诚意金：%@元",dataDic[@"sincerity"]];
     _consultantL.text = [NSString stringWithFormat:@"归属人：%@",dataDic[@"agent_name"]];
