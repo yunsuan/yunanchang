@@ -261,7 +261,7 @@
 //    self.line.hidden = YES;
     self.navBackgroundView.hidden = YES;
     
-//    [self.view addSubview:self.settingbtn];
+    [self.view addSubview:self.settingbtn];
     
     _Headerimg = [[UIImageView alloc]initWithFrame:CGRectMake(130*SIZE, 39 *SIZE + NAVIGATION_BAR_HEIGHT, 100*SIZE, 100*SIZE)];
     _Headerimg.image = [UIImage imageNamed:@"logo_anchang"];

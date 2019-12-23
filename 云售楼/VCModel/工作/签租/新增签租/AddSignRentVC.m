@@ -546,7 +546,7 @@
                 [self->_progressAllArr removeAllObjects];
                 if ([resposeObject[@"data"] integerValue] == 1) {
                     
-                    [self alertControllerWithNsstring:@"是否执行免租期流程" And:@"当前租金符合免租期流程，如不执行免租期流程，本次定租将不能提交，需要返回重新修改租金信息" WithCancelBlack:^{
+                    [self alertControllerWithNsstring:@"是否执行免租期流程" And:@"当前租金符合免租期流程，如不执行免租期流程，本次签租将不能提交，需要返回重新修改租金信息" WithCancelBlack:^{
                         
                         self->_canCommit = 0;
                     } WithDefaultBlack:^{
@@ -578,7 +578,7 @@
                     }];
                 }else{
                     
-                    [self alertControllerWithNsstring:@"是否执底价流程" And:@"当前租金符合底价流程，如不执行底价流程，本次定租将不能提交，需要返回重新修改租金信息" WithCancelBlack:^{
+                    [self alertControllerWithNsstring:@"是否执底价流程" And:@"当前租金符合底价流程，如不执行底价流程，本次签租将不能提交，需要返回重新修改租金信息" WithCancelBlack:^{
                         
                         self->_canCommit = 0;
                     } WithDefaultBlack:^{

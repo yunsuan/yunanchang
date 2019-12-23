@@ -855,6 +855,7 @@
         nextVC.status = @"select";
         nextVC.roomVCBlock = ^(NSDictionary * dic) {
             
+            
             strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
             for (int i = 0; i < [strongSelf->_roomDic[@"propertyDetail"] count]; i++) {
                 
@@ -894,6 +895,7 @@
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
             strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
             strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
+            [strongSelf DiscountRequest];
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };

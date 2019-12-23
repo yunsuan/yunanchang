@@ -32,7 +32,14 @@
     
     _headImg.image = IMAGE_WITH_NAME(@"xiaoshourbao");
 
-    _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"business_name"]];
+    if (![dataDic[@"business_name"] isKindOfClass:[NSNull class]] && [dataDic[@"business_name"] length]) {
+        
+        _titleL.text = [NSString stringWithFormat:@"%@",dataDic[@"business_name"]];
+    }else{
+        
+        _titleL.text = @" ";
+    }
+    
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",dataDic[@"contact"]];
     _registerL.text = [NSString stringWithFormat:@"意向编号：%@",dataDic[@"row_code"]];
     if ([dataDic[@"name"] length]) {
@@ -176,7 +183,14 @@
     
     _headImg.image = IMAGE_WITH_NAME(@"dingdan_1");
 
-    _titleL.text = [NSString stringWithFormat:@"%@",orderDic[@"business_name"]];
+    if (![orderDic[@"business_name"] isKindOfClass:[NSNull class]] && [orderDic[@"business_name"] length]) {
+        
+        _titleL.text = [NSString stringWithFormat:@"%@",orderDic[@"business_name"]];
+    }else{
+        
+        _titleL.text = @" ";
+    }
+//    _titleL.text = [NSString stringWithFormat:@"%@",orderDic[@"business_name"]];
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",orderDic[@"contact"]];
     _registerL.text = [NSString stringWithFormat:@"定租编号：%@",orderDic[@"sub_code"]];
     if ([orderDic[@"shop_name"] length]) {
@@ -320,7 +334,14 @@
     
     _headImg.image = IMAGE_WITH_NAME(@"hetong_1");
 
-    _titleL.text = [NSString stringWithFormat:@"%@",signDic[@"business_name"]];
+    if (![signDic[@"business_name"] isKindOfClass:[NSNull class]] && [signDic[@"business_name"] length]) {
+        
+        _titleL.text = [NSString stringWithFormat:@"%@",signDic[@"business_name"]];
+    }else{
+        
+        _titleL.text = @" ";
+    }
+//    _titleL.text = [NSString stringWithFormat:@"%@",signDic[@"business_name"]];
     _contractL.text = [NSString stringWithFormat:@"联系人：%@",signDic[@"contact"]];
     _registerL.text = [NSString stringWithFormat:@"签租编号：%@",signDic[@"contact_code"]];
     if ([signDic[@"shop_name"] length]) {

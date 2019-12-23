@@ -32,6 +32,8 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 
+@property (nonatomic, strong) UpgradeTipsView *updateView;
+
 @end
 
 @implementation AppDelegate
@@ -73,20 +75,20 @@ static NSString *const kJpushAPPKey = @"920b77f3b949ac810516400e";
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
                     
-                    UpgradeTipsView *view = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-                    view.contentL.text = dic[@"releaseNotes"];
-                    view.upgradeTipsViewBlock = ^{
+                    self->_updateView = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    self->_updateView.contentL.text = dic[@"releaseNotes"];
+                    self->_updateView.upgradeTipsViewBlock = ^{
                         
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1371990304?mt=8"]];
                     };
                     if ([resposeObject[@"data"][@"must"] integerValue]) {
 
-                        view.cancelBtn.hidden = YES;
+                        self->_updateView.cancelBtn.hidden = YES;
                     }
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
-                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self->_updateView];
                     });
                 }
             } failure:^(NSError *error) {
@@ -553,20 +555,20 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
                     
-                    UpgradeTipsView *view = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-                    view.contentL.text = dic[@"releaseNotes"];
-                    view.upgradeTipsViewBlock = ^{
+                    self->_updateView = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    self->_updateView.contentL.text = dic[@"releaseNotes"];
+                    self->_updateView.upgradeTipsViewBlock = ^{
                         
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1371990304?mt=8"]];
                     };
                     if ([resposeObject[@"data"][@"must"] integerValue]) {
 
-                        view.cancelBtn.hidden = YES;
+                        self->_updateView.cancelBtn.hidden = YES;
                     }
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
-                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self->_updateView];
                     });
                 }
             } failure:^(NSError *error) {
@@ -599,20 +601,20 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
-                    UpgradeTipsView *view = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-                    view.contentL.text = dic[@"releaseNotes"];
-                    view.upgradeTipsViewBlock = ^{
+                    self->_updateView = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    self->_updateView.contentL.text = dic[@"releaseNotes"];
+                    self->_updateView.upgradeTipsViewBlock = ^{
                         
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1371990304?mt=8"]];
                     };
                     if ([resposeObject[@"data"][@"must"] integerValue]) {
 
-                        view.cancelBtn.hidden = YES;
+                        self->_updateView.cancelBtn.hidden = YES;
                     }
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
-                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self->_updateView];
                     });
                 }
             } failure:^(NSError *error) {
@@ -640,20 +642,20 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 if ([resposeObject[@"code"] integerValue] == 200) {
                     
                     
-                    UpgradeTipsView *view = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-                    view.contentL.text = dic[@"releaseNotes"];
-                    view.upgradeTipsViewBlock = ^{
+                    self->_updateView = [[UpgradeTipsView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    self->_updateView.contentL.text = dic[@"releaseNotes"];
+                    self->_updateView.upgradeTipsViewBlock = ^{
                         
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1371990304?mt=8"]];
                     };
                     if ([resposeObject[@"data"][@"must"] integerValue]) {
 
-                        view.cancelBtn.hidden = YES;
+                        self->_updateView.cancelBtn.hidden = YES;
                     }
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         
-                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self->_updateView];
                     });
                 }
             } failure:^(NSError *error) {

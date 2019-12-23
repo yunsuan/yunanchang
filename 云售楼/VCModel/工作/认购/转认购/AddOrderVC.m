@@ -856,6 +856,7 @@
         nextVC.status = @"select";
         nextVC.roomVCBlock = ^(NSDictionary * dic) {
             
+            
             strongSelf->_roomDic = [NSMutableDictionary dictionaryWithDictionary:dic];
             for (int i = 0; i < [strongSelf->_roomDic[@"propertyDetail"] count]; i++) {
                 
@@ -877,10 +878,6 @@
                 }
             }];
             strongSelf->_addOrderRoomView.dataDic = strongSelf->_roomDic;
-//            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"total_price"];
-//            [strongSelf->_ordDic setObject:[NSString stringWithFormat:@"%@",dic[@"total_price"]] forKey:@"price"];
-//            [strongSelf->_ordDic setObject:@"0.00" forKey:@"preferPrice"];
-//            strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
             [strongSelf->_ordDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 
                 
@@ -899,6 +896,7 @@
             strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
             strongSelf->_addOrderView.dataArr = strongSelf->_disCountArr;
             strongSelf->_addOrderView.installArr = strongSelf->_installmentArr;
+            [strongSelf DiscountRequest];
         };
         [strongSelf.navigationController pushViewController:nextVC animated:YES];
     };
@@ -1257,9 +1255,13 @@
         if (index == 0) {
             
             NSMutableArray * payArr = [[NSMutableArray alloc] initWithArray:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
-            [payArr insertObject:@{@"param":@"未定",
-                                   @"id":@""
-                                   } atIndex:0];
+            if (payArr.count) {
+                
+                [payArr insertObject:@{@"param":@"未定",
+                @"id":@""
+                } atIndex:0];
+            }
+            
             SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:payArr];
 //            SinglePickView *view = [[SinglePickView alloc] initWithFrame:strongSelf.view.bounds WithData:[strongSelf getDetailConfigArrByConfigState:PAY_WAY]];
             view.selectedBlock = ^(NSString *MC, NSString *ID) {

@@ -287,6 +287,8 @@
             _unit = 0;
         }
         _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
+        _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
+        _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
     }else if (textField == _freeTF.textField){
         
         if (_freeTF.textField.text.length) {
@@ -338,6 +340,10 @@
             
             _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
         }
+        _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
+    }else if (textField == _totalTF.textField){
+        
+        _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
         _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
     }
 }

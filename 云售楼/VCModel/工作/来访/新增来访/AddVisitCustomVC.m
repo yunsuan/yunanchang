@@ -889,7 +889,7 @@
     
     _timeL = [[UILabel alloc] init];
     _timeL.textColor = CLTitleLabColor;
-    _timeL.text = @"来电时间：";
+    _timeL.text = @"来访时间：";
     _timeL.font = [UIFont systemFontOfSize:13 *SIZE];
     _timeL.adjustsFontSizeToFitWidth = YES;
     [_scrollView addSubview:_timeL];

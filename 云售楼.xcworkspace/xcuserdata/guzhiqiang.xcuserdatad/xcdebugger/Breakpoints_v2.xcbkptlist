@@ -53,22 +53,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "06C7902B-2872-4A4D-9FC0-0A07C0AEC98E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x7b7e;&#x79df;/&#x65b0;&#x589e;&#x7b7e;&#x79df;/&#x65b0;&#x589e;&#x4fee;&#x6539;&#x7269;&#x4e1a;&#x8d39;/AddSignRentPropertyVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
-            landmarkName = "-initUI"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "2D238A2E-5CC2-4061-8F7C-9788662AA944"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -143,86 +127,6 @@
             startingLineNumber = "439"
             endingLineNumber = "439"
             landmarkName = "-ActionNextBtn:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8A0C32C9-D6A0-48A8-A579-E08054EA0457"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x4ee3;&#x529e;/&#x5ba1;&#x6838;&#x4ee3;&#x529e;/&#x5546;&#x4e1a;&#x5ba1;&#x6838;/ShopAuditTaskDetailVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
-            landmarkName = "-ActionAuditBtn:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8A0C32C9-D6A0-48A8-A579-E08054EA0457 - 81aa3983ff5e7b2c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ShopAuditTaskDetailVC ActionAuditBtn:]"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E4%BB%A3%E5%8A%9E/%E5%AE%A1%E6%A0%B8%E4%BB%A3%E5%8A%9E/%E5%95%86%E4%B8%9A%E5%AE%A1%E6%A0%B8/ShopAuditTaskDetailVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "240"
-                  endingLineNumber = "240"
-                  offsetFromSymbolStart = "996">
-               </Location>
-               <Location
-                  uuid = "8A0C32C9-D6A0-48A8-A579-E08054EA0457 - c314ecf1f403baa4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__40-[ShopAuditTaskDetailVC ActionAuditBtn:]_block_invoke"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E4%BB%A3%E5%8A%9E/%E5%AE%A1%E6%A0%B8%E4%BB%A3%E5%8A%9E/%E5%95%86%E4%B8%9A%E5%AE%A1%E6%A0%B8/ShopAuditTaskDetailVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "242"
-                  endingLineNumber = "242"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A7E8BF4D-119A-4E3D-8189-82A02967D9F3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x4ee3;&#x529e;/&#x5ba1;&#x6838;&#x4ee3;&#x529e;/&#x5546;&#x4e1a;&#x5ba1;&#x6838;/ShopAuditTaskDetailVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "-ActionAuditBtn:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8E3EBF43-4C52-4223-A9EE-E85D864F4313"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x7b7e;&#x79df;/&#x7b7e;&#x79df;&#x8be6;&#x60c5;/SignRentDetailVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "-RequestMethod"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -389,47 +293,31 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "701CBF81-03E2-48A8-BA03-4C6A564A4281"
+            uuid = "1CC978A1-F2AE-4E2E-A05F-B4FC96F6A3D5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x5b9a;&#x79df;/&#x65b0;&#x589e;&#x5b9a;&#x79df;/AddOrderRentVC.m"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/WorkVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "-initDataSource"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-ActionRightBtn:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E1E2AC4A-62AD-425B-97E5-C262C3381F24"
+            uuid = "227081C0-EDEB-4F41-ADA2-2EA71FA8B3B8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x5b9a;&#x79df;/&#x65b0;&#x589e;&#x5b9a;&#x79df;/AddOrderRentVC.m"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x8ba4;&#x8d2d;/&#x8f6c;&#x8ba4;&#x8d2d;/&#x9009;&#x62e9;&#x4f18;&#x60e0;&#x65b9;&#x6848;/SelectSpePerferVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-initDataSource"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "828D71DE-E0F1-48A1-AE44-C1C1FA686E20"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x610f;&#x5411;&#x5546;&#x5bb6;/&#x610f;&#x5411;&#x5546;&#x5bb6;&#x8be6;&#x60c5;/IntentStoreDetailVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "-RequestMethod"
             landmarkType = "7">
          </BreakpointContent>

@@ -186,6 +186,13 @@
     [tempDic setValue:@"物业费" forKey:@"config_name"];
     [tempDic setValue:@"1" forKey:@"quantity"];
     [tempDic setValue:[NSString stringWithFormat:@"%@",_unitTF.textField.text] forKey:@"unit_cost"];
+    if (_marklTF.textField.text.length) {
+        
+        [tempDic setValue:_marklTF.textField.text forKey:@"comment"];
+    }else{
+        
+        [tempDic setValue:@" " forKey:@"comment"];
+    }
     if ([self.status isEqualToString:@"add"]) {
         
         if (self.addSignRentPropertyVCBlock) {
@@ -213,7 +220,7 @@
     
     NSArray *titleArr = @[@"计价开始时间：",@"本期时长(月)：",@"计算金额：",@"实际金额：",@"备注：",@"交款时间：",@"单价：",@"提醒时间："];
     
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
@@ -253,6 +260,11 @@
             
             _originL = label;
             _originL.numberOfLines = 0;
+            if (self.dataDic.count) {
+                
+                _originL.text = [NSString stringWithFormat:@"计算金额：%.2f元",[self MultiplyingNumber:[_periodTF.textField.text doubleValue] num2:[self MultiplyingNumber:[self.dataDic[@"unit_cost"] doubleValue] num2:self.area]]];
+            }
+            
             [_scrollView addSubview:_originL];
             
             
