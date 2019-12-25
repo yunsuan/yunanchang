@@ -529,8 +529,8 @@
     
     UILabel *contentlab2 = [[UILabel alloc]initWithFrame:CGRectMake(16*SIZE, 198*SIZE, 200*SIZE, 16*SIZE)];
     contentlab2.font = FONT(12);
-    NSString *unit = [NSString stringWithFormat:@"%.2f",[_fjxx[@"total_rent"] doubleValue] / [_fjxx[@"build_size"] doubleValue]];
-    contentlab2.text = [NSString stringWithFormat:@"单价:  %@元/㎡/月",unit];
+    NSString *unit = [NSString stringWithFormat:@"%.2f",[_fjxx[@"total_rent"] doubleValue]];
+    contentlab2.text = [NSString stringWithFormat:@"租金:  %@元/㎡/月",unit];
     contentlab2.textColor = CLContentLabColor;
     [_tanchuanView addSubview:contentlab2];
     

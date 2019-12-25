@@ -820,7 +820,7 @@
                     
                     [self alertControllerWithNsstring:@"号码重复" And:resposeObject[@"msg"] WithDefaultBlack:^{
                         
-//                        textField.text = @"";
+                        textField.text = @"";
                     }];
                 }else{
                     

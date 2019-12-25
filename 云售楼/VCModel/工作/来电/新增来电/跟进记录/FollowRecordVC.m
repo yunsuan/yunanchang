@@ -636,6 +636,9 @@
             case 0:
             {
                 _followPurposeL = label;
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_followPurposeL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _followPurposeL.attributedText = attr;
                 [_scrollView addSubview:_followPurposeL];
                 break;
             }
@@ -643,18 +646,27 @@
             {
     
                 _followWayL = label;
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_followWayL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _followWayL.attributedText = attr;
                 [_scrollView addSubview:_followWayL];
                 break;
             }
             case 2:
             {
                 _levelL = label;
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_levelL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _levelL.attributedText = attr;
                 [_scrollView addSubview:_levelL];
                 break;
             }
             case 3:
             {
                 _contentL = label;
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_contentL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _contentL.attributedText = attr;
                 [_scrollView addSubview:_contentL];
                 break;
             }
@@ -667,6 +679,9 @@
             case 5:
             {
                 _remindTimeL = label;
+                NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"*%@",_remindTimeL.text]];
+                [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+                _remindTimeL.attributedText = attr;
                 [_scrollView addSubview:_remindTimeL];
                 break;
             }
