@@ -116,7 +116,8 @@
             double money = 0;
             for (int i = 0; i < self->_stageArr.count; i++) {
 
-                money = [self AddNumber:money num2:[self->_stageArr[i][@"total_rent"] doubleValue]];
+                money = [self DecimalNumber:[self AddNumber:money num2:[self->_stageArr[i][@"total_rent"] doubleValue]] num2:[self->_stageArr[i][@"free_rent"] doubleValue]];
+//                [self AddNumber:money num2:[self->_stageArr[i][@"total_rent"] doubleValue]];
             }
             double property = 0;
             for (int i = 0; i < self->_propertyArr.count; i++) {

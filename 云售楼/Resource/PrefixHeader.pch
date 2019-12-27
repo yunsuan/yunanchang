@@ -37,11 +37,11 @@
 #import "ZZQAvatarPicker.h"
 
 
-#define YACversion @"2.2.5"
+#define YACversion @"2.2.6"
 #define LOGINENTIFIER @"logIndentifier"
 #define LOGINSUCCESS @"logInSuccessdentifier"
 
-#define TestBase_Net  [[[NSMutableArray alloc]initWithContentsOfFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:@"ServerControl.plist"]] objectAtIndex:0]
+//#define TestBase_Net  [[[NSMutableArray alloc]initWithContentsOfFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:@"ServerControl.plist"]] objectAtIndex:0]
 
 #define MonthDic @{@"1":@"January",@"2":@"February",@"3":@"March",@"4":@"April",@"5":@"May",@"6":@"June",@"7":@"July",@"8":@"August",@"9":@"Septemper",@"10":@"October",@"11":@"November",@"12":@"December"}
 
