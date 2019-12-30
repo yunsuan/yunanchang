@@ -135,7 +135,7 @@
 - (void)initDataSource{
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    [_formatter setDateFormat:@"yyyy-MM-dd"];
     
     
     _certArr = [@[] mutableCopy];

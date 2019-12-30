@@ -70,7 +70,7 @@
 - (void)initDataSource{
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY年MM月dd日"];
+    [_formatter setDateFormat:@"yyyy年MM月dd日"];
     
     _date = [NSDate date];
     [self getWeekBeginAndEndWith:_date];
@@ -138,10 +138,10 @@
     NSDate *lastDayOfWeek = [calendar dateFromComponents:lastDayComp];
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-    [formatter1 setDateFormat:@"YYYYMMdd"];
+    [formatter1 setDateFormat:@"yyyyMMdd"];
 
     NSString *firstDay = [formatter stringFromDate:firstDayOfWeek];
     NSString *lastDay = [formatter stringFromDate:lastDayOfWeek];

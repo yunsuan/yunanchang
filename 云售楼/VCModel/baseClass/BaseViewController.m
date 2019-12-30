@@ -709,7 +709,29 @@
   
     NSDateComponents *comps = [[NSDateComponents alloc] init];
     [comps setMonth:month];
+//    [comps setDay:-1];
+    NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *mDate = [calender dateByAddingComponents:comps toDate:date options:0];
+    return mDate;
+}
+
+- (NSDate *)getLastDateFromDate:(NSDate *)date
+{
+  
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+//    [comps setMonth:month];
     [comps setDay:-1];
+    NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *mDate = [calender dateByAddingComponents:comps toDate:date options:0];
+    return mDate;
+}
+
+- (NSDate *)getNextDateFromDate:(NSDate *)date
+{
+  
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+//    [comps setMonth:month];
+    [comps setDay:+1];
     NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *mDate = [calender dateByAddingComponents:comps toDate:date options:0];
     return mDate;
@@ -767,6 +789,33 @@
     //获取其中的"天"
 //    NSLog(@"%ld",delta.day);
     return delta.day;
+}
+
+- (NSDateComponents *)getMonthAndDayFromDate:(NSDate *)date1 withDate2:(NSDate *)date2{
+    
+    //创建两个日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+
+    //利用NSCalendar比较日期的差异
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    /**
+     * 要比较的时间单位,常用如下,可以同时传：
+     *    NSCalendarUnitDay : 天
+     *    NSCalendarUnitYear : 年
+     *    NSCalendarUnitMonth : 月
+     *    NSCalendarUnitHour : 时
+     *    NSCalendarUnitMinute : 分
+     *    NSCalendarUnitSecond : 秒
+     */
+    NSCalendarUnit unit = NSCalendarUnitDay | NSCalendarUnitMonth;
+    //比较的结果是NSDateComponents类对象
+    NSDateComponents *delta = [calendar components:unit fromDate:date1 toDate:date2 options:0];
+    //打印
+    NSLog(@"%@",delta);
+    //获取其中的"天"
+//    NSLog(@"%ld",delta.day);
+    return delta;
 }
 
 

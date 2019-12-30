@@ -116,7 +116,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FollowWay) name:@"followReload" object:nil];
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    [_formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     
     
     _directDic = [@{} mutableCopy];
@@ -403,7 +403,7 @@
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+                [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"TaskReolad" object:nil];
                 [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
                     
@@ -470,7 +470,7 @@
             if ([resposeObject[@"code"] integerValue] == 200) {
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+                [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
                 
                 [self alertControllerWithNsstring:@"跟进记录" And:@"是否在日历添加日程" WithCancelBlack:^{
                     
@@ -738,7 +738,7 @@
     [_remindTimeBtn addTarget:self action:@selector(ActionTimeBtn:) forControlEvents:UIControlEventTouchUpInside];
     _remindTimeBtn.placeL.text = @"";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     _remindTimeBtn.content.text = [NSString stringWithFormat:@"%@ 09:00:00",[dateFormatter stringFromDate:[NSDate date]]];
     [_scrollView addSubview:_remindTimeBtn];
     

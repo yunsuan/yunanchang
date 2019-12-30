@@ -155,11 +155,20 @@ typedef NS_OPTIONS(NSUInteger, ConfigState){
 //某个时间的几个月后
 - (NSDate *)getPriousorLaterDateFromDate:(NSDate *)date withMonth:(NSInteger)month;
 
+//某个时间的前一天
+- (NSDate *)getLastDateFromDate:(NSDate *)date;
+
+//某个时间的后一天
+- (NSDate *)getNextDateFromDate:(NSDate *)date;
+
 //两个时间的月差
 - (NSInteger)getMonthFromDate:(NSDate *)date1 withDate2:(NSDate *)date2;
 
 //两个时间的天差
 - (NSInteger)getDayFromDate:(NSDate *)date1 withDate2:(NSDate *)date2;
+
+//两个时间的月日差
+- (NSDateComponents *)getMonthAndDayFromDate:(NSDate *)date1 withDate2:(NSDate *)date2;
 @end
 
 NS_ASSUME_NONNULL_END

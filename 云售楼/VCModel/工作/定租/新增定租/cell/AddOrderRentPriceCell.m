@@ -51,7 +51,7 @@
         NSInteger day = 0;
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"YYYY-MM-dd"];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
         for (int i = 0; i < dataArr.count; i++) {
             
             day = day + [self getDayFromDate:[formatter dateFromString:dataArr[i][@"free_start_time"]] withDate2:[formatter dateFromString:dataArr[i][@"free_end_time"]]];

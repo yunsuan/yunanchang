@@ -152,9 +152,9 @@
     _imgArr = [@[] mutableCopy];
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    [_formatter setDateFormat:@"yyyy-MM-dd"];
     _secondFormatter = [[NSDateFormatter alloc] init];
-    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_secondFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     if (!_installmentArr.count) {
         
@@ -1938,7 +1938,7 @@
             view.dateblock = ^(NSDate *date) {
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                 [strongSelf->_ordDic setObject:[formatter stringFromDate:date] forKey:@"sub_time"];
                 strongSelf->_addOrderView.dataDic = strongSelf->_ordDic;
             };

@@ -55,7 +55,7 @@
 -(void)initDateSouce
 {
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     _dataDic = [@{} mutableCopy];
     [self InValidRequestMethod];
 }

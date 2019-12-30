@@ -61,7 +61,7 @@ typedef void(^AddOrderRentInfoCellBtnBlock)(NSInteger idx);
 
 @property (nonatomic, strong) UILabel *rentTimePeriodL;
 
-@property (nonatomic, strong) BorderTextField *rentTimePeriodTF;
+@property (nonatomic, strong) DropBtn *rentTimePeriodTF;
 
 @property (nonatomic, strong) UILabel *payWayL;
 

@@ -68,7 +68,7 @@
     
     _timeL.text = @"";
     NSDate *date = [NSDate date];
-    [_formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     if (dataDic[@"time_limit"] && [dataDic[@"time_limit"] isKindOfClass:[NSString class]] && [dataDic[@"time_limit"] length]) {
         

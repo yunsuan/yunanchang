@@ -137,7 +137,7 @@
 //    _imgArr = [@[] mutableCopy];
     
     _secondFormatter = [[NSDateFormatter alloc] init];
-    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_secondFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{

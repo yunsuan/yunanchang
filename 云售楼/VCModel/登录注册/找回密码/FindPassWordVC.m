@@ -38,7 +38,7 @@
     self.navBackgroundView.backgroundColor = CLBackColor;
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYYMMdd"];
+    [_formatter setDateFormat:@"yyyyMMdd"];
     [self InitUI];
 }
 

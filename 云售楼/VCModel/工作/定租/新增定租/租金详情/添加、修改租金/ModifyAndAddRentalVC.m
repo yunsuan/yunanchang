@@ -29,9 +29,13 @@
 
 @property (nonatomic, strong) DropBtn *timeBtn;
 
+@property (nonatomic, strong) UILabel *endTimeL;
+
+@property (nonatomic, strong) DropBtn *endTimeBtn;
+
 @property (nonatomic, strong) UILabel *periodL;
 
-@property (nonatomic, strong) BorderTextField *periodTF;
+//@property (nonatomic, strong) BorderTextField *periodTF;
 
 @property (nonatomic, strong) UILabel *freeBeginL;
 
@@ -75,10 +79,10 @@
     [super viewDidLoad];
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     _formatter2 = [[NSDateFormatter alloc] init];
-    [_formatter2 setDateFormat:@"YYYY-MM-dd"];
+    [_formatter2 setDateFormat:@"yyyy-MM-dd"];
     
     [self initUI];
 }
@@ -91,23 +95,94 @@
         
         view.dateblock = ^(NSDate *date) {
 
-            self->_timeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+            if (self->_endTimeBtn.content.text) {
+                
+                NSComparisonResult result = [date compare:[self->_formatter2 dateFromString:self->_endTimeBtn.content.text]];
+                if (result == NSOrderedDescending) {
+                    
+                    [self showContent:@"开始时间不能大于结束时间"];
+                }else{
+                    
+                    self->_timeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+                    
+                    NSDateComponents *delta = [self getMonthAndDayFromDate:[self->_formatter2 dateFromString:self->_timeBtn.content.text] withDate2:[self getNextDateFromDate:[self->_formatter2 dateFromString:self->_endTimeBtn.content.text]]];
+                    if (delta.day == 0) {
+                        
+                        self->_periodL.text = [NSString stringWithFormat:@"本期时长：%ld月",(long)delta.month];
+                    }else{
+                    
+                        self->_periodL.text = [NSString stringWithFormat:@"本期时长：%ld月%ld天",(long)delta.month,(long)delta.day];
+                    }
+                    if (_totalTF.textField.text) {
+                        
+            
+                        double month = 1.0;
+                        if (delta.day == 0) {
+                            
+                            month = delta.month;
+                        }else{
+                            
+                            month = [self AddNumber:delta.month num2:delta.day / 30.0];
+                        }
+                        _unit = [_totalTF.textField.text doubleValue] / month / self.area;
+
+                        _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
+                        _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
+                        _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
+                    }
+                }
+            }else{
+                
+                self->_timeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+            }
         };
         [self.view addSubview:view];
-    }else if (btn.tag == 2){
-
-        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+    }else if (btn.tag == 1){
         
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        [view.pickerView setCalendar:calendar];
-        NSDateComponents *comps = [[NSDateComponents alloc] init];
-        [comps setDay:1];
-        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:[self->_formatter2 dateFromString:self->_timeBtn.content.text] options:0];
-        [view.pickerView setMinimumDate:minDate];
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         
         view.dateblock = ^(NSDate *date) {
 
-            self->_freeBeginBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+            if (self->_timeBtn.content.text) {
+                
+                NSComparisonResult result = [[self->_formatter2 dateFromString:self->_timeBtn.content.text] compare:date];
+                if (result == NSOrderedDescending) {
+                    
+                    [self showContent:@"结束时间不能小于开始时间"];
+                }else{
+                    
+                    self->_endTimeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+                    
+                    NSDateComponents *delta = [self getMonthAndDayFromDate:[self->_formatter2 dateFromString:self->_timeBtn.content.text] withDate2:[self getNextDateFromDate:[self->_formatter2 dateFromString:self->_endTimeBtn.content.text]]];
+                    if (delta.day == 0) {
+                        
+                        self->_periodL.text = [NSString stringWithFormat:@"本期时长：%ld月",(long)delta.month];
+                    }else{
+                    
+                        self->_periodL.text = [NSString stringWithFormat:@"本期时长：%ld月%ld天",(long)delta.month,(long)delta.day];
+                    }
+                    if (_totalTF.textField.text) {
+                                
+                    
+                                double month = 1.0;
+                                if (delta.day == 0) {
+                                    
+                                    month = delta.month;
+                                }else{
+                                    
+                                    month = [self AddNumber:delta.month num2:delta.day / 30.0];
+                                }
+                                _unit = [_totalTF.textField.text doubleValue] / month / self.area;
+
+                                _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
+                                _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
+                                _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
+                            }
+                }
+            }else{
+                
+                self->_endTimeBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+            }
         };
         [self.view addSubview:view];
     }else if (btn.tag == 3){
@@ -123,10 +198,26 @@
         
         view.dateblock = ^(NSDate *date) {
 
+            self->_freeBeginBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
+        };
+        [self.view addSubview:view];
+    }else if (btn.tag == 4){
+
+        DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        [view.pickerView setCalendar:calendar];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setDay:1];
+        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:[self->_formatter2 dateFromString:self->_timeBtn.content.text] options:0];
+        [view.pickerView setMinimumDate:minDate];
+        
+        view.dateblock = ^(NSDate *date) {
+
             self->_freeEndBtn.content.text = [[self->_formatter stringFromDate:date] componentsSeparatedByString:@" "][0];
         };
         [self.view addSubview:view];
-    }else if (btn.tag == 8){
+    }else if (btn.tag == 9){
 
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
         view.pickerView.datePickerMode = UIDatePickerModeDateAndTime;
@@ -183,9 +274,9 @@
         [self showContent:@"请选择租金开始时间"];
         return;
     }
-    if (!_periodTF.textField.text.length) {
+    if (!_endTimeBtn.content.text) {
         
-        [self showContent:@"请输入本期时长"];
+        [self showContent:@"请选择租金结束时间"];
         return;
     }
     if (!_totalTF.textField.text.length) {
@@ -206,8 +297,9 @@
     NSMutableDictionary *tempDic = [@{} mutableCopy];
     
     [tempDic setValue:_timeBtn.content.text forKey:@"stage_start_time"];
-    [tempDic setValue:_periodTF.textField.text forKey:@"stage_num"];
-    [tempDic setValue:[_formatter2 stringFromDate:[self getPriousorLaterDateFromDate:[_formatter2 dateFromString:_timeBtn.content.text] withMonth:[_periodTF.textField.text integerValue]]] forKey:@"stage_end_time"];
+    [tempDic setValue:_endTimeBtn.content.text forKey:@"stage_end_time"];
+    [tempDic setValue:[NSString stringWithFormat:@"%@",self.dataDic[@"stage_num"]] forKey:@"stage_num"];
+//    [tempDic setValue:[_formatter2 stringFromDate:[self getPriousorLaterDateFromDate:[_formatter2 dateFromString:_timeBtn.content.text] withMonth:[_periodTF.textField.text integerValue]]] forKey:@"stage_end_time"];
     [tempDic setValue:[NSString stringWithFormat:@"%@",_totalTF.textField.text] forKey:@"total_rent"];
     [tempDic setValue:_payTimeBtn.content.text forKey:@"pay_time"];
     [tempDic setValue:_remindBtn.content.text forKey:@"remind_time"];
@@ -267,25 +359,21 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     
-    if (textField == _periodTF.textField) {
+    if (textField == _totalTF.textField) {
         
-        if (_totalTF.textField.text.length && _periodTF.textField.text) {
+//        if (_totalTF.textField.text.length && _periodTF.textField.text) {
+//
+        NSDateComponents *delta = [self getMonthAndDayFromDate:[self->_formatter dateFromString:self->_timeBtn.content.text] withDate2:[self getNextDateFromDate:[self->_formatter dateFromString:self->_endTimeBtn.content.text]]];
+        double month = 1.0;
+        if (delta.day == 0) {
             
-            _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue] / self.area;
+            month = delta.month;
         }else{
             
-            _unit = 0;
+            month = [self AddNumber:delta.month num2:delta.day / 30.0];
         }
-        _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
-    }else if (textField == _totalTF.textField){
-        
-        if (_totalTF.textField.text.length && _periodTF.textField.text) {
-            
-            _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue] / self.area;
-        }else{
-            
-            _unit = 0;
-        }
+        _unit = [_totalTF.textField.text doubleValue] / month / self.area;
+
         _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
         _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
         _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
@@ -310,23 +398,23 @@
 
 - (void)textFieldDidChange:(UITextField *)textField{
     
-    if (textField == _periodTF.textField) {
+    if (textField == _freeTF.textField) {
         
-        if (_totalTF.textField.text.length && _periodTF.textField.text) {
-            
-            if (self.area) {
-                
-                _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue] / self.area;
-            }else{
-            
-                _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue];
-            }
-        }else{
-            
-            _unit = 0;
-        }
-        _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
-    }else if (textField == _freeTF.textField){
+//        if (_totalTF.textField.text.length && _periodTF.textField.text) {
+//
+//            if (self.area) {
+//
+//                _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue] / self.area;
+//            }else{
+//
+//                _unit = [_totalTF.textField.text doubleValue] / [_periodTF.textField.text integerValue];
+//            }
+//        }else{
+//
+//            _unit = 0;
+//        }
+//        _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
+//    }else if (textField == _freeTF.textField){
         
 //        if (_freeTF.textField.text.length) {
 //
@@ -343,6 +431,20 @@
         _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
     }else if (textField == _totalTF.textField){
         
+        NSDateComponents *delta = [self getMonthAndDayFromDate:[self->_formatter dateFromString:self->_timeBtn.content.text] withDate2:[self getNextDateFromDate:[self->_formatter dateFromString:self->_endTimeBtn.content.text]]];
+        double month = 1.0;
+        if (delta.day == 0) {
+            
+            month = delta.month;
+        }else{
+            
+            month = [self AddNumber:delta.month num2:delta.day / 30.0];
+        }
+        _unit = [_totalTF.textField.text doubleValue] / month / self.area;
+
+        _unitL.text = [NSString stringWithFormat:@"单价：%.2f元/月/㎡",_unit];
+//        _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
+//        _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
         _result = [self DecimalNumber:[_totalTF.textField.text doubleValue] num2:[_freeTF.textField.text doubleValue]];
         _resultL.text = [NSString stringWithFormat:@"应付金额：%.2f元",_result];
     }
@@ -430,9 +532,9 @@
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
     
-    NSArray *titleArr = @[@"租金开始时间：",@"本期时长：",@"免租开始时间：",@"免租结束时间：",@"总租金：",@"免租金额：",@"单价：",@"应付金额：",@"交款时间：",@"提醒时间：",@"备注："];
+    NSArray *titleArr = @[@"租金开始时间：",@"租金结束时间：",@"本期时长：",@"免租开始时间：",@"免租结束时间：",@"总租金：",@"免租金额：",@"单价：",@"应付金额：",@"交款时间：",@"提醒时间：",@"备注："];
     
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 12; i++) {
         
         UILabel *label = [[UILabel alloc] init];
         label.textColor = CLTitleLabColor;
@@ -459,17 +561,31 @@
             [_scrollView addSubview:_timeBtn];
         }else if (i == 1){
             
-            _periodL = label;
-            [_scrollView addSubview:_periodL];
+            _endTimeL = label;
+            [_scrollView addSubview:_endTimeL];
             
-            _periodTF = tf;
+            _endTimeBtn = [[DropBtn alloc] initWithFrame:CGRectMake(0, 0, 258 *SIZE, 33 *SIZE)];
+            [_endTimeBtn addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
             if (self.dataDic.count) {
                 
-                _periodTF.textField.text = [NSString stringWithFormat:@"%@",self.dataDic[@"stage_num"]];
-//                _periodTF.textField.text = [NSString stringWithFormat:@"%ld",(long)[self getMonthFromDate:[_formatter2 dateFromString:self.dataDic[@"stage_start_time"]] withDate2:[_formatter2 dateFromString:self.dataDic[@"stage_end_time"]]]];
+                _endTimeBtn.content.text = self.dataDic[@"stage_end_time"];
             }
-            [_scrollView addSubview:_periodTF];
+            _endTimeBtn.tag = 1;
+            [_scrollView addSubview:_endTimeBtn];
         }else if (i == 2){
+            
+            _periodL = label;
+            NSDateComponents *delta = [self getMonthAndDayFromDate:[self->_formatter2 dateFromString:self.dataDic[@"stage_start_time"]] withDate2:[self getNextDateFromDate:[self->_formatter2 dateFromString:self.dataDic[@"stage_end_time"]]]];
+            if (delta.day == 0) {
+                
+                self->_periodL.text = [NSString stringWithFormat:@"本期时长：%ld月",(long)delta.month];
+            }else{
+            
+                self->_periodL.text = [NSString stringWithFormat:@"本期时长：%ld月%ld天",(long)delta.month,(long)delta.day];
+            }
+            [_scrollView addSubview:_periodL];
+            
+        }else if (i == 3){
             
             _freeBeginL = label;
             [_scrollView addSubview:_freeBeginL];
@@ -483,9 +599,9 @@
                     _freeBeginBtn.content.text = self.dataDic[@"free_start_time"];
                 }
             }
-            _freeBeginBtn.tag = 2;
+            _freeBeginBtn.tag = 3;
             [_scrollView addSubview:_freeBeginBtn];
-        }else if (i == 3){
+        }else if (i == 4){
             
             _freeEndL = label;
             [_scrollView addSubview:_freeEndL];
@@ -500,9 +616,9 @@
                     _freeEndBtn.content.text = self.dataDic[@"free_end_time"];
                 }
             }
-            _freeEndBtn.tag = 3;
+            _freeEndBtn.tag = 4;
             [_scrollView addSubview:_freeEndBtn];
-        }else if (i == 4){
+        }else if (i == 5){
             
             _totalL = label;
             _totalL.numberOfLines = 0;
@@ -516,7 +632,7 @@
                 _totalTF.textField.text = self.dataDic[@"total_rent"];
             }
             [_scrollView addSubview:_totalTF];
-        }else if (i == 5){
+        }else if (i == 6){
             
             _freeL = label;
             _freeL.numberOfLines = 0;
@@ -530,16 +646,17 @@
                 _freeTF.textField.text = self.dataDic[@"free_rent"];
             }
             [_scrollView addSubview:_freeTF];
-        }else if (i == 6){
+        }else if (i == 7){
             
             _unitL = label;
             if (self.dataDic.count) {
             
                 _unitL.text = [NSString stringWithFormat:@"单价：%@元/月/㎡",self.dataDic[@"unit_rent"]];
-                _unit = [self.dataDic[@"total_rent"] doubleValue] / [_periodTF.textField.text integerValue] / self.area;
+                _unit = [self.dataDic[@"unit_rent"] doubleValue];
+//                _unit = [self.dataDic[@"total_rent"] doubleValue] / [_periodTF.textField.text integerValue] / self.area;
             }
             [_scrollView addSubview:_unitL];
-        }else if (i == 7){
+        }else if (i == 8){
             
             _resultL = label;
             if (self.dataDic.count) {
@@ -547,7 +664,7 @@
                 _resultL.text = [NSString stringWithFormat:@"实付金额：%.2f元",[self DecimalNumber:[self.dataDic[@"total_rent"] doubleValue] num2:[self.dataDic[@"free_rent"] doubleValue]]];
             }
             [_scrollView addSubview:_resultL];
-        }else if (i == 8){
+        }else if (i == 9){
             
             _payTimeL = label;
             [_scrollView addSubview:_payTimeL];
@@ -558,9 +675,9 @@
                 
                 _payTimeBtn.content.text = self.dataDic[@"pay_time"];
             }
-            _payTimeBtn.tag = 8;
+            _payTimeBtn.tag = 9;
             [_scrollView addSubview:_payTimeBtn];
-        }else if (i == 9){
+        }else if (i == 10){
             
             _remindL = label;
             [_scrollView addSubview:_remindL];
@@ -571,7 +688,7 @@
                 
                 _remindBtn.content.text = self.dataDic[@"remind_time"];
             }
-            _remindBtn.tag = 9;
+            _remindBtn.tag = 10;
             [_scrollView addSubview:_remindBtn];
         }else{
             
@@ -623,32 +740,47 @@
         make.height.mas_equalTo(33 *SIZE);
     }];
     
-    [_periodL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_endTimeL mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+            make.top.equalTo(self->_timeBtn.mas_bottom).offset(12 *SIZE);
+            make.width.mas_equalTo(70 *SIZE);
+        }];
         
-        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_timeBtn.mas_bottom).offset(12 *SIZE);
-        make.width.mas_equalTo(70 *SIZE);
-    }];
+    [_endTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
     
-    [_periodTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
         make.top.equalTo(self->_timeBtn.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];
     
+    [_periodL mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self->_scrollView).offset(9 *SIZE);
+        make.top.equalTo(self->_endTimeBtn.mas_bottom).offset(12 *SIZE);
+        make.right.equalTo(self->_scrollView).offset(-9 *SIZE);
+    }];
+    
+//    [_periodTF mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(self->_scrollView).offset(80 *SIZE);
+//        make.top.equalTo(self->_timeBtn.mas_bottom).offset(9 *SIZE);
+//        make.width.mas_equalTo(258 *SIZE);
+//        make.height.mas_equalTo(33 *SIZE);
+//    }];
+    
     [_freeBeginL mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(9 *SIZE);
-        make.top.equalTo(self->_periodTF.mas_bottom).offset(12 *SIZE);
+        make.top.equalTo(self->_periodL.mas_bottom).offset(12 *SIZE);
         make.width.mas_equalTo(70 *SIZE);
     }];
     
     [_freeBeginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self->_scrollView).offset(80 *SIZE);
-        make.top.equalTo(self->_periodTF.mas_bottom).offset(9 *SIZE);
+        make.top.equalTo(self->_periodL.mas_bottom).offset(9 *SIZE);
         make.width.mas_equalTo(258 *SIZE);
         make.height.mas_equalTo(33 *SIZE);
     }];

@@ -152,9 +152,9 @@
 //    _imgArr = [@[] mutableCopy];
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY-MM-dd"];
+    [_formatter setDateFormat:@"yyyy-MM-dd"];
     _secondFormatter = [[NSDateFormatter alloc] init];
-    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_secondFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     [_infoDic setObject:[_formatter stringFromDate:[NSDate date]] forKey:@"row_time"];
 }

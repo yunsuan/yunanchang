@@ -133,70 +133,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2ED1A5EE-7F73-42EC-91F6-BC675F9EBA67"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x5b9a;&#x79df;/&#x65b0;&#x589e;&#x5b9a;&#x79df;/AddOrderRentVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404"
-            landmarkName = "-CommitRequest"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2ED1A5EE-7F73-42EC-91F6-BC675F9EBA67 - a8755632941d7d0b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AddOrderRentVC CommitRequest]"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E5%AE%9A%E7%A7%9F/%E6%96%B0%E5%A2%9E%E5%AE%9A%E7%A7%9F/AddOrderRentVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "404"
-                  endingLineNumber = "404"
-                  offsetFromSymbolStart = "8144">
-               </Location>
-               <Location
-                  uuid = "2ED1A5EE-7F73-42EC-91F6-BC675F9EBA67 - e0beb7ff1c3f9393"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__31-[AddOrderRentVC CommitRequest]_block_invoke"
-                  moduleName = "&#x4e91;&#x552e;&#x697c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/guzhiqiang/Desktop/yunanchang/%E4%BA%91%E5%94%AE%E6%A5%BC/VCModel/%E5%B7%A5%E4%BD%9C/%E5%AE%9A%E7%A7%9F/%E6%96%B0%E5%A2%9E%E5%AE%9A%E7%A7%9F/AddOrderRentVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "406"
-                  endingLineNumber = "406"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "18ACA938-80C3-4B12-BCEF-6B1C041F0A3E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x5b9a;&#x79df;/&#x65b0;&#x589e;&#x5b9a;&#x79df;/AddOrderRentVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406"
-            landmarkName = "-CommitRequest"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "AD14AEF9-D307-4DB6-A5D7-0E21D56189C3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -223,6 +159,38 @@
             startingLineNumber = "62"
             endingLineNumber = "62"
             landmarkName = "-RequestMethod"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2065BE4E-07B0-487D-AA6E-02788C138477"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x5b9a;&#x79df;/&#x65b0;&#x589e;&#x5b9a;&#x79df;/&#x79df;&#x91d1;&#x8be6;&#x60c5;/&#x6dfb;&#x52a0;&#x3001;&#x4fee;&#x6539;&#x79df;&#x91d1;/ModifyAndAddRentalVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "586"
+            endingLineNumber = "586"
+            landmarkName = "-initUI"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C26FA1BF-23EC-4AF6-8664-A19FF5A06E7A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4e91;&#x552e;&#x697c;/VCModel/&#x5de5;&#x4f5c;/&#x5b9a;&#x79df;/&#x65b0;&#x589e;&#x5b9a;&#x79df;/&#x79df;&#x91d1;&#x8be6;&#x60c5;/&#x6dfb;&#x52a0;&#x3001;&#x4fee;&#x6539;&#x79df;&#x91d1;/ModifyAndAddRentalVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
+            landmarkName = "-initUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

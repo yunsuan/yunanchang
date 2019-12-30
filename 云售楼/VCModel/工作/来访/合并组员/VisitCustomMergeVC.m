@@ -79,7 +79,7 @@
     self.titleLabel.text = @"合并组员";
     
     _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     for (int i = 0; i < 2; i++) {
         

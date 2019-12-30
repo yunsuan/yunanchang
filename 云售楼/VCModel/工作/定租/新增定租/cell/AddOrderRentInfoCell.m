@@ -51,10 +51,11 @@
     _openTimeBtn.content.text = dataDic[@"open_time"];
     _signTimeBtn.content.text = dataDic[@"sub_time"];
     _rentTimeBeginBtn.content.text = dataDic[@"start_time"];
-    if (dataDic[@"rent_month_num"]) {
-        
-        _rentTimePeriodTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"rent_month_num"]];
-    }
+    _rentTimePeriodTF.content.text = dataDic[@"end_time"];
+//    if (dataDic[@"rent_month_num"]) {
+//
+//        _rentTimePeriodTF.textField.text = [NSString stringWithFormat:@"%@",dataDic[@"rent_month_num"]];
+//    }
     _payWayBtn1.content.text = dataDic[@"pay_name1"];
     _payWayBtn1->str = dataDic[@"pay_way1"];
     _payWayBtn2.content.text = dataDic[@"pay_name2"];
@@ -74,10 +75,10 @@
     _openTimeBtn.content.text = signDic[@"open_time"];
     _signTimeBtn.content.text = signDic[@"contact_time"];
     _rentTimeBeginBtn.content.text = signDic[@"start_time"];
-    if (signDic[@"rent_month_num"]) {
+//    if (signDic[@"rent_month_num"]) {
         
-        _rentTimePeriodTF.textField.text = [NSString stringWithFormat:@"%@",signDic[@"rent_month_num"]];
-    }
+        _rentTimePeriodTF.content.text = signDic[@"end_time"];
+//    }
     _payWayBtn1.content.text = signDic[@"pay_name1"];
     _payWayBtn1->str = signDic[@"pay_way1"];
     _payWayBtn2.content.text = signDic[@"pay_name2"];
@@ -153,58 +154,58 @@
         }
         
         return YES;
-    }else if (textField == _rentTimePeriodTF.textField) {
-            
-            BOOL isHaveDian;
-            
-            //判断是否有小数点
-            if ([textField.text containsString:@"."]) {
-                isHaveDian = YES;
-            }else{
-                isHaveDian = NO;
-            }
-            
-            if (string.length > 0) {
-                
-                //当前输入的字符
-                unichar single = [string characterAtIndex:0];
-                NSLog(@"single = %c",single);
-                
-                //不能输入.0~9以外的字符
-                if (!((single >= '0' && single <= '9'))){
-                    NSLog(@"您输入的格式不正确");
-                    return NO;
-                }
-                
-                //只能有一个小数点
-                if (isHaveDian && single == '.') {
-                    NSLog(@"只能输入一个小数点");
-                    return NO;
-                }
-                
-                //如果第一位是.则前面加上0
-                if ((textField.text.length == 0) && (single == '.')) {
-                    textField.text = @"0";
-                }
-                
-                //如果第一位是0则后面必须输入.
-                if ([textField.text hasPrefix:@"0"]) {
-                    if (textField.text.length > 1) {
-                        NSString *secondStr = [textField.text substringWithRange:NSMakeRange(1, 1)];
-                        if (![secondStr isEqualToString:@"."]) {
-                            NSLog(@"第二个字符必须是小数点");
-                            return NO;
-                        }
-                    }else{
-                        if (![string isEqualToString:@"."]) {
-                            NSLog(@"第二个字符必须是小数点");
-                            return NO;
-                        }
-                    }
-                }
-            }
-            
-            return YES;
+//    }else if (textField == _rentTimePeriodTF.textField) {
+//
+//            BOOL isHaveDian;
+//
+//            //判断是否有小数点
+//            if ([textField.text containsString:@"."]) {
+//                isHaveDian = YES;
+//            }else{
+//                isHaveDian = NO;
+//            }
+//
+//            if (string.length > 0) {
+//
+//                //当前输入的字符
+//                unichar single = [string characterAtIndex:0];
+//                NSLog(@"single = %c",single);
+//
+//                //不能输入.0~9以外的字符
+//                if (!((single >= '0' && single <= '9'))){
+//                    NSLog(@"您输入的格式不正确");
+//                    return NO;
+//                }
+//
+//                //只能有一个小数点
+//                if (isHaveDian && single == '.') {
+//                    NSLog(@"只能输入一个小数点");
+//                    return NO;
+//                }
+//
+//                //如果第一位是.则前面加上0
+//                if ((textField.text.length == 0) && (single == '.')) {
+//                    textField.text = @"0";
+//                }
+//
+//                //如果第一位是0则后面必须输入.
+//                if ([textField.text hasPrefix:@"0"]) {
+//                    if (textField.text.length > 1) {
+//                        NSString *secondStr = [textField.text substringWithRange:NSMakeRange(1, 1)];
+//                        if (![secondStr isEqualToString:@"."]) {
+//                            NSLog(@"第二个字符必须是小数点");
+//                            return NO;
+//                        }
+//                    }else{
+//                        if (![string isEqualToString:@"."]) {
+//                            NSLog(@"第二个字符必须是小数点");
+//                            return NO;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            return YES;
         }else{
         
         return YES;
@@ -215,7 +216,7 @@
     
     self.backgroundColor = CLWhiteColor;
 
-    NSArray *titleArr = @[@"定租编号：",@"签约人：",@"签约人证件类型：",@"签约人证件号码：",@"定金金额：",@"开业时间：",@"定租时间：",@"提醒签约时间：",@"租期开始时间：",@"租期时长（月）：",@"付款方式：",@"押金金额："];
+    NSArray *titleArr = @[@"定租编号：",@"签约人：",@"签约人证件类型：",@"签约人证件号码：",@"定金金额：",@"开业时间：",@"定租时间：",@"提醒签约时间：",@"租期开始时间：",@"租期结束时间：",@"付款方式：",@"押金金额："];
     for (int i = 0; i < 12; i++) {
     
         UILabel *label = [[UILabel alloc] init];
@@ -339,8 +340,11 @@
                 _rentTimePeriodL = label;
                 [self.contentView addSubview:_rentTimePeriodL];
                 
-                _rentTimePeriodTF = tf;
-                _rentTimePeriodTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+//                _rentTimePeriodTF = tf;
+//                _rentTimePeriodTF.textField.keyboardType = UIKeyboardTypeNumberPad;
+                _rentTimePeriodTF = [[DropBtn alloc] initWithFrame:tf.frame];
+                [_rentTimePeriodTF addTarget:self action:@selector(ActionDropBtn:) forControlEvents:UIControlEventTouchUpInside];
+                _rentTimePeriodTF.tag = 9;
                 [self.contentView addSubview:_rentTimePeriodTF];
                 
                 break;

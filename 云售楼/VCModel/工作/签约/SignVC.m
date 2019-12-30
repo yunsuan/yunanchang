@@ -68,7 +68,7 @@
     _dataArr = [@[] mutableCopy];
     
     _dateformatter = [[NSDateFormatter alloc] init];
-    [_dateformatter setDateFormat:@"YYYY-MM-dd"];
+    [_dateformatter setDateFormat:@"yyyy-MM-dd"];
 }
 
 - (void)RequestMethod{

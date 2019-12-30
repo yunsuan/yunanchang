@@ -33,7 +33,7 @@
     _timeL.text = [NSString stringWithFormat:@"计价起止时间：%@至%@",dataDic[@"stage_start_time"],dataDic[@"stage_end_time"]];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
 //    NSString *endDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:dataDic[@"stage_start_time"]] withMonth:[dataDic[@"free_month_num"] integerValue]]];
 //    if ([dataDic[@"free_rent"] integerValue]) {
         

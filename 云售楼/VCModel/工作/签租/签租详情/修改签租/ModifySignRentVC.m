@@ -182,7 +182,7 @@
     
     
     _secondFormatter = [[NSDateFormatter alloc] init];
-    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_secondFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     _roomArr = [@[] mutableCopy];
     _roomArr = [NSMutableArray arrayWithArray:self.dataDic[@"shop_detail_list"]];
@@ -206,7 +206,7 @@
     _imgArr = [NSMutableArray arrayWithArray:self.dataDic[@"enclosure_list"]];
     
     _secondFormatter = [[NSDateFormatter alloc] init];
-    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_secondFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 }
 
 - (void)ActionNextBtn:(UIButton *)btn{
@@ -1029,14 +1029,14 @@
                 [self showContent:@"请先选择房源"];
             }else{
                 
-                 if (![[NSString stringWithFormat:@"%@",self->_orderDic[@"rent_month_num"]] length] || !self->_orderDic[@"start_time"]) {
+                 if (!self->_orderDic[@"end_time"] || !self->_orderDic[@"start_time"]) {
                     
                     if (!self->_orderDic[@"start_time"]) {
                         
                         [self showContent:@"请先选择租期开始时间"];
                     }else{
                      
-                        [self showContent:@"请先输入租期时长"];
+                        [self showContent:@"请先选择租期结束时间"];
                     }
                 }else{
                     
@@ -1044,18 +1044,42 @@
                         
                         ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
                         view.periodTF.textField.text = self->_orderDic[@"deposit"];
-                        view.numL.text = [NSString stringWithFormat:@"期数：%.0f期",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
                         
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        [formatter setDateFormat:@"yyyy-MM-dd"];
+                        
+                        NSDateComponents *delta = [self getMonthAndDayFromDate:[formatter dateFromString:self->_orderDic[@"start_time"]] withDate2:[formatter dateFromString:self->_orderDic[@"end_time"]]];
+                        NSInteger period = 0;
+                        NSInteger month = 0;
+                        if ((delta.month % [self->_orderDic[@"pay_way2"] integerValue] == 0) && delta.day == 0) {
+
+                            month = delta.month;
+                        }else{
+
+                            month = delta.month + 1;
+                        }
+                        [self->_orderDic setValue:[NSString stringWithFormat:@"%ld",(long)month] forKey:@"rent_month_num"];
+                        if (([self->_orderDic[@"rent_month_num"] integerValue] % [self->_orderDic[@"pay_way2"] integerValue]) == 0) {
+                            
+                            view.numL.text = [NSString stringWithFormat:@"期数：%.0f期",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
+                            period = [[NSString stringWithFormat:@"%.2f",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]] integerValue];
+                        }else{
+                            
+                            view.numL.text = [NSString stringWithFormat:@"期数：%ld期",([self->_orderDic[@"rent_month_num"] integerValue] / [self->_orderDic[@"pay_way2"] integerValue]) + 1];
+                            period = [[NSString stringWithFormat:@"%ld",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]] integerValue] + 1;
+                        }
+                       
                         view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
                           
                             [self->_stageArr removeAllObjects];
                             
                             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                            [formatter setDateFormat:@"YYYY-MM-dd"];
+                            [formatter setDateFormat:@"yyyy-MM-dd"];
+                            NSDateFormatter *dayMatter = [[NSDateFormatter alloc] init];
+                            [dayMatter setDateFormat:@"dd"];
                             
                             NSString *unit = @"0";
-                            
-//                            double total = [self MultiplyingNumber:[str doubleValue] num2:([self->_orderDic[@"rent_month_num"] doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+
                             double area = 0;
                             for (int i = 0; i < self->_roomArr.count; i++) {
                                 
@@ -1068,29 +1092,58 @@
                                 
                                 unit = [NSString stringWithFormat:@"%.2f",[str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue]];
                             }
-                            NSString *date;
-                            NSString *endDate;
-                            NSString *resultDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:self->_orderDic[@"start_time"]] withMonth:[self->_orderDic[@"rent_month_num"] integerValue]]];
-                            [self->_orderDic setValue:resultDate forKey:@"end_time"];
+                            NSDate *date;
+                            NSDate *endDate;
+                            NSDate *resultDate = [formatter dateFromString:self->_orderDic[@"end_time"]];
                             for (int i = 0; i < ([self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]); i++) {
 
                                 if (i == 0) {
                                     
-                                    date = self->_orderDic[@"start_time"];
+                                    date = [formatter dateFromString:self->_orderDic[@"start_time"]];
                                 }else{
                                     
-                                    date = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:date] withMonth:[self->_orderDic[@"pay_way2"] integerValue]]];
+                                    date = [self getPriousorLaterDateFromDate:date withMonth:[self->_orderDic[@"pay_way2"] integerValue]];
                                 }
-                                endDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:date] withMonth:[self->_orderDic[@"pay_way2"] integerValue]]];
+                                endDate = [self getPriousorLaterDateFromDate:date withMonth:[self->_orderDic[@"pay_way2"] integerValue]];
+                                endDate = [self getLastDateFromDate:endDate];
                                 NSComparisonResult result = [endDate compare:resultDate];
                                 if (result == NSOrderedDescending) {
                                     
                                     endDate = resultDate;
                                 }
-                                
-                                NSString *stateNum = [NSString stringWithFormat:@"%ld",[self getMonthFromDate:[formatter dateFromString:date] withDate2:[formatter dateFromString:endDate]] + 1];
-                                
-                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
+                                NSString *stateNum = [NSString stringWithFormat:@"%ld",(long)(i + 1)];
+                                if (i == period - 1) {
+                                    
+                                    if (delta.month % [self->_orderDic[@"pay_way2"] integerValue] == 0 && delta.day == 0) {
+                                        
+                                        [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":[formatter stringFromDate:date],@"stage_end_time":[formatter stringFromDate:endDate],@"pay_time":[formatter stringFromDate:date],@"remind_time":[formatter stringFromDate:date],@"free_start_time":[formatter stringFromDate:date],@"free_end_time":[formatter stringFromDate:date],@"free_month_num":@"0"}];
+                                    }else if (delta.month % [self->_orderDic[@"pay_way2"] integerValue] == 0){
+                                        
+                                        double money = 0;
+                                        for (int j = 0; j < [self->_orderDic[@"pay_way2"] floatValue]; j++) {
+                                            
+                                            money = [self AddNumber:money num2:([str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+                                        }
+                                        [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":[NSString stringWithFormat:@"%.2f",money],@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":[formatter stringFromDate:date],@"stage_end_time":[formatter stringFromDate:endDate],@"pay_time":[formatter stringFromDate:date],@"remind_time":[formatter stringFromDate:date],@"free_start_time":[formatter stringFromDate:date],@"free_end_time":[formatter stringFromDate:date],@"free_month_num":@"0"}];
+                                    }else{
+                                        
+                                        double money = 0;
+                                        for (int j = 0; j < [self->_orderDic[@"pay_way2"] floatValue]; j++) {
+                                            
+                                            if (j == [self->_orderDic[@"pay_way2"] floatValue] - 1) {
+                                                
+                                                money = [self AddNumber:money num2:[self MultiplyingNumber:([str doubleValue] / [self->_orderDic[@"pay_way2"] floatValue] / 30) num2:delta.day]];
+                                            }else{
+                                            
+                                                money = [self AddNumber:money num2:([str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+                                            }
+                                        }
+                                        [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":[NSString stringWithFormat:@"%.2f",money],@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":[formatter stringFromDate:date],@"stage_end_time":[formatter stringFromDate:endDate],@"pay_time":[formatter stringFromDate:date],@"remind_time":[formatter stringFromDate:date],@"free_start_time":[formatter stringFromDate:date],@"free_end_time":[formatter stringFromDate:date],@"free_month_num":@"0"}];
+                                    }
+                                }else{
+                                    
+                                    [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":[formatter stringFromDate:date],@"stage_end_time":[formatter stringFromDate:endDate],@"pay_time":[formatter stringFromDate:date],@"remind_time":[formatter stringFromDate:date],@"free_start_time":[formatter stringFromDate:date],@"free_end_time":[formatter stringFromDate:date],@"free_month_num":@"0"}];
+                                }
                             }
                             [tableView reloadData];
                             [self ProgreesMethod];
@@ -1175,7 +1228,7 @@
                         [self->_propertyArr removeAllObjects];
                         
                         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                        [formatter setDateFormat:@"YYYY-MM-dd"];
+                        [formatter setDateFormat:@"yyyy-MM-dd"];
                         
                         NSString *unit = @"0";
                         NSString *config = @"0";

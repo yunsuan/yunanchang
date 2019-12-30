@@ -137,13 +137,12 @@
     _imgArr = [@[] mutableCopy];
     
     _secondFormatter = [[NSDateFormatter alloc] init];
-    [_secondFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [_secondFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     if (self.dataDic) {
         
         _roomArr = [[NSMutableArray alloc] initWithArray:self->_dataDic[@"shop_detail_list"]];
         if (self->_dataDic[@"business_info"]) {
         
-//            _storeArr = [NSMutableArray arrayWithArray:@[self.dataDic[@"business_info"]]];
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self.dataDic[@"business_info"]];
             [tempDic setValue:[NSString stringWithFormat:@"%@",self.dataDic[@"business_id"]] forKey:@"business_id"];
             _form_id = [NSString stringWithFormat:@"%@",self.dataDic[@"row_id"]];
@@ -153,7 +152,7 @@
             NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:self->_dataDic];
             _storeArr = [[NSMutableArray alloc] initWithArray:@[tempDic]];
             _form_id = [NSString stringWithFormat:@"%@",self->_dataDic[@"business_id"]];
-//            _storeArr = [[NSMutableArray alloc] initWithArray:@[@{@"business_name":self->_dataDic[@"business_name"],@"contact":self->_dataDic[@"contact"],@"lease_money":self->_dataDic[@"lease_money"],@"lease_size":self->_dataDic[@"lease_size"],@"create_time":self->_dataDic[@"create_time"],@"format_name":self->_dataDic[@"format_name"],@"business_id":[NSString stringWithFormat:@"%@",self->_dataDic[@"business_id"]]}]];
+            
         }
         if (![self->_orderDic[@"down_pay"] length]) {
         
@@ -379,8 +378,6 @@
     [dic setValue:_orderDic[@"deposit"] forKey:@"deposit"];
     [dic setValue:_orderDic[@"pay_way"] forKey:@"pay_way"];
     
-//    [dic setValue:_chargeId forKey:@"charge_company_id"];
-    
     if (_stageArr.count) {
         
         NSError *error;
@@ -425,8 +422,7 @@
     _isDown = 0;
     [self->_progressArr removeAllObjects];
     [self->_progressAllArr removeAllObjects];
-//    [self->_rolePersonArr removeAllObjects];
-//    [self->_rolePersonSelectArr removeAllObjects];
+
     
     NSMutableDictionary *dic = [@{} mutableCopy];
     NSString *room = @"";
@@ -553,8 +549,7 @@
                 
                 [self->_rolePersonSelectArr addObject:@0];
             }
-//            self->_addNumeralProcessView.personArr = self->_rolePersonArr;
-//            self->_addNumeralProcessView.personSelectArr = self->_rolePersonSelectArr;
+            
             [self->_table reloadData];
         }else{
             
@@ -581,7 +576,7 @@
 
            [self->_imgArr addObject:@{@"url":[NSString stringWithFormat:@"%@",resposeObject[@"data"]],@"name":name,@"create_time":name}];
            [self->_table reloadData];
-//           self->_addNumeralFileView.dataArr = self->_imgArr;
+
        }else{
 
            [self showContent:resposeObject[@"msg"]];
@@ -875,9 +870,7 @@
             }else if (idx == 4){
 
                 [self->_orderDic setValue:str forKey:@"down_pay"];
-            }else if (idx == 9){
 
-                [self->_orderDic setValue:str forKey:@"rent_month_num"];
             }else{
 
                 [self->_orderDic setValue:str forKey:@"deposit"];
@@ -907,7 +900,7 @@
                             }
                         }else{
                             
-//                            [self showContent:@"请输入正确的身份证号"];
+
                         }
                     }
                     [tableView reloadData];
@@ -946,6 +939,15 @@
                 view.dateblock = ^(NSDate *date) {
 
                     [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"start_time"];
+                    [tableView reloadData];
+                };
+                [self.view addSubview:view];
+            }else if (idx == 9){
+                
+                DateChooseView *view = [[DateChooseView alloc] initWithFrame:self.view.bounds];
+                view.dateblock = ^(NSDate *date) {
+
+                    [self->_orderDic setObject:[[self->_secondFormatter stringFromDate:date] componentsSeparatedByString:@" "][0] forKey:@"end_time"];
                     [tableView reloadData];
                 };
                 [self.view addSubview:view];
@@ -1012,8 +1014,7 @@
               
                 self->_stageArr = [NSMutableArray arrayWithArray:arr];
                 [tableView reloadData];
-//                self->_canCommit = 1;
-//                [self ProgreesMethod];
+
             };
             [self.navigationController pushViewController:nextVC animated:YES];
         };
@@ -1024,14 +1025,14 @@
                 [self showContent:@"请先选择房源"];
             }else{
                 
-                 if (![[NSString stringWithFormat:@"%@",self->_orderDic[@"rent_month_num"]] length] || !self->_orderDic[@"start_time"]) {
+                 if (!self->_orderDic[@"end_time"] || !self->_orderDic[@"start_time"]) {
                     
                     if (!self->_orderDic[@"start_time"]) {
                         
                         [self showContent:@"请先选择租期开始时间"];
                     }else{
                      
-                        [self showContent:@"请先输入租期时长"];
+                        [self showContent:@"请先选择租期结束时间"];
                     }
                 }else{
                     
@@ -1039,12 +1040,29 @@
                         
                         ModifyAndAddRentalView *view = [[ModifyAndAddRentalView alloc] initWithFrame:self.view.bounds];
                         view.periodTF.textField.text = self->_orderDic[@"deposit"];
+                        
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        [formatter setDateFormat:@"yyyy-MM-dd"];
+                        
+                        NSDateComponents *delta = [self getMonthAndDayFromDate:[formatter dateFromString:self->_orderDic[@"start_time"]] withDate2:[formatter dateFromString:self->_orderDic[@"end_time"]]];
+                        NSInteger period = 0;
+                        NSInteger month = 0;
+                        if ((delta.month % [self->_orderDic[@"pay_way2"] integerValue] == 0) && delta.day == 0) {
+
+                            month = delta.month;
+                        }else{
+
+                            month = delta.month + 1;
+                        }
+                        [self->_orderDic setValue:[NSString stringWithFormat:@"%ld",(long)month] forKey:@"rent_month_num"];
                         if (([self->_orderDic[@"rent_month_num"] integerValue] % [self->_orderDic[@"pay_way2"] integerValue]) == 0) {
                             
-                             view.numL.text = [NSString stringWithFormat:@"期数：%.0f期",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
+                            view.numL.text = [NSString stringWithFormat:@"期数：%.0f期",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]];
+                            period = [[NSString stringWithFormat:@"%.2f",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]] integerValue];
                         }else{
                             
-                             view.numL.text = [NSString stringWithFormat:@"期数：%ld期",([self->_orderDic[@"rent_month_num"] integerValue] / [self->_orderDic[@"pay_way2"] integerValue]) + 1];
+                            view.numL.text = [NSString stringWithFormat:@"期数：%ld期",([self->_orderDic[@"rent_month_num"] integerValue] / [self->_orderDic[@"pay_way2"] integerValue]) + 1];
+                            period = [[NSString stringWithFormat:@"%ld",[self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]] integerValue] + 1;
                         }
                        
                         view.modifyAndAddRentalViewComfirmBtnBlock = ^(NSString * _Nonnull str) {
@@ -1052,11 +1070,12 @@
                             [self->_stageArr removeAllObjects];
                             
                             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                            [formatter setDateFormat:@"YYYY-MM-dd"];
+                            [formatter setDateFormat:@"yyyy-MM-dd"];
+                            NSDateFormatter *dayMatter = [[NSDateFormatter alloc] init];
+                            [dayMatter setDateFormat:@"dd"];
                             
                             NSString *unit = @"0";
-                            
-//                            double total = [self MultiplyingNumber:[str doubleValue] num2:([self->_orderDic[@"rent_month_num"] doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+
                             double area = 0;
                             for (int i = 0; i < self->_roomArr.count; i++) {
                                 
@@ -1069,32 +1088,61 @@
                                 
                                 unit = [NSString stringWithFormat:@"%.2f",[str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue]];
                             }
-                            NSString *date;
-                            NSString *endDate;
-                            NSString *resultDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:self->_orderDic[@"start_time"]] withMonth:[self->_orderDic[@"rent_month_num"] integerValue]]];
-                            [self->_orderDic setValue:resultDate forKey:@"end_time"];
+                            NSDate *date;
+                            NSDate *endDate;
+                            NSDate *resultDate = [formatter dateFromString:self->_orderDic[@"end_time"]];
                             for (int i = 0; i < ([self->_orderDic[@"rent_month_num"] floatValue] / [self->_orderDic[@"pay_way2"] floatValue]); i++) {
 
                                 if (i == 0) {
                                     
-                                    date = self->_orderDic[@"start_time"];
+                                    date = [formatter dateFromString:self->_orderDic[@"start_time"]];
                                 }else{
                                     
-                                    date = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:date] withMonth:[self->_orderDic[@"pay_way2"] integerValue]]];
+                                    date = [self getPriousorLaterDateFromDate:date withMonth:[self->_orderDic[@"pay_way2"] integerValue]];
                                 }
-                                endDate = [formatter stringFromDate:[self getPriousorLaterDateFromDate:[formatter dateFromString:date] withMonth:[self->_orderDic[@"pay_way2"] integerValue]]];
+                                endDate = [self getPriousorLaterDateFromDate:date withMonth:[self->_orderDic[@"pay_way2"] integerValue]];
+                                endDate = [self getLastDateFromDate:endDate];
                                 NSComparisonResult result = [endDate compare:resultDate];
                                 if (result == NSOrderedDescending) {
                                     
                                     endDate = resultDate;
                                 }
-                                NSString *stateNum = [NSString stringWithFormat:@"%ld",[self getMonthFromDate:[formatter dateFromString:date] withDate2:[formatter dateFromString:endDate]] + 1];
-                                
-                                [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":date,@"stage_end_time":endDate,@"pay_time":date,@"remind_time":date,@"free_start_time":date,@"free_end_time":date,@"free_month_num":@"0"}];
+                                NSString *stateNum = [NSString stringWithFormat:@"%ld",(long)(i + 1)];
+                                if (i == period - 1) {
+                                    
+                                    if (delta.month % [self->_orderDic[@"pay_way2"] integerValue] == 0 && delta.day == 0) {
+                                        
+                                        [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":[formatter stringFromDate:date],@"stage_end_time":[formatter stringFromDate:endDate],@"pay_time":[formatter stringFromDate:date],@"remind_time":[formatter stringFromDate:date],@"free_start_time":[formatter stringFromDate:date],@"free_end_time":[formatter stringFromDate:date],@"free_month_num":@"0"}];
+                                    }else if (delta.month % [self->_orderDic[@"pay_way2"] integerValue] == 0){
+                                        
+                                        double money = 0;
+                                        for (int j = 0; j < [self->_orderDic[@"pay_way2"] floatValue]; j++) {
+                                            
+                                            money = [self AddNumber:money num2:([str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+                                        }
+                                        [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":[NSString stringWithFormat:@"%.2f",money],@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":[formatter stringFromDate:date],@"stage_end_time":[formatter stringFromDate:endDate],@"pay_time":[formatter stringFromDate:date],@"remind_time":[formatter stringFromDate:date],@"free_start_time":[formatter stringFromDate:date],@"free_end_time":[formatter stringFromDate:date],@"free_month_num":@"0"}];
+                                    }else{
+                                        
+                                        double money = 0;
+                                        for (int j = 0; j < [self->_orderDic[@"pay_way2"] floatValue]; j++) {
+                                            
+                                            if (j == [self->_orderDic[@"pay_way2"] floatValue] - 1) {
+                                                
+                                                money = [self AddNumber:money num2:[self MultiplyingNumber:([str doubleValue] / [self->_orderDic[@"pay_way2"] floatValue] / 30) num2:delta.day]];
+                                            }else{
+                                            
+                                                money = [self AddNumber:money num2:([str doubleValue] / [self->_orderDic[@"pay_way2"] doubleValue])];
+                                            }
+                                        }
+                                        [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":[NSString stringWithFormat:@"%.2f",money],@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":[formatter stringFromDate:date],@"stage_end_time":[formatter stringFromDate:endDate],@"pay_time":[formatter stringFromDate:date],@"remind_time":[formatter stringFromDate:date],@"free_start_time":[formatter stringFromDate:date],@"free_end_time":[formatter stringFromDate:date],@"free_month_num":@"0"}];
+                                    }
+                                }else{
+                                    
+                                    [self->_stageArr addObject:@{@"unit_rent":unit,@"total_rent":str,@"free_rent":@"0",@"comment":@" ",@"stage_num":stateNum,@"stage_start_time":[formatter stringFromDate:date],@"stage_end_time":[formatter stringFromDate:endDate],@"pay_time":[formatter stringFromDate:date],@"remind_time":[formatter stringFromDate:date],@"free_start_time":[formatter stringFromDate:date],@"free_end_time":[formatter stringFromDate:date],@"free_month_num":@"0"}];
+                                }
                             }
                             [tableView reloadData];
-//                            self->_canCommit = 1;
-//                            [self ProgreesMethod];
+
                             AddOrderRentalDetailVC *nextVC = [[AddOrderRentalDetailVC alloc] initWithStageArr:self->_stageArr];
                             nextVC.area = area;
                             nextVC.addOrderRentalDetailVCBlock = ^(NSArray * _Nonnull arr) {
