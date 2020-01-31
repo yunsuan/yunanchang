@@ -512,7 +512,7 @@
     _disagreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _disagreeBtn.frame = CGRectMake(0, SCREEN_Height - 47 *SIZE - TAB_BAR_MORE, 120 *SIZE, 47 *SIZE + TAB_BAR_MORE);
     _disagreeBtn.titleLabel.font = [UIFont systemFontOfSize:14 *SIZE];
-    [_disagreeBtn addTarget:self action:@selector(ActionAuditBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_disagreeBtn addTarget:self action:@selector(ActionDisagreeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_disagreeBtn setTitle:@"不同意" forState:UIControlStateNormal];
     [_disagreeBtn setBackgroundColor:CL102Color];
     [self.view addSubview:_disagreeBtn];
