@@ -89,7 +89,10 @@
     [UserInfoModel defaultModel].province = tempDic[@"province"];
     [UserInfoModel defaultModel].sex = [NSString stringWithFormat:@"%@",tempDic[@"sex"]];
     [UserInfoModel defaultModel].tel = tempDic[@"tel"];
-    [UserInfoModel defaultModel].slef_desc = tempDic[@"self_desc"];
+//    [UserInfoModel defaultModel].slef_desc = tempDic[@"self_desc"];
+    [UserInfoModel defaultModel].self_desc = [NSString stringWithFormat:@"%@",tempDic[@"self_desc"]];
+    [UserInfoModel defaultModel].slef_desc = [NSString stringWithFormat:@"%@",tempDic[@"slef_desc"]];
+    [UserInfoModel defaultModel].wx_code = [NSString stringWithFormat:@"%@",tempDic[@"wx_code"]];
     [UserModelArchiver infoArchive];
     [_table reloadData];
 }

@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *slef_desc;
 
+@property (nonatomic, strong) NSString *self_desc;
+
+@property (nonatomic, strong) NSString *wx_code;
+
 @property (nonatomic, strong) NSString *account;
 
 + (UserInfoModel *)defaultModel;
