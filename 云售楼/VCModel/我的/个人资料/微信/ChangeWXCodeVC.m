@@ -1,31 +1,31 @@
 //
-//  ChangeNameVC.m
+//  ChangeWXCodeVC.m
 //  云渠道
 //
-//  Created by 谷治墙 on 2018/4/2.
-//  Copyright © 2018年 xiaoq. All rights reserved.
+//  Created by 谷治墙 on 2020/2/20.
+//  Copyright © 2020 xiaoq. All rights reserved.
 //
 
-#import "ChangeNameVC.h"
+#import "ChangeWXCodeVC.h"
 
-@interface ChangeNameVC ()
-{
+@interface ChangeWXCodeVC (){
     
-    NSString *_name;
+    NSString *_wx;
 }
 @property (nonatomic, strong) UIView *whiteView;
 
 @property (nonatomic, strong) UITextField *nameTF;
+
 @end
 
-@implementation ChangeNameVC
+@implementation ChangeWXCodeVC
 
-- (instancetype)initWithName:(NSString *)name
+- (instancetype)initWithWX:(NSString *)wxCode
 {
     self = [super init];
     if (self) {
         
-        _name = name;
+        _wx = wxCode;
     }
     return self;
 }
@@ -40,14 +40,14 @@
     
     if (_nameTF.text.length && ![self isEmpty:_nameTF.text]) {
         
-        if (self.changeNameVCBlock) {
+        if (self.changeWXCodeVCBlock) {
             
-            self.changeNameVCBlock(_nameTF.text);
+            self.changeWXCodeVCBlock(_nameTF.text);
             [self.navigationController popViewControllerAnimated:YES];
         }
     }else{
         
-        [self showContent:@"请输入姓名"];
+        [self showContent:@"请输入微信号"];
     }
 }
 
@@ -72,8 +72,8 @@
         
         _nameTF = [[UITextField alloc] initWithFrame:CGRectMake(10 *SIZE, 0, 340 *SIZE, 50 *SIZE)];
         _nameTF.font = [UIFont systemFontOfSize:13 *SIZE];
-        _nameTF.placeholder = @"请输入姓名";
-        _nameTF.text = _name;
+        _nameTF.placeholder = @"请输入微信号";
+        _nameTF.text = _wx;
     }
     return _nameTF;
 }
@@ -83,7 +83,7 @@
     if (!_whiteView) {
         
         _whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT + 12 *SIZE, SCREEN_Width, 50 *SIZE)];
-        _whiteView.backgroundColor = CLLineColor;//[UIColor whiteColor];
+        _whiteView.backgroundColor = [UIColor whiteColor];
     }
     return _whiteView;
 }

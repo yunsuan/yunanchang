@@ -326,7 +326,7 @@
                 
 //
 //                }
-                else if ([_LDinfo[row][@"houseList"][column][@"state"] integerValue] == 4 || [_LDinfo[row][@"houseList"][column][@"state"] integerValue] == 3)
+                else if ([_LDinfo[row][@"houseList"][column][@"state"] integerValue] == 4)
                 {
                     
                     btnSeat.userInteractionEnabled = NO;
@@ -335,11 +335,14 @@
                         
                         btnSeat.userInteractionEnabled = YES;
                     }
-                }
-                else
-                {
+                }else{
+                    
                     btnSeat.backgroundColor = KyidingColor;
                     btnSeat.userInteractionEnabled = NO;
+                    if (self.statusStr.length) {
+                        
+                        btnSeat.userInteractionEnabled = YES;
+                    }
                 }
                 
                 //                btnSeat.backgroundColor = [UIColor grayColor];

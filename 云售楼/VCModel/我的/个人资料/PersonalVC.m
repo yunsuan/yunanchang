@@ -9,6 +9,7 @@
 #import "PersonalVC.h"
 
 #import "ChangeNameVC.h"
+#import "ChangeWXCodeVC.h"
 #import "PersonalIntroVC.h"
 
 #import "DateChooseView.h"
@@ -32,6 +33,7 @@
     NSString *_city;
     NSString *_area;
     NSString *_intro;
+    NSString *_wxCode;
     
     UIImagePickerController *_imagePickerController; /**< 相册拾取器 */
     NSDateFormatter *_formatter;
@@ -49,6 +51,59 @@
     
     [self initDataSource];
     [self initUI];
+    [self RequestMethod];
+}
+
+- (void)RequestMethod{
+    
+    [BaseRequest GET:UserPersonalGetAgentInfo_URL parameters:@{} success:^(id resposeObject) {
+        
+        if ([resposeObject[@"code"] integerValue] == 200) {
+            
+            if ([resposeObject[@"data"] isKindOfClass:[NSDictionary class]]) {
+                
+                [self SetData:resposeObject[@"data"]];
+            }else{
+                
+                [self showContent:resposeObject[@"msg"]];
+            }
+        }else{
+            
+            [self showContent:resposeObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+        [self showContent:@"网络错误"];
+    }];
+}
+
+- (void)SetData:(NSDictionary *)data{
+    
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:data];
+    [tempDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        
+        if ([obj isKindOfClass:[NSNull class]]) {
+            
+            [tempDic setObject:@"" forKey:key];
+        }
+    }];
+    [UserInfoModel defaultModel].absolute_address = tempDic[@"absolute_address"];
+    [UserInfoModel defaultModel].account = tempDic[@"account"];
+    [UserInfoModel defaultModel].birth = tempDic[@"birth"];
+    [UserInfoModel defaultModel].city = tempDic[@"city"];
+    [UserInfoModel defaultModel].district = tempDic[@"district"];
+    [UserInfoModel defaultModel].head_img = tempDic[@"head_img"];
+    [UserInfoModel defaultModel].name = tempDic[@"name"];
+    [UserInfoModel defaultModel].province = tempDic[@"province"];
+    [UserInfoModel defaultModel].sex = [NSString stringWithFormat:@"%@",tempDic[@"sex"]];
+    [UserInfoModel defaultModel].tel = tempDic[@"tel"];
+//    [UserInfoModel defaultModel].slef_desc = tempDic[@"self_desc"];
+    [UserInfoModel defaultModel].self_desc = [NSString stringWithFormat:@"%@",tempDic[@"self_desc"]];
+    [UserInfoModel defaultModel].slef_desc = [NSString stringWithFormat:@"%@",tempDic[@"slef_desc"]];
+    [UserInfoModel defaultModel].wx_code = [NSString stringWithFormat:@"%@",tempDic[@"wx_code"]];
+    [UserModelArchiver infoArchive];
+    [self initDataSource];
+    [_personTable reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -65,7 +120,7 @@
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"yyyy-MM-dd"];
     
-    _titleArr = @[@"云算号：",@"手机号：",@"姓名：",@"性别：",@"生日：",@"所在地：",@"个人说明："];
+    _titleArr = @[@"云算号：",@"手机号：",@"微信号：",@"姓名：",@"性别：",@"生日：",@"所在地：",@"个人说明："];
     
     NSString *adreess = @"";
     
@@ -105,7 +160,7 @@
         adreess = @"";
     }
 
-    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth.length?[UserInfoModel defaultModel].birth:@"",adreess,[UserInfoModel defaultModel].slef_desc.length?[UserInfoModel defaultModel].slef_desc:@""]];
+    _contentArr = [NSMutableArray arrayWithArray:@[[UserInfoModel defaultModel].account,[UserInfoModel defaultModel].tel,[UserInfoModel defaultModel].wx_code.length?[UserInfoModel defaultModel].wx_code:@"",[UserInfoModel defaultModel].name,[[UserInfoModel defaultModel].sex integerValue] == 1?@"男":[[UserInfoModel defaultModel].sex integerValue] == 2?@"女":@"",[UserInfoModel defaultModel].birth.length?[UserInfoModel defaultModel].birth:@"",adreess,[UserInfoModel defaultModel].self_desc.length?[UserInfoModel defaultModel].self_desc:@""]];
 }
 
 
@@ -136,7 +191,12 @@
     }
     if (_intro) {
         
-        [dic setObject:_intro forKey:@"slef_desc"];
+        [dic setObject:_intro forKey:@"self_desc"];
+    }
+    
+    if (_wxCode) {
+        
+        [dic setValue:_wxCode forKey:@"wx_code"];
     }
     
     if (_imageData) {
@@ -178,7 +238,11 @@
                         }
                         if (self->_intro) {
                             
-                            [UserInfoModel defaultModel].slef_desc = self->_intro;
+                            [UserInfoModel defaultModel].self_desc = self->_intro;
+                        }
+                        if (self->_wxCode) {
+                            
+                            [UserInfoModel defaultModel].wx_code = self->_wxCode;
                         }
                         [UserModelArchiver infoArchive];
                         if (self.personalVCBlock) {
@@ -231,7 +295,11 @@
                     }
                     if (self->_intro) {
                         
-                        [UserInfoModel defaultModel].slef_desc = self->_intro;
+                        [UserInfoModel defaultModel].self_desc = self->_intro;
+                    }
+                    if (self->_wxCode) {
+                        
+                        [UserInfoModel defaultModel].wx_code = self->_wxCode;
                     }
                     if (self.personalVCBlock) {
                         
@@ -424,15 +492,25 @@
     
     if (indexPath.row == 2) {
         
-        ChangeNameVC *nextVC = [[ChangeNameVC alloc] initWithName:self->_contentArr[2]];
-        nextVC.changeNameVCBlock = ^(NSString *str) {
+        ChangeWXCodeVC *nextVC = [[ChangeWXCodeVC alloc] initWithWX:self->_contentArr[2]];
+        nextVC.changeWXCodeVCBlock = ^(NSString * _Nonnull str) {
             
-            self->_name = str;
-            [self->_contentArr replaceObjectAtIndex:2 withObject:self->_name];
+            self->_wxCode = str;
+            [self->_contentArr replaceObjectAtIndex:2 withObject:self->_wxCode];
             [tableView reloadData];
         };
         [self.navigationController pushViewController:nextVC animated:YES];
-    }else if (indexPath.row == 3){
+    }else if (indexPath.row == 3) {
+        
+        ChangeNameVC *nextVC = [[ChangeNameVC alloc] initWithName:self->_contentArr[3]];
+        nextVC.changeNameVCBlock = ^(NSString *str) {
+            
+            self->_name = str;
+            [self->_contentArr replaceObjectAtIndex:3 withObject:self->_name];
+            [tableView reloadData];
+        };
+        [self.navigationController pushViewController:nextVC animated:YES];
+    }else if (indexPath.row == 4){
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"性别" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
         
@@ -440,7 +518,7 @@
             
             
             self->_sex = @"1";
-            [self->_contentArr replaceObjectAtIndex:3 withObject:@"男"];
+            [self->_contentArr replaceObjectAtIndex:4 withObject:@"男"];
             
             [tableView reloadData];
         }];
@@ -448,7 +526,7 @@
         UIAlertAction *female = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             self->_sex = @"2";
-            [self->_contentArr replaceObjectAtIndex:3 withObject:@"女"];
+            [self->_contentArr replaceObjectAtIndex:4 withObject:@"女"];
             
             [tableView reloadData];
         }];
@@ -462,18 +540,18 @@
         [self.navigationController presentViewController:alert animated:YES completion:^{
             
         }];
-    }else if (indexPath.row == 4){
+    }else if (indexPath.row == 5){
         
         DateChooseView *view = [[DateChooseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_Width, SCREEN_Height)];
         view.dateblock = ^(NSDate *date) {
             
             self->_birth = [self->_formatter stringFromDate:date];
-            [self->_contentArr replaceObjectAtIndex:4 withObject:self->_birth];
+            [self->_contentArr replaceObjectAtIndex:5 withObject:self->_birth];
             
             [tableView reloadData];
         };
         [self.view addSubview:view];
-    }else if (indexPath.row == 5){
+    }else if (indexPath.row == 6){
 
         AdressChooseView *addressChooseView = [[AdressChooseView alloc] initWithFrame:self.view.bounds withdata:@[]];
 //        WS(weakself);
@@ -507,17 +585,17 @@
                     }
                 }
             }
-            [self->_contentArr replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"%@/%@/%@",proName,city,area]];
+            [self->_contentArr replaceObjectAtIndex:6 withObject:[NSString stringWithFormat:@"%@/%@/%@",proName,city,area]];
             [tableView reloadData];
         };
         [self.view addSubview:addressChooseView];
-    }else if (indexPath.row == 6){
+    }else if (indexPath.row == 7){
         
-        PersonalIntroVC *nextVC = [[PersonalIntroVC alloc] initWithIntro:self->_contentArr[6]];
+        PersonalIntroVC *nextVC = [[PersonalIntroVC alloc] initWithIntro:self->_contentArr[7]];
         nextVC.personalIntroVCBlock = ^(NSString *str) {
             
             self->_intro = str;
-            [self->_contentArr replaceObjectAtIndex:6 withObject:self->_intro];
+            [self->_contentArr replaceObjectAtIndex:7 withObject:self->_intro];
             [tableView reloadData];
         };
         [self.navigationController pushViewController:nextVC animated:YES];

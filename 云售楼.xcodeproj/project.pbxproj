@@ -235,6 +235,7 @@
 		0C4D14C62373A84700747DE0 /* AddSignRentOtherDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D14C52373A84700747DE0 /* AddSignRentOtherDetailVC.m */; };
 		0C4D14CA2373AA0300747DE0 /* AddSignRentPropertyDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D14C92373AA0300747DE0 /* AddSignRentPropertyDetailVC.m */; };
 		0C4D14CD2373AA1100747DE0 /* AddSignRentPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D14CC2373AA1100747DE0 /* AddSignRentPropertyVC.m */; };
+		0C4F16F72406893900D1AAC4 /* ChangeWXCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4F16F52406893900D1AAC4 /* ChangeWXCodeVC.m */; };
 		0C63F51B236AB28300946236 /* AddStoreFollowRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F51A236AB28300946236 /* AddStoreFollowRecordVC.m */; };
 		0C63F51F236AC38500946236 /* BrandCollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F51E236AC38500946236 /* BrandCollCell.m */; };
 		0C63F523236AC61800946236 /* BrandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F522236AC61800946236 /* BrandVC.m */; };
@@ -1105,6 +1106,8 @@
 		0C4D14C92373AA0300747DE0 /* AddSignRentPropertyDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignRentPropertyDetailVC.m; sourceTree = "<group>"; };
 		0C4D14CB2373AA1100747DE0 /* AddSignRentPropertyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSignRentPropertyVC.h; sourceTree = "<group>"; };
 		0C4D14CC2373AA1100747DE0 /* AddSignRentPropertyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSignRentPropertyVC.m; sourceTree = "<group>"; };
+		0C4F16F52406893900D1AAC4 /* ChangeWXCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeWXCodeVC.m; sourceTree = "<group>"; };
+		0C4F16F62406893900D1AAC4 /* ChangeWXCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeWXCodeVC.h; sourceTree = "<group>"; };
 		0C63F519236AB28300946236 /* AddStoreFollowRecordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddStoreFollowRecordVC.h; sourceTree = "<group>"; };
 		0C63F51A236AB28300946236 /* AddStoreFollowRecordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddStoreFollowRecordVC.m; sourceTree = "<group>"; };
 		0C63F51D236AC38500946236 /* BrandCollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrandCollCell.h; sourceTree = "<group>"; };
@@ -2965,6 +2968,7 @@
 		0C3A917B225C47C400F04804 /* 个人资料 */ = {
 			isa = PBXGroup;
 			children = (
+				0C4F16F42406893900D1AAC4 /* 微信 */,
 				0CEF8A32225DC8E60057F3FD /* view */,
 				0CD7A011225C67C800EAE816 /* 个人说明 */,
 				0CD7A012225C67C800EAE816 /* 姓名 */,
@@ -3668,6 +3672,15 @@
 				0C4D14CC2373AA1100747DE0 /* AddSignRentPropertyVC.m */,
 			);
 			path = "新增修改物业费";
+			sourceTree = "<group>";
+		};
+		0C4F16F42406893900D1AAC4 /* 微信 */ = {
+			isa = PBXGroup;
+			children = (
+				0C4F16F52406893900D1AAC4 /* ChangeWXCodeVC.m */,
+				0C4F16F62406893900D1AAC4 /* ChangeWXCodeVC.h */,
+			);
+			path = "微信";
 			sourceTree = "<group>";
 		};
 		0C63F51C236AC36700946236 /* view */ = {
@@ -6250,6 +6263,7 @@
 				0C3DD5E52369785A00211766 /* ThirdPickView.m in Sources */,
 				0CEF8B00226575B20057F3FD /* CallTelegramCustomDetailFollowCell.m in Sources */,
 				0CD04319227FCA6B002C8BD3 /* WorkPhoneConfrimWaitDetailVC.m in Sources */,
+				0C4F16F72406893900D1AAC4 /* ChangeWXCodeVC.m in Sources */,
 				0C63F5C823710F2F00946236 /* OrderRentVC.m in Sources */,
 				0C0C103F235EFF4300A81888 /* LinesSelectCell.m in Sources */,
 				0C3D7E73238BB40C00ACBC56 /* ModifyOrderRentVC.m in Sources */,
@@ -6817,7 +6831,7 @@
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
@@ -6826,7 +6840,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -6843,7 +6857,7 @@
 				CODE_SIGN_ENTITLEMENTS = "云售楼/云售楼.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 73DTNFMD65;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/云售楼/Resource/PrefixHeader.pch";
 				INFOPLIST_FILE = "云售楼/Info.plist";
@@ -6852,7 +6866,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yunsuankeji.yunanchang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
